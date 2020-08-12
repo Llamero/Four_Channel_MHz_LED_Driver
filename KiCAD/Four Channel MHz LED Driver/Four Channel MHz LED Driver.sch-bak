@@ -295,12 +295,10 @@ $Comp
 L Custom_parts:LTM8049IY U?
 U 1 1 5F335740
 P 1900 1650
-F 0 "U?" H 2700 2163 60  0000 C CNN
-F 1 "LTM8049IY" H 2700 2057 60  0000 C CNN
+F 0 "U?" H 2700 2057 60  0000 C CNN
+F 1 "LTM8049IY" H 2700 1951 60  0000 C CNN
 F 2 "LTM8049IY_ADI" H 2900 1890 60  0001 C CNN
-F 3 "http://www.linear.com/docs/54241" H 2700 1951 60  0000 C CNN
-F 4 "Analog Devices Inc." H 1900 1650 50  0001 C CNN "Manufacturer"
-F 5 "LTM8049EY#PBF" H 1900 1650 50  0001 C CNN "Part #"
+F 3 "" H 3500 1600 60  0000 C CNN
 	1    1900 1650
 	1    0    0    -1  
 $EndComp
@@ -313,9 +311,7 @@ P 3250 5650
 F 0 "U?" H 3900 5013 60  0000 C CNN
 F 1 "DAC084S085" H 3900 5119 60  0000 C CNN
 F 2 "MUB10A_TEX" H 3950 5850 60  0001 C CNN
-F 3 "http://www.ti.com/general/docs/suppproductinfo.tsp?distId=10&gotoUrl=http%3A%2F%2Fwww.ti.com%2Flit%2Fgpn%2Fdac084s085" H 3900 5119 60  0001 C CNN
-F 4 "Texas Instruments" H 3250 5650 50  0001 C CNN "Manufacturer"
-F 5 "DAC084S085CIMM/NOPB" H 3250 5650 50  0001 C CNN "Part #"
+F 3 "" H 3250 5650 60  0000 C CNN
 	1    3250 5650
 	-1   0    0    1   
 $EndComp
@@ -326,9 +322,7 @@ P 3950 5000
 F 0 "U?" H 4550 5257 60  0000 C CNN
 F 1 "MCP4351-502E_ST" H 4550 5151 60  0000 C CNN
 F 2 "TSSOP20_MC_MCH" H 4600 5250 60  0001 C CNN
-F 3 "http://www.microchip.com/mymicrochip/filehandler.aspx?ddocname=en547555" H 4550 5151 60  0001 C CNN
-F 4 "Microchip Technology" H 3950 5000 50  0001 C CNN "Manufacturer"
-F 5 "MCP4351-502E/ST" H 3950 5000 50  0001 C CNN "Part #"
+F 3 "" H 3950 5000 60  0000 C CNN
 	1    3950 5000
 	1    0    0    -1  
 $EndComp
@@ -426,54 +420,4 @@ Text Label 1950 5350 2    50   ~ 0
 5V
 Text Label 3250 5650 0    50   ~ 0
 5V
-$Comp
-L Device:C_Small C?
-U 1 1 5F34DBA4
-P 3250 5750
-F 0 "C?" H 3342 5796 50  0000 L CNN
-F 1 "1uF" H 3342 5705 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 3250 5750 50  0001 C CNN
-F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/__icsFiles/afieldfile/2019/04/10/Data%20sheet_CL10A105KA8NNNC.pdf" H 3250 5750 50  0001 C CNN
-F 4 "Samsung Electro-Mechanics" H 3250 5750 50  0001 C CNN "Manufacturer"
-F 5 "CL10A105KA8NNNC" H 3250 5750 50  0001 C CNN "Part #"
-	1    3250 5750
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5F3504EC
-P 3250 5850
-F 0 "#PWR?" H 3250 5600 50  0001 C CNN
-F 1 "GND" V 3255 5722 50  0000 R CNN
-F 2 "" H 3250 5850 50  0001 C CNN
-F 3 "" H 3250 5850 50  0001 C CNN
-	1    3250 5850
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5F351B65
-P 5250 5400
-F 0 "C?" H 5342 5446 50  0000 L CNN
-F 1 "1uF" H 5342 5355 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 5250 5400 50  0001 C CNN
-F 3 "http://www.samsungsem.com/kr/support/product-search/mlcc/__icsFiles/afieldfile/2019/04/10/Data%20sheet_CL10A105KA8NNNC.pdf" H 5250 5400 50  0001 C CNN
-F 4 "Samsung Electro-Mechanics" H 5250 5400 50  0001 C CNN "Manufacturer"
-F 5 "CL10A105KA8NNNC" H 5250 5400 50  0001 C CNN "Part #"
-	1    5250 5400
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5F352F78
-P 5250 5500
-F 0 "#PWR?" H 5250 5250 50  0001 C CNN
-F 1 "GND" H 5450 5400 50  0000 R CNN
-F 2 "" H 5250 5500 50  0001 C CNN
-F 3 "" H 5250 5500 50  0001 C CNN
-	1    5250 5500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5250 5300 5150 5300
 $EndSCHEMATC
