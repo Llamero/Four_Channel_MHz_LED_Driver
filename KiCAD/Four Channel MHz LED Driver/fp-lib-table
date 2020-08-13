@@ -1,3 +1,4 @@
 (fp_lib_table
   (lib (name digikey-footprints)(type KiCad)(uri C:/Users/Ben/Downloads/digikey-kicad-library-master/digikey-kicad-library-master/digikey-footprints.pretty)(options "")(descr ""))
+  (lib (name "Custom Footprints")(type KiCad)(uri "C:/Users/Ben/Documents/GitHub/Four_Channel_MHz_LED_Driver/KiCAD/Custom Parts/KiCAD/Footprint/Custom Footprints.pretty")(options "")(descr ""))
 )
