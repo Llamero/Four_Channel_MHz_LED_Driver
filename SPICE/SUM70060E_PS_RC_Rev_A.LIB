@@ -1,0 +1,136 @@
+********************************
+* Copyright:                   *
+* Vishay Intertechnology, Inc. *
+********************************
+*Apr 11, 2016
+*ECN S16-0607, Rev. A
+*File Name: SUM70060E_PS_RC.txt and SUM70060E_PS_RC.lib
+*This document is intended as a SPICE modeling guideline and does not
+*constitute a commercial product datasheet. Designers should refer to the
+*appropriate datasheet of the same number for guaranteed specification
+*limits.
+.SUBCKT SUM70060E D G S 
+M1 3 GX S S NMOS W= 8251216u L= 0.30u 
+M2 S GX S D PMOS W= 8251216u L= 0.26u 
+R1 D 3 4.005e-03 TC=5.090e-03,1.281e-05
+CGS GX S 1.618e-09 
+CGD GX D 1.000e-13 
+RG G GY 1m 
+RTCV 100 S 1e6 TC=3.2e-04,-2.111e-06
+ETCV GX GY 100 200 1 
+ITCV S 100 1u 
+VTCV 200 S 1 
+DBD S D DBD 8251216u 
+**************************************************************** 
+.MODEL NMOS NMOS ( LEVEL = 3 TOX = 5e-8 
++ RS = 0 KP = 8.117e-06 NSUB = 2.859e+17 
++ KAPPA = 1.129e-02 NFS = 9.842e+11 
++ LD = 0 IS = 0 TPG = 1    )
+*************************************************************** 
+.MODEL PMOS PMOS ( LEVEL = 3 TOX = 5e-8 
++NSUB = 1.005e+16 IS = 0 TPG = -1    )
+**************************************************************** 
+.MODEL DBD D ( 
++FC = 0.1 TT = 9.640e-09 T_measured = 25 BV = 101
++RS = 1.997e-02 N = 1.082e+00 IS = 1.509e-12 
++EG = 1.218e+00 XTI = 7.055e-01 TRS1 = 3.172e-03
++CJO = 4.870e-10 VJ = 1.980e+01 M = 9.211e-01 ) 
+.ENDS 
+
+* source COMPONENT GENERATOR
+.SUBCKT SUM70060E_PS_RC D G S PARAMS: C2=1000 R1=1M C3=1000 R2=1M C4=1000 R3=1M
++  C5=1000 R4=1M R5=1M C1=1000
+C_CF4         0 N1157335  7.5862  TC=0,0 
+R_RF6         N1158612 N1158618  251.5542m TC=0,0 
+R_RT1         J-A-TEMP-TANK N1155510  12.3600 TC=0,0 
+R_RF3         N1157329 N1157335  19.5553 TC=0,0 
+G_G7         0 JUNCTION-TEMPERATURE-1RC VALUE {
++  (V(Drain)*I(V_V_Drain)+V(Gate)*I(V_V_Gate)+V(Source)*I(V_V_Source)) }
+C_CF8         0 N1158624  504.9728m  TC=0,0 
+C_C10         N94536 N94151  {C4}  TC=0,0 
+R_RT3         N1155514 N1155518  1.5580 TC=0,0 
+C_C12         N95722 N95798  {C2}  TC=0,0 
+C_C5         N92368 N92773  {C2}  TC=0,0 
+V_V_Gate         G GATE 0VDC
+C_C8         N94061 N94123  {C2}  TC=0,0 
+G_DissipationPower         0 J-A-TEMP-FILTER VALUE {
++  (V(Drain)*I(V_V_Drain)+V(Gate)*I(V_V_Gate)+V(Source)*I(V_V_Source)) }
+R_R10         N94536 N94151  {R4} TC=0,0 
+R_R5         N92368 N92773  {R2} TC=0,0 
+C_C3         N91434 N91125  {C2}  TC=0,0 
+C_CT6         N1156584 N1156588  36.5371m  TC=0,0 
+G_G4         0 J-C-TEMP-FILTER VALUE {
++  (V(Drain)*I(V_V_Drain)+V(Gate)*I(V_V_Gate)+V(Source)*I(V_V_Source)) }
+R_R12         N95722 N95798  {R2} TC=0,0 
+C_CT2         N1155510 N1155514  1.0327  TC=0,0 
+R_R8         N94061 N94123  {R2} TC=0,0 
+R_R3         N91434 N91125  {R2} TC=0,0 
+R_RT7         N1156588 N1156592  360.7124m TC=0,0 
+R_RF2         N1157323 N1157329  4.3313 TC=0,0 
+V_V3         N1155534 0 {TEMP}
+V_V6         N1158628 0 {TEMP}
+X_U1         DRAIN GATE SOURCE SUM70060E 
+C_C1         JUNCTION-TEMPERATURE-1RC N89014  {C1}  TC=0,0 
+V_V4         N1156608 0 {TEMP}
+R_RF1         J-A-TEMP-FILTER N1157323  1.6294 TC=0,0 
+C_C13         N95798 N95860  {C3}  TC=0,0 
+R_RT2         N1155510 N1155514  1.8345 TC=0,0 
+C_CF7         0 N1158618  54.9919m  TC=0,0 
+C_C9         N94123 N94536  {C3}  TC=0,0 
+R_R13         N95798 N95860  {R3} TC=0,0 
+R_RT6         N1156584 N1156588  204.9618m TC=0,0 
+V_V5         N1157339 0 {TEMP}
+R_R9         N94123 N94536  {R3} TC=0,0 
+G_G5         0 J-A-TEMP-TANK VALUE {
++  (V(Drain)*I(V_V_Drain)+V(Gate)*I(V_V_Gate)+V(Source)*I(V_V_Source)) }
+R_RT5         J-C-TEMP-TANK N1156584  80.6002m TC=0,0 
+C_CF1         0 J-A-TEMP-FILTER  1.5694m  TC=0,0 
+C_C4         JUNCTION-TEMPERATURE-3RC N92368  {C1}  TC=0,0 
+C_CF3         0 N1157329  930.7995m  TC=0,0 
+R_RF8         N1158624 N1158628  110.0514m TC=0,0 
+C_C14         N95860 N96370  {C4}  TC=0,0 
+C_C11         JUNCTION-TEMPERATURE-5RC N95722  {C1}  TC=0,0 
+C_CT5         J-C-TEMP-TANK N1156584  6.8581m  TC=0,0 
+C_C7         JUNCTION-TEMPERATURE-4RC N94061  {C1}  TC=0,0 
+R_R1         JUNCTION-TEMPERATURE-1RC N89014  {R1} TC=0,0 
+C_C2         JUNCTION-TEMPERATURE-2RC N91434  {C1}  TC=0,0 
+R_R4         JUNCTION-TEMPERATURE-3RC N92368  {R1} TC=0,0 
+R_R14         N95860 N96370  {R4} TC=0,0 
+R_R11         JUNCTION-TEMPERATURE-5RC N95722  {R1} TC=0,0 
+C_CT8         N1156592 N1156608  960.8792m  TC=0,0 
+R_RF5         J-C-TEMP-FILTER N1158612  110.2016m TC=0,0 
+R_R7         JUNCTION-TEMPERATURE-4RC N94061  {R1} TC=0,0 
+R_R2         JUNCTION-TEMPERATURE-2RC N91434  {R1} TC=0,0 
+C_C15         N96370 N95888  {C5}  TC=0,0 
+V_V9         N92392 0 {TEMP}
+C_CT1         J-A-TEMP-TANK N1155510  2.2280  TC=0,0 
+C_CT7         N1156588 N1156592  99.7272m  TC=0,0 
+V_V_Source         SOURCE S 0VDC
+V_V11         N95888 0 {TEMP}
+V_V10         N94151 0 {TEMP}
+R_RF7         N1158618 N1158624  278.1927m TC=0,0 
+R_R15         N96370 N95888  {R5} TC=0,0 
+V_V8         N91125 0 {TEMP}
+C_C6         N92773 N92392  {C3}  TC=0,0 
+C_CT4         N1155518 N1155534  5.5384  TC=0,0 
+R_RF4         N1157335 N1157339  14.4841 TC=0,0 
+G_G6         0 J-C-TEMP-TANK VALUE {
++  (V(Drain)*I(V_V_Drain)+V(Gate)*I(V_V_Gate)+V(Source)*I(V_V_Source)) }
+G_G9         0 JUNCTION-TEMPERATURE-3RC VALUE {
++  (V(Drain)*I(V_V_Drain)+V(Gate)*I(V_V_Gate)+V(Source)*I(V_V_Source)) }
+R_R6         N92773 N92392  {R3} TC=0,0 
+C_CT3         N1155514 N1155518  1.4321m  TC=0,0 
+G_G11         0 JUNCTION-TEMPERATURE-5RC VALUE {
++  (V(Drain)*I(V_V_Drain)+V(Gate)*I(V_V_Gate)+V(Source)*I(V_V_Source)) }
+V_V7         N89014 0 {TEMP}
+C_CF5         0 J-C-TEMP-FILTER  5.0353m  TC=0,0 
+G_G10         0 JUNCTION-TEMPERATURE-4RC VALUE {
++  (V(Drain)*I(V_V_Drain)+V(Gate)*I(V_V_Gate)+V(Source)*I(V_V_Source)) }
+C_CF2         0 N1157323  676.5647m  TC=0,0 
+G_G8         0 JUNCTION-TEMPERATURE-2RC VALUE {
++  (V(Drain)*I(V_V_Drain)+V(Gate)*I(V_V_Gate)+V(Source)*I(V_V_Source)) }
+V_V_Drain         D DRAIN 0VDC
+R_RT4         N1155518 N1155534  24.2474 TC=0,0 
+R_RT8         N1156592 N1156608  103.7257m TC=0,0 
+C_CF6         0 N1158612  18.1438m  TC=0,0 
+.ENDS

@@ -346,9 +346,9 @@ Wire Wire Line
 Connection ~ 5100 2050
 Wire Wire Line
 	5100 2050 5100 1950
-Text Label 5150 1650 0    50   ~ 0
+Text Label 5150 2050 0    50   ~ 0
 5V
-Text Label 5100 2050 0    50   ~ 0
+Text Label 5100 1650 0    50   ~ 0
 -5V
 Connection ~ 5300 1850
 Wire Wire Line
@@ -381,19 +381,6 @@ F 5 "RNCP0805FTD100R" H 3250 2100 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C?
-U 1 1 5F37AFD2
-P 3150 2750
-F 0 "C?" V 2921 2750 50  0000 C CNN
-F 1 "47uF" V 3012 2750 50  0000 C CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric" H 3150 2750 50  0001 C CNN
-F 3 "https://www.digikey.com/en/ptm/m/murata-electronics-north-america/high-cap-multilayer-ceramic-capacitors?pn_sku=490-16268-1-ND&part_id=7363259" H 3150 2750 50  0001 C CNN
-F 4 "Murata Electronics" H 3150 2750 50  0001 C CNN "Manufacturer"
-F 5 "GRM31CR61E476ME44L" H 3150 2750 50  0001 C CNN "Part #"
-	1    3150 2750
-	0    1    1    0   
-$EndComp
-$Comp
 L Custom_parts:ADP7118AUJZ-5.0-R7 U?
 U 1 1 5F380EEB
 P 3550 2700
@@ -406,25 +393,7 @@ F 5 "ADP7118AUJZ-5.0-R7" H 3550 2700 50  0001 C CNN "Part #"
 	1    3550 2700
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5F3817B0
-P 3050 2850
-F 0 "#PWR?" H 3050 2600 50  0001 C CNN
-F 1 "GND" V 3050 2700 50  0000 R CNN
-F 2 "" H 3050 2850 50  0001 C CNN
-F 3 "" H 3050 2850 50  0001 C CNN
-	1    3050 2850
-	0    1    1    0   
-$EndComp
 Connection ~ 3250 2750
-Wire Wire Line
-	3050 2750 3050 2850
-Wire Wire Line
-	3050 2850 3250 2850
-Connection ~ 3050 2850
-Wire Wire Line
-	2700 2950 3250 2950
 Wire Wire Line
 	4700 2950 4700 2750
 Text Label 4800 2750 0    50   ~ 0
@@ -461,26 +430,17 @@ Connection ~ 4700 2750
 $Comp
 L Device:C_Small C?
 U 1 1 5F38C930
-P 3150 2350
-F 0 "C?" V 3350 2300 50  0000 L CNN
-F 1 "2.2uF" V 3250 2250 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 3150 2350 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 3150 2350 50  0001 C CNN
-F 4 "Taiyo Yuden" H 3150 2350 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 3150 2350 50  0001 C CNN "Part #"
-	1    3150 2350
+P 3150 2750
+F 0 "C?" V 3350 2700 50  0000 L CNN
+F 1 "2.2uF" V 3250 2650 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 3150 2750 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 3150 2750 50  0001 C CNN
+F 4 "Taiyo Yuden" H 3150 2750 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 3150 2750 50  0001 C CNN "Part #"
+	1    3150 2750
 	0    -1   -1   0   
 $EndComp
 Connection ~ 3250 2350
-Wire Wire Line
-	3250 2350 3250 2450
-Wire Wire Line
-	3250 2450 2700 2450
-Wire Wire Line
-	2700 2450 2700 2950
-Connection ~ 3250 2450
-Wire Wire Line
-	3250 2450 3250 2750
 $Comp
 L power:GND #PWR?
 U 1 1 5F39026E
@@ -538,4 +498,61 @@ Text Notes 3800 1250 0    59   ~ 0
 ISOLATED - 12V to split +/- 5V
 Text Notes 1800 1500 0    59   ~ 0
 SEPIC - Vin (3V - 30V) to 12V DC
+Wire Wire Line
+	3250 2350 3250 2450
+$Comp
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 5F3A0F69
+P 2250 2350
+F 0 "JP?" H 2250 2555 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 2250 2464 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 2250 2350 50  0001 C CNN
+F 3 "~" H 2250 2350 50  0001 C CNN
+	1    2250 2350
+	1    0    0    -1  
+$EndComp
+Text Label 2100 2350 2    50   ~ 0
+Vin
+Text Label 2400 2350 0    50   ~ 0
+12V
+$Comp
+L Device:C_Small C?
+U 1 1 5F3A29AA
+P 3150 2350
+F 0 "C?" V 2921 2350 50  0000 C CNN
+F 1 "47uF" V 3012 2350 50  0000 C CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 3150 2350 50  0001 C CNN
+F 3 "https://www.digikey.com/en/ptm/m/murata-electronics-north-america/high-cap-multilayer-ceramic-capacitors?pn_sku=490-16268-1-ND&part_id=7363259" H 3150 2350 50  0001 C CNN
+F 4 "Murata Electronics" H 3150 2350 50  0001 C CNN "Manufacturer"
+F 5 "GRM31CR61E476ME44L" H 3150 2350 50  0001 C CNN "Part #"
+	1    3150 2350
+	0    1    1    0   
+$EndComp
+Connection ~ 3250 2450
+Wire Wire Line
+	3250 2450 3250 2750
+$Comp
+L power:GND #PWR?
+U 1 1 5F3A55D8
+P 3050 2750
+F 0 "#PWR?" H 3050 2500 50  0001 C CNN
+F 1 "GND" V 3050 2600 50  0000 R CNN
+F 2 "" H 3050 2750 50  0001 C CNN
+F 3 "" H 3050 2750 50  0001 C CNN
+	1    3050 2750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3050 2750 3050 2850
+Wire Wire Line
+	3050 2850 3250 2850
+Connection ~ 3050 2750
+Wire Wire Line
+	2700 2950 2700 2450
+Wire Wire Line
+	2700 2950 3250 2950
+Wire Wire Line
+	2700 2450 3250 2450
+Text Notes 1800 2500 0    59   ~ 0
+12V Supply Bypass
 $EndSCHEMATC

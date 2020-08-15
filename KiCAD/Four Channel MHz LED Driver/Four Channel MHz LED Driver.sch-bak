@@ -32,7 +32,7 @@ U 1 1 5F3407BD
 P 3950 5000
 F 0 "U?" H 4550 5257 60  0000 C CNN
 F 1 "MCP4351-502E_ST" H 4550 5151 60  0000 C CNN
-F 2 "TSSOP20_MC_MCH" H 4600 5250 60  0001 C CNN
+F 2 "Custom Footprints:MCP4351-502E" H 4600 5250 60  0001 C CNN
 F 3 "http://www.microchip.com/mymicrochip/filehandler.aspx?ddocname=en547555" H 4550 5151 60  0001 C CNN
 F 4 "Microchip Technology" H 3950 5000 50  0001 C CNN "Manufacturer"
 F 5 "MCP4351-502E/ST" H 3950 5000 50  0001 C CNN "Part #"
