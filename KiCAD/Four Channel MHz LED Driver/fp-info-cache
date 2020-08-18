@@ -1,4 +1,4 @@
-19377365443667787
+19388549475417624
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -48748,6 +48748,20 @@ THT ceramic resonator filter DSS6
 3
 3
 Custom Footprints
+031-6575_2x_BNC
+
+
+0
+4
+3
+Custom Footprints
+54-00165-DC_Jack
+
+
+0
+4
+3
+Custom Footprints
 0508_Capacitor
 
 
@@ -48755,12 +48769,26 @@ Custom Footprints
 2
 2
 Custom Footprints
+2012_4x_r_array
+
+
+0
+8
+8
+Custom Footprints
 ADP7118AUJZ-R7
 
 
 0
 5
 5
+Custom Footprints
+Bourns_16-SOIC_8x_r-pack
+
+
+0
+16
+16
 Custom Footprints
 DAC084S085CIMM
 
@@ -48789,6 +48817,27 @@ S18V20F12_12V_DC
 0
 8
 8
+Custom Footprints
+SOT-753
+
+
+0
+5
+5
+Custom Footprints
+SW_DS04-254-2-03BK-SMT
+
+
+0
+6
+6
+Custom Footprints
+TMUX1204DGSR
+
+
+0
+10
+10
 Diode_SMD
 D_0201_0603Metric
 Diode SMD 0201 (0603 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://www.vishay.com/docs/20052/crcw0201e3.pdf), generated with kicad-footprint-generator
