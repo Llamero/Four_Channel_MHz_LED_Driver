@@ -1452,25 +1452,25 @@ Current sense voltage ouput
 Text Notes 6550 6050 0    59   ~ 0
 Op-amp input mux
 Text Label 21950 2250 0    50   ~ 0
-A0_ADC0
+A0
 Text Label 21950 2550 0    50   ~ 0
-A34_DAC1
+A34
 Text Label 21950 2650 0    50   ~ 0
-A33_DAC1
+A33
 Text Label 19650 2850 2    50   ~ 0
 SCK0
 Text Label 19650 2950 2    50   ~ 0
 MOSI0
 Text Label 5550 9050 0    50   ~ 0
-A1_ADC0
+A1
 Text Label 21950 2150 0    50   ~ 0
-A1_ADC0
+A1
 Text Label 5550 9250 0    50   ~ 0
-A0_ADC0
+A0
 Text Label 5550 9450 0    50   ~ 0
-A34_DAC1
+A34
 Text Label 5550 9650 0    50   ~ 0
-A33_DAC1
+A33
 Text Label 3950 5750 2    50   ~ 0
 SCK0
 Text Label 3950 5850 2    50   ~ 0
@@ -1507,30 +1507,8 @@ Text Label 19650 1550 2    50   ~ 0
 4
 Text Label 19650 1650 2    50   ~ 0
 5
-Text Label 19650 1750 2    50   ~ 0
-6
-Text Label 19650 1850 2    50   ~ 0
-7
-Text Label 19650 1950 2    50   ~ 0
-8
-Text Label 19650 2050 2    50   ~ 0
-9
 Text Notes 19550 1350 2    50   ~ 0
 Interline PWM 1
-Text Notes 19550 1550 2    50   ~ 0
-Interline PWM 2
-Text Notes 19550 1750 2    50   ~ 0
-Interline PWM 3
-Text Notes 19550 1950 2    50   ~ 0
-Interline PWM 4
-Text Notes 18950 1450 0    50   ~ 0
-Analog select 1\n
-Text Notes 18950 1650 0    50   ~ 0
-Analog select 2\n
-Text Notes 18950 1850 0    50   ~ 0
-Analog select 3\n
-Text Notes 18950 2050 0    50   ~ 0
-Analog select 4\n
 Text Label 6600 6350 2    50   ~ 0
 2
 Text Label 6600 7200 2    50   ~ 0
@@ -1668,12 +1646,34 @@ Text Notes 23100 2000 1    50   ~ 0
 ----ADC0-----
 Text Notes 23100 3300 1    50   ~ 0
 ----ADC1-----
-Text Notes 18950 1150 0    50   ~ 0
-Status LED 1
-Text Notes 18950 1250 0    50   ~ 0
-Status LED 2
-Text Notes 18950 2250 0    50   ~ 0
-Status LED 3
-Text Notes 18950 2350 0    50   ~ 0
+Text Notes 18650 2350 0    50   ~ 0
 Status LED 4
+Text Notes 18650 2250 0    50   ~ 0
+Status LED 3
+Text Label 19650 2050 2    50   ~ 0
+9
+Text Label 19650 1950 2    50   ~ 0
+8
+Text Label 19650 1850 2    50   ~ 0
+7
+Text Label 19650 1750 2    50   ~ 0
+6
+Text Notes 18600 1250 0    50   ~ 0
+Status LED 2
+Text Notes 18600 1150 0    50   ~ 0
+Status LED 1
+Text Notes 19550 1950 2    50   ~ 0
+Interline PWM 4
+Text Notes 19550 1750 2    50   ~ 0
+Interline PWM 3
+Text Notes 19550 1550 2    50   ~ 0
+Interline PWM 2
+Text Notes 18950 1450 0    50   ~ 0
+Analog select 1\n
+Text Notes 18950 1650 0    50   ~ 0
+Analog select 2\n
+Text Notes 18950 1850 0    50   ~ 0
+Analog select 3\n
+Text Notes 18950 2050 0    50   ~ 0
+Analog select 4\n
 $EndSCHEMATC

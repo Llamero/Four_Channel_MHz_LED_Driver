@@ -982,11 +982,11 @@ L Device:R_Pack08 RN?
 U 1 1 5F4ABE10
 P 2200 8150
 F 0 "RN?" V 1583 8150 50  0000 C CNN
-F 1 "10k" V 1674 8150 50  0000 C CNN
+F 1 "4.7k" V 1674 8150 50  0000 C CNN
 F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 2675 8150 50  0001 C CNN
 F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 2200 8150 50  0001 C CNN
 F 4 "Bourns Inc." V 2200 8150 50  0001 C CNN "Manufacturer"
-F 5 "4816P-T01-103LF" V 2200 8150 50  0001 C CNN "Part #"
+F 5 "4816P-T01-472LF" V 2200 8150 50  0001 C CNN "Part #"
 	1    2200 8150
 	0    1    1    0   
 $EndComp
@@ -1137,19 +1137,6 @@ F 2 "" H 1400 1600 50  0001 C CNN
 F 3 "" H 1400 1600 50  0001 C CNN
 	1    1400 1600
 	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:R_Pack08 RN?
-U 1 1 5F51AB0E
-P 5350 9400
-F 0 "RN?" V 4733 9400 50  0000 C CNN
-F 1 "10k" V 4824 9400 50  0000 C CNN
-F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 5825 9400 50  0001 C CNN
-F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 5350 9400 50  0001 C CNN
-F 4 "Bourns Inc." V 5350 9400 50  0001 C CNN "Manufacturer"
-F 5 "4816P-T01-103LF" V 5350 9400 50  0001 C CNN "Part #"
-	1    5350 9400
-	0    1    1    0   
 $EndComp
 Text Label 5150 9000 2    50   ~ 0
 Isense_1
@@ -1452,25 +1439,25 @@ Current sense voltage ouput
 Text Notes 6550 6050 0    59   ~ 0
 Op-amp input mux
 Text Label 21950 2250 0    50   ~ 0
-A0_ADC0
+A0
 Text Label 21950 2550 0    50   ~ 0
-A34_DAC1
+A34
 Text Label 21950 2650 0    50   ~ 0
-A33_DAC1
+A33
 Text Label 19650 2850 2    50   ~ 0
 SCK0
 Text Label 19650 2950 2    50   ~ 0
 MOSI0
 Text Label 5550 9050 0    50   ~ 0
-A1_ADC0
+A1
 Text Label 21950 2150 0    50   ~ 0
-A1_ADC0
+A1
 Text Label 5550 9250 0    50   ~ 0
-A0_ADC0
+A0
 Text Label 5550 9450 0    50   ~ 0
-A34_DAC1
+A34
 Text Label 5550 9650 0    50   ~ 0
-A33_DAC1
+A33
 Text Label 3950 5750 2    50   ~ 0
 SCK0
 Text Label 3950 5850 2    50   ~ 0
@@ -1646,9 +1633,9 @@ Text Notes 23100 2000 1    50   ~ 0
 ----ADC0-----
 Text Notes 23100 3300 1    50   ~ 0
 ----ADC1-----
-Text Notes 18950 2350 0    50   ~ 0
+Text Notes 18650 2350 0    50   ~ 0
 Status LED 4
-Text Notes 18950 2250 0    50   ~ 0
+Text Notes 18650 2250 0    50   ~ 0
 Status LED 3
 Text Label 19650 2050 2    50   ~ 0
 9
@@ -1658,9 +1645,9 @@ Text Label 19650 1850 2    50   ~ 0
 7
 Text Label 19650 1750 2    50   ~ 0
 6
-Text Notes 18950 1250 0    50   ~ 0
+Text Notes 18600 1250 0    50   ~ 0
 Status LED 2
-Text Notes 18950 1150 0    50   ~ 0
+Text Notes 18600 1150 0    50   ~ 0
 Status LED 1
 Text Notes 19550 1950 2    50   ~ 0
 Interline PWM 4
@@ -1676,4 +1663,19 @@ Text Notes 18950 1850 0    50   ~ 0
 Analog select 3\n
 Text Notes 18950 2050 0    50   ~ 0
 Analog select 4\n
+$Comp
+L Device:R_Pack08 RN?
+U 1 1 5F57894B
+P 5350 9400
+F 0 "RN?" V 4733 9400 50  0000 C CNN
+F 1 "4.7k" V 4824 9400 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 5825 9400 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 5350 9400 50  0001 C CNN
+F 4 "Bourns Inc." V 5350 9400 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-472LF" V 5350 9400 50  0001 C CNN "Part #"
+	1    5350 9400
+	0    1    1    0   
+$EndComp
+Text Notes 900  8700 1    59   ~ 0
+I/O maximum voltage: 27V
 $EndSCHEMATC
