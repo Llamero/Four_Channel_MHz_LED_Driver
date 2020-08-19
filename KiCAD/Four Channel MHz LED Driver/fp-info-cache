@@ -1,4 +1,4 @@
-19388549475417624
+19390147809911205
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -48811,12 +48811,19 @@ MCP4351-502E
 20
 20
 Custom Footprints
+Ref_only
+
+
+0
+0
+0
+Custom Footprints
 S18V20F12_12V_DC
 
 
 0
-8
-8
+9
+9
 Custom Footprints
 SOT-753
 

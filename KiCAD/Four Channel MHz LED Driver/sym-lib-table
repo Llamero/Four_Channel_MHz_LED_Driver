@@ -154,4 +154,5 @@
   (lib (name trinamic_Interface-Controllers)(type Legacy)(uri C:/Users/Ben/Downloads/digikey-partner-kicad-library-master/digikey-partner-kicad-library-master/Trinamic/trinamic-symbols/trinamic_Interface-Controllers.lib)(options "")(descr ""))
   (lib (name trinamic_PMIC-Motor-Drivers-Controllers)(type Legacy)(uri C:/Users/Ben/Downloads/digikey-partner-kicad-library-master/digikey-partner-kicad-library-master/Trinamic/trinamic-symbols/trinamic_PMIC-Motor-Drivers-Controllers.lib)(options "")(descr ""))
   (lib (name Custom_parts)(type Legacy)(uri "C:/Users/Ben/Documents/GitHub/Four_Channel_MHz_LED_Driver/KiCAD/Custom Parts/KiCAD/Symbol/Custom_parts.lib")(options "")(descr ""))
+  (lib (name teensy)(type Legacy)(uri C:/Users/Ben/Downloads/teensy.lib)(options "")(descr ""))
 )
