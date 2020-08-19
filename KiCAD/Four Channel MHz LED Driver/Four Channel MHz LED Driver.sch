@@ -1,7 +1,7 @@
 EESchema Schematic File Version 4
 EELAYER 30 0
 EELAYER END
-$Descr A2 23386 16535
+$Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title ""
@@ -31,7 +31,7 @@ L Custom_parts:MCP4351-502E_ST U?
 U 1 1 5F3407BD
 P 3950 5350
 F 0 "U?" H 4550 5607 60  0000 C CNN
-F 1 "MCP4351-502E_ST" H 4550 5501 60  0000 C CNN
+F 1 "MCP4211-502E_ST" H 4550 5501 60  0000 C CNN
 F 2 "Custom Footprints:MCP4351-502E" H 4600 5600 60  0001 C CNN
 F 3 "http://www.microchip.com/mymicrochip/filehandler.aspx?ddocname=en547555" H 4550 5501 60  0001 C CNN
 F 4 "Microchip Technology" H 3950 5350 50  0001 C CNN "Manufacturer"
@@ -140,7 +140,7 @@ L Custom_parts:S18V20F12_12V_DC U?
 U 1 1 5F357FC0
 P 2700 1650
 F 0 "U?" H 2675 1785 50  0000 C CNN
-F 1 "S34V32F12_12V_DC" H 2675 1694 50  0000 C CNN
+F 1 "S20V18F12_12V_DC" H 2675 1694 50  0000 C CNN
 F 2 "Custom Footprints:S18V20F12_12V_DC" H 2700 1650 50  0001 C CNN
 F 3 "https://www.pololu.com/product-info-merged/2577" H 2700 1650 50  0001 C CNN
 F 4 "Pololu Corporation" H 2700 1650 50  0001 C CNN "Manufacturer"
@@ -325,7 +325,7 @@ L Custom_parts:ADP7118AUJZ-5.0-R7 U?
 U 1 1 5F380EEB
 P 3550 2700
 F 0 "U?" H 3975 2907 60  0000 C CNN
-F 1 "ADP7134AUJZ-5.0-R7" H 3975 2801 60  0000 C CNN
+F 1 "ADP7120AUJZ-5.0-R7" H 3975 2801 60  0000 C CNN
 F 2 "Custom Footprints:ADP7118AUJZ-R7" H 4650 2940 60  0001 C CNN
 F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/ADP7118.pdf" H 3975 2801 60  0001 C CNN
 F 4 "Analog Devices Inc." H 3550 2700 50  0001 C CNN "Manufacturer"
@@ -490,7 +490,7 @@ L Custom_parts:TMUX1204DGSR U?
 U 1 1 5F3BA201
 P 6800 6300
 F 0 "U?" H 6975 6465 50  0000 C CNN
-F 1 "TMUX1324DGSR" H 6975 6374 50  0000 C CNN
+F 1 "TMUX1184DGSR" H 6975 6374 50  0000 C CNN
 F 2 "Custom Footprints:TMUX1204DGSR" H 6800 7300 50  0001 L BNN
 F 3 "https://www.ti.com/api/videos/videoplayer/smallplayer/suppproductinfo.tsp" H 6800 6300 50  0001 C CNN
 F 4 "Texas Instruments" H 6800 6300 50  0001 C CNN "Manufacturer"
@@ -554,7 +554,7 @@ L Custom_parts:TMUX1204DGSR U?
 U 1 1 5F3DA347
 P 6800 7150
 F 0 "U?" H 6975 7315 50  0000 C CNN
-F 1 "TMUX1324DGSR" H 6975 7224 50  0000 C CNN
+F 1 "TMUX1184DGSR" H 6975 7224 50  0000 C CNN
 F 2 "Custom Footprints:TMUX1204DGSR" H 6800 8150 50  0001 L BNN
 F 3 "https://www.ti.com/api/videos/videoplayer/smallplayer/suppproductinfo.tsp" H 6800 7150 50  0001 C CNN
 F 4 "Texas Instruments" H 6800 7150 50  0001 C CNN "Manufacturer"
@@ -594,7 +594,7 @@ L Custom_parts:TMUX1204DGSR U?
 U 1 1 5F3DC268
 P 6850 8000
 F 0 "U?" H 7025 8165 50  0000 C CNN
-F 1 "TMUX1324DGSR" H 7025 8074 50  0000 C CNN
+F 1 "TMUX1184DGSR" H 7025 8074 50  0000 C CNN
 F 2 "Custom Footprints:TMUX1204DGSR" H 6850 9000 50  0001 L BNN
 F 3 "https://www.ti.com/api/videos/videoplayer/smallplayer/suppproductinfo.tsp" H 6850 8000 50  0001 C CNN
 F 4 "Texas Instruments" H 6850 8000 50  0001 C CNN "Manufacturer"
@@ -634,7 +634,7 @@ L Custom_parts:TMUX1204DGSR U?
 U 1 1 5F3DEF78
 P 6850 8800
 F 0 "U?" H 7025 8965 50  0000 C CNN
-F 1 "TMUX1324DGSR" H 7025 8874 50  0000 C CNN
+F 1 "TMUX1184DGSR" H 7025 8874 50  0000 C CNN
 F 2 "Custom Footprints:TMUX1204DGSR" H 6850 9800 50  0001 L BNN
 F 3 "https://www.ti.com/api/videos/videoplayer/smallplayer/suppproductinfo.tsp" H 6850 8800 50  0001 C CNN
 F 4 "Texas Instruments" H 6850 8800 50  0001 C CNN "Manufacturer"
@@ -897,86 +897,6 @@ F 5 "031-6575" H 1350 8650 50  0001 C CNN "Part #"
 	1    1350 8650
 	-1   0    0    -1  
 $EndComp
-$Comp
-L Custom_parts:BAT54SDW D?
-U 1 1 5F46875C
-P 3000 9100
-F 0 "D?" H 3175 9447 60  0000 C CNN
-F 1 "BAT54SDW" H 3175 9341 60  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 3200 9300 60  0001 L CNN
-F 3 "https://www.diodes.com/assets/Datasheets/ds11005.pdf" H 3200 9400 60  0001 L CNN
-F 4 "Diodes Incorporated" H 3000 9100 50  0001 C CNN "Manufacturer"
-F 5 "BAT54SDW-7-F" H 3000 9100 50  0001 C CNN "Part #"
-	1    3000 9100
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5F475E13
-P 2800 9000
-F 0 "#PWR?" H 2800 8750 50  0001 C CNN
-F 1 "GND" V 2700 8950 50  0000 R CNN
-F 2 "" H 2800 9000 50  0001 C CNN
-F 3 "" H 2800 9000 50  0001 C CNN
-	1    2800 9000
-	0    1    1    0   
-$EndComp
-Text Label 2800 9200 2    50   ~ 0
-3.3V
-Text Label 3550 9200 0    50   ~ 0
-3.3V
-$Comp
-L power:GND #PWR?
-U 1 1 5F47759A
-P 3550 9400
-F 0 "#PWR?" H 3550 9150 50  0001 C CNN
-F 1 "GND" V 3650 9350 50  0000 R CNN
-F 2 "" H 3550 9400 50  0001 C CNN
-F 3 "" H 3550 9400 50  0001 C CNN
-	1    3550 9400
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Custom_parts:BAT54SDW D?
-U 1 1 5F48EF0C
-P 3050 9800
-F 0 "D?" H 3225 10147 60  0000 C CNN
-F 1 "BAT54SDW" H 3225 10041 60  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 3250 10000 60  0001 L CNN
-F 3 "https://www.diodes.com/assets/Datasheets/ds11005.pdf" H 3250 10100 60  0001 L CNN
-F 4 "Diodes Incorporated" H 3050 9800 50  0001 C CNN "Manufacturer"
-F 5 "BAT54SDW-7-F" H 3050 9800 50  0001 C CNN "Part #"
-	1    3050 9800
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5F48EF12
-P 2850 9700
-F 0 "#PWR?" H 2850 9450 50  0001 C CNN
-F 1 "GND" V 2750 9650 50  0000 R CNN
-F 2 "" H 2850 9700 50  0001 C CNN
-F 3 "" H 2850 9700 50  0001 C CNN
-	1    2850 9700
-	0    1    1    0   
-$EndComp
-Text Label 2850 9900 2    50   ~ 0
-3.3V
-Text Label 3600 9900 0    50   ~ 0
-3.3V
-$Comp
-L power:GND #PWR?
-U 1 1 5F48EF1A
-P 3600 10100
-F 0 "#PWR?" H 3600 9850 50  0001 C CNN
-F 1 "GND" V 3700 10050 50  0000 R CNN
-F 2 "" H 3600 10100 50  0001 C CNN
-F 3 "" H 3600 10100 50  0001 C CNN
-	1    3600 10100
-	0    -1   -1   0   
-$EndComp
-Text Notes 2200 8700 0    59   ~ 0
-4-channel analog/digital IO with 0-3.3V clamp
 $Comp
 L Device:R_Pack08 RN?
 U 1 1 5F4ABE10
@@ -1242,96 +1162,96 @@ Wire Wire Line
 	1800 2000 1800 2350
 Wire Wire Line
 	1800 2350 2050 2350
-Text Label 21950 1050 0    50   ~ 0
+Text Label 14700 900  0    50   ~ 0
 5V
-Text Label 19650 2450 2    50   ~ 0
+Text Label 12400 2300 2    50   ~ 0
 3.3V
-Text Label 21950 1250 0    50   ~ 0
+Text Label 14700 1100 0    50   ~ 0
 3.3V
 $Comp
 L power:GND #PWR?
 U 1 1 5F3EF0B8
-P 19650 1050
-F 0 "#PWR?" H 19650 800 50  0001 C CNN
-F 1 "GND" V 19650 900 50  0000 R CNN
-F 2 "" H 19650 1050 50  0001 C CNN
-F 3 "" H 19650 1050 50  0001 C CNN
-	1    19650 1050
+P 12400 900
+F 0 "#PWR?" H 12400 650 50  0001 C CNN
+F 1 "GND" V 12400 750 50  0000 R CNN
+F 2 "" H 12400 900 50  0001 C CNN
+F 3 "" H 12400 900 50  0001 C CNN
+	1    12400 900 
 	0    1    1    0   
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F3DEA30
-P 21950 1150
-F 0 "#PWR?" H 21950 900 50  0001 C CNN
-F 1 "GND" V 21950 1000 50  0000 R CNN
-F 2 "" H 21950 1150 50  0001 C CNN
-F 3 "" H 21950 1150 50  0001 C CNN
-	1    21950 1150
+P 14700 1000
+F 0 "#PWR?" H 14700 750 50  0001 C CNN
+F 1 "GND" V 14700 850 50  0000 R CNN
+F 2 "" H 14700 1000 50  0001 C CNN
+F 3 "" H 14700 1000 50  0001 C CNN
+	1    14700 1000
 	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F3F47A9
-P 21950 2450
-F 0 "#PWR?" H 21950 2200 50  0001 C CNN
-F 1 "GND" V 21950 2300 50  0000 R CNN
-F 2 "" H 21950 2450 50  0001 C CNN
-F 3 "" H 21950 2450 50  0001 C CNN
-	1    21950 2450
+P 14700 2300
+F 0 "#PWR?" H 14700 2050 50  0001 C CNN
+F 1 "GND" V 14700 2150 50  0000 R CNN
+F 2 "" H 14700 2300 50  0001 C CNN
+F 3 "" H 14700 2300 50  0001 C CNN
+	1    14700 2300
 	0    -1   -1   0   
 $EndComp
 $Comp
 L Custom_parts:Teensy3.6 U?
 U 1 1 5F413A64
-P 20800 3200
-F 0 "U?" H 20800 5637 60  0000 C CNN
-F 1 "Teensy3.6" H 20800 5531 60  0000 C CNN
-F 2 "" H 20800 3250 60  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Sparkfun%20PDFs/DEV-14058_Web.pdf" H 20800 5531 60  0001 C CNN
-F 4 "SparkFun Electronics" H 20800 3200 50  0001 C CNN "Manufacturer"
-F 5 "DEV-14058" H 20800 3200 50  0001 C CNN "Part #"
-	1    20800 3200
+P 13550 3050
+F 0 "U?" H 13550 5487 60  0000 C CNN
+F 1 "Teensy3.6" H 13550 5381 60  0000 C CNN
+F 2 "" H 13550 3100 60  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Sparkfun%20PDFs/DEV-14058_Web.pdf" H 13550 5381 60  0001 C CNN
+F 4 "SparkFun Electronics" H 13550 3050 50  0001 C CNN "Manufacturer"
+F 5 "DEV-14058" H 13550 3050 50  0001 C CNN "Part #"
+	1    13550 3050
 	1    0    0    -1  
 $EndComp
-NoConn ~ 19650 3450
-NoConn ~ 19650 3550
-NoConn ~ 19650 3650
-NoConn ~ 19650 3750
-NoConn ~ 19650 3850
-NoConn ~ 19650 3950
-NoConn ~ 19650 4050
-NoConn ~ 19650 4150
-NoConn ~ 19650 4250
-NoConn ~ 19650 4400
-NoConn ~ 19650 4500
-NoConn ~ 19650 4600
-NoConn ~ 19650 4700
-NoConn ~ 19650 4800
-NoConn ~ 19650 4900
-NoConn ~ 19650 5000
-NoConn ~ 19650 5100
-NoConn ~ 19650 5200
-NoConn ~ 19650 5300
-NoConn ~ 21950 3500
-NoConn ~ 21950 3600
-NoConn ~ 21950 3700
-NoConn ~ 21950 3800
-NoConn ~ 21950 3900
-NoConn ~ 21950 4000
-NoConn ~ 21950 4100
-NoConn ~ 21950 4200
-NoConn ~ 21950 4300
-NoConn ~ 21950 4400
-NoConn ~ 21950 4500
-NoConn ~ 21950 4600
-NoConn ~ 21950 4700
-NoConn ~ 21950 4800
-NoConn ~ 21950 4900
-NoConn ~ 21950 5000
-NoConn ~ 21950 5100
-NoConn ~ 21950 5200
-NoConn ~ 21950 5300
+NoConn ~ 12400 3300
+NoConn ~ 12400 3400
+NoConn ~ 12400 3500
+NoConn ~ 12400 3600
+NoConn ~ 12400 3700
+NoConn ~ 12400 3800
+NoConn ~ 12400 3900
+NoConn ~ 12400 4000
+NoConn ~ 12400 4100
+NoConn ~ 12400 4250
+NoConn ~ 12400 4350
+NoConn ~ 12400 4450
+NoConn ~ 12400 4550
+NoConn ~ 12400 4650
+NoConn ~ 12400 4750
+NoConn ~ 12400 4850
+NoConn ~ 12400 4950
+NoConn ~ 12400 5050
+NoConn ~ 12400 5150
+NoConn ~ 14700 3350
+NoConn ~ 14700 3450
+NoConn ~ 14700 3550
+NoConn ~ 14700 3650
+NoConn ~ 14700 3750
+NoConn ~ 14700 3850
+NoConn ~ 14700 3950
+NoConn ~ 14700 4050
+NoConn ~ 14700 4150
+NoConn ~ 14700 4250
+NoConn ~ 14700 4350
+NoConn ~ 14700 4450
+NoConn ~ 14700 4550
+NoConn ~ 14700 4650
+NoConn ~ 14700 4750
+NoConn ~ 14700 4850
+NoConn ~ 14700 4950
+NoConn ~ 14700 5050
+NoConn ~ 14700 5150
 Wire Wire Line
 	2200 1800 2200 1850
 Wire Wire Line
@@ -1438,26 +1358,10 @@ Text Notes 4550 8700 0    59   ~ 0
 Current sense voltage ouput
 Text Notes 6550 6050 0    59   ~ 0
 Op-amp input mux
-Text Label 21950 2250 0    50   ~ 0
-A0
-Text Label 21950 2550 0    50   ~ 0
-A34
-Text Label 21950 2650 0    50   ~ 0
-A33
-Text Label 19650 2850 2    50   ~ 0
+Text Label 12400 2700 2    50   ~ 0
 SCK0
-Text Label 19650 2950 2    50   ~ 0
+Text Label 12400 2800 2    50   ~ 0
 MOSI0
-Text Label 5550 9050 0    50   ~ 0
-A1
-Text Label 21950 2150 0    50   ~ 0
-A1
-Text Label 5550 9250 0    50   ~ 0
-A0
-Text Label 5550 9450 0    50   ~ 0
-A34
-Text Label 5550 9650 0    50   ~ 0
-A33
 Text Label 3950 5750 2    50   ~ 0
 SCK0
 Text Label 3950 5850 2    50   ~ 0
@@ -1466,35 +1370,35 @@ Text Label 1450 6000 2    50   ~ 0
 SCK0
 Text Label 1450 5800 2    50   ~ 0
 MOSI0
-Text Label 19650 2550 2    50   ~ 0
+Text Label 12400 2400 2    50   ~ 0
 24
-Text Label 19650 2650 2    50   ~ 0
+Text Label 12400 2500 2    50   ~ 0
 25
 Text Label 1450 5900 2    50   ~ 0
 25
 Text Label 3950 5650 2    50   ~ 0
 24
-Text Notes 19100 2550 0    50   ~ 0
+Text Notes 11850 2400 0    50   ~ 0
 Digipot CS
-Text Notes 19250 2650 0    50   ~ 0
+Text Notes 12000 2500 0    50   ~ 0
 DAC CS
-Text Notes 22300 2150 0    50   ~ 0
+Text Notes 11800 3100 0    50   ~ 0
 Isense_1
-Text Notes 22300 2250 0    50   ~ 0
+Text Notes 11800 3200 0    50   ~ 0
 Isense_2
-Text Notes 22350 2550 0    50   ~ 0
+Text Notes 15000 3200 0    50   ~ 0
 Isense_3
-Text Notes 22350 2650 0    50   ~ 0
+Text Notes 15000 3100 0    50   ~ 0
 Isense_4
-Text Label 19650 1350 2    50   ~ 0
+Text Label 12400 1200 2    50   ~ 0
 2
-Text Label 19650 1450 2    50   ~ 0
+Text Label 12400 1300 2    50   ~ 0
 3
-Text Label 19650 1550 2    50   ~ 0
+Text Label 12400 1400 2    50   ~ 0
 4
-Text Label 19650 1650 2    50   ~ 0
+Text Label 12400 1500 2    50   ~ 0
 5
-Text Notes 19550 1350 2    50   ~ 0
+Text Notes 12300 1200 2    50   ~ 0
 Interline PWM 1
 Text Label 6600 6350 2    50   ~ 0
 2
@@ -1544,124 +1448,96 @@ Wire Wire Line
 	5150 9400 4850 9400
 Wire Wire Line
 	4850 9600 5150 9600
-Text Label 21950 3150 0    50   ~ 0
-35
-Text Label 21950 3250 0    50   ~ 0
-34
-Text Label 21950 3350 0    50   ~ 0
-33
-Text Label 19650 3350 2    50   ~ 0
-32
-Text Notes 22100 3150 0    50   ~ 0
-A/D IO 1
-Text Notes 22100 3250 0    50   ~ 0
+Text Notes 15000 1700 0    50   ~ 0
 A/D IO 2
-Text Notes 22100 3350 0    50   ~ 0
+Text Notes 15000 2400 0    50   ~ 0
 A/D IO 3
-Text Notes 19500 3350 2    50   ~ 0
+Text Notes 15350 3000 2    50   ~ 0
 A/D IO 4
-Text Label 3550 9000 0    50   ~ 0
-35
-Text Label 2800 9400 2    50   ~ 0
-34
-Text Label 3600 9700 0    50   ~ 0
-33
-Text Label 2850 10100 2    50   ~ 0
-32
-Text Notes 3700 9000 0    50   ~ 0
-A/D IO 1
-Text Notes 2300 9400 0    50   ~ 0
+Text Notes 2050 9400 0    50   ~ 0
 A/D IO 2
-Text Notes 3750 9700 0    50   ~ 0
-A/D IO 3
-Text Notes 2350 10100 0    50   ~ 0
+Text Notes 2100 10100 0    50   ~ 0
 A/D IO 4
 Text Label 2400 8150 0    50   ~ 0
-35
+21
 Text Notes 2550 8150 0    50   ~ 0
 A/D IO 1
 Text Label 2400 8250 0    50   ~ 0
-34
+20
 Text Notes 2900 8250 2    50   ~ 0
 A/D IO 2
 Text Label 2400 8350 0    50   ~ 0
-33
+19
 Text Notes 2550 8350 0    50   ~ 0
 A/D IO 3
 Text Label 2400 8450 0    50   ~ 0
-32
+18
 Text Notes 2900 8450 2    50   ~ 0
 A/D IO 4
 Text Notes 3600 7650 0    59   ~ 0
 Distribute external analog inputs
-Text Notes 22250 1450 0    50   ~ 0
+Text Notes 15000 1300 0    50   ~ 0
 LED pot 2
-Text Notes 22250 1550 0    50   ~ 0
+Text Notes 15000 1400 0    50   ~ 0
 LED pot 3
-Text Notes 22250 1650 0    50   ~ 0
+Text Notes 15000 1500 0    50   ~ 0
 LED pot 4
-Text Notes 22250 1350 0    50   ~ 0
+Text Notes 15000 1200 0    50   ~ 0
 LED pot 1
-Text Notes 18550 2750 0    50   ~ 0
+Text Notes 11300 2600 0    50   ~ 0
 Manual/Auto Switch
-Text Notes 18650 3050 0    50   ~ 0
+Text Notes 11400 2900 0    50   ~ 0
 over-temp alarm
-Text Notes 22250 1750 0    50   ~ 0
+Text Notes 15000 1800 0    50   ~ 0
 MOSFET temp 1
-Text Notes 22250 1850 0    50   ~ 0
+Text Notes 15000 1900 0    50   ~ 0
 MOSFET temp 2
-Text Notes 22250 1950 0    50   ~ 0
+Text Notes 15000 2000 0    50   ~ 0
 MOSFET temp 3
-Text Notes 19300 3150 2    50   ~ 0
+Text Notes 12050 3000 2    50   ~ 0
 Ext fan PWM
-Text Notes 18950 3250 0    50   ~ 0
-Ext temp
-Text Notes 19300 2150 2    50   ~ 0
+Text Notes 12050 2000 2    50   ~ 0
 Internal fan PWM
-Text Notes 22250 2050 0    50   ~ 0
+Text Notes 15000 2100 0    50   ~ 0
 MOSFET temp 4
-Text Notes 22250 2750 0    50   ~ 0
+Text Notes 15000 2600 0    50   ~ 0
 Resistor temp 1
-Text Notes 22250 2850 0    50   ~ 0
+Text Notes 15000 2700 0    50   ~ 0
 Resistor temp 2
-Text Notes 22250 2950 0    50   ~ 0
+Text Notes 15000 2800 0    50   ~ 0
 Resistor temp 3
-Text Notes 22250 3050 0    50   ~ 0
+Text Notes 15000 2900 0    50   ~ 0
 Resistor temp 4
-NoConn ~ 21950 2350
-Text Notes 23100 2000 1    50   ~ 0
-----ADC0-----
-Text Notes 23100 3300 1    50   ~ 0
-----ADC1-----
-Text Notes 18650 2350 0    50   ~ 0
+NoConn ~ 14700 2200
+Text Notes 11400 2200 0    50   ~ 0
 Status LED 4
-Text Notes 18650 2250 0    50   ~ 0
+Text Notes 11400 2100 0    50   ~ 0
 Status LED 3
-Text Label 19650 2050 2    50   ~ 0
+Text Label 12400 1900 2    50   ~ 0
 9
-Text Label 19650 1950 2    50   ~ 0
+Text Label 12400 1800 2    50   ~ 0
 8
-Text Label 19650 1850 2    50   ~ 0
+Text Label 12400 1700 2    50   ~ 0
 7
-Text Label 19650 1750 2    50   ~ 0
+Text Label 12400 1600 2    50   ~ 0
 6
-Text Notes 18600 1250 0    50   ~ 0
+Text Notes 11350 1100 0    50   ~ 0
 Status LED 2
-Text Notes 18600 1150 0    50   ~ 0
+Text Notes 11350 1000 0    50   ~ 0
 Status LED 1
-Text Notes 19550 1950 2    50   ~ 0
+Text Notes 12300 1800 2    50   ~ 0
 Interline PWM 4
-Text Notes 19550 1750 2    50   ~ 0
+Text Notes 12300 1600 2    50   ~ 0
 Interline PWM 3
-Text Notes 19550 1550 2    50   ~ 0
+Text Notes 12300 1400 2    50   ~ 0
 Interline PWM 2
-Text Notes 18950 1450 0    50   ~ 0
+Text Notes 11700 1300 0    50   ~ 0
 Analog select 1\n
-Text Notes 18950 1650 0    50   ~ 0
+Text Notes 11700 1500 0    50   ~ 0
 Analog select 2\n
-Text Notes 18950 1850 0    50   ~ 0
+Text Notes 11700 1700 0    50   ~ 0
 Analog select 3\n
-Text Notes 18950 2050 0    50   ~ 0
+Text Notes 11700 1900 0    50   ~ 0
 Analog select 4\n
 $Comp
 L Device:R_Pack08 RN?
@@ -1676,6 +1552,112 @@ F 5 "4816P-T01-472LF" V 5350 9400 50  0001 C CNN "Part #"
 	1    5350 9400
 	0    1    1    0   
 $EndComp
-Text Notes 900  8700 1    59   ~ 0
-I/O maximum voltage: 27V
+Text Notes 900  9150 1    59   ~ 0
+I/O maximum voltage: 27V (160mW)\nNiDaq PCI-6110 is +/- 10V 5mA\nTherefore, minimum impedance is 2000 Ohms
+Text Notes 3500 9700 0    50   ~ 0
+A/D IO 3
+Text Notes 3450 9000 0    50   ~ 0
+A/D IO 1
+Text Notes 1950 8700 0    59   ~ 0
+4-channel analog/digital IO with 0-3.3V clamp
+$Comp
+L power:GND #PWR?
+U 1 1 5F48EF1A
+P 3350 10100
+F 0 "#PWR?" H 3350 9850 50  0001 C CNN
+F 1 "GND" V 3450 10050 50  0000 R CNN
+F 2 "" H 3350 10100 50  0001 C CNN
+F 3 "" H 3350 10100 50  0001 C CNN
+	1    3350 10100
+	0    -1   -1   0   
+$EndComp
+Text Label 3350 9900 0    50   ~ 0
+3.3V
+Text Label 2600 9900 2    50   ~ 0
+3.3V
+$Comp
+L power:GND #PWR?
+U 1 1 5F48EF12
+P 2600 9700
+F 0 "#PWR?" H 2600 9450 50  0001 C CNN
+F 1 "GND" V 2500 9650 50  0000 R CNN
+F 2 "" H 2600 9700 50  0001 C CNN
+F 3 "" H 2600 9700 50  0001 C CNN
+	1    2600 9700
+	0    1    1    0   
+$EndComp
+$Comp
+L Custom_parts:BAT54SDW D?
+U 1 1 5F48EF0C
+P 2800 9800
+F 0 "D?" H 2975 10147 60  0000 C CNN
+F 1 "BAT54SDW" H 2975 10041 60  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 3000 10000 60  0001 L CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds11005.pdf" H 3000 10100 60  0001 L CNN
+F 4 "Diodes Incorporated" H 2800 9800 50  0001 C CNN "Manufacturer"
+F 5 "BAT54SDW-7-F" H 2800 9800 50  0001 C CNN "Part #"
+	1    2800 9800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F47759A
+P 3300 9400
+F 0 "#PWR?" H 3300 9150 50  0001 C CNN
+F 1 "GND" V 3400 9350 50  0000 R CNN
+F 2 "" H 3300 9400 50  0001 C CNN
+F 3 "" H 3300 9400 50  0001 C CNN
+	1    3300 9400
+	0    -1   -1   0   
+$EndComp
+Text Label 3300 9200 0    50   ~ 0
+3.3V
+Text Label 2550 9200 2    50   ~ 0
+3.3V
+$Comp
+L power:GND #PWR?
+U 1 1 5F475E13
+P 2550 9000
+F 0 "#PWR?" H 2550 8750 50  0001 C CNN
+F 1 "GND" V 2450 8950 50  0000 R CNN
+F 2 "" H 2550 9000 50  0001 C CNN
+F 3 "" H 2550 9000 50  0001 C CNN
+	1    2550 9000
+	0    1    1    0   
+$EndComp
+$Comp
+L Custom_parts:BAT54SDW D?
+U 1 1 5F46875C
+P 2750 9100
+F 0 "D?" H 2925 9447 60  0000 C CNN
+F 1 "BAT54SDW" H 2925 9341 60  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 2950 9300 60  0001 L CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds11005.pdf" H 2950 9400 60  0001 L CNN
+F 4 "Diodes Incorporated" H 2750 9100 50  0001 C CNN "Manufacturer"
+F 5 "BAT54SDW-7-F" H 2750 9100 50  0001 C CNN "Part #"
+	1    2750 9100
+	1    0    0    -1  
+$EndComp
+Text Notes 15000 1600 0    50   ~ 0
+A/D IO 1
+Text Notes 15850 3000 1    50   ~ 0
+--ADC1--
+Text Notes 15900 2400 2    50   ~ 0
+ADC1
+Text Notes 15900 2500 2    50   ~ 0
+ADC0
+Text Notes 15850 2100 1    50   ~ 0
+-------ADC0------
+Text Notes 15900 3100 2    50   ~ 0
+ADC0
+Text Notes 15900 3200 2    50   ~ 0
+ADC0
+Text Notes 11750 3100 2    50   ~ 0
+ADC1
+Text Notes 11750 3200 2    50   ~ 0
+ADC1
+Text Notes 15000 2500 0    50   ~ 0
+Ext temp
+Text Notes 16000 3600 1    50   ~ 0
+https://forum.pjrc.com/attachment.php?attachmentid=10666&d=1495536536
 $EndSCHEMATC
