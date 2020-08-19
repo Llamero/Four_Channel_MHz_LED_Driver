@@ -1592,8 +1592,8 @@ Text Label 2400 8450 0    50   ~ 0
 32
 Text Notes 2900 8450 2    50   ~ 0
 A/D IO 4
-Text Notes 3800 7650 0    59   ~ 0
-Pool external analog inputs
+Text Notes 3600 7650 0    59   ~ 0
+Distribute external analog inputs
 Text Notes 22250 1450 0    50   ~ 0
 LED pot 2
 Text Notes 22250 1550 0    50   ~ 0

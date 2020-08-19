@@ -982,11 +982,11 @@ L Device:R_Pack08 RN?
 U 1 1 5F4ABE10
 P 2200 8150
 F 0 "RN?" V 1583 8150 50  0000 C CNN
-F 1 "10k" V 1674 8150 50  0000 C CNN
+F 1 "4.7k" V 1674 8150 50  0000 C CNN
 F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 2675 8150 50  0001 C CNN
 F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 2200 8150 50  0001 C CNN
 F 4 "Bourns Inc." V 2200 8150 50  0001 C CNN "Manufacturer"
-F 5 "4816P-T01-103LF" V 2200 8150 50  0001 C CNN "Part #"
+F 5 "4816P-T01-472LF" V 2200 8150 50  0001 C CNN "Part #"
 	1    2200 8150
 	0    1    1    0   
 $EndComp
@@ -1137,19 +1137,6 @@ F 2 "" H 1400 1600 50  0001 C CNN
 F 3 "" H 1400 1600 50  0001 C CNN
 	1    1400 1600
 	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:R_Pack08 RN?
-U 1 1 5F51AB0E
-P 5350 9400
-F 0 "RN?" V 4733 9400 50  0000 C CNN
-F 1 "10k" V 4824 9400 50  0000 C CNN
-F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 5825 9400 50  0001 C CNN
-F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 5350 9400 50  0001 C CNN
-F 4 "Bourns Inc." V 5350 9400 50  0001 C CNN "Manufacturer"
-F 5 "4816P-T01-103LF" V 5350 9400 50  0001 C CNN "Part #"
-	1    5350 9400
-	0    1    1    0   
 $EndComp
 Text Label 5150 9000 2    50   ~ 0
 Isense_1
@@ -1676,4 +1663,19 @@ Text Notes 18950 1850 0    50   ~ 0
 Analog select 3\n
 Text Notes 18950 2050 0    50   ~ 0
 Analog select 4\n
+$Comp
+L Device:R_Pack08 RN?
+U 1 1 5F57894B
+P 5350 9400
+F 0 "RN?" V 4733 9400 50  0000 C CNN
+F 1 "4.7k" V 4824 9400 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 5825 9400 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 5350 9400 50  0001 C CNN
+F 4 "Bourns Inc." V 5350 9400 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-472LF" V 5350 9400 50  0001 C CNN "Part #"
+	1    5350 9400
+	0    1    1    0   
+$EndComp
+Text Notes 900  8700 1    59   ~ 0
+I/O maximum voltage: 27V
 $EndSCHEMATC
