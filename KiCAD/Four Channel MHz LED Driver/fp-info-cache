@@ -1,4 +1,4 @@
-19390147809911205
+19391745703374124
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -48810,6 +48810,13 @@ MCP4351-502E
 0
 20
 20
+Custom Footprints
+Molex_RJ45_855437001
+
+
+0
+10
+9
 Custom Footprints
 Ref_only
 
