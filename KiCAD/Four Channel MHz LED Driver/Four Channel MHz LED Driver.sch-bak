@@ -203,7 +203,7 @@ L power:GND #PWR?
 U 1 1 5F36457B
 P 5200 1500
 F 0 "#PWR?" H 5200 1250 50  0001 C CNN
-F 1 "GND" V 5205 1372 50  0000 R CNN
+F 1 "GND" V 5200 1400 50  0000 R CNN
 F 2 "" H 5200 1500 50  0001 C CNN
 F 3 "" H 5200 1500 50  0001 C CNN
 	1    5200 1500
@@ -332,37 +332,10 @@ $EndComp
 Connection ~ 2900 2400
 Wire Wire Line
 	4350 2600 4350 2400
-Text Label 4450 2400 0    50   ~ 0
+Text Label 4350 2500 0    50   ~ 0
 5V-analog
 Wire Wire Line
 	2900 1850 2900 2000
-$Comp
-L Device:C_Small C?
-U 1 1 5F388B05
-P 4550 2500
-F 0 "C?" H 4642 2546 50  0000 L CNN
-F 1 "2.2uF" H 4642 2455 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 4550 2500 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 4550 2500 50  0001 C CNN
-F 4 "Taiyo Yuden" H 4550 2500 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 4550 2500 50  0001 C CNN "Part #"
-	1    4550 2500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5F38AF36
-P 4550 2600
-F 0 "#PWR?" H 4550 2350 50  0001 C CNN
-F 1 "GND" H 4750 2550 50  0000 R CNN
-F 2 "" H 4550 2600 50  0001 C CNN
-F 3 "" H 4550 2600 50  0001 C CNN
-	1    4550 2600
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4550 2400 4350 2400
-Connection ~ 4350 2400
 $Comp
 L Device:C_Small C?
 U 1 1 5F38C930
@@ -495,7 +468,7 @@ F 5 "TMUX1204DGSR" H 6750 7300 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6550 7750 6550 7850
+	6550 7750 6550 7800
 Wire Wire Line
 	6550 7850 7300 7850
 Wire Wire Line
@@ -551,7 +524,7 @@ F 5 "TMUX1204DGSR" H 6750 8150 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6550 8600 6550 8700
+	6550 8600 6550 8650
 Wire Wire Line
 	6550 8700 7300 8700
 Wire Wire Line
@@ -591,7 +564,7 @@ F 5 "TMUX1204DGSR" H 6800 9000 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6600 9450 6600 9550
+	6600 9450 6600 9500
 Wire Wire Line
 	6600 9550 7350 9550
 Wire Wire Line
@@ -631,7 +604,7 @@ F 5 "TMUX1204DGSR" H 6800 9800 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6600 10250 6600 10350
+	6600 10250 6600 10300
 Wire Wire Line
 	6600 10350 7350 10350
 Wire Wire Line
@@ -733,8 +706,8 @@ $Comp
 L Device:C_Small C?
 U 1 1 5F3CD242
 P 5750 1600
-F 0 "C?" V 5850 1550 50  0000 L CNN
-F 1 "47uF" V 5950 1550 50  0000 L CNN
+F 0 "C?" V 5550 1550 50  0000 L CNN
+F 1 "47uF" V 5650 1550 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1206_3216Metric" H 5750 1600 50  0001 C CNN
 F 3 "https://www.digikey.com/en/ptm/m/murata-electronics-north-america/high-cap-multilayer-ceramic-capacitors?pn_sku=490-16268-1-ND&part_id=7363259" H 5750 1600 50  0001 C CNN
 F 4 "Murata Electronics" H 5750 1600 50  0001 C CNN "Manufacturer"
@@ -746,8 +719,8 @@ $Comp
 L Device:R_Small R?
 U 1 1 5F3CC1B4
 P 5650 1400
-F 0 "R?" H 5709 1446 50  0000 L CNN
-F 1 "4.7k" H 5709 1355 50  0000 L CNN
+F 0 "R?" H 5500 1450 50  0000 L CNN
+F 1 "4.7k" H 5450 1350 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" H 5650 1400 50  0001 C CNN
 F 3 "https://www.seielect.com/catalog/sei-rncp.pdf" H 5650 1400 50  0001 C CNN
 F 4 "Yageo" H 5650 1400 50  0001 C CNN "Manufacturer"
@@ -781,13 +754,7 @@ Text Label 7400 9150 0    50   ~ 0
 -0.25V_analog
 Text Label 7400 9950 0    50   ~ 0
 -0.25V_analog
-Text Label 7300 7850 0    50   ~ 0
-5V-analog
-Text Label 7300 8700 0    50   ~ 0
-5V-analog
-Text Label 7350 9550 0    50   ~ 0
-5V-analog
-Text Label 7350 10350 0    50   ~ 0
+Text Label 5800 6800 0    50   ~ 0
 5V-analog
 $Comp
 L Device:R_Pack08 RN?
@@ -1254,7 +1221,7 @@ Text Label 2650 9000 0    50   ~ 0
 Text Notes 3150 9000 2    50   ~ 0
 A/D IO 4
 Text Notes 3900 8650 0    59   ~ 0
-Distribute external analog inputs
+Combine external analog inputs
 Text Notes 15000 1300 0    50   ~ 0
 LED pot 2
 Text Notes 15000 1400 0    50   ~ 0
@@ -1411,7 +1378,7 @@ P 4100 10050
 F 0 "D?" H 4350 10350 60  0000 C CNN
 F 1 "BAT54SDW" H 4350 10250 60  0000 C CNN
 F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 4300 10250 60  0001 L CNN
-F 3 "https://www.diodes.com/assets/Datasheets/ds11005.pdf" H 4300 10350 60  0001 L CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds30152.pdf" H 4300 10350 60  0001 L CNN
 F 4 "Diodes Incorporated" H 4100 10050 50  0001 C CNN "Manufacturer"
 F 5 "BAT54SDW-7-F" H 4100 10050 50  0001 C CNN "Part #"
 	1    4100 10050
@@ -2178,100 +2145,300 @@ Wire Wire Line
 Wire Wire Line
 	3150 6250 5100 6250
 $Comp
-L Device:C_Small C?
-U 1 1 5F6D2E0F
-P 6450 7750
-F 0 "C?" V 6650 7700 50  0000 L CNN
-F 1 "2.2uF" V 6550 7600 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 6450 7750 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 6450 7750 50  0001 C CNN
-F 4 "Taiyo Yuden" H 6450 7750 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 6450 7750 50  0001 C CNN "Part #"
-	1    6450 7750
-	0    1    1    0   
-$EndComp
-Connection ~ 6550 7750
-$Comp
 L power:GND #PWR?
 U 1 1 5F6D4356
-P 6350 7750
-F 0 "#PWR?" H 6350 7500 50  0001 C CNN
-F 1 "GND" V 6355 7622 50  0000 R CNN
-F 2 "" H 6350 7750 50  0001 C CNN
-F 3 "" H 6350 7750 50  0001 C CNN
-	1    6350 7750
+P 6000 7000
+F 0 "#PWR?" H 6000 6750 50  0001 C CNN
+F 1 "GND" V 6005 6872 50  0000 R CNN
+F 2 "" H 6000 7000 50  0001 C CNN
+F 3 "" H 6000 7000 50  0001 C CNN
+	1    6000 7000
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Custom_parts:ADP7182AUJZ-1.8-R7 U?
+U 1 1 5F402E6A
+P 6300 1150
+F 0 "U?" H 6850 1357 60  0000 C CNN
+F 1 "ADP7182AUJZ-1.8-R7" H 6850 1251 60  0000 C CNN
+F 2 "Package_TO_SOT_SMD:TSOT-23-5" H 7100 1390 60  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/ADP7182.pdf" H 6850 1251 60  0001 C CNN
+F 4 "Analog Devices Inc." H 6300 1150 50  0001 C CNN "Manufacturer"
+F 5 "ADP7182AUJZ-1.8-R7" H 6300 1150 50  0001 C CNN "Part #"
+	1    6300 1150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6300 1300 6150 1300
+Connection ~ 5650 1300
+$Comp
+L power:GND #PWR?
+U 1 1 5F40DAE4
+P 6300 1200
+F 0 "#PWR?" H 6300 950 50  0001 C CNN
+F 1 "GND" V 6200 1200 50  0000 R CNN
+F 2 "" H 6300 1200 50  0001 C CNN
+F 3 "" H 6300 1200 50  0001 C CNN
+	1    6300 1200
 	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6300 1400 6300 1300
+Connection ~ 6300 1300
+$Comp
+L Device:C_Small C?
+U 1 1 5F414F68
+P 6150 1400
+F 0 "C?" H 6200 1350 50  0000 L CNN
+F 1 "2.2uF" H 6200 1250 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 6150 1400 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 6150 1400 50  0001 C CNN
+F 4 "Taiyo Yuden" H 6150 1400 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 6150 1400 50  0001 C CNN "Part #"
+	1    6150 1400
+	1    0    0    -1  
+$EndComp
+Connection ~ 6150 1300
+Wire Wire Line
+	6150 1300 6050 1300
+Text Label 7400 1200 0    50   ~ 0
+-1.8V-analog
+$Comp
+L Device:R_Small R?
+U 1 1 5F417AA2
+P 5800 1300
+F 0 "R?" V 6000 1300 50  0000 L CNN
+F 1 "12" V 5900 1250 50  0000 L CNN
+F 2 "Resistor_SMD:R_1210_3225Metric" H 5800 1300 50  0001 C CNN
+F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 5800 1300 50  0001 C CNN
+F 4 "Stackpole Electronics Inc" H 5800 1300 50  0001 C CNN "Manufacturer"
+F 5 "RMCF1210JT12R0" H 5800 1300 50  0001 C CNN "Part #"
+	1    5800 1300
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5700 1300 5650 1300
+$Comp
+L power:GND #PWR?
+U 1 1 5F419542
+P 6150 1500
+F 0 "#PWR?" H 6150 1250 50  0001 C CNN
+F 1 "GND" H 6250 1350 50  0000 R CNN
+F 2 "" H 6150 1500 50  0001 C CNN
+F 3 "" H 6150 1500 50  0001 C CNN
+	1    6150 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5F42092A
+P 5800 6900
+F 0 "R?" H 5650 6950 50  0000 L CNN
+F 1 "4.7k" H 5600 6850 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 5800 6900 50  0001 C CNN
+F 3 "https://www.seielect.com/catalog/sei-rncp.pdf" H 5800 6900 50  0001 C CNN
+F 4 "Yageo" H 5800 6900 50  0001 C CNN "Manufacturer"
+F 5 "RT0805FRE074K7L" H 5800 6900 50  0001 C CNN "Part #"
+	1    5800 6900
+	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
-U 1 1 5F6D57DA
-P 6450 8600
-F 0 "C?" V 6650 8550 50  0000 L CNN
-F 1 "2.2uF" V 6550 8450 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 6450 8600 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 6450 8600 50  0001 C CNN
-F 4 "Taiyo Yuden" H 6450 8600 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 6450 8600 50  0001 C CNN "Part #"
-	1    6450 8600
+U 1 1 5F422B07
+P 5900 7000
+F 0 "C?" V 6100 6950 50  0000 L CNN
+F 1 "2.2uF" V 6000 6950 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 5900 7000 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 5900 7000 50  0001 C CNN
+F 4 "Taiyo Yuden" H 5900 7000 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 5900 7000 50  0001 C CNN "Part #"
+	1    5900 7000
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5800 7000 5800 7800
+Wire Wire Line
+	5800 10300 6600 10300
+Connection ~ 5800 7000
+Connection ~ 6600 10300
+Wire Wire Line
+	6600 10300 6600 10350
+Wire Wire Line
+	6600 9500 5800 9500
+Connection ~ 6600 9500
+Wire Wire Line
+	6600 9500 6600 9550
+Connection ~ 5800 9500
+Wire Wire Line
+	5800 9500 5800 10300
+Wire Wire Line
+	6550 8650 5800 8650
+Connection ~ 6550 8650
+Wire Wire Line
+	6550 8650 6550 8700
+Connection ~ 5800 8650
+Wire Wire Line
+	5800 8650 5800 9500
+Wire Wire Line
+	6550 7800 5800 7800
+Connection ~ 6550 7800
+Wire Wire Line
+	6550 7800 6550 7850
+Connection ~ 5800 7800
+Wire Wire Line
+	5800 7800 5800 8650
+$Comp
+L Custom_parts:BAT54SDW D?
+U 1 1 5F442A0D
+P 6650 1950
+F 0 "D?" H 6900 2250 60  0000 C CNN
+F 1 "BAT54SDW" H 6900 2150 60  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 6850 2150 60  0001 L CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds30152.pdf" H 6850 2250 60  0001 L CNN
+F 4 "Diodes Incorporated" H 6650 1950 50  0001 C CNN "Manufacturer"
+F 5 "BAT54SDW-7-F" H 6650 1950 50  0001 C CNN "Part #"
+	1    6650 1950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6050 1300 6050 1850
+Wire Wire Line
+	6050 1850 6450 1850
+Connection ~ 6050 1300
+Wire Wire Line
+	6050 1300 5900 1300
+Wire Wire Line
+	7400 1200 7450 1200
+Wire Wire Line
+	7450 1200 7450 1850
+Wire Wire Line
+	7450 1850 7200 1850
+$Comp
+L power:GND #PWR?
+U 1 1 5F457916
+P 6450 2050
+F 0 "#PWR?" H 6450 1800 50  0001 C CNN
+F 1 "GND" H 6550 1900 50  0000 R CNN
+F 2 "" H 6450 2050 50  0001 C CNN
+F 3 "" H 6450 2050 50  0001 C CNN
+	1    6450 2050
 	0    1    1    0   
 $EndComp
 $Comp
+L Custom_parts:BDJ0GA5WEFJ-E2 U?
+U 1 1 5F46185F
+P 6050 2600
+F 0 "U?" H 6750 2857 60  0000 C CNN
+F 1 "BDJ0GA5WEFJ-E2" H 6750 2751 60  0000 C CNN
+F 2 "Custom Footprints:BDJ0GA5WEFJ-E2" H 6800 2840 60  0001 C CNN
+F 3 "http://rohmfs.rohm.com/en/products/databook/datasheet/ic/power/linear_regulator/bdxxga5wefj-e.pdf" H 6750 2751 60  0001 C CNN
+F 4 "Rohm Semiconductor" H 6050 2600 50  0001 C CNN "Manufacturer"
+F 5 "BDJ0GA5WEFJ-E2" H 6050 2600 50  0001 C CNN "Part #"
+	1    6050 2600
+	1    0    0    -1  
+$EndComp
+$Comp
 L power:GND #PWR?
-U 1 1 5F6D57E0
-P 6350 8600
-F 0 "#PWR?" H 6350 8350 50  0001 C CNN
-F 1 "GND" V 6355 8472 50  0000 R CNN
-F 2 "" H 6350 8600 50  0001 C CNN
-F 3 "" H 6350 8600 50  0001 C CNN
-	1    6350 8600
+U 1 1 5F46361B
+P 7200 2250
+F 0 "#PWR?" H 7200 2000 50  0001 C CNN
+F 1 "GND" H 7300 2100 50  0000 R CNN
+F 2 "" H 7200 2250 50  0001 C CNN
+F 3 "" H 7200 2250 50  0001 C CNN
+	1    7200 2250
+	0    -1   -1   0   
+$EndComp
+Text Label 7450 2050 0    50   ~ 0
+12V
+Wire Wire Line
+	7450 2900 7500 2900
+Wire Wire Line
+	7500 2900 7500 2600
+Wire Wire Line
+	7500 2600 7450 2600
+Text Label 6000 2250 0    50   ~ 0
+10V-analog
+Wire Wire Line
+	7500 2050 7500 2200
+Wire Wire Line
+	7200 2050 7500 2050
+Connection ~ 7500 2600
+Wire Wire Line
+	6050 2600 6000 2600
+Wire Wire Line
+	6000 2600 6000 2250
+Wire Wire Line
+	6000 2250 6450 2250
+NoConn ~ 6050 2700
+Wire Wire Line
+	6700 3250 6300 3250
+Wire Wire Line
+	6000 3250 6000 2800
+Wire Wire Line
+	6000 2800 6050 2800
+$Comp
+L power:GND #PWR?
+U 1 1 5F4C5626
+P 6300 3250
+F 0 "#PWR?" H 6300 3000 50  0001 C CNN
+F 1 "GND" H 6350 3100 50  0000 R CNN
+F 2 "" H 6300 3250 50  0001 C CNN
+F 3 "" H 6300 3250 50  0001 C CNN
+	1    6300 3250
+	1    0    0    -1  
+$EndComp
+Connection ~ 6300 3250
+Wire Wire Line
+	6300 3250 6000 3250
+$Comp
+L Device:C_Small C?
+U 1 1 5F4C6355
+P 7600 2200
+F 0 "C?" V 7700 2150 50  0000 L CNN
+F 1 "2.2uF" V 7800 2150 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 7600 2200 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 7600 2200 50  0001 C CNN
+F 4 "Taiyo Yuden" H 7600 2200 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 7600 2200 50  0001 C CNN "Part #"
+	1    7600 2200
 	0    1    1    0   
+$EndComp
+Connection ~ 7500 2200
+Wire Wire Line
+	7500 2200 7500 2600
+$Comp
+L power:GND #PWR?
+U 1 1 5F4C7798
+P 7700 2200
+F 0 "#PWR?" H 7700 1950 50  0001 C CNN
+F 1 "GND" V 7800 2150 50  0000 R CNN
+F 2 "" H 7700 2200 50  0001 C CNN
+F 3 "" H 7700 2200 50  0001 C CNN
+	1    7700 2200
+	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:C_Small C?
-U 1 1 5F6DC38C
-P 6500 9450
-F 0 "C?" V 6700 9400 50  0000 L CNN
-F 1 "2.2uF" V 6600 9300 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 6500 9450 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 6500 9450 50  0001 C CNN
-F 4 "Taiyo Yuden" H 6500 9450 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 6500 9450 50  0001 C CNN "Part #"
-	1    6500 9450
-	0    1    1    0   
+U 1 1 5F4CB334
+P 5900 2600
+F 0 "C?" V 6000 2550 50  0000 L CNN
+F 1 "2.2uF" V 6100 2550 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 5900 2600 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 5900 2600 50  0001 C CNN
+F 4 "Taiyo Yuden" H 5900 2600 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 5900 2600 50  0001 C CNN "Part #"
+	1    5900 2600
+	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR?
-U 1 1 5F6DC392
-P 6400 9450
-F 0 "#PWR?" H 6400 9200 50  0001 C CNN
-F 1 "GND" V 6405 9322 50  0000 R CNN
-F 2 "" H 6400 9450 50  0001 C CNN
-F 3 "" H 6400 9450 50  0001 C CNN
-	1    6400 9450
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5F6E351E
-P 6500 10250
-F 0 "C?" V 6700 10200 50  0000 L CNN
-F 1 "2.2uF" V 6600 10100 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 6500 10250 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 6500 10250 50  0001 C CNN
-F 4 "Taiyo Yuden" H 6500 10250 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 6500 10250 50  0001 C CNN "Part #"
-	1    6500 10250
-	0    1    1    0   
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5F6E3524
-P 6400 10250
-F 0 "#PWR?" H 6400 10000 50  0001 C CNN
-F 1 "GND" V 6405 10122 50  0000 R CNN
-F 2 "" H 6400 10250 50  0001 C CNN
-F 3 "" H 6400 10250 50  0001 C CNN
-	1    6400 10250
+U 1 1 5F4CB33A
+P 5800 2600
+F 0 "#PWR?" H 5800 2350 50  0001 C CNN
+F 1 "GND" V 5900 2550 50  0000 R CNN
+F 2 "" H 5800 2600 50  0001 C CNN
+F 3 "" H 5800 2600 50  0001 C CNN
+	1    5800 2600
 	0    1    1    0   
 $EndComp
 $EndSCHEMATC
