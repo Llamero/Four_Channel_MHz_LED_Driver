@@ -1,4 +1,4 @@
-19401334014309266
+19401351527171612
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -55094,14 +55094,14 @@ SolderJumper-3_P2.0mm_Open_TrianglePad1.0x1.5mm
 SMD Solder Jumper, 1x1.5mm Triangular Pads, 0.3mm gap, open
 solder jumper open
 0
-5
+3
 3
 Jumper
 SolderJumper-3_P2.0mm_Open_TrianglePad1.0x1.5mm_NumberLabels
 SMD Solder Jumper, 1x1.5mm Triangular Pads, 0.3mm gap, open, labeled with numbers
 solder jumper open
 0
-5
+3
 3
 LED_SMD
 LED-APA102-2020
