@@ -1,4 +1,4 @@
-19393343702826052
+19401334001601201
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -48776,6 +48776,13 @@ Custom Footprints
 8
 8
 Custom Footprints
+3224W-1-502E
+
+
+0
+3
+3
+Custom Footprints
 ADP7118AUJZ-R7
 
 
@@ -48804,12 +48811,33 @@ DAC084S085CIMM
 10
 10
 Custom Footprints
+DO-214AA
+
+
+0
+2
+2
+Custom Footprints
 DPBW06F-05
 Through hole straight pin header, 1x08, 2.54mm pitch, single row
 Through hole pin header THT 1x08 2.54mm single row
 0
 7
 7
+Custom Footprints
+Heatsink_634-20ABPE
+
+
+0
+0
+0
+Custom Footprints
+Heatsink_910-40-2-23-2-B-0
+
+
+0
+0
+0
 Custom Footprints
 MCP4351-502E
 
@@ -48859,6 +48887,13 @@ TMUX1204DGSR
 0
 10
 10
+Custom Footprints
+TO-252_resistor
+
+
+0
+3
+2
 Diode_SMD
 D_0201_0603Metric
 Diode SMD 0201 (0603 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://www.vishay.com/docs/20052/crcw0201e3.pdf), generated with kicad-footprint-generator

@@ -1,5 +1,11 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP AD797
+D Ultralow Distortion, Ultralow Noise Op Amp, DIP-8/SOIC-8
+K single opamp
+F https://www.analog.com/media/en/technical-documentation/data-sheets/AD797.pdf
+$ENDCMP
+#
 $CMP BAT54SDW
 D DIODE ARRAY SCHOTTKY 30V SOT23-3
 K BAT54S-FDICT-ND
@@ -22,6 +28,42 @@ $CMP D_Zener_x4_ACom_AKKKK
 D Dual Zener diode, common anode on pin 1
 K diode zener dual
 F ~
+$ENDCMP
+#
+$CMP LM101
+D Operational Amplifier, DIP-8/TO-99-8
+K single opamp
+F http://www.ti.com/lit/ds/symlink/lm101a-n.pdf
+$ENDCMP
+#
+$CMP LM201
+D Operational Amplifier, DIP-8/TO-99-8
+K single opamp
+F http://www.ti.com/lit/ds/symlink/lm101a-n.pdf
+$ENDCMP
+#
+$CMP LM301
+D Operational Amplifier, DIP-8/TO-99-8
+K single opamp
+F http://www.ti.com/lit/ds/symlink/lm101a-n.pdf
+$ENDCMP
+#
+$CMP LT1012
+D Single Picoamp Input Current, Microvolt Offset, Low Noise Op Amp, DIP-8/SOIC-8/TO-5-8
+K single opamp
+F https://www.analog.com/media/en/technical-documentation/data-sheets/lt1012.pdf
+$ENDCMP
+#
+$CMP LT6200CS8-10
+D Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8
+K single opamp
+F http://www.ti.com/lit/ds/symlink/ne5534.pdf
+$ENDCMP
+#
+$CMP SA5534
+D Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8
+K single opamp
+F http://www.ti.com/lit/ds/symlink/ne5534.pdf
 $ENDCMP
 #
 #End Doc Library
