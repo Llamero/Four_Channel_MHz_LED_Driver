@@ -381,9 +381,9 @@ Wire Wire Line
 Wire Wire Line
 	2700 7100 3150 7100
 Text Notes 2450 2750 0    59   ~ 0
-LDO - 12V to clean 5V for analog circuits
+LDO: 12V to clean 5V for analog circuits
 Text Notes 3450 900  0    59   ~ 0
-ISOLATED - 12V to split +/- 5V
+ISOLATED: 12V to split +/- 5V
 Text Notes 1550 650  0    59   ~ 0
 SEPIC - Vin (3V - 30V) to 12V DC
 Wire Wire Line
@@ -2378,49 +2378,49 @@ Wire Wire Line
 Wire Wire Line
 	7500 2050 7500 2600
 $Comp
-L Mechanical:Heatsink HS?
+L Mechanical:Heatsink_Pad_2Pin HS?
 U 1 1 5F44CB6E
-P 7400 3450
-F 0 "HS?" H 7300 3750 50  0000 L CNN
-F 1 "HS-MOS" H 7250 3650 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_634-20ABPE" H 7412 3450 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 7412 3450 50  0001 C CNN
-F 4 "Wakefield-Vette" H 7400 3450 50  0001 C CNN "Manufacturer"
-F 5 "634-20ABPE" H 7400 3450 50  0001 C CNN "Part #"
-	1    7400 3450
+P 10650 10650
+F 0 "HS?" H 10550 10900 50  0000 L CNN
+F 1 "HS-MOS" H 10500 10800 50  0000 L CNN
+F 2 "Custom Footprints:Heatsink_634-20ABPE" H 10662 10650 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 10662 10650 50  0001 C CNN
+F 4 "Wakefield-Vette" H 10650 10650 50  0001 C CNN "Manufacturer"
+F 5 "634-20ABPE" H 10650 10650 50  0001 C CNN "Part #"
+	1    10650 10650
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:Q_NMOS_GDS Q?
 U 1 1 5F44DFD5
-P 7350 3950
-F 0 "Q?" H 7554 3996 50  0000 L CNN
-F 1 "SUM70060E" H 7554 3905 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TO-263-2" H 7550 4050 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/65383/sum70060e.pdf" H 7350 3950 50  0001 C CNN
-F 4 "Vishay Siliconix" H 7350 3950 50  0001 C CNN "Manufacturer"
-F 5 "SUM70060E-GE3" H 7350 3950 50  0001 C CNN "Part #"
-	1    7350 3950
+P 11250 7550
+F 0 "Q?" H 11454 7596 50  0000 L CNN
+F 1 "SUM70060E" H 11454 7505 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TO-263-2" H 11450 7650 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/65383/sum70060e.pdf" H 11250 7550 50  0001 C CNN
+F 4 "Vishay Siliconix" H 11250 7550 50  0001 C CNN "Manufacturer"
+F 5 "SUM70060E-GE3" H 11250 7550 50  0001 C CNN "Part #"
+	1    11250 7550
 	1    0    0    -1  
 $EndComp
-Text Label 7450 3750 0    50   ~ 0
+Text Label 11350 7350 0    50   ~ 0
 LED1-
 $Comp
 L Custom_parts:LT6200CS8-10 U?
 U 1 1 5F4636E7
-P 5750 3950
-F 0 "U?" H 6094 3996 50  0000 L CNN
-F 1 "LT6200CS8-10" H 5950 3850 50  0000 L CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 5800 4000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/ne5534.pdf" H 5800 4100 50  0001 C CNN
-F 4 "Analog Devices Inc." H 5750 3950 50  0001 C CNN "Manufacturer"
-F 5 "LT6200CS8-10#PBF-ND" H 5750 3950 50  0001 C CNN "Part #"
-	1    5750 3950
+P 9650 7550
+F 0 "U?" H 9994 7596 50  0000 L CNN
+F 1 "LT6200CS8-10" H 9850 7450 50  0000 L CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 9700 7600 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/ne5534.pdf" H 9700 7700 50  0001 C CNN
+F 4 "Analog Devices Inc." H 9650 7550 50  0001 C CNN "Manufacturer"
+F 5 "LT6200CS8-10#PBF-ND" H 9650 7550 50  0001 C CNN "Part #"
+	1    9650 7550
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6050 3950 6550 3950
-Text Label 5450 3850 2    50   ~ 0
+	9950 7550 10450 7550
+Text Label 9350 7450 2    50   ~ 0
 OA1_input
 $Comp
 L Device:C_Small C?
@@ -2438,807 +2438,937 @@ $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5F4739EC
-P 6550 4150
-F 0 "C?" H 6700 4150 50  0000 C CNN
-F 1 "2200pF" H 6700 4050 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 6550 4150 50  0001 C CNN
-F 3 "https://api.kemet.com/component-edge/download/datasheet/C0603C222K1RACTU.pdf" H 6550 4150 50  0001 C CNN
-F 4 "KEMET" H 6550 4150 50  0001 C CNN "Manufacturer"
-F 5 "C0603C222K1RACTU" H 6550 4150 50  0001 C CNN "Part #"
-	1    6550 4150
+P 10450 7750
+F 0 "C?" H 10600 7750 50  0000 C CNN
+F 1 "2200pF" H 10600 7650 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 10450 7750 50  0001 C CNN
+F 3 "https://api.kemet.com/component-edge/download/datasheet/C0603C222K1RACTU.pdf" H 10450 7750 50  0001 C CNN
+F 4 "KEMET" H 10450 7750 50  0001 C CNN "Manufacturer"
+F 5 "C0603C222K1RACTU" H 10450 7750 50  0001 C CNN "Part #"
+	1    10450 7750
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	6550 3950 6550 4050
-Connection ~ 6550 3950
-NoConn ~ 5750 4250
+	10450 7550 10450 7650
+Connection ~ 10450 7550
+NoConn ~ 9650 7850
 $Comp
 L Device:C_Small C?
 U 1 1 5F487FD4
-P 5750 4350
-F 0 "C?" V 5950 4300 50  0000 L CNN
-F 1 "2.2uF" V 5850 4250 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 5750 4350 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 5750 4350 50  0001 C CNN
-F 4 "Taiyo Yuden" H 5750 4350 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 5750 4350 50  0001 C CNN "Part #"
-	1    5750 4350
+P 9650 7950
+F 0 "C?" V 9850 7900 50  0000 L CNN
+F 1 "2.2uF" V 9750 7850 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 9650 7950 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 9650 7950 50  0001 C CNN
+F 4 "Taiyo Yuden" H 9650 7950 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 9650 7950 50  0001 C CNN "Part #"
+	1    9650 7950
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5F489B13
-P 5750 3550
-F 0 "C?" V 5950 3500 50  0000 L CNN
-F 1 "2.2uF" V 5850 3450 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 5750 3550 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 5750 3550 50  0001 C CNN
-F 4 "Taiyo Yuden" H 5750 3550 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 5750 3550 50  0001 C CNN "Part #"
-	1    5750 3550
+P 9650 7150
+F 0 "C?" V 9850 7100 50  0000 L CNN
+F 1 "2.2uF" V 9750 7050 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 9650 7150 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 9650 7150 50  0001 C CNN
+F 4 "Taiyo Yuden" H 9650 7150 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 9650 7150 50  0001 C CNN "Part #"
+	1    9650 7150
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	5650 4250 5650 4350
+	9550 7850 9550 7950
 Wire Wire Line
-	5650 3650 5650 3550
+	9550 7250 9550 7150
 $Comp
 L power:GND #PWR?
 U 1 1 5F49D727
-P 5850 3550
-F 0 "#PWR?" H 5850 3300 50  0001 C CNN
-F 1 "GND" V 5850 3450 50  0000 R CNN
-F 2 "" H 5850 3550 50  0001 C CNN
-F 3 "" H 5850 3550 50  0001 C CNN
-	1    5850 3550
+P 9750 7150
+F 0 "#PWR?" H 9750 6900 50  0001 C CNN
+F 1 "GND" V 9750 7050 50  0000 R CNN
+F 2 "" H 9750 7150 50  0001 C CNN
+F 3 "" H 9750 7150 50  0001 C CNN
+	1    9750 7150
 	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F49E51E
-P 5850 4350
-F 0 "#PWR?" H 5850 4100 50  0001 C CNN
-F 1 "GND" V 5850 4250 50  0000 R CNN
-F 2 "" H 5850 4350 50  0001 C CNN
-F 3 "" H 5850 4350 50  0001 C CNN
-	1    5850 4350
+P 9750 7950
+F 0 "#PWR?" H 9750 7700 50  0001 C CNN
+F 1 "GND" V 9750 7850 50  0000 R CNN
+F 2 "" H 9750 7950 50  0001 C CNN
+F 3 "" H 9750 7950 50  0001 C CNN
+	1    9750 7950
 	0    -1   -1   0   
 $EndComp
-Text Label 5650 4350 2    50   ~ 0
+Text Label 9550 7950 2    50   ~ 0
 -1.8V-analog
-Text Label 5650 3550 2    50   ~ 0
+Text Label 9550 7150 2    50   ~ 0
 10V-analog
 Wire Wire Line
-	5450 4050 5100 4050
+	9350 7650 9000 7650
 Wire Wire Line
-	5100 4050 5100 4600
+	9000 7650 9000 8200
 Wire Wire Line
-	5100 4600 6550 4600
+	9000 8200 10450 8200
 Wire Wire Line
-	6550 4600 6550 4250
+	10450 8200 10450 7850
 $Comp
 L Device:D_Zener_Small_ALT D?
 U 1 1 5F4AC07B
-P 8100 3950
-F 0 "D?" V 8054 4020 50  0000 L CNN
-F 1 "TVS_Diode" V 8145 4020 50  0000 L CNN
-F 2 "Custom Footprints:DO-214AA" V 8100 3950 50  0001 C CNN
-F 3 "https://katalog.we-online.de/pbs/datasheet/824520581.pdf" V 8100 3950 50  0001 C CNN
-F 4 "Würth Elektronik" V 8100 3950 50  0001 C CNN "Manufacturer"
-F 5 "824520581" V 8100 3950 50  0001 C CNN "Part #"
-	1    8100 3950
+P 12000 7550
+F 0 "D?" V 11954 7620 50  0000 L CNN
+F 1 "TVS_Diode" V 12045 7620 50  0000 L CNN
+F 2 "Custom Footprints:DO-214AA" V 12000 7550 50  0001 C CNN
+F 3 "https://katalog.we-online.de/pbs/datasheet/824520581.pdf" V 12000 7550 50  0001 C CNN
+F 4 "Würth Elektronik" V 12000 7550 50  0001 C CNN "Manufacturer"
+F 5 "824520581" V 12000 7550 50  0001 C CNN "Part #"
+	1    12000 7550
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	7450 3750 8100 3750
+	11350 7350 12000 7350
 Wire Wire Line
-	8100 3750 8100 3850
+	12000 7350 12000 7450
 Wire Wire Line
-	8100 4050 8100 4150
+	12000 7650 12000 7750
 Wire Wire Line
-	8100 4150 7450 4150
+	12000 7750 11350 7750
 $Comp
 L Device:R_POT_TRIM RV?
 U 1 1 5F4EFFEC
-P 7000 4100
-F 0 "RV?" V 6885 4100 50  0000 C CNN
-F 1 "R_POT_TRIM" V 6794 4100 50  0000 C CNN
-F 2 "Custom Footprints:3224W-1-502E" H 7000 4100 50  0001 C CNN
-F 3 "https://www.bourns.com/docs/Product-Datasheets/3224.pdf" H 7000 4100 50  0001 C CNN
-F 4 "Bourns Inc." V 7000 4100 50  0001 C CNN "Manufacturer"
-F 5 "3224W-1-501E" V 7000 4100 50  0001 C CNN "Part #"
-	1    7000 4100
+P 10900 7700
+F 0 "RV?" V 10785 7700 50  0000 C CNN
+F 1 "R_POT_TRIM" V 10694 7700 50  0000 C CNN
+F 2 "Custom Footprints:3224W-1-502E" H 10900 7700 50  0001 C CNN
+F 3 "https://www.bourns.com/docs/Product-Datasheets/3224.pdf" H 10900 7700 50  0001 C CNN
+F 4 "Bourns Inc." V 10900 7700 50  0001 C CNN "Manufacturer"
+F 5 "3224W-1-501E" V 10900 7700 50  0001 C CNN "Part #"
+	1    10900 7700
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	7150 3950 7000 3950
+	11050 7550 10900 7550
 Wire Wire Line
-	6850 4100 6850 3950
+	10750 7700 10750 7550
 Wire Wire Line
-	6550 3950 6850 3950
+	10450 7550 10750 7550
 Wire Wire Line
-	6850 4600 6550 4600
-Connection ~ 6550 4600
+	10750 8200 10450 8200
+Connection ~ 10450 8200
 Wire Wire Line
-	7000 4450 7450 4450
+	10900 8050 11350 8050
 Wire Wire Line
-	7450 4450 7450 4150
-Connection ~ 7450 4150
+	11350 8050 11350 7750
+Connection ~ 11350 7750
 $Comp
 L Mechanical:Heatsink HS?
 U 1 1 5F527EE9
-P 7750 3450
-F 0 "HS?" H 7650 3750 50  0000 L CNN
-F 1 "HS-PCB" H 7600 3650 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 7762 3450 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 7762 3450 50  0001 C CNN
-F 4 "Wakefield-Vette" H 7750 3450 50  0001 C CNN "Manufacturer"
-F 5 "910-40-2-23-2-B-0" H 7750 3450 50  0001 C CNN "Part #"
-	1    7750 3450
+P 11000 10700
+F 0 "HS?" H 10900 11000 50  0000 L CNN
+F 1 "HS-PCB" H 10850 10900 50  0000 L CNN
+F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 11012 10700 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 11012 10700 50  0001 C CNN
+F 4 "Wakefield-Vette" H 11000 10700 50  0001 C CNN "Manufacturer"
+F 5 "910-40-2-23-2-B-0" H 11000 10700 50  0001 C CNN "Part #"
+	1    11000 10700
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Heatsink HS?
+L Mechanical:Heatsink_Pad_2Pin HS?
 U 1 1 5F5289B1
-P 8100 3450
-F 0 "HS?" H 8000 3750 50  0000 L CNN
-F 1 "HS-RES" H 7950 3650 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_634-20ABPE" H 8112 3450 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 8112 3450 50  0001 C CNN
-F 4 "Wakefield-Vette" H 8100 3450 50  0001 C CNN "Manufacturer"
-F 5 "634-20ABPE" H 8100 3450 50  0001 C CNN "Part #"
-	1    8100 3450
+P 11350 10650
+F 0 "HS?" H 11250 10900 50  0000 L CNN
+F 1 "HS-RES" H 11200 10800 50  0000 L CNN
+F 2 "Custom Footprints:Heatsink_634-20ABPE" H 11362 10650 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 11362 10650 50  0001 C CNN
+F 4 "Wakefield-Vette" H 11350 10650 50  0001 C CNN "Manufacturer"
+F 5 "634-20ABPE" H 11350 10650 50  0001 C CNN "Part #"
+	1    11350 10650
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R_Small R?
 U 1 1 5F52FEC2
-P 7450 4550
-F 0 "R?" H 7500 4600 50  0000 L CNN
-F 1 "5" H 7500 4500 50  0000 L CNN
-F 2 "Custom Footprints:TO-252_resistor" H 7450 4550 50  0001 C CNN
-F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 7450 4550 50  0001 C CNN
-F 4 "Ohmite" H 7450 4550 50  0001 C CNN "Manufacturer"
-F 5 "TKH45P5R00FE-TR" H 7450 4550 50  0001 C CNN "Part #"
-	1    7450 4550
+P 11350 8150
+F 0 "R?" H 11400 8200 50  0000 L CNN
+F 1 "5" H 11400 8100 50  0000 L CNN
+F 2 "Custom Footprints:TO-252_resistor" H 11350 8150 50  0001 C CNN
+F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 11350 8150 50  0001 C CNN
+F 4 "Ohmite" H 11350 8150 50  0001 C CNN "Manufacturer"
+F 5 "TKH45P5R00FE-TR" H 11350 8150 50  0001 C CNN "Part #"
+	1    11350 8150
 	1    0    0    -1  
 $EndComp
-Connection ~ 7450 4450
+Connection ~ 11350 8050
 $Comp
 L power:GND #PWR?
 U 1 1 5F531B47
-P 7450 4650
-F 0 "#PWR?" H 7450 4400 50  0001 C CNN
-F 1 "GND" H 7500 4500 50  0000 R CNN
-F 2 "" H 7450 4650 50  0001 C CNN
-F 3 "" H 7450 4650 50  0001 C CNN
-	1    7450 4650
+P 11350 8250
+F 0 "#PWR?" H 11350 8000 50  0001 C CNN
+F 1 "GND" H 11400 8100 50  0000 R CNN
+F 2 "" H 11350 8250 50  0001 C CNN
+F 3 "" H 11350 8250 50  0001 C CNN
+	1    11350 8250
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R_POT_TRIM RV?
 U 1 1 5F538265
-P 7000 4600
-F 0 "RV?" V 6885 4600 50  0000 C CNN
-F 1 "R_POT_TRIM" V 6794 4600 50  0000 C CNN
-F 2 "Custom Footprints:3224W-1-502E" H 7000 4600 50  0001 C CNN
-F 3 "https://www.bourns.com/docs/Product-Datasheets/3224.pdf" H 7000 4600 50  0001 C CNN
-F 4 "Bourns Inc." V 7000 4600 50  0001 C CNN "Manufacturer"
-F 5 "3224W-1-501E" V 7000 4600 50  0001 C CNN "Part #"
-	1    7000 4600
+P 10900 8200
+F 0 "RV?" V 10785 8200 50  0000 C CNN
+F 1 "R_POT_TRIM" V 10694 8200 50  0000 C CNN
+F 2 "Custom Footprints:3224W-1-502E" H 10900 8200 50  0001 C CNN
+F 3 "https://www.bourns.com/docs/Product-Datasheets/3224.pdf" H 10900 8200 50  0001 C CNN
+F 4 "Bourns Inc." V 10900 8200 50  0001 C CNN "Manufacturer"
+F 5 "3224W-1-501E" V 10900 8200 50  0001 C CNN "Part #"
+	1    10900 8200
 	0    -1   -1   0   
 $EndComp
-NoConn ~ 7150 4100
-NoConn ~ 7150 4600
-Text Label 7450 4350 0    50   ~ 0
+NoConn ~ 11050 7700
+NoConn ~ 11050 8200
+Text Label 11350 7950 0    50   ~ 0
 Isense_1
 $Comp
 L Device:Q_NMOS_GDS Q?
 U 1 1 5F587F3A
-P 7350 5300
-F 0 "Q?" H 7554 5346 50  0000 L CNN
-F 1 "SUM70060E" H 7554 5255 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TO-263-2" H 7550 5400 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/65383/sum70060e.pdf" H 7350 5300 50  0001 C CNN
-F 4 "Vishay Siliconix" H 7350 5300 50  0001 C CNN "Manufacturer"
-F 5 "SUM70060E-GE3" H 7350 5300 50  0001 C CNN "Part #"
-	1    7350 5300
+P 11250 8900
+F 0 "Q?" H 11454 8946 50  0000 L CNN
+F 1 "SUM70060E" H 11454 8855 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TO-263-2" H 11450 9000 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/65383/sum70060e.pdf" H 11250 8900 50  0001 C CNN
+F 4 "Vishay Siliconix" H 11250 8900 50  0001 C CNN "Manufacturer"
+F 5 "SUM70060E-GE3" H 11250 8900 50  0001 C CNN "Part #"
+	1    11250 8900
 	1    0    0    -1  
 $EndComp
-Text Label 7450 5100 0    50   ~ 0
+Text Label 11350 8700 0    50   ~ 0
 LED2-
 $Comp
 L Custom_parts:LT6200CS8-10 U?
 U 1 1 5F587F43
-P 5750 5300
-F 0 "U?" H 6094 5346 50  0000 L CNN
-F 1 "LT6200CS8-10" H 5950 5200 50  0000 L CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 5800 5350 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/ne5534.pdf" H 5800 5450 50  0001 C CNN
-F 4 "Analog Devices Inc." H 5750 5300 50  0001 C CNN "Manufacturer"
-F 5 "LT6200CS8-10#PBF-ND" H 5750 5300 50  0001 C CNN "Part #"
-	1    5750 5300
+P 9650 8900
+F 0 "U?" H 9994 8946 50  0000 L CNN
+F 1 "LT6200CS8-10" H 9850 8800 50  0000 L CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 9700 8950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/ne5534.pdf" H 9700 9050 50  0001 C CNN
+F 4 "Analog Devices Inc." H 9650 8900 50  0001 C CNN "Manufacturer"
+F 5 "LT6200CS8-10#PBF-ND" H 9650 8900 50  0001 C CNN "Part #"
+	1    9650 8900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6050 5300 6550 5300
-Text Label 5450 5200 2    50   ~ 0
+	9950 8900 10450 8900
+Text Label 9350 8800 2    50   ~ 0
 OA2_input
 $Comp
 L Device:C_Small C?
 U 1 1 5F587F4D
-P 6550 5500
-F 0 "C?" H 6700 5500 50  0000 C CNN
-F 1 "2200pF" H 6700 5400 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 6550 5500 50  0001 C CNN
-F 3 "https://api.kemet.com/component-edge/download/datasheet/C0603C222K1RACTU.pdf" H 6550 5500 50  0001 C CNN
-F 4 "KEMET" H 6550 5500 50  0001 C CNN "Manufacturer"
-F 5 "C0603C222K1RACTU" H 6550 5500 50  0001 C CNN "Part #"
-	1    6550 5500
+P 10450 9100
+F 0 "C?" H 10600 9100 50  0000 C CNN
+F 1 "2200pF" H 10600 9000 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 10450 9100 50  0001 C CNN
+F 3 "https://api.kemet.com/component-edge/download/datasheet/C0603C222K1RACTU.pdf" H 10450 9100 50  0001 C CNN
+F 4 "KEMET" H 10450 9100 50  0001 C CNN "Manufacturer"
+F 5 "C0603C222K1RACTU" H 10450 9100 50  0001 C CNN "Part #"
+	1    10450 9100
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	6550 5300 6550 5400
-Connection ~ 6550 5300
-NoConn ~ 5750 5600
+	10450 8900 10450 9000
+Connection ~ 10450 8900
+NoConn ~ 9650 9200
 $Comp
 L Device:C_Small C?
 U 1 1 5F587F58
-P 5750 5700
-F 0 "C?" V 5950 5650 50  0000 L CNN
-F 1 "2.2uF" V 5850 5600 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 5750 5700 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 5750 5700 50  0001 C CNN
-F 4 "Taiyo Yuden" H 5750 5700 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 5750 5700 50  0001 C CNN "Part #"
-	1    5750 5700
+P 9650 9300
+F 0 "C?" V 9850 9250 50  0000 L CNN
+F 1 "2.2uF" V 9750 9200 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 9650 9300 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 9650 9300 50  0001 C CNN
+F 4 "Taiyo Yuden" H 9650 9300 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 9650 9300 50  0001 C CNN "Part #"
+	1    9650 9300
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5F587F60
-P 5750 4900
-F 0 "C?" V 5950 4850 50  0000 L CNN
-F 1 "2.2uF" V 5850 4800 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 5750 4900 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 5750 4900 50  0001 C CNN
-F 4 "Taiyo Yuden" H 5750 4900 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 5750 4900 50  0001 C CNN "Part #"
-	1    5750 4900
+P 9650 8500
+F 0 "C?" V 9850 8450 50  0000 L CNN
+F 1 "2.2uF" V 9750 8400 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 9650 8500 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 9650 8500 50  0001 C CNN
+F 4 "Taiyo Yuden" H 9650 8500 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 9650 8500 50  0001 C CNN "Part #"
+	1    9650 8500
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	5650 5600 5650 5700
+	9550 9200 9550 9300
 Wire Wire Line
-	5650 5000 5650 4900
+	9550 8600 9550 8500
 $Comp
 L power:GND #PWR?
 U 1 1 5F587F68
-P 5850 4900
-F 0 "#PWR?" H 5850 4650 50  0001 C CNN
-F 1 "GND" V 5850 4800 50  0000 R CNN
-F 2 "" H 5850 4900 50  0001 C CNN
-F 3 "" H 5850 4900 50  0001 C CNN
-	1    5850 4900
+P 9750 8500
+F 0 "#PWR?" H 9750 8250 50  0001 C CNN
+F 1 "GND" V 9750 8400 50  0000 R CNN
+F 2 "" H 9750 8500 50  0001 C CNN
+F 3 "" H 9750 8500 50  0001 C CNN
+	1    9750 8500
 	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F587F6E
-P 5850 5700
-F 0 "#PWR?" H 5850 5450 50  0001 C CNN
-F 1 "GND" V 5850 5600 50  0000 R CNN
-F 2 "" H 5850 5700 50  0001 C CNN
-F 3 "" H 5850 5700 50  0001 C CNN
-	1    5850 5700
+P 9750 9300
+F 0 "#PWR?" H 9750 9050 50  0001 C CNN
+F 1 "GND" V 9750 9200 50  0000 R CNN
+F 2 "" H 9750 9300 50  0001 C CNN
+F 3 "" H 9750 9300 50  0001 C CNN
+	1    9750 9300
 	0    -1   -1   0   
 $EndComp
-Text Label 5650 5700 2    50   ~ 0
+Text Label 9550 9300 2    50   ~ 0
 -1.8V-analog
-Text Label 5650 4900 2    50   ~ 0
+Text Label 9550 8500 2    50   ~ 0
 10V-analog
 Wire Wire Line
-	5450 5400 5100 5400
+	9350 9000 9000 9000
 Wire Wire Line
-	5100 5400 5100 5950
+	9000 9000 9000 9550
 Wire Wire Line
-	5100 5950 6550 5950
+	9000 9550 10450 9550
 Wire Wire Line
-	6550 5950 6550 5600
+	10450 9550 10450 9200
 $Comp
 L Device:D_Zener_Small_ALT D?
 U 1 1 5F587F7C
-P 8100 5300
-F 0 "D?" V 8054 5370 50  0000 L CNN
-F 1 "TVS_Diode" V 8145 5370 50  0000 L CNN
-F 2 "Custom Footprints:DO-214AA" V 8100 5300 50  0001 C CNN
-F 3 "https://katalog.we-online.de/pbs/datasheet/824520581.pdf" V 8100 5300 50  0001 C CNN
-F 4 "Würth Elektronik" V 8100 5300 50  0001 C CNN "Manufacturer"
-F 5 "824520581" V 8100 5300 50  0001 C CNN "Part #"
-	1    8100 5300
+P 12000 8900
+F 0 "D?" V 11954 8970 50  0000 L CNN
+F 1 "TVS_Diode" V 12045 8970 50  0000 L CNN
+F 2 "Custom Footprints:DO-214AA" V 12000 8900 50  0001 C CNN
+F 3 "https://katalog.we-online.de/pbs/datasheet/824520581.pdf" V 12000 8900 50  0001 C CNN
+F 4 "Würth Elektronik" V 12000 8900 50  0001 C CNN "Manufacturer"
+F 5 "824520581" V 12000 8900 50  0001 C CNN "Part #"
+	1    12000 8900
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	7450 5100 8100 5100
+	11350 8700 12000 8700
 Wire Wire Line
-	8100 5100 8100 5200
+	12000 8700 12000 8800
 Wire Wire Line
-	8100 5400 8100 5500
+	12000 9000 12000 9100
 Wire Wire Line
-	8100 5500 7450 5500
+	12000 9100 11350 9100
 $Comp
 L Device:R_POT_TRIM RV?
 U 1 1 5F587F88
-P 7000 5450
-F 0 "RV?" V 6885 5450 50  0000 C CNN
-F 1 "R_POT_TRIM" V 6794 5450 50  0000 C CNN
-F 2 "Custom Footprints:3224W-1-502E" H 7000 5450 50  0001 C CNN
-F 3 "https://www.bourns.com/docs/Product-Datasheets/3224.pdf" H 7000 5450 50  0001 C CNN
-F 4 "Bourns Inc." V 7000 5450 50  0001 C CNN "Manufacturer"
-F 5 "3224W-1-501E" V 7000 5450 50  0001 C CNN "Part #"
-	1    7000 5450
+P 10900 9050
+F 0 "RV?" V 10785 9050 50  0000 C CNN
+F 1 "R_POT_TRIM" V 10694 9050 50  0000 C CNN
+F 2 "Custom Footprints:3224W-1-502E" H 10900 9050 50  0001 C CNN
+F 3 "https://www.bourns.com/docs/Product-Datasheets/3224.pdf" H 10900 9050 50  0001 C CNN
+F 4 "Bourns Inc." V 10900 9050 50  0001 C CNN "Manufacturer"
+F 5 "3224W-1-501E" V 10900 9050 50  0001 C CNN "Part #"
+	1    10900 9050
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	7150 5300 7000 5300
+	11050 8900 10900 8900
 Wire Wire Line
-	6850 5450 6850 5300
+	10750 9050 10750 8900
 Wire Wire Line
-	6550 5300 6850 5300
+	10450 8900 10750 8900
 Wire Wire Line
-	6850 5950 6550 5950
-Connection ~ 6550 5950
+	10750 9550 10450 9550
+Connection ~ 10450 9550
 Wire Wire Line
-	7000 5800 7450 5800
+	10900 9400 11350 9400
 Wire Wire Line
-	7450 5800 7450 5500
-Connection ~ 7450 5500
+	11350 9400 11350 9100
+Connection ~ 11350 9100
 $Comp
 L Device:R_Small R?
 U 1 1 5F587F98
-P 7450 5900
-F 0 "R?" H 7500 5950 50  0000 L CNN
-F 1 "5" H 7500 5850 50  0000 L CNN
-F 2 "Custom Footprints:TO-252_resistor" H 7450 5900 50  0001 C CNN
-F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 7450 5900 50  0001 C CNN
-F 4 "Ohmite" H 7450 5900 50  0001 C CNN "Manufacturer"
-F 5 "TKH45P5R00FE-TR" H 7450 5900 50  0001 C CNN "Part #"
-	1    7450 5900
+P 11350 9500
+F 0 "R?" H 11400 9550 50  0000 L CNN
+F 1 "5" H 11400 9450 50  0000 L CNN
+F 2 "Custom Footprints:TO-252_resistor" H 11350 9500 50  0001 C CNN
+F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 11350 9500 50  0001 C CNN
+F 4 "Ohmite" H 11350 9500 50  0001 C CNN "Manufacturer"
+F 5 "TKH45P5R00FE-TR" H 11350 9500 50  0001 C CNN "Part #"
+	1    11350 9500
 	1    0    0    -1  
 $EndComp
-Connection ~ 7450 5800
+Connection ~ 11350 9400
 $Comp
 L power:GND #PWR?
 U 1 1 5F587F9F
-P 7450 6000
-F 0 "#PWR?" H 7450 5750 50  0001 C CNN
-F 1 "GND" H 7500 5850 50  0000 R CNN
-F 2 "" H 7450 6000 50  0001 C CNN
-F 3 "" H 7450 6000 50  0001 C CNN
-	1    7450 6000
+P 11350 9600
+F 0 "#PWR?" H 11350 9350 50  0001 C CNN
+F 1 "GND" H 11400 9450 50  0000 R CNN
+F 2 "" H 11350 9600 50  0001 C CNN
+F 3 "" H 11350 9600 50  0001 C CNN
+	1    11350 9600
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R_POT_TRIM RV?
 U 1 1 5F587FA7
-P 7000 5950
-F 0 "RV?" V 6885 5950 50  0000 C CNN
-F 1 "R_POT_TRIM" V 6794 5950 50  0000 C CNN
-F 2 "Custom Footprints:3224W-1-502E" H 7000 5950 50  0001 C CNN
-F 3 "https://www.bourns.com/docs/Product-Datasheets/3224.pdf" H 7000 5950 50  0001 C CNN
-F 4 "Bourns Inc." V 7000 5950 50  0001 C CNN "Manufacturer"
-F 5 "3224W-1-501E" V 7000 5950 50  0001 C CNN "Part #"
-	1    7000 5950
+P 10900 9550
+F 0 "RV?" V 10785 9550 50  0000 C CNN
+F 1 "R_POT_TRIM" V 10694 9550 50  0000 C CNN
+F 2 "Custom Footprints:3224W-1-502E" H 10900 9550 50  0001 C CNN
+F 3 "https://www.bourns.com/docs/Product-Datasheets/3224.pdf" H 10900 9550 50  0001 C CNN
+F 4 "Bourns Inc." V 10900 9550 50  0001 C CNN "Manufacturer"
+F 5 "3224W-1-501E" V 10900 9550 50  0001 C CNN "Part #"
+	1    10900 9550
 	0    -1   -1   0   
 $EndComp
-NoConn ~ 7150 5450
-NoConn ~ 7150 5950
-Text Label 7450 5700 0    50   ~ 0
+NoConn ~ 11050 9050
+NoConn ~ 11050 9550
+Text Label 11350 9300 0    50   ~ 0
 Isense_2
-Text Label 10950 5700 0    50   ~ 0
+Text Label 14850 9300 0    50   ~ 0
 Isense_4
-NoConn ~ 10650 5950
-NoConn ~ 10650 5450
+NoConn ~ 14550 9550
+NoConn ~ 14550 9050
 $Comp
 L Device:R_POT_TRIM RV?
 U 1 1 5F60DE2D
-P 10500 5950
-F 0 "RV?" V 10385 5950 50  0000 C CNN
-F 1 "R_POT_TRIM" V 10294 5950 50  0000 C CNN
-F 2 "Custom Footprints:3224W-1-502E" H 10500 5950 50  0001 C CNN
-F 3 "https://www.bourns.com/docs/Product-Datasheets/3224.pdf" H 10500 5950 50  0001 C CNN
-F 4 "Bourns Inc." V 10500 5950 50  0001 C CNN "Manufacturer"
-F 5 "3224W-1-501E" V 10500 5950 50  0001 C CNN "Part #"
-	1    10500 5950
+P 14400 9550
+F 0 "RV?" V 14285 9550 50  0000 C CNN
+F 1 "R_POT_TRIM" V 14194 9550 50  0000 C CNN
+F 2 "Custom Footprints:3224W-1-502E" H 14400 9550 50  0001 C CNN
+F 3 "https://www.bourns.com/docs/Product-Datasheets/3224.pdf" H 14400 9550 50  0001 C CNN
+F 4 "Bourns Inc." V 14400 9550 50  0001 C CNN "Manufacturer"
+F 5 "3224W-1-501E" V 14400 9550 50  0001 C CNN "Part #"
+	1    14400 9550
 	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F60DE25
-P 10950 6000
-F 0 "#PWR?" H 10950 5750 50  0001 C CNN
-F 1 "GND" H 11000 5850 50  0000 R CNN
-F 2 "" H 10950 6000 50  0001 C CNN
-F 3 "" H 10950 6000 50  0001 C CNN
-	1    10950 6000
+P 14850 9600
+F 0 "#PWR?" H 14850 9350 50  0001 C CNN
+F 1 "GND" H 14900 9450 50  0000 R CNN
+F 2 "" H 14850 9600 50  0001 C CNN
+F 3 "" H 14850 9600 50  0001 C CNN
+	1    14850 9600
 	1    0    0    -1  
 $EndComp
-Connection ~ 10950 5800
+Connection ~ 14850 9400
 $Comp
 L Device:R_Small R?
 U 1 1 5F60DE1E
-P 10950 5900
-F 0 "R?" H 11000 5950 50  0000 L CNN
-F 1 "5" H 11000 5850 50  0000 L CNN
-F 2 "Custom Footprints:TO-252_resistor" H 10950 5900 50  0001 C CNN
-F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 10950 5900 50  0001 C CNN
-F 4 "Ohmite" H 10950 5900 50  0001 C CNN "Manufacturer"
-F 5 "TKH45P5R00FE-TR" H 10950 5900 50  0001 C CNN "Part #"
-	1    10950 5900
+P 14850 9500
+F 0 "R?" H 14900 9550 50  0000 L CNN
+F 1 "5" H 14900 9450 50  0000 L CNN
+F 2 "Custom Footprints:TO-252_resistor" H 14850 9500 50  0001 C CNN
+F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 14850 9500 50  0001 C CNN
+F 4 "Ohmite" H 14850 9500 50  0001 C CNN "Manufacturer"
+F 5 "TKH45P5R00FE-TR" H 14850 9500 50  0001 C CNN "Part #"
+	1    14850 9500
 	1    0    0    -1  
 $EndComp
-Connection ~ 10950 5500
+Connection ~ 14850 9100
 Wire Wire Line
-	10950 5800 10950 5500
+	14850 9400 14850 9100
 Wire Wire Line
-	10500 5800 10950 5800
-Connection ~ 10050 5950
+	14400 9400 14850 9400
+Connection ~ 13950 9550
 Wire Wire Line
-	10350 5950 10050 5950
+	14250 9550 13950 9550
 Wire Wire Line
-	10050 5300 10350 5300
+	13950 8900 14250 8900
 Wire Wire Line
-	10350 5450 10350 5300
+	14250 9050 14250 8900
 Wire Wire Line
-	10650 5300 10500 5300
+	14550 8900 14400 8900
 $Comp
 L Device:R_POT_TRIM RV?
 U 1 1 5F60DE0E
-P 10500 5450
-F 0 "RV?" V 10385 5450 50  0000 C CNN
-F 1 "R_POT_TRIM" V 10294 5450 50  0000 C CNN
-F 2 "Custom Footprints:3224W-1-502E" H 10500 5450 50  0001 C CNN
-F 3 "https://www.bourns.com/docs/Product-Datasheets/3224.pdf" H 10500 5450 50  0001 C CNN
-F 4 "Bourns Inc." V 10500 5450 50  0001 C CNN "Manufacturer"
-F 5 "3224W-1-501E" V 10500 5450 50  0001 C CNN "Part #"
-	1    10500 5450
+P 14400 9050
+F 0 "RV?" V 14285 9050 50  0000 C CNN
+F 1 "R_POT_TRIM" V 14194 9050 50  0000 C CNN
+F 2 "Custom Footprints:3224W-1-502E" H 14400 9050 50  0001 C CNN
+F 3 "https://www.bourns.com/docs/Product-Datasheets/3224.pdf" H 14400 9050 50  0001 C CNN
+F 4 "Bourns Inc." V 14400 9050 50  0001 C CNN "Manufacturer"
+F 5 "3224W-1-501E" V 14400 9050 50  0001 C CNN "Part #"
+	1    14400 9050
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	11600 5500 10950 5500
+	15500 9100 14850 9100
 Wire Wire Line
-	11600 5400 11600 5500
+	15500 9000 15500 9100
 Wire Wire Line
-	11600 5100 11600 5200
+	15500 8700 15500 8800
 Wire Wire Line
-	10950 5100 11600 5100
+	14850 8700 15500 8700
 $Comp
 L Device:D_Zener_Small_ALT D?
 U 1 1 5F60DE02
-P 11600 5300
-F 0 "D?" V 11554 5370 50  0000 L CNN
-F 1 "TVS_Diode" V 11645 5370 50  0000 L CNN
-F 2 "Custom Footprints:DO-214AA" V 11600 5300 50  0001 C CNN
-F 3 "https://katalog.we-online.de/pbs/datasheet/824520581.pdf" V 11600 5300 50  0001 C CNN
-F 4 "Würth Elektronik" V 11600 5300 50  0001 C CNN "Manufacturer"
-F 5 "824520581" V 11600 5300 50  0001 C CNN "Part #"
-	1    11600 5300
+P 15500 8900
+F 0 "D?" V 15454 8970 50  0000 L CNN
+F 1 "TVS_Diode" V 15545 8970 50  0000 L CNN
+F 2 "Custom Footprints:DO-214AA" V 15500 8900 50  0001 C CNN
+F 3 "https://katalog.we-online.de/pbs/datasheet/824520581.pdf" V 15500 8900 50  0001 C CNN
+F 4 "Würth Elektronik" V 15500 8900 50  0001 C CNN "Manufacturer"
+F 5 "824520581" V 15500 8900 50  0001 C CNN "Part #"
+	1    15500 8900
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	10050 5950 10050 5600
+	13950 9550 13950 9200
 Wire Wire Line
-	8600 5950 10050 5950
+	12500 9550 13950 9550
 Wire Wire Line
-	8600 5400 8600 5950
+	12500 9000 12500 9550
 Wire Wire Line
-	8950 5400 8600 5400
-Text Label 9150 4900 2    50   ~ 0
+	12850 9000 12500 9000
+Text Label 13050 8500 2    50   ~ 0
 10V-analog
-Text Label 9150 5700 2    50   ~ 0
+Text Label 13050 9300 2    50   ~ 0
 -1.8V-analog
 $Comp
 L power:GND #PWR?
 U 1 1 5F60DDF4
-P 9350 5700
-F 0 "#PWR?" H 9350 5450 50  0001 C CNN
-F 1 "GND" V 9350 5600 50  0000 R CNN
-F 2 "" H 9350 5700 50  0001 C CNN
-F 3 "" H 9350 5700 50  0001 C CNN
-	1    9350 5700
+P 13250 9300
+F 0 "#PWR?" H 13250 9050 50  0001 C CNN
+F 1 "GND" V 13250 9200 50  0000 R CNN
+F 2 "" H 13250 9300 50  0001 C CNN
+F 3 "" H 13250 9300 50  0001 C CNN
+	1    13250 9300
 	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F60DDEE
-P 9350 4900
-F 0 "#PWR?" H 9350 4650 50  0001 C CNN
-F 1 "GND" V 9350 4800 50  0000 R CNN
-F 2 "" H 9350 4900 50  0001 C CNN
-F 3 "" H 9350 4900 50  0001 C CNN
-	1    9350 4900
+P 13250 8500
+F 0 "#PWR?" H 13250 8250 50  0001 C CNN
+F 1 "GND" V 13250 8400 50  0000 R CNN
+F 2 "" H 13250 8500 50  0001 C CNN
+F 3 "" H 13250 8500 50  0001 C CNN
+	1    13250 8500
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	9150 5000 9150 4900
+	13050 8600 13050 8500
 Wire Wire Line
-	9150 5600 9150 5700
+	13050 9200 13050 9300
 $Comp
 L Device:C_Small C?
 U 1 1 5F60DDE6
-P 9250 4900
-F 0 "C?" V 9450 4850 50  0000 L CNN
-F 1 "2.2uF" V 9350 4800 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 9250 4900 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 9250 4900 50  0001 C CNN
-F 4 "Taiyo Yuden" H 9250 4900 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 9250 4900 50  0001 C CNN "Part #"
-	1    9250 4900
+P 13150 8500
+F 0 "C?" V 13350 8450 50  0000 L CNN
+F 1 "2.2uF" V 13250 8400 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 13150 8500 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 13150 8500 50  0001 C CNN
+F 4 "Taiyo Yuden" H 13150 8500 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 13150 8500 50  0001 C CNN "Part #"
+	1    13150 8500
 	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5F60DDDE
-P 9250 5700
-F 0 "C?" V 9450 5650 50  0000 L CNN
-F 1 "2.2uF" V 9350 5600 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 9250 5700 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 9250 5700 50  0001 C CNN
-F 4 "Taiyo Yuden" H 9250 5700 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 9250 5700 50  0001 C CNN "Part #"
-	1    9250 5700
+P 13150 9300
+F 0 "C?" V 13350 9250 50  0000 L CNN
+F 1 "2.2uF" V 13250 9200 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 13150 9300 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 13150 9300 50  0001 C CNN
+F 4 "Taiyo Yuden" H 13150 9300 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 13150 9300 50  0001 C CNN "Part #"
+	1    13150 9300
 	0    1    1    0   
 $EndComp
-NoConn ~ 9250 5600
-Connection ~ 10050 5300
+NoConn ~ 13150 9200
+Connection ~ 13950 8900
 Wire Wire Line
-	10050 5300 10050 5400
+	13950 8900 13950 9000
 $Comp
 L Device:C_Small C?
 U 1 1 5F60DDD3
-P 10050 5500
-F 0 "C?" H 10200 5500 50  0000 C CNN
-F 1 "2200pF" H 10200 5400 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 10050 5500 50  0001 C CNN
-F 3 "https://api.kemet.com/component-edge/download/datasheet/C0603C222K1RACTU.pdf" H 10050 5500 50  0001 C CNN
-F 4 "KEMET" H 10050 5500 50  0001 C CNN "Manufacturer"
-F 5 "C0603C222K1RACTU" H 10050 5500 50  0001 C CNN "Part #"
-	1    10050 5500
+P 13950 9100
+F 0 "C?" H 14100 9100 50  0000 C CNN
+F 1 "2200pF" H 14100 9000 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 13950 9100 50  0001 C CNN
+F 3 "https://api.kemet.com/component-edge/download/datasheet/C0603C222K1RACTU.pdf" H 13950 9100 50  0001 C CNN
+F 4 "KEMET" H 13950 9100 50  0001 C CNN "Manufacturer"
+F 5 "C0603C222K1RACTU" H 13950 9100 50  0001 C CNN "Part #"
+	1    13950 9100
 	-1   0    0    -1  
 $EndComp
-Text Label 8950 5200 2    50   ~ 0
+Text Label 12850 8800 2    50   ~ 0
 OA4_input
 Wire Wire Line
-	9550 5300 10050 5300
+	13450 8900 13950 8900
 $Comp
 L Custom_parts:LT6200CS8-10 U?
 U 1 1 5F60DDC9
-P 9250 5300
-F 0 "U?" H 9594 5346 50  0000 L CNN
-F 1 "LT6200CS8-10" H 9450 5200 50  0000 L CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 9300 5350 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/ne5534.pdf" H 9300 5450 50  0001 C CNN
-F 4 "Analog Devices Inc." H 9250 5300 50  0001 C CNN "Manufacturer"
-F 5 "LT6200CS8-10#PBF-ND" H 9250 5300 50  0001 C CNN "Part #"
-	1    9250 5300
+P 13150 8900
+F 0 "U?" H 13494 8946 50  0000 L CNN
+F 1 "LT6200CS8-10" H 13350 8800 50  0000 L CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 13200 8950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/ne5534.pdf" H 13200 9050 50  0001 C CNN
+F 4 "Analog Devices Inc." H 13150 8900 50  0001 C CNN "Manufacturer"
+F 5 "LT6200CS8-10#PBF-ND" H 13150 8900 50  0001 C CNN "Part #"
+	1    13150 8900
 	1    0    0    -1  
 $EndComp
-Text Label 10950 5100 0    50   ~ 0
+Text Label 14850 8700 0    50   ~ 0
 LED4-
 $Comp
 L Device:Q_NMOS_GDS Q?
 U 1 1 5F60DDC0
-P 10850 5300
-F 0 "Q?" H 11054 5346 50  0000 L CNN
-F 1 "SUM70060E" H 11054 5255 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TO-263-2" H 11050 5400 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/65383/sum70060e.pdf" H 10850 5300 50  0001 C CNN
-F 4 "Vishay Siliconix" H 10850 5300 50  0001 C CNN "Manufacturer"
-F 5 "SUM70060E-GE3" H 10850 5300 50  0001 C CNN "Part #"
-	1    10850 5300
+P 14750 8900
+F 0 "Q?" H 14954 8946 50  0000 L CNN
+F 1 "SUM70060E" H 14954 8855 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TO-263-2" H 14950 9000 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/65383/sum70060e.pdf" H 14750 8900 50  0001 C CNN
+F 4 "Vishay Siliconix" H 14750 8900 50  0001 C CNN "Manufacturer"
+F 5 "SUM70060E-GE3" H 14750 8900 50  0001 C CNN "Part #"
+	1    14750 8900
 	1    0    0    -1  
 $EndComp
-Text Label 10950 4350 0    50   ~ 0
+Text Label 14850 7950 0    50   ~ 0
 Isense_3
-NoConn ~ 10650 4600
-NoConn ~ 10650 4100
+NoConn ~ 14550 8200
+NoConn ~ 14550 7700
 $Comp
 L Device:R_POT_TRIM RV?
 U 1 1 5F599C07
-P 10500 4600
-F 0 "RV?" V 10385 4600 50  0000 C CNN
-F 1 "R_POT_TRIM" V 10294 4600 50  0000 C CNN
-F 2 "Custom Footprints:3224W-1-502E" H 10500 4600 50  0001 C CNN
-F 3 "https://www.bourns.com/docs/Product-Datasheets/3224.pdf" H 10500 4600 50  0001 C CNN
-F 4 "Bourns Inc." V 10500 4600 50  0001 C CNN "Manufacturer"
-F 5 "3224W-1-501E" V 10500 4600 50  0001 C CNN "Part #"
-	1    10500 4600
+P 14400 8200
+F 0 "RV?" V 14285 8200 50  0000 C CNN
+F 1 "R_POT_TRIM" V 14194 8200 50  0000 C CNN
+F 2 "Custom Footprints:3224W-1-502E" H 14400 8200 50  0001 C CNN
+F 3 "https://www.bourns.com/docs/Product-Datasheets/3224.pdf" H 14400 8200 50  0001 C CNN
+F 4 "Bourns Inc." V 14400 8200 50  0001 C CNN "Manufacturer"
+F 5 "3224W-1-501E" V 14400 8200 50  0001 C CNN "Part #"
+	1    14400 8200
 	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F599BFF
-P 10950 4650
-F 0 "#PWR?" H 10950 4400 50  0001 C CNN
-F 1 "GND" H 11000 4500 50  0000 R CNN
-F 2 "" H 10950 4650 50  0001 C CNN
-F 3 "" H 10950 4650 50  0001 C CNN
-	1    10950 4650
+P 14850 8250
+F 0 "#PWR?" H 14850 8000 50  0001 C CNN
+F 1 "GND" H 14900 8100 50  0000 R CNN
+F 2 "" H 14850 8250 50  0001 C CNN
+F 3 "" H 14850 8250 50  0001 C CNN
+	1    14850 8250
 	1    0    0    -1  
 $EndComp
-Connection ~ 10950 4450
+Connection ~ 14850 8050
 $Comp
 L Device:R_Small R?
 U 1 1 5F599BF8
-P 10950 4550
-F 0 "R?" H 11000 4600 50  0000 L CNN
-F 1 "5" H 11000 4500 50  0000 L CNN
-F 2 "Custom Footprints:TO-252_resistor" H 10950 4550 50  0001 C CNN
-F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 10950 4550 50  0001 C CNN
-F 4 "Ohmite" H 10950 4550 50  0001 C CNN "Manufacturer"
-F 5 "TKH45P5R00FE-TR" H 10950 4550 50  0001 C CNN "Part #"
-	1    10950 4550
+P 14850 8150
+F 0 "R?" H 14900 8200 50  0000 L CNN
+F 1 "5" H 14900 8100 50  0000 L CNN
+F 2 "Custom Footprints:TO-252_resistor" H 14850 8150 50  0001 C CNN
+F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 14850 8150 50  0001 C CNN
+F 4 "Ohmite" H 14850 8150 50  0001 C CNN "Manufacturer"
+F 5 "TKH45P5R00FE-TR" H 14850 8150 50  0001 C CNN "Part #"
+	1    14850 8150
 	1    0    0    -1  
 $EndComp
-Connection ~ 10950 4150
+Connection ~ 14850 7750
 Wire Wire Line
-	10950 4450 10950 4150
+	14850 8050 14850 7750
 Wire Wire Line
-	10500 4450 10950 4450
-Connection ~ 10050 4600
+	14400 8050 14850 8050
+Connection ~ 13950 8200
 Wire Wire Line
-	10350 4600 10050 4600
+	14250 8200 13950 8200
 Wire Wire Line
-	10050 3950 10350 3950
+	13950 7550 14250 7550
 Wire Wire Line
-	10350 4100 10350 3950
+	14250 7700 14250 7550
 Wire Wire Line
-	10650 3950 10500 3950
+	14550 7550 14400 7550
 $Comp
 L Device:R_POT_TRIM RV?
 U 1 1 5F599BE8
-P 10500 4100
-F 0 "RV?" V 10385 4100 50  0000 C CNN
-F 1 "R_POT_TRIM" V 10294 4100 50  0000 C CNN
-F 2 "Custom Footprints:3224W-1-502E" H 10500 4100 50  0001 C CNN
-F 3 "https://www.bourns.com/docs/Product-Datasheets/3224.pdf" H 10500 4100 50  0001 C CNN
-F 4 "Bourns Inc." V 10500 4100 50  0001 C CNN "Manufacturer"
-F 5 "3224W-1-501E" V 10500 4100 50  0001 C CNN "Part #"
-	1    10500 4100
+P 14400 7700
+F 0 "RV?" V 14285 7700 50  0000 C CNN
+F 1 "R_POT_TRIM" V 14194 7700 50  0000 C CNN
+F 2 "Custom Footprints:3224W-1-502E" H 14400 7700 50  0001 C CNN
+F 3 "https://www.bourns.com/docs/Product-Datasheets/3224.pdf" H 14400 7700 50  0001 C CNN
+F 4 "Bourns Inc." V 14400 7700 50  0001 C CNN "Manufacturer"
+F 5 "3224W-1-501E" V 14400 7700 50  0001 C CNN "Part #"
+	1    14400 7700
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	11600 4150 10950 4150
+	15500 7750 14850 7750
 Wire Wire Line
-	11600 4050 11600 4150
+	15500 7650 15500 7750
 Wire Wire Line
-	11600 3750 11600 3850
+	15500 7350 15500 7450
 Wire Wire Line
-	10950 3750 11600 3750
+	14850 7350 15500 7350
 $Comp
 L Device:D_Zener_Small_ALT D?
 U 1 1 5F599BDC
-P 11600 3950
-F 0 "D?" V 11554 4020 50  0000 L CNN
-F 1 "TVS_Diode" V 11645 4020 50  0000 L CNN
-F 2 "Custom Footprints:DO-214AA" V 11600 3950 50  0001 C CNN
-F 3 "https://katalog.we-online.de/pbs/datasheet/824520581.pdf" V 11600 3950 50  0001 C CNN
-F 4 "Würth Elektronik" V 11600 3950 50  0001 C CNN "Manufacturer"
-F 5 "824520581" V 11600 3950 50  0001 C CNN "Part #"
-	1    11600 3950
+P 15500 7550
+F 0 "D?" V 15454 7620 50  0000 L CNN
+F 1 "TVS_Diode" V 15545 7620 50  0000 L CNN
+F 2 "Custom Footprints:DO-214AA" V 15500 7550 50  0001 C CNN
+F 3 "https://katalog.we-online.de/pbs/datasheet/824520581.pdf" V 15500 7550 50  0001 C CNN
+F 4 "Würth Elektronik" V 15500 7550 50  0001 C CNN "Manufacturer"
+F 5 "824520581" V 15500 7550 50  0001 C CNN "Part #"
+	1    15500 7550
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	10050 4600 10050 4250
+	13950 8200 13950 7850
 Wire Wire Line
-	8600 4600 10050 4600
+	12500 8200 13950 8200
 Wire Wire Line
-	8950 4050 8600 4050
-Text Label 9150 3550 2    50   ~ 0
+	12850 7650 12500 7650
+Text Label 13050 7150 2    50   ~ 0
 10V-analog
-Text Label 9150 4350 2    50   ~ 0
+Text Label 13050 7950 2    50   ~ 0
 -1.8V-analog
 $Comp
 L power:GND #PWR?
 U 1 1 5F599BCE
-P 9350 4350
-F 0 "#PWR?" H 9350 4100 50  0001 C CNN
-F 1 "GND" V 9350 4250 50  0000 R CNN
-F 2 "" H 9350 4350 50  0001 C CNN
-F 3 "" H 9350 4350 50  0001 C CNN
-	1    9350 4350
+P 13250 7950
+F 0 "#PWR?" H 13250 7700 50  0001 C CNN
+F 1 "GND" V 13250 7850 50  0000 R CNN
+F 2 "" H 13250 7950 50  0001 C CNN
+F 3 "" H 13250 7950 50  0001 C CNN
+	1    13250 7950
 	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F599BC8
-P 9350 3550
-F 0 "#PWR?" H 9350 3300 50  0001 C CNN
-F 1 "GND" V 9350 3450 50  0000 R CNN
-F 2 "" H 9350 3550 50  0001 C CNN
-F 3 "" H 9350 3550 50  0001 C CNN
-	1    9350 3550
+P 13250 7150
+F 0 "#PWR?" H 13250 6900 50  0001 C CNN
+F 1 "GND" V 13250 7050 50  0000 R CNN
+F 2 "" H 13250 7150 50  0001 C CNN
+F 3 "" H 13250 7150 50  0001 C CNN
+	1    13250 7150
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	9150 3650 9150 3550
+	13050 7250 13050 7150
 Wire Wire Line
-	9150 4250 9150 4350
+	13050 7850 13050 7950
 $Comp
 L Device:C_Small C?
 U 1 1 5F599BC0
-P 9250 3550
-F 0 "C?" V 9450 3500 50  0000 L CNN
-F 1 "2.2uF" V 9350 3450 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 9250 3550 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 9250 3550 50  0001 C CNN
-F 4 "Taiyo Yuden" H 9250 3550 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 9250 3550 50  0001 C CNN "Part #"
-	1    9250 3550
+P 13150 7150
+F 0 "C?" V 13350 7100 50  0000 L CNN
+F 1 "2.2uF" V 13250 7050 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 13150 7150 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 13150 7150 50  0001 C CNN
+F 4 "Taiyo Yuden" H 13150 7150 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 13150 7150 50  0001 C CNN "Part #"
+	1    13150 7150
 	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5F599BB8
-P 9250 4350
-F 0 "C?" V 9450 4300 50  0000 L CNN
-F 1 "2.2uF" V 9350 4250 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 9250 4350 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 9250 4350 50  0001 C CNN
-F 4 "Taiyo Yuden" H 9250 4350 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 9250 4350 50  0001 C CNN "Part #"
-	1    9250 4350
+P 13150 7950
+F 0 "C?" V 13350 7900 50  0000 L CNN
+F 1 "2.2uF" V 13250 7850 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 13150 7950 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 13150 7950 50  0001 C CNN
+F 4 "Taiyo Yuden" H 13150 7950 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 13150 7950 50  0001 C CNN "Part #"
+	1    13150 7950
 	0    1    1    0   
 $EndComp
-NoConn ~ 9250 4250
-Connection ~ 10050 3950
+NoConn ~ 13150 7850
+Connection ~ 13950 7550
 Wire Wire Line
-	10050 3950 10050 4050
+	13950 7550 13950 7650
 $Comp
 L Device:C_Small C?
 U 1 1 5F599BAD
-P 10050 4150
-F 0 "C?" H 10200 4150 50  0000 C CNN
-F 1 "2200pF" H 10200 4050 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 10050 4150 50  0001 C CNN
-F 3 "https://api.kemet.com/component-edge/download/datasheet/C0603C222K1RACTU.pdf" H 10050 4150 50  0001 C CNN
-F 4 "KEMET" H 10050 4150 50  0001 C CNN "Manufacturer"
-F 5 "C0603C222K1RACTU" H 10050 4150 50  0001 C CNN "Part #"
-	1    10050 4150
+P 13950 7750
+F 0 "C?" H 14100 7750 50  0000 C CNN
+F 1 "2200pF" H 14100 7650 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 13950 7750 50  0001 C CNN
+F 3 "https://api.kemet.com/component-edge/download/datasheet/C0603C222K1RACTU.pdf" H 13950 7750 50  0001 C CNN
+F 4 "KEMET" H 13950 7750 50  0001 C CNN "Manufacturer"
+F 5 "C0603C222K1RACTU" H 13950 7750 50  0001 C CNN "Part #"
+	1    13950 7750
 	-1   0    0    -1  
 $EndComp
-Text Label 8950 3850 2    50   ~ 0
+Text Label 12850 7450 2    50   ~ 0
 OA3_input
 Wire Wire Line
-	9550 3950 10050 3950
+	13450 7550 13950 7550
 $Comp
 L Custom_parts:LT6200CS8-10 U?
 U 1 1 5F599BA3
-P 9250 3950
-F 0 "U?" H 9594 3996 50  0000 L CNN
-F 1 "LT6200CS8-10" H 9450 3850 50  0000 L CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 9300 4000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/ne5534.pdf" H 9300 4100 50  0001 C CNN
-F 4 "Analog Devices Inc." H 9250 3950 50  0001 C CNN "Manufacturer"
-F 5 "LT6200CS8-10#PBF-ND" H 9250 3950 50  0001 C CNN "Part #"
-	1    9250 3950
+P 13150 7550
+F 0 "U?" H 13494 7596 50  0000 L CNN
+F 1 "LT6200CS8-10" H 13350 7450 50  0000 L CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 13200 7600 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/ne5534.pdf" H 13200 7700 50  0001 C CNN
+F 4 "Analog Devices Inc." H 13150 7550 50  0001 C CNN "Manufacturer"
+F 5 "LT6200CS8-10#PBF-ND" H 13150 7550 50  0001 C CNN "Part #"
+	1    13150 7550
 	1    0    0    -1  
 $EndComp
-Text Label 10950 3750 0    50   ~ 0
+Text Label 14850 7350 0    50   ~ 0
 LED3-
 $Comp
 L Device:Q_NMOS_GDS Q?
 U 1 1 5F599B9A
-P 10850 3950
-F 0 "Q?" H 11054 3996 50  0000 L CNN
-F 1 "SUM70060E" H 11054 3905 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TO-263-2" H 11050 4050 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/65383/sum70060e.pdf" H 10850 3950 50  0001 C CNN
-F 4 "Vishay Siliconix" H 10850 3950 50  0001 C CNN "Manufacturer"
-F 5 "SUM70060E-GE3" H 10850 3950 50  0001 C CNN "Part #"
-	1    10850 3950
+P 14750 7550
+F 0 "Q?" H 14954 7596 50  0000 L CNN
+F 1 "SUM70060E" H 14954 7505 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TO-263-2" H 14950 7650 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/65383/sum70060e.pdf" H 14750 7550 50  0001 C CNN
+F 4 "Vishay Siliconix" H 14750 7550 50  0001 C CNN "Manufacturer"
+F 5 "SUM70060E-GE3" H 14750 7550 50  0001 C CNN "Part #"
+	1    14750 7550
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8600 4050 8600 4600
+	12500 7650 12500 8200
+$Comp
+L power:GND #PWR?
+U 1 1 5F7518EB
+P 10550 10750
+F 0 "#PWR?" H 10550 10500 50  0001 C CNN
+F 1 "GND" H 10600 10600 50  0000 R CNN
+F 2 "" H 10550 10750 50  0001 C CNN
+F 3 "" H 10550 10750 50  0001 C CNN
+	1    10550 10750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F7529EF
+P 10750 10750
+F 0 "#PWR?" H 10750 10500 50  0001 C CNN
+F 1 "GND" H 10800 10600 50  0000 R CNN
+F 2 "" H 10750 10750 50  0001 C CNN
+F 3 "" H 10750 10750 50  0001 C CNN
+	1    10750 10750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F752FAC
+P 11250 10750
+F 0 "#PWR?" H 11250 10500 50  0001 C CNN
+F 1 "GND" H 11300 10600 50  0000 R CNN
+F 2 "" H 11250 10750 50  0001 C CNN
+F 3 "" H 11250 10750 50  0001 C CNN
+	1    11250 10750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F7537A5
+P 11450 10750
+F 0 "#PWR?" H 11450 10500 50  0001 C CNN
+F 1 "GND" H 11500 10600 50  0000 R CNN
+F 2 "" H 11450 10750 50  0001 C CNN
+F 3 "" H 11450 10750 50  0001 C CNN
+	1    11450 10750
+	1    0    0    -1  
+$EndComp
+Text Notes 10950 6800 0    59   ~ 0
+4-channel op-amp constant current LED driver
+Text Notes 10750 10300 0    59   ~ 0
+Heatsinks
+Wire Notes Line
+	8850 6700 16050 6700
+Wire Notes Line
+	8850 6000 450  6000
+Wire Notes Line
+	8850 6000 8850 11200
+Wire Notes Line
+	4500 6000 4500 2800
+Wire Notes Line
+	4500 2800 450  2800
+Wire Notes Line
+	4500 3550 8000 3550
+Wire Notes Line
+	8000 3550 8000 450 
+Text Notes 1300 3000 0    59   ~ 0
+LED bypass capacitors and connectors
+Text Notes 5550 850  0    59   ~ 0
+Op-amp split supply: 12V/-5V to clean 10V/-1.8V
+Text Notes 4900 2250 0    50   ~ 0
+small negative \nreference voltage \nso that LED turns \noff with op-amp \ninput bias
+$Comp
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 5F7CCA58
+P 8100 11050
+F 0 "JP?" H 8100 11150 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 8100 10950 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 8100 11050 50  0001 C CNN
+F 3 "~" H 8100 11050 50  0001 C CNN
+	1    8100 11050
+	1    0    0    -1  
+$EndComp
+Text Label 7950 11050 2    50   ~ 0
+external_analog_4
+Text Label 8250 11050 0    50   ~ 0
+OA4_input
+$Comp
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 5F7E03AE
+P 8100 10750
+F 0 "JP?" H 8100 10850 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 8100 10650 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 8100 10750 50  0001 C CNN
+F 3 "~" H 8100 10750 50  0001 C CNN
+	1    8100 10750
+	1    0    0    -1  
+$EndComp
+Text Label 7950 10750 2    50   ~ 0
+external_analog_3
+Text Label 8250 10750 0    50   ~ 0
+OA3_input
+$Comp
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 5F7EF02A
+P 6650 11050
+F 0 "JP?" H 6650 11150 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 6650 10950 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 6650 11050 50  0001 C CNN
+F 3 "~" H 6650 11050 50  0001 C CNN
+	1    6650 11050
+	1    0    0    -1  
+$EndComp
+Text Label 6500 11050 2    50   ~ 0
+external_analog_2
+Text Label 6800 11050 0    50   ~ 0
+OA2_input
+$Comp
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 5F7FD8A8
+P 6650 10750
+F 0 "JP?" H 6650 10850 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 6650 10650 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 6650 10750 50  0001 C CNN
+F 3 "~" H 6650 10750 50  0001 C CNN
+	1    6650 10750
+	1    0    0    -1  
+$EndComp
+Text Label 6500 10750 2    50   ~ 0
+external_analog_1
+Text Label 6800 10750 0    50   ~ 0
+OA1_input
+Text Notes 5950 10550 0    59   ~ 0
+Internal mux/AWG bypass for external-only analog input 
 $EndSCHEMATC

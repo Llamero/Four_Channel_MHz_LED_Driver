@@ -381,24 +381,13 @@ Wire Wire Line
 Wire Wire Line
 	2700 7100 3150 7100
 Text Notes 2450 2750 0    59   ~ 0
-LDO - 12V to clean 5V for analog circuits
+LDO: 12V to clean 5V for analog circuits
 Text Notes 3450 900  0    59   ~ 0
-ISOLATED - 12V to split +/- 5V
+ISOLATED: 12V to split +/- 5V
 Text Notes 1550 650  0    59   ~ 0
 SEPIC - Vin (3V - 30V) to 12V DC
 Wire Wire Line
 	2900 2000 2900 2100
-$Comp
-L Jumper:SolderJumper_2_Open JP?
-U 1 1 5F3A0F69
-P 1850 2000
-F 0 "JP?" H 1850 2100 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 1850 1900 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 1850 2000 50  0001 C CNN
-F 3 "~" H 1850 2000 50  0001 C CNN
-	1    1850 2000
-	1    0    0    -1  
-$EndComp
 Text Label 2000 2000 0    50   ~ 0
 12V
 $Comp
@@ -2380,14 +2369,14 @@ Wire Wire Line
 $Comp
 L Mechanical:Heatsink_Pad_2Pin HS?
 U 1 1 5F44CB6E
-P 9450 10350
-F 0 "HS?" H 9350 10600 50  0000 L CNN
-F 1 "HS-MOS" H 9300 10500 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_634-20ABPE" H 9462 10350 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 9462 10350 50  0001 C CNN
-F 4 "Wakefield-Vette" H 9450 10350 50  0001 C CNN "Manufacturer"
-F 5 "634-20ABPE" H 9450 10350 50  0001 C CNN "Part #"
-	1    9450 10350
+P 10650 10650
+F 0 "HS?" H 10550 10900 50  0000 L CNN
+F 1 "HS-MOS" H 10500 10800 50  0000 L CNN
+F 2 "Custom Footprints:Heatsink_634-20ABPE" H 10662 10650 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 10662 10650 50  0001 C CNN
+F 4 "Wakefield-Vette" H 10650 10650 50  0001 C CNN "Manufacturer"
+F 5 "634-20ABPE" H 10650 10650 50  0001 C CNN "Part #"
+	1    10650 10650
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -2567,27 +2556,27 @@ Connection ~ 11350 7750
 $Comp
 L Mechanical:Heatsink HS?
 U 1 1 5F527EE9
-P 9800 10400
-F 0 "HS?" H 9700 10700 50  0000 L CNN
-F 1 "HS-PCB" H 9650 10600 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 9812 10400 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 9812 10400 50  0001 C CNN
-F 4 "Wakefield-Vette" H 9800 10400 50  0001 C CNN "Manufacturer"
-F 5 "910-40-2-23-2-B-0" H 9800 10400 50  0001 C CNN "Part #"
-	1    9800 10400
+P 11000 10700
+F 0 "HS?" H 10900 11000 50  0000 L CNN
+F 1 "HS-PCB" H 10850 10900 50  0000 L CNN
+F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 11012 10700 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 11012 10700 50  0001 C CNN
+F 4 "Wakefield-Vette" H 11000 10700 50  0001 C CNN "Manufacturer"
+F 5 "910-40-2-23-2-B-0" H 11000 10700 50  0001 C CNN "Part #"
+	1    11000 10700
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:Heatsink_Pad_2Pin HS?
 U 1 1 5F5289B1
-P 10150 10350
-F 0 "HS?" H 10050 10600 50  0000 L CNN
-F 1 "HS-RES" H 10000 10500 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_634-20ABPE" H 10162 10350 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 10162 10350 50  0001 C CNN
-F 4 "Wakefield-Vette" H 10150 10350 50  0001 C CNN "Manufacturer"
-F 5 "634-20ABPE" H 10150 10350 50  0001 C CNN "Part #"
-	1    10150 10350
+P 11350 10650
+F 0 "HS?" H 11250 10900 50  0000 L CNN
+F 1 "HS-RES" H 11200 10800 50  0000 L CNN
+F 2 "Custom Footprints:Heatsink_634-20ABPE" H 11362 10650 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 11362 10650 50  0001 C CNN
+F 4 "Wakefield-Vette" H 11350 10650 50  0001 C CNN "Manufacturer"
+F 5 "634-20ABPE" H 11350 10650 50  0001 C CNN "Part #"
+	1    11350 10650
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -3244,45 +3233,142 @@ Wire Wire Line
 $Comp
 L power:GND #PWR?
 U 1 1 5F7518EB
-P 9350 10450
-F 0 "#PWR?" H 9350 10200 50  0001 C CNN
-F 1 "GND" H 9400 10300 50  0000 R CNN
-F 2 "" H 9350 10450 50  0001 C CNN
-F 3 "" H 9350 10450 50  0001 C CNN
-	1    9350 10450
+P 10550 10750
+F 0 "#PWR?" H 10550 10500 50  0001 C CNN
+F 1 "GND" H 10600 10600 50  0000 R CNN
+F 2 "" H 10550 10750 50  0001 C CNN
+F 3 "" H 10550 10750 50  0001 C CNN
+	1    10550 10750
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F7529EF
-P 9550 10450
-F 0 "#PWR?" H 9550 10200 50  0001 C CNN
-F 1 "GND" H 9600 10300 50  0000 R CNN
-F 2 "" H 9550 10450 50  0001 C CNN
-F 3 "" H 9550 10450 50  0001 C CNN
-	1    9550 10450
+P 10750 10750
+F 0 "#PWR?" H 10750 10500 50  0001 C CNN
+F 1 "GND" H 10800 10600 50  0000 R CNN
+F 2 "" H 10750 10750 50  0001 C CNN
+F 3 "" H 10750 10750 50  0001 C CNN
+	1    10750 10750
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F752FAC
-P 10050 10450
-F 0 "#PWR?" H 10050 10200 50  0001 C CNN
-F 1 "GND" H 10100 10300 50  0000 R CNN
-F 2 "" H 10050 10450 50  0001 C CNN
-F 3 "" H 10050 10450 50  0001 C CNN
-	1    10050 10450
+P 11250 10750
+F 0 "#PWR?" H 11250 10500 50  0001 C CNN
+F 1 "GND" H 11300 10600 50  0000 R CNN
+F 2 "" H 11250 10750 50  0001 C CNN
+F 3 "" H 11250 10750 50  0001 C CNN
+	1    11250 10750
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F7537A5
-P 10250 10450
-F 0 "#PWR?" H 10250 10200 50  0001 C CNN
-F 1 "GND" H 10300 10300 50  0000 R CNN
-F 2 "" H 10250 10450 50  0001 C CNN
-F 3 "" H 10250 10450 50  0001 C CNN
-	1    10250 10450
+P 11450 10750
+F 0 "#PWR?" H 11450 10500 50  0001 C CNN
+F 1 "GND" H 11500 10600 50  0000 R CNN
+F 2 "" H 11450 10750 50  0001 C CNN
+F 3 "" H 11450 10750 50  0001 C CNN
+	1    11450 10750
+	1    0    0    -1  
+$EndComp
+Text Notes 10950 6800 0    59   ~ 0
+4-channel op-amp constant current LED driver
+Text Notes 10750 10300 0    59   ~ 0
+Heatsinks
+Wire Notes Line
+	8850 6700 16050 6700
+Wire Notes Line
+	8850 6000 450  6000
+Wire Notes Line
+	8850 6000 8850 11200
+Wire Notes Line
+	4500 6000 4500 2800
+Wire Notes Line
+	4500 2800 450  2800
+Wire Notes Line
+	4500 3550 8000 3550
+Wire Notes Line
+	8000 3550 8000 450 
+Text Notes 1300 3000 0    59   ~ 0
+LED bypass capacitors and connectors
+Text Notes 5550 850  0    59   ~ 0
+Op-amp split supply: 12V/-5V to clean 10V/-1.8V
+Text Notes 4900 2250 0    50   ~ 0
+small negative \nreference voltage \nso that LED turns \noff with op-amp \ninput bias
+$Comp
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 5F7CCA58
+P 8100 11050
+F 0 "JP?" H 8100 11150 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 8100 10950 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 8100 11050 50  0001 C CNN
+F 3 "~" H 8100 11050 50  0001 C CNN
+	1    8100 11050
+	1    0    0    -1  
+$EndComp
+Text Label 7950 11050 2    50   ~ 0
+external_analog_4
+Text Label 8250 11050 0    50   ~ 0
+OA4_input
+$Comp
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 5F7E03AE
+P 8100 10750
+F 0 "JP?" H 8100 10850 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 8100 10650 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 8100 10750 50  0001 C CNN
+F 3 "~" H 8100 10750 50  0001 C CNN
+	1    8100 10750
+	1    0    0    -1  
+$EndComp
+Text Label 7950 10750 2    50   ~ 0
+external_analog_3
+Text Label 8250 10750 0    50   ~ 0
+OA3_input
+$Comp
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 5F7EF02A
+P 6650 11050
+F 0 "JP?" H 6650 11150 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 6650 10950 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 6650 11050 50  0001 C CNN
+F 3 "~" H 6650 11050 50  0001 C CNN
+	1    6650 11050
+	1    0    0    -1  
+$EndComp
+Text Label 6500 11050 2    50   ~ 0
+external_analog_2
+Text Label 6800 11050 0    50   ~ 0
+OA2_input
+$Comp
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 5F7FD8A8
+P 6650 10750
+F 0 "JP?" H 6650 10850 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 6650 10650 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 6650 10750 50  0001 C CNN
+F 3 "~" H 6650 10750 50  0001 C CNN
+	1    6650 10750
+	1    0    0    -1  
+$EndComp
+Text Label 6500 10750 2    50   ~ 0
+external_analog_1
+Text Label 6800 10750 0    50   ~ 0
+OA1_input
+Text Notes 5950 10550 0    59   ~ 0
+Internal mux/AWG bypass for external-only analog input 
+$Comp
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 5F3A0F69
+P 1850 2000
+F 0 "JP?" H 1850 2100 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 1850 1900 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 1850 2000 50  0001 C CNN
+F 3 "~" H 1850 2000 50  0001 C CNN
+	1    1850 2000
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
