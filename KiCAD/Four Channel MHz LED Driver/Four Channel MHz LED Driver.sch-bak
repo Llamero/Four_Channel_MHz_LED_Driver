@@ -39,10 +39,6 @@ F 5 "MCP4351-502E/ST" H 3900 6550 50  0001 C CNN "Part #"
 	1    3900 6550
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	5100 7450 5100 7550
-Wire Wire Line
-	5100 6250 5100 6550
 $Comp
 L power:GND #PWR?
 U 1 1 5F34784A
@@ -388,17 +384,6 @@ Text Notes 1550 650  0    59   ~ 0
 SEPIC - Vin (3V - 30V) to 12V DC
 Wire Wire Line
 	2900 2000 2900 2100
-$Comp
-L Jumper:SolderJumper_2_Open JP?
-U 1 1 5F3A0F69
-P 1850 2000
-F 0 "JP?" H 1850 2100 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 1850 1900 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 1850 2000 50  0001 C CNN
-F 3 "~" H 1850 2000 50  0001 C CNN
-	1    1850 2000
-	1    0    0    -1  
-$EndComp
 Text Label 2000 2000 0    50   ~ 0
 12V
 $Comp
@@ -444,37 +429,37 @@ Text Notes 1400 2250 0    59   ~ 0
 $Comp
 L Custom_parts:TMUX1204DGSR U?
 U 1 1 5F3BA201
-P 6750 7300
-F 0 "U?" H 6925 7465 50  0000 C CNN
-F 1 "TMUX1184DGSR" H 6925 7374 50  0000 C CNN
-F 2 "Custom Footprints:TMUX1204DGSR" H 6750 8300 50  0001 L BNN
-F 3 "https://www.ti.com/api/videos/videoplayer/smallplayer/suppproductinfo.tsp" H 6750 7300 50  0001 C CNN
-F 4 "Texas Instruments" H 6750 7300 50  0001 C CNN "Manufacturer"
-F 5 "TMUX1204DGSR" H 6750 7300 50  0001 C CNN "Part #"
-	1    6750 7300
+P 7300 6400
+F 0 "U?" H 7475 6565 50  0000 C CNN
+F 1 "TMUX1204DGSR" H 7475 6474 50  0000 C CNN
+F 2 "Custom Footprints:TMUX1204DGSR" H 7300 7400 50  0001 L BNN
+F 3 "https://www.ti.com/api/videos/videoplayer/smallplayer/suppproductinfo.tsp" H 7300 6400 50  0001 C CNN
+F 4 "Texas Instruments" H 7300 6400 50  0001 C CNN "Manufacturer"
+F 5 "TMUX1204DGSR" H 7300 6400 50  0001 C CNN "Part #"
+	1    7300 6400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6550 7750 6550 7800
+	7100 6850 7100 6900
 Wire Wire Line
-	6550 7850 7300 7850
+	7100 6950 7850 6950
 Wire Wire Line
-	7300 7850 7300 7750
+	7850 6950 7850 6850
 Wire Wire Line
-	7300 7450 7350 7450
+	7850 6550 7900 6550
 Wire Wire Line
-	7350 7450 7350 7650
+	7900 6550 7900 6750
 Wire Wire Line
-	7350 7650 7300 7650
+	7900 6750 7850 6750
 $Comp
 L power:GND #PWR?
 U 1 1 5F3BE358
-P 6550 7550
-F 0 "#PWR?" H 6550 7300 50  0001 C CNN
-F 1 "GND" V 6555 7422 50  0000 R CNN
-F 2 "" H 6550 7550 50  0001 C CNN
-F 3 "" H 6550 7550 50  0001 C CNN
-	1    6550 7550
+P 7100 6650
+F 0 "#PWR?" H 7100 6400 50  0001 C CNN
+F 1 "GND" V 7105 6522 50  0000 R CNN
+F 2 "" H 7100 6650 50  0001 C CNN
+F 3 "" H 7100 6650 50  0001 C CNN
+	1    7100 6650
 	0    1    1    0   
 $EndComp
 Text Label 5100 7350 0    50   ~ 0
@@ -486,140 +471,121 @@ internal_analog_4
 Text Label 3900 7350 2    50   ~ 0
 internal_analog_2
 Wire Wire Line
-	3200 7450 3200 7000
-Wire Wire Line
-	3200 7450 3900 7450
-Wire Wire Line
 	3150 7100 3150 7550
-Wire Wire Line
-	3150 7550 5100 7550
-Text Label 6550 7450 2    50   ~ 0
+Text Label 7100 6550 2    50   ~ 0
 internal_analog_1
-Text Label 6550 7650 2    50   ~ 0
+Text Label 7100 6750 2    50   ~ 0
 external_analog_1
 $Comp
 L Custom_parts:TMUX1204DGSR U?
 U 1 1 5F3DA347
-P 6750 8150
-F 0 "U?" H 6925 8315 50  0000 C CNN
-F 1 "TMUX1184DGSR" H 6925 8224 50  0000 C CNN
-F 2 "Custom Footprints:TMUX1204DGSR" H 6750 9150 50  0001 L BNN
-F 3 "https://www.ti.com/api/videos/videoplayer/smallplayer/suppproductinfo.tsp" H 6750 8150 50  0001 C CNN
-F 4 "Texas Instruments" H 6750 8150 50  0001 C CNN "Manufacturer"
-F 5 "TMUX1204DGSR" H 6750 8150 50  0001 C CNN "Part #"
-	1    6750 8150
+P 7300 7250
+F 0 "U?" H 7475 7415 50  0000 C CNN
+F 1 "TMUX1204DGSR" H 7475 7324 50  0000 C CNN
+F 2 "Custom Footprints:TMUX1204DGSR" H 7300 8250 50  0001 L BNN
+F 3 "https://www.ti.com/api/videos/videoplayer/smallplayer/suppproductinfo.tsp" H 7300 7250 50  0001 C CNN
+F 4 "Texas Instruments" H 7300 7250 50  0001 C CNN "Manufacturer"
+F 5 "TMUX1204DGSR" H 7300 7250 50  0001 C CNN "Part #"
+	1    7300 7250
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6550 8600 6550 8650
+	7100 7700 7100 7750
 Wire Wire Line
-	6550 8700 7300 8700
+	7100 7800 7850 7800
 Wire Wire Line
-	7300 8700 7300 8600
+	7850 7800 7850 7700
 Wire Wire Line
-	7300 8300 7350 8300
+	7850 7400 7900 7400
 Wire Wire Line
-	7350 8300 7350 8500
+	7900 7400 7900 7600
 Wire Wire Line
-	7350 8500 7300 8500
+	7900 7600 7850 7600
 $Comp
 L power:GND #PWR?
 U 1 1 5F3DA355
-P 6550 8400
-F 0 "#PWR?" H 6550 8150 50  0001 C CNN
-F 1 "GND" V 6555 8272 50  0000 R CNN
-F 2 "" H 6550 8400 50  0001 C CNN
-F 3 "" H 6550 8400 50  0001 C CNN
-	1    6550 8400
+P 7100 7500
+F 0 "#PWR?" H 7100 7250 50  0001 C CNN
+F 1 "GND" V 7105 7372 50  0000 R CNN
+F 2 "" H 7100 7500 50  0001 C CNN
+F 3 "" H 7100 7500 50  0001 C CNN
+	1    7100 7500
 	0    1    1    0   
 $EndComp
-Text Label 6550 8300 2    50   ~ 0
+Text Label 7100 7400 2    50   ~ 0
 internal_analog_2
-Text Label 6550 8500 2    50   ~ 0
+Text Label 7100 7600 2    50   ~ 0
 external_analog_2
-$Comp
-L Custom_parts:TMUX1204DGSR U?
-U 1 1 5F3DC268
-P 6800 9000
-F 0 "U?" H 6975 9165 50  0000 C CNN
-F 1 "TMUX1184DGSR" H 6975 9074 50  0000 C CNN
-F 2 "Custom Footprints:TMUX1204DGSR" H 6800 10000 50  0001 L BNN
-F 3 "https://www.ti.com/api/videos/videoplayer/smallplayer/suppproductinfo.tsp" H 6800 9000 50  0001 C CNN
-F 4 "Texas Instruments" H 6800 9000 50  0001 C CNN "Manufacturer"
-F 5 "TMUX1204DGSR" H 6800 9000 50  0001 C CNN "Part #"
-	1    6800 9000
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	6600 9450 6600 9500
+	7150 8550 7150 8600
 Wire Wire Line
-	6600 9550 7350 9550
+	7150 8650 7900 8650
 Wire Wire Line
-	7350 9550 7350 9450
+	7900 8650 7900 8550
 Wire Wire Line
-	7350 9150 7400 9150
+	7900 8250 7950 8250
 Wire Wire Line
-	7400 9150 7400 9350
+	7950 8250 7950 8450
 Wire Wire Line
-	7400 9350 7350 9350
+	7950 8450 7900 8450
 $Comp
 L power:GND #PWR?
 U 1 1 5F3DC276
-P 6600 9250
-F 0 "#PWR?" H 6600 9000 50  0001 C CNN
-F 1 "GND" V 6605 9122 50  0000 R CNN
-F 2 "" H 6600 9250 50  0001 C CNN
-F 3 "" H 6600 9250 50  0001 C CNN
-	1    6600 9250
+P 7150 8350
+F 0 "#PWR?" H 7150 8100 50  0001 C CNN
+F 1 "GND" V 7155 8222 50  0000 R CNN
+F 2 "" H 7150 8350 50  0001 C CNN
+F 3 "" H 7150 8350 50  0001 C CNN
+	1    7150 8350
 	0    1    1    0   
 $EndComp
-Text Label 6600 9150 2    50   ~ 0
+Text Label 7150 8250 2    50   ~ 0
 internal_analog_3
-Text Label 6600 9350 2    50   ~ 0
+Text Label 7150 8450 2    50   ~ 0
 external_analog_3
 $Comp
 L Custom_parts:TMUX1204DGSR U?
 U 1 1 5F3DEF78
-P 6800 9800
-F 0 "U?" H 6975 9965 50  0000 C CNN
-F 1 "TMUX1184DGSR" H 6975 9874 50  0000 C CNN
-F 2 "Custom Footprints:TMUX1204DGSR" H 6800 10800 50  0001 L BNN
-F 3 "https://www.ti.com/api/videos/videoplayer/smallplayer/suppproductinfo.tsp" H 6800 9800 50  0001 C CNN
-F 4 "Texas Instruments" H 6800 9800 50  0001 C CNN "Manufacturer"
-F 5 "TMUX1204DGSR" H 6800 9800 50  0001 C CNN "Part #"
-	1    6800 9800
+P 7350 8900
+F 0 "U?" H 7525 9065 50  0000 C CNN
+F 1 "TMUX1204DGSR" H 7525 8974 50  0000 C CNN
+F 2 "Custom Footprints:TMUX1204DGSR" H 7350 9900 50  0001 L BNN
+F 3 "https://www.ti.com/api/videos/videoplayer/smallplayer/suppproductinfo.tsp" H 7350 8900 50  0001 C CNN
+F 4 "Texas Instruments" H 7350 8900 50  0001 C CNN "Manufacturer"
+F 5 "TMUX1204DGSR" H 7350 8900 50  0001 C CNN "Part #"
+	1    7350 8900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6600 10250 6600 10300
+	7150 9350 7150 9400
 Wire Wire Line
-	6600 10350 7350 10350
+	7150 9450 7900 9450
 Wire Wire Line
-	7350 10350 7350 10250
+	7900 9450 7900 9350
 Wire Wire Line
-	7350 9950 7400 9950
+	7900 9050 7950 9050
 Wire Wire Line
-	7400 9950 7400 10150
+	7950 9050 7950 9250
 Wire Wire Line
-	7400 10150 7350 10150
+	7950 9250 7900 9250
 $Comp
 L power:GND #PWR?
 U 1 1 5F3DEF86
-P 6600 10050
-F 0 "#PWR?" H 6600 9800 50  0001 C CNN
-F 1 "GND" V 6605 9922 50  0000 R CNN
-F 2 "" H 6600 10050 50  0001 C CNN
-F 3 "" H 6600 10050 50  0001 C CNN
-	1    6600 10050
+P 7150 9150
+F 0 "#PWR?" H 7150 8900 50  0001 C CNN
+F 1 "GND" V 7155 9022 50  0000 R CNN
+F 2 "" H 7150 9150 50  0001 C CNN
+F 3 "" H 7150 9150 50  0001 C CNN
+	1    7150 9150
 	0    1    1    0   
 $EndComp
-Text Label 6600 9950 2    50   ~ 0
+Text Label 7150 9050 2    50   ~ 0
 internal_analog_4
-Text Label 6600 10150 2    50   ~ 0
+Text Label 7150 9250 2    50   ~ 0
 external_analog_4
 Text Notes 1950 6100 0    59   ~ 0
 Internal 4-channel ADC AWG with digipot current limit
-Text Label 4250 8150 2    50   ~ 0
+Text Label 4550 8150 2    50   ~ 0
 external_analog_1
 Text Label 2650 8400 0    50   ~ 0
 external_analog_2
@@ -627,19 +593,6 @@ Text Label 2650 8500 0    50   ~ 0
 external_analog_3
 Text Label 2650 8600 0    50   ~ 0
 external_analog_4
-$Comp
-L Switch:SW_DIP_x03 SW?
-U 1 1 5F411870
-P 4700 9200
-F 0 "SW?" H 4700 9667 50  0000 C CNN
-F 1 "SW_DIP_x03" H 4700 9576 50  0000 C CNN
-F 2 "Custom Footprints:SW_DS04-254-2-03BK-SMT" H 4700 9200 50  0001 C CNN
-F 3 "https://www.cuidevices.com/api/videos/videoplayer/smallplayer/ds04-254-smt.pdf" H 4700 9200 50  0001 C CNN
-F 4 "CUI Devices" H 4700 9200 50  0001 C CNN "Manufacturer"
-F 5 "DS04-254-2-03BK-SMT" H 4700 9200 50  0001 C CNN "Part #"
-	1    4700 9200
-	1    0    0    -1  
-$EndComp
 Connection ~ 4750 1700
 Wire Wire Line
 	4750 1700 4750 1600
@@ -733,15 +686,15 @@ $EndComp
 Wire Wire Line
 	4950 1300 5650 1300
 Connection ~ 4950 1300
-Text Label 7350 7450 0    50   ~ 0
+Text Label 7900 6550 0    50   ~ 0
 -0.25V_analog
-Text Label 7350 8300 0    50   ~ 0
+Text Label 7900 7400 0    50   ~ 0
 -0.25V_analog
-Text Label 7400 9150 0    50   ~ 0
+Text Label 7950 8250 0    50   ~ 0
 -0.25V_analog
-Text Label 7400 9950 0    50   ~ 0
+Text Label 7950 9050 0    50   ~ 0
 -0.25V_analog
-Text Label 5800 6800 0    50   ~ 0
+Text Label 6350 6400 2    50   ~ 0
 5V-analog
 $Comp
 L Device:R_Pack08 RN?
@@ -758,49 +711,49 @@ F 5 "4816P-T01-472LF" V 2450 8700 50  0001 C CNN "Part #"
 $EndComp
 Text Label 2650 8300 0    50   ~ 0
 external_analog_1
-Text Label 4250 8350 2    50   ~ 0
+Text Label 4550 8350 2    50   ~ 0
 external_analog_2
-Text Label 4850 8350 0    50   ~ 0
+Text Label 5150 8350 0    50   ~ 0
 external_analog_3
-Text Label 4850 8150 0    50   ~ 0
+Text Label 5150 8150 0    50   ~ 0
 external_analog_4
 $Comp
 L power:GND #PWR?
 U 1 1 5F4EB97D
-P 4250 8250
-F 0 "#PWR?" H 4250 8000 50  0001 C CNN
-F 1 "GND" V 4255 8122 50  0000 R CNN
-F 2 "" H 4250 8250 50  0001 C CNN
-F 3 "" H 4250 8250 50  0001 C CNN
-	1    4250 8250
+P 4550 8250
+F 0 "#PWR?" H 4550 8000 50  0001 C CNN
+F 1 "GND" V 4555 8122 50  0000 R CNN
+F 2 "" H 4550 8250 50  0001 C CNN
+F 3 "" H 4550 8250 50  0001 C CNN
+	1    4550 8250
 	0    1    1    0   
 $EndComp
 $Comp
 L Custom_parts:D_Zener_x4_ACom_AKKKK D?
 U 1 1 5F4F11C3
-P 4550 8400
-F 0 "D?" H 4550 7925 50  0000 C CNN
-F 1 "D_Zener_x4_ACom_AKKKK" H 4550 8016 50  0000 C CNN
-F 2 "Custom Footprints:SOT-753" H 4550 8150 50  0001 C CNN
-F 3 "https://rohmfs.rohm.com/api/videos/videoplayer/smallplayer/ftz5.6e.pdf" H 4550 8150 50  0001 C CNN
-F 4 "Rohm Semiconductor" H 4550 8400 50  0001 C CNN "Manufacturer"
-F 5 "FTZ5.6ET148" H 4550 8400 50  0001 C CNN "Part #"
-	1    4550 8400
+P 4850 8400
+F 0 "D?" H 4850 7925 50  0000 C CNN
+F 1 "D_Zener_x4_ACom_AKKKK" H 4850 8016 50  0000 C CNN
+F 2 "Custom Footprints:SOT-753" H 4850 8150 50  0001 C CNN
+F 3 "https://rohmfs.rohm.com/api/videos/videoplayer/smallplayer/ftz5.6e.pdf" H 4850 8150 50  0001 C CNN
+F 4 "Rohm Semiconductor" H 4850 8400 50  0001 C CNN "Manufacturer"
+F 5 "FTZ5.6ET148" H 4850 8400 50  0001 C CNN "Part #"
+	1    4850 8400
 	-1   0    0    1   
 $EndComp
-Text Notes 3450 7800 0    59   ~ 0
-4-channel external analog input with 5.6V zener
-Text Label 4400 9000 2    50   ~ 0
+Text Notes 3650 7850 0    59   ~ 0
+4-channel external analog input with 5.6V zener clamp
+Text Label 3550 9900 2    50   ~ 0
 external_analog_1
-Text Label 5000 9000 0    50   ~ 0
+Text Label 3850 9900 0    50   ~ 0
 external_analog_2
-Text Label 4400 9100 2    50   ~ 0
+Text Label 3550 10200 2    50   ~ 0
 external_analog_2
-Text Label 5000 9100 0    50   ~ 0
+Text Label 3850 10200 0    50   ~ 0
 external_analog_3
-Text Label 4400 9200 2    50   ~ 0
+Text Label 3550 10500 2    50   ~ 0
 external_analog_3
-Text Label 5000 9200 0    50   ~ 0
+Text Label 3850 10500 0    50   ~ 0
 external_analog_4
 $Comp
 L Connector:Barrel_Jack_Switch J?
@@ -1079,25 +1032,25 @@ $EndComp
 Text Notes 2100 1100 0    50   ~ 0
 Header pins\nto connect\n12V SEPIC \nDC-DC \nconverter
 NoConn ~ 1850 1800
-Text Label 7400 7550 0    50   ~ 0
+Text Label 7950 6650 0    50   ~ 0
 OA1_input
-Text Label 7400 8400 0    50   ~ 0
+Text Label 7950 7500 0    50   ~ 0
 OA2_input
-Text Label 7450 9250 0    50   ~ 0
+Text Label 8000 8350 0    50   ~ 0
 OA3_input
-Text Label 7450 10050 0    50   ~ 0
+Text Label 8000 9150 0    50   ~ 0
 OA4_input
 Wire Wire Line
-	7400 7550 7300 7550
+	7950 6650 7850 6650
 Wire Wire Line
-	7400 8400 7300 8400
+	7950 7500 7850 7500
 Wire Wire Line
-	7450 9250 7350 9250
+	8000 8350 7900 8350
 Wire Wire Line
-	7450 10050 7350 10050
-Text Notes 1650 10050 0    59   ~ 0
+	8000 9150 7900 9150
+Text Notes 1350 10150 0    59   ~ 0
 Current sense voltage ouput
-Text Notes 6500 7050 0    59   ~ 0
+Text Notes 7050 6150 0    59   ~ 0
 Op-amp input mux
 Text Label 12400 2700 2    50   ~ 0
 SCK0
@@ -1141,37 +1094,37 @@ Text Label 12400 1500 2    50   ~ 0
 5
 Text Notes 12300 1200 2    50   ~ 0
 Interline PWM 1
-Text Label 6550 7350 2    50   ~ 0
+Text Label 7100 6450 2    50   ~ 0
 2
-Text Label 6550 8200 2    50   ~ 0
+Text Label 7100 7300 2    50   ~ 0
 4
-Text Label 6600 9050 2    50   ~ 0
+Text Label 7150 8150 2    50   ~ 0
 6
-Text Label 6600 9850 2    50   ~ 0
+Text Label 7150 8950 2    50   ~ 0
 8
-Text Label 7300 7350 0    50   ~ 0
+Text Label 7850 6450 0    50   ~ 0
 3
-Text Label 7300 8200 0    50   ~ 0
+Text Label 7850 7300 0    50   ~ 0
 5
-Text Label 7350 9050 0    50   ~ 0
+Text Label 7900 8150 0    50   ~ 0
 7
-Text Label 7350 9850 0    50   ~ 0
+Text Label 7900 8950 0    50   ~ 0
 9
-Text Notes 6450 7350 2    50   ~ 0
+Text Notes 7000 6450 2    50   ~ 0
 Interline PWM 1
-Text Notes 6450 8200 2    50   ~ 0
+Text Notes 7000 7300 2    50   ~ 0
 Interline PWM 2
-Text Notes 6500 9050 2    50   ~ 0
+Text Notes 7050 8150 2    50   ~ 0
 Interline PWM 3
-Text Notes 6500 9850 2    50   ~ 0
+Text Notes 7050 8950 2    50   ~ 0
 Interline PWM 4
-Text Notes 7400 7350 0    50   ~ 0
+Text Notes 7950 6450 0    50   ~ 0
 Analog select 1\n
-Text Notes 7400 8200 0    50   ~ 0
+Text Notes 7950 7300 0    50   ~ 0
 Analog select 2\n
-Text Notes 7450 9050 0    50   ~ 0
+Text Notes 8000 8150 0    50   ~ 0
 Analog select 3\n
-Text Notes 7450 9850 0    50   ~ 0
+Text Notes 8000 8950 0    50   ~ 0
 Analog select 4\n
 Wire Wire Line
 	2650 10350 2650 10450
@@ -1187,28 +1140,20 @@ Text Notes 15000 2400 0    50   ~ 0
 A/D IO 3
 Text Notes 15350 3000 2    50   ~ 0
 A/D IO 4
-Text Notes 3400 10350 0    50   ~ 0
+Text Notes 2900 9400 0    50   ~ 0
 A/D IO 2
-Text Notes 3450 11050 0    50   ~ 0
+Text Notes 4550 9450 0    50   ~ 0
 A/D IO 4
-Text Label 2650 8700 0    50   ~ 0
-21
 Text Notes 2800 8700 0    50   ~ 0
 A/D IO 1
-Text Label 2650 8800 0    50   ~ 0
-20
 Text Notes 3150 8800 2    50   ~ 0
 A/D IO 2
-Text Label 2650 8900 0    50   ~ 0
-19
 Text Notes 2800 8900 0    50   ~ 0
 A/D IO 3
-Text Label 2650 9000 0    50   ~ 0
-18
 Text Notes 3150 9000 2    50   ~ 0
 A/D IO 4
-Text Notes 3900 8650 0    59   ~ 0
-Combine external analog inputs
+Text Notes 2950 9750 0    59   ~ 0
+Combine only external analog inputs
 Text Notes 15000 1300 0    50   ~ 0
 LED pot 2
 Text Notes 15000 1400 0    50   ~ 0
@@ -1276,8 +1221,8 @@ $Comp
 L Device:R_Pack08 RN?
 U 1 1 5F57894B
 P 2450 10750
-F 0 "RN?" V 1833 10750 50  0000 C CNN
-F 1 "4.7k" V 1924 10750 50  0000 C CNN
+F 0 "RN?" V 1950 10700 50  0000 C CNN
+F 1 "4.7k" V 1950 10900 50  0000 C CNN
 F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 2925 10750 50  0001 C CNN
 F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 2450 10750 50  0001 C CNN
 F 4 "Bourns Inc." V 2450 10750 50  0001 C CNN "Manufacturer"
@@ -1287,90 +1232,64 @@ F 5 "4816P-T01-472LF" V 2450 10750 50  0001 C CNN "Part #"
 $EndComp
 Text Notes 850  10150 1    59   ~ 0
 I/O maximum voltage: 27V (160mW)\nNiDaq PCI-6110 is +/- 10V 5mA\nTherefore, minimum impedance is 2000 Ohms
-Text Notes 4850 10650 0    50   ~ 0
+Text Notes 5950 9050 0    50   ~ 0
 A/D IO 3
-Text Notes 4800 9950 0    50   ~ 0
+Text Notes 4300 9000 0    50   ~ 0
 A/D IO 1
-Text Notes 3250 9700 0    59   ~ 0
+Text Notes 3550 8700 0    59   ~ 0
 4-channel analog/digital IO with 0-3.3V clamp
 $Comp
 L power:GND #PWR?
 U 1 1 5F48EF1A
-P 4700 11050
-F 0 "#PWR?" H 4700 10800 50  0001 C CNN
-F 1 "GND" V 4800 11000 50  0000 R CNN
-F 2 "" H 4700 11050 50  0001 C CNN
-F 3 "" H 4700 11050 50  0001 C CNN
-	1    4700 11050
+P 5800 9450
+F 0 "#PWR?" H 5800 9200 50  0001 C CNN
+F 1 "GND" V 5900 9400 50  0000 R CNN
+F 2 "" H 5800 9450 50  0001 C CNN
+F 3 "" H 5800 9450 50  0001 C CNN
+	1    5800 9450
 	0    -1   -1   0   
 $EndComp
-Text Label 4700 10850 0    50   ~ 0
+Text Label 5800 9250 0    50   ~ 0
 3.3V
-Text Label 3950 10850 2    50   ~ 0
+Text Label 5050 9250 2    50   ~ 0
 3.3V
 $Comp
 L power:GND #PWR?
 U 1 1 5F48EF12
-P 3950 10650
-F 0 "#PWR?" H 3950 10400 50  0001 C CNN
-F 1 "GND" V 3850 10600 50  0000 R CNN
-F 2 "" H 3950 10650 50  0001 C CNN
-F 3 "" H 3950 10650 50  0001 C CNN
-	1    3950 10650
+P 5050 9050
+F 0 "#PWR?" H 5050 8800 50  0001 C CNN
+F 1 "GND" V 4950 9000 50  0000 R CNN
+F 2 "" H 5050 9050 50  0001 C CNN
+F 3 "" H 5050 9050 50  0001 C CNN
+	1    5050 9050
 	0    1    1    0   
 $EndComp
 $Comp
 L Custom_parts:BAT54SDW D?
 U 1 1 5F48EF0C
-P 4150 10750
-F 0 "D?" H 4325 11097 60  0000 C CNN
-F 1 "BAT54SDW" H 4325 10991 60  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 4350 10950 60  0001 L CNN
-F 3 "https://www.diodes.com/assets/Datasheets/ds11005.pdf" H 4350 11050 60  0001 L CNN
-F 4 "Diodes Incorporated" H 4150 10750 50  0001 C CNN "Manufacturer"
-F 5 "BAT54SDW-7-F" H 4150 10750 50  0001 C CNN "Part #"
-	1    4150 10750
+P 5250 9150
+F 0 "D?" H 5425 9497 60  0000 C CNN
+F 1 "BAT54SDW" H 5425 9391 60  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 5450 9350 60  0001 L CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds11005.pdf" H 5450 9450 60  0001 L CNN
+F 4 "Diodes Incorporated" H 5250 9150 50  0001 C CNN "Manufacturer"
+F 5 "BAT54SDW-7-F" H 5250 9150 50  0001 C CNN "Part #"
+	1    5250 9150
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F47759A
-P 4650 10350
-F 0 "#PWR?" H 4650 10100 50  0001 C CNN
-F 1 "GND" V 4750 10300 50  0000 R CNN
-F 2 "" H 4650 10350 50  0001 C CNN
-F 3 "" H 4650 10350 50  0001 C CNN
-	1    4650 10350
+P 4150 9400
+F 0 "#PWR?" H 4150 9150 50  0001 C CNN
+F 1 "GND" V 4250 9350 50  0000 R CNN
+F 2 "" H 4150 9400 50  0001 C CNN
+F 3 "" H 4150 9400 50  0001 C CNN
+	1    4150 9400
 	0    -1   -1   0   
 $EndComp
-Text Label 4650 10150 0    50   ~ 0
+Text Label 4150 9200 0    50   ~ 0
 3.3V
-Text Label 3900 10150 2    50   ~ 0
-3.3V
-$Comp
-L power:GND #PWR?
-U 1 1 5F475E13
-P 3900 9950
-F 0 "#PWR?" H 3900 9700 50  0001 C CNN
-F 1 "GND" V 3800 9900 50  0000 R CNN
-F 2 "" H 3900 9950 50  0001 C CNN
-F 3 "" H 3900 9950 50  0001 C CNN
-	1    3900 9950
-	0    1    1    0   
-$EndComp
-$Comp
-L Custom_parts:BAT54SDW D?
-U 1 1 5F46875C
-P 4100 10050
-F 0 "D?" H 4350 10350 60  0000 C CNN
-F 1 "BAT54SDW" H 4350 10250 60  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 4300 10250 60  0001 L CNN
-F 3 "https://www.diodes.com/assets/Datasheets/ds30152.pdf" H 4300 10350 60  0001 L CNN
-F 4 "Diodes Incorporated" H 4100 10050 50  0001 C CNN "Manufacturer"
-F 5 "BAT54SDW-7-F" H 4100 10050 50  0001 C CNN "Part #"
-	1    4100 10050
-	1    0    0    -1  
-$EndComp
 Text Notes 15000 1600 0    50   ~ 0
 A/D IO 1
 Text Notes 15850 3000 1    50   ~ 0
@@ -1700,8 +1619,6 @@ Text Label 1500 5150 0    50   ~ 0
 LED4+
 Wire Wire Line
 	1750 5150 1400 5150
-Text Label 1950 3500 0    50   ~ 0
-LED1-
 Text Label 1950 4050 0    50   ~ 0
 LED2-
 Text Label 1950 4600 0    50   ~ 0
@@ -2120,27 +2037,19 @@ Wire Wire Line
 Wire Wire Line
 	1600 9050 2100 9050
 Wire Wire Line
-	3200 6800 3200 6550
-Wire Wire Line
-	3200 6550 3900 6550
-Wire Wire Line
 	2700 6800 3200 6800
 Wire Wire Line
-	3150 6900 3150 6250
-Wire Wire Line
 	2700 6900 3150 6900
-Wire Wire Line
-	3150 6250 5100 6250
 $Comp
 L power:GND #PWR?
 U 1 1 5F6D4356
-P 6000 7000
-F 0 "#PWR?" H 6000 6750 50  0001 C CNN
-F 1 "GND" V 6005 6872 50  0000 R CNN
-F 2 "" H 6000 7000 50  0001 C CNN
-F 3 "" H 6000 7000 50  0001 C CNN
-	1    6000 7000
-	0    -1   -1   0   
+P 6150 6900
+F 0 "#PWR?" H 6150 6650 50  0001 C CNN
+F 1 "GND" V 6155 6772 50  0000 R CNN
+F 2 "" H 6150 6900 50  0001 C CNN
+F 3 "" H 6150 6900 50  0001 C CNN
+	1    6150 6900
+	0    1    1    0   
 $EndComp
 $Comp
 L Custom_parts:ADP7182AUJZ-1.8-R7 U?
@@ -2219,61 +2128,58 @@ $EndComp
 $Comp
 L Device:R_Small R?
 U 1 1 5F42092A
-P 5800 6900
-F 0 "R?" H 5650 6950 50  0000 L CNN
-F 1 "4.7k" H 5600 6850 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 5800 6900 50  0001 C CNN
-F 3 "https://www.seielect.com/catalog/sei-rncp.pdf" H 5800 6900 50  0001 C CNN
-F 4 "Yageo" H 5800 6900 50  0001 C CNN "Manufacturer"
-F 5 "RT0805FRE074K7L" H 5800 6900 50  0001 C CNN "Part #"
-	1    5800 6900
+P 6350 6500
+F 0 "R?" H 6200 6550 50  0000 L CNN
+F 1 "4.7k" H 6150 6450 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 6350 6500 50  0001 C CNN
+F 3 "https://www.seielect.com/catalog/sei-rncp.pdf" H 6350 6500 50  0001 C CNN
+F 4 "Yageo" H 6350 6500 50  0001 C CNN "Manufacturer"
+F 5 "RT0805FRE074K7L" H 6350 6500 50  0001 C CNN "Part #"
+	1    6350 6500
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5F422B07
-P 5900 7000
-F 0 "C?" V 6100 6950 50  0000 L CNN
-F 1 "2.2uF" V 6000 6950 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 5900 7000 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 5900 7000 50  0001 C CNN
-F 4 "Taiyo Yuden" H 5900 7000 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 5900 7000 50  0001 C CNN "Part #"
-	1    5900 7000
-	0    1    1    0   
+P 6250 6900
+F 0 "C?" V 6450 6850 50  0000 L CNN
+F 1 "2.2uF" V 6350 6850 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 6250 6900 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 6250 6900 50  0001 C CNN
+F 4 "Taiyo Yuden" H 6250 6900 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 6250 6900 50  0001 C CNN "Part #"
+	1    6250 6900
+	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	5800 7000 5800 7800
+	6350 9400 7150 9400
+Connection ~ 7150 9400
 Wire Wire Line
-	5800 10300 6600 10300
-Connection ~ 5800 7000
-Connection ~ 6600 10300
+	7150 9400 7150 9450
 Wire Wire Line
-	6600 10300 6600 10350
+	7150 8600 6350 8600
+Connection ~ 7150 8600
 Wire Wire Line
-	6600 9500 5800 9500
-Connection ~ 6600 9500
+	7150 8600 7150 8650
+Connection ~ 6350 8600
 Wire Wire Line
-	6600 9500 6600 9550
-Connection ~ 5800 9500
+	6350 8600 6350 9400
 Wire Wire Line
-	5800 9500 5800 10300
+	7100 7750 6350 7750
+Connection ~ 7100 7750
 Wire Wire Line
-	6550 8650 5800 8650
-Connection ~ 6550 8650
+	7100 7750 7100 7800
+Connection ~ 6350 7750
 Wire Wire Line
-	6550 8650 6550 8700
-Connection ~ 5800 8650
+	6350 7750 6350 8600
 Wire Wire Line
-	5800 8650 5800 9500
+	7100 6900 6350 6900
+Connection ~ 7100 6900
 Wire Wire Line
-	6550 7800 5800 7800
-Connection ~ 6550 7800
+	7100 6900 7100 6950
+Connection ~ 6350 6900
 Wire Wire Line
-	6550 7800 6550 7850
-Connection ~ 5800 7800
-Wire Wire Line
-	5800 7800 5800 8650
+	6350 6900 6350 7750
 $Comp
 L Custom_parts:BAT54SDW D?
 U 1 1 5F442A0D
@@ -3296,8 +3202,6 @@ Wire Notes Line
 Wire Notes Line
 	8850 6000 8850 11200
 Wire Notes Line
-	4500 6000 4500 2800
-Wire Notes Line
 	4500 2800 450  2800
 Wire Notes Line
 	4500 3550 8000 3550
@@ -3312,63 +3216,231 @@ small negative \nreference voltage \nso that LED turns \noff with op-amp \ninput
 $Comp
 L Jumper:SolderJumper_2_Open JP?
 U 1 1 5F7CCA58
-P 8100 11050
-F 0 "JP?" H 8100 11150 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 8100 10950 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 8100 11050 50  0001 C CNN
-F 3 "~" H 8100 11050 50  0001 C CNN
-	1    8100 11050
+P 5950 10950
+F 0 "JP?" H 5950 11050 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 5950 10850 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 5950 10950 50  0001 C CNN
+F 3 "~" H 5950 10950 50  0001 C CNN
+	1    5950 10950
 	1    0    0    -1  
 $EndComp
-Text Label 7950 11050 2    50   ~ 0
+Text Label 5800 10950 2    50   ~ 0
 external_analog_4
-Text Label 8250 11050 0    50   ~ 0
+Text Label 6100 10950 0    50   ~ 0
 OA4_input
 $Comp
 L Jumper:SolderJumper_2_Open JP?
 U 1 1 5F7E03AE
-P 8100 10750
-F 0 "JP?" H 8100 10850 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 8100 10650 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 8100 10750 50  0001 C CNN
-F 3 "~" H 8100 10750 50  0001 C CNN
-	1    8100 10750
+P 5950 10650
+F 0 "JP?" H 5950 10750 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 5950 10550 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 5950 10650 50  0001 C CNN
+F 3 "~" H 5950 10650 50  0001 C CNN
+	1    5950 10650
 	1    0    0    -1  
 $EndComp
-Text Label 7950 10750 2    50   ~ 0
+Text Label 5800 10650 2    50   ~ 0
 external_analog_3
-Text Label 8250 10750 0    50   ~ 0
+Text Label 6100 10650 0    50   ~ 0
 OA3_input
 $Comp
 L Jumper:SolderJumper_2_Open JP?
 U 1 1 5F7EF02A
-P 6650 11050
-F 0 "JP?" H 6650 11150 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 6650 10950 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 6650 11050 50  0001 C CNN
-F 3 "~" H 6650 11050 50  0001 C CNN
-	1    6650 11050
+P 5950 10350
+F 0 "JP?" H 5950 10450 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 5950 10250 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 5950 10350 50  0001 C CNN
+F 3 "~" H 5950 10350 50  0001 C CNN
+	1    5950 10350
 	1    0    0    -1  
 $EndComp
-Text Label 6500 11050 2    50   ~ 0
+Text Label 5800 10350 2    50   ~ 0
 external_analog_2
-Text Label 6800 11050 0    50   ~ 0
+Text Label 6100 10350 0    50   ~ 0
 OA2_input
 $Comp
 L Jumper:SolderJumper_2_Open JP?
 U 1 1 5F7FD8A8
-P 6650 10750
-F 0 "JP?" H 6650 10850 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 6650 10650 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 6650 10750 50  0001 C CNN
-F 3 "~" H 6650 10750 50  0001 C CNN
-	1    6650 10750
+P 5950 10050
+F 0 "JP?" H 5950 10150 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 5950 9950 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 5950 10050 50  0001 C CNN
+F 3 "~" H 5950 10050 50  0001 C CNN
+	1    5950 10050
 	1    0    0    -1  
 $EndComp
-Text Label 6500 10750 2    50   ~ 0
+Text Label 5800 10050 2    50   ~ 0
 external_analog_1
-Text Label 6800 10750 0    50   ~ 0
+Text Label 6100 10050 0    50   ~ 0
 OA1_input
-Text Notes 5950 10550 0    59   ~ 0
-Internal mux/AWG bypass for external-only analog input 
+Text Notes 5100 9850 0    59   ~ 0
+Internal mux/AWG bypass for \nexternal-only analog input 
+$Comp
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 5F3A0F69
+P 1850 2000
+F 0 "JP?" H 1850 2100 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 1850 1900 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 1850 2000 50  0001 C CNN
+F 3 "~" H 1850 2000 50  0001 C CNN
+	1    1850 2000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 5F8701AE
+P 3700 9900
+F 0 "JP?" H 3700 10000 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 3700 9800 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 3700 9900 50  0001 C CNN
+F 3 "~" H 3700 9900 50  0001 C CNN
+	1    3700 9900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 5F871390
+P 3700 10200
+F 0 "JP?" H 3700 10300 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 3700 10100 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 3700 10200 50  0001 C CNN
+F 3 "~" H 3700 10200 50  0001 C CNN
+	1    3700 10200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 5F88F26E
+P 3700 10500
+F 0 "JP?" H 3700 10600 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 3700 10400 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 3700 10500 50  0001 C CNN
+F 3 "~" H 3700 10500 50  0001 C CNN
+	1    3700 10500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom_parts:BAT54SDW D?
+U 1 1 5F46875C
+P 3600 9100
+F 0 "D?" H 3850 9400 60  0000 C CNN
+F 1 "BAT54SDW" H 3850 9300 60  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 3800 9300 60  0001 L CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds30152.pdf" H 3800 9400 60  0001 L CNN
+F 4 "Diodes Incorporated" H 3600 9100 50  0001 C CNN "Manufacturer"
+F 5 "BAT54SDW-7-F" H 3600 9100 50  0001 C CNN "Part #"
+	1    3600 9100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F475E13
+P 3400 9000
+F 0 "#PWR?" H 3400 8750 50  0001 C CNN
+F 1 "GND" V 3300 9000 50  0000 R CNN
+F 2 "" H 3400 9000 50  0001 C CNN
+F 3 "" H 3400 9000 50  0001 C CNN
+	1    3400 9000
+	0    1    1    0   
+$EndComp
+Text Label 3400 9200 2    50   ~ 0
+3.3V
+$Comp
+L power:GND #PWR?
+U 1 1 5F91969A
+P 2900 1400
+F 0 "#PWR?" H 2900 1150 50  0001 C CNN
+F 1 "GND" V 3000 1350 50  0000 R CNN
+F 2 "" H 2900 1400 50  0001 C CNN
+F 3 "" H 2900 1400 50  0001 C CNN
+	1    2900 1400
+	0    -1   -1   0   
+$EndComp
+Connection ~ 2900 1400
+Text Notes 4500 4000 0    59   ~ 0
+Combine LED output
+$Comp
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 5F91FC03
+P 5000 4200
+F 0 "JP?" H 5000 4300 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 5000 4100 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 5000 4200 50  0001 C CNN
+F 3 "~" H 5000 4200 50  0001 C CNN
+	1    5000 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 5F91FC09
+P 5000 4500
+F 0 "JP?" H 5000 4600 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 5000 4400 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 5000 4500 50  0001 C CNN
+F 3 "~" H 5000 4500 50  0001 C CNN
+	1    5000 4500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 5F91FC0F
+P 5000 4800
+F 0 "JP?" H 5000 4900 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 5000 4700 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 5000 4800 50  0001 C CNN
+F 3 "~" H 5000 4800 50  0001 C CNN
+	1    5000 4800
+	1    0    0    -1  
+$EndComp
+Wire Notes Line
+	4500 3550 4500 2800
+Text Label 1950 3500 0    50   ~ 0
+LED1-
+Text Label 4850 4200 2    50   ~ 0
+LED1-
+Text Label 5150 4200 0    50   ~ 0
+LED2-
+Text Label 5150 4500 0    50   ~ 0
+LED3-
+Text Label 5150 4800 0    50   ~ 0
+LED4-
+Text Label 4850 4500 2    50   ~ 0
+LED2-
+Text Label 4850 4800 2    50   ~ 0
+LED3-
+Wire Notes Line
+	5500 3550 5500 6000
+Wire Wire Line
+	6350 6600 6350 6900
+$Comp
+L Custom_parts:TMUX1204DGSR U?
+U 1 1 5F3DC268
+P 7350 8100
+F 0 "U?" H 7525 8265 50  0000 C CNN
+F 1 "TMUX1204DGSR" H 7525 8174 50  0000 C CNN
+F 2 "Custom Footprints:TMUX1204DGSR" H 7350 9100 50  0001 L BNN
+F 3 "https://www.ti.com/api/videos/videoplayer/smallplayer/suppproductinfo.tsp" H 7350 8100 50  0001 C CNN
+F 4 "Texas Instruments" H 7350 8100 50  0001 C CNN "Manufacturer"
+F 5 "TMUX1204DGSR" H 7350 8100 50  0001 C CNN "Part #"
+	1    7350 8100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3200 7450 3900 7450
+Wire Wire Line
+	3200 7000 3200 7450
+Wire Wire Line
+	3150 7550 5100 7550
+Wire Wire Line
+	5100 7550 5100 7450
+Wire Wire Line
+	3150 6900 3150 6250
+Wire Wire Line
+	3200 6550 3900 6550
+Wire Wire Line
+	3200 6550 3200 6800
+Wire Wire Line
+	3150 6250 5100 6250
+Wire Wire Line
+	5100 6250 5100 6550
 $EndSCHEMATC
