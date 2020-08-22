@@ -585,7 +585,7 @@ Text Label 7150 9250 2    50   ~ 0
 external_analog_4
 Text Notes 1950 6100 0    59   ~ 0
 Internal 4-channel ADC AWG with digipot current limit
-Text Label 4550 8150 2    50   ~ 0
+Text Label 4400 8200 2    50   ~ 0
 external_analog_1
 Text Label 2650 8400 0    50   ~ 0
 external_analog_2
@@ -711,50 +711,38 @@ F 5 "4816P-T01-472LF" V 2450 8700 50  0001 C CNN "Part #"
 $EndComp
 Text Label 2650 8300 0    50   ~ 0
 external_analog_1
-Text Label 4550 8350 2    50   ~ 0
+Text Label 4400 8400 2    50   ~ 0
 external_analog_2
-Text Label 5150 8350 0    50   ~ 0
+Text Label 5000 8400 0    50   ~ 0
 external_analog_3
-Text Label 5150 8150 0    50   ~ 0
+Text Label 5000 8200 0    50   ~ 0
 external_analog_4
 $Comp
 L power:GND #PWR?
 U 1 1 5F4EB97D
-P 4550 8250
-F 0 "#PWR?" H 4550 8000 50  0001 C CNN
-F 1 "GND" V 4555 8122 50  0000 R CNN
-F 2 "" H 4550 8250 50  0001 C CNN
-F 3 "" H 4550 8250 50  0001 C CNN
-	1    4550 8250
+P 4400 8300
+F 0 "#PWR?" H 4400 8050 50  0001 C CNN
+F 1 "GND" V 4405 8172 50  0000 R CNN
+F 2 "" H 4400 8300 50  0001 C CNN
+F 3 "" H 4400 8300 50  0001 C CNN
+	1    4400 8300
 	0    1    1    0   
 $EndComp
 $Comp
 L Custom_parts:D_Zener_x4_ACom_AKKKK D?
 U 1 1 5F4F11C3
-P 4850 8400
-F 0 "D?" H 4850 7925 50  0000 C CNN
-F 1 "D_Zener_x4_ACom_AKKKK" H 4850 8016 50  0000 C CNN
-F 2 "Custom Footprints:SOT-753" H 4850 8150 50  0001 C CNN
-F 3 "https://rohmfs.rohm.com/api/videos/videoplayer/smallplayer/ftz5.6e.pdf" H 4850 8150 50  0001 C CNN
-F 4 "Rohm Semiconductor" H 4850 8400 50  0001 C CNN "Manufacturer"
-F 5 "FTZ5.6ET148" H 4850 8400 50  0001 C CNN "Part #"
-	1    4850 8400
+P 4700 8450
+F 0 "D?" H 4700 7975 50  0000 C CNN
+F 1 "D_Zener_x4_ACom_AKKKK" H 4700 8066 50  0000 C CNN
+F 2 "Custom Footprints:SOT-753" H 4700 8200 50  0001 C CNN
+F 3 "https://rohmfs.rohm.com/api/videos/videoplayer/smallplayer/ftz5.6e.pdf" H 4700 8200 50  0001 C CNN
+F 4 "Rohm Semiconductor" H 4700 8450 50  0001 C CNN "Manufacturer"
+F 5 "FTZ5.6ET148" H 4700 8450 50  0001 C CNN "Part #"
+	1    4700 8450
 	-1   0    0    1   
 $EndComp
-Text Notes 3650 7850 0    59   ~ 0
+Text Notes 3500 7900 0    59   ~ 0
 4-channel external analog input with 5.6V zener clamp
-Text Label 3550 9900 2    50   ~ 0
-external_analog_1
-Text Label 3850 9900 0    50   ~ 0
-external_analog_2
-Text Label 3550 10200 2    50   ~ 0
-external_analog_2
-Text Label 3850 10200 0    50   ~ 0
-external_analog_3
-Text Label 3550 10500 2    50   ~ 0
-external_analog_3
-Text Label 3850 10500 0    50   ~ 0
-external_analog_4
 $Comp
 L Connector:Barrel_Jack_Switch J?
 U 1 1 5F4FA1F9
@@ -1140,9 +1128,9 @@ Text Notes 15000 2400 0    50   ~ 0
 A/D IO 3
 Text Notes 15350 3000 2    50   ~ 0
 A/D IO 4
-Text Notes 2900 9400 0    50   ~ 0
+Text Notes 2800 9650 0    50   ~ 0
 A/D IO 2
-Text Notes 4550 9450 0    50   ~ 0
+Text Notes 4450 9700 0    50   ~ 0
 A/D IO 4
 Text Notes 2800 8700 0    50   ~ 0
 A/D IO 1
@@ -1152,8 +1140,6 @@ Text Notes 2800 8900 0    50   ~ 0
 A/D IO 3
 Text Notes 3150 9000 2    50   ~ 0
 A/D IO 4
-Text Notes 2950 9750 0    59   ~ 0
-Combine only external analog inputs
 Text Notes 15000 1300 0    50   ~ 0
 LED pot 2
 Text Notes 15000 1400 0    50   ~ 0
@@ -1232,63 +1218,63 @@ F 5 "4816P-T01-472LF" V 2450 10750 50  0001 C CNN "Part #"
 $EndComp
 Text Notes 850  10150 1    59   ~ 0
 I/O maximum voltage: 27V (160mW)\nNiDaq PCI-6110 is +/- 10V 5mA\nTherefore, minimum impedance is 2000 Ohms
-Text Notes 5950 9050 0    50   ~ 0
+Text Notes 5850 9300 0    50   ~ 0
 A/D IO 3
-Text Notes 4300 9000 0    50   ~ 0
+Text Notes 4200 9250 0    50   ~ 0
 A/D IO 1
-Text Notes 3550 8700 0    59   ~ 0
+Text Notes 3450 8950 0    59   ~ 0
 4-channel analog/digital IO with 0-3.3V clamp
 $Comp
 L power:GND #PWR?
 U 1 1 5F48EF1A
-P 5800 9450
-F 0 "#PWR?" H 5800 9200 50  0001 C CNN
-F 1 "GND" V 5900 9400 50  0000 R CNN
-F 2 "" H 5800 9450 50  0001 C CNN
-F 3 "" H 5800 9450 50  0001 C CNN
-	1    5800 9450
+P 5700 9700
+F 0 "#PWR?" H 5700 9450 50  0001 C CNN
+F 1 "GND" V 5800 9650 50  0000 R CNN
+F 2 "" H 5700 9700 50  0001 C CNN
+F 3 "" H 5700 9700 50  0001 C CNN
+	1    5700 9700
 	0    -1   -1   0   
 $EndComp
-Text Label 5800 9250 0    50   ~ 0
+Text Label 5700 9500 0    50   ~ 0
 3.3V
-Text Label 5050 9250 2    50   ~ 0
+Text Label 4950 9500 2    50   ~ 0
 3.3V
 $Comp
 L power:GND #PWR?
 U 1 1 5F48EF12
-P 5050 9050
-F 0 "#PWR?" H 5050 8800 50  0001 C CNN
-F 1 "GND" V 4950 9000 50  0000 R CNN
-F 2 "" H 5050 9050 50  0001 C CNN
-F 3 "" H 5050 9050 50  0001 C CNN
-	1    5050 9050
+P 4950 9300
+F 0 "#PWR?" H 4950 9050 50  0001 C CNN
+F 1 "GND" V 4850 9250 50  0000 R CNN
+F 2 "" H 4950 9300 50  0001 C CNN
+F 3 "" H 4950 9300 50  0001 C CNN
+	1    4950 9300
 	0    1    1    0   
 $EndComp
 $Comp
 L Custom_parts:BAT54SDW D?
 U 1 1 5F48EF0C
-P 5250 9150
-F 0 "D?" H 5425 9497 60  0000 C CNN
-F 1 "BAT54SDW" H 5425 9391 60  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 5450 9350 60  0001 L CNN
-F 3 "https://www.diodes.com/assets/Datasheets/ds11005.pdf" H 5450 9450 60  0001 L CNN
-F 4 "Diodes Incorporated" H 5250 9150 50  0001 C CNN "Manufacturer"
-F 5 "BAT54SDW-7-F" H 5250 9150 50  0001 C CNN "Part #"
-	1    5250 9150
+P 5150 9400
+F 0 "D?" H 5325 9747 60  0000 C CNN
+F 1 "BAT54SDW" H 5325 9641 60  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 5350 9600 60  0001 L CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds11005.pdf" H 5350 9700 60  0001 L CNN
+F 4 "Diodes Incorporated" H 5150 9400 50  0001 C CNN "Manufacturer"
+F 5 "BAT54SDW-7-F" H 5150 9400 50  0001 C CNN "Part #"
+	1    5150 9400
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F47759A
-P 4150 9400
-F 0 "#PWR?" H 4150 9150 50  0001 C CNN
-F 1 "GND" V 4250 9350 50  0000 R CNN
-F 2 "" H 4150 9400 50  0001 C CNN
-F 3 "" H 4150 9400 50  0001 C CNN
-	1    4150 9400
+P 4050 9650
+F 0 "#PWR?" H 4050 9400 50  0001 C CNN
+F 1 "GND" V 4150 9600 50  0000 R CNN
+F 2 "" H 4050 9650 50  0001 C CNN
+F 3 "" H 4050 9650 50  0001 C CNN
+	1    4050 9650
 	0    -1   -1   0   
 $EndComp
-Text Label 4150 9200 0    50   ~ 0
+Text Label 4050 9450 0    50   ~ 0
 3.3V
 Text Notes 15000 1600 0    50   ~ 0
 A/D IO 1
@@ -3215,68 +3201,6 @@ Text Notes 4900 2250 0    50   ~ 0
 small negative \nreference voltage \nso that LED turns \noff with op-amp \ninput bias
 $Comp
 L Jumper:SolderJumper_2_Open JP?
-U 1 1 5F7CCA58
-P 5950 10950
-F 0 "JP?" H 5950 11050 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 5950 10850 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 5950 10950 50  0001 C CNN
-F 3 "~" H 5950 10950 50  0001 C CNN
-	1    5950 10950
-	1    0    0    -1  
-$EndComp
-Text Label 5800 10950 2    50   ~ 0
-external_analog_4
-Text Label 6100 10950 0    50   ~ 0
-OA4_input
-$Comp
-L Jumper:SolderJumper_2_Open JP?
-U 1 1 5F7E03AE
-P 5950 10650
-F 0 "JP?" H 5950 10750 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 5950 10550 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 5950 10650 50  0001 C CNN
-F 3 "~" H 5950 10650 50  0001 C CNN
-	1    5950 10650
-	1    0    0    -1  
-$EndComp
-Text Label 5800 10650 2    50   ~ 0
-external_analog_3
-Text Label 6100 10650 0    50   ~ 0
-OA3_input
-$Comp
-L Jumper:SolderJumper_2_Open JP?
-U 1 1 5F7EF02A
-P 5950 10350
-F 0 "JP?" H 5950 10450 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 5950 10250 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 5950 10350 50  0001 C CNN
-F 3 "~" H 5950 10350 50  0001 C CNN
-	1    5950 10350
-	1    0    0    -1  
-$EndComp
-Text Label 5800 10350 2    50   ~ 0
-external_analog_2
-Text Label 6100 10350 0    50   ~ 0
-OA2_input
-$Comp
-L Jumper:SolderJumper_2_Open JP?
-U 1 1 5F7FD8A8
-P 5950 10050
-F 0 "JP?" H 5950 10150 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 5950 9950 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 5950 10050 50  0001 C CNN
-F 3 "~" H 5950 10050 50  0001 C CNN
-	1    5950 10050
-	1    0    0    -1  
-$EndComp
-Text Label 5800 10050 2    50   ~ 0
-external_analog_1
-Text Label 6100 10050 0    50   ~ 0
-OA1_input
-Text Notes 5100 9850 0    59   ~ 0
-Internal mux/AWG bypass for \nexternal-only analog input 
-$Comp
-L Jumper:SolderJumper_2_Open JP?
 U 1 1 5F3A0F69
 P 1850 2000
 F 0 "JP?" H 1850 2100 50  0000 C CNN
@@ -3287,63 +3211,30 @@ F 3 "~" H 1850 2000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper:SolderJumper_2_Open JP?
-U 1 1 5F8701AE
-P 3700 9900
-F 0 "JP?" H 3700 10000 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 3700 9800 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 3700 9900 50  0001 C CNN
-F 3 "~" H 3700 9900 50  0001 C CNN
-	1    3700 9900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Jumper:SolderJumper_2_Open JP?
-U 1 1 5F871390
-P 3700 10200
-F 0 "JP?" H 3700 10300 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 3700 10100 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 3700 10200 50  0001 C CNN
-F 3 "~" H 3700 10200 50  0001 C CNN
-	1    3700 10200
-	1    0    0    -1  
-$EndComp
-$Comp
-L Jumper:SolderJumper_2_Open JP?
-U 1 1 5F88F26E
-P 3700 10500
-F 0 "JP?" H 3700 10600 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 3700 10400 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 3700 10500 50  0001 C CNN
-F 3 "~" H 3700 10500 50  0001 C CNN
-	1    3700 10500
-	1    0    0    -1  
-$EndComp
-$Comp
 L Custom_parts:BAT54SDW D?
 U 1 1 5F46875C
-P 3600 9100
-F 0 "D?" H 3850 9400 60  0000 C CNN
-F 1 "BAT54SDW" H 3850 9300 60  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 3800 9300 60  0001 L CNN
-F 3 "https://www.diodes.com/assets/Datasheets/ds30152.pdf" H 3800 9400 60  0001 L CNN
-F 4 "Diodes Incorporated" H 3600 9100 50  0001 C CNN "Manufacturer"
-F 5 "BAT54SDW-7-F" H 3600 9100 50  0001 C CNN "Part #"
-	1    3600 9100
+P 3500 9350
+F 0 "D?" H 3750 9650 60  0000 C CNN
+F 1 "BAT54SDW" H 3750 9550 60  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 3700 9550 60  0001 L CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds30152.pdf" H 3700 9650 60  0001 L CNN
+F 4 "Diodes Incorporated" H 3500 9350 50  0001 C CNN "Manufacturer"
+F 5 "BAT54SDW-7-F" H 3500 9350 50  0001 C CNN "Part #"
+	1    3500 9350
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F475E13
-P 3400 9000
-F 0 "#PWR?" H 3400 8750 50  0001 C CNN
-F 1 "GND" V 3300 9000 50  0000 R CNN
-F 2 "" H 3400 9000 50  0001 C CNN
-F 3 "" H 3400 9000 50  0001 C CNN
-	1    3400 9000
+P 3300 9250
+F 0 "#PWR?" H 3300 9000 50  0001 C CNN
+F 1 "GND" V 3200 9250 50  0000 R CNN
+F 2 "" H 3300 9250 50  0001 C CNN
+F 3 "" H 3300 9250 50  0001 C CNN
+	1    3300 9250
 	0    1    1    0   
 $EndComp
-Text Label 3400 9200 2    50   ~ 0
+Text Label 3300 9450 2    50   ~ 0
 3.3V
 $Comp
 L power:GND #PWR?

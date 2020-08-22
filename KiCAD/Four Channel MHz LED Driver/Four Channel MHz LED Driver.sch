@@ -3248,59 +3248,8 @@ F 3 "" H 2900 1400 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 Connection ~ 2900 1400
-Text Notes 4500 4000 0    59   ~ 0
-Combine LED output
-$Comp
-L Jumper:SolderJumper_2_Open JP?
-U 1 1 5F91FC03
-P 5000 4200
-F 0 "JP?" H 5000 4300 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 5000 4100 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 5000 4200 50  0001 C CNN
-F 3 "~" H 5000 4200 50  0001 C CNN
-	1    5000 4200
-	1    0    0    -1  
-$EndComp
-$Comp
-L Jumper:SolderJumper_2_Open JP?
-U 1 1 5F91FC09
-P 5000 4500
-F 0 "JP?" H 5000 4600 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 5000 4400 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 5000 4500 50  0001 C CNN
-F 3 "~" H 5000 4500 50  0001 C CNN
-	1    5000 4500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Jumper:SolderJumper_2_Open JP?
-U 1 1 5F91FC0F
-P 5000 4800
-F 0 "JP?" H 5000 4900 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 5000 4700 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 5000 4800 50  0001 C CNN
-F 3 "~" H 5000 4800 50  0001 C CNN
-	1    5000 4800
-	1    0    0    -1  
-$EndComp
-Wire Notes Line
-	4500 3550 4500 2800
 Text Label 1950 3500 0    50   ~ 0
 LED1-
-Text Label 4850 4200 2    50   ~ 0
-LED1-
-Text Label 5150 4200 0    50   ~ 0
-LED2-
-Text Label 5150 4500 0    50   ~ 0
-LED3-
-Text Label 5150 4800 0    50   ~ 0
-LED4-
-Text Label 4850 4500 2    50   ~ 0
-LED2-
-Text Label 4850 4800 2    50   ~ 0
-LED3-
-Wire Notes Line
-	5500 3550 5500 6000
 Wire Wire Line
 	6350 6600 6350 6900
 $Comp
@@ -3334,4 +3283,6 @@ Wire Wire Line
 	3150 6250 5100 6250
 Wire Wire Line
 	5100 6250 5100 6550
+Wire Notes Line
+	4500 2800 4500 6000
 $EndSCHEMATC
