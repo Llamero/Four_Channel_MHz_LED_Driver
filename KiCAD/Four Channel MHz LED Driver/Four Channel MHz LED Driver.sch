@@ -384,8 +384,6 @@ Text Notes 1550 650  0    59   ~ 0
 SEPIC - Vin (3V - 30V) to 12V DC
 Wire Wire Line
 	2900 2000 2900 2100
-Text Label 2050 2100 0    50   ~ 0
-12V
 $Comp
 L Device:C_Small C?
 U 1 1 5F3A29AA
@@ -3259,7 +3257,6 @@ Wire Wire Line
 	5100 6250 5100 6550
 Wire Notes Line
 	4500 2800 4500 6000
-NoConn ~ 1850 2250
 Wire Wire Line
 	1050 1150 1350 1150
 Wire Wire Line
@@ -3269,23 +3266,4 @@ Wire Wire Line
 Wire Wire Line
 	1350 1650 1850 1650
 Connection ~ 1350 1650
-$Comp
-L Jumper:SolderJumper_3_Open JP?
-U 1 1 5FD1620B
-P 1850 2100
-F 0 "JP?" H 1850 2305 50  0000 C CNN
-F 1 "SolderJumper_3_Open" H 1850 2214 50  0000 C CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Open_Pad1.0x1.5mm" H 1850 2100 50  0001 C CNN
-F 3 "~" H 1850 2100 50  0001 C CNN
-	1    1850 2100
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1350 2100 1650 2100
-Wire Wire Line
-	1350 2100 1350 1650
-Text Notes 1400 2350 0    59   ~ 0
-12V Supply Bypass
-Text Notes 1150 2650 0    50   ~ 0
-Use 3-pad jumper to reduce\nrisk of solder-ball shorts and\nincrease voltage tolerance.
 $EndSCHEMATC
