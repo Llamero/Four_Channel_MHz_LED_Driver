@@ -424,8 +424,6 @@ Wire Wire Line
 	2350 2600 2900 2600
 Wire Wire Line
 	2350 2100 2900 2100
-Text Notes 1400 2350 0    59   ~ 0
-12V Supply Bypass
 $Comp
 L Custom_parts:TMUX1204DGSR U?
 U 1 1 5F3BA201
@@ -746,25 +744,25 @@ Text Notes 3500 7900 0    59   ~ 0
 $Comp
 L Connector:Barrel_Jack_Switch J?
 U 1 1 5F4FA1F9
-P 900 1750
-F 0 "J?" H 957 2067 50  0000 C CNN
-F 1 "Barrel_Jack_Switch" H 957 1976 50  0000 C CNN
-F 2 "Custom Footprints:54-00165-DC_Jack" H 950 1710 50  0001 C CNN
-F 3 "https://www.tensility.com/api/videos/videoplayer/smallplayer/54-00165.pdf" H 950 1710 50  0001 C CNN
-F 4 "Tensility International Corp" H 900 1750 50  0001 C CNN "Manufacturer"
-F 5 "54-00165" H 900 1750 50  0001 C CNN "Part #"
-	1    900  1750
+P 800 1750
+F 0 "J?" H 857 2067 50  0000 C CNN
+F 1 "Barrel_Jack_Switch" H 857 1976 50  0000 C CNN
+F 2 "Custom Footprints:54-00165-DC_Jack" H 850 1710 50  0001 C CNN
+F 3 "https://www.tensility.com/api/videos/videoplayer/smallplayer/54-00165.pdf" H 850 1710 50  0001 C CNN
+F 4 "Tensility International Corp" H 800 1750 50  0001 C CNN "Manufacturer"
+F 5 "54-00165" H 800 1750 50  0001 C CNN "Part #"
+	1    800  1750
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F5035F8
-P 1200 1850
-F 0 "#PWR?" H 1200 1600 50  0001 C CNN
-F 1 "GND" H 1400 1750 50  0000 R CNN
-F 2 "" H 1200 1850 50  0001 C CNN
-F 3 "" H 1200 1850 50  0001 C CNN
-	1    1200 1850
+P 1100 1850
+F 0 "#PWR?" H 1100 1600 50  0001 C CNN
+F 1 "GND" H 1300 1750 50  0000 R CNN
+F 2 "" H 1100 1850 50  0001 C CNN
+F 3 "" H 1100 1850 50  0001 C CNN
+	1    1100 1850
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -779,8 +777,8 @@ F 3 "~" H 850 1150 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	1200 1750 1200 1850
-Connection ~ 1200 1850
+	1100 1750 1100 1850
+Connection ~ 1100 1850
 $Comp
 L power:GND #PWR?
 U 1 1 5F518EFF
@@ -1518,15 +1516,6 @@ Connection ~ 1150 4600
 Connection ~ 850  4600
 Wire Wire Line
 	850  4600 850  4050
-Wire Wire Line
-	1200 1650 1400 1650
-Wire Wire Line
-	1400 1150 1050 1150
-Connection ~ 1400 1650
-Wire Wire Line
-	1400 1650 1850 1650
-Wire Wire Line
-	1400 1650 1400 1150
 $Comp
 L Connector:RJ45_Shielded J?
 U 1 1 5F4E6538
@@ -3270,6 +3259,16 @@ Wire Wire Line
 	5100 6250 5100 6550
 Wire Notes Line
 	4500 2800 4500 6000
+NoConn ~ 1850 2250
+Wire Wire Line
+	1050 1150 1350 1150
+Wire Wire Line
+	1350 1150 1350 1650
+Wire Wire Line
+	1100 1650 1350 1650
+Wire Wire Line
+	1350 1650 1850 1650
+Connection ~ 1350 1650
 $Comp
 L Jumper:SolderJumper_3_Open JP?
 U 1 1 5FD1620B
@@ -3281,11 +3280,12 @@ F 3 "~" H 1850 2100 50  0001 C CNN
 	1    1850 2100
 	1    0    0    -1  
 $EndComp
-NoConn ~ 1850 2250
 Wire Wire Line
-	1650 2100 1400 2100
+	1350 2100 1650 2100
 Wire Wire Line
-	1400 1650 1400 2100
+	1350 2100 1350 1650
+Text Notes 1400 2350 0    59   ~ 0
+12V Supply Bypass
 Text Notes 1150 2650 0    50   ~ 0
 Use 3-pad jumper to reduce\nrisk of solder-ball shorts and\nincrease voltage tolerance.
 $EndSCHEMATC

@@ -384,7 +384,7 @@ Text Notes 1550 650  0    59   ~ 0
 SEPIC - Vin (3V - 30V) to 12V DC
 Wire Wire Line
 	2900 2000 2900 2100
-Text Label 2000 2000 0    50   ~ 0
+Text Label 2050 2100 0    50   ~ 0
 12V
 $Comp
 L Device:C_Small C?
@@ -424,7 +424,7 @@ Wire Wire Line
 	2350 2600 2900 2600
 Wire Wire Line
 	2350 2100 2900 2100
-Text Notes 1400 2250 0    59   ~ 0
+Text Notes 1400 2350 0    59   ~ 0
 12V Supply Bypass
 $Comp
 L Custom_parts:TMUX1204DGSR U?
@@ -1520,10 +1520,6 @@ Wire Wire Line
 	850  4600 850  4050
 Wire Wire Line
 	1200 1650 1400 1650
-Wire Wire Line
-	1400 2000 1700 2000
-Wire Wire Line
-	1400 2000 1400 1650
 Wire Wire Line
 	1400 1150 1050 1150
 Connection ~ 1400 1650
@@ -3200,17 +3196,6 @@ Op-amp split supply: 12V/-5V to clean 10V/-1.8V
 Text Notes 4900 2250 0    50   ~ 0
 small negative \nreference voltage \nso that LED turns \noff with op-amp \ninput bias
 $Comp
-L Jumper:SolderJumper_2_Open JP?
-U 1 1 5F3A0F69
-P 1850 2000
-F 0 "JP?" H 1850 2100 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 1850 1900 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm" H 1850 2000 50  0001 C CNN
-F 3 "~" H 1850 2000 50  0001 C CNN
-	1    1850 2000
-	1    0    0    -1  
-$EndComp
-$Comp
 L Custom_parts:BAT54SDW D?
 U 1 1 5F46875C
 P 3500 9350
@@ -3285,4 +3270,22 @@ Wire Wire Line
 	5100 6250 5100 6550
 Wire Notes Line
 	4500 2800 4500 6000
+$Comp
+L Jumper:SolderJumper_3_Open JP?
+U 1 1 5FD1620B
+P 1850 2100
+F 0 "JP?" H 1850 2305 50  0000 C CNN
+F 1 "SolderJumper_3_Open" H 1850 2214 50  0000 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Open_Pad1.0x1.5mm" H 1850 2100 50  0001 C CNN
+F 3 "~" H 1850 2100 50  0001 C CNN
+	1    1850 2100
+	1    0    0    -1  
+$EndComp
+NoConn ~ 1850 2250
+Wire Wire Line
+	1650 2100 1400 2100
+Wire Wire Line
+	1400 1650 1400 2100
+Text Notes 1150 2650 0    50   ~ 0
+Use 3-pad jumper to reduce\nrisk of solder-ball shorts and\nincrease voltage tolerance.
 $EndSCHEMATC
