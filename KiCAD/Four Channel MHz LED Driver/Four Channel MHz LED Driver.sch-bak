@@ -1154,10 +1154,6 @@ Text Notes 15000 1900 0    50   ~ 0
 MOSFET temp 2
 Text Notes 15000 2000 0    50   ~ 0
 MOSFET temp 3
-Text Notes 12050 3000 2    50   ~ 0
-Ext fan PWM
-Text Notes 12050 2000 2    50   ~ 0
-Internal fan PWM
 Text Notes 15000 2100 0    50   ~ 0
 MOSFET temp 4
 Text Notes 15000 2600 0    50   ~ 0
@@ -1290,8 +1286,6 @@ Text Notes 11750 3100 2    50   ~ 0
 ADC1
 Text Notes 11750 3200 2    50   ~ 0
 ADC1
-Text Notes 15000 2500 0    50   ~ 0
-Ext temp
 Text Notes 16000 3600 1    50   ~ 0
 https://forum.pjrc.com/attachment.php?attachmentid=10666&d=1495536536
 $Comp
@@ -2258,10 +2252,10 @@ U 1 1 5F44CB6E
 P 10650 10650
 F 0 "HS?" H 10550 10900 50  0000 L CNN
 F 1 "HS-MOS" H 10500 10800 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_634-20ABPE" H 10662 10650 50  0001 C CNN
+F 2 "Custom Footprints:Heatsink_634-15ABPE" H 10662 10650 50  0001 C CNN
 F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 10662 10650 50  0001 C CNN
 F 4 "Wakefield-Vette" H 10650 10650 50  0001 C CNN "Manufacturer"
-F 5 "634-20ABPE" H 10650 10650 50  0001 C CNN "Part #"
+F 5 "634-15ABPE" H 10650 10650 50  0001 C CNN "Part #"
 	1    10650 10650
 	1    0    0    -1  
 $EndComp
@@ -2458,10 +2452,10 @@ U 1 1 5F5289B1
 P 11350 10650
 F 0 "HS?" H 11250 10900 50  0000 L CNN
 F 1 "HS-RES" H 11200 10800 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_634-20ABPE" H 11362 10650 50  0001 C CNN
+F 2 "Custom Footprints:Heatsink_634-15ABPE" H 11362 10650 50  0001 C CNN
 F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 11362 10650 50  0001 C CNN
 F 4 "Wakefield-Vette" H 11350 10650 50  0001 C CNN "Manufacturer"
-F 5 "634-20ABPE" H 11350 10650 50  0001 C CNN "Part #"
+F 5 "634-15ABPE" H 11350 10650 50  0001 C CNN "Part #"
 	1    11350 10650
 	1    0    0    -1  
 $EndComp
@@ -3266,26 +3260,114 @@ Wire Wire Line
 Wire Wire Line
 	1350 1650 1850 1650
 Connection ~ 1350 1650
-Text Notes 1150 2650 0    50   ~ 0
-Use 3-pad jumper to reduce\nrisk of solder-ball shorts and\nincrease voltage tolerance.
-NoConn ~ 1850 2250
-Text Notes 1400 2350 0    59   ~ 0
-12V Supply Bypass
-Text Label 2050 2100 0    50   ~ 0
-12V
-Wire Wire Line
-	1350 2100 1350 1650
-Wire Wire Line
-	1350 2100 1650 2100
 $Comp
-L Jumper:SolderJumper_3_Open JP?
-U 1 1 5FD1620B
-P 1850 2100
-F 0 "JP?" H 1850 2305 50  0000 C CNN
-F 1 "SolderJumper_3_Open" H 1850 2214 50  0000 C CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Open_Pad1.0x1.5mm" H 1850 2100 50  0001 C CNN
-F 3 "~" H 1850 2100 50  0001 C CNN
-	1    1850 2100
+L power:GND #PWR?
+U 1 1 5F42FF36
+P 10000 10900
+F 0 "#PWR?" H 10000 10650 50  0001 C CNN
+F 1 "GND" H 10050 10750 50  0000 R CNN
+F 2 "" H 10000 10900 50  0001 C CNN
+F 3 "" H 10000 10900 50  0001 C CNN
+	1    10000 10900
 	1    0    0    -1  
 $EndComp
+Text Label 10000 10400 0    50   ~ 0
+12V
+$Comp
+L Mechanical:MountingHole H?
+U 1 1 5F452E2A
+P 9700 10500
+F 0 "H?" H 9650 10600 50  0000 L CNN
+F 1 "MountingHole" H 9800 10455 50  0001 L CNN
+F 2 "Custom Footprints:60mm_fan_mount" H 9700 10500 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 9700 10500 50  0001 C CNN
+F 4 "Würth Elektronik" H 9700 10500 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 9700 10500 50  0001 C CNN "Part #"
+	1    9700 10500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H?
+U 1 1 5F45A937
+P 10300 10500
+F 0 "H?" H 10250 10600 50  0000 L CNN
+F 1 "MountingHole" H 10400 10455 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 10300 10500 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10300 10500 50  0001 C CNN
+F 4 "Würth Elektronik" H 10300 10500 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 10300 10500 50  0001 C CNN "Part #"
+	1    10300 10500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H?
+U 1 1 5F45C2D1
+P 10300 10950
+F 0 "H?" H 10250 11050 50  0000 L CNN
+F 1 "MountingHole" H 10400 10905 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 10300 10950 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10300 10950 50  0001 C CNN
+F 4 "Würth Elektronik" H 10300 10950 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 10300 10950 50  0001 C CNN "Part #"
+	1    10300 10950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H?
+U 1 1 5F45CD36
+P 10300 10500
+F 0 "H?" H 10250 10600 50  0000 L CNN
+F 1 "MountingHole" H 10400 10455 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 10300 10500 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10300 10500 50  0001 C CNN
+F 4 "Würth Elektronik" H 10300 10500 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 10300 10500 50  0001 C CNN "Part #"
+	1    10300 10500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H?
+U 1 1 5F45D0AD
+P 10300 10500
+F 0 "H?" H 10250 10600 50  0000 L CNN
+F 1 "MountingHole" H 10400 10455 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 10300 10500 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10300 10500 50  0001 C CNN
+F 4 "Würth Elektronik" H 10300 10500 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 10300 10500 50  0001 C CNN "Part #"
+	1    10300 10500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H?
+U 1 1 5F45D9B5
+P 9700 10950
+F 0 "H?" H 9650 11050 50  0000 L CNN
+F 1 "MountingHole" H 9800 10905 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 9700 10950 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 9700 10950 50  0001 C CNN
+F 4 "Würth Elektronik" H 9700 10950 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 9700 10950 50  0001 C CNN "Part #"
+	1    9700 10950
+	1    0    0    -1  
+$EndComp
+Text Notes 15000 2500 0    50   ~ 0
+Ext temp
+Text Notes 12050 2000 2    50   ~ 0
+Internal fan PWM
+$Comp
+L Motor:Fan M?
+U 1 1 5F42A861
+P 10000 10700
+F 0 "M?" H 10000 11200 50  0000 L CNN
+F 1 "Fan - CFM-6010V-140-285" H 9550 11100 50  0000 L CNN
+F 2 "Connector_Wire:SolderWire-1sqmm_1x02_P5.4mm_D1.4mm_OD2.7mm" H 10000 10710 50  0001 C CNN
+F 3 "https://www.cuidevices.com/product/resource/digikeypdf/cfm-60v.pdf" H 10000 10710 50  0001 C CNN
+F 4 "CUI Devices" H 10000 10700 50  0001 C CNN "Manufacturer"
+F 5 "CFM-6010V-140-285" H 10000 10700 50  0001 C CNN "Part #"
+	1    10000 10700
+	1    0    0    -1  
+$EndComp
+Text Notes 12050 3000 2    50   ~ 0
+Ext fan PWM
 $EndSCHEMATC

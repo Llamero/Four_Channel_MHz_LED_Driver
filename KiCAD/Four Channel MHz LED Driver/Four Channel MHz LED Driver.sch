@@ -1154,10 +1154,6 @@ Text Notes 15000 1900 0    50   ~ 0
 MOSFET temp 2
 Text Notes 15000 2000 0    50   ~ 0
 MOSFET temp 3
-Text Notes 12050 3000 2    50   ~ 0
-Ext fan PWM
-Text Notes 12050 2000 2    50   ~ 0
-Internal fan PWM
 Text Notes 15000 2100 0    50   ~ 0
 MOSFET temp 4
 Text Notes 15000 2600 0    50   ~ 0
@@ -1290,8 +1286,6 @@ Text Notes 11750 3100 2    50   ~ 0
 ADC1
 Text Notes 11750 3200 2    50   ~ 0
 ADC1
-Text Notes 15000 2500 0    50   ~ 0
-Ext temp
 Text Notes 16000 3600 1    50   ~ 0
 https://forum.pjrc.com/attachment.php?attachmentid=10666&d=1495536536
 $Comp
@@ -2258,10 +2252,10 @@ U 1 1 5F44CB6E
 P 10650 10650
 F 0 "HS?" H 10550 10900 50  0000 L CNN
 F 1 "HS-MOS" H 10500 10800 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_634-20ABPE" H 10662 10650 50  0001 C CNN
+F 2 "Custom Footprints:Heatsink_634-15ABPE" H 10662 10650 50  0001 C CNN
 F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 10662 10650 50  0001 C CNN
 F 4 "Wakefield-Vette" H 10650 10650 50  0001 C CNN "Manufacturer"
-F 5 "634-20ABPE" H 10650 10650 50  0001 C CNN "Part #"
+F 5 "634-15ABPE" H 10650 10650 50  0001 C CNN "Part #"
 	1    10650 10650
 	1    0    0    -1  
 $EndComp
@@ -2458,10 +2452,10 @@ U 1 1 5F5289B1
 P 11350 10650
 F 0 "HS?" H 11250 10900 50  0000 L CNN
 F 1 "HS-RES" H 11200 10800 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_634-20ABPE" H 11362 10650 50  0001 C CNN
+F 2 "Custom Footprints:Heatsink_634-15ABPE" H 11362 10650 50  0001 C CNN
 F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 11362 10650 50  0001 C CNN
 F 4 "Wakefield-Vette" H 11350 10650 50  0001 C CNN "Manufacturer"
-F 5 "634-20ABPE" H 11350 10650 50  0001 C CNN "Part #"
+F 5 "634-15ABPE" H 11350 10650 50  0001 C CNN "Part #"
 	1    11350 10650
 	1    0    0    -1  
 $EndComp
@@ -3266,4 +3260,142 @@ Wire Wire Line
 Wire Wire Line
 	1350 1650 1850 1650
 Connection ~ 1350 1650
+$Comp
+L power:GND #PWR?
+U 1 1 5F42FF36
+P 9750 10850
+F 0 "#PWR?" H 9750 10600 50  0001 C CNN
+F 1 "GND" H 9800 10700 50  0000 R CNN
+F 2 "" H 9750 10850 50  0001 C CNN
+F 3 "" H 9750 10850 50  0001 C CNN
+	1    9750 10850
+	1    0    0    -1  
+$EndComp
+Text Label 9750 9950 0    50   ~ 0
+12V
+$Comp
+L Mechanical:MountingHole H?
+U 1 1 5F452E2A
+P 9450 10050
+F 0 "H?" H 9400 10150 50  0000 L CNN
+F 1 "MountingHole" H 9550 10005 50  0001 L CNN
+F 2 "Custom Footprints:60mm_fan_mount" H 9450 10050 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 9450 10050 50  0001 C CNN
+F 4 "Würth Elektronik" H 9450 10050 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 9450 10050 50  0001 C CNN "Part #"
+	1    9450 10050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H?
+U 1 1 5F45A937
+P 10050 10050
+F 0 "H?" H 10000 10150 50  0000 L CNN
+F 1 "MountingHole" H 10150 10005 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 10050 10050 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10050 10050 50  0001 C CNN
+F 4 "Würth Elektronik" H 10050 10050 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 10050 10050 50  0001 C CNN "Part #"
+	1    10050 10050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H?
+U 1 1 5F45C2D1
+P 10050 10500
+F 0 "H?" H 10000 10600 50  0000 L CNN
+F 1 "MountingHole" H 10150 10455 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 10050 10500 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10050 10500 50  0001 C CNN
+F 4 "Würth Elektronik" H 10050 10500 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 10050 10500 50  0001 C CNN "Part #"
+	1    10050 10500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H?
+U 1 1 5F45CD36
+P 10050 10050
+F 0 "H?" H 10000 10150 50  0000 L CNN
+F 1 "MountingHole" H 10150 10005 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 10050 10050 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10050 10050 50  0001 C CNN
+F 4 "Würth Elektronik" H 10050 10050 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 10050 10050 50  0001 C CNN "Part #"
+	1    10050 10050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H?
+U 1 1 5F45D0AD
+P 10050 10050
+F 0 "H?" H 10000 10150 50  0000 L CNN
+F 1 "MountingHole" H 10150 10005 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 10050 10050 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10050 10050 50  0001 C CNN
+F 4 "Würth Elektronik" H 10050 10050 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 10050 10050 50  0001 C CNN "Part #"
+	1    10050 10050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H?
+U 1 1 5F45D9B5
+P 9450 10500
+F 0 "H?" H 9400 10600 50  0000 L CNN
+F 1 "MountingHole" H 9550 10455 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 9450 10500 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 9450 10500 50  0001 C CNN
+F 4 "Würth Elektronik" H 9450 10500 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 9450 10500 50  0001 C CNN "Part #"
+	1    9450 10500
+	1    0    0    -1  
+$EndComp
+Text Notes 15000 2500 0    50   ~ 0
+Ext temp
+Text Notes 12050 2000 2    50   ~ 0
+Internal fan PWM
+$Comp
+L Motor:Fan M?
+U 1 1 5F42A861
+P 9750 10250
+F 0 "M?" H 9750 10750 50  0000 L CNN
+F 1 "Fan - CFM-6010V-140-285" H 9300 10650 50  0000 L CNN
+F 2 "Connector_Wire:SolderWire-1sqmm_1x02_P5.4mm_D1.4mm_OD2.7mm" H 9750 10260 50  0001 C CNN
+F 3 "https://www.cuidevices.com/product/resource/digikeypdf/cfm-60v.pdf" H 9750 10260 50  0001 C CNN
+F 4 "CUI Devices" H 9750 10250 50  0001 C CNN "Manufacturer"
+F 5 "CFM-6010V-140-285" H 9750 10250 50  0001 C CNN "Part #"
+	1    9750 10250
+	1    0    0    -1  
+$EndComp
+Text Notes 12050 3000 2    50   ~ 0
+Ext fan PWM
+$Comp
+L Device:Q_DUAL_NMOS_G1S2G2D2S1D1 Q?
+U 1 1 5F47322B
+P 9650 10650
+F 0 "Q?" H 9854 10696 50  0000 L CNN
+F 1 "Q_DUAL_NMOS" H 9854 10605 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TSOT-23-6" H 9850 10650 50  0001 C CNN
+F 3 "https://fscdn.rohm.com/en/products/databook/datasheet/discrete/transistor/mosfet/qs6k1-e.pdf" H 9850 10650 50  0001 C CNN
+F 4 "Rohm Semiconductor" H 9650 10650 50  0001 C CNN "Manufacturer"
+F 5 "QS6K1TR" H 9650 10650 50  0001 C CNN "Part #"
+	1    9650 10650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Q_DUAL_NMOS_G1S2G2D2S1D1 Q?
+U 2 1 5F47DB06
+P 11050 3000
+F 0 "Q?" H 11255 2954 50  0000 L CNN
+F 1 "Q_DUAL_NMOS" H 11255 3045 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TSOT-23-6" H 11250 3000 50  0001 C CNN
+F 3 "https://fscdn.rohm.com/en/products/databook/datasheet/discrete/transistor/mosfet/qs6k1-e.pdf" H 11250 3000 50  0001 C CNN
+F 4 "Rohm Semiconductor" H 11050 3000 50  0001 C CNN "Manufacturer"
+F 5 "QS6K1TR" H 11050 3000 50  0001 C CNN "Part #"
+	2    11050 3000
+	-1   0    0    1   
+$EndComp
+Text Notes 9600 10850 2    50   ~ 0
+Internal fan PWM
 $EndSCHEMATC

@@ -30,6 +30,12 @@ K diode zener dual
 F ~
 $ENDCMP
 #
+$CMP Fan_Mount
+D Fan
+K Fan Motor
+F ~
+$ENDCMP
+#
 $CMP LM101
 D Operational Amplifier, DIP-8/TO-99-8
 K single opamp
