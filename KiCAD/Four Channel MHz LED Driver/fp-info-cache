@@ -1,4 +1,4 @@
-19406146328069118
+19407744580887705
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -48832,6 +48832,13 @@ Through hole pin header THT 1x08 2.54mm single row
 7
 7
 Custom Footprints
+G13JVCF_or_GW12LJVCF
+
+
+0
+8
+7
+Custom Footprints
 Heatsink_634-15ABPE
 
 
@@ -48885,8 +48892,8 @@ SMD_LED
 
 
 0
-0
-0
+2
+2
 Custom Footprints
 SOT-753
 
