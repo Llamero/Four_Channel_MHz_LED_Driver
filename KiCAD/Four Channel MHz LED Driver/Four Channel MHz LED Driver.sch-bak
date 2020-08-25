@@ -3867,4 +3867,29 @@ F 5 "TWK212B7225MD-T" H 5450 2100 50  0001 C CNN "Part #"
 	1    5450 2100
 	-1   0    0    -1  
 $EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5FFC2163
+P 7500 3000
+F 0 "C?" H 7350 3100 50  0000 L CNN
+F 1 "2.2uF" H 7250 2900 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 7500 3000 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 7500 3000 50  0001 C CNN
+F 4 "Taiyo Yuden" H 7500 3000 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 7500 3000 50  0001 C CNN "Part #"
+	1    7500 3000
+	-1   0    0    -1  
+$EndComp
+Connection ~ 7500 2900
+$Comp
+L power:GND #PWR?
+U 1 1 5FFC4572
+P 7500 3100
+F 0 "#PWR?" H 7500 2850 50  0001 C CNN
+F 1 "GND" H 7550 2950 50  0000 R CNN
+F 2 "" H 7500 3100 50  0001 C CNN
+F 3 "" H 7500 3100 50  0001 C CNN
+	1    7500 3100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

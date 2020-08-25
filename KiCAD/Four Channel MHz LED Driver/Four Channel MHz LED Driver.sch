@@ -3105,18 +3105,18 @@ Wire Notes Line
 	500  6000 8750 6000
 Text Label 12550 2400 2    50   ~ 0
 Toggle_red_LED
-Text Label 12550 2200 2    50   ~ 0
+Text Label 12550 2500 2    50   ~ 0
 Toggle_green_LED
 Text Label 8050 4050 2    50   ~ 0
 Toggle_red_LED
 Text Label 8050 4250 2    50   ~ 0
 Toggle_green_LED
-Text Label 12550 2600 2    50   ~ 0
+Text Label 12550 2800 2    50   ~ 0
 DAC_CS
 Text Label 6700 6800 2    50   ~ 0
 DAC_CS
 Text Label 12550 2700 2    50   ~ 0
-Over_temp_alarm1
+Over_temp_alarm
 Text Label 12550 3100 2    50   ~ 0
 A-D_input_1
 Text Label 12550 3200 2    50   ~ 0
@@ -3424,9 +3424,7 @@ F 5 "CPT-2016-75-SMT-TR" H 8000 5150 50  0001 C CNN "Part #"
 	1    8000 5150
 	1    0    0    -1  
 $EndComp
-Text Label 7900 5050 2    50   ~ 0
-Over_temp_alarm1
-Text Label 12550 2500 2    50   ~ 0
+Text Label 12550 2600 2    50   ~ 0
 Toggle_switch
 Text Label 8350 3850 2    50   ~ 0
 Toggle_switch
@@ -3434,10 +3432,6 @@ Text Label 12550 2900 2    50   ~ 0
 External_3v3_PWM
 Text Label 12550 1100 2    50   ~ 0
 LCD_CS
-Text Label 12550 2800 2    50   ~ 0
-Over_temp_alarm2
-Text Label 7900 5150 2    50   ~ 0
-Over_temp_alarm2
 Text Label 12550 1000 2    50   ~ 0
 LCD_reset
 $Comp
@@ -3891,5 +3885,20 @@ F 2 "" H 7500 3100 50  0001 C CNN
 F 3 "" H 7500 3100 50  0001 C CNN
 	1    7500 3100
 	1    0    0    -1  
+$EndComp
+Text Label 12550 2200 2    50   ~ 0
+MISO0
+Text Label 7900 5050 2    50   ~ 0
+Over_temp_alarm
+$Comp
+L power:GND #PWR?
+U 1 1 5F467CB0
+P 7900 5150
+F 0 "#PWR?" H 7900 4900 50  0001 C CNN
+F 1 "GND" V 7905 5022 50  0000 R CNN
+F 2 "" H 7900 5150 50  0001 C CNN
+F 3 "" H 7900 5150 50  0001 C CNN
+	1    7900 5150
+	0    1    1    0   
 $EndComp
 $EndSCHEMATC
