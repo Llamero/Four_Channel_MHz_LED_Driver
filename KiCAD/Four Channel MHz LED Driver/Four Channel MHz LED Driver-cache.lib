@@ -46,11 +46,11 @@ X Pin_2 2 -200 -100 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector_RJ45_Shielded
+# Custom_parts_8P8C_Shielded_x4
 #
-DEF Connector_RJ45_Shielded J 0 40 Y Y 1 F N
+DEF Custom_parts_8P8C_Shielded_x4 J 0 40 Y Y 4 F N
 F0 "J" -200 550 50 H V R CNN
-F1 "Connector_RJ45_Shielded" 100 550 50 H V L CNN
+F1 "Custom_parts_8P8C_Shielded_x4" 100 550 50 H V L CNN
 F2 "" 0 25 50 V I C CNN
 F3 "" 0 25 50 V I C CNN
 ALIAS RJ31_Shielded RJ32_Shielded RJ33_Shielded RJ34_Shielded RJ35_Shielded RJ41_Shielded RJ45_Shielded RJ49_Shielded RJ61_Shielded
@@ -86,6 +86,33 @@ X ~ 6 400 200 100 L 50 50 1 1 P
 X ~ 7 400 300 100 L 50 50 1 1 P
 X ~ 8 400 400 100 L 50 50 1 1 P
 X ~ SH 0 -500 100 U 50 50 1 1 P
+X ~ 10 400 -200 100 L 50 50 2 1 P
+X ~ 11 400 -100 100 L 50 50 2 1 P
+X ~ 12 400 0 100 L 50 50 2 1 P
+X ~ 13 400 100 100 L 50 50 2 1 P
+X ~ 14 400 200 100 L 50 50 2 1 P
+X ~ 15 400 300 100 L 50 50 2 1 P
+X ~ 16 400 400 100 L 50 50 2 1 P
+X ~ 9 400 -300 100 L 50 50 2 1 P
+X ~ SH 0 -500 100 U 50 50 2 1 P
+X ~ 17 400 -300 100 L 50 50 3 1 P
+X ~ 18 400 -200 100 L 50 50 3 1 P
+X ~ 19 400 -100 100 L 50 50 3 1 P
+X ~ 20 400 0 100 L 50 50 3 1 P
+X ~ 21 400 100 100 L 50 50 3 1 P
+X ~ 22 400 200 100 L 50 50 3 1 P
+X ~ 23 400 300 100 L 50 50 3 1 P
+X ~ 24 400 400 100 L 50 50 3 1 P
+X ~ SH 0 -500 100 U 50 50 3 1 P
+X ~ 25 400 -300 100 L 50 50 4 1 P
+X ~ 26 400 -200 100 L 50 50 4 1 P
+X ~ 27 400 -100 100 L 50 50 4 1 P
+X ~ 28 400 0 100 L 50 50 4 1 P
+X ~ 29 400 100 100 L 50 50 4 1 P
+X ~ 30 400 200 100 L 50 50 4 1 P
+X ~ 31 400 300 100 L 50 50 4 1 P
+X ~ 32 400 400 100 L 50 50 4 1 P
+X ~ SH 0 -500 100 U 50 50 4 1 P
 ENDDRAW
 ENDDEF
 #
@@ -577,29 +604,6 @@ X 2 2 100 0 40 L 50 50 0 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_LED
-#
-DEF Device_LED D 0 40 N N 1 F N
-F0 "D" 0 100 50 H V C CNN
-F1 "Device_LED" 0 -100 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- LED*
- LED_SMD:*
- LED_THT:*
-$ENDFPLIST
-DRAW
-P 2 0 1 10 -50 -50 -50 50 N
-P 2 0 1 0 -50 0 50 0 N
-P 4 0 1 10 50 -50 50 50 -50 0 50 -50 N
-P 5 0 1 0 -120 -30 -180 -90 -150 -90 -180 -90 -180 -60 N
-P 5 0 1 0 -70 -30 -130 -90 -100 -90 -130 -90 -130 -60 N
-X K 1 -150 0 100 R 50 50 1 1 P
-X A 2 150 0 100 L 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
 # Device_Q_DUAL_NMOS_G1S2G2D2S1D1
 #
 DEF Device_Q_DUAL_NMOS_G1S2G2D2S1D1 Q 0 0 Y N 2 F N
@@ -967,6 +971,32 @@ X KG 6 -200 -200 100 R 50 50 0 1 P
 X A 1 200 300 100 L 50 50 1 1 P
 X B 2 -200 200 100 R 50 50 1 1 P
 X C 3 200 100 100 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# dk_Alarms-Buzzers-and-Sirens_PKMCS0909E4000-R1
+#
+DEF dk_Alarms-Buzzers-and-Sirens_PKMCS0909E4000-R1 BZ 0 1 Y Y 1 F N
+F0 "BZ" 0 200 60 H V L CNN
+F1 "dk_Alarms-Buzzers-and-Sirens_PKMCS0909E4000-R1" -100 -100 60 H V L CNN
+F2 "digikey-footprints:Piezo_9x9mm_PKMCS0909E4000-R1" 200 200 60 H I L CNN
+F3 "https://www.murata.com/~/media/webrenewal/products/sound/sounder/vppt-buzj083-d.ashx" 200 300 60 H I L CNN
+F4 "490-9647-1-ND" 200 400 60 H I L CNN "Digi-Key_PN"
+F5 "PKMCS0909E4000-R1" 200 500 60 H I L CNN "MPN"
+F6 "Audio Products" 200 600 60 H I L CNN "Category"
+F7 "Alarms, Buzzers, and Sirens" 200 700 60 H I L CNN "Family"
+F8 "https://www.murata.com/~/media/webrenewal/products/sound/sounder/vppt-buzj083-d.ashx" 200 800 60 H I L CNN "DK_Datasheet_Link"
+F9 "/product-detail/en/murata-electronics-north-america/PKMCS0909E4000-R1/490-9647-1-ND/4878401" 200 900 60 H I L CNN "DK_Detail_Page"
+F10 "AUDIO PIEZO TRANSDUCER 12.5V SMD" 200 1000 60 H I L CNN "Description"
+F11 "Murata Electronics North America" 200 1100 60 H I L CNN "Manufacturer"
+F12 "Active" 200 1200 60 H I L CNN "Status"
+DRAW
+A 200 50 71 450 -450 0 1 0 N 250 100 250 0
+A 200 50 112 634 -634 0 1 0 N 250 150 250 -50
+S 0 150 100 -50 0 1 0 f
+P 5 0 1 0 100 100 200 150 200 -50 100 0 100 100 f
+X ~ 1 -100 100 100 R 50 50 1 1 I
+X ~ 2 -100 0 100 R 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
