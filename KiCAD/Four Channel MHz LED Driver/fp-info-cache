@@ -1,4 +1,4 @@
-19412539722810675
+19415736577444460
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -48909,12 +48909,26 @@ SMD_LED
 2
 2
 Custom Footprints
+SN74LV4T125
+
+
+0
+14
+14
+Custom Footprints
 SOT-753
 
 
 0
 5
 5
+Custom Footprints
+SOT_23F
+
+
+0
+3
+3
 Custom Footprints
 SW_DS04-254-2-03BK-SMT
 

@@ -712,7 +712,7 @@ Wire Wire Line
 	5550 8350 5450 8350
 Wire Wire Line
 	5550 9150 5450 9150
-Text Notes 1300 10150 0    59   ~ 0
+Text Notes 1400 10150 0    59   ~ 0
 Current sense voltage ouput
 Text Notes 4600 6150 0    59   ~ 0
 Op-amp input mux
@@ -2633,19 +2633,6 @@ F 5 "CFM-6010V-140-285" H 9750 10250 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:Q_DUAL_NMOS_G1S2G2D2S1D1 Q1
-U 1 1 5F47322B
-P 9650 10650
-F 0 "Q1" H 9854 10696 50  0000 L CNN
-F 1 "Q_DUAL_NMOS" H 9854 10605 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TSOT-23-6" H 9850 10650 50  0001 C CNN
-F 3 "https://fscdn.rohm.com/en/products/databook/datasheet/discrete/transistor/mosfet/qs6k1-e.pdf" H 9850 10650 50  0001 C CNN
-F 4 "Rohm Semiconductor" H 9650 10650 50  0001 C CNN "Manufacturer"
-F 5 "QS6K1TR" H 9650 10650 50  0001 C CNN "Part #"
-	1    9650 10650
-	1    0    0    -1  
-$EndComp
-$Comp
 L Custom_parts:LT6200CS8-10 U12
 U 1 1 5F5541C8
 P 13150 7550
@@ -3376,13 +3363,11 @@ F 3 "" H 6600 5150 50  0001 C CNN
 	1    6600 5150
 	-1   0    0    -1  
 $EndComp
-Wire Wire Line
-	1600 9250 1850 9250
 $Comp
 L Device:R_Pack08_Split RN3
 U 6 1 5F857F89
 P 2750 9050
-F 0 "RN3" V 2650 9050 50  0000 C CNN
+F 0 "RN3" V 2850 9050 50  0000 C CNN
 F 1 "4.7k" V 2750 9050 50  0000 C CNN
 F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 3225 9050 50  0001 C CNN
 F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 2750 9050 50  0001 C CNN
@@ -3409,8 +3394,6 @@ Text Label 12550 2700 2    50   ~ 0
 Toggle_switch
 Text Label 8350 3850 2    50   ~ 0
 Toggle_switch
-Text Label 12550 2900 2    50   ~ 0
-External_3v3_PWM
 Text Label 12550 1100 2    50   ~ 0
 LCD_CS
 Text Label 12550 1000 2    50   ~ 0
@@ -3603,18 +3586,18 @@ Internal_Isense_4
 $Comp
 L Device:R_Pack08_Split RN3
 U 8 1 5FEC9EE9
-P 2800 9600
-F 0 "RN3" V 2900 9600 50  0000 C CNN
-F 1 "4.7k" V 2800 9600 50  0000 C CNN
-F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 3275 9600 50  0001 C CNN
-F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 2800 9600 50  0001 C CNN
-F 4 "Bourns Inc." V 2800 9600 50  0001 C CNN "Manufacturer"
-F 5 "4816P-T01-472LF" V 2800 9600 50  0001 C CNN "Part #"
-	8    2800 9600
-	0    -1   -1   0   
+P 1350 2100
+F 0 "RN3" V 1250 2100 50  0000 C CNN
+F 1 "4.7k" V 1350 2100 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 1825 2100 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 1350 2100 50  0001 C CNN
+F 4 "Bourns Inc." V 1350 2100 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-472LF" V 1350 2100 50  0001 C CNN "Part #"
+	8    1350 2100
+	-1   0    0    1   
 $EndComp
 Text Label 12550 3000 2    50   ~ 0
-External_5V_PWM
+External_5V_PWM2
 Wire Wire Line
 	4700 8600 3900 8600
 Wire Wire Line
@@ -3812,7 +3795,7 @@ F 3 "" H 7500 3100 50  0001 C CNN
 	1    7500 3100
 	1    0    0    -1  
 $EndComp
-Text Label 1850 9250 0    50   ~ 0
+Text Label 3050 9350 0    50   ~ 0
 Over_temp_alarm2
 Text Label 12550 2400 2    50   ~ 0
 Over_temp_alarm2
@@ -3931,19 +3914,6 @@ Wire Wire Line
 Text Label 14850 2200 0    50   ~ 0
 SCK0
 $Comp
-L Device:Q_DUAL_NMOS_G1S2G2D2S1D1 Q1
-U 2 1 5F695D52
-P 2100 9750
-F 0 "Q1" H 1900 9800 50  0000 L CNN
-F 1 "Q_DUAL_NMOS" H 1600 9600 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TSOT-23-6" H 2300 9750 50  0001 C CNN
-F 3 "https://fscdn.rohm.com/en/products/databook/datasheet/discrete/transistor/mosfet/qs6k1-e.pdf" H 2300 9750 50  0001 C CNN
-F 4 "Rohm Semiconductor" H 2100 9750 50  0001 C CNN "Manufacturer"
-F 5 "QS6K1TR" H 2100 9750 50  0001 C CNN "Part #"
-	2    2100 9750
-	-1   0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR02
 U 1 1 5F6B2779
 P 1600 9150
@@ -3956,58 +3926,171 @@ F 3 "" H 1600 9150 50  0001 C CNN
 $EndComp
 Text Label 8250 5150 2    50   ~ 0
 Over_temp_alarm2
-$Comp
-L power:GND #PWR08
-U 1 1 5F8AE8D4
-P 2000 9950
-F 0 "#PWR08" H 2000 9700 50  0001 C CNN
-F 1 "GND" V 2000 9850 50  0000 R CNN
-F 2 "" H 2000 9950 50  0001 C CNN
-F 3 "" H 2000 9950 50  0001 C CNN
-	1    2000 9950
-	0    1    1    0   
-$EndComp
-Text Label 2950 9500 0    50   ~ 0
+Text Label 2200 9150 2    50   ~ 0
 5V
 $Comp
 L Device:R_Pack08_Split RN3
 U 7 1 5FECCDD6
-P 2800 9400
-F 0 "RN3" V 2900 9400 50  0000 C CNN
-F 1 "4.7k" V 2800 9400 50  0000 C CNN
-F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 3275 9400 50  0001 C CNN
-F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 2800 9400 50  0001 C CNN
-F 4 "Bourns Inc." V 2800 9400 50  0001 C CNN "Manufacturer"
-F 5 "4816P-T01-472LF" V 2800 9400 50  0001 C CNN "Part #"
-	7    2800 9400
-	0    -1   -1   0   
+P 1350 1800
+F 0 "RN3" V 1450 1800 50  0000 C CNN
+F 1 "4.7k" V 1350 1800 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 1825 1800 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 1350 1800 50  0001 C CNN
+F 4 "Bourns Inc." V 1350 1800 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-472LF" V 1350 1800 50  0001 C CNN "Part #"
+	7    1350 1800
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	1600 9450 1850 9450
-Text Label 1850 9450 0    50   ~ 0
-External_3v3_PWM
-Text Label 2300 9750 0    50   ~ 0
-External_5V_PWM
-Wire Wire Line
-	2650 9400 2600 9400
-Wire Wire Line
-	2600 9600 2650 9600
-Wire Wire Line
-	2950 9400 2950 9600
-Wire Wire Line
-	1600 9650 1900 9650
-Wire Wire Line
-	1900 9650 1900 9550
-Wire Wire Line
-	1900 9550 2000 9550
 Wire Wire Line
 	1600 9050 2600 9050
+$Comp
+L Custom_parts:SN74LV4T125PWR U?
+U 1 1 5FB230D1
+P 2350 9650
+F 0 "U?" H 2250 10150 50  0000 C CNN
+F 1 "SN74LV4T125PWR" H 1750 10150 50  0000 C CNN
+F 2 "Custom Footprints:SN74LV4T125" H 1900 9200 50  0001 L BNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74lv4t125.pdf?HQS=TI-null-null-digikeymode-df-pf-null-wwe&ts=1598425470784" H 2400 9650 50  0001 C CNN
+F 4 "Texas Instruments" H 2350 9650 50  0001 C CNN "Manufacturer"
+F 5 "SN74LV4T125PWR" H 2350 9650 50  0001 C CNN "Part #"
+	1    2350 9650
+	-1   0    0    -1  
+$EndComp
+Text Label 3050 9850 0    50   ~ 0
+5V
+$Comp
+L power:GND #PWR?
+U 1 1 5FB26F71
+P 2200 9950
+F 0 "#PWR?" H 2200 9700 50  0001 C CNN
+F 1 "GND" V 2200 9850 50  0000 R CNN
+F 2 "" H 2200 9950 50  0001 C CNN
+F 3 "" H 2200 9950 50  0001 C CNN
+	1    2200 9950
+	0    1    -1   0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5FB279FF
+P 3050 9950
+F 0 "#PWR?" H 3050 9700 50  0001 C CNN
+F 1 "GND" V 3050 9850 50  0000 R CNN
+F 2 "" H 3050 9950 50  0001 C CNN
+F 3 "" H 3050 9950 50  0001 C CNN
+	1    3050 9950
+	0    -1   1    0   
+$EndComp
+Text Label 12550 2900 2    50   ~ 0
+External_5V_PWM1
+Text Label 3050 9750 0    50   ~ 0
+External_5V_PWM2
+Text Label 3050 9550 0    50   ~ 0
+External_5V_PWM1
+$Comp
+L power:GND #PWR?
+U 1 1 5FB6E536
+P 3050 9650
+F 0 "#PWR?" H 3050 9400 50  0001 C CNN
+F 1 "GND" V 3050 9550 50  0000 R CNN
+F 2 "" H 3050 9650 50  0001 C CNN
+F 3 "" H 3050 9650 50  0001 C CNN
+	1    3050 9650
+	0    -1   1    0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5FB6EAAA
+P 3050 9450
+F 0 "#PWR?" H 3050 9200 50  0001 C CNN
+F 1 "GND" V 3050 9350 50  0000 R CNN
+F 2 "" H 3050 9450 50  0001 C CNN
+F 3 "" H 3050 9450 50  0001 C CNN
+	1    3050 9450
+	0    -1   1    0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5FB6EE63
+P 3050 9250
+F 0 "#PWR?" H 3050 9000 50  0001 C CNN
+F 1 "GND" V 3050 9150 50  0000 R CNN
+F 2 "" H 3050 9250 50  0001 C CNN
+F 3 "" H 3050 9250 50  0001 C CNN
+	1    3050 9250
+	0    -1   1    0   
+$EndComp
+NoConn ~ 2200 9750
 Wire Wire Line
-	2600 9400 2600 9550
+	1850 9550 1850 9450
 Wire Wire Line
-	2000 9550 2600 9550
-Connection ~ 2000 9550
-Connection ~ 2600 9550
+	1900 9450 1900 9250
 Wire Wire Line
-	2600 9550 2600 9600
+	1600 9250 1900 9250
+$Comp
+L Device:C_Small C?
+U 1 1 5FC38687
+P 2100 9250
+F 0 "C?" V 2050 9100 50  0000 L CNN
+F 1 "2.2uF" V 2050 9300 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 2100 9250 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 2100 9250 50  0001 C CNN
+F 4 "Taiyo Yuden" H 2100 9250 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 2100 9250 50  0001 C CNN "Part #"
+	1    2100 9250
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	2200 9150 2200 9250
+Connection ~ 2200 9250
+$Comp
+L power:GND #PWR?
+U 1 1 5FC646F4
+P 2000 9250
+F 0 "#PWR?" H 2000 9000 50  0001 C CNN
+F 1 "GND" H 2050 9100 50  0000 R CNN
+F 2 "" H 2000 9250 50  0001 C CNN
+F 3 "" H 2000 9250 50  0001 C CNN
+	1    2000 9250
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	1900 9450 2200 9450
+Wire Wire Line
+	1850 9550 2200 9550
+Wire Wire Line
+	1600 9650 2200 9650
+$Comp
+L power:GND #PWR?
+U 1 1 5FCA45E9
+P 1350 2250
+F 0 "#PWR?" H 1350 2000 50  0001 C CNN
+F 1 "GND" H 1450 2100 50  0000 R CNN
+F 2 "" H 1350 2250 50  0001 C CNN
+F 3 "" H 1350 2250 50  0001 C CNN
+	1    1350 2250
+	1    0    0    -1  
+$EndComp
+Text Notes 900  2550 0    50   ~ 0
+Vin capacitor discharge
+Text Notes 1450 8900 0    59   ~ 0
+External thermistor and 3x 5V/16mA digital outputs
+Text Notes 1400 7600 0    59   ~ 0
+Analog/digital inputs with 0-3.3V clamp
+Text Notes 1400 6250 0    59   ~ 0
+External analog inputs with 5.6V zener clamp
+$Comp
+L Device:Q_NMOS_GSD Q?
+U 1 1 5FCDB54B
+P 9650 10650
+F 0 "Q?" H 9854 10696 50  0000 L CNN
+F 1 "Q_NMOS_GSD" H 9854 10605 50  0000 L CNN
+F 2 "Custom Footprints:SOT_23F" H 9850 10750 50  0001 C CNN
+F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=2157&prodName=SSM3K329R" H 9650 10650 50  0001 C CNN
+F 4 "Toshiba Semiconductor and Storage" H 9650 10650 50  0001 C CNN "Manufacturer"
+F 5 "SSM3K329R,LF" H 9650 10650 50  0001 C CNN "Part #"
+	1    9650 10650
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
