@@ -479,46 +479,46 @@ $EndComp
 $Comp
 L power:GND #PWR0114
 U 1 1 5F5306B0
-P 2250 11050
-F 0 "#PWR0114" H 2250 10800 50  0001 C CNN
-F 1 "GND" V 2250 10900 50  0000 R CNN
-F 2 "" H 2250 11050 50  0001 C CNN
-F 3 "" H 2250 11050 50  0001 C CNN
-	1    2250 11050
-	0    1    1    0   
+P 2700 11050
+F 0 "#PWR0114" H 2700 10800 50  0001 C CNN
+F 1 "GND" V 2700 10900 50  0000 R CNN
+F 2 "" H 2700 11050 50  0001 C CNN
+F 3 "" H 2700 11050 50  0001 C CNN
+	1    2700 11050
+	0    -1   1    0   
 $EndComp
 $Comp
 L power:GND #PWR0115
 U 1 1 5F531E2E
-P 2250 10850
-F 0 "#PWR0115" H 2250 10600 50  0001 C CNN
-F 1 "GND" V 2250 10700 50  0000 R CNN
-F 2 "" H 2250 10850 50  0001 C CNN
-F 3 "" H 2250 10850 50  0001 C CNN
-	1    2250 10850
-	0    1    1    0   
+P 2700 10850
+F 0 "#PWR0115" H 2700 10600 50  0001 C CNN
+F 1 "GND" V 2700 10700 50  0000 R CNN
+F 2 "" H 2700 10850 50  0001 C CNN
+F 3 "" H 2700 10850 50  0001 C CNN
+	1    2700 10850
+	0    -1   1    0   
 $EndComp
 $Comp
 L power:GND #PWR0116
 U 1 1 5F53235A
-P 2250 10650
-F 0 "#PWR0116" H 2250 10400 50  0001 C CNN
-F 1 "GND" V 2250 10500 50  0000 R CNN
-F 2 "" H 2250 10650 50  0001 C CNN
-F 3 "" H 2250 10650 50  0001 C CNN
-	1    2250 10650
-	0    1    1    0   
+P 2700 10650
+F 0 "#PWR0116" H 2700 10400 50  0001 C CNN
+F 1 "GND" V 2700 10500 50  0000 R CNN
+F 2 "" H 2700 10650 50  0001 C CNN
+F 3 "" H 2700 10650 50  0001 C CNN
+	1    2700 10650
+	0    -1   1    0   
 $EndComp
 $Comp
 L power:GND #PWR0117
 U 1 1 5F5328BE
-P 2250 10450
-F 0 "#PWR0117" H 2250 10200 50  0001 C CNN
-F 1 "GND" V 2250 10300 50  0000 R CNN
-F 2 "" H 2250 10450 50  0001 C CNN
-F 3 "" H 2250 10450 50  0001 C CNN
-	1    2250 10450
-	0    1    1    0   
+P 2700 10450
+F 0 "#PWR0117" H 2700 10200 50  0001 C CNN
+F 1 "GND" V 2700 10300 50  0000 R CNN
+F 2 "" H 2700 10450 50  0001 C CNN
+F 3 "" H 2700 10450 50  0001 C CNN
+	1    2700 10450
+	0    -1   1    0   
 $EndComp
 Text Label 14850 900  0    50   ~ 0
 5V
@@ -725,13 +725,13 @@ SCK0
 Text Label 6700 6700 2    50   ~ 0
 MOSI0
 Wire Wire Line
-	2650 10350 2650 10450
+	2300 10350 2300 10450
 Wire Wire Line
-	2650 10550 2650 10650
+	2300 10550 2300 10650
 Wire Wire Line
-	2650 10750 2650 10850
+	2300 10750 2300 10850
 Wire Wire Line
-	2650 10950 2650 11050
+	2300 10950 2300 11050
 Text Notes 850  8950 1    59   ~ 0
 I/O maximum voltage: +30V/-27V (160mW)\nNiDaq PCI-6110 is +/- 10V 5mA\n∴ minimum impedance is 2000 Ohms
 Text Notes 3900 10400 0    59   ~ 0
@@ -1374,14 +1374,6 @@ F 3 "" H 1600 11050 50  0001 C CNN
 	1    1600 11050
 	0    -1   -1   0   
 $EndComp
-Wire Wire Line
-	1600 10350 2250 10350
-Wire Wire Line
-	1600 10550 2250 10550
-Wire Wire Line
-	1600 10750 2250 10750
-Wire Wire Line
-	1600 10950 2250 10950
 $Comp
 L Custom_parts:ADP7182AUJZ-1.8-R7 U5
 U 1 1 5F402E6A
@@ -2792,15 +2784,15 @@ $EndComp
 $Comp
 L Device:R_Pack08 RN4
 U 1 1 5F57894B
-P 2450 10750
-F 0 "RN4" V 1950 10650 50  0000 C CNN
-F 1 "4.7k" V 1950 10850 50  0000 C CNN
-F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 2925 10750 50  0001 C CNN
-F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 2450 10750 50  0001 C CNN
-F 4 "Bourns Inc." V 2450 10750 50  0001 C CNN "Manufacturer"
-F 5 "4816P-T01-472LF" V 2450 10750 50  0001 C CNN "Part #"
-	1    2450 10750
-	0    1    1    0   
+P 2500 10750
+F 0 "RN4" V 2000 10650 50  0000 C CNN
+F 1 "1k" V 2000 10850 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 2975 10750 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 2500 10750 50  0001 C CNN
+F 4 "Bourns Inc." V 2500 10750 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-102LF" V 2500 10750 50  0001 C CNN "Part #"
+	1    2500 10750
+	0    -1   1    0   
 $EndComp
 $Comp
 L Device:R_Pack08_Split RN3
@@ -2923,19 +2915,6 @@ $EndComp
 $Comp
 L Custom_parts:8P8C_Shielded_x4 J3
 U 3 1 5F58DBB9
-P 1200 10650
-F 0 "J3" H 1350 10200 50  0000 R CNN
-F 1 "8P8C_Shielded_x4" H 1550 11200 50  0000 R CNN
-F 2 "Custom Footprints:RJ45_x4-RJSSE-5380-04" V 1200 10675 50  0001 C CNN
-F 3 "https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/rjsse538004.pdf" V 1200 10675 50  0001 C CNN
-F 4 "Amphenol ICC (Commercial Products)" H 1200 10650 50  0001 C CNN "Manufacturer"
-F 5 "RJSSE-5380-04" H 1200 10650 50  0001 C CNN "Part #"
-	3    1200 10650
-	1    0    0    1   
-$EndComp
-$Comp
-L Custom_parts:8P8C_Shielded_x4 J3
-U 4 1 5F5922AC
 P 1200 9350
 F 0 "J3" H 1350 8900 50  0000 R CNN
 F 1 "8P8C_Shielded_x4" H 1550 9900 50  0000 R CNN
@@ -2943,7 +2922,20 @@ F 2 "Custom Footprints:RJ45_x4-RJSSE-5380-04" V 1200 9375 50  0001 C CNN
 F 3 "https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/rjsse538004.pdf" V 1200 9375 50  0001 C CNN
 F 4 "Amphenol ICC (Commercial Products)" H 1200 9350 50  0001 C CNN "Manufacturer"
 F 5 "RJSSE-5380-04" H 1200 9350 50  0001 C CNN "Part #"
-	4    1200 9350
+	3    1200 9350
+	1    0    0    1   
+$EndComp
+$Comp
+L Custom_parts:8P8C_Shielded_x4 J3
+U 4 1 5F5922AC
+P 1200 10650
+F 0 "J3" H 1350 10200 50  0000 R CNN
+F 1 "8P8C_Shielded_x4" H 1550 11200 50  0000 R CNN
+F 2 "Custom Footprints:RJ45_x4-RJSSE-5380-04" V 1200 10675 50  0001 C CNN
+F 3 "https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/rjsse538004.pdf" V 1200 10675 50  0001 C CNN
+F 4 "Amphenol ICC (Commercial Products)" H 1200 10650 50  0001 C CNN "Manufacturer"
+F 5 "RJSSE-5380-04" H 1200 10650 50  0001 C CNN "Part #"
+	4    1200 10650
 	1    0    0    1   
 $EndComp
 $Comp
@@ -3116,8 +3108,6 @@ Text Label 2150 8150 0    50   ~ 0
 A-D_input_3
 Text Label 2150 8350 0    50   ~ 0
 A-D_input_4
-Text Label 2650 10400 0    50   ~ 0
-Internal_Isense_1
 Text Label 4500 10700 0    50   ~ 0
 A-D_input_1
 Text Label 3750 11100 2    50   ~ 0
@@ -3559,20 +3549,14 @@ F 3 "" H 3150 2500 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3150 2000 3150 2200
-Text Label 2050 10950 2    50   ~ 0
+Text Label 2700 10950 0    50   ~ 0
 Isense_4
-Text Label 2050 10750 2    50   ~ 0
+Text Label 2700 10750 0    50   ~ 0
 Isense_3
-Text Label 2050 10550 2    50   ~ 0
+Text Label 2700 10550 0    50   ~ 0
 Isense_2
-Text Label 2050 10350 2    50   ~ 0
+Text Label 2700 10350 0    50   ~ 0
 Isense_1
-Text Label 2650 10600 0    50   ~ 0
-Internal_Isense_2
-Text Label 2650 10800 0    50   ~ 0
-Internal_Isense_3
-Text Label 2650 11000 0    50   ~ 0
-Internal_Isense_4
 Text Label 14850 2100 0    50   ~ 0
 Internal_Isense_1
 Text Label 14850 2000 0    50   ~ 0
@@ -3946,10 +3930,10 @@ Wire Wire Line
 Wire Wire Line
 	1600 9050 2600 9050
 $Comp
-L Custom_parts:SN74LV4T125PWR U?
+L Custom_parts:SN74LV4T125PWR U16
 U 1 1 5FB230D1
 P 2350 9650
-F 0 "U?" H 2250 10150 50  0000 C CNN
+F 0 "U16" H 2250 10150 50  0000 C CNN
 F 1 "SN74LV4T125PWR" H 1750 10150 50  0000 C CNN
 F 2 "Custom Footprints:SN74LV4T125" H 1900 9200 50  0001 L BNN
 F 3 "https://www.ti.com/lit/ds/symlink/sn74lv4t125.pdf?HQS=TI-null-null-digikeymode-df-pf-null-wwe&ts=1598425470784" H 2400 9650 50  0001 C CNN
@@ -3958,29 +3942,18 @@ F 5 "SN74LV4T125PWR" H 2350 9650 50  0001 C CNN "Part #"
 	1    2350 9650
 	-1   0    0    -1  
 $EndComp
-Text Label 3050 9850 0    50   ~ 0
+Text Label 3050 9900 0    50   ~ 0
 5V
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0106
 U 1 1 5FB26F71
 P 2200 9950
-F 0 "#PWR?" H 2200 9700 50  0001 C CNN
+F 0 "#PWR0106" H 2200 9700 50  0001 C CNN
 F 1 "GND" V 2200 9850 50  0000 R CNN
 F 2 "" H 2200 9950 50  0001 C CNN
 F 3 "" H 2200 9950 50  0001 C CNN
 	1    2200 9950
 	0    1    -1   0   
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5FB279FF
-P 3050 9950
-F 0 "#PWR?" H 3050 9700 50  0001 C CNN
-F 1 "GND" V 3050 9850 50  0000 R CNN
-F 2 "" H 3050 9950 50  0001 C CNN
-F 3 "" H 3050 9950 50  0001 C CNN
-	1    3050 9950
-	0    -1   1    0   
 $EndComp
 Text Label 12550 2900 2    50   ~ 0
 External_5V_PWM1
@@ -3989,10 +3962,10 @@ External_5V_PWM2
 Text Label 3050 9550 0    50   ~ 0
 External_5V_PWM1
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0108
 U 1 1 5FB6E536
 P 3050 9650
-F 0 "#PWR?" H 3050 9400 50  0001 C CNN
+F 0 "#PWR0108" H 3050 9400 50  0001 C CNN
 F 1 "GND" V 3050 9550 50  0000 R CNN
 F 2 "" H 3050 9650 50  0001 C CNN
 F 3 "" H 3050 9650 50  0001 C CNN
@@ -4000,10 +3973,10 @@ F 3 "" H 3050 9650 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0109
 U 1 1 5FB6EAAA
 P 3050 9450
-F 0 "#PWR?" H 3050 9200 50  0001 C CNN
+F 0 "#PWR0109" H 3050 9200 50  0001 C CNN
 F 1 "GND" V 3050 9350 50  0000 R CNN
 F 2 "" H 3050 9450 50  0001 C CNN
 F 3 "" H 3050 9450 50  0001 C CNN
@@ -4011,10 +3984,10 @@ F 3 "" H 3050 9450 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0154
 U 1 1 5FB6EE63
 P 3050 9250
-F 0 "#PWR?" H 3050 9000 50  0001 C CNN
+F 0 "#PWR0154" H 3050 9000 50  0001 C CNN
 F 1 "GND" V 3050 9150 50  0000 R CNN
 F 2 "" H 3050 9250 50  0001 C CNN
 F 3 "" H 3050 9250 50  0001 C CNN
@@ -4029,10 +4002,10 @@ Wire Wire Line
 Wire Wire Line
 	1600 9250 1900 9250
 $Comp
-L Device:C_Small C?
+L Device:C_Small C37
 U 1 1 5FC38687
 P 2100 9250
-F 0 "C?" V 2050 9100 50  0000 L CNN
+F 0 "C37" V 2050 9050 50  0000 L CNN
 F 1 "2.2uF" V 2050 9300 50  0000 L CNN
 F 2 "Custom Footprints:0508_Capacitor" H 2100 9250 50  0001 C CNN
 F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 2100 9250 50  0001 C CNN
@@ -4045,10 +4018,10 @@ Wire Wire Line
 	2200 9150 2200 9250
 Connection ~ 2200 9250
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0179
 U 1 1 5FC646F4
 P 2000 9250
-F 0 "#PWR?" H 2000 9000 50  0001 C CNN
+F 0 "#PWR0179" H 2000 9000 50  0001 C CNN
 F 1 "GND" H 2050 9100 50  0000 R CNN
 F 2 "" H 2000 9250 50  0001 C CNN
 F 3 "" H 2000 9250 50  0001 C CNN
@@ -4062,10 +4035,10 @@ Wire Wire Line
 Wire Wire Line
 	1600 9650 2200 9650
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0180
 U 1 1 5FCA45E9
 P 1350 2250
-F 0 "#PWR?" H 1350 2000 50  0001 C CNN
+F 0 "#PWR0180" H 1350 2000 50  0001 C CNN
 F 1 "GND" H 1450 2100 50  0000 R CNN
 F 2 "" H 1350 2250 50  0001 C CNN
 F 3 "" H 1350 2250 50  0001 C CNN
@@ -4081,10 +4054,10 @@ Analog/digital inputs with 0-3.3V clamp
 Text Notes 1400 6250 0    59   ~ 0
 External analog inputs with 5.6V zener clamp
 $Comp
-L Device:Q_NMOS_GSD Q?
+L Device:Q_NMOS_GSD Q1
 U 1 1 5FCDB54B
 P 9650 10650
-F 0 "Q?" H 9854 10696 50  0000 L CNN
+F 0 "Q1" H 9854 10696 50  0000 L CNN
 F 1 "Q_NMOS_GSD" H 9854 10605 50  0000 L CNN
 F 2 "Custom Footprints:SOT_23F" H 9850 10750 50  0001 C CNN
 F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=2157&prodName=SSM3K329R" H 9650 10650 50  0001 C CNN
@@ -4093,4 +4066,28 @@ F 5 "SSM3K329R,LF" H 9650 10650 50  0001 C CNN "Part #"
 	1    9650 10650
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	3050 9850 3050 9950
+Text Label 2300 10950 2    50   ~ 0
+Internal_Isense_4
+Text Label 2300 10750 2    50   ~ 0
+Internal_Isense_3
+Text Label 2300 10550 2    50   ~ 0
+Internal_Isense_2
+Text Label 2300 10350 2    50   ~ 0
+Internal_Isense_1
+Wire Wire Line
+	1600 10350 2300 10350
+Connection ~ 2300 10350
+Wire Wire Line
+	1600 10550 2300 10550
+Connection ~ 2300 10550
+Wire Wire Line
+	1600 10750 2300 10750
+Connection ~ 2300 10750
+Wire Wire Line
+	1600 10950 2300 10950
+Connection ~ 2300 10950
+Text Notes 750  11150 1    59   ~ 0
+Maximum 25V Vin with \n1k impedance on Isense
 $EndSCHEMATC
