@@ -18,6 +18,12 @@ K BAT54S-FDICT-ND
 F https://www.diodes.com/assets/Datasheets/ds11005.pdf
 $ENDCMP
 #
+$CMP CPT-2016-75-SMT-TR
+D AUDIO PIEZO TRANSDUCER 30V TH
+K 445-2525-1-ND PS
+F https://product.tdk.com/info/en/catalog/datasheets/piezoelectronic_buzzer_ps_en.pdf
+$ENDCMP
+#
 $CMP Conn_01x04_Male
 D Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)
 K connector
@@ -26,6 +32,12 @@ $ENDCMP
 #
 $CMP Conn_01x05_Male
 D Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F ~
+$ENDCMP
+#
+$CMP Conn_01x24_Female
+D Generic connector, single row, 01x24, script generated (kicad-library-utils/schlib/autogen/connector/)
 K connector
 F ~
 $ENDCMP
@@ -123,6 +135,12 @@ $ENDCMP
 $CMP RJ61_Shielded
 D RJ connector, 8P8C (8 positions 8 connected), Shielded
 K 8P8C RJ female connector
+F ~
+$ENDCMP
+#
+$CMP R_POT_SPST
+D Potentiometer
+K resistor variable
 F ~
 $ENDCMP
 #

@@ -322,8 +322,6 @@ F 5 "TMUX1204DGSR" H 4900 8900 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4700 9350 4700 9400
-Wire Wire Line
 	4700 9450 5450 9450
 Wire Wire Line
 	5450 9450 5450 9350
@@ -412,21 +410,6 @@ F 3 "" H 4700 10100 50  0001 C CNN
 	1    4700 10100
 	0    1    1    0   
 $EndComp
-$Comp
-L Custom_parts:D_Zener_x4_ACom_AKKKK D3
-U 1 1 5F4F11C3
-P 5000 10250
-F 0 "D3" H 5000 9775 50  0000 C CNN
-F 1 "D_Zener_x4_ACom_AKKKK" H 5000 9866 50  0000 C CNN
-F 2 "Custom Footprints:SOT-753" H 5000 10000 50  0001 C CNN
-F 3 "http://rohmfs.rohm.com/en/products/databook/datasheet/discrete/diode/zener/ftz5.6e.pdf" H 5000 10000 50  0001 C CNN
-F 4 "Rohm Semiconductor" H 5000 10250 50  0001 C CNN "Manufacturer"
-F 5 "FTZ5.6ET148" H 5000 10250 50  0001 C CNN "Part #"
-	1    5000 10250
-	-1   0    0    1   
-$EndComp
-Text Notes 3800 9700 0    59   ~ 0
-4-channel external analog input with 5.6V zener clamp\nAbsolute max voltage: +11V/-6V
 $Comp
 L Connector:Barrel_Jack_Switch J1
 U 1 1 5F4FA1F9
@@ -520,96 +503,96 @@ F 3 "" H 2700 10450 50  0001 C CNN
 	1    2700 10450
 	0    -1   1    0   
 $EndComp
-Text Label 14850 900  0    50   ~ 0
+Text Label 13100 1000 0    50   ~ 0
 5V
-Text Label 12550 2300 2    50   ~ 0
+Text Label 10800 2400 2    50   ~ 0
 3.3V
-Text Label 14850 1100 0    50   ~ 0
+Text Label 13100 1200 0    50   ~ 0
 3.3V
 $Comp
 L power:GND #PWR0118
 U 1 1 5F3EF0B8
-P 12550 900
-F 0 "#PWR0118" H 12550 650 50  0001 C CNN
-F 1 "GND" V 12550 750 50  0000 R CNN
-F 2 "" H 12550 900 50  0001 C CNN
-F 3 "" H 12550 900 50  0001 C CNN
-	1    12550 900 
+P 10800 1000
+F 0 "#PWR0118" H 10800 750 50  0001 C CNN
+F 1 "GND" V 10800 850 50  0000 R CNN
+F 2 "" H 10800 1000 50  0001 C CNN
+F 3 "" H 10800 1000 50  0001 C CNN
+	1    10800 1000
 	0    1    1    0   
 $EndComp
 $Comp
 L power:GND #PWR0119
 U 1 1 5F3DEA30
-P 14850 1000
-F 0 "#PWR0119" H 14850 750 50  0001 C CNN
-F 1 "GND" V 14850 850 50  0000 R CNN
-F 2 "" H 14850 1000 50  0001 C CNN
-F 3 "" H 14850 1000 50  0001 C CNN
-	1    14850 1000
+P 13100 1100
+F 0 "#PWR0119" H 13100 850 50  0001 C CNN
+F 1 "GND" V 13100 950 50  0000 R CNN
+F 2 "" H 13100 1100 50  0001 C CNN
+F 3 "" H 13100 1100 50  0001 C CNN
+	1    13100 1100
 	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR0120
 U 1 1 5F3F47A9
-P 14850 2300
-F 0 "#PWR0120" H 14850 2050 50  0001 C CNN
-F 1 "GND" V 14850 2150 50  0000 R CNN
-F 2 "" H 14850 2300 50  0001 C CNN
-F 3 "" H 14850 2300 50  0001 C CNN
-	1    14850 2300
+P 13100 2400
+F 0 "#PWR0120" H 13100 2150 50  0001 C CNN
+F 1 "GND" V 13100 2250 50  0000 R CNN
+F 2 "" H 13100 2400 50  0001 C CNN
+F 3 "" H 13100 2400 50  0001 C CNN
+	1    13100 2400
 	0    -1   -1   0   
 $EndComp
 $Comp
 L Custom_parts:Teensy3.6 U14
 U 1 1 5F413A64
-P 13700 3050
-F 0 "U14" H 13700 5487 60  0000 C CNN
-F 1 "Teensy3.6" H 13700 5381 60  0000 C CNN
-F 2 "" H 13700 3100 60  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Sparkfun%20PDFs/DEV-14058_Web.pdf" H 13700 5381 60  0001 C CNN
-F 4 "SparkFun Electronics" H 13700 3050 50  0001 C CNN "Manufacturer"
-F 5 "DEV-14058" H 13700 3050 50  0001 C CNN "Part #"
-	1    13700 3050
+P 11950 3150
+F 0 "U14" H 11950 5587 60  0000 C CNN
+F 1 "Teensy3.6" H 11950 5481 60  0000 C CNN
+F 2 "Custom Footprints:Teensy_3_6_with_headers" H 11950 3200 60  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Sparkfun%20PDFs/DEV-14058_Web.pdf" H 11950 5481 60  0001 C CNN
+F 4 "SparkFun Electronics" H 11950 3150 50  0001 C CNN "Manufacturer"
+F 5 "DEV-14058" H 11950 3150 50  0001 C CNN "Part #"
+	1    11950 3150
 	1    0    0    -1  
 $EndComp
-NoConn ~ 12550 3300
-NoConn ~ 12550 3400
-NoConn ~ 12550 3500
-NoConn ~ 12550 3600
-NoConn ~ 12550 3700
-NoConn ~ 12550 3800
-NoConn ~ 12550 3900
-NoConn ~ 12550 4000
-NoConn ~ 12550 4100
-NoConn ~ 12550 4250
-NoConn ~ 12550 4350
-NoConn ~ 12550 4450
-NoConn ~ 12550 4550
-NoConn ~ 12550 4650
-NoConn ~ 12550 4750
-NoConn ~ 12550 4850
-NoConn ~ 12550 4950
-NoConn ~ 12550 5050
-NoConn ~ 12550 5150
-NoConn ~ 14850 3350
-NoConn ~ 14850 3450
-NoConn ~ 14850 3550
-NoConn ~ 14850 3650
-NoConn ~ 14850 3750
-NoConn ~ 14850 3850
-NoConn ~ 14850 3950
-NoConn ~ 14850 4050
-NoConn ~ 14850 4150
-NoConn ~ 14850 4250
-NoConn ~ 14850 4350
-NoConn ~ 14850 4450
-NoConn ~ 14850 4550
-NoConn ~ 14850 4650
-NoConn ~ 14850 4750
-NoConn ~ 14850 4850
-NoConn ~ 14850 4950
-NoConn ~ 14850 5050
-NoConn ~ 14850 5150
+NoConn ~ 10800 3400
+NoConn ~ 10800 3500
+NoConn ~ 10800 3600
+NoConn ~ 10800 3700
+NoConn ~ 10800 3800
+NoConn ~ 10800 3900
+NoConn ~ 10800 4000
+NoConn ~ 10800 4100
+NoConn ~ 10800 4200
+NoConn ~ 10800 4350
+NoConn ~ 10800 4450
+NoConn ~ 10800 4550
+NoConn ~ 10800 4650
+NoConn ~ 10800 4750
+NoConn ~ 10800 4850
+NoConn ~ 10800 4950
+NoConn ~ 10800 5050
+NoConn ~ 10800 5150
+NoConn ~ 10800 5250
+NoConn ~ 13100 3450
+NoConn ~ 13100 3550
+NoConn ~ 13100 3650
+NoConn ~ 13100 3750
+NoConn ~ 13100 3850
+NoConn ~ 13100 3950
+NoConn ~ 13100 4050
+NoConn ~ 13100 4150
+NoConn ~ 13100 4250
+NoConn ~ 13100 4350
+NoConn ~ 13100 4450
+NoConn ~ 13100 4550
+NoConn ~ 13100 4650
+NoConn ~ 13100 4750
+NoConn ~ 13100 4850
+NoConn ~ 13100 4950
+NoConn ~ 13100 5050
+NoConn ~ 13100 5150
+NoConn ~ 13100 5250
 Wire Wire Line
 	1850 1450 1850 1500
 Wire Wire Line
@@ -716,9 +699,9 @@ Text Notes 1400 10150 0    59   ~ 0
 Current sense voltage ouput
 Text Notes 4600 6150 0    59   ~ 0
 Op-amp input mux
-Text Label 9600 2900 3    50   ~ 0
+Text Label 6250 5100 3    50   ~ 0
 SCK0
-Text Label 12550 2100 2    50   ~ 0
+Text Label 10800 2200 2    50   ~ 0
 MOSI0
 Text Label 6700 6900 2    50   ~ 0
 SCK0
@@ -788,23 +771,23 @@ F 3 "" H 4500 11100 50  0001 C CNN
 $EndComp
 Text Label 4500 10900 0    50   ~ 0
 3.3V
-Text Notes 15800 3000 1    50   ~ 0
+Text Notes 14200 3100 1    50   ~ 0
 --ADC1--
-Text Notes 15850 2400 2    50   ~ 0
+Text Notes 14250 2500 2    50   ~ 0
 ADC1
-Text Notes 15850 2500 2    50   ~ 0
+Text Notes 14250 2600 2    50   ~ 0
 ADC0
-Text Notes 15800 2100 1    50   ~ 0
+Text Notes 14200 2200 1    50   ~ 0
 -------ADC0------
-Text Notes 15850 3100 2    50   ~ 0
+Text Notes 14250 3200 2    50   ~ 0
 ADC0
-Text Notes 15850 3200 2    50   ~ 0
+Text Notes 14250 3300 2    50   ~ 0
 ADC0
-Text Notes 11850 3100 2    50   ~ 0
+Text Notes 9850 3200 2    50   ~ 0
 ADC1
-Text Notes 11850 3200 2    50   ~ 0
+Text Notes 9850 3300 2    50   ~ 0
 ADC1
-Text Notes 16000 3600 1    50   ~ 0
+Text Notes 14400 3700 1    50   ~ 0
 https://forum.pjrc.com/attachment.php?attachmentid=10666&d=1495536536
 $Comp
 L Device:CP1_Small C1
@@ -1445,17 +1428,9 @@ F 3 "" H 6150 1500 50  0001 C CNN
 	1    6150 1500
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	3900 9400 4700 9400
-Connection ~ 4700 9400
-Wire Wire Line
-	4700 9400 4700 9450
 Connection ~ 4700 8600
 Wire Wire Line
 	4700 8600 4700 8650
-Connection ~ 3900 8600
-Wire Wire Line
-	3900 8600 3900 9400
 Connection ~ 4650 7750
 Wire Wire Line
 	4650 7750 4650 7800
@@ -1574,14 +1549,14 @@ Wire Wire Line
 $Comp
 L Mechanical:Heatsink_Pad_2Pin HS1
 U 1 1 5F44CB6E
-P 10650 10650
-F 0 "HS1" H 10550 10900 50  0000 L CNN
-F 1 "HS-MOS" H 10500 10800 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_634-15ABPE" H 10662 10650 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 10662 10650 50  0001 C CNN
-F 4 "Wakefield-Vette" H 10650 10650 50  0001 C CNN "Manufacturer"
-F 5 "634-15ABPE" H 10650 10650 50  0001 C CNN "Part #"
-	1    10650 10650
+P 10850 10900
+F 0 "HS1" H 10750 11150 50  0000 L CNN
+F 1 "HS-MOS" H 10700 11050 50  0000 L CNN
+F 2 "Custom Footprints:Heatsink_634-20ABPE" H 10862 10900 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 10862 10900 50  0001 C CNN
+F 4 "Wakefield-Vette" H 10850 10900 50  0001 C CNN "Manufacturer"
+F 5 "634-20ABPE" H 10850 10900 50  0001 C CNN "Part #"
+	1    10850 10900
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1761,27 +1736,27 @@ Connection ~ 11350 7750
 $Comp
 L Mechanical:Heatsink HS2
 U 1 1 5F527EE9
-P 11000 10700
-F 0 "HS2" H 10900 11000 50  0000 L CNN
-F 1 "HS-PCB" H 10850 10900 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 11012 10700 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 11012 10700 50  0001 C CNN
-F 4 "Wakefield-Vette" H 11000 10700 50  0001 C CNN "Manufacturer"
-F 5 "910-40-2-23-2-B-0" H 11000 10700 50  0001 C CNN "Part #"
-	1    11000 10700
+P 11200 10950
+F 0 "HS2" H 11100 11250 50  0000 L CNN
+F 1 "HS-PCB" H 11050 11150 50  0000 L CNN
+F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 11212 10950 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 11212 10950 50  0001 C CNN
+F 4 "Wakefield-Vette" H 11200 10950 50  0001 C CNN "Manufacturer"
+F 5 "910-40-2-23-2-B-0" H 11200 10950 50  0001 C CNN "Part #"
+	1    11200 10950
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:Heatsink_Pad_2Pin HS3
 U 1 1 5F5289B1
-P 11350 10650
-F 0 "HS3" H 11250 10900 50  0000 L CNN
-F 1 "HS-RES" H 11200 10800 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_634-15ABPE" H 11362 10650 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 11362 10650 50  0001 C CNN
-F 4 "Wakefield-Vette" H 11350 10650 50  0001 C CNN "Manufacturer"
-F 5 "634-15ABPE" H 11350 10650 50  0001 C CNN "Part #"
-	1    11350 10650
+P 11550 10900
+F 0 "HS3" H 11450 11150 50  0000 L CNN
+F 1 "HS-RES" H 11400 11050 50  0000 L CNN
+F 2 "Custom Footprints:Heatsink_634-15ABPE" H 11562 10900 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 11562 10900 50  0001 C CNN
+F 4 "Wakefield-Vette" H 11550 10900 50  0001 C CNN "Manufacturer"
+F 5 "634-15ABPE" H 11550 10900 50  0001 C CNN "Part #"
+	1    11550 10900
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -2399,50 +2374,50 @@ Wire Wire Line
 $Comp
 L power:GND #PWR0172
 U 1 1 5F7518EB
-P 10550 10750
-F 0 "#PWR0172" H 10550 10500 50  0001 C CNN
-F 1 "GND" H 10600 10600 50  0000 R CNN
-F 2 "" H 10550 10750 50  0001 C CNN
-F 3 "" H 10550 10750 50  0001 C CNN
-	1    10550 10750
+P 10750 11000
+F 0 "#PWR0172" H 10750 10750 50  0001 C CNN
+F 1 "GND" H 10800 10850 50  0000 R CNN
+F 2 "" H 10750 11000 50  0001 C CNN
+F 3 "" H 10750 11000 50  0001 C CNN
+	1    10750 11000
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0173
 U 1 1 5F7529EF
-P 10750 10750
-F 0 "#PWR0173" H 10750 10500 50  0001 C CNN
-F 1 "GND" H 10800 10600 50  0000 R CNN
-F 2 "" H 10750 10750 50  0001 C CNN
-F 3 "" H 10750 10750 50  0001 C CNN
-	1    10750 10750
+P 10950 11000
+F 0 "#PWR0173" H 10950 10750 50  0001 C CNN
+F 1 "GND" H 11000 10850 50  0000 R CNN
+F 2 "" H 10950 11000 50  0001 C CNN
+F 3 "" H 10950 11000 50  0001 C CNN
+	1    10950 11000
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0174
 U 1 1 5F752FAC
-P 11250 10750
-F 0 "#PWR0174" H 11250 10500 50  0001 C CNN
-F 1 "GND" H 11300 10600 50  0000 R CNN
-F 2 "" H 11250 10750 50  0001 C CNN
-F 3 "" H 11250 10750 50  0001 C CNN
-	1    11250 10750
+P 11450 11000
+F 0 "#PWR0174" H 11450 10750 50  0001 C CNN
+F 1 "GND" H 11500 10850 50  0000 R CNN
+F 2 "" H 11450 11000 50  0001 C CNN
+F 3 "" H 11450 11000 50  0001 C CNN
+	1    11450 11000
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0175
 U 1 1 5F7537A5
-P 11450 10750
-F 0 "#PWR0175" H 11450 10500 50  0001 C CNN
-F 1 "GND" H 11500 10600 50  0000 R CNN
-F 2 "" H 11450 10750 50  0001 C CNN
-F 3 "" H 11450 10750 50  0001 C CNN
-	1    11450 10750
+P 11650 11000
+F 0 "#PWR0175" H 11650 10750 50  0001 C CNN
+F 1 "GND" H 11700 10850 50  0000 R CNN
+F 2 "" H 11650 11000 50  0001 C CNN
+F 3 "" H 11650 11000 50  0001 C CNN
+	1    11650 11000
 	1    0    0    -1  
 $EndComp
 Text Notes 10950 6800 0    59   ~ 0
 4-channel op-amp constant current LED driver
-Text Notes 10750 10300 0    59   ~ 0
+Text Notes 10950 10550 0    59   ~ 0
 Heatsinks
 Wire Notes Line
 	4500 2800 450  2800
@@ -2523,105 +2498,79 @@ Connection ~ 1350 1650
 $Comp
 L power:GND #PWR0178
 U 1 1 5F42FF36
-P 9750 10850
-F 0 "#PWR0178" H 9750 10600 50  0001 C CNN
-F 1 "GND" H 9800 10700 50  0000 R CNN
-F 2 "" H 9750 10850 50  0001 C CNN
-F 3 "" H 9750 10850 50  0001 C CNN
-	1    9750 10850
+P 9750 11000
+F 0 "#PWR0178" H 9750 10750 50  0001 C CNN
+F 1 "GND" H 9800 10850 50  0000 R CNN
+F 2 "" H 9750 11000 50  0001 C CNN
+F 3 "" H 9750 11000 50  0001 C CNN
+	1    9750 11000
 	1    0    0    -1  
 $EndComp
-Text Label 9750 9950 0    50   ~ 0
+Text Label 9750 10100 0    50   ~ 0
 12V
 $Comp
 L Mechanical:MountingHole H1
 U 1 1 5F452E2A
-P 9450 10050
-F 0 "H1" H 9400 10150 50  0000 L CNN
-F 1 "MountingHole" H 9550 10005 50  0001 L CNN
-F 2 "Custom Footprints:60mm_fan_mount" H 9450 10050 50  0001 C CNN
-F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 9450 10050 50  0001 C CNN
-F 4 "Würth Elektronik" H 9450 10050 50  0001 C CNN "Manufacturer"
-F 5 "970300471" H 9450 10050 50  0001 C CNN "Part #"
-	1    9450 10050
+P 9450 10200
+F 0 "H1" H 9400 10300 50  0000 L CNN
+F 1 "MountingHole" H 9550 10155 50  0001 L CNN
+F 2 "Custom Footprints:60mm_fan_mount" H 9450 10200 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 9450 10200 50  0001 C CNN
+F 4 "Würth Elektronik" H 9450 10200 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 9450 10200 50  0001 C CNN "Part #"
+	1    9450 10200
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole H3
 U 1 1 5F45A937
-P 10050 10050
-F 0 "H3" H 10000 10150 50  0000 L CNN
-F 1 "MountingHole" H 10150 10005 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 10050 10050 50  0001 C CNN
-F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10050 10050 50  0001 C CNN
-F 4 "Würth Elektronik" H 10050 10050 50  0001 C CNN "Manufacturer"
-F 5 "970300471" H 10050 10050 50  0001 C CNN "Part #"
-	1    10050 10050
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H6
-U 1 1 5F45C2D1
-P 10050 10500
-F 0 "H6" H 10000 10600 50  0000 L CNN
-F 1 "MountingHole" H 10150 10455 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 10050 10500 50  0001 C CNN
-F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10050 10500 50  0001 C CNN
-F 4 "Würth Elektronik" H 10050 10500 50  0001 C CNN "Manufacturer"
-F 5 "970300471" H 10050 10500 50  0001 C CNN "Part #"
-	1    10050 10500
+P 10050 10200
+F 0 "H3" H 10000 10300 50  0000 L CNN
+F 1 "MountingHole" H 10150 10155 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 10050 10200 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10050 10200 50  0001 C CNN
+F 4 "Würth Elektronik" H 10050 10200 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 10050 10200 50  0001 C CNN "Part #"
+	1    10050 10200
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole H4
 U 1 1 5F45CD36
-P 10050 10050
-F 0 "H4" H 10000 10150 50  0000 L CNN
-F 1 "MountingHole" H 10150 10005 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 10050 10050 50  0001 C CNN
-F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10050 10050 50  0001 C CNN
-F 4 "Würth Elektronik" H 10050 10050 50  0001 C CNN "Manufacturer"
-F 5 "970300471" H 10050 10050 50  0001 C CNN "Part #"
-	1    10050 10050
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H5
-U 1 1 5F45D0AD
-P 10050 10050
-F 0 "H5" H 10000 10150 50  0000 L CNN
-F 1 "MountingHole" H 10150 10005 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 10050 10050 50  0001 C CNN
-F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10050 10050 50  0001 C CNN
-F 4 "Würth Elektronik" H 10050 10050 50  0001 C CNN "Manufacturer"
-F 5 "970300471" H 10050 10050 50  0001 C CNN "Part #"
-	1    10050 10050
+P 10050 10650
+F 0 "H4" H 10000 10750 50  0000 L CNN
+F 1 "MountingHole" H 10150 10605 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 10050 10650 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10050 10650 50  0001 C CNN
+F 4 "Würth Elektronik" H 10050 10650 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 10050 10650 50  0001 C CNN "Part #"
+	1    10050 10650
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole H2
 U 1 1 5F45D9B5
-P 9450 10500
-F 0 "H2" H 9400 10600 50  0000 L CNN
-F 1 "MountingHole" H 9550 10455 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 9450 10500 50  0001 C CNN
-F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 9450 10500 50  0001 C CNN
-F 4 "Würth Elektronik" H 9450 10500 50  0001 C CNN "Manufacturer"
-F 5 "970300471" H 9450 10500 50  0001 C CNN "Part #"
-	1    9450 10500
+P 9450 10650
+F 0 "H2" H 9400 10750 50  0000 L CNN
+F 1 "MountingHole" H 9550 10605 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 9450 10650 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 9450 10650 50  0001 C CNN
+F 4 "Würth Elektronik" H 9450 10650 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 9450 10650 50  0001 C CNN "Part #"
+	1    9450 10650
 	1    0    0    -1  
 $EndComp
 $Comp
 L Motor:Fan M1
 U 1 1 5F42A861
-P 9750 10250
-F 0 "M1" H 9750 10750 50  0000 L CNN
-F 1 "Fan - CFM-6010V-140-285" H 9300 10650 50  0000 L CNN
-F 2 "Connector_Wire:SolderWire-1sqmm_1x02_P5.4mm_D1.4mm_OD2.7mm" H 9750 10260 50  0001 C CNN
-F 3 "https://www.cuidevices.com/product/resource/digikeypdf/cfm-60v.pdf" H 9750 10260 50  0001 C CNN
-F 4 "CUI Devices" H 9750 10250 50  0001 C CNN "Manufacturer"
-F 5 "CFM-6010V-140-285" H 9750 10250 50  0001 C CNN "Part #"
-	1    9750 10250
+P 9750 10400
+F 0 "M1" H 9750 10900 50  0000 L CNN
+F 1 "Fan - CFM-6010V-140-285" H 9300 10800 50  0000 L CNN
+F 2 "Connector_Wire:SolderWire-1sqmm_1x02_P5.4mm_D1.4mm_OD2.7mm" H 9750 10410 50  0001 C CNN
+F 3 "https://www.cuidevices.com/product/resource/digikeypdf/cfm-60v.pdf" H 9750 10410 50  0001 C CNN
+F 4 "CUI Devices" H 9750 10400 50  0001 C CNN "Manufacturer"
+F 5 "CFM-6010V-140-285" H 9750 10400 50  0001 C CNN "Part #"
+	1    9750 10400
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -2706,31 +2655,31 @@ internal_analog_2
 $Comp
 L Switch:SW_NKK_GW12LJPCF SW1
 U 1 1 5F79CF44
-P 8550 4050
-F 0 "SW1" H 8550 4535 50  0000 C CNN
-F 1 "G13JVCF" H 8550 4444 50  0000 C CNN
-F 2 "Custom Footprints:G13JVCF_or_GW12LJVCF" H 8550 4500 50  0001 C CNN
-F 3 "https://www.nkkswitches.com/pdf/gtogglesilluminated.pdf" H 8550 4250 50  0001 C CNN
-F 4 "NKK Switches" H 8550 4050 50  0001 C CNN "Manufacturer"
-F 5 "G13JVCF" H 8550 4050 50  0001 C CNN "Part #"
-	1    8550 4050
+P 7500 9050
+F 0 "SW1" H 7500 9535 50  0000 C CNN
+F 1 "G13JVCF" H 7500 9444 50  0000 C CNN
+F 2 "Custom Footprints:G13JVCF_or_GW12LJVCF" H 7500 9500 50  0001 C CNN
+F 3 "https://www.nkkswitches.com/pdf/gtogglesilluminated.pdf" H 7500 9250 50  0001 C CNN
+F 4 "NKK Switches" H 7500 9050 50  0001 C CNN "Manufacturer"
+F 5 "G13JVCF" H 7500 9050 50  0001 C CNN "Part #"
+	1    7500 9050
 	1    0    0    -1  
 $EndComp
-Text Notes 8300 4500 0    50   ~ 0
+Text Notes 7250 9500 0    50   ~ 0
 Can replace\nwith GW12LJVCF
-NoConn ~ 8750 3950
+NoConn ~ 7700 8950
 $Comp
 L power:GND #PWR0185
 U 1 1 5F7B4062
-P 8750 3750
-F 0 "#PWR0185" H 8750 3500 50  0001 C CNN
-F 1 "GND" V 8850 3700 50  0000 R CNN
-F 2 "" H 8750 3750 50  0001 C CNN
-F 3 "" H 8750 3750 50  0001 C CNN
-	1    8750 3750
+P 7700 8750
+F 0 "#PWR0185" H 7700 8500 50  0001 C CNN
+F 1 "GND" V 7800 8700 50  0000 R CNN
+F 2 "" H 7700 8750 50  0001 C CNN
+F 3 "" H 7700 8750 50  0001 C CNN
+	1    7700 8750
 	0    -1   -1   0   
 $EndComp
-Text Label 8750 4150 0    50   ~ 0
+Text Label 7700 9150 0    50   ~ 0
 3.3V
 Wire Wire Line
 	5450 2000 5450 1900
@@ -2823,27 +2772,27 @@ $EndComp
 $Comp
 L Device:R_Pack04_Split RN1
 U 3 1 5F80B99A
-P 8200 4050
-F 0 "RN1" V 8100 4050 50  0000 C CNN
-F 1 "150" V 8200 4050 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 8120 4050 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 8200 4050 50  0001 C CNN
-F 4 "Panasonic Electronic Components" H 8200 4050 50  0001 C CNN "Manufacturer"
-F 5 "EXB-38V151JV" H 8200 4050 50  0001 C CNN "Part #"
-	3    8200 4050
+P 7150 9050
+F 0 "RN1" V 7050 9050 50  0000 C CNN
+F 1 "150" V 7150 9050 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 7070 9050 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7150 9050 50  0001 C CNN
+F 4 "Panasonic Electronic Components" H 7150 9050 50  0001 C CNN "Manufacturer"
+F 5 "EXB-38V151JV" H 7150 9050 50  0001 C CNN "Part #"
+	3    7150 9050
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split RN1
 U 4 1 5F80DDC0
-P 8200 4250
-F 0 "RN1" V 8100 4250 50  0000 C CNN
-F 1 "150" V 8200 4250 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 8120 4250 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 8200 4250 50  0001 C CNN
-F 4 "Panasonic Electronic Components" H 8200 4250 50  0001 C CNN "Manufacturer"
-F 5 "EXB-38V151JV" H 8200 4250 50  0001 C CNN "Part #"
-	4    8200 4250
+P 7150 9250
+F 0 "RN1" V 7050 9250 50  0000 C CNN
+F 1 "150" V 7150 9250 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 7070 9250 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7150 9250 50  0001 C CNN
+F 4 "Panasonic Electronic Components" H 7150 9250 50  0001 C CNN "Manufacturer"
+F 5 "EXB-38V151JV" H 7150 9250 50  0001 C CNN "Part #"
+	4    7150 9250
 	0    1    1    0   
 $EndComp
 $Comp
@@ -2874,16 +2823,16 @@ F 5 "4816P-T01-472LF" V 3900 6300 50  0001 C CNN "Part #"
 $EndComp
 Connection ~ 5400 6850
 $Comp
-L Device:R_Pack08 RN5
+L Device:R_Pack08_Split RN5
 U 1 1 5F4E9509
-P 5300 4650
-F 0 "RN5" V 4800 4600 50  0000 C CNN
-F 1 "4.7k" V 4800 4800 50  0000 C CNN
-F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 5775 4650 50  0001 C CNN
-F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 5300 4650 50  0001 C CNN
-F 4 "Bourns Inc." V 5300 4650 50  0001 C CNN "Manufacturer"
-F 5 "4816P-T01-472LF" V 5300 4650 50  0001 C CNN "Part #"
-	1    5300 4650
+P 7450 10100
+F 0 "RN5" V 7350 10050 50  0000 C CNN
+F 1 "4.7k" V 7450 10100 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 7925 10100 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 7450 10100 50  0001 C CNN
+F 4 "Bourns Inc." V 7450 10100 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-472LF" V 7450 10100 50  0001 C CNN "Part #"
+	1    7450 10100
 	0    -1   1    0   
 $EndComp
 $Comp
@@ -3036,21 +2985,21 @@ F 3 "" H 1600 9750 50  0001 C CNN
 $EndComp
 Text Label 1850 9050 0    50   ~ 0
 External_thermistor
-Text Label 12550 1200 2    50   ~ 0
+Text Label 10800 1300 2    50   ~ 0
 Interline_PWM_1
-Text Label 12550 1400 2    50   ~ 0
+Text Label 10800 1500 2    50   ~ 0
 Interline_PWM_2
-Text Label 12550 1600 2    50   ~ 0
+Text Label 10800 1700 2    50   ~ 0
 Interline_PWM_3
-Text Label 12550 1800 2    50   ~ 0
+Text Label 10800 1900 2    50   ~ 0
 Interline_PWM_4
-Text Label 12550 1300 2    50   ~ 0
+Text Label 10800 1400 2    50   ~ 0
 Analog_select_1
-Text Label 12550 1500 2    50   ~ 0
+Text Label 10800 1600 2    50   ~ 0
 Analog_select_2
-Text Label 12550 1700 2    50   ~ 0
+Text Label 10800 1800 2    50   ~ 0
 Analog_select_3
-Text Label 12550 1900 2    50   ~ 0
+Text Label 10800 2000 2    50   ~ 0
 Analog_select_4
 Text Label 4650 6450 2    50   ~ 0
 Interline_PWM_1
@@ -3068,37 +3017,35 @@ Text Label 5450 8150 0    50   ~ 0
 Analog_select_3
 Text Label 5450 8950 0    50   ~ 0
 Analog_select_4
-Text Label 12550 2000 2    50   ~ 0
+Text Label 10800 2100 2    50   ~ 0
 Internal_fan_PWM
-Text Label 9450 10650 2    50   ~ 0
+Text Label 9450 10800 2    50   ~ 0
 Internal_fan_PWM
-Wire Notes Line
-	8750 11200 8750 6000
 Wire Notes Line
 	8750 6700 16050 6700
 Wire Notes Line
 	500  6000 8750 6000
-Text Label 12550 2500 2    50   ~ 0
+Text Label 10800 2600 2    50   ~ 0
 Toggle_red_LED
-Text Label 12550 2600 2    50   ~ 0
+Text Label 10800 2700 2    50   ~ 0
 Toggle_green_LED
-Text Label 8050 4050 2    50   ~ 0
+Text Label 7000 9050 2    50   ~ 0
 Toggle_red_LED
-Text Label 8050 4250 2    50   ~ 0
+Text Label 7000 9250 2    50   ~ 0
 Toggle_green_LED
-Text Label 12550 2800 2    50   ~ 0
+Text Label 13100 2200 0    50   ~ 0
 DAC_CS
 Text Label 6700 6800 2    50   ~ 0
 DAC_CS
-Text Label 12550 2200 2    50   ~ 0
-Over_temp_alarm1-MISO0
-Text Label 12550 3100 2    50   ~ 0
+Text Label 13100 2800 0    50   ~ 0
+Over_temp_alarm1
+Text Label 10800 3200 2    50   ~ 0
 A-D_input_1
-Text Label 12550 3200 2    50   ~ 0
+Text Label 10800 3300 2    50   ~ 0
 A-D_input_2
-Text Label 14850 3200 0    50   ~ 0
+Text Label 13100 3300 0    50   ~ 0
 A-D_input_3
-Text Label 14850 3100 0    50   ~ 0
+Text Label 13100 3200 0    50   ~ 0
 A-D_input_4
 Text Label 2150 7750 0    50   ~ 0
 A-D_input_1
@@ -3116,241 +3063,154 @@ Text Label 6150 10750 0    50   ~ 0
 A-D_input_3
 Text Label 5400 11150 2    50   ~ 0
 A-D_input_4
-Text Label 14850 1500 0    50   ~ 0
+Text Label 13100 1600 0    50   ~ 0
 LED_pot_1
-Text Label 14850 1400 0    50   ~ 0
+Text Label 13100 1500 0    50   ~ 0
 LED_pot_2
-Text Label 14850 1300 0    50   ~ 0
+Text Label 13100 1400 0    50   ~ 0
 LED_pot_3
-Text Label 14850 1200 0    50   ~ 0
+Text Label 13100 1300 0    50   ~ 0
 LED_pot_4
-Text Label 14850 1900 0    50   ~ 0
+Text Label 13100 1900 0    50   ~ 0
 MOSFET_temp_1
-Text Label 14850 1800 0    50   ~ 0
+Text Label 13100 1800 0    50   ~ 0
 MOSFET_temp_2
-Text Label 14850 1700 0    50   ~ 0
+Text Label 13100 1700 0    50   ~ 0
 MOSFET_temp_3
-Text Label 14850 1600 0    50   ~ 0
-MOSFET_temp_4
-Text Label 14850 2500 0    50   ~ 0
-External_thermistor
-Text Label 2900 9050 0    50   ~ 0
+Text Label 3200 9050 0    50   ~ 0
 3.3V
-Text Label 14850 2700 0    50   ~ 0
-Resistor_temp_4
-Text Label 14850 3000 0    50   ~ 0
+Text Label 13100 3100 0    50   ~ 0
 Resistor_temp_1
-Text Label 14850 2900 0    50   ~ 0
+Text Label 13100 3000 0    50   ~ 0
 Resistor_temp_2
-Text Label 14850 2800 0    50   ~ 0
+Text Label 13100 2900 0    50   ~ 0
 Resistor_temp_3
 $Comp
 L Device:Thermistor TH1
 U 1 1 5F76C793
-P 6400 4100
-F 0 "TH1" V 6400 4050 50  0000 L CNN
-F 1 "Thermistor" H 6505 4055 50  0001 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" H 6400 4100 50  0001 C CNN
-F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 6400 4100 50  0001 C CNN
-F 4 "Murata Electronics" H 6400 4100 50  0001 C CNN "Manufacturer"
-F 5 "NCP18XM472J03RB" H 6400 4100 50  0001 C CNN "Part #"
-	1    6400 4100
+P 8550 9950
+F 0 "TH1" V 8550 9900 50  0000 L CNN
+F 1 "Thermistor" H 8655 9905 50  0001 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 8550 9950 50  0001 C CNN
+F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 8550 9950 50  0001 C CNN
+F 4 "Murata Electronics" H 8550 9950 50  0001 C CNN "Manufacturer"
+F 5 "NCP18XM472J03RB" H 8550 9950 50  0001 C CNN "Part #"
+	1    8550 9950
 	0    -1   1    0   
 $EndComp
-Text Label 5500 4250 0    50   ~ 0
-MOSFET_temp_1
-Text Label 5500 4350 0    50   ~ 0
+Text Label 7650 10200 0    50   ~ 0
 MOSFET_temp_2
 $Comp
 L Device:Thermistor TH3
 U 1 1 5F79A712
-P 6400 4400
-F 0 "TH3" V 6400 4350 50  0000 L CNN
-F 1 "Thermistor" H 6505 4355 50  0001 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" H 6400 4400 50  0001 C CNN
-F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 6400 4400 50  0001 C CNN
-F 4 "Murata Electronics" H 6400 4400 50  0001 C CNN "Manufacturer"
-F 5 "NCP18XM472J03RB" H 6400 4400 50  0001 C CNN "Part #"
-	1    6400 4400
+P 8550 10250
+F 0 "TH3" V 8550 10200 50  0000 L CNN
+F 1 "Thermistor" H 8655 10205 50  0001 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 8550 10250 50  0001 C CNN
+F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 8550 10250 50  0001 C CNN
+F 4 "Murata Electronics" H 8550 10250 50  0001 C CNN "Manufacturer"
+F 5 "NCP18XM472J03RB" H 8550 10250 50  0001 C CNN "Part #"
+	1    8550 10250
 	0    -1   1    0   
 $EndComp
-Text Label 5500 4450 0    50   ~ 0
+Text Label 7650 10300 0    50   ~ 0
 MOSFET_temp_3
 $Comp
 L Device:Thermistor TH4
 U 1 1 5F7A6A80
-P 6400 4550
-F 0 "TH4" V 6400 4500 50  0000 L CNN
-F 1 "Thermistor" H 6505 4505 50  0001 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" H 6400 4550 50  0001 C CNN
-F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 6400 4550 50  0001 C CNN
-F 4 "Murata Electronics" H 6400 4550 50  0001 C CNN "Manufacturer"
-F 5 "NCP18XM472J03RB" H 6400 4550 50  0001 C CNN "Part #"
-	1    6400 4550
+P 8550 10400
+F 0 "TH4" V 8550 10350 50  0000 L CNN
+F 1 "Thermistor" H 8655 10355 50  0001 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 8550 10400 50  0001 C CNN
+F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 8550 10400 50  0001 C CNN
+F 4 "Murata Electronics" H 8550 10400 50  0001 C CNN "Manufacturer"
+F 5 "NCP18XM472J03RB" H 8550 10400 50  0001 C CNN "Part #"
+	1    8550 10400
 	0    -1   1    0   
 $EndComp
-Text Label 5500 4550 0    50   ~ 0
-MOSFET_temp_4
 $Comp
 L Device:Thermistor TH5
 U 1 1 5F84512D
-P 6400 4700
-F 0 "TH5" V 6400 4650 50  0000 L CNN
-F 1 "Thermistor" H 6505 4655 50  0001 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" H 6400 4700 50  0001 C CNN
-F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 6400 4700 50  0001 C CNN
-F 4 "Murata Electronics" H 6400 4700 50  0001 C CNN "Manufacturer"
-F 5 "NCP18XM472J03RB" H 6400 4700 50  0001 C CNN "Part #"
-	1    6400 4700
+P 8550 10550
+F 0 "TH5" V 8550 10500 50  0000 L CNN
+F 1 "Thermistor" H 8655 10505 50  0001 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 8550 10550 50  0001 C CNN
+F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 8550 10550 50  0001 C CNN
+F 4 "Murata Electronics" H 8550 10550 50  0001 C CNN "Manufacturer"
+F 5 "NCP18XM472J03RB" H 8550 10550 50  0001 C CNN "Part #"
+	1    8550 10550
 	0    -1   1    0   
 $EndComp
 $Comp
 L Device:Thermistor TH6
 U 1 1 5F845136
-P 6400 4850
-F 0 "TH6" V 6400 4800 50  0000 L CNN
-F 1 "Thermistor" H 6505 4805 50  0001 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" H 6400 4850 50  0001 C CNN
-F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 6400 4850 50  0001 C CNN
-F 4 "Murata Electronics" H 6400 4850 50  0001 C CNN "Manufacturer"
-F 5 "NCP18XM472J03RB" H 6400 4850 50  0001 C CNN "Part #"
-	1    6400 4850
+P 8550 10700
+F 0 "TH6" V 8550 10650 50  0000 L CNN
+F 1 "Thermistor" H 8655 10655 50  0001 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 8550 10700 50  0001 C CNN
+F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 8550 10700 50  0001 C CNN
+F 4 "Murata Electronics" H 8550 10700 50  0001 C CNN "Manufacturer"
+F 5 "NCP18XM472J03RB" H 8550 10700 50  0001 C CNN "Part #"
+	1    8550 10700
 	0    -1   1    0   
 $EndComp
-$Comp
-L Device:Thermistor TH7
-U 1 1 5F84513F
-P 6400 5000
-F 0 "TH7" V 6400 4950 50  0000 L CNN
-F 1 "Thermistor" H 6505 4955 50  0001 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" H 6400 5000 50  0001 C CNN
-F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 6400 5000 50  0001 C CNN
-F 4 "Murata Electronics" H 6400 5000 50  0001 C CNN "Manufacturer"
-F 5 "NCP18XM472J03RB" H 6400 5000 50  0001 C CNN "Part #"
-	1    6400 5000
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:Thermistor TH8
-U 1 1 5F845148
-P 6400 5150
-F 0 "TH8" V 6400 5100 50  0000 L CNN
-F 1 "Thermistor" H 6505 5105 50  0001 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" H 6400 5150 50  0001 C CNN
-F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 6400 5150 50  0001 C CNN
-F 4 "Murata Electronics" H 6400 5150 50  0001 C CNN "Manufacturer"
-F 5 "NCP18XM472J03RB" H 6400 5150 50  0001 C CNN "Part #"
-	1    6400 5150
-	0    -1   1    0   
-$EndComp
-Text Label 5500 4650 0    50   ~ 0
+Text Label 7650 10400 0    50   ~ 0
 Resistor_temp_1
-Text Label 5500 4750 0    50   ~ 0
+Text Label 7650 10500 0    50   ~ 0
 Resistor_temp_2
-Text Label 5500 4850 0    50   ~ 0
+Text Label 7650 10600 0    50   ~ 0
 Resistor_temp_3
-Text Label 5500 4950 0    50   ~ 0
-Resistor_temp_4
 $Comp
 L Device:Thermistor TH2
 U 1 1 5F78EA16
-P 6400 4250
-F 0 "TH2" V 6400 4200 50  0000 L CNN
-F 1 "Thermistor" H 6505 4205 50  0001 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" H 6400 4250 50  0001 C CNN
-F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 6400 4250 50  0001 C CNN
-F 4 "Murata Electronics" H 6400 4250 50  0001 C CNN "Manufacturer"
-F 5 "NCP18XM472J03RB" H 6400 4250 50  0001 C CNN "Part #"
-	1    6400 4250
+P 8550 10100
+F 0 "TH2" V 8550 10050 50  0000 L CNN
+F 1 "Thermistor" H 8655 10055 50  0001 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 8550 10100 50  0001 C CNN
+F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 8550 10100 50  0001 C CNN
+F 4 "Murata Electronics" H 8550 10100 50  0001 C CNN "Manufacturer"
+F 5 "NCP18XM472J03RB" H 8550 10100 50  0001 C CNN "Part #"
+	1    8550 10100
 	0    -1   1    0   
 $EndComp
 Wire Wire Line
-	6150 5000 6150 4850
+	8350 10700 8350 10600
 Wire Wire Line
-	6150 4850 5500 4850
+	8350 10500 8350 10550
 Wire Wire Line
-	6200 4850 6200 4750
+	8350 10300 8350 10250
 Wire Wire Line
-	6200 4750 5500 4750
+	8350 10200 8350 10100
 Wire Wire Line
-	6200 4650 6200 4700
+	8300 10100 8300 9950
 Wire Wire Line
-	6200 4650 5500 4650
+	8300 9950 8350 9950
+Connection ~ 8750 10100
 Wire Wire Line
-	6150 5000 6200 5000
+	8750 10100 8750 9950
+Connection ~ 8750 10250
 Wire Wire Line
-	5500 4950 6100 4950
+	8750 10250 8750 10100
+Connection ~ 8750 10400
 Wire Wire Line
-	6100 4950 6100 5150
+	8750 10400 8750 10250
+Connection ~ 8750 10550
 Wire Wire Line
-	6100 5150 6200 5150
+	8750 10550 8750 10400
+Connection ~ 8750 10700
 Wire Wire Line
-	6200 4550 5500 4550
-Wire Wire Line
-	6200 4450 6200 4400
-Wire Wire Line
-	6200 4450 5500 4450
-Wire Wire Line
-	6200 4350 6200 4250
-Wire Wire Line
-	6200 4350 5500 4350
-Wire Wire Line
-	5500 4250 6150 4250
-Wire Wire Line
-	6150 4250 6150 4100
-Wire Wire Line
-	6150 4100 6200 4100
-Wire Wire Line
-	6600 5150 6600 5000
-Connection ~ 6600 4250
-Wire Wire Line
-	6600 4250 6600 4100
-Connection ~ 6600 4400
-Wire Wire Line
-	6600 4400 6600 4250
-Connection ~ 6600 4550
-Wire Wire Line
-	6600 4550 6600 4400
-Connection ~ 6600 4700
-Wire Wire Line
-	6600 4700 6600 4550
-Connection ~ 6600 4850
-Wire Wire Line
-	6600 4850 6600 4700
-Connection ~ 6600 5000
-Wire Wire Line
-	6600 5000 6600 4850
-Text Label 5100 4250 2    50   ~ 0
+	8750 10700 8750 10550
+Text Label 7250 10100 2    50   ~ 0
 3.3V
-Wire Wire Line
-	5100 4250 5100 4350
-Connection ~ 5100 4350
-Wire Wire Line
-	5100 4350 5100 4450
-Connection ~ 5100 4450
-Wire Wire Line
-	5100 4450 5100 4550
-Connection ~ 5100 4550
-Wire Wire Line
-	5100 4550 5100 4650
-Connection ~ 5100 4650
-Wire Wire Line
-	5100 4650 5100 4750
-Connection ~ 5100 4750
-Wire Wire Line
-	5100 4750 5100 4850
-Connection ~ 5100 4850
-Wire Wire Line
-	5100 4850 5100 4950
 $Comp
 L power:GND #PWR017
 U 1 1 5FAA68F2
-P 6600 5150
-F 0 "#PWR017" H 6600 4900 50  0001 C CNN
-F 1 "GND" H 6650 5000 50  0000 R CNN
-F 2 "" H 6600 5150 50  0001 C CNN
-F 3 "" H 6600 5150 50  0001 C CNN
-	1    6600 5150
+P 8750 11000
+F 0 "#PWR017" H 8750 10750 50  0001 C CNN
+F 1 "GND" H 8800 10850 50  0000 R CNN
+F 2 "" H 8750 11000 50  0001 C CNN
+F 3 "" H 8750 11000 50  0001 C CNN
+	1    8750 11000
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -3366,27 +3226,13 @@ F 5 "4816P-T01-472LF" V 2750 9050 50  0001 C CNN "Part #"
 	6    2750 9050
 	0    -1   -1   0   
 $EndComp
-Connection ~ 6600 5150
-$Comp
-L dk_Alarms-Buzzers-and-Sirens:PKMCS0909E4000-R1 BZ1
-U 1 1 5FCB6274
-P 8350 5150
-F 0 "BZ1" H 8690 5258 60  0000 L CNN
-F 1 "CPT-2016-75-SMT-TR" H 8690 5152 60  0000 L CNN
-F 2 "Custom Footprints:XDCR_CPT-2016-75-SMT-TR" H 8550 5350 60  0001 L CNN
-F 3 "https://www.cuidevices.com/product/resource/digikeypdf/cpt-2016-75-smt-tr.pdf" H 8550 5450 60  0001 L CNN
-F 4 "CUI Devices" H 8350 5150 50  0001 C CNN "Manufacturer"
-F 5 "CPT-2016-75-SMT-TR" H 8350 5150 50  0001 C CNN "Part #"
-	1    8350 5150
-	1    0    0    -1  
-$EndComp
-Text Label 12550 2700 2    50   ~ 0
+Text Label 10800 2800 2    50   ~ 0
 Toggle_switch
-Text Label 8350 3850 2    50   ~ 0
+Text Label 7300 8850 2    50   ~ 0
 Toggle_switch
-Text Label 12550 1100 2    50   ~ 0
+Text Label 10800 1200 2    50   ~ 0
 LCD_CS
-Text Label 12550 1000 2    50   ~ 0
+Text Label 10800 1100 2    50   ~ 0
 LCD_reset
 $Comp
 L Device:R_Pack08_Split RN2
@@ -3557,30 +3403,11 @@ Text Label 2700 10550 0    50   ~ 0
 Isense_2
 Text Label 2700 10350 0    50   ~ 0
 Isense_1
-Text Label 14850 2100 0    50   ~ 0
+Text Label 13100 2100 0    50   ~ 0
 Internal_Isense_1
-Text Label 14850 2000 0    50   ~ 0
+Text Label 13100 2000 0    50   ~ 0
 Internal_Isense_2
-Text Label 14850 2600 0    50   ~ 0
-Internal_Isense_3
-Text Label 14850 2500 0    50   ~ 0
-External_thermistor
-Text Label 14850 2400 0    50   ~ 0
-Internal_Isense_4
-$Comp
-L Device:R_Pack08_Split RN3
-U 8 1 5FEC9EE9
-P 1350 2100
-F 0 "RN3" V 1250 2100 50  0000 C CNN
-F 1 "4.7k" V 1350 2100 50  0000 C CNN
-F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 1825 2100 50  0001 C CNN
-F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 1350 2100 50  0001 C CNN
-F 4 "Bourns Inc." V 1350 2100 50  0001 C CNN "Manufacturer"
-F 5 "4816P-T01-472LF" V 1350 2100 50  0001 C CNN "Part #"
-	8    1350 2100
-	-1   0    0    1   
-$EndComp
-Text Label 12550 3000 2    50   ~ 0
+Text Label 10800 3100 2    50   ~ 0
 External_5V_PWM2
 Wire Wire Line
 	4700 8600 3900 8600
@@ -3779,123 +3606,106 @@ F 3 "" H 7500 3100 50  0001 C CNN
 	1    7500 3100
 	1    0    0    -1  
 $EndComp
-Text Label 3050 9350 0    50   ~ 0
+Text Label 10800 2500 2    50   ~ 0
 Over_temp_alarm2
-Text Label 12550 2400 2    50   ~ 0
-Over_temp_alarm2
-Text Label 8250 5050 2    50   ~ 0
-Over_temp_alarm1-MISO0
+Text Label 11300 10150 2    50   ~ 0
+Over_temp_alarm1
 $Comp
 L Custom_parts:LCD-EA_DOGS164N-A U15
 U 1 1 5F49B318
-P 9100 2450
-F 0 "U15" H 9625 2575 50  0000 C CNN
-F 1 "LCD-EA_DOGS164N-A" H 9625 2484 50  0000 C CNN
-F 2 "Custom Footprints:LCD-EA_DOGS164N-A" H 9150 2450 50  0001 C CNN
-F 3 "https://www.lcd-module.de/fileadmin/html-seiten/eng/pdf/doma/dogs164e.pdf" H 9100 2450 50  0001 C CNN
-F 4 "Display Visions" H 9100 2450 50  0001 C CNN "Manufacturer"
-F 5 "EA DOGS164N-A" H 9100 2450 50  0001 C CNN "Part #"
-	1    9100 2450
+P 5750 4650
+F 0 "U15" H 6275 4775 50  0000 C CNN
+F 1 "LCD-EA_DOGS164N-A" H 6275 4684 50  0000 C CNN
+F 2 "Custom Footprints:LCD-EA_DOGS164N-A" H 5800 4650 50  0001 C CNN
+F 3 "https://www.lcd-module.de/fileadmin/html-seiten/eng/pdf/doma/dogs164e.pdf" H 5750 4650 50  0001 C CNN
+F 4 "Display Visions" H 5750 4650 50  0001 C CNN "Manufacturer"
+F 5 "EA DOGS164N-A" H 5750 4650 50  0001 C CNN "Part #"
+	1    5750 4650
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR020
 U 1 1 5F49D772
-P 9000 2650
-F 0 "#PWR020" H 9000 2400 50  0001 C CNN
-F 1 "GND" V 9005 2522 50  0000 R CNN
-F 2 "" H 9000 2650 50  0001 C CNN
-F 3 "" H 9000 2650 50  0001 C CNN
-	1    9000 2650
+P 5650 4850
+F 0 "#PWR020" H 5650 4600 50  0001 C CNN
+F 1 "GND" V 5655 4722 50  0000 R CNN
+F 2 "" H 5650 4850 50  0001 C CNN
+F 3 "" H 5650 4850 50  0001 C CNN
+	1    5650 4850
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	8650 2550 9000 2550
+	5300 4750 5650 4750
 $Comp
 L Device:C_Small C35
 U 1 1 5F4C79BE
-P 8650 2650
-F 0 "C35" H 8500 2750 50  0000 L CNN
-F 1 "2.2uF" H 8400 2550 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 8650 2650 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 8650 2650 50  0001 C CNN
-F 4 "Taiyo Yuden" H 8650 2650 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 8650 2650 50  0001 C CNN "Part #"
-	1    8650 2650
+P 5300 4850
+F 0 "C35" H 5150 4950 50  0000 L CNN
+F 1 "2.2uF" H 5050 4750 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 5300 4850 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 5300 4850 50  0001 C CNN
+F 4 "Taiyo Yuden" H 5300 4850 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 5300 4850 50  0001 C CNN "Part #"
+	1    5300 4850
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR019
 U 1 1 5F4CC6D9
-P 8650 2750
-F 0 "#PWR019" H 8650 2500 50  0001 C CNN
-F 1 "GND" H 8700 2600 50  0000 R CNN
-F 2 "" H 8650 2750 50  0001 C CNN
-F 3 "" H 8650 2750 50  0001 C CNN
-	1    8650 2750
+P 5300 4950
+F 0 "#PWR019" H 5300 4700 50  0001 C CNN
+F 1 "GND" H 5350 4800 50  0000 R CNN
+F 2 "" H 5300 4950 50  0001 C CNN
+F 3 "" H 5300 4950 50  0001 C CNN
+	1    5300 4950
 	1    0    0    -1  
 $EndComp
-Text Label 8750 2550 0    50   ~ 0
+Text Label 5400 4750 0    50   ~ 0
 3.3V
 $Comp
 L Device:C_Small C36
 U 1 1 5F4CD4EC
-P 9000 2850
-F 0 "C36" H 8850 2950 50  0000 L CNN
-F 1 "2.2uF" H 8750 2750 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 9000 2850 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 9000 2850 50  0001 C CNN
-F 4 "Taiyo Yuden" H 9000 2850 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 9000 2850 50  0001 C CNN "Part #"
-	1    9000 2850
+P 5650 5050
+F 0 "C36" H 5500 5150 50  0000 L CNN
+F 1 "2.2uF" H 5400 4950 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 5650 5050 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 5650 5050 50  0001 C CNN
+F 4 "Taiyo Yuden" H 5650 5050 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 5650 5050 50  0001 C CNN "Part #"
+	1    5650 5050
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR021
 U 1 1 5F4CDD36
-P 9000 2950
-F 0 "#PWR021" H 9000 2700 50  0001 C CNN
-F 1 "GND" H 9050 2800 50  0000 R CNN
-F 2 "" H 9000 2950 50  0001 C CNN
-F 3 "" H 9000 2950 50  0001 C CNN
-	1    9000 2950
+P 5650 5150
+F 0 "#PWR021" H 5650 4900 50  0001 C CNN
+F 1 "GND" H 5700 5000 50  0000 R CNN
+F 2 "" H 5650 5150 50  0001 C CNN
+F 3 "" H 5650 5150 50  0001 C CNN
+	1    5650 5150
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR022
 U 1 1 5F4CE233
-P 9400 2900
-F 0 "#PWR022" H 9400 2650 50  0001 C CNN
-F 1 "GND" H 9400 2750 50  0000 R CNN
-F 2 "" H 9400 2900 50  0001 C CNN
-F 3 "" H 9400 2900 50  0001 C CNN
-	1    9400 2900
+P 6050 5100
+F 0 "#PWR022" H 6050 4850 50  0001 C CNN
+F 1 "GND" H 6050 4950 50  0000 R CNN
+F 2 "" H 6050 5100 50  0001 C CNN
+F 3 "" H 6050 5100 50  0001 C CNN
+	1    6050 5100
 	1    0    0    -1  
 $EndComp
-Text Label 9500 2900 3    50   ~ 0
+Text Label 6150 5100 3    50   ~ 0
 LCD_CS
-Text Label 9700 2900 3    50   ~ 0
+Text Label 6350 5100 3    50   ~ 0
 MOSI0
-Text Label 10250 2650 0    50   ~ 0
+Text Label 6900 4850 0    50   ~ 0
 LCD_reset
-Text Label 10250 2550 0    50   ~ 0
+Text Label 6900 4750 0    50   ~ 0
 3.3V
-$Comp
-L Jumper:SolderJumper_2_Bridged JP5
-U 1 1 5F4D3E38
-P 9800 3050
-F 0 "JP5" H 9800 2950 50  0000 C CNN
-F 1 "SolderJumper_2_Bridged" H 9800 2900 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_Pad1.0x1.5mm" H 9800 3050 50  0001 C CNN
-F 3 "~" H 9800 3050 50  0001 C CNN
-	1    9800 3050
-	0    -1   1    0   
-$EndComp
-Text Label 9800 3300 2    50   ~ 0
-Over_temp_alarm1-MISO0
-Wire Wire Line
-	9800 3300 9800 3200
-Text Label 14850 2200 0    50   ~ 0
+Text Label 13100 2300 0    50   ~ 0
 SCK0
 $Comp
 L power:GND #PWR02
@@ -3908,7 +3718,7 @@ F 3 "" H 1600 9150 50  0001 C CNN
 	1    1600 9150
 	0    -1   -1   0   
 $EndComp
-Text Label 8250 5150 2    50   ~ 0
+Text Label 11300 10250 2    50   ~ 0
 Over_temp_alarm2
 Text Label 2200 9150 2    50   ~ 0
 5V
@@ -3955,12 +3765,10 @@ F 3 "" H 2200 9950 50  0001 C CNN
 	1    2200 9950
 	0    1    -1   0   
 $EndComp
-Text Label 12550 2900 2    50   ~ 0
+Text Label 10800 3000 2    50   ~ 0
 External_5V_PWM1
 Text Label 3050 9750 0    50   ~ 0
 External_5V_PWM2
-Text Label 3050 9550 0    50   ~ 0
-External_5V_PWM1
 $Comp
 L power:GND #PWR0108
 U 1 1 5FB6E536
@@ -4034,21 +3842,8 @@ Wire Wire Line
 	1850 9550 2200 9550
 Wire Wire Line
 	1600 9650 2200 9650
-$Comp
-L power:GND #PWR0180
-U 1 1 5FCA45E9
-P 1350 2250
-F 0 "#PWR0180" H 1350 2000 50  0001 C CNN
-F 1 "GND" H 1450 2100 50  0000 R CNN
-F 2 "" H 1350 2250 50  0001 C CNN
-F 3 "" H 1350 2250 50  0001 C CNN
-	1    1350 2250
-	1    0    0    -1  
-$EndComp
-Text Notes 900  2550 0    50   ~ 0
-Vin capacitor discharge
 Text Notes 1450 8900 0    59   ~ 0
-External thermistor and 3x 5V/16mA digital outputs
+External thermistor and 3x 5V/16mA digital outputs\nOpen jumper for DAC output instead
 Text Notes 1400 7600 0    59   ~ 0
 Analog/digital inputs with 0-3.3V clamp
 Text Notes 1400 6250 0    59   ~ 0
@@ -4056,14 +3851,14 @@ External analog inputs with 5.6V zener clamp
 $Comp
 L Device:Q_NMOS_GSD Q1
 U 1 1 5FCDB54B
-P 9650 10650
-F 0 "Q1" H 9854 10696 50  0000 L CNN
-F 1 "Q_NMOS_GSD" H 9854 10605 50  0000 L CNN
-F 2 "Custom Footprints:SOT_23F" H 9850 10750 50  0001 C CNN
-F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=2157&prodName=SSM3K329R" H 9650 10650 50  0001 C CNN
-F 4 "Toshiba Semiconductor and Storage" H 9650 10650 50  0001 C CNN "Manufacturer"
-F 5 "SSM3K329R,LF" H 9650 10650 50  0001 C CNN "Part #"
-	1    9650 10650
+P 9650 10800
+F 0 "Q1" H 9854 10846 50  0000 L CNN
+F 1 "Q_NMOS_GSD" H 9854 10755 50  0000 L CNN
+F 2 "Custom Footprints:SOT_23F" H 9850 10900 50  0001 C CNN
+F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=2157&prodName=SSM3K329R" H 9650 10800 50  0001 C CNN
+F 4 "Toshiba Semiconductor and Storage" H 9650 10800 50  0001 C CNN "Manufacturer"
+F 5 "SSM3K329R,LF" H 9650 10800 50  0001 C CNN "Part #"
+	1    9650 10800
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -4090,4 +3885,537 @@ Wire Wire Line
 Connection ~ 2300 10950
 Text Notes 750  11150 1    59   ~ 0
 Maximum 25V Vin with \n1k impedance on Isense
+$Comp
+L Custom_parts:R_POT_SPST RV9
+U 1 1 5F4A1493
+P 6350 7850
+F 0 "RV9" H 6350 8135 50  0000 C CNN
+F 1 "R_POT_SPST" H 6350 8044 50  0000 C CNN
+F 2 "Custom Footprints:P091S-FC20BR10K" V 6350 7750 50  0001 C CNN
+F 3 "https://www.ttelectronics.com/TTElectronics/media/ProductFiles/Potentiometers/Datasheets/P09x.pdf" V 6350 7750 50  0001 C CNN
+F 4 "TT Electronics/BI" H 6350 7850 50  0001 C CNN "Manufacturer"
+F 5 "P091S-FC20BR10K" H 6350 7850 50  0001 C CNN "Part #"
+	1    6350 7850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0107
+U 1 1 5F4A54DD
+P 6500 7950
+F 0 "#PWR0107" H 6500 7700 50  0001 C CNN
+F 1 "GND" V 6500 7850 50  0000 R CNN
+F 2 "" H 6500 7950 50  0001 C CNN
+F 3 "" H 6500 7950 50  0001 C CNN
+	1    6500 7950
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	6200 7950 6150 7950
+Text Label 6550 7800 0    50   ~ 0
+3.3V
+Text Label 6350 8150 0    50   ~ 0
+LED_pot_1
+Wire Wire Line
+	6350 8150 6350 8100
+$Comp
+L Custom_parts:R_POT_SPST RV10
+U 1 1 5F4E4149
+P 7000 7850
+F 0 "RV10" H 7000 8135 50  0000 C CNN
+F 1 "R_POT_SPST" H 7000 8044 50  0000 C CNN
+F 2 "Custom Footprints:P091S-FC20BR10K" V 7000 7750 50  0001 C CNN
+F 3 "https://www.ttelectronics.com/TTElectronics/media/ProductFiles/Potentiometers/Datasheets/P09x.pdf" V 7000 7750 50  0001 C CNN
+F 4 "TT Electronics/BI" H 7000 7850 50  0001 C CNN "Manufacturer"
+F 5 "P091S-FC20BR10K" H 7000 7850 50  0001 C CNN "Part #"
+	1    7000 7850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0181
+U 1 1 5F4E414F
+P 7150 7950
+F 0 "#PWR0181" H 7150 7700 50  0001 C CNN
+F 1 "GND" V 7150 7850 50  0000 R CNN
+F 2 "" H 7150 7950 50  0001 C CNN
+F 3 "" H 7150 7950 50  0001 C CNN
+	1    7150 7950
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	6850 7950 6800 7950
+Wire Wire Line
+	6800 7950 6800 7800
+Text Label 7200 7800 0    50   ~ 0
+3.3V
+Text Label 7000 8150 0    50   ~ 0
+LED_pot_2
+Wire Wire Line
+	7000 8150 7000 8100
+$Comp
+L Custom_parts:R_POT_SPST RV11
+U 1 1 5F4F74F4
+P 7650 7850
+F 0 "RV11" H 7650 8135 50  0000 C CNN
+F 1 "R_POT_SPST" H 7650 8044 50  0000 C CNN
+F 2 "Custom Footprints:P091S-FC20BR10K" V 7650 7750 50  0001 C CNN
+F 3 "https://www.ttelectronics.com/TTElectronics/media/ProductFiles/Potentiometers/Datasheets/P09x.pdf" V 7650 7750 50  0001 C CNN
+F 4 "TT Electronics/BI" H 7650 7850 50  0001 C CNN "Manufacturer"
+F 5 "P091S-FC20BR10K" H 7650 7850 50  0001 C CNN "Part #"
+	1    7650 7850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0182
+U 1 1 5F4F74FA
+P 7800 7950
+F 0 "#PWR0182" H 7800 7700 50  0001 C CNN
+F 1 "GND" V 7800 7850 50  0000 R CNN
+F 2 "" H 7800 7950 50  0001 C CNN
+F 3 "" H 7800 7950 50  0001 C CNN
+	1    7800 7950
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	7500 7950 7450 7950
+Wire Wire Line
+	7450 7950 7450 7800
+Text Label 7850 7800 0    50   ~ 0
+3.3V
+Text Label 7650 8150 0    50   ~ 0
+LED_pot_3
+Wire Wire Line
+	7650 8150 7650 8100
+$Comp
+L Custom_parts:R_POT_SPST RV12
+U 1 1 5F50B386
+P 8300 7850
+F 0 "RV12" H 8300 8135 50  0000 C CNN
+F 1 "R_POT_SPST" H 8300 8044 50  0000 C CNN
+F 2 "Custom Footprints:P091S-FC20BR10K" V 8300 7750 50  0001 C CNN
+F 3 "https://www.ttelectronics.com/TTElectronics/media/ProductFiles/Potentiometers/Datasheets/P09x.pdf" V 8300 7750 50  0001 C CNN
+F 4 "TT Electronics/BI" H 8300 7850 50  0001 C CNN "Manufacturer"
+F 5 "P091S-FC20BR10K" H 8300 7850 50  0001 C CNN "Part #"
+	1    8300 7850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0184
+U 1 1 5F50B38C
+P 8450 7950
+F 0 "#PWR0184" H 8450 7700 50  0001 C CNN
+F 1 "GND" V 8450 7850 50  0000 R CNN
+F 2 "" H 8450 7950 50  0001 C CNN
+F 3 "" H 8450 7950 50  0001 C CNN
+	1    8450 7950
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	8150 7950 8100 7950
+Wire Wire Line
+	8100 7950 8100 7800
+Text Label 8500 7800 0    50   ~ 0
+3.3V
+Text Label 8300 8150 0    50   ~ 0
+LED_pot_4
+Wire Wire Line
+	8300 8150 8300 8100
+Text Notes 6300 7500 0    59   ~ 0
+4 channel potentiometer to adjust LED intensity
+Text Notes 7200 9850 0    59   ~ 0
+Isense resistor and MOSFET\nthermitor temperature monitoring
+Text Notes 10850 10000 0    59   ~ 0
+Overheat alarm
+Text Notes 9200 9850 0    59   ~ 0
+Cooling fan for heatsinks
+Text Notes 6350 8500 0    59   ~ 0
+Manual/Auto toggle switch with indicator LED
+Wire Notes Line
+	6750 11200 6750 9600
+Wire Notes Line
+	8750 6000 8750 9600
+Wire Notes Line
+	6750 9600 8750 9600
+Text Notes 6000 4400 0    59   ~ 0
+LCD display
+Wire Wire Line
+	13100 3300 13850 3300
+Wire Wire Line
+	13100 3200 13850 3200
+Wire Wire Line
+	13100 3100 13850 3100
+Wire Wire Line
+	13100 3000 13850 3000
+Wire Wire Line
+	13100 2900 13850 2900
+Wire Wire Line
+	13100 2800 13850 2800
+Wire Wire Line
+	13100 2700 13850 2700
+Wire Wire Line
+	13100 2600 13850 2600
+Wire Wire Line
+	13100 2500 13850 2500
+$Comp
+L power:GND #PWR0186
+U 1 1 5F8BB481
+P 13850 2400
+F 0 "#PWR0186" H 13850 2150 50  0001 C CNN
+F 1 "GND" V 13850 2250 50  0000 R CNN
+F 2 "" H 13850 2400 50  0001 C CNN
+F 3 "" H 13850 2400 50  0001 C CNN
+	1    13850 2400
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	13100 2300 13850 2300
+Wire Wire Line
+	13100 2200 13850 2200
+Wire Wire Line
+	13100 2100 13850 2100
+Wire Wire Line
+	13100 2000 13850 2000
+Wire Wire Line
+	13100 1900 13850 1900
+Wire Wire Line
+	13100 1800 13850 1800
+$Comp
+L power:GND #PWR0187
+U 1 1 5F835110
+P 13850 1100
+F 0 "#PWR0187" H 13850 850 50  0001 C CNN
+F 1 "GND" V 13850 950 50  0000 R CNN
+F 2 "" H 13850 1100 50  0001 C CNN
+F 3 "" H 13850 1100 50  0001 C CNN
+	1    13850 1100
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	13100 1700 13850 1700
+Wire Wire Line
+	13100 1600 13850 1600
+Wire Wire Line
+	13100 1500 13850 1500
+Wire Wire Line
+	13100 1400 13850 1400
+Wire Wire Line
+	13100 1300 13850 1300
+Wire Wire Line
+	13100 1200 13850 1200
+Wire Wire Line
+	13100 1000 13850 1000
+$Comp
+L Custom_parts:Conn_01x24_Female J7
+U 1 1 5F74378D
+P 14050 2100
+F 0 "J7" H 13900 3250 50  0000 L CNN
+F 1 "Conn_01x24_Female" H 13300 850 50  0000 L CNN
+F 2 "Custom Footprints:Ref_only" H 14050 2100 50  0001 C CNN
+F 3 "https://www.samtec.com/partnumber/ssm-124-l-sv-lc?vendor=digikey" H 14050 2100 50  0001 C CNN
+F 4 "Samtec Inc." H 14050 2100 50  0001 C CNN "Manufacturer"
+F 5 "SSM-124-L-SV-LC" H 14050 2100 50  0001 C CNN "Part #"
+	1    14050 2100
+	1    0    0    -1  
+$EndComp
+Text Label 13100 2600 0    50   ~ 0
+External_thermistor
+Text Label 13100 2600 0    50   ~ 0
+External_thermistor
+Wire Wire Line
+	10800 3300 10050 3300
+Wire Wire Line
+	10800 3200 10050 3200
+Wire Wire Line
+	10800 3100 10050 3100
+Wire Wire Line
+	10800 3000 10050 3000
+Wire Wire Line
+	10800 2900 10050 2900
+Wire Wire Line
+	10800 2800 10050 2800
+Wire Wire Line
+	10800 2700 10050 2700
+Wire Wire Line
+	10800 2600 10050 2600
+Wire Wire Line
+	10800 2500 10050 2500
+Wire Wire Line
+	10800 2300 10050 2300
+Wire Wire Line
+	10800 2200 10050 2200
+Wire Wire Line
+	10800 2100 10050 2100
+Wire Wire Line
+	10800 2000 10050 2000
+Wire Wire Line
+	10800 1900 10050 1900
+Wire Wire Line
+	10800 1800 10050 1800
+$Comp
+L power:GND #PWR0188
+U 1 1 5F9E5C9F
+P 10050 1000
+F 0 "#PWR0188" H 10050 750 50  0001 C CNN
+F 1 "GND" V 10050 850 50  0000 R CNN
+F 2 "" H 10050 1000 50  0001 C CNN
+F 3 "" H 10050 1000 50  0001 C CNN
+	1    10050 1000
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	10800 1700 10050 1700
+Wire Wire Line
+	10800 1600 10050 1600
+Wire Wire Line
+	10800 1500 10050 1500
+Wire Wire Line
+	10800 1400 10050 1400
+Wire Wire Line
+	10800 1300 10050 1300
+Wire Wire Line
+	10800 1200 10050 1200
+Wire Wire Line
+	10800 1100 10050 1100
+Wire Wire Line
+	10800 2400 10050 2400
+$Comp
+L Custom_parts:Conn_01x24_Female J5
+U 1 1 5FA9391A
+P 9850 2100
+F 0 "J5" H 9700 3250 50  0000 L CNN
+F 1 "Conn_01x24_Female" H 9100 850 50  0000 L CNN
+F 2 "Custom Footprints:Ref_only" H 9850 2100 50  0001 C CNN
+F 3 "https://www.samtec.com/partnumber/ssm-124-l-sv-lc?vendor=digikey" H 9850 2100 50  0001 C CNN
+F 4 "Samtec Inc." H 9850 2100 50  0001 C CNN "Manufacturer"
+F 5 "SSM-124-L-SV-LC" H 9850 2100 50  0001 C CNN "Part #"
+	1    9850 2100
+	-1   0    0    -1  
+$EndComp
+Text Label 7650 10100 0    50   ~ 0
+MOSFET_temp_1
+$Comp
+L Custom_parts:CPT-2016-75-SMT-TR BZ1
+U 1 1 5FE01F50
+P 11400 10250
+F 0 "BZ1" H 11400 10450 60  0000 L CNN
+F 1 "CPT-2016-75-SMT-TR" H 10700 10150 60  0000 L CNN
+F 2 "Custom Footprints:XDCR_CPT-2016-75-SMT-TR" H 11600 10450 60  0001 L CNN
+F 3 "https://www.cuidevices.com/product/resource/digikeypdf/cpt-2016-75-smt-tr.pdf" H 11600 10550 60  0001 L CNN
+F 4 "CUI Devices" H 11400 10250 50  0001 C CNN "Manufacturer"
+F 5 "CPT-2016-75-SMT-TR" H 11400 10250 50  0001 C CNN "Part #"
+	1    11400 10250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6150 7950 6150 7800
+Wire Wire Line
+	8750 10700 8750 11000
+$Comp
+L Device:R_Pack08_Split RN?
+U 2 1 5FEF22AC
+P 7450 10200
+F 0 "RN?" V 7350 10150 50  0001 C CNN
+F 1 "4.7k" V 7450 10200 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 7925 10200 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 7450 10200 50  0001 C CNN
+F 4 "Bourns Inc." V 7450 10200 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-472LF" V 7450 10200 50  0001 C CNN "Part #"
+	2    7450 10200
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN?
+U 3 1 5FEF5CFB
+P 7450 10300
+F 0 "RN?" V 7350 10250 50  0001 C CNN
+F 1 "4.7k" V 7450 10300 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 7925 10300 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 7450 10300 50  0001 C CNN
+F 4 "Bourns Inc." V 7450 10300 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-472LF" V 7450 10300 50  0001 C CNN "Part #"
+	3    7450 10300
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN?
+U 4 1 5FEF6362
+P 7450 10400
+F 0 "RN?" V 7350 10350 50  0001 C CNN
+F 1 "4.7k" V 7450 10400 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 7925 10400 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 7450 10400 50  0001 C CNN
+F 4 "Bourns Inc." V 7450 10400 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-472LF" V 7450 10400 50  0001 C CNN "Part #"
+	4    7450 10400
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN?
+U 5 1 5FEF675A
+P 7450 10500
+F 0 "RN?" V 7350 10450 50  0001 C CNN
+F 1 "4.7k" V 7450 10500 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 7925 10500 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 7450 10500 50  0001 C CNN
+F 4 "Bourns Inc." V 7450 10500 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-472LF" V 7450 10500 50  0001 C CNN "Part #"
+	5    7450 10500
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN?
+U 6 1 5FEF6B8A
+P 7450 10600
+F 0 "RN?" V 7350 10550 50  0001 C CNN
+F 1 "4.7k" V 7450 10600 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 7925 10600 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 7450 10600 50  0001 C CNN
+F 4 "Bourns Inc." V 7450 10600 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-472LF" V 7450 10600 50  0001 C CNN "Part #"
+	6    7450 10600
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	7250 10600 7300 10600
+Wire Wire Line
+	7250 10100 7250 10200
+Wire Wire Line
+	7250 10500 7300 10500
+Connection ~ 7250 10500
+Wire Wire Line
+	7250 10500 7250 10600
+Wire Wire Line
+	7250 10400 7300 10400
+Connection ~ 7250 10400
+Wire Wire Line
+	7250 10400 7250 10500
+Wire Wire Line
+	7250 10300 7300 10300
+Connection ~ 7250 10300
+Wire Wire Line
+	7250 10300 7250 10400
+Wire Wire Line
+	7250 10200 7300 10200
+Connection ~ 7250 10200
+Wire Wire Line
+	7250 10200 7250 10300
+Wire Wire Line
+	7250 10100 7300 10100
+Wire Wire Line
+	7600 10100 8300 10100
+Wire Wire Line
+	7600 10200 8350 10200
+Wire Wire Line
+	7600 10300 8350 10300
+Wire Wire Line
+	7600 10400 8350 10400
+Wire Wire Line
+	7600 10500 8350 10500
+Wire Wire Line
+	7600 10600 8350 10600
+Text Label 13100 2500 0    50   ~ 0
+Internal_Isense_4
+Text Label 13100 2700 0    50   ~ 0
+Internal_Isense_3
+Text Label 10800 2300 2    50   ~ 0
+MISO0
+Text Label 6450 5100 3    50   ~ 0
+MISO0
+Text Label 10800 2900 2    50   ~ 0
+External_5V_trigger
+Text Notes 3800 9700 0    59   ~ 0
+4-channel external analog input with 5.6V zener clamp\nAbsolute max voltage: +11V/-6V
+$Comp
+L Custom_parts:D_Zener_x4_ACom_AKKKK D3
+U 1 1 5F4F11C3
+P 5000 10250
+F 0 "D3" H 5000 9775 50  0000 C CNN
+F 1 "D_Zener_x4_ACom_AKKKK" H 5000 9866 50  0000 C CNN
+F 2 "Custom Footprints:SOT-753" H 5000 10000 50  0001 C CNN
+F 3 "http://rohmfs.rohm.com/en/products/databook/datasheet/discrete/diode/zener/ftz5.6e.pdf" H 5000 10000 50  0001 C CNN
+F 4 "Rohm Semiconductor" H 5000 10250 50  0001 C CNN "Manufacturer"
+F 5 "FTZ5.6ET148" H 5000 10250 50  0001 C CNN "Part #"
+	1    5000 10250
+	-1   0    0    1   
+$EndComp
+Text Label 3050 9550 0    50   ~ 0
+External_5V_PWM1
+Wire Wire Line
+	4700 9400 4700 9450
+Wire Wire Line
+	4700 9350 4700 9400
+Connection ~ 4700 9400
+Wire Wire Line
+	3900 9400 4700 9400
+Connection ~ 3900 8600
+Wire Wire Line
+	3900 8600 3900 9400
+Text Label 3050 9350 0    50   ~ 0
+External_5V_trigger
+Text Notes 900  2550 0    50   ~ 0
+Vin capacitor discharge
+$Comp
+L power:GND #PWR0180
+U 1 1 5FCA45E9
+P 1350 2250
+F 0 "#PWR0180" H 1350 2000 50  0001 C CNN
+F 1 "GND" H 1450 2100 50  0000 R CNN
+F 2 "" H 1350 2250 50  0001 C CNN
+F 3 "" H 1350 2250 50  0001 C CNN
+	1    1350 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 8 1 5FEC9EE9
+P 1350 2100
+F 0 "RN3" V 1250 2100 50  0000 C CNN
+F 1 "4.7k" V 1350 2100 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 1825 2100 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 1350 2100 50  0001 C CNN
+F 4 "Bourns Inc." V 1350 2100 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-472LF" V 1350 2100 50  0001 C CNN "Part #"
+	8    1350 2100
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN?
+U 7 1 600A1D34
+P 7450 10700
+F 0 "RN?" V 7350 10650 50  0001 C CNN
+F 1 "4.7k" V 7450 10700 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 7925 10700 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 7450 10700 50  0001 C CNN
+F 4 "Bourns Inc." V 7450 10700 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-472LF" V 7450 10700 50  0001 C CNN "Part #"
+	7    7450 10700
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN?
+U 8 1 600A2928
+P 7450 10800
+F 0 "RN?" V 7350 10750 50  0001 C CNN
+F 1 "4.7k" V 7450 10800 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 7925 10800 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 7450 10800 50  0001 C CNN
+F 4 "Bourns Inc." V 7450 10800 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-472LF" V 7450 10800 50  0001 C CNN "Part #"
+	8    7450 10800
+	0    -1   1    0   
+$EndComp
+NoConn ~ 7600 10700
+NoConn ~ 7600 10800
+NoConn ~ 7300 10700
+NoConn ~ 7300 10800
+$Comp
+L Jumper:SolderJumper_2_Bridged JP?
+U 1 1 6012E25F
+P 3050 9050
+F 0 "JP?" H 3050 9150 50  0000 C CNN
+F 1 "SolderJumper_2_Bridged" H 3300 9450 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 3050 9050 50  0001 C CNN
+F 3 "~" H 3050 9050 50  0001 C CNN
+	1    3050 9050
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
