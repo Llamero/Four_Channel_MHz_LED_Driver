@@ -3077,7 +3077,7 @@ Text Label 13100 1800 0    50   ~ 0
 MOSFET_temp_2
 Text Label 13100 1700 0    50   ~ 0
 MOSFET_temp_3
-Text Label 2900 9050 0    50   ~ 0
+Text Label 3200 9050 0    50   ~ 0
 3.3V
 Text Label 13100 3100 0    50   ~ 0
 Resistor_temp_1
@@ -3843,7 +3843,7 @@ Wire Wire Line
 Wire Wire Line
 	1600 9650 2200 9650
 Text Notes 1450 8900 0    59   ~ 0
-External thermistor and 3x 5V/16mA digital outputs
+External thermistor and 3x 5V/16mA digital outputs\nOpen jumper for DAC output instead
 Text Notes 1400 7600 0    59   ~ 0
 Analog/digital inputs with 0-3.3V clamp
 Text Notes 1400 6250 0    59   ~ 0
@@ -4407,4 +4407,15 @@ NoConn ~ 7600 10700
 NoConn ~ 7600 10800
 NoConn ~ 7300 10700
 NoConn ~ 7300 10800
+$Comp
+L Jumper:SolderJumper_2_Bridged JP?
+U 1 1 6012E25F
+P 3050 9050
+F 0 "JP?" H 3050 9150 50  0000 C CNN
+F 1 "SolderJumper_2_Bridged" H 3300 9450 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 3050 9050 50  0001 C CNN
+F 3 "~" H 3050 9050 50  0001 C CNN
+	1    3050 9050
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
