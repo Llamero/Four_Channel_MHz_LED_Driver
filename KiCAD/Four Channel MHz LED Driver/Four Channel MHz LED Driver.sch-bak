@@ -1723,27 +1723,14 @@ Connection ~ 11350 7750
 $Comp
 L Mechanical:Heatsink HS3
 U 1 1 5F527EE9
-P 10900 10950
-F 0 "HS3" H 10800 11250 50  0000 L CNN
-F 1 "HS-PCB" H 10750 11150 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 10912 10950 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 10912 10950 50  0001 C CNN
-F 4 "Wakefield-Vette" H 10900 10950 50  0001 C CNN "Manufacturer"
-F 5 "910-40-2-23-2-B-0" H 10900 10950 50  0001 C CNN "Part #"
-	1    10900 10950
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:Heatsink_Pad_2Pin HS4
-U 1 1 5F5289B1
-P 11250 10900
-F 0 "HS4" H 11150 11150 50  0000 L CNN
-F 1 "HS-RES" H 11100 11050 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_634-20ABPE" H 11262 10900 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 11262 10900 50  0001 C CNN
-F 4 "Wakefield-Vette" H 11250 10900 50  0001 C CNN "Manufacturer"
-F 5 "634-20ABPE" H 11250 10900 50  0001 C CNN "Part #"
-	1    11250 10900
+P 10250 11150
+F 0 "HS3" H 10150 11450 50  0000 L CNN
+F 1 "HS-PCB" H 10100 11350 50  0000 L CNN
+F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 10262 11150 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 10262 11150 50  0001 C CNN
+F 4 "Wakefield-Vette" H 10250 11150 50  0001 C CNN "Manufacturer"
+F 5 "910-40-2-23-2-B-0" H 10250 11150 50  0001 C CNN "Part #"
+	1    10250 11150
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -2358,28 +2345,6 @@ F 5 "SUM70060E-GE3" H 14750 7550 50  0001 C CNN "Part #"
 $EndComp
 Wire Wire Line
 	12500 7650 12500 8200
-$Comp
-L power:GND #PWR0174
-U 1 1 5F752FAC
-P 11150 11000
-F 0 "#PWR0174" H 11150 10750 50  0001 C CNN
-F 1 "GND" H 11200 10850 50  0000 R CNN
-F 2 "" H 11150 11000 50  0001 C CNN
-F 3 "" H 11150 11000 50  0001 C CNN
-	1    11150 11000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0175
-U 1 1 5F7537A5
-P 11350 11000
-F 0 "#PWR0175" H 11350 10750 50  0001 C CNN
-F 1 "GND" H 11400 10850 50  0000 R CNN
-F 2 "" H 11350 11000 50  0001 C CNN
-F 3 "" H 11350 11000 50  0001 C CNN
-	1    11350 11000
-	1    0    0    -1  
-$EndComp
 Text Notes 10950 6800 0    59   ~ 0
 4-channel op-amp constant current LED driver
 Text Notes 12400 9800 0    59   ~ 0
@@ -2463,79 +2428,66 @@ Connection ~ 1350 1650
 $Comp
 L power:GND #PWR0178
 U 1 1 5F42FF36
-P 9500 11000
-F 0 "#PWR0178" H 9500 10750 50  0001 C CNN
-F 1 "GND" H 9550 10850 50  0000 R CNN
-F 2 "" H 9500 11000 50  0001 C CNN
-F 3 "" H 9500 11000 50  0001 C CNN
-	1    9500 11000
+P 9700 10550
+F 0 "#PWR0178" H 9700 10300 50  0001 C CNN
+F 1 "GND" H 9750 10400 50  0000 R CNN
+F 2 "" H 9700 10550 50  0001 C CNN
+F 3 "" H 9700 10550 50  0001 C CNN
+	1    9700 10550
 	1    0    0    -1  
 $EndComp
-Text Label 9500 10100 0    50   ~ 0
+Text Label 9700 10050 0    50   ~ 0
 12V
 $Comp
 L Mechanical:MountingHole H1
 U 1 1 5F452E2A
-P 9200 10200
-F 0 "H1" H 9150 10300 50  0000 L CNN
-F 1 "MountingHole" H 9300 10155 50  0001 L CNN
-F 2 "Custom Footprints:60mm_fan_mount" H 9200 10200 50  0001 C CNN
-F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 9200 10200 50  0001 C CNN
-F 4 "Würth Elektronik" H 9200 10200 50  0001 C CNN "Manufacturer"
-F 5 "970300471" H 9200 10200 50  0001 C CNN "Part #"
-	1    9200 10200
+P 9400 10100
+F 0 "H1" H 9350 10200 50  0000 L CNN
+F 1 "MountingHole" H 9500 10055 50  0001 L CNN
+F 2 "Custom Footprints:90mm_fan_AFC0912DB-F00" H 9400 10100 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 9400 10100 50  0001 C CNN
+F 4 "Würth Elektronik" H 9400 10100 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 9400 10100 50  0001 C CNN "Part #"
+	1    9400 10100
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole H3
 U 1 1 5F45A937
-P 9800 10200
-F 0 "H3" H 9750 10300 50  0000 L CNN
-F 1 "MountingHole" H 9900 10155 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 9800 10200 50  0001 C CNN
-F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 9800 10200 50  0001 C CNN
-F 4 "Würth Elektronik" H 9800 10200 50  0001 C CNN "Manufacturer"
-F 5 "970300471" H 9800 10200 50  0001 C CNN "Part #"
-	1    9800 10200
+P 10000 10100
+F 0 "H3" H 9950 10200 50  0000 L CNN
+F 1 "MountingHole" H 10100 10055 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 10000 10100 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10000 10100 50  0001 C CNN
+F 4 "Würth Elektronik" H 10000 10100 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 10000 10100 50  0001 C CNN "Part #"
+	1    10000 10100
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole H4
 U 1 1 5F45CD36
-P 9800 10650
-F 0 "H4" H 9750 10750 50  0000 L CNN
-F 1 "MountingHole" H 9900 10605 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 9800 10650 50  0001 C CNN
-F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 9800 10650 50  0001 C CNN
-F 4 "Würth Elektronik" H 9800 10650 50  0001 C CNN "Manufacturer"
-F 5 "970300471" H 9800 10650 50  0001 C CNN "Part #"
-	1    9800 10650
+P 10000 10600
+F 0 "H4" H 9950 10700 50  0000 L CNN
+F 1 "MountingHole" H 10100 10555 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 10000 10600 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10000 10600 50  0001 C CNN
+F 4 "Würth Elektronik" H 10000 10600 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 10000 10600 50  0001 C CNN "Part #"
+	1    10000 10600
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole H2
 U 1 1 5F45D9B5
-P 9200 10650
-F 0 "H2" H 9150 10750 50  0000 L CNN
-F 1 "MountingHole" H 9300 10605 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 9200 10650 50  0001 C CNN
-F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 9200 10650 50  0001 C CNN
-F 4 "Würth Elektronik" H 9200 10650 50  0001 C CNN "Manufacturer"
-F 5 "970300471" H 9200 10650 50  0001 C CNN "Part #"
-	1    9200 10650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Motor:Fan M1
-U 1 1 5F42A861
-P 9500 10400
-F 0 "M1" H 9500 10900 50  0000 L CNN
-F 1 "Fan - CFM-6010V-140-285" H 9050 10800 50  0000 L CNN
-F 2 "Connector_Wire:SolderWire-1sqmm_1x02_P5.4mm_D1.4mm_OD2.7mm" H 9500 10410 50  0001 C CNN
-F 3 "https://www.cuidevices.com/product/resource/digikeypdf/cfm-60v.pdf" H 9500 10410 50  0001 C CNN
-F 4 "CUI Devices" H 9500 10400 50  0001 C CNN "Manufacturer"
-F 5 "CFM-6010V-140-285" H 9500 10400 50  0001 C CNN "Part #"
-	1    9500 10400
+P 9400 10600
+F 0 "H2" H 9350 10700 50  0000 L CNN
+F 1 "MountingHole" H 9500 10555 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 9400 10600 50  0001 C CNN
+F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 9400 10600 50  0001 C CNN
+F 4 "Würth Elektronik" H 9400 10600 50  0001 C CNN "Manufacturer"
+F 5 "970300471" H 9400 10600 50  0001 C CNN "Part #"
+	1    9400 10600
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -2942,7 +2894,7 @@ L power:GND #PWR05
 U 1 1 5F5CDB3A
 P 1600 9750
 F 0 "#PWR05" H 1600 9500 50  0001 C CNN
-F 1 "GND" V 1600 9650 50  0000 R CNN
+F 1 "GND" V 1500 9750 50  0000 R CNN
 F 2 "" H 1600 9750 50  0001 C CNN
 F 3 "" H 1600 9750 50  0001 C CNN
 	1    1600 9750
@@ -2984,7 +2936,7 @@ Text Label 5450 8950 0    50   ~ 0
 Analog_select_4
 Text Label 10800 2100 2    50   ~ 0
 Internal_fan_PWM
-Text Label 9200 10800 2    50   ~ 0
+Text Label 3050 9950 0    50   ~ 0
 Internal_fan_PWM
 Wire Notes Line
 	8750 6700 16050 6700
@@ -3717,8 +3669,6 @@ F 5 "SN74LV4T125PWR" H 2350 9650 50  0001 C CNN "Part #"
 	1    2350 9650
 	-1   0    0    -1  
 $EndComp
-Text Label 3050 9900 0    50   ~ 0
-5V
 $Comp
 L power:GND #PWR0106
 U 1 1 5FB26F71
@@ -3767,7 +3717,6 @@ F 3 "" H 3050 9250 50  0001 C CNN
 	1    3050 9250
 	0    -1   1    0   
 $EndComp
-NoConn ~ 2200 9750
 Wire Wire Line
 	1850 9550 1850 9450
 Wire Wire Line
@@ -3813,21 +3762,6 @@ Text Notes 1400 7600 0    59   ~ 0
 Analog/digital inputs with 0-3.3V clamp
 Text Notes 1400 6250 0    59   ~ 0
 External analog inputs with 5.6V zener clamp
-$Comp
-L Device:Q_NMOS_GSD Q1
-U 1 1 5FCDB54B
-P 9400 10800
-F 0 "Q1" H 9604 10846 50  0000 L CNN
-F 1 "Q_NMOS_GSD" H 8950 10600 50  0000 L CNN
-F 2 "Custom Footprints:SOT_23F" H 9600 10900 50  0001 C CNN
-F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=2157&prodName=SSM3K329R" H 9400 10800 50  0001 C CNN
-F 4 "Toshiba Semiconductor and Storage" H 9400 10800 50  0001 C CNN "Manufacturer"
-F 5 "SSM3K329R,LF" H 9400 10800 50  0001 C CNN "Part #"
-	1    9400 10800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3050 9850 3050 9950
 Text Label 2300 10950 2    50   ~ 0
 Internal_Isense_4
 Text Label 2300 10750 2    50   ~ 0
@@ -3990,7 +3924,7 @@ Text Notes 6950 9850 0    59   ~ 0
 Isense resistor and MOSFET\nthermitor temperature monitoring
 Text Notes 10850 10000 0    59   ~ 0
 Overheat alarm
-Text Notes 8950 9850 0    59   ~ 0
+Text Notes 9150 9800 0    59   ~ 0
 Cooling fan for heatsinks
 Text Notes 6350 8500 0    59   ~ 0
 Manual/Auto toggle switch with indicator LED
@@ -4384,64 +4318,110 @@ F 3 "~" H 3050 9050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Heatsink HS1
-U 1 1 601492FF
-P 10200 10950
-F 0 "HS1" H 10100 11250 50  0000 L CNN
-F 1 "HS-PCB" H 10050 11150 50  0000 L CNN
-F 2 "Custom Footprints:21mmx21mm_HS_902-21-2-23-2-B-0" H 10212 10950 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/902_Series_Pin.pdf" H 10212 10950 50  0001 C CNN
-F 4 "Wakefield-Vette" H 10200 10950 50  0001 C CNN "Manufacturer"
-F 5 "902-21-2-23-2-B-0" H 10200 10950 50  0001 C CNN "Part #"
-	1    10200 10950
-	1    0    0    -1  
-$EndComp
-$Comp
 L Mechanical:Heatsink HS2
-U 1 1 601520A5
-P 10550 10950
-F 0 "HS2" H 10450 11250 50  0000 L CNN
-F 1 "HS-PCB" H 10400 11150 50  0000 L CNN
-F 2 "Custom Footprints:21mmx21mm_HS_902-21-2-23-2-B-0" H 10562 10950 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/902_Series_Pin.pdf" H 10562 10950 50  0001 C CNN
-F 4 "Wakefield-Vette" H 10550 10950 50  0001 C CNN "Manufacturer"
-F 5 "902-21-2-23-2-B-0" H 10550 10950 50  0001 C CNN "Part #"
-	1    10550 10950
+U 1 1 602A56B6
+P 9900 11150
+F 0 "HS2" H 9800 11450 50  0000 L CNN
+F 1 "HS-PCB" H 9750 11350 50  0000 L CNN
+F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 9912 11150 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 9912 11150 50  0001 C CNN
+F 4 "Wakefield-Vette" H 9900 11150 50  0001 C CNN "Manufacturer"
+F 5 "910-40-2-23-2-B-0" H 9900 11150 50  0001 C CNN "Part #"
+	1    9900 11150
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Heatsink_Pad_2Pin HS5
-U 1 1 601B403F
-P 11600 10900
-F 0 "HS5" H 11500 11150 50  0000 L CNN
-F 1 "HS-RES" H 11450 11050 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_634-20ABPE" H 11612 10900 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 11612 10900 50  0001 C CNN
-F 4 "Wakefield-Vette" H 11600 10900 50  0001 C CNN "Manufacturer"
-F 5 "634-20ABPE" H 11600 10900 50  0001 C CNN "Part #"
-	1    11600 10900
+L Mechanical:Heatsink HS6
+U 1 1 602D41F8
+P 9550 11150
+F 0 "HS6" H 9450 11450 50  0000 L CNN
+F 1 "HS-PCB" H 9400 11350 50  0000 L CNN
+F 2 "Custom Footprints:21mmx21mm_HS_902-21-2-23-2-B-0" H 9562 11150 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/902_Series_Pin.pdf" H 9562 11150 50  0001 C CNN
+F 4 "Wakefield-Vette" H 9550 11150 50  0001 C CNN "Manufacturer"
+F 5 "902-21-2-23-2-B-0" H 9550 11150 50  0001 C CNN "Part #"
+	1    9550 11150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:Heatsink HS1
+U 1 1 602F5517
+P 9200 11150
+F 0 "HS1" H 9100 11450 50  0000 L CNN
+F 1 "HS-PCB" H 9050 11350 50  0000 L CNN
+F 2 "Custom Footprints:21mmx21mm_HS_902-21-2-23-2-B-0" H 9212 11150 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/902_Series_Pin.pdf" H 9212 11150 50  0001 C CNN
+F 4 "Wakefield-Vette" H 9200 11150 50  0001 C CNN "Manufacturer"
+F 5 "902-21-2-23-2-B-0" H 9200 11150 50  0001 C CNN "Part #"
+	1    9200 11150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:Heatsink HS7
+U 1 1 6030169F
+P 8850 11150
+F 0 "HS7" H 8750 11450 50  0000 L CNN
+F 1 "HS-PCB" H 8700 11350 50  0000 L CNN
+F 2 "Custom Footprints:21mmx21mm_HS_902-21-2-23-2-B-0" H 8862 11150 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/902_Series_Pin.pdf" H 8862 11150 50  0001 C CNN
+F 4 "Wakefield-Vette" H 8850 11150 50  0001 C CNN "Manufacturer"
+F 5 "902-21-2-23-2-B-0" H 8850 11150 50  0001 C CNN "Part #"
+	1    8850 11150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:Heatsink HS8
+U 1 1 60305683
+P 10600 11150
+F 0 "HS8" H 10500 11450 50  0000 L CNN
+F 1 "HS-PCB" H 10450 11350 50  0000 L CNN
+F 2 "Custom Footprints:21mmx21mm_HS_902-21-2-23-2-B-0" H 10612 11150 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/902_Series_Pin.pdf" H 10612 11150 50  0001 C CNN
+F 4 "Wakefield-Vette" H 10600 11150 50  0001 C CNN "Manufacturer"
+F 5 "902-21-2-23-2-B-0" H 10600 11150 50  0001 C CNN "Part #"
+	1    10600 11150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:Heatsink HS5
+U 1 1 603676EF
+P 10950 11150
+F 0 "HS5" H 10850 11450 50  0000 L CNN
+F 1 "HS-PCB" H 10800 11350 50  0000 L CNN
+F 2 "Custom Footprints:21mmx21mm_HS_902-21-2-23-2-B-0" H 10962 11150 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/902_Series_Pin.pdf" H 10962 11150 50  0001 C CNN
+F 4 "Wakefield-Vette" H 10950 11150 50  0001 C CNN "Manufacturer"
+F 5 "902-21-2-23-2-B-0" H 10950 11150 50  0001 C CNN "Part #"
+	1    10950 11150
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0172
-U 1 1 601B4045
-P 11500 11000
-F 0 "#PWR0172" H 11500 10750 50  0001 C CNN
-F 1 "GND" H 11550 10850 50  0000 R CNN
-F 2 "" H 11500 11000 50  0001 C CNN
-F 3 "" H 11500 11000 50  0001 C CNN
-	1    11500 11000
-	1    0    0    -1  
+U 1 1 6037B5F8
+P 3050 9850
+F 0 "#PWR0172" H 3050 9600 50  0001 C CNN
+F 1 "GND" V 3050 9750 50  0000 R CNN
+F 2 "" H 3050 9850 50  0001 C CNN
+F 3 "" H 3050 9850 50  0001 C CNN
+	1    3050 9850
+	0    -1   1    0   
 $EndComp
+Text Label 2200 9750 2    50   ~ 0
+5V_fan_PWM
+Text Label 9300 10450 2    50   ~ 0
+5V_fan_PWM
 $Comp
-L power:GND #PWR0173
-U 1 1 601B404B
-P 11700 11000
-F 0 "#PWR0173" H 11700 10750 50  0001 C CNN
-F 1 "GND" H 11750 10850 50  0000 R CNN
-F 2 "" H 11700 11000 50  0001 C CNN
-F 3 "" H 11700 11000 50  0001 C CNN
-	1    11700 11000
+L Motor:Fan_4pin M1
+U 1 1 603842B5
+P 9700 10350
+F 0 "M1" H 9858 10446 50  0000 L CNN
+F 1 "Fan_4pin" H 9858 10355 50  0000 L CNN
+F 2 "Connector_Wire:SolderWire-0.25sqmm_1x04_P4.2mm_D0.65mm_OD1.7mm" H 9700 10360 50  0001 C CNN
+F 3 "http://www.formfactors.org/developer%5Cspecs%5Crev1_2_public.pdf" H 9700 10360 50  0001 C CNN
+	1    9700 10350
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	9300 10450 9400 10450
+NoConn ~ 9400 10250
 $EndSCHEMATC
