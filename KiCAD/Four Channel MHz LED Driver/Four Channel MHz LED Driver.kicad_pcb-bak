@@ -539,7 +539,7 @@
   )
 
   (module "Custom Footprints:DO-214AA" (layer F.Cu) (tedit 5F483ACD) (tstamp 5F493B3C)
-    (at 131.125 111.8065 270)
+    (at 130.52 110.2615 90)
     (path /5F60DE02)
     (fp_text reference D14 (at -0.24 -4.99 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
@@ -566,9 +566,9 @@
     (fp_line (start -2.794 1.905) (end 2.794 1.905) (layer F.Fab) (width 0.1524))
     (fp_line (start 3.2 -2.032) (end -2.921 -2.032) (layer F.SilkS) (width 0.1524))
     (fp_line (start -2.921 2.032) (end 3.2 2.032) (layer F.SilkS) (width 0.1524))
-    (pad 2 smd rect (at -1.9685 0) (size 2.159 1.9558) (layers F.Cu F.Paste F.Mask)
+    (pad 2 smd rect (at -1.9685 0 180) (size 2.159 1.9558) (layers F.Cu F.Paste F.Mask)
       (net 61 /Isense_4))
-    (pad 1 smd rect (at 1.9685 0) (size 2.159 1.9558) (layers F.Cu F.Paste F.Mask)
+    (pad 1 smd rect (at 1.9685 0 180) (size 2.159 1.9558) (layers F.Cu F.Paste F.Mask)
       (net 49 /LED4-))
     (model "C:/Users/Ben/Documents/GitHub/Four_Channel_MHz_LED_Driver/KiCAD/Custom Parts/STEP/DO214AA.stp"
       (offset (xyz 0 0 1.4))
@@ -578,7 +578,7 @@
   )
 
   (module "Custom Footprints:DO-214AA" (layer F.Cu) (tedit 5F483ACD) (tstamp 5F493B23)
-    (at 131.025 100.0065 270)
+    (at 130.5 103.6415 270)
     (path /5F599BDC)
     (fp_text reference D13 (at -0.24 -4.99 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
@@ -617,7 +617,7 @@
   )
 
   (module "Custom Footprints:DO-214AA" (layer F.Cu) (tedit 5F483ACD) (tstamp 5F493B0A)
-    (at 130.6 88.4815 270)
+    (at 130.53 87.4715 90)
     (path /5F587F7C)
     (fp_text reference D12 (at -0.24 -4.99 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
@@ -644,9 +644,9 @@
     (fp_line (start -2.794 1.905) (end 2.794 1.905) (layer F.Fab) (width 0.1524))
     (fp_line (start 3.2 -2.032) (end -2.921 -2.032) (layer F.SilkS) (width 0.1524))
     (fp_line (start -2.921 2.032) (end 3.2 2.032) (layer F.SilkS) (width 0.1524))
-    (pad 2 smd rect (at -1.9685 0) (size 2.159 1.9558) (layers F.Cu F.Paste F.Mask)
+    (pad 2 smd rect (at -1.9685 0 180) (size 2.159 1.9558) (layers F.Cu F.Paste F.Mask)
       (net 57 /Isense_2))
-    (pad 1 smd rect (at 1.9685 0) (size 2.159 1.9558) (layers F.Cu F.Paste F.Mask)
+    (pad 1 smd rect (at 1.9685 0 180) (size 2.159 1.9558) (layers F.Cu F.Paste F.Mask)
       (net 51 /LED2-))
     (model "C:/Users/Ben/Documents/GitHub/Four_Channel_MHz_LED_Driver/KiCAD/Custom Parts/STEP/DO214AA.stp"
       (offset (xyz 0 0 1.4))
@@ -656,7 +656,7 @@
   )
 
   (module "Custom Footprints:DO-214AA" (layer F.Cu) (tedit 5F483ACD) (tstamp 5F493AF1)
-    (at 130.85 76.5435 270)
+    (at 130.55 80.6515 270)
     (path /5F4AC07B)
     (fp_text reference D11 (at -0.24 -4.99 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))

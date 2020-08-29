@@ -337,7 +337,7 @@ Text Label 4700 9250 2    50   ~ 0
 external_analog_4
 Text Notes 6650 6150 0    59   ~ 0
 Internal 4-channel 12-bit DAC AWG
-Text Label 4700 10000 2    50   ~ 0
+Text Label 5300 10200 0    50   ~ 0
 external_analog_1
 Text Label 2150 6650 0    50   ~ 0
 external_analog_2
@@ -395,7 +395,7 @@ Text Label 2150 6450 0    50   ~ 0
 external_analog_1
 Text Label 4700 10200 2    50   ~ 0
 external_analog_2
-Text Label 5300 10200 0    50   ~ 0
+Text Label 4700 10000 2    50   ~ 0
 external_analog_3
 Text Label 5300 10000 0    50   ~ 0
 external_analog_4
@@ -439,7 +439,7 @@ L Connector:Conn_01x02_Female J2
 U 1 1 5F50593C
 P 850 1150
 F 0 "J2" H 700 1250 50  0000 L CNN
-F 1 "Conn_01x02_Female" H 450 1000 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 400 950 50  0000 L CNN
 F 2 "Connector_Wire:SolderWire-2.5sqmm_1x02_P7.2mm_D2.4mm_OD3.6mm" H 850 1150 50  0001 C CNN
 F 3 "~" H 850 1150 50  0001 C CNN
 	1    850  1150
@@ -1744,7 +1744,7 @@ F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 11350 8150 50  000
 F 4 "Ohmite" H 11350 8150 50  0001 C CNN "Manufacturer"
 F 5 "TKH45P5R00FE-TR" H 11350 8150 50  0001 C CNN "Part #"
 	1    11350 8150
-	1    0    0    -1  
+	1    0    0    1   
 $EndComp
 Connection ~ 11350 8050
 $Comp
@@ -1934,7 +1934,7 @@ F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 11350 9500 50  000
 F 4 "Ohmite" H 11350 9500 50  0001 C CNN "Manufacturer"
 F 5 "TKH45P5R00FE-TR" H 11350 9500 50  0001 C CNN "Part #"
 	1    11350 9500
-	1    0    0    -1  
+	1    0    0    1   
 $EndComp
 Connection ~ 11350 9400
 $Comp
@@ -2005,7 +2005,7 @@ F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 14850 9500 50  000
 F 4 "Ohmite" H 14850 9500 50  0001 C CNN "Manufacturer"
 F 5 "TKH45P5R00FE-TR" H 14850 9500 50  0001 C CNN "Part #"
 	1    14850 9500
-	1    0    0    -1  
+	1    0    0    1   
 $EndComp
 Connection ~ 14850 9100
 Wire Wire Line
@@ -2195,7 +2195,7 @@ F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 14850 8150 50  000
 F 4 "Ohmite" H 14850 8150 50  0001 C CNN "Manufacturer"
 F 5 "TKH45P5R00FE-TR" H 14850 8150 50  0001 C CNN "Part #"
 	1    14850 8150
-	1    0    0    -1  
+	1    0    0    1   
 $EndComp
 Connection ~ 14850 7750
 Wire Wire Line
@@ -2622,32 +2622,6 @@ F 5 "EXB-38V151JV" H 5650 2050 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R_Pack08_Split RN3
-U 4 1 5F82F07B
-P 2000 8350
-F 0 "RN3" V 1900 8350 50  0000 C CNN
-F 1 "4.7k" V 2000 8350 50  0000 C CNN
-F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 2475 8350 50  0001 C CNN
-F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 2000 8350 50  0001 C CNN
-F 4 "Bourns Inc." V 2000 8350 50  0001 C CNN "Manufacturer"
-F 5 "4816P-T01-472LF" V 2000 8350 50  0001 C CNN "Part #"
-	4    2000 8350
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R_Pack08_Split RN3
-U 3 1 5F82E690
-P 2000 8150
-F 0 "RN3" V 1900 8150 50  0000 C CNN
-F 1 "4.7k" V 2000 8150 50  0000 C CNN
-F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 2475 8150 50  0001 C CNN
-F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 2000 8150 50  0001 C CNN
-F 4 "Bourns Inc." V 2000 8150 50  0001 C CNN "Manufacturer"
-F 5 "4816P-T01-472LF" V 2000 8150 50  0001 C CNN "Part #"
-	3    2000 8150
-	0    1    1    0   
-$EndComp
-$Comp
 L Device:R_Pack08 RN4
 U 1 1 5F57894B
 P 2500 10750
@@ -2659,19 +2633,6 @@ F 4 "Bourns Inc." V 2500 10750 50  0001 C CNN "Manufacturer"
 F 5 "4816P-T01-102LF" V 2500 10750 50  0001 C CNN "Part #"
 	1    2500 10750
 	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Pack08_Split RN3
-U 1 1 5F607B24
-P 2000 7750
-F 0 "RN3" V 1900 7750 50  0000 C CNN
-F 1 "4.7k" V 2000 7750 50  0000 C CNN
-F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 2475 7750 50  0001 C CNN
-F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 2000 7750 50  0001 C CNN
-F 4 "Bourns Inc." V 2000 7750 50  0001 C CNN "Manufacturer"
-F 5 "4816P-T01-472LF" V 2000 7750 50  0001 C CNN "Part #"
-	1    2000 7750
-	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split RN1
@@ -2710,19 +2671,6 @@ F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" 
 F 4 "Panasonic Electronic Components" H 7150 9250 50  0001 C CNN "Manufacturer"
 F 5 "EXB-38V151JV" H 7150 9250 50  0001 C CNN "Part #"
 	4    7150 9250
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R_Pack08_Split RN3
-U 2 1 5F82DD76
-P 2000 7950
-F 0 "RN3" V 1900 7950 50  0000 C CNN
-F 1 "4.7k" V 2000 7950 50  0000 C CNN
-F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 2475 7950 50  0001 C CNN
-F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 2000 7950 50  0001 C CNN
-F 4 "Bourns Inc." V 2000 7950 50  0001 C CNN "Manufacturer"
-F 5 "4816P-T01-472LF" V 2000 7950 50  0001 C CNN "Part #"
-	2    2000 7950
 	0    1    1    0   
 $EndComp
 $Comp
@@ -2942,19 +2890,19 @@ Wire Notes Line
 	8750 6700 16050 6700
 Wire Notes Line
 	500  6000 8750 6000
-Text Label 10800 2600 2    50   ~ 0
+Text Label 13100 1400 0    50   ~ 0
 Toggle_red_LED
-Text Label 10800 2700 2    50   ~ 0
+Text Label 13100 1300 0    50   ~ 0
 Toggle_green_LED
 Text Label 7000 9050 2    50   ~ 0
 Toggle_red_LED
 Text Label 7000 9250 2    50   ~ 0
 Toggle_green_LED
-Text Label 13100 2200 0    50   ~ 0
+Text Label 10800 2500 2    50   ~ 0
 DAC_CS
 Text Label 6700 6800 2    50   ~ 0
 DAC_CS
-Text Label 13100 2800 0    50   ~ 0
+Text Label 10800 2600 2    50   ~ 0
 Over_temp_alarm1
 Text Label 10800 3200 2    50   ~ 0
 A-D_input_1
@@ -2980,28 +2928,24 @@ Text Label 6150 10750 0    50   ~ 0
 A-D_input_3
 Text Label 5400 11150 2    50   ~ 0
 A-D_input_4
-Text Label 13100 1600 0    50   ~ 0
-LED_pot_1
-Text Label 13100 1500 0    50   ~ 0
-LED_pot_2
-Text Label 13100 1400 0    50   ~ 0
-LED_pot_3
-Text Label 13100 1300 0    50   ~ 0
-LED_pot_4
-Text Label 13100 1900 0    50   ~ 0
-MOSFET_temp_1
 Text Label 13100 1800 0    50   ~ 0
-MOSFET_temp_2
+LED_pot_1
 Text Label 13100 1700 0    50   ~ 0
-MOSFET_temp_3
+LED_pot_2
+Text Label 13100 1600 0    50   ~ 0
+LED_pot_3
+Text Label 13100 1500 0    50   ~ 0
+LED_pot_4
+Text Label 13100 2000 0    50   ~ 0
+MOSFET_temp_1
+Text Label 13100 1900 0    50   ~ 0
+MOSFET_temp_2
 Text Label 3200 9050 0    50   ~ 0
 3.3V
-Text Label 13100 3100 0    50   ~ 0
-Resistor_temp_1
 Text Label 13100 3000 0    50   ~ 0
-Resistor_temp_2
+Resistor_temp_1
 Text Label 13100 2900 0    50   ~ 0
-Resistor_temp_3
+Resistor_temp_2
 $Comp
 L Device:Thermistor TH1
 U 1 1 5F76C793
@@ -3030,8 +2974,6 @@ F 5 "NCP18XM472J03RB" H 8300 10250 50  0001 C CNN "Part #"
 	1    8300 10250
 	0    -1   1    0   
 $EndComp
-Text Label 7400 10300 0    50   ~ 0
-MOSFET_temp_3
 $Comp
 L Device:Thermistor TH4
 U 1 1 5F7A6A80
@@ -3045,38 +2987,10 @@ F 5 "NCP18XM472J03RB" H 8300 10400 50  0001 C CNN "Part #"
 	1    8300 10400
 	0    -1   1    0   
 $EndComp
-$Comp
-L Device:Thermistor TH5
-U 1 1 5F84512D
-P 8300 10550
-F 0 "TH5" V 8300 10500 50  0000 L CNN
-F 1 "Thermistor" H 8405 10505 50  0001 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" H 8300 10550 50  0001 C CNN
-F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 8300 10550 50  0001 C CNN
-F 4 "Murata Electronics" H 8300 10550 50  0001 C CNN "Manufacturer"
-F 5 "NCP18XM472J03RB" H 8300 10550 50  0001 C CNN "Part #"
-	1    8300 10550
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:Thermistor TH6
-U 1 1 5F845136
-P 8300 10700
-F 0 "TH6" V 8300 10650 50  0000 L CNN
-F 1 "Thermistor" H 8405 10655 50  0001 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" H 8300 10700 50  0001 C CNN
-F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 8300 10700 50  0001 C CNN
-F 4 "Murata Electronics" H 8300 10700 50  0001 C CNN "Manufacturer"
-F 5 "NCP18XM472J03RB" H 8300 10700 50  0001 C CNN "Part #"
-	1    8300 10700
-	0    -1   1    0   
-$EndComp
-Text Label 7400 10400 0    50   ~ 0
+Text Label 7400 10300 0    50   ~ 0
 Resistor_temp_1
-Text Label 7400 10500 0    50   ~ 0
+Text Label 7400 10400 0    50   ~ 0
 Resistor_temp_2
-Text Label 7400 10600 0    50   ~ 0
-Resistor_temp_3
 $Comp
 L Device:Thermistor TH2
 U 1 1 5F78EA16
@@ -3090,10 +3004,6 @@ F 5 "NCP18XM472J03RB" H 8300 10100 50  0001 C CNN "Part #"
 	1    8300 10100
 	0    -1   1    0   
 $EndComp
-Wire Wire Line
-	8100 10700 8100 10600
-Wire Wire Line
-	8100 10500 8100 10550
 Wire Wire Line
 	8100 10300 8100 10250
 Wire Wire Line
@@ -3111,12 +3021,6 @@ Wire Wire Line
 Connection ~ 8500 10400
 Wire Wire Line
 	8500 10400 8500 10250
-Connection ~ 8500 10550
-Wire Wire Line
-	8500 10550 8500 10400
-Connection ~ 8500 10700
-Wire Wire Line
-	8500 10700 8500 10550
 Text Label 7000 10100 2    50   ~ 0
 3.3V
 $Comp
@@ -3143,7 +3047,7 @@ F 5 "4816P-T01-472LF" V 2750 9050 50  0001 C CNN "Part #"
 	6    2750 9050
 	0    -1   -1   0   
 $EndComp
-Text Label 10800 2800 2    50   ~ 0
+Text Label 10800 2900 2    50   ~ 0
 Toggle_switch
 Text Label 7300 8850 2    50   ~ 0
 Toggle_switch
@@ -3162,7 +3066,7 @@ F 3 "https://www.bourns.com/docs/Product-Datasheets/4800P.pdf" H 2000 6450 50  0
 F 4 "Bourns Inc." V 2000 6450 50  0001 C CNN "Manufacturer"
 F 5 "4816P-T01-221LF" V 2000 6450 50  0001 C CNN "Part #"
 	1    2000 6450
-	0    1    1    0   
+	0    -1   1    0   
 $EndComp
 $Comp
 L Device:R_Pack08_Split RN2
@@ -3175,7 +3079,7 @@ F 3 "https://www.bourns.com/docs/Product-Datasheets/4800P.pdf" H 2000 6650 50  0
 F 4 "Bourns Inc." V 2000 6650 50  0001 C CNN "Manufacturer"
 F 5 "4816P-T01-221LF" V 2000 6650 50  0001 C CNN "Part #"
 	2    2000 6650
-	0    1    1    0   
+	0    -1   1    0   
 $EndComp
 $Comp
 L Device:R_Pack08_Split RN2
@@ -3188,7 +3092,7 @@ F 3 "https://www.bourns.com/docs/Product-Datasheets/4800P.pdf" H 2000 6850 50  0
 F 4 "Bourns Inc." V 2000 6850 50  0001 C CNN "Manufacturer"
 F 5 "4816P-T01-221LF" V 2000 6850 50  0001 C CNN "Part #"
 	3    2000 6850
-	0    1    1    0   
+	0    -1   1    0   
 $EndComp
 $Comp
 L Device:R_Pack08_Split RN2
@@ -3201,7 +3105,7 @@ F 3 "https://www.bourns.com/docs/Product-Datasheets/4800P.pdf" H 2000 7050 50  0
 F 4 "Bourns Inc." V 2000 7050 50  0001 C CNN "Manufacturer"
 F 5 "4816P-T01-221LF" V 2000 7050 50  0001 C CNN "Part #"
 	4    2000 7050
-	0    1    1    0   
+	0    -1   1    0   
 $EndComp
 $Comp
 L Device:R_Pack08_Split RN2
@@ -3214,7 +3118,7 @@ F 3 "https://www.bourns.com/docs/Product-Datasheets/4800P.pdf" H 2900 1800 50  0
 F 4 "Bourns Inc." V 2900 1800 50  0001 C CNN "Manufacturer"
 F 5 "4816P-T01-221LF" V 2900 1800 50  0001 C CNN "Part #"
 	5    2900 1800
-	0    -1   -1   0   
+	0    -1   1    0   
 $EndComp
 $Comp
 L Device:R_Pack08_Split RN2
@@ -3227,7 +3131,7 @@ F 3 "https://www.bourns.com/docs/Product-Datasheets/4800P.pdf" H 2900 2000 50  0
 F 4 "Bourns Inc." V 2900 2000 50  0001 C CNN "Manufacturer"
 F 5 "4816P-T01-221LF" V 2900 2000 50  0001 C CNN "Part #"
 	6    2900 2000
-	0    -1   -1   0   
+	0    -1   1    0   
 $EndComp
 $Comp
 L Device:R_Pack08_Split RN2
@@ -3240,7 +3144,7 @@ F 3 "https://www.bourns.com/docs/Product-Datasheets/4800P.pdf" H 3300 1800 50  0
 F 4 "Bourns Inc." V 3300 1800 50  0001 C CNN "Manufacturer"
 F 5 "4816P-T01-221LF" V 3300 1800 50  0001 C CNN "Part #"
 	7    3300 1800
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_Pack08_Split RN2
@@ -3253,7 +3157,7 @@ F 3 "https://www.bourns.com/docs/Product-Datasheets/4800P.pdf" H 3300 2000 50  0
 F 4 "Bourns Inc." V 3300 2000 50  0001 C CNN "Manufacturer"
 F 5 "4816P-T01-221LF" V 3300 2000 50  0001 C CNN "Part #"
 	8    3300 2000
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 Wire Wire Line
 	3050 1650 3050 1800
@@ -3320,9 +3224,9 @@ Text Label 2700 10550 0    50   ~ 0
 Isense_2
 Text Label 2700 10350 0    50   ~ 0
 Isense_1
-Text Label 13100 2100 0    50   ~ 0
+Text Label 13100 2200 0    50   ~ 0
 Internal_Isense_1
-Text Label 13100 2000 0    50   ~ 0
+Text Label 13100 2100 0    50   ~ 0
 Internal_Isense_2
 Text Label 10800 3100 2    50   ~ 0
 External_5V_PWM2
@@ -3523,7 +3427,7 @@ F 3 "" H 7500 3100 50  0001 C CNN
 	1    7500 3100
 	1    0    0    -1  
 $EndComp
-Text Label 10800 2500 2    50   ~ 0
+Text Label 10800 2700 2    50   ~ 0
 Over_temp_alarm2
 Text Label 11300 10150 2    50   ~ 0
 Over_temp_alarm1
@@ -3682,7 +3586,7 @@ F 3 "" H 2200 9950 50  0001 C CNN
 $EndComp
 Text Label 10800 3000 2    50   ~ 0
 External_5V_PWM1
-Text Label 3050 9750 0    50   ~ 0
+Text Label 3050 9550 0    50   ~ 0
 External_5V_PWM2
 $Comp
 L power:GND #PWR0108
@@ -4017,8 +3921,6 @@ F 5 "SSM-124-L-SV-LC" H 14050 2100 50  0001 C CNN "Part #"
 $EndComp
 Text Label 13100 2600 0    50   ~ 0
 External_thermistor
-Text Label 13100 2600 0    50   ~ 0
-External_thermistor
 Wire Wire Line
 	10800 3300 10050 3300
 Wire Wire Line
@@ -4106,8 +4008,6 @@ F 5 "CPT-2016-75-SMT-TR" H 11400 10250 50  0001 C CNN "Part #"
 $EndComp
 Wire Wire Line
 	6150 7950 6150 7800
-Wire Wire Line
-	8500 10700 8500 11000
 $Comp
 L Device:R_Pack08_Split RN5
 U 2 1 5FEF22AC
@@ -4207,10 +4107,6 @@ Wire Wire Line
 	7350 10300 8100 10300
 Wire Wire Line
 	7350 10400 8100 10400
-Wire Wire Line
-	7350 10500 8100 10500
-Wire Wire Line
-	7350 10600 8100 10600
 Text Label 13100 2500 0    50   ~ 0
 Internal_Isense_4
 Text Label 13100 2700 0    50   ~ 0
@@ -4219,8 +4115,8 @@ Text Label 10800 2300 2    50   ~ 0
 MISO0
 Text Label 6450 5100 3    50   ~ 0
 MISO0
-Text Label 10800 2900 2    50   ~ 0
-External_5V_trigger
+Text Label 13100 3100 0    50   ~ 0
+External_5V_PWM3
 Text Notes 3800 9700 0    59   ~ 0
 4-channel external analog input with 5.6V zener clamp\nAbsolute max voltage: +11V/-6V
 $Comp
@@ -4236,7 +4132,7 @@ F 5 "FTZ5.6ET148" H 5000 10250 50  0001 C CNN "Part #"
 	1    5000 10250
 	-1   0    0    1   
 $EndComp
-Text Label 3050 9550 0    50   ~ 0
+Text Label 3050 9350 0    50   ~ 0
 External_5V_PWM1
 Wire Wire Line
 	4700 9400 4700 9450
@@ -4248,8 +4144,6 @@ Wire Wire Line
 Connection ~ 3900 8600
 Wire Wire Line
 	3900 8600 3900 9400
-Text Label 3050 9350 0    50   ~ 0
-External_5V_trigger
 Text Notes 900  2550 0    50   ~ 0
 Vin capacitor discharge
 $Comp
@@ -4424,4 +4318,66 @@ $EndComp
 Wire Wire Line
 	9300 10450 9400 10450
 NoConn ~ 9400 10250
+$Comp
+L Device:R_Pack08_Split RN3
+U 3 1 5F82E690
+P 2000 8150
+F 0 "RN3" V 1900 8150 50  0000 C CNN
+F 1 "4.7k" V 2000 8150 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 2475 8150 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 2000 8150 50  0001 C CNN
+F 4 "Bourns Inc." V 2000 8150 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-472LF" V 2000 8150 50  0001 C CNN "Part #"
+	3    2000 8150
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 2 1 5F82DD76
+P 2000 7950
+F 0 "RN3" V 1900 7950 50  0000 C CNN
+F 1 "4.7k" V 2000 7950 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 2475 7950 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 2000 7950 50  0001 C CNN
+F 4 "Bourns Inc." V 2000 7950 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-472LF" V 2000 7950 50  0001 C CNN "Part #"
+	2    2000 7950
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 4 1 5F82F07B
+P 2000 8350
+F 0 "RN3" V 1900 8350 50  0000 C CNN
+F 1 "4.7k" V 2000 8350 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 2475 8350 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 2000 8350 50  0001 C CNN
+F 4 "Bourns Inc." V 2000 8350 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-472LF" V 2000 8350 50  0001 C CNN "Part #"
+	4    2000 8350
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 1 1 5F607B24
+P 2000 7750
+F 0 "RN3" V 1900 7750 50  0000 C CNN
+F 1 "4.7k" V 2000 7750 50  0000 C CNN
+F 2 "Custom Footprints:Bourns_16-SOIC_8x_r-pack" V 2475 7750 50  0001 C CNN
+F 3 "file://media.digikey.com/api/videos/videoplayer/smallplayer/N0706.pdf" H 2000 7750 50  0001 C CNN
+F 4 "Bourns Inc." V 2000 7750 50  0001 C CNN "Manufacturer"
+F 5 "4816P-T01-472LF" V 2000 7750 50  0001 C CNN "Part #"
+	1    2000 7750
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	8500 10400 8500 11000
+Text Label 3050 9750 0    50   ~ 0
+External_5V_PWM3
+Text Label 10800 2800 2    50   ~ 0
+Pushbutton_switch
+Text Label 13100 2800 0    50   ~ 0
+Pushbutton_LED
+Text Notes 2950 -1300 0    157  ~ 0
+Add fan and molex connector\n-Put molex near RN3 (since it also needs Vin) and U16 (since this is the source for the fan PWM)\n-Include Fan guard\n\nSwith thermistor R-pack to x4\n\nAdd pushbutton with LED\n\nSwith 150 ohm R-pack to 5-8x to accomodate pushbutton LED
 $EndSCHEMATC
