@@ -24,14 +24,38 @@ K 445-2525-1-ND PS
 F https://product.tdk.com/info/en/catalog/datasheets/piezoelectronic_buzzer_ps_en.pdf
 $ENDCMP
 #
+$CMP Conn_01x03_Female
+D Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F ~
+$ENDCMP
+#
+$CMP Conn_01x03_Male
+D Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F ~
+$ENDCMP
+#
 $CMP Conn_01x04_Male
 D Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)
 K connector
 F ~
 $ENDCMP
 #
+$CMP Conn_01x05_Female
+D Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F ~
+$ENDCMP
+#
 $CMP Conn_01x05_Male
 D Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F ~
+$ENDCMP
+#
+$CMP Conn_01x08_Female
+D Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)
 K connector
 F ~
 $ENDCMP
@@ -82,6 +106,12 @@ $CMP LT6200CS8-10
 D Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8
 K single opamp
 F http://www.ti.com/lit/ds/symlink/ne5534.pdf
+$ENDCMP
+#
+$CMP Pushbutton_with_LED_-_ELUMOATHQ3C12
+D Switch, single pole double throw, illuminated paddle, red and green LEDs
+K switch single-pole double-throw spdt ON-ON illuminated red green
+F http://www.nkkswitches.com/pdf/gwillum.pdf
 $ENDCMP
 #
 $CMP RJ31_Shielded
