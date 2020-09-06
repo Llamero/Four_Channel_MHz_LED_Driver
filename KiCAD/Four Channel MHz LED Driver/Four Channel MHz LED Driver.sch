@@ -1114,7 +1114,7 @@ F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 11350 8150 50  000
 F 4 "Ohmite" H 11350 8150 50  0001 C CNN "Manufacturer"
 F 5 "TKH45P5R00FE-TR" H 11350 8150 50  0001 C CNN "Part #"
 	1    11350 8150
-	1    0    0    1   
+	-1   0    0    -1  
 $EndComp
 Text Notes 10950 6800 0    59   ~ 0
 4-channel op-amp constant current LED driver
@@ -1259,7 +1259,6 @@ Wire Wire Line
 Connection ~ 5550 2200
 Wire Wire Line
 	5550 2200 5650 2200
-Connection ~ 5400 6850
 $Comp
 L Custom_parts:8P8C_Shielded_x4 J3
 U 4 1 5F57B5E3
@@ -1404,7 +1403,7 @@ Text Label 5400 11150 2    50   ~ 0
 A-D_input_4
 Text Label 13100 1600 0    50   ~ 0
 LED_pot
-Text Label 13100 2000 0    50   ~ 0
+Text Label 15050 2750 0    50   ~ 0
 MOSFET_temp
 Text Label 3200 9050 0    50   ~ 0
 3.3V
@@ -1457,19 +1456,6 @@ Text Label 13100 2200 0    50   ~ 0
 Internal_Isense
 Text Label 10800 3100 2    50   ~ 0
 External_5V_PWM2
-$Comp
-L Device:C_Small C18
-U 1 1 5F422B07
-P 5500 6850
-F 0 "C18" V 5700 6800 50  0000 L CNN
-F 1 "2.2uF" V 5600 6800 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 5500 6850 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 5500 6850 50  0001 C CNN
-F 4 "Taiyo Yuden" H 5500 6850 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 5500 6850 50  0001 C CNN "Part #"
-	1    5500 6850
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	4650 6900 3900 6900
 $Comp
@@ -1930,8 +1916,6 @@ Text Label 3050 9750 0    50   ~ 0
 External_5V_PWM3
 Text Label 13100 2800 0    50   ~ 0
 Pushbutton_LED
-Text Notes 2950 -1300 0    157  ~ 0
-Add SMD 4-pin connector for 4 pin fan\n-Include Fan guard\n\nSwitch supply so smaller boost supply\n
 Connection ~ 11350 8050
 Wire Wire Line
 	11350 7750 11350 8050
@@ -1948,7 +1932,7 @@ F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 11550 8150 50  000
 F 4 "Ohmite" H 11550 8150 50  0001 C CNN "Manufacturer"
 F 5 "TKH45P5R00FE-TR" H 11550 8150 50  0001 C CNN "Part #"
 	1    11550 8150
-	1    0    0    1   
+	-1   0    0    -1  
 $EndComp
 $Comp
 L Device:R_Small R3
@@ -1961,7 +1945,7 @@ F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 11750 8150 50  000
 F 4 "Ohmite" H 11750 8150 50  0001 C CNN "Manufacturer"
 F 5 "TKH45P5R00FE-TR" H 11750 8150 50  0001 C CNN "Part #"
 	1    11750 8150
-	1    0    0    1   
+	-1   0    0    -1  
 $EndComp
 $Comp
 L Device:R_Small R4
@@ -1974,25 +1958,8 @@ F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 11950 8150 50  000
 F 4 "Ohmite" H 11950 8150 50  0001 C CNN "Manufacturer"
 F 5 "TKH45P5R00FE-TR" H 11950 8150 50  0001 C CNN "Part #"
 	1    11950 8150
-	1    0    0    1   
+	-1   0    0    -1  
 $EndComp
-Wire Wire Line
-	11350 8050 11550 8050
-Connection ~ 11550 8050
-Wire Wire Line
-	11550 8050 11750 8050
-Connection ~ 11750 8050
-Wire Wire Line
-	11750 8050 11950 8050
-Wire Wire Line
-	11950 8250 11750 8250
-Connection ~ 11350 8250
-Connection ~ 11550 8250
-Wire Wire Line
-	11550 8250 11350 8250
-Connection ~ 11750 8250
-Wire Wire Line
-	11750 8250 11550 8250
 Wire Notes Line
 	500  6000 8750 6000
 Text Label 13100 2900 0    50   ~ 0
@@ -2603,10 +2570,6 @@ F 5 "2117" H 2300 1650 50  0001 C CNN "Part #"
 	1    2300 1650
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1350 1650 1850 1650
-Wire Wire Line
-	2600 1650 2750 1650
 $Comp
 L power:GND #PWR0121
 U 1 1 5F7A9456
@@ -2663,31 +2626,6 @@ Wire Wire Line
 	2100 1100 2000 1100
 Text Label 2650 1000 2    50   ~ 0
 12V
-$Comp
-L Jumper:SolderJumper_2_Open JP2
-U 1 1 5F822B93
-P 2300 2350
-F 0 "JP2" H 2300 2555 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 2300 2464 50  0000 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_TrianglePad1.0x1.5mm" H 2300 2350 50  0001 C CNN
-F 3 "~" H 2300 2350 50  0001 C CNN
-	1    2300 2350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2150 2350 1850 2350
-Wire Wire Line
-	1850 2350 1850 1650
-Connection ~ 1850 1650
-Wire Wire Line
-	1850 1650 2000 1650
-Wire Wire Line
-	2450 2350 2750 2350
-Wire Wire Line
-	2750 2350 2750 1650
-Connection ~ 2750 1650
-Wire Wire Line
-	2750 1650 2850 1650
 $Comp
 L Custom_parts:Conn_01x08_Female J10
 U 1 1 5F85E157
@@ -2903,45 +2841,6 @@ Connection ~ 5650 1900
 $Comp
 L Device:R_Pack04_Split RN2
 U 1 1 5F9E09BB
-P 8200 4300
-F 0 "RN2" V 8300 4300 50  0000 C CNN
-F 1 "150" V 8200 4300 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 8475 4300 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 8200 4300 50  0001 C CNN
-F 4 "Panasonic Electronic Components" V 8200 4300 50  0001 C CNN "Manufacturer"
-F 5 "EXB-38V151JV" V 8200 4300 50  0001 C CNN "Part #"
-	1    8200 4300
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:R_Pack04_Split RN2
-U 2 1 5F9E5ED4
-P 8200 5050
-F 0 "RN2" V 8300 5050 50  0000 C CNN
-F 1 "150" V 8200 5050 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 8475 5050 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 8200 5050 50  0001 C CNN
-F 4 "Panasonic Electronic Components" V 8200 5050 50  0001 C CNN "Manufacturer"
-F 5 "EXB-38V151JV" V 8200 5050 50  0001 C CNN "Part #"
-	2    8200 5050
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:R_Pack04_Split RN2
-U 3 1 5F9E7B6F
-P 9800 4300
-F 0 "RN2" V 9900 4300 50  0000 C CNN
-F 1 "150" V 9800 4300 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 10075 4300 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 9800 4300 50  0001 C CNN
-F 4 "Panasonic Electronic Components" V 9800 4300 50  0001 C CNN "Manufacturer"
-F 5 "EXB-38V151JV" V 9800 4300 50  0001 C CNN "Part #"
-	3    9800 4300
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:R_Pack04_Split RN2
-U 4 1 5F9E8C0F
 P 9800 5050
 F 0 "RN2" V 9900 5050 50  0000 C CNN
 F 1 "150" V 9800 5050 50  0000 C CNN
@@ -2949,7 +2848,46 @@ F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 10075 5050 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 9800 5050 50  0001 C CNN
 F 4 "Panasonic Electronic Components" V 9800 5050 50  0001 C CNN "Manufacturer"
 F 5 "EXB-38V151JV" V 9800 5050 50  0001 C CNN "Part #"
-	4    9800 5050
+	1    9800 5050
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_Pack04_Split RN2
+U 2 1 5F9E5ED4
+P 9800 4300
+F 0 "RN2" V 9900 4300 50  0000 C CNN
+F 1 "150" V 9800 4300 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 10075 4300 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 9800 4300 50  0001 C CNN
+F 4 "Panasonic Electronic Components" V 9800 4300 50  0001 C CNN "Manufacturer"
+F 5 "EXB-38V151JV" V 9800 4300 50  0001 C CNN "Part #"
+	2    9800 4300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_Pack04_Split RN2
+U 3 1 5F9E7B6F
+P 8200 5050
+F 0 "RN2" V 8300 5050 50  0000 C CNN
+F 1 "150" V 8200 5050 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 8475 5050 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 8200 5050 50  0001 C CNN
+F 4 "Panasonic Electronic Components" V 8200 5050 50  0001 C CNN "Manufacturer"
+F 5 "EXB-38V151JV" V 8200 5050 50  0001 C CNN "Part #"
+	3    8200 5050
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_Pack04_Split RN2
+U 4 1 5F9E8C0F
+P 8200 4300
+F 0 "RN2" V 8300 4300 50  0000 C CNN
+F 1 "150" V 8200 4300 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 8475 4300 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 8200 4300 50  0001 C CNN
+F 4 "Panasonic Electronic Components" V 8200 4300 50  0001 C CNN "Manufacturer"
+F 5 "EXB-38V151JV" V 8200 4300 50  0001 C CNN "Part #"
+	4    8200 4300
 	0    -1   -1   0   
 $EndComp
 Text Label 13100 1700 0    50   ~ 0
@@ -3005,4 +2943,41 @@ F 3 "" H 2850 1850 50  0001 C CNN
 	1    2850 1850
 	1    0    0    -1  
 $EndComp
+Text Notes 4550 -50  0    118  ~ 0
+Use smaller LDOs - especially lower dropout on 10V rail\nUse lower wattage (smaller) resistor on 1.8V rail\nAdd RC filter to 12V input to 10V LDO\nRemove inductor and use same rail for 12V to 10V LDO?\nSee if there is a bigger zener set for D6 or split to 2 parts
+Wire Wire Line
+	1350 1650 2000 1650
+Wire Wire Line
+	2600 1650 2850 1650
+$Comp
+L Device:C_Small C9
+U 1 1 5F565AC5
+P 5500 6850
+F 0 "C9" V 5400 6850 50  0000 C CNN
+F 1 "2200pF" V 5300 6850 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 5500 6850 50  0001 C CNN
+F 3 "https://api.kemet.com/component-edge/download/datasheet/C0603C222K1RACTU.pdf" H 5500 6850 50  0001 C CNN
+F 4 "KEMET" H 5500 6850 50  0001 C CNN "Manufacturer"
+F 5 "C0603C222K1RACTU" H 5500 6850 50  0001 C CNN "Part #"
+	1    5500 6850
+	0    1    -1   0   
+$EndComp
+Connection ~ 5400 6850
+Connection ~ 11350 8250
+Wire Wire Line
+	11350 8050 11550 8050
+Wire Wire Line
+	11350 8250 11550 8250
+Connection ~ 11550 8050
+Connection ~ 11550 8250
+Wire Wire Line
+	11550 8050 11750 8050
+Wire Wire Line
+	11550 8250 11750 8250
+Connection ~ 11750 8050
+Wire Wire Line
+	11750 8050 11950 8050
+Connection ~ 11750 8250
+Wire Wire Line
+	11750 8250 11950 8250
 $EndSCHEMATC
