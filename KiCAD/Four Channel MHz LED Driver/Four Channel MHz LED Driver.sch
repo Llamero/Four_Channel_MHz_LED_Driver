@@ -197,7 +197,7 @@ Text Label 4650 6550 2    50   ~ 0
 -0.25V_analog
 Text Label 3900 6150 2    50   ~ 0
 5V
-Text Label 2150 6450 0    50   ~ 0
+Text Label 2150 6850 0    50   ~ 0
 external_analog
 $Comp
 L Connector:Barrel_Jack_Switch J1
@@ -1097,68 +1097,16 @@ Connection ~ 1350 1650
 $Comp
 L power:GND #PWR0178
 U 1 1 5F42FF36
-P 9700 10550
-F 0 "#PWR0178" H 9700 10300 50  0001 C CNN
-F 1 "GND" H 9750 10400 50  0000 R CNN
-F 2 "" H 9700 10550 50  0001 C CNN
-F 3 "" H 9700 10550 50  0001 C CNN
-	1    9700 10550
+P 8600 10600
+F 0 "#PWR0178" H 8600 10350 50  0001 C CNN
+F 1 "GND" H 8650 10450 50  0000 R CNN
+F 2 "" H 8600 10600 50  0001 C CNN
+F 3 "" H 8600 10600 50  0001 C CNN
+	1    8600 10600
 	1    0    0    -1  
 $EndComp
-Text Label 9700 10050 0    50   ~ 0
+Text Label 8600 10100 0    50   ~ 0
 12V
-$Comp
-L Mechanical:MountingHole H1
-U 1 1 5F452E2A
-P 9400 10100
-F 0 "H1" H 9350 10200 50  0000 L CNN
-F 1 "MountingHole" H 9500 10055 50  0001 L CNN
-F 2 "Custom Footprints:90mm_fan_AFC0912DB-F00" H 9400 10100 50  0001 C CNN
-F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 9400 10100 50  0001 C CNN
-F 4 "Würth Elektronik" H 9400 10100 50  0001 C CNN "Manufacturer"
-F 5 "970300471" H 9400 10100 50  0001 C CNN "Part #"
-	1    9400 10100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H3
-U 1 1 5F45A937
-P 10000 10100
-F 0 "H3" H 9950 10200 50  0000 L CNN
-F 1 "MountingHole" H 10100 10055 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 10000 10100 50  0001 C CNN
-F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10000 10100 50  0001 C CNN
-F 4 "Würth Elektronik" H 10000 10100 50  0001 C CNN "Manufacturer"
-F 5 "970300471" H 10000 10100 50  0001 C CNN "Part #"
-	1    10000 10100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H4
-U 1 1 5F45CD36
-P 10000 10600
-F 0 "H4" H 9950 10700 50  0000 L CNN
-F 1 "MountingHole" H 10100 10555 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 10000 10600 50  0001 C CNN
-F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 10000 10600 50  0001 C CNN
-F 4 "Würth Elektronik" H 10000 10600 50  0001 C CNN "Manufacturer"
-F 5 "970300471" H 10000 10600 50  0001 C CNN "Part #"
-	1    10000 10600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H2
-U 1 1 5F45D9B5
-P 9400 10600
-F 0 "H2" H 9350 10700 50  0000 L CNN
-F 1 "MountingHole" H 9500 10555 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 9400 10600 50  0001 C CNN
-F 3 "https://katalog.we-online.de/em/datasheet/970xxxxx1_overview.pdf" H 9400 10600 50  0001 C CNN
-F 4 "Würth Elektronik" H 9400 10600 50  0001 C CNN "Manufacturer"
-F 5 "970300471" H 9400 10600 50  0001 C CNN "Part #"
-	1    9400 10600
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	1600 6650 1850 6650
 Wire Wire Line
@@ -1192,7 +1140,7 @@ Wire Wire Line
 	5550 2200 5650 2200
 $Comp
 L Custom_parts:8P8C_Shielded_x4 J3
-U 4 1 5F57B5E3
+U 3 1 5F57B5E3
 P 1200 6750
 F 0 "J3" H 1350 6300 50  0000 R CNN
 F 1 "8P8C_Shielded_x4" H 1550 7300 50  0000 R CNN
@@ -1200,25 +1148,25 @@ F 2 "Custom Footprints:RJ45_x4-RJSSE-5380-04" V 1200 6775 50  0001 C CNN
 F 3 "https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/rjsse538004.pdf" V 1200 6775 50  0001 C CNN
 F 4 "Amphenol ICC (Commercial Products)" H 1200 6750 50  0001 C CNN "Manufacturer"
 F 5 "RJSSE-5380-04" H 1200 6750 50  0001 C CNN "Part #"
-	4    1200 6750
+	3    1200 6750
 	1    0    0    1   
 $EndComp
 $Comp
 L Custom_parts:8P8C_Shielded_x4 J3
 U 2 1 5F589234
-P 1200 9450
-F 0 "J3" H 1350 9000 50  0000 R CNN
-F 1 "8P8C_Shielded_x4" H 1550 10000 50  0000 R CNN
-F 2 "Custom Footprints:RJ45_x4-RJSSE-5380-04" V 1200 9475 50  0001 C CNN
-F 3 "https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/rjsse538004.pdf" V 1200 9475 50  0001 C CNN
-F 4 "Amphenol ICC (Commercial Products)" H 1200 9450 50  0001 C CNN "Manufacturer"
-F 5 "RJSSE-5380-04" H 1200 9450 50  0001 C CNN "Part #"
-	2    1200 9450
+P 1200 9500
+F 0 "J3" H 1350 9050 50  0000 R CNN
+F 1 "8P8C_Shielded_x4" H 1550 10050 50  0000 R CNN
+F 2 "Custom Footprints:RJ45_x4-RJSSE-5380-04" V 1200 9525 50  0001 C CNN
+F 3 "https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/rjsse538004.pdf" V 1200 9525 50  0001 C CNN
+F 4 "Amphenol ICC (Commercial Products)" H 1200 9500 50  0001 C CNN "Manufacturer"
+F 5 "RJSSE-5380-04" H 1200 9500 50  0001 C CNN "Part #"
+	2    1200 9500
 	1    0    0    -1  
 $EndComp
 $Comp
 L Custom_parts:8P8C_Shielded_x4 J3
-U 3 1 5F58DBB9
+U 4 1 5F58DBB9
 P 1200 8050
 F 0 "J3" H 1350 7600 50  0000 R CNN
 F 1 "8P8C_Shielded_x4" H 1550 8600 50  0000 R CNN
@@ -1226,7 +1174,7 @@ F 2 "Custom Footprints:RJ45_x4-RJSSE-5380-04" V 1200 8075 50  0001 C CNN
 F 3 "https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/rjsse538004.pdf" V 1200 8075 50  0001 C CNN
 F 4 "Amphenol ICC (Commercial Products)" H 1200 8050 50  0001 C CNN "Manufacturer"
 F 5 "RJSSE-5380-04" H 1200 8050 50  0001 C CNN "Part #"
-	3    1200 8050
+	4    1200 8050
 	1    0    0    1   
 $EndComp
 $Comp
@@ -1245,45 +1193,45 @@ $EndComp
 $Comp
 L power:GND #PWR01
 U 1 1 5F59943B
-P 1200 9950
-F 0 "#PWR01" H 1200 9700 50  0001 C CNN
-F 1 "GND" H 1450 9900 50  0000 R CNN
-F 2 "" H 1200 9950 50  0001 C CNN
-F 3 "" H 1200 9950 50  0001 C CNN
-	1    1200 9950
+P 1200 10000
+F 0 "#PWR01" H 1200 9750 50  0001 C CNN
+F 1 "GND" H 1450 9950 50  0000 R CNN
+F 2 "" H 1200 10000 50  0001 C CNN
+F 3 "" H 1200 10000 50  0001 C CNN
+	1    1200 10000
 	-1   0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR03
 U 1 1 5F5CDB2E
-P 1600 9450
-F 0 "#PWR03" H 1600 9200 50  0001 C CNN
-F 1 "GND" V 1600 9350 50  0000 R CNN
-F 2 "" H 1600 9450 50  0001 C CNN
-F 3 "" H 1600 9450 50  0001 C CNN
-	1    1600 9450
+P 1600 9500
+F 0 "#PWR03" H 1600 9250 50  0001 C CNN
+F 1 "GND" V 1600 9400 50  0000 R CNN
+F 2 "" H 1600 9500 50  0001 C CNN
+F 3 "" H 1600 9500 50  0001 C CNN
+	1    1600 9500
 	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR04
 U 1 1 5F5CDB34
-P 1600 9650
-F 0 "#PWR04" H 1600 9400 50  0001 C CNN
-F 1 "GND" V 1600 9550 50  0000 R CNN
-F 2 "" H 1600 9650 50  0001 C CNN
-F 3 "" H 1600 9650 50  0001 C CNN
-	1    1600 9650
+P 1600 9700
+F 0 "#PWR04" H 1600 9450 50  0001 C CNN
+F 1 "GND" V 1600 9600 50  0000 R CNN
+F 2 "" H 1600 9700 50  0001 C CNN
+F 3 "" H 1600 9700 50  0001 C CNN
+	1    1600 9700
 	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR05
 U 1 1 5F5CDB3A
-P 1600 9050
-F 0 "#PWR05" H 1600 8800 50  0001 C CNN
-F 1 "GND" V 1500 9050 50  0000 R CNN
-F 2 "" H 1600 9050 50  0001 C CNN
-F 3 "" H 1600 9050 50  0001 C CNN
-	1    1600 9050
+P 1600 9100
+F 0 "#PWR05" H 1600 8850 50  0001 C CNN
+F 1 "GND" V 1500 9100 50  0000 R CNN
+F 2 "" H 1600 9100 50  0001 C CNN
+F 3 "" H 1600 9100 50  0001 C CNN
+	1    1600 9100
 	0    -1   -1   0   
 $EndComp
 Text Label 9150 1150 2    50   ~ 0
@@ -1448,12 +1396,12 @@ Over_temp_alarm1
 $Comp
 L power:GND #PWR02
 U 1 1 5F6B2779
-P 1600 9250
-F 0 "#PWR02" H 1600 9000 50  0001 C CNN
-F 1 "GND" V 1600 9150 50  0000 R CNN
-F 2 "" H 1600 9250 50  0001 C CNN
-F 3 "" H 1600 9250 50  0001 C CNN
-	1    1600 9250
+P 1600 9300
+F 0 "#PWR02" H 1600 9050 50  0001 C CNN
+F 1 "GND" V 1600 9200 50  0000 R CNN
+F 2 "" H 1600 9300 50  0001 C CNN
+F 3 "" H 1600 9300 50  0001 C CNN
+	1    1600 9300
 	0    -1   -1   0   
 $EndComp
 Text Label 11300 10250 2    50   ~ 0
@@ -1670,24 +1618,11 @@ F 5 "910-40-2-23-2-B-0" H 9900 11150 50  0001 C CNN "Part #"
 	1    9900 11150
 	1    0    0    -1  
 $EndComp
-Text Label 9300 10450 2    50   ~ 0
+Text Label 8200 10500 2    50   ~ 0
 5V_fan_PWM
-$Comp
-L Motor:Fan_4pin M1
-U 1 1 603842B5
-P 9700 10350
-F 0 "M1" H 9858 10446 50  0000 L CNN
-F 1 "Fan_4pin" H 9858 10355 50  0000 L CNN
-F 2 "Custom Footprints:4-pin_fan_SMD" H 9700 10360 50  0001 C CNN
-F 3 "http://suddendocs.samtec.com/catalog_english/tsm.pdf" H 9700 10360 50  0001 C CNN
-F 4 "Samtec Inc." H 9700 10350 50  0001 C CNN "Manufacturer"
-F 5 "TSM-104-02-L-SV" H 9700 10350 50  0001 C CNN "Part #"
-	1    9700 10350
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	9300 10450 9400 10450
-NoConn ~ 9400 10250
+	8200 10500 8300 10500
+NoConn ~ 8300 10300
 $Comp
 L Device:R_Pack08_Split RN3
 U 1 1 5F607B24
@@ -1941,7 +1876,7 @@ F 5 "BAT54SDW-7-F" H 2450 10750 50  0001 C CNN "Part #"
 $EndComp
 Text Label 2250 11050 2    50   ~ 0
 external_analog
-Text Label 2150 6650 0    50   ~ 0
+Text Label 2150 7050 0    50   ~ 0
 Isense
 Wire Wire Line
 	850  4050 1150 4050
@@ -2127,14 +2062,14 @@ Wire Wire Line
 $Comp
 L Device:R_Pack04_Split RN1
 U 3 1 5F5FBFA1
-P 2000 6450
-F 0 "RN1" V 1900 6450 50  0000 C CNN
-F 1 "150" V 2000 6450 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 2275 6450 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 2000 6450 50  0001 C CNN
-F 4 "Panasonic Electronic Components" V 2000 6450 50  0001 C CNN "Manufacturer"
-F 5 "EXB-38V151JV" V 2000 6450 50  0001 C CNN "Part #"
-	3    2000 6450
+P 2000 6850
+F 0 "RN1" V 1900 6850 50  0000 C CNN
+F 1 "150" V 2000 6850 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 2275 6850 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 2000 6850 50  0001 C CNN
+F 4 "Panasonic Electronic Components" V 2000 6850 50  0001 C CNN "Manufacturer"
+F 5 "EXB-38V151JV" V 2000 6850 50  0001 C CNN "Part #"
+	3    2000 6850
 	0    1    1    0   
 $EndComp
 $Comp
@@ -2558,14 +2493,14 @@ NoConn ~ 7450 9000
 $Comp
 L Device:R_Pack04_Split RN1
 U 4 1 5F9CC36C
-P 2000 6650
-F 0 "RN1" V 1900 6650 50  0000 C CNN
-F 1 "150" V 2000 6650 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 2275 6650 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 2000 6650 50  0001 C CNN
-F 4 "Panasonic Electronic Components" V 2000 6650 50  0001 C CNN "Manufacturer"
-F 5 "EXB-38V151JV" V 2000 6650 50  0001 C CNN "Part #"
-	4    2000 6650
+P 2000 7050
+F 0 "RN1" V 1900 7050 50  0000 C CNN
+F 1 "150" V 2000 7050 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 2275 7050 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 2000 7050 50  0001 C CNN
+F 4 "Panasonic Electronic Components" V 2000 7050 50  0001 C CNN "Manufacturer"
+F 5 "EXB-38V151JV" V 2000 7050 50  0001 C CNN "Part #"
+	4    2000 7050
 	0    1    1    0   
 $EndComp
 Wire Wire Line
@@ -2652,9 +2587,9 @@ Text Label 13100 1700 0    50   ~ 0
 SCL0
 Text Label 13100 1800 0    50   ~ 0
 SDA0
-Text Label 1850 6850 0    50   ~ 0
+Text Label 1850 6450 0    50   ~ 0
 SCL0
-Text Label 1850 7050 0    50   ~ 0
+Text Label 1850 6650 0    50   ~ 0
 SDA0
 Wire Wire Line
 	1850 6850 1600 6850
@@ -2751,12 +2686,12 @@ Wire Wire Line
 $Comp
 L power:GND #PWR0165
 U 1 1 5F581B5A
-P 1400 2050
-F 0 "#PWR0165" H 1400 1800 50  0001 C CNN
-F 1 "GND" H 1600 1950 50  0000 R CNN
-F 2 "" H 1400 2050 50  0001 C CNN
-F 3 "" H 1400 2050 50  0001 C CNN
-	1    1400 2050
+P 700 2550
+F 0 "#PWR0165" H 700 2300 50  0001 C CNN
+F 1 "GND" H 800 2400 50  0000 R CNN
+F 2 "" H 700 2550 50  0001 C CNN
+F 3 "" H 700 2550 50  0001 C CNN
+	1    700  2550
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -2803,158 +2738,443 @@ Wire Wire Line
 Text Notes 1450 8900 0    59   ~ 0
 External thermistor and 3x 5V/16mA digital outputs\nOpen jumper for DAC output instead
 Wire Wire Line
-	1800 9750 1600 9750
+	1800 9800 1600 9800
 Wire Wire Line
-	1800 9850 1800 9750
+	1800 9900 1800 9800
 Wire Wire Line
-	2200 9850 1800 9850
-Text Label 3050 10050 0    50   ~ 0
+	2200 9900 1800 9900
+Text Label 3050 10100 0    50   ~ 0
 External_5V_PWM3
-Text Label 2200 9750 2    50   ~ 0
+Text Label 2200 9800 2    50   ~ 0
 5V_fan_PWM
 $Comp
 L power:GND #PWR0172
 U 1 1 6037B5F8
-P 3050 9950
-F 0 "#PWR0172" H 3050 9700 50  0001 C CNN
-F 1 "GND" V 3050 9850 50  0000 R CNN
-F 2 "" H 3050 9950 50  0001 C CNN
-F 3 "" H 3050 9950 50  0001 C CNN
-	1    3050 9950
+P 3050 10000
+F 0 "#PWR0172" H 3050 9750 50  0001 C CNN
+F 1 "GND" V 3050 9900 50  0000 R CNN
+F 2 "" H 3050 10000 50  0001 C CNN
+F 3 "" H 3050 10000 50  0001 C CNN
+	1    3050 10000
 	0    -1   1    0   
 $EndComp
-Text Label 3050 9650 0    50   ~ 0
+Text Label 3050 9700 0    50   ~ 0
 External_5V_PWM1
 Wire Wire Line
-	1850 9650 2200 9650
+	1850 9700 2200 9700
 $Comp
 L power:GND #PWR0179
 U 1 1 5FC646F4
-P 2000 9350
-F 0 "#PWR0179" H 2000 9100 50  0001 C CNN
-F 1 "GND" H 2050 9200 50  0000 R CNN
-F 2 "" H 2000 9350 50  0001 C CNN
-F 3 "" H 2000 9350 50  0001 C CNN
-	1    2000 9350
+P 2000 9400
+F 0 "#PWR0179" H 2000 9150 50  0001 C CNN
+F 1 "GND" H 2050 9250 50  0000 R CNN
+F 2 "" H 2000 9400 50  0001 C CNN
+F 3 "" H 2000 9400 50  0001 C CNN
+	1    2000 9400
 	1    0    0    1   
 $EndComp
-Connection ~ 2200 9350
+Connection ~ 2200 9400
 Wire Wire Line
-	2200 9250 2200 9350
+	2200 9300 2200 9400
 $Comp
 L Device:C_Small C37
 U 1 1 5FC38687
-P 2100 9350
-F 0 "C37" V 2050 9150 50  0000 L CNN
-F 1 "2.2uF" V 2050 9400 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 2100 9350 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 2100 9350 50  0001 C CNN
-F 4 "Taiyo Yuden" H 2100 9350 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 2100 9350 50  0001 C CNN "Part #"
-	1    2100 9350
+P 2100 9400
+F 0 "C37" V 2050 9200 50  0000 L CNN
+F 1 "2.2uF" V 2050 9450 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 2100 9400 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 2100 9400 50  0001 C CNN
+F 4 "Taiyo Yuden" H 2100 9400 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 2100 9400 50  0001 C CNN "Part #"
+	1    2100 9400
 	0    1    -1   0   
 $EndComp
 $Comp
 L power:GND #PWR0154
 U 1 1 5FB6EE63
-P 3050 9350
-F 0 "#PWR0154" H 3050 9100 50  0001 C CNN
-F 1 "GND" V 3050 9250 50  0000 R CNN
-F 2 "" H 3050 9350 50  0001 C CNN
-F 3 "" H 3050 9350 50  0001 C CNN
-	1    3050 9350
+P 3050 9400
+F 0 "#PWR0154" H 3050 9150 50  0001 C CNN
+F 1 "GND" V 3050 9300 50  0000 R CNN
+F 2 "" H 3050 9400 50  0001 C CNN
+F 3 "" H 3050 9400 50  0001 C CNN
+	1    3050 9400
 	0    -1   1    0   
 $EndComp
 $Comp
 L power:GND #PWR0109
 U 1 1 5FB6EAAA
-P 3050 9550
-F 0 "#PWR0109" H 3050 9300 50  0001 C CNN
-F 1 "GND" V 3050 9450 50  0000 R CNN
-F 2 "" H 3050 9550 50  0001 C CNN
-F 3 "" H 3050 9550 50  0001 C CNN
-	1    3050 9550
+P 3050 9600
+F 0 "#PWR0109" H 3050 9350 50  0001 C CNN
+F 1 "GND" V 3050 9500 50  0000 R CNN
+F 2 "" H 3050 9600 50  0001 C CNN
+F 3 "" H 3050 9600 50  0001 C CNN
+	1    3050 9600
 	0    -1   1    0   
 $EndComp
 $Comp
 L power:GND #PWR0108
 U 1 1 5FB6E536
-P 3050 9750
-F 0 "#PWR0108" H 3050 9500 50  0001 C CNN
-F 1 "GND" V 3050 9650 50  0000 R CNN
-F 2 "" H 3050 9750 50  0001 C CNN
-F 3 "" H 3050 9750 50  0001 C CNN
-	1    3050 9750
+P 3050 9800
+F 0 "#PWR0108" H 3050 9550 50  0001 C CNN
+F 1 "GND" V 3050 9700 50  0000 R CNN
+F 2 "" H 3050 9800 50  0001 C CNN
+F 3 "" H 3050 9800 50  0001 C CNN
+	1    3050 9800
 	0    -1   1    0   
 $EndComp
-Text Label 3050 9450 0    50   ~ 0
+Text Label 3050 9500 0    50   ~ 0
 External_5V_PWM2
 $Comp
 L power:GND #PWR0106
 U 1 1 5FB26F71
-P 2200 10050
-F 0 "#PWR0106" H 2200 9800 50  0001 C CNN
-F 1 "GND" V 2200 9950 50  0000 R CNN
-F 2 "" H 2200 10050 50  0001 C CNN
-F 3 "" H 2200 10050 50  0001 C CNN
-	1    2200 10050
+P 2200 10100
+F 0 "#PWR0106" H 2200 9850 50  0001 C CNN
+F 1 "GND" V 2200 10000 50  0000 R CNN
+F 2 "" H 2200 10100 50  0001 C CNN
+F 3 "" H 2200 10100 50  0001 C CNN
+	1    2200 10100
 	0    1    -1   0   
 $EndComp
 $Comp
 L Custom_parts:SN74LV4T125PWR U16
 U 1 1 5FB230D1
-P 2350 9750
-F 0 "U16" H 2250 10250 50  0000 C CNN
-F 1 "SN74LV4T125PWR" H 1750 10250 50  0000 C CNN
-F 2 "Custom Footprints:SN74LV4T125" H 1900 9300 50  0001 L BNN
-F 3 "https://www.ti.com/lit/ds/symlink/sn74lv4t125.pdf?HQS=TI-null-null-digikeymode-df-pf-null-wwe&ts=1598425470784" H 2400 9750 50  0001 C CNN
-F 4 "Texas Instruments" H 2350 9750 50  0001 C CNN "Manufacturer"
-F 5 "SN74LV4T125PWR" H 2350 9750 50  0001 C CNN "Part #"
-	1    2350 9750
+P 2350 9800
+F 0 "U16" H 2250 10300 50  0000 C CNN
+F 1 "SN74LV4T125PWR" H 1750 10300 50  0000 C CNN
+F 2 "Custom Footprints:SN74LV4T125" H 1900 9350 50  0001 L BNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74lv4t125.pdf?HQS=TI-null-null-digikeymode-df-pf-null-wwe&ts=1598425470784" H 2400 9800 50  0001 C CNN
+F 4 "Texas Instruments" H 2350 9800 50  0001 C CNN "Manufacturer"
+F 5 "SN74LV4T125PWR" H 2350 9800 50  0001 C CNN "Part #"
+	1    2350 9800
 	-1   0    0    -1  
 $EndComp
-Text Label 2200 9250 2    50   ~ 0
+Text Label 2200 9300 2    50   ~ 0
 5V
-Text Label 3050 9850 0    50   ~ 0
+Text Label 3050 9900 0    50   ~ 0
 Internal_fan_PWM
 $Comp
 L Device:R_Pack08_Split RN3
 U 6 1 5F641B3C
-P 2750 9150
-F 0 "RN3" V 2650 9150 50  0000 C CNN
-F 1 "4.7k" V 2750 9150 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 3225 9150 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2750 9150 50  0001 C CNN
-F 4 "CTS Resistor Products" V 2750 9150 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 2750 9150 50  0001 C CNN "Part #"
-	6    2750 9150
+P 2750 9200
+F 0 "RN3" V 2650 9200 50  0000 C CNN
+F 1 "4.7k" V 2750 9200 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 3225 9200 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2750 9200 50  0001 C CNN
+F 4 "CTS Resistor Products" V 2750 9200 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 2750 9200 50  0001 C CNN "Part #"
+	6    2750 9200
 	0    -1   1    0   
 $EndComp
-$Comp
-L Jumper:SolderJumper_2_Bridged JP5
-U 1 1 6012E25F
-P 3050 9150
-F 0 "JP5" H 3050 9250 50  0000 C CNN
-F 1 "SolderJumper_2_Bridged" H 3300 9550 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 3050 9150 50  0001 C CNN
-F 3 "~" H 3050 9150 50  0001 C CNN
-	1    3050 9150
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	1600 9150 2600 9150
-Text Label 3200 9150 0    50   ~ 0
+	1600 9200 2600 9200
+Text Label 2900 9200 0    50   ~ 0
 3.3V
-Text Label 1850 9150 0    50   ~ 0
+Text Label 1850 9200 0    50   ~ 0
 External_thermistor
 Wire Wire Line
-	1600 9550 2200 9550
+	1600 9600 2200 9600
 Wire Wire Line
-	1850 9650 1850 9350
+	1850 9700 1850 9400
 Wire Wire Line
-	1850 9350 1600 9350
+	1850 9400 1600 9400
 Text Label 13100 1500 0    50   ~ 0
 External_5V_PWM2
 Text Label 13100 1600 0    50   ~ 0
 External_5V_PWM1
+$Comp
+L Mechanical:MountingHole_Pad H5
+U 1 1 5FA26710
+P 700 2450
+F 0 "H5" H 650 2650 50  0000 L CNN
+F 1 "MountingHole_Pad" H 800 2408 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 700 2450 50  0001 C CNN
+F 3 "~" H 700 2450 50  0001 C CNN
+	1    700  2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0114
+U 1 1 5FA5209D
+P 900 2550
+F 0 "#PWR0114" H 900 2300 50  0001 C CNN
+F 1 "GND" H 1000 2400 50  0000 R CNN
+F 2 "" H 900 2550 50  0001 C CNN
+F 3 "" H 900 2550 50  0001 C CNN
+	1    900  2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H6
+U 1 1 5FA520A3
+P 900 2450
+F 0 "H6" H 850 2650 50  0000 L CNN
+F 1 "MountingHole_Pad" H 1000 2408 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 900 2450 50  0001 C CNN
+F 3 "~" H 900 2450 50  0001 C CNN
+	1    900  2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0157
+U 1 1 5FA5EACA
+P 1100 2550
+F 0 "#PWR0157" H 1100 2300 50  0001 C CNN
+F 1 "GND" H 1200 2400 50  0000 R CNN
+F 2 "" H 1100 2550 50  0001 C CNN
+F 3 "" H 1100 2550 50  0001 C CNN
+	1    1100 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H7
+U 1 1 5FA5EAD0
+P 1100 2450
+F 0 "H7" H 1050 2650 50  0000 L CNN
+F 1 "MountingHole_Pad" H 1200 2408 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 1100 2450 50  0001 C CNN
+F 3 "~" H 1100 2450 50  0001 C CNN
+	1    1100 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0158
+U 1 1 5FA6B549
+P 1300 2550
+F 0 "#PWR0158" H 1300 2300 50  0001 C CNN
+F 1 "GND" H 1400 2400 50  0000 R CNN
+F 2 "" H 1300 2550 50  0001 C CNN
+F 3 "" H 1300 2550 50  0001 C CNN
+	1    1300 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H8
+U 1 1 5FA6B54F
+P 1300 2450
+F 0 "H8" H 1250 2650 50  0000 L CNN
+F 1 "MountingHole_Pad" H 1400 2408 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 1300 2450 50  0001 C CNN
+F 3 "~" H 1300 2450 50  0001 C CNN
+	1    1300 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0166
+U 1 1 5FA77F30
+P 1500 2550
+F 0 "#PWR0166" H 1500 2300 50  0001 C CNN
+F 1 "GND" H 1600 2400 50  0000 R CNN
+F 2 "" H 1500 2550 50  0001 C CNN
+F 3 "" H 1500 2550 50  0001 C CNN
+	1    1500 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H9
+U 1 1 5FA77F36
+P 1500 2450
+F 0 "H9" H 1450 2650 50  0000 L CNN
+F 1 "MountingHole_Pad" H 1600 2408 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 1500 2450 50  0001 C CNN
+F 3 "~" H 1500 2450 50  0001 C CNN
+	1    1500 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0167
+U 1 1 5FA84A05
+P 1700 2550
+F 0 "#PWR0167" H 1700 2300 50  0001 C CNN
+F 1 "GND" H 1800 2400 50  0000 R CNN
+F 2 "" H 1700 2550 50  0001 C CNN
+F 3 "" H 1700 2550 50  0001 C CNN
+	1    1700 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H10
+U 1 1 5FA84A0B
+P 1700 2450
+F 0 "H10" H 1650 2650 50  0000 L CNN
+F 1 "MountingHole_Pad" H 1800 2408 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 1700 2450 50  0001 C CNN
+F 3 "~" H 1700 2450 50  0001 C CNN
+	1    1700 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0168
+U 1 1 5FA91550
+P 1900 2550
+F 0 "#PWR0168" H 1900 2300 50  0001 C CNN
+F 1 "GND" H 2000 2400 50  0000 R CNN
+F 2 "" H 1900 2550 50  0001 C CNN
+F 3 "" H 1900 2550 50  0001 C CNN
+	1    1900 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H11
+U 1 1 5FA91556
+P 1900 2450
+F 0 "H11" H 1850 2650 50  0000 L CNN
+F 1 "MountingHole_Pad" H 2000 2408 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 1900 2450 50  0001 C CNN
+F 3 "~" H 1900 2450 50  0001 C CNN
+	1    1900 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0170
+U 1 1 5FA9DF11
+P 2100 2550
+F 0 "#PWR0170" H 2100 2300 50  0001 C CNN
+F 1 "GND" H 2200 2400 50  0000 R CNN
+F 2 "" H 2100 2550 50  0001 C CNN
+F 3 "" H 2100 2550 50  0001 C CNN
+	1    2100 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H12
+U 1 1 5FA9DF17
+P 2100 2450
+F 0 "H12" H 2050 2650 50  0000 L CNN
+F 1 "MountingHole_Pad" H 2200 2408 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 2100 2450 50  0001 C CNN
+F 3 "~" H 2100 2450 50  0001 C CNN
+	1    2100 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0171
+U 1 1 5FAAAA28
+P 2300 2550
+F 0 "#PWR0171" H 2300 2300 50  0001 C CNN
+F 1 "GND" H 2400 2400 50  0000 R CNN
+F 2 "" H 2300 2550 50  0001 C CNN
+F 3 "" H 2300 2550 50  0001 C CNN
+	1    2300 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H13
+U 1 1 5FAAAA2E
+P 2300 2450
+F 0 "H13" H 2250 2650 50  0000 L CNN
+F 1 "MountingHole_Pad" H 2400 2408 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 2300 2450 50  0001 C CNN
+F 3 "~" H 2300 2450 50  0001 C CNN
+	1    2300 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5FAFCBAE
+P 8900 9950
+F 0 "#PWR?" H 8900 9700 50  0001 C CNN
+F 1 "GND" H 9000 9800 50  0000 R CNN
+F 2 "" H 8900 9950 50  0001 C CNN
+F 3 "" H 8900 9950 50  0001 C CNN
+	1    8900 9950
+	-1   0    0    1   
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5FAFCBB6
+P 8900 10050
+F 0 "H?" H 9000 10150 50  0000 L CNN
+F 1 "MountingHole_Pad" H 9000 10008 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 8900 10050 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/445/971300476-1380811.pdf" H 8900 10050 50  0001 C CNN
+F 4 "Würth Elektronik" H 8900 10050 50  0001 C CNN "Manufacturer"
+F 5 "971300476" H 8900 10050 50  0001 C CNN "Part #"
+	1    8900 10050
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5FB0A3A7
+P 8300 10850
+F 0 "#PWR?" H 8300 10600 50  0001 C CNN
+F 1 "GND" H 8400 10700 50  0000 R CNN
+F 2 "" H 8300 10850 50  0001 C CNN
+F 3 "" H 8300 10850 50  0001 C CNN
+	1    8300 10850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5FB0A3AF
+P 8300 10750
+F 0 "H?" H 8100 10800 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8400 10708 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 8300 10750 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/445/971300476-1380811.pdf" H 8300 10750 50  0001 C CNN
+F 4 "Würth Elektronik" H 8300 10750 50  0001 C CNN "Manufacturer"
+F 5 "971300476" H 8300 10750 50  0001 C CNN "Part #"
+	1    8300 10750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5FB1B0A7
+P 8900 10850
+F 0 "#PWR?" H 8900 10600 50  0001 C CNN
+F 1 "GND" H 9000 10700 50  0000 R CNN
+F 2 "" H 8900 10850 50  0001 C CNN
+F 3 "" H 8900 10850 50  0001 C CNN
+	1    8900 10850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5FB1B0AF
+P 8900 10750
+F 0 "H?" H 8700 10800 50  0000 L CNN
+F 1 "MountingHole_Pad" H 9000 10708 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 8900 10750 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/445/971300476-1380811.pdf" H 8900 10750 50  0001 C CNN
+F 4 "Würth Elektronik" H 8900 10750 50  0001 C CNN "Manufacturer"
+F 5 "971300476" H 8900 10750 50  0001 C CNN "Part #"
+	1    8900 10750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5FACF30E
+P 8300 10050
+F 0 "H?" H 8400 10100 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8400 10008 50  0001 L CNN
+F 2 "Custom Footprints:NF-A9_with_standoffs_and_bolts" H 8300 10050 50  0001 C CNN
+F 3 "https://www.mouser.com/datasheet/2/445/971300476-1380811.pdf" H 8300 10050 50  0001 C CNN
+F 4 "Würth Elektronik" H 8300 10050 50  0001 C CNN "Manufacturer"
+F 5 "971300476" H 8300 10050 50  0001 C CNN "Part #"
+	1    8300 10050
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5FACF308
+P 8300 9950
+F 0 "#PWR?" H 8300 9700 50  0001 C CNN
+F 1 "GND" H 8400 9800 50  0000 R CNN
+F 2 "" H 8300 9950 50  0001 C CNN
+F 3 "" H 8300 9950 50  0001 C CNN
+	1    8300 9950
+	-1   0    0    1   
+$EndComp
+$Comp
+L Motor:Fan_4pin M1
+U 1 1 603842B5
+P 8600 10400
+F 0 "M1" H 8758 10496 50  0000 L CNN
+F 1 "Fan_4pin" H 8758 10405 50  0000 L CNN
+F 2 "Custom Footprints:4-pin_fan_SMD" H 8600 10410 50  0001 C CNN
+F 3 "http://suddendocs.samtec.com/catalog_english/tsm.pdf" H 8600 10410 50  0001 C CNN
+F 4 "Samtec Inc." H 8600 10400 50  0001 C CNN "Manufacturer"
+F 5 "TSM-104-02-L-SV" H 8600 10400 50  0001 C CNN "Part #"
+	1    8600 10400
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
