@@ -3153,10 +3153,10 @@ F 5 "TSM-104-02-L-SV" H 8600 10400 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H2
 U 1 1 5F5A6FC2
 P 8150 10050
-F 0 "H?" H 8250 10150 50  0000 L CNN
+F 0 "H2" H 8250 10150 50  0000 L CNN
 F 1 "MountingHole_Pad" H 8250 10008 50  0001 L CNN
 F 2 "Custom Footprints:Ref_only" H 8150 10050 50  0001 C CNN
 F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8150 10050 50  0001 C CNN
@@ -3166,10 +3166,10 @@ F 5 "24354" H 8150 10050 50  0001 C CNN "Part #"
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0173
 U 1 1 5F5A6FC8
 P 8150 9950
-F 0 "#PWR?" H 8150 9700 50  0001 C CNN
+F 0 "#PWR0173" H 8150 9700 50  0001 C CNN
 F 1 "GND" H 8250 9800 50  0000 R CNN
 F 2 "" H 8150 9950 50  0001 C CNN
 F 3 "" H 8150 9950 50  0001 C CNN
@@ -3177,10 +3177,10 @@ F 3 "" H 8150 9950 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H16
 U 1 1 5F5B6064
 P 9050 10050
-F 0 "H?" H 8850 10150 50  0000 L CNN
+F 0 "H16" H 8850 10150 50  0000 L CNN
 F 1 "MountingHole_Pad" H 9150 10008 50  0001 L CNN
 F 2 "Custom Footprints:Ref_only" H 9050 10050 50  0001 C CNN
 F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 9050 10050 50  0001 C CNN
@@ -3190,10 +3190,10 @@ F 5 "24354" H 9050 10050 50  0001 C CNN "Part #"
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0174
 U 1 1 5F5B606A
 P 9050 9950
-F 0 "#PWR?" H 9050 9700 50  0001 C CNN
+F 0 "#PWR0174" H 9050 9700 50  0001 C CNN
 F 1 "GND" H 9150 9800 50  0000 R CNN
 F 2 "" H 9050 9950 50  0001 C CNN
 F 3 "" H 9050 9950 50  0001 C CNN
@@ -3201,10 +3201,10 @@ F 3 "" H 9050 9950 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H14
 U 1 1 5F5B6072
 P 8900 10050
-F 0 "H?" H 9000 10150 50  0000 L CNN
+F 0 "H14" H 9000 10150 50  0000 L CNN
 F 1 "MountingHole_Pad" H 9000 10008 50  0001 L CNN
 F 2 "Custom Footprints:Ref_only" H 8900 10050 50  0001 C CNN
 F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8900 10050 50  0001 C CNN
@@ -3214,10 +3214,10 @@ F 5 "24354" H 8900 10050 50  0001 C CNN "Part #"
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0175
 U 1 1 5F5B6078
 P 8900 9950
-F 0 "#PWR?" H 8900 9700 50  0001 C CNN
+F 0 "#PWR0175" H 8900 9700 50  0001 C CNN
 F 1 "GND" H 9000 9800 50  0000 R CNN
 F 2 "" H 8900 9950 50  0001 C CNN
 F 3 "" H 8900 9950 50  0001 C CNN
@@ -3225,10 +3225,10 @@ F 3 "" H 8900 9950 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H4
 U 1 1 5F5C58B1
 P 8300 10850
-F 0 "H?" H 8100 10950 50  0000 L CNN
+F 0 "H4" H 8100 10950 50  0000 L CNN
 F 1 "MountingHole_Pad" H 8400 10808 50  0001 L CNN
 F 2 "Custom Footprints:Ref_only" H 8300 10850 50  0001 C CNN
 F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8300 10850 50  0001 C CNN
@@ -3238,10 +3238,10 @@ F 5 "24354" H 8300 10850 50  0001 C CNN "Part #"
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0182
 U 1 1 5F5C58B7
 P 8300 10750
-F 0 "#PWR?" H 8300 10500 50  0001 C CNN
+F 0 "#PWR0182" H 8300 10500 50  0001 C CNN
 F 1 "GND" H 8400 10600 50  0000 R CNN
 F 2 "" H 8300 10750 50  0001 C CNN
 F 3 "" H 8300 10750 50  0001 C CNN
@@ -3249,10 +3249,10 @@ F 3 "" H 8300 10750 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H3
 U 1 1 5F5C58BF
 P 8150 10850
-F 0 "H?" H 8250 10950 50  0000 L CNN
+F 0 "H3" H 8250 10950 50  0000 L CNN
 F 1 "MountingHole_Pad" H 8250 10808 50  0001 L CNN
 F 2 "Custom Footprints:Ref_only" H 8150 10850 50  0001 C CNN
 F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8150 10850 50  0001 C CNN
@@ -3262,10 +3262,10 @@ F 5 "24354" H 8150 10850 50  0001 C CNN "Part #"
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0183
 U 1 1 5F5C58C5
 P 8150 10750
-F 0 "#PWR?" H 8150 10500 50  0001 C CNN
+F 0 "#PWR0183" H 8150 10500 50  0001 C CNN
 F 1 "GND" H 8250 10600 50  0000 R CNN
 F 2 "" H 8150 10750 50  0001 C CNN
 F 3 "" H 8150 10750 50  0001 C CNN
@@ -3273,10 +3273,10 @@ F 3 "" H 8150 10750 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H17
 U 1 1 5F5D3AD4
 P 9050 10850
-F 0 "H?" H 8850 10950 50  0000 L CNN
+F 0 "H17" H 8850 10950 50  0000 L CNN
 F 1 "MountingHole_Pad" H 9150 10808 50  0001 L CNN
 F 2 "Custom Footprints:Ref_only" H 9050 10850 50  0001 C CNN
 F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 9050 10850 50  0001 C CNN
@@ -3286,10 +3286,10 @@ F 5 "24354" H 9050 10850 50  0001 C CNN "Part #"
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0184
 U 1 1 5F5D3ADA
 P 9050 10750
-F 0 "#PWR?" H 9050 10500 50  0001 C CNN
+F 0 "#PWR0184" H 9050 10500 50  0001 C CNN
 F 1 "GND" H 9150 10600 50  0000 R CNN
 F 2 "" H 9050 10750 50  0001 C CNN
 F 3 "" H 9050 10750 50  0001 C CNN
@@ -3297,10 +3297,10 @@ F 3 "" H 9050 10750 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H15
 U 1 1 5F5D3AE2
 P 8900 10850
-F 0 "H?" H 9000 10950 50  0000 L CNN
+F 0 "H15" H 9000 10950 50  0000 L CNN
 F 1 "MountingHole_Pad" H 9000 10808 50  0001 L CNN
 F 2 "Custom Footprints:Ref_only" H 8900 10850 50  0001 C CNN
 F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8900 10850 50  0001 C CNN
@@ -3310,10 +3310,10 @@ F 5 "24354" H 8900 10850 50  0001 C CNN "Part #"
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0185
 U 1 1 5F5D3AE8
 P 8900 10750
-F 0 "#PWR?" H 8900 10500 50  0001 C CNN
+F 0 "#PWR0185" H 8900 10500 50  0001 C CNN
 F 1 "GND" H 9000 10600 50  0000 R CNN
 F 2 "" H 8900 10750 50  0001 C CNN
 F 3 "" H 8900 10750 50  0001 C CNN

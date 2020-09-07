@@ -1246,19 +1246,15 @@ Text Label 13100 1300 0    50   ~ 0
 Internal_fan_PWM
 Wire Notes Line
 	8750 6700 16050 6700
-Text Label 8700 1600 0    50   ~ 0
-Toggle_red_LED
-Text Label 8600 1450 0    50   ~ 0
-Toggle_green_LED
-Text Label 10800 2600 2    50   ~ 0
-Over_temp_alarm1
-Text Label 10800 3200 2    50   ~ 0
-A-D_input_1
 Text Label 10800 3300 2    50   ~ 0
+Over_temp_alarm1
+Text Label 8650 3100 2    50   ~ 0
+A-D_input_1
+Text Label 8650 3200 2    50   ~ 0
 A-D_input_2
-Text Label 13100 3300 0    50   ~ 0
+Text Label 8650 3300 2    50   ~ 0
 A-D_input_3
-Text Label 13100 3200 0    50   ~ 0
+Text Label 8650 3400 2    50   ~ 0
 A-D_input_4
 Text Label 2150 7750 0    50   ~ 0
 A-D_input_1
@@ -1276,11 +1272,11 @@ Text Label 6150 10750 0    50   ~ 0
 A-D_input_3
 Text Label 5400 11150 2    50   ~ 0
 A-D_input_4
-Text Label 13100 1900 0    50   ~ 0
+Text Label 13100 3300 0    50   ~ 0
 LED_pot
-Text Label 15050 2750 0    50   ~ 0
+Text Label 8600 2850 2    50   ~ 0
 MOSFET_temp
-Text Label 13100 3000 0    50   ~ 0
+Text Label 8600 2750 2    50   ~ 0
 Resistor_temp
 $Comp
 L Device:Thermistor TH1
@@ -1323,9 +1319,9 @@ F 3 "" H 5300 8050 50  0001 C CNN
 	1    5300 8050
 	-1   0    0    -1  
 $EndComp
-Text Label 10800 2900 2    50   ~ 0
+Text Label 10800 2500 2    50   ~ 0
 Toggle_switch
-Text Label 13100 2200 0    50   ~ 0
+Text Label 8950 1700 2    50   ~ 0
 Internal_Isense
 Wire Wire Line
 	4650 6900 3900 6900
@@ -1389,7 +1385,7 @@ F 3 "" H 7550 2500 50  0001 C CNN
 	1    7550 2500
 	1    0    0    -1  
 $EndComp
-Text Label 10800 2700 2    50   ~ 0
+Text Label 9050 800  2    50   ~ 0
 Over_temp_alarm2
 Text Label 11300 10150 2    50   ~ 0
 Over_temp_alarm1
@@ -1516,7 +1512,7 @@ F 5 "SSM-124-L-SV-LC" H 14050 2100 50  0001 C CNN "Part #"
 	1    14050 2100
 	1    0    0    -1  
 $EndComp
-Text Label 13100 2500 0    50   ~ 0
+Text Label 8950 2000 2    50   ~ 0
 External_thermistor
 Wire Wire Line
 	10800 3300 10050 3300
@@ -1636,8 +1632,6 @@ F 5 "742C163472JP" V 2000 7750 50  0001 C CNN "Part #"
 	1    2000 7750
 	0    -1   1    0   
 $EndComp
-Text Label 13100 2800 0    50   ~ 0
-Pushbutton_LED
 Connection ~ 11350 8050
 Wire Wire Line
 	11350 7750 11350 8050
@@ -1684,8 +1678,6 @@ F 5 "TKH45P5R00FE-TR" H 11950 8150 50  0001 C CNN "Part #"
 $EndComp
 Wire Notes Line
 	500  6000 8750 6000
-Text Label 13100 2900 0    50   ~ 0
-Resistor_temp_2
 Text Label 4150 4000 2    50   ~ 0
 Vin
 $Comp
@@ -2452,13 +2444,13 @@ F 3 "" H 9250 5050 50  0001 C CNN
 	1    9250 5050
 	0    1    1    0   
 $EndComp
-Text Label 9100 2200 2    50   ~ 0
+Text Label 10800 2600 2    50   ~ 0
 Button1
-Text Label 9100 2300 2    50   ~ 0
+Text Label 10800 2800 2    50   ~ 0
 Button2
-Text Label 9100 2400 2    50   ~ 0
+Text Label 10800 3000 2    50   ~ 0
 Button3
-Text Label 9100 2500 2    50   ~ 0
+Text Label 9500 1700 2    50   ~ 0
 Button4
 Text Label 7650 4000 2    50   ~ 0
 Button1
@@ -2468,13 +2460,13 @@ Text Label 9250 4000 2    50   ~ 0
 Button3
 Text Label 9250 4750 2    50   ~ 0
 Button4
-Text Label 9100 2650 2    50   ~ 0
+Text Label 10800 2700 2    50   ~ 0
 LED1
-Text Label 9100 2750 2    50   ~ 0
+Text Label 10800 2900 2    50   ~ 0
 LED2
-Text Label 9100 2850 2    50   ~ 0
+Text Label 10800 3100 2    50   ~ 0
 LED3
-Text Label 9100 2950 2    50   ~ 0
+Text Label 10800 3200 2    50   ~ 0
 LED4
 Text Label 8350 4300 0    50   ~ 0
 LED1
@@ -2672,7 +2664,7 @@ $Comp
 L Device:Jumper_NC_Small JP2
 U 1 1 5F56E8CF
 P 2300 2050
-F 0 "JP2" V 2450 2100 50  0000 R CNN
+F 0 "JP2" V 2300 2050 50  0000 R CNN
 F 1 "Jumper_NC_Small" V 2255 2003 50  0001 R CNN
 F 2 "Resistor_SMD:R_1206_3216Metric" H 2300 2050 50  0001 C CNN
 F 3 "https://www.keyelco.com/userAssets/file/M65p54.pdf" H 2300 2050 50  0001 C CNN
@@ -2680,17 +2672,6 @@ F 4 "Keystone Electronics" V 2300 2050 50  0001 C CNN "Manufacturer"
 F 5 "5108" V 2300 2050 50  0001 C CNN "Part #"
 	1    2300 2050
 	0    -1   -1   0   
-$EndComp
-$Comp
-L power:GND #PWR0165
-U 1 1 5F581B5A
-P 600 2600
-F 0 "#PWR0165" H 600 2350 50  0001 C CNN
-F 1 "GND" H 700 2450 50  0000 R CNN
-F 2 "" H 600 2600 50  0001 C CNN
-F 3 "" H 600 2600 50  0001 C CNN
-	1    600  2600
-	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	5900 1300 6150 1300
@@ -2880,191 +2861,15 @@ External_5V_PWM2
 Text Label 13100 1600 0    50   ~ 0
 External_5V_PWM1
 $Comp
-L Mechanical:MountingHole_Pad H5
-U 1 1 5FA26710
-P 600 2500
-F 0 "H5" H 550 2700 50  0000 L CNN
-F 1 "MountingHole_Pad" H 700 2458 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 600 2500 50  0001 C CNN
-F 3 "~" H 600 2500 50  0001 C CNN
-	1    600  2500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0114
-U 1 1 5FA5209D
-P 800 2600
-F 0 "#PWR0114" H 800 2350 50  0001 C CNN
-F 1 "GND" H 900 2450 50  0000 R CNN
-F 2 "" H 800 2600 50  0001 C CNN
-F 3 "" H 800 2600 50  0001 C CNN
-	1    800  2600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H6
-U 1 1 5FA520A3
-P 800 2500
-F 0 "H6" H 750 2700 50  0000 L CNN
-F 1 "MountingHole_Pad" H 900 2458 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 800 2500 50  0001 C CNN
-F 3 "~" H 800 2500 50  0001 C CNN
-	1    800  2500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0157
-U 1 1 5FA5EACA
-P 1000 2600
-F 0 "#PWR0157" H 1000 2350 50  0001 C CNN
-F 1 "GND" H 1100 2450 50  0000 R CNN
-F 2 "" H 1000 2600 50  0001 C CNN
-F 3 "" H 1000 2600 50  0001 C CNN
-	1    1000 2600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H7
-U 1 1 5FA5EAD0
-P 1000 2500
-F 0 "H7" H 950 2700 50  0000 L CNN
-F 1 "MountingHole_Pad" H 1100 2458 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 1000 2500 50  0001 C CNN
-F 3 "~" H 1000 2500 50  0001 C CNN
-	1    1000 2500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0158
-U 1 1 5FA6B549
-P 1200 2600
-F 0 "#PWR0158" H 1200 2350 50  0001 C CNN
-F 1 "GND" H 1300 2450 50  0000 R CNN
-F 2 "" H 1200 2600 50  0001 C CNN
-F 3 "" H 1200 2600 50  0001 C CNN
-	1    1200 2600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H8
-U 1 1 5FA6B54F
-P 1200 2500
-F 0 "H8" H 1150 2700 50  0000 L CNN
-F 1 "MountingHole_Pad" H 1300 2458 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 1200 2500 50  0001 C CNN
-F 3 "~" H 1200 2500 50  0001 C CNN
-	1    1200 2500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0166
-U 1 1 5FA77F30
-P 1400 2600
-F 0 "#PWR0166" H 1400 2350 50  0001 C CNN
-F 1 "GND" H 1500 2450 50  0000 R CNN
-F 2 "" H 1400 2600 50  0001 C CNN
-F 3 "" H 1400 2600 50  0001 C CNN
-	1    1400 2600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H9
-U 1 1 5FA77F36
-P 1400 2500
-F 0 "H9" H 1350 2700 50  0000 L CNN
-F 1 "MountingHole_Pad" H 1500 2458 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 1400 2500 50  0001 C CNN
-F 3 "~" H 1400 2500 50  0001 C CNN
-	1    1400 2500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0167
-U 1 1 5FA84A05
-P 1600 2600
-F 0 "#PWR0167" H 1600 2350 50  0001 C CNN
-F 1 "GND" H 1700 2450 50  0000 R CNN
-F 2 "" H 1600 2600 50  0001 C CNN
-F 3 "" H 1600 2600 50  0001 C CNN
-	1    1600 2600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H10
-U 1 1 5FA84A0B
-P 1600 2500
-F 0 "H10" H 1550 2700 50  0000 L CNN
-F 1 "MountingHole_Pad" H 1700 2458 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 1600 2500 50  0001 C CNN
-F 3 "~" H 1600 2500 50  0001 C CNN
-	1    1600 2500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0168
-U 1 1 5FA91550
-P 1800 2600
-F 0 "#PWR0168" H 1800 2350 50  0001 C CNN
-F 1 "GND" H 1900 2450 50  0000 R CNN
-F 2 "" H 1800 2600 50  0001 C CNN
-F 3 "" H 1800 2600 50  0001 C CNN
-	1    1800 2600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H11
-U 1 1 5FA91556
-P 1800 2500
-F 0 "H11" H 1750 2700 50  0000 L CNN
-F 1 "MountingHole_Pad" H 1900 2458 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 1800 2500 50  0001 C CNN
-F 3 "~" H 1800 2500 50  0001 C CNN
-	1    1800 2500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0170
-U 1 1 5FA9DF11
-P 2000 2600
-F 0 "#PWR0170" H 2000 2350 50  0001 C CNN
-F 1 "GND" H 2100 2450 50  0000 R CNN
-F 2 "" H 2000 2600 50  0001 C CNN
-F 3 "" H 2000 2600 50  0001 C CNN
-	1    2000 2600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H12
-U 1 1 5FA9DF17
-P 2000 2500
-F 0 "H12" H 1950 2700 50  0000 L CNN
-F 1 "MountingHole_Pad" H 2100 2458 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 2000 2500 50  0001 C CNN
-F 3 "~" H 2000 2500 50  0001 C CNN
-	1    2000 2500
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR0171
 U 1 1 5FAAAA28
-P 2200 2600
-F 0 "#PWR0171" H 2200 2350 50  0001 C CNN
-F 1 "GND" H 2300 2450 50  0000 R CNN
-F 2 "" H 2200 2600 50  0001 C CNN
-F 3 "" H 2200 2600 50  0001 C CNN
-	1    2200 2600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H13
-U 1 1 5FAAAA2E
-P 2200 2500
-F 0 "H13" H 2150 2700 50  0000 L CNN
-F 1 "MountingHole_Pad" H 2300 2458 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 2200 2500 50  0001 C CNN
-F 3 "~" H 2200 2500 50  0001 C CNN
-	1    2200 2500
-	1    0    0    -1  
+P 2300 1950
+F 0 "#PWR0171" H 2300 1700 50  0001 C CNN
+F 1 "GND" H 2400 1800 50  0000 R CNN
+F 2 "" H 2300 1950 50  0001 C CNN
+F 3 "" H 2300 1950 50  0001 C CNN
+	1    2300 1950
+	0    -1   -1   0   
 $EndComp
 $Comp
 L Mechanical:MountingHole_Pad H1
@@ -3320,4 +3125,5 @@ F 3 "" H 8900 10750 50  0001 C CNN
 	1    8900 10750
 	-1   0    0    1   
 $EndComp
+Connection ~ 2300 1950
 $EndSCHEMATC
