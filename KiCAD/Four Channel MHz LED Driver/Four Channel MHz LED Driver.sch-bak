@@ -2267,12 +2267,12 @@ $EndComp
 $Comp
 L power:GND #PWR0121
 U 1 1 5F7A9456
-P 2300 1950
-F 0 "#PWR0121" H 2300 1700 50  0001 C CNN
-F 1 "GND" H 2500 1850 50  0000 R CNN
-F 2 "" H 2300 1950 50  0001 C CNN
-F 3 "" H 2300 1950 50  0001 C CNN
-	1    2300 1950
+P 2300 2150
+F 0 "#PWR0121" H 2300 1900 50  0001 C CNN
+F 1 "GND" H 2500 2050 50  0000 R CNN
+F 2 "" H 2300 2150 50  0001 C CNN
+F 3 "" H 2300 2150 50  0001 C CNN
+	1    2300 2150
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -2671,27 +2671,25 @@ Wire Wire Line
 $Comp
 L Device:Jumper_NC_Small JP2
 U 1 1 5F56E8CF
-P 1400 1950
-F 0 "JP2" V 1550 2000 50  0000 R CNN
-F 1 "Jumper_NC_Small" V 1355 1903 50  0001 R CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" H 1400 1950 50  0001 C CNN
-F 3 "https://www.keyelco.com/userAssets/file/M65p54.pdf" H 1400 1950 50  0001 C CNN
-F 4 "Keystone Electronics" V 1400 1950 50  0001 C CNN "Manufacturer"
-F 5 "5108" V 1400 1950 50  0001 C CNN "Part #"
-	1    1400 1950
+P 2300 2050
+F 0 "JP2" V 2450 2100 50  0000 R CNN
+F 1 "Jumper_NC_Small" V 2255 2003 50  0001 R CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" H 2300 2050 50  0001 C CNN
+F 3 "https://www.keyelco.com/userAssets/file/M65p54.pdf" H 2300 2050 50  0001 C CNN
+F 4 "Keystone Electronics" V 2300 2050 50  0001 C CNN "Manufacturer"
+F 5 "5108" V 2300 2050 50  0001 C CNN "Part #"
+	1    2300 2050
 	0    -1   -1   0   
 $EndComp
-Wire Wire Line
-	1100 1850 1400 1850
 $Comp
 L power:GND #PWR0165
 U 1 1 5F581B5A
-P 700 2550
-F 0 "#PWR0165" H 700 2300 50  0001 C CNN
-F 1 "GND" H 800 2400 50  0000 R CNN
-F 2 "" H 700 2550 50  0001 C CNN
-F 3 "" H 700 2550 50  0001 C CNN
-	1    700  2550
+P 600 2600
+F 0 "#PWR0165" H 600 2350 50  0001 C CNN
+F 1 "GND" H 700 2450 50  0000 R CNN
+F 2 "" H 600 2600 50  0001 C CNN
+F 3 "" H 600 2600 50  0001 C CNN
+	1    600  2600
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -2884,272 +2882,200 @@ External_5V_PWM1
 $Comp
 L Mechanical:MountingHole_Pad H5
 U 1 1 5FA26710
-P 700 2450
-F 0 "H5" H 650 2650 50  0000 L CNN
-F 1 "MountingHole_Pad" H 800 2408 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 700 2450 50  0001 C CNN
-F 3 "~" H 700 2450 50  0001 C CNN
-	1    700  2450
+P 600 2500
+F 0 "H5" H 550 2700 50  0000 L CNN
+F 1 "MountingHole_Pad" H 700 2458 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 600 2500 50  0001 C CNN
+F 3 "~" H 600 2500 50  0001 C CNN
+	1    600  2500
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0114
 U 1 1 5FA5209D
-P 900 2550
-F 0 "#PWR0114" H 900 2300 50  0001 C CNN
-F 1 "GND" H 1000 2400 50  0000 R CNN
-F 2 "" H 900 2550 50  0001 C CNN
-F 3 "" H 900 2550 50  0001 C CNN
-	1    900  2550
+P 800 2600
+F 0 "#PWR0114" H 800 2350 50  0001 C CNN
+F 1 "GND" H 900 2450 50  0000 R CNN
+F 2 "" H 800 2600 50  0001 C CNN
+F 3 "" H 800 2600 50  0001 C CNN
+	1    800  2600
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole_Pad H6
 U 1 1 5FA520A3
-P 900 2450
-F 0 "H6" H 850 2650 50  0000 L CNN
-F 1 "MountingHole_Pad" H 1000 2408 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 900 2450 50  0001 C CNN
-F 3 "~" H 900 2450 50  0001 C CNN
-	1    900  2450
+P 800 2500
+F 0 "H6" H 750 2700 50  0000 L CNN
+F 1 "MountingHole_Pad" H 900 2458 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 800 2500 50  0001 C CNN
+F 3 "~" H 800 2500 50  0001 C CNN
+	1    800  2500
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0157
 U 1 1 5FA5EACA
-P 1100 2550
-F 0 "#PWR0157" H 1100 2300 50  0001 C CNN
-F 1 "GND" H 1200 2400 50  0000 R CNN
-F 2 "" H 1100 2550 50  0001 C CNN
-F 3 "" H 1100 2550 50  0001 C CNN
-	1    1100 2550
+P 1000 2600
+F 0 "#PWR0157" H 1000 2350 50  0001 C CNN
+F 1 "GND" H 1100 2450 50  0000 R CNN
+F 2 "" H 1000 2600 50  0001 C CNN
+F 3 "" H 1000 2600 50  0001 C CNN
+	1    1000 2600
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole_Pad H7
 U 1 1 5FA5EAD0
-P 1100 2450
-F 0 "H7" H 1050 2650 50  0000 L CNN
-F 1 "MountingHole_Pad" H 1200 2408 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 1100 2450 50  0001 C CNN
-F 3 "~" H 1100 2450 50  0001 C CNN
-	1    1100 2450
+P 1000 2500
+F 0 "H7" H 950 2700 50  0000 L CNN
+F 1 "MountingHole_Pad" H 1100 2458 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 1000 2500 50  0001 C CNN
+F 3 "~" H 1000 2500 50  0001 C CNN
+	1    1000 2500
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0158
 U 1 1 5FA6B549
-P 1300 2550
-F 0 "#PWR0158" H 1300 2300 50  0001 C CNN
-F 1 "GND" H 1400 2400 50  0000 R CNN
-F 2 "" H 1300 2550 50  0001 C CNN
-F 3 "" H 1300 2550 50  0001 C CNN
-	1    1300 2550
+P 1200 2600
+F 0 "#PWR0158" H 1200 2350 50  0001 C CNN
+F 1 "GND" H 1300 2450 50  0000 R CNN
+F 2 "" H 1200 2600 50  0001 C CNN
+F 3 "" H 1200 2600 50  0001 C CNN
+	1    1200 2600
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole_Pad H8
 U 1 1 5FA6B54F
-P 1300 2450
-F 0 "H8" H 1250 2650 50  0000 L CNN
-F 1 "MountingHole_Pad" H 1400 2408 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 1300 2450 50  0001 C CNN
-F 3 "~" H 1300 2450 50  0001 C CNN
-	1    1300 2450
+P 1200 2500
+F 0 "H8" H 1150 2700 50  0000 L CNN
+F 1 "MountingHole_Pad" H 1300 2458 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 1200 2500 50  0001 C CNN
+F 3 "~" H 1200 2500 50  0001 C CNN
+	1    1200 2500
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0166
 U 1 1 5FA77F30
-P 1500 2550
-F 0 "#PWR0166" H 1500 2300 50  0001 C CNN
-F 1 "GND" H 1600 2400 50  0000 R CNN
-F 2 "" H 1500 2550 50  0001 C CNN
-F 3 "" H 1500 2550 50  0001 C CNN
-	1    1500 2550
+P 1400 2600
+F 0 "#PWR0166" H 1400 2350 50  0001 C CNN
+F 1 "GND" H 1500 2450 50  0000 R CNN
+F 2 "" H 1400 2600 50  0001 C CNN
+F 3 "" H 1400 2600 50  0001 C CNN
+	1    1400 2600
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole_Pad H9
 U 1 1 5FA77F36
-P 1500 2450
-F 0 "H9" H 1450 2650 50  0000 L CNN
-F 1 "MountingHole_Pad" H 1600 2408 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 1500 2450 50  0001 C CNN
-F 3 "~" H 1500 2450 50  0001 C CNN
-	1    1500 2450
+P 1400 2500
+F 0 "H9" H 1350 2700 50  0000 L CNN
+F 1 "MountingHole_Pad" H 1500 2458 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 1400 2500 50  0001 C CNN
+F 3 "~" H 1400 2500 50  0001 C CNN
+	1    1400 2500
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0167
 U 1 1 5FA84A05
-P 1700 2550
-F 0 "#PWR0167" H 1700 2300 50  0001 C CNN
-F 1 "GND" H 1800 2400 50  0000 R CNN
-F 2 "" H 1700 2550 50  0001 C CNN
-F 3 "" H 1700 2550 50  0001 C CNN
-	1    1700 2550
+P 1600 2600
+F 0 "#PWR0167" H 1600 2350 50  0001 C CNN
+F 1 "GND" H 1700 2450 50  0000 R CNN
+F 2 "" H 1600 2600 50  0001 C CNN
+F 3 "" H 1600 2600 50  0001 C CNN
+	1    1600 2600
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole_Pad H10
 U 1 1 5FA84A0B
-P 1700 2450
-F 0 "H10" H 1650 2650 50  0000 L CNN
-F 1 "MountingHole_Pad" H 1800 2408 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 1700 2450 50  0001 C CNN
-F 3 "~" H 1700 2450 50  0001 C CNN
-	1    1700 2450
+P 1600 2500
+F 0 "H10" H 1550 2700 50  0000 L CNN
+F 1 "MountingHole_Pad" H 1700 2458 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 1600 2500 50  0001 C CNN
+F 3 "~" H 1600 2500 50  0001 C CNN
+	1    1600 2500
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0168
 U 1 1 5FA91550
-P 1900 2550
-F 0 "#PWR0168" H 1900 2300 50  0001 C CNN
-F 1 "GND" H 2000 2400 50  0000 R CNN
-F 2 "" H 1900 2550 50  0001 C CNN
-F 3 "" H 1900 2550 50  0001 C CNN
-	1    1900 2550
+P 1800 2600
+F 0 "#PWR0168" H 1800 2350 50  0001 C CNN
+F 1 "GND" H 1900 2450 50  0000 R CNN
+F 2 "" H 1800 2600 50  0001 C CNN
+F 3 "" H 1800 2600 50  0001 C CNN
+	1    1800 2600
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole_Pad H11
 U 1 1 5FA91556
-P 1900 2450
-F 0 "H11" H 1850 2650 50  0000 L CNN
-F 1 "MountingHole_Pad" H 2000 2408 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 1900 2450 50  0001 C CNN
-F 3 "~" H 1900 2450 50  0001 C CNN
-	1    1900 2450
+P 1800 2500
+F 0 "H11" H 1750 2700 50  0000 L CNN
+F 1 "MountingHole_Pad" H 1900 2458 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 1800 2500 50  0001 C CNN
+F 3 "~" H 1800 2500 50  0001 C CNN
+	1    1800 2500
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0170
 U 1 1 5FA9DF11
-P 2100 2550
-F 0 "#PWR0170" H 2100 2300 50  0001 C CNN
-F 1 "GND" H 2200 2400 50  0000 R CNN
-F 2 "" H 2100 2550 50  0001 C CNN
-F 3 "" H 2100 2550 50  0001 C CNN
-	1    2100 2550
+P 2000 2600
+F 0 "#PWR0170" H 2000 2350 50  0001 C CNN
+F 1 "GND" H 2100 2450 50  0000 R CNN
+F 2 "" H 2000 2600 50  0001 C CNN
+F 3 "" H 2000 2600 50  0001 C CNN
+	1    2000 2600
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole_Pad H12
 U 1 1 5FA9DF17
-P 2100 2450
-F 0 "H12" H 2050 2650 50  0000 L CNN
-F 1 "MountingHole_Pad" H 2200 2408 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 2100 2450 50  0001 C CNN
-F 3 "~" H 2100 2450 50  0001 C CNN
-	1    2100 2450
+P 2000 2500
+F 0 "H12" H 1950 2700 50  0000 L CNN
+F 1 "MountingHole_Pad" H 2100 2458 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 2000 2500 50  0001 C CNN
+F 3 "~" H 2000 2500 50  0001 C CNN
+	1    2000 2500
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0171
 U 1 1 5FAAAA28
-P 2300 2550
-F 0 "#PWR0171" H 2300 2300 50  0001 C CNN
-F 1 "GND" H 2400 2400 50  0000 R CNN
-F 2 "" H 2300 2550 50  0001 C CNN
-F 3 "" H 2300 2550 50  0001 C CNN
-	1    2300 2550
+P 2200 2600
+F 0 "#PWR0171" H 2200 2350 50  0001 C CNN
+F 1 "GND" H 2300 2450 50  0000 R CNN
+F 2 "" H 2200 2600 50  0001 C CNN
+F 3 "" H 2200 2600 50  0001 C CNN
+	1    2200 2600
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole_Pad H13
 U 1 1 5FAAAA2E
-P 2300 2450
-F 0 "H13" H 2250 2650 50  0000 L CNN
-F 1 "MountingHole_Pad" H 2400 2408 50  0001 L CNN
-F 2 "Custom Footprints:Ground_Via" H 2300 2450 50  0001 C CNN
-F 3 "~" H 2300 2450 50  0001 C CNN
-	1    2300 2450
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0173
-U 1 1 5FAFCBAE
-P 8900 9950
-F 0 "#PWR0173" H 8900 9700 50  0001 C CNN
-F 1 "GND" H 9000 9800 50  0000 R CNN
-F 2 "" H 8900 9950 50  0001 C CNN
-F 3 "" H 8900 9950 50  0001 C CNN
-	1    8900 9950
-	-1   0    0    1   
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H3
-U 1 1 5FAFCBB6
-P 8900 10050
-F 0 "H3" H 9000 10150 50  0000 L CNN
-F 1 "MountingHole_Pad" H 9000 10008 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 8900 10050 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/445/971300476-1380811.pdf" H 8900 10050 50  0001 C CNN
-F 4 "Würth Elektronik" H 8900 10050 50  0001 C CNN "Manufacturer"
-F 5 "971300476" H 8900 10050 50  0001 C CNN "Part #"
-	1    8900 10050
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR0174
-U 1 1 5FB0A3A7
-P 8300 10850
-F 0 "#PWR0174" H 8300 10600 50  0001 C CNN
-F 1 "GND" H 8400 10700 50  0000 R CNN
-F 2 "" H 8300 10850 50  0001 C CNN
-F 3 "" H 8300 10850 50  0001 C CNN
-	1    8300 10850
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H2
-U 1 1 5FB0A3AF
-P 8300 10750
-F 0 "H2" H 8100 10800 50  0000 L CNN
-F 1 "MountingHole_Pad" H 8400 10708 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 8300 10750 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/445/971300476-1380811.pdf" H 8300 10750 50  0001 C CNN
-F 4 "Würth Elektronik" H 8300 10750 50  0001 C CNN "Manufacturer"
-F 5 "971300476" H 8300 10750 50  0001 C CNN "Part #"
-	1    8300 10750
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0175
-U 1 1 5FB1B0A7
-P 8900 10850
-F 0 "#PWR0175" H 8900 10600 50  0001 C CNN
-F 1 "GND" H 9000 10700 50  0000 R CNN
-F 2 "" H 8900 10850 50  0001 C CNN
-F 3 "" H 8900 10850 50  0001 C CNN
-	1    8900 10850
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H4
-U 1 1 5FB1B0AF
-P 8900 10750
-F 0 "H4" H 8700 10800 50  0000 L CNN
-F 1 "MountingHole_Pad" H 9000 10708 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 8900 10750 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/445/971300476-1380811.pdf" H 8900 10750 50  0001 C CNN
-F 4 "Würth Elektronik" H 8900 10750 50  0001 C CNN "Manufacturer"
-F 5 "971300476" H 8900 10750 50  0001 C CNN "Part #"
-	1    8900 10750
+P 2200 2500
+F 0 "H13" H 2150 2700 50  0000 L CNN
+F 1 "MountingHole_Pad" H 2300 2458 50  0001 L CNN
+F 2 "Custom Footprints:Ground_Via" H 2200 2500 50  0001 C CNN
+F 3 "~" H 2200 2500 50  0001 C CNN
+	1    2200 2500
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole_Pad H1
 U 1 1 5FACF30E
 P 8300 10050
-F 0 "H1" H 8400 10100 50  0000 L CNN
+F 0 "H1" H 8100 10150 50  0000 L CNN
 F 1 "MountingHole_Pad" H 8400 10008 50  0001 L CNN
 F 2 "Custom Footprints:NF-A9_with_standoffs_and_bolts" H 8300 10050 50  0001 C CNN
-F 3 "https://www.mouser.com/datasheet/2/445/971300476-1380811.pdf" H 8300 10050 50  0001 C CNN
-F 4 "Würth Elektronik" H 8300 10050 50  0001 C CNN "Manufacturer"
-F 5 "971300476" H 8300 10050 50  0001 C CNN "Part #"
+F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8300 10050 50  0001 C CNN
+F 4 "Keystone Electronics" H 8300 10050 50  0001 C CNN "Manufacturer"
+F 5 "24354" H 8300 10050 50  0001 C CNN "Part #"
 	1    8300 10050
 	-1   0    0    1   
 $EndComp
@@ -3165,6 +3091,55 @@ F 3 "" H 8300 9950 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
+L Device:Jumper_NC_Small JP3
+U 1 1 5FC8965B
+P 11550 8350
+F 0 "JP3" V 11550 8300 50  0000 R CNN
+F 1 "Jumper_NC_Small" V 11505 8303 50  0001 R CNN
+F 2 "Custom Footprints:20A_shunt_5104" H 11550 8350 50  0001 C CNN
+F 3 "https://www.keyelco.com/userAssets/file/M65p54.pdf" H 11550 8350 50  0001 C CNN
+F 4 "Keystone Electronics" V 11550 8350 50  0001 C CNN "Manufacturer"
+F 5 "5104" V 11550 8350 50  0001 C CNN "Part #"
+	1    11550 8350
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0180
+U 1 1 5FC8CF84
+P 11550 8450
+F 0 "#PWR0180" H 11550 8200 50  0001 C CNN
+F 1 "GND" H 11600 8300 50  0000 R CNN
+F 2 "" H 11550 8450 50  0001 C CNN
+F 3 "" H 11550 8450 50  0001 C CNN
+	1    11550 8450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NC_Small JP4
+U 1 1 5FC8D4A9
+P 11950 8350
+F 0 "JP4" V 11950 8300 50  0000 R CNN
+F 1 "Jumper_NC_Small" V 11905 8303 50  0001 R CNN
+F 2 "Custom Footprints:20A_shunt_5104" H 11950 8350 50  0001 C CNN
+F 3 "https://www.keyelco.com/userAssets/file/M65p54.pdf" H 11950 8350 50  0001 C CNN
+F 4 "Keystone Electronics" V 11950 8350 50  0001 C CNN "Manufacturer"
+F 5 "5104" V 11950 8350 50  0001 C CNN "Part #"
+	1    11950 8350
+	0    -1   -1   0   
+$EndComp
+Connection ~ 11950 8250
+$Comp
+L power:GND #PWR0181
+U 1 1 5FC8DFD5
+P 11950 8450
+F 0 "#PWR0181" H 11950 8200 50  0001 C CNN
+F 1 "GND" H 12000 8300 50  0000 R CNN
+F 2 "" H 11950 8450 50  0001 C CNN
+F 3 "" H 11950 8450 50  0001 C CNN
+	1    11950 8450
+	1    0    0    -1  
+$EndComp
+$Comp
 L Motor:Fan_4pin M1
 U 1 1 603842B5
 P 8600 10400
@@ -3178,14 +3153,171 @@ F 5 "TSM-104-02-L-SV" H 8600 10400 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5F5A6FC2
+P 8150 10050
+F 0 "H?" H 8250 10150 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8250 10008 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 8150 10050 50  0001 C CNN
+F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8150 10050 50  0001 C CNN
+F 4 "Keystone Electronics" H 8150 10050 50  0001 C CNN "Manufacturer"
+F 5 "24354" H 8150 10050 50  0001 C CNN "Part #"
+	1    8150 10050
+	-1   0    0    1   
+$EndComp
+$Comp
 L power:GND #PWR?
-U 1 1 5FC416EF
-P 1400 2050
-F 0 "#PWR?" H 1400 1800 50  0001 C CNN
-F 1 "GND" H 1600 1950 50  0000 R CNN
-F 2 "" H 1400 2050 50  0001 C CNN
-F 3 "" H 1400 2050 50  0001 C CNN
-	1    1400 2050
-	1    0    0    -1  
+U 1 1 5F5A6FC8
+P 8150 9950
+F 0 "#PWR?" H 8150 9700 50  0001 C CNN
+F 1 "GND" H 8250 9800 50  0000 R CNN
+F 2 "" H 8150 9950 50  0001 C CNN
+F 3 "" H 8150 9950 50  0001 C CNN
+	1    8150 9950
+	-1   0    0    1   
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5F5B6064
+P 9050 10050
+F 0 "H?" H 8850 10150 50  0000 L CNN
+F 1 "MountingHole_Pad" H 9150 10008 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 9050 10050 50  0001 C CNN
+F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 9050 10050 50  0001 C CNN
+F 4 "Keystone Electronics" H 9050 10050 50  0001 C CNN "Manufacturer"
+F 5 "24354" H 9050 10050 50  0001 C CNN "Part #"
+	1    9050 10050
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F5B606A
+P 9050 9950
+F 0 "#PWR?" H 9050 9700 50  0001 C CNN
+F 1 "GND" H 9150 9800 50  0000 R CNN
+F 2 "" H 9050 9950 50  0001 C CNN
+F 3 "" H 9050 9950 50  0001 C CNN
+	1    9050 9950
+	-1   0    0    1   
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5F5B6072
+P 8900 10050
+F 0 "H?" H 9000 10150 50  0000 L CNN
+F 1 "MountingHole_Pad" H 9000 10008 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 8900 10050 50  0001 C CNN
+F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8900 10050 50  0001 C CNN
+F 4 "Keystone Electronics" H 8900 10050 50  0001 C CNN "Manufacturer"
+F 5 "24354" H 8900 10050 50  0001 C CNN "Part #"
+	1    8900 10050
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F5B6078
+P 8900 9950
+F 0 "#PWR?" H 8900 9700 50  0001 C CNN
+F 1 "GND" H 9000 9800 50  0000 R CNN
+F 2 "" H 8900 9950 50  0001 C CNN
+F 3 "" H 8900 9950 50  0001 C CNN
+	1    8900 9950
+	-1   0    0    1   
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5F5C58B1
+P 8300 10850
+F 0 "H?" H 8100 10950 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8400 10808 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 8300 10850 50  0001 C CNN
+F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8300 10850 50  0001 C CNN
+F 4 "Keystone Electronics" H 8300 10850 50  0001 C CNN "Manufacturer"
+F 5 "24354" H 8300 10850 50  0001 C CNN "Part #"
+	1    8300 10850
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F5C58B7
+P 8300 10750
+F 0 "#PWR?" H 8300 10500 50  0001 C CNN
+F 1 "GND" H 8400 10600 50  0000 R CNN
+F 2 "" H 8300 10750 50  0001 C CNN
+F 3 "" H 8300 10750 50  0001 C CNN
+	1    8300 10750
+	-1   0    0    1   
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5F5C58BF
+P 8150 10850
+F 0 "H?" H 8250 10950 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8250 10808 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 8150 10850 50  0001 C CNN
+F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8150 10850 50  0001 C CNN
+F 4 "Keystone Electronics" H 8150 10850 50  0001 C CNN "Manufacturer"
+F 5 "24354" H 8150 10850 50  0001 C CNN "Part #"
+	1    8150 10850
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F5C58C5
+P 8150 10750
+F 0 "#PWR?" H 8150 10500 50  0001 C CNN
+F 1 "GND" H 8250 10600 50  0000 R CNN
+F 2 "" H 8150 10750 50  0001 C CNN
+F 3 "" H 8150 10750 50  0001 C CNN
+	1    8150 10750
+	-1   0    0    1   
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5F5D3AD4
+P 9050 10850
+F 0 "H?" H 8850 10950 50  0000 L CNN
+F 1 "MountingHole_Pad" H 9150 10808 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 9050 10850 50  0001 C CNN
+F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 9050 10850 50  0001 C CNN
+F 4 "Keystone Electronics" H 9050 10850 50  0001 C CNN "Manufacturer"
+F 5 "24354" H 9050 10850 50  0001 C CNN "Part #"
+	1    9050 10850
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F5D3ADA
+P 9050 10750
+F 0 "#PWR?" H 9050 10500 50  0001 C CNN
+F 1 "GND" H 9150 10600 50  0000 R CNN
+F 2 "" H 9050 10750 50  0001 C CNN
+F 3 "" H 9050 10750 50  0001 C CNN
+	1    9050 10750
+	-1   0    0    1   
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5F5D3AE2
+P 8900 10850
+F 0 "H?" H 9000 10950 50  0000 L CNN
+F 1 "MountingHole_Pad" H 9000 10808 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 8900 10850 50  0001 C CNN
+F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8900 10850 50  0001 C CNN
+F 4 "Keystone Electronics" H 8900 10850 50  0001 C CNN "Manufacturer"
+F 5 "24354" H 8900 10850 50  0001 C CNN "Part #"
+	1    8900 10850
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F5D3AE8
+P 8900 10750
+F 0 "#PWR?" H 8900 10500 50  0001 C CNN
+F 1 "GND" H 9000 10600 50  0000 R CNN
+F 2 "" H 8900 10750 50  0001 C CNN
+F 3 "" H 8900 10750 50  0001 C CNN
+	1    8900 10750
+	-1   0    0    1   
 $EndComp
 $EndSCHEMATC
