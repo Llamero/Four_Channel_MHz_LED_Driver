@@ -771,8 +771,6 @@ F 5 "TWK212B7225MD-T" H 6150 1400 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 Connection ~ 6150 1300
-Wire Wire Line
-	6150 1300 6050 1300
 Text Label 7400 1200 0    50   ~ 0
 -1.8V-analog
 $Comp
@@ -803,108 +801,51 @@ Connection ~ 4650 6900
 Wire Wire Line
 	4650 6900 4650 6950
 $Comp
-L Custom_parts:BAT54SDW D6
-U 1 1 5F442A0D
-P 6650 1950
-F 0 "D6" H 6900 2250 60  0000 C CNN
-F 1 "BAT54SDW" H 6900 2150 60  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 6850 2150 60  0001 L CNN
-F 3 "https://www.diodes.com/assets/Datasheets/ds30152.pdf" H 6850 2250 60  0001 L CNN
-F 4 "Diodes Incorporated" H 6650 1950 50  0001 C CNN "Manufacturer"
-F 5 "BAT54SDW-7-F" H 6650 1950 50  0001 C CNN "Part #"
-	1    6650 1950
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6050 1300 6050 1850
-Wire Wire Line
-	6050 1850 6450 1850
-Connection ~ 6050 1300
-Wire Wire Line
-	6050 1300 5900 1300
-Wire Wire Line
-	7400 1200 7450 1200
-Wire Wire Line
-	7450 1200 7450 1850
-Wire Wire Line
-	7450 1850 7200 1850
-$Comp
-L power:GND #PWR0157
-U 1 1 5F457916
-P 6450 2050
-F 0 "#PWR0157" H 6450 1800 50  0001 C CNN
-F 1 "GND" H 6550 1900 50  0000 R CNN
-F 2 "" H 6450 2050 50  0001 C CNN
-F 3 "" H 6450 2050 50  0001 C CNN
-	1    6450 2050
-	0    1    1    0   
-$EndComp
-$Comp
 L Custom_parts:BDJ0GA5WEFJ-E2 U4
 U 1 1 5F46185F
-P 6050 2600
-F 0 "U4" H 6750 2857 60  0000 C CNN
-F 1 "BDJ0GA5WEFJ-E2" H 6750 2751 60  0000 C CNN
-F 2 "Custom Footprints:BDJ0GA5WEFJ-E2" H 6800 2840 60  0001 C CNN
-F 3 "http://rohmfs.rohm.com/en/products/databook/datasheet/ic/power/linear_regulator/bdxxga5wefj-e.pdf" H 6750 2751 60  0001 C CNN
-F 4 "Rohm Semiconductor" H 6050 2600 50  0001 C CNN "Manufacturer"
-F 5 "BDJ0GA5WEFJ-E2" H 6050 2600 50  0001 C CNN "Part #"
-	1    6050 2600
+P 6100 2000
+F 0 "U4" H 6800 2257 60  0000 C CNN
+F 1 "BDJ0GA5WEFJ-E2" H 6800 2151 60  0000 C CNN
+F 2 "Custom Footprints:BDJ0GA5WEFJ-E2" H 6850 2240 60  0001 C CNN
+F 3 "http://rohmfs.rohm.com/en/products/databook/datasheet/ic/power/linear_regulator/bdxxga5wefj-e.pdf" H 6800 2151 60  0001 C CNN
+F 4 "Rohm Semiconductor" H 6100 2000 50  0001 C CNN "Manufacturer"
+F 5 "BDJ0GA5WEFJ-E2" H 6100 2000 50  0001 C CNN "Part #"
+	1    6100 2000
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:GND #PWR0158
-U 1 1 5F46361B
-P 7200 2250
-F 0 "#PWR0158" H 7200 2000 50  0001 C CNN
-F 1 "GND" H 7300 2100 50  0000 R CNN
-F 2 "" H 7200 2250 50  0001 C CNN
-F 3 "" H 7200 2250 50  0001 C CNN
-	1    7200 2250
-	0    -1   -1   0   
-$EndComp
-Text Label 7450 2050 0    50   ~ 0
+Text Label 7550 1800 0    50   ~ 0
 12V
 Wire Wire Line
-	7450 2900 7500 2900
+	7500 2300 7550 2300
 Wire Wire Line
-	7500 2900 7500 2600
+	7550 2300 7550 2000
 Wire Wire Line
-	7500 2600 7450 2600
-Text Label 6000 2250 0    50   ~ 0
+	7550 2000 7500 2000
+Text Label 6050 1800 0    50   ~ 0
 10V-analog
 Wire Wire Line
-	7200 2050 7500 2050
-Connection ~ 7500 2600
+	6100 2000 6050 2000
+NoConn ~ 6100 2100
 Wire Wire Line
-	6050 2600 6000 2600
+	6750 2650 6350 2650
 Wire Wire Line
-	6000 2600 6000 2250
+	6050 2650 6050 2200
 Wire Wire Line
-	6000 2250 6450 2250
-NoConn ~ 6050 2700
-Wire Wire Line
-	6700 3250 6300 3250
-Wire Wire Line
-	6000 3250 6000 2800
-Wire Wire Line
-	6000 2800 6050 2800
+	6050 2200 6100 2200
 $Comp
 L power:GND #PWR0159
 U 1 1 5F4C5626
-P 6300 3250
-F 0 "#PWR0159" H 6300 3000 50  0001 C CNN
-F 1 "GND" H 6350 3100 50  0000 R CNN
-F 2 "" H 6300 3250 50  0001 C CNN
-F 3 "" H 6300 3250 50  0001 C CNN
-	1    6300 3250
+P 6350 2650
+F 0 "#PWR0159" H 6350 2400 50  0001 C CNN
+F 1 "GND" H 6400 2500 50  0000 R CNN
+F 2 "" H 6350 2650 50  0001 C CNN
+F 3 "" H 6350 2650 50  0001 C CNN
+	1    6350 2650
 	1    0    0    -1  
 $EndComp
-Connection ~ 6300 3250
+Connection ~ 6350 2650
 Wire Wire Line
-	6300 3250 6000 3250
-Wire Wire Line
-	7500 2050 7500 2600
+	6350 2650 6050 2650
 $Comp
 L Device:Q_NMOS_GDS Q2
 U 1 1 5F44DFD5
@@ -1223,14 +1164,6 @@ $EndComp
 Wire Wire Line
 	1600 6650 1850 6650
 Wire Wire Line
-	1850 7750 1600 7750
-Wire Wire Line
-	1850 7950 1600 7950
-Wire Wire Line
-	1850 8150 1600 8150
-Wire Wire Line
-	1850 8350 1600 8350
-Wire Wire Line
 	3900 6450 3900 6900
 $Comp
 L Device:D_Zener D5
@@ -1275,19 +1208,6 @@ $EndComp
 $Comp
 L Custom_parts:8P8C_Shielded_x4 J3
 U 2 1 5F589234
-P 1200 8050
-F 0 "J3" H 1350 7600 50  0000 R CNN
-F 1 "8P8C_Shielded_x4" H 1550 8600 50  0000 R CNN
-F 2 "Custom Footprints:RJ45_x4-RJSSE-5380-04" V 1200 8075 50  0001 C CNN
-F 3 "https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/rjsse538004.pdf" V 1200 8075 50  0001 C CNN
-F 4 "Amphenol ICC (Commercial Products)" H 1200 8050 50  0001 C CNN "Manufacturer"
-F 5 "RJSSE-5380-04" H 1200 8050 50  0001 C CNN "Part #"
-	2    1200 8050
-	1    0    0    1   
-$EndComp
-$Comp
-L Custom_parts:8P8C_Shielded_x4 J3
-U 3 1 5F58DBB9
 P 1200 9350
 F 0 "J3" H 1350 8900 50  0000 R CNN
 F 1 "8P8C_Shielded_x4" H 1550 9900 50  0000 R CNN
@@ -1295,7 +1215,20 @@ F 2 "Custom Footprints:RJ45_x4-RJSSE-5380-04" V 1200 9375 50  0001 C CNN
 F 3 "https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/rjsse538004.pdf" V 1200 9375 50  0001 C CNN
 F 4 "Amphenol ICC (Commercial Products)" H 1200 9350 50  0001 C CNN "Manufacturer"
 F 5 "RJSSE-5380-04" H 1200 9350 50  0001 C CNN "Part #"
-	3    1200 9350
+	2    1200 9350
+	1    0    0    1   
+$EndComp
+$Comp
+L Custom_parts:8P8C_Shielded_x4 J3
+U 3 1 5F58DBB9
+P 1200 8050
+F 0 "J3" H 1350 7600 50  0000 R CNN
+F 1 "8P8C_Shielded_x4" H 1550 8600 50  0000 R CNN
+F 2 "Custom Footprints:RJ45_x4-RJSSE-5380-04" V 1200 8075 50  0001 C CNN
+F 3 "https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/rjsse538004.pdf" V 1200 8075 50  0001 C CNN
+F 4 "Amphenol ICC (Commercial Products)" H 1200 8050 50  0001 C CNN "Manufacturer"
+F 5 "RJSSE-5380-04" H 1200 8050 50  0001 C CNN "Part #"
+	3    1200 8050
 	1    0    0    1   
 $EndComp
 $Comp
@@ -1357,9 +1290,9 @@ F 3 "" H 1600 9750 50  0001 C CNN
 $EndComp
 Text Label 1850 9050 0    50   ~ 0
 External_thermistor
-Text Label 10800 1300 2    50   ~ 0
+Text Label 9150 1150 2    50   ~ 0
 Interline_PWM
-Text Label 10800 1400 2    50   ~ 0
+Text Label 9000 1250 2    50   ~ 0
 Analog_select
 Text Label 4650 6450 2    50   ~ 0
 Interline_PWM
@@ -1496,26 +1429,26 @@ $EndComp
 $Comp
 L Device:C_Small C34
 U 1 1 5FFC2163
-P 7500 3000
-F 0 "C34" H 7350 3100 50  0000 L CNN
-F 1 "2.2uF" H 7250 2900 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 7500 3000 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 7500 3000 50  0001 C CNN
-F 4 "Taiyo Yuden" H 7500 3000 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 7500 3000 50  0001 C CNN "Part #"
-	1    7500 3000
+P 7550 2400
+F 0 "C34" H 7400 2500 50  0000 L CNN
+F 1 "2.2uF" H 7300 2300 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 7550 2400 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 7550 2400 50  0001 C CNN
+F 4 "Taiyo Yuden" H 7550 2400 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 7550 2400 50  0001 C CNN "Part #"
+	1    7550 2400
 	-1   0    0    -1  
 $EndComp
-Connection ~ 7500 2900
+Connection ~ 7550 2300
 $Comp
 L power:GND #PWR018
 U 1 1 5FFC4572
-P 7500 3100
-F 0 "#PWR018" H 7500 2850 50  0001 C CNN
-F 1 "GND" H 7550 2950 50  0000 R CNN
-F 2 "" H 7500 3100 50  0001 C CNN
-F 3 "" H 7500 3100 50  0001 C CNN
-	1    7500 3100
+P 7550 2500
+F 0 "#PWR018" H 7550 2250 50  0001 C CNN
+F 1 "GND" H 7600 2350 50  0000 R CNN
+F 2 "" H 7550 2500 50  0001 C CNN
+F 3 "" H 7550 2500 50  0001 C CNN
+	1    7550 2500
 	1    0    0    -1  
 $EndComp
 Text Label 10800 2700 2    50   ~ 0
@@ -2126,8 +2059,6 @@ F 5 "TLP3555A(TP1,F" H 3300 4850 50  0001 C CNN "Part #"
 	1    3300 4850
 	1    0    0    -1  
 $EndComp
-Text Label 3000 10650 0    50   ~ 0
-Isense
 $Comp
 L power:GND #PWR0102
 U 1 1 5F8E6B11
@@ -2154,19 +2085,6 @@ F 5 "BAT54SDW-7-F" H 2450 10750 50  0001 C CNN "Part #"
 	1    2450 10750
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:GND #PWR0114
-U 1 1 5F8E6B20
-P 2250 10650
-F 0 "#PWR0114" H 2250 10400 50  0001 C CNN
-F 1 "GND" V 2150 10650 50  0000 R CNN
-F 2 "" H 2250 10650 50  0001 C CNN
-F 3 "" H 2250 10650 50  0001 C CNN
-	1    2250 10650
-	0    1    1    0   
-$EndComp
-Text Label 2250 10850 2    50   ~ 0
-3.3V
 Text Label 2250 11050 2    50   ~ 0
 external_analog
 Text Label 2150 6650 0    50   ~ 0
@@ -2259,13 +2177,13 @@ F 5 "ELUMOASAQ5C12" H 9450 4950 50  0001 C CNN "Part #"
 	1    9450 4950
 	1    0    0    -1  
 $EndComp
-Text Label 9100 1650 2    50   ~ 0
+Text Label 10800 1100 2    50   ~ 0
 Relay1
-Text Label 9100 1750 2    50   ~ 0
+Text Label 10800 1200 2    50   ~ 0
 Relay2
-Text Label 9100 1850 2    50   ~ 0
+Text Label 10800 1300 2    50   ~ 0
 Relay3
-Text Label 9100 1950 2    50   ~ 0
+Text Label 10800 1400 2    50   ~ 0
 Relay4
 Text Label 2200 4200 2    50   ~ 0
 Relay1
@@ -2828,16 +2746,15 @@ $Comp
 L Device:R_Pack04_Split RN1
 U 2 1 5F9DEBDC
 P 5650 2050
-F 0 "RN1" H 5500 2050 50  0000 C CNN
+F 0 "RN1" H 5800 2050 50  0000 C CNN
 F 1 "150" V 5650 2050 50  0000 C CNN
 F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 5925 2050 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 5650 2050 50  0001 C CNN
 F 4 "Panasonic Electronic Components" V 5650 2050 50  0001 C CNN "Manufacturer"
 F 5 "EXB-38V151JV" V 5650 2050 50  0001 C CNN "Part #"
 	2    5650 2050
-	-1   0    0    1   
+	1    0    0    -1  
 $EndComp
-Connection ~ 5650 1900
 $Comp
 L Device:R_Pack04_Split RN2
 U 1 1 5F9E09BB
@@ -2944,7 +2861,7 @@ F 3 "" H 2850 1850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Notes 4550 -50  0    118  ~ 0
-Use smaller LDOs - especially lower dropout on 10V rail\nUse lower wattage (smaller) resistor on 1.8V rail\nAdd RC filter to 12V input to 10V LDO\nRemove inductor and use same rail for 12V to 10V LDO?\nSee if there is a bigger zener set for D6 or split to 2 parts
+Use smaller LDOs - especially lower dropout on 10V rail\nUse lower wattage (smaller) resistor on 1.8V rail\nAdd RC filter to 12V input to 10V LDO\nRemove inductor and use same rail for 12V to 10V LDO?\nSee if there is a bigger zener set for D6 or split to 2 parts\n\nGND via - 9410-3ML and TIPS#15X1
 Wire Wire Line
 	1350 1650 2000 1650
 Wire Wire Line
@@ -2980,4 +2897,60 @@ Wire Wire Line
 Connection ~ 11750 8250
 Wire Wire Line
 	11750 8250 11950 8250
+Connection ~ 5650 1900
+Wire Wire Line
+	1600 7750 1850 7750
+Wire Wire Line
+	1600 7950 1850 7950
+Wire Wire Line
+	1600 8150 1850 8150
+Wire Wire Line
+	1600 8350 1850 8350
+$Comp
+L Device:Jumper_NC_Small JP2
+U 1 1 5F56E8CF
+P 1400 1950
+F 0 "JP2" V 1550 2000 50  0000 R CNN
+F 1 "Jumper_NC_Small" V 1355 1903 50  0001 R CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" H 1400 1950 50  0001 C CNN
+F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 1400 1950 50  0001 C CNN
+F 4 "Stackpole Electronics Inc" V 1400 1950 50  0001 C CNN "Manufacturer"
+F 5 "RMCF1206ZT0R00" V 1400 1950 50  0001 C CNN "Part #"
+	1    1400 1950
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	1100 1850 1400 1850
+$Comp
+L power:GND #PWR0165
+U 1 1 5F581B5A
+P 1400 2050
+F 0 "#PWR0165" H 1400 1800 50  0001 C CNN
+F 1 "GND" H 1600 1950 50  0000 R CNN
+F 2 "" H 1400 2050 50  0001 C CNN
+F 3 "" H 1400 2050 50  0001 C CNN
+	1    1400 2050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5900 1300 6150 1300
+Wire Wire Line
+	6050 1800 6050 2000
+NoConn ~ 2250 10850
+NoConn ~ 2250 10650
+NoConn ~ 3000 10650
+$Comp
+L Device:R_Small R6
+U 1 1 5F6690CD
+P 7550 1900
+F 0 "R6" V 7750 1900 50  0000 L CNN
+F 1 "12" V 7650 1850 50  0000 L CNN
+F 2 "Resistor_SMD:R_1210_3225Metric" H 7550 1900 50  0001 C CNN
+F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 7550 1900 50  0001 C CNN
+F 4 "Stackpole Electronics Inc" H 7550 1900 50  0001 C CNN "Manufacturer"
+F 5 "RMCF1210JT12R0" H 7550 1900 50  0001 C CNN "Part #"
+	1    7550 1900
+	1    0    0    -1  
+$EndComp
+Connection ~ 7550 2000
 $EndSCHEMATC
