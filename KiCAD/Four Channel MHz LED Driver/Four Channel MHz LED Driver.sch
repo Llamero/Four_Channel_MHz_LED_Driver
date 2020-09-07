@@ -152,12 +152,10 @@ Wire Wire Line
 Wire Wire Line
 	5400 6550 5450 6550
 Wire Wire Line
-	5450 6550 5450 6750
-Wire Wire Line
 	5450 6750 5400 6750
-Text Label 4650 6550 2    50   ~ 0
+Text Label 5450 6550 0    50   ~ 0
 internal_analog
-Text Label 4650 6750 2    50   ~ 0
+Text Label 5450 6750 0    50   ~ 0
 external_analog
 Connection ~ 4750 1700
 Wire Wire Line
@@ -195,7 +193,7 @@ F 5 "GRM31CR61E476ME44L" H 4950 1600 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 Connection ~ 4950 1300
-Text Label 5450 6550 0    50   ~ 0
+Text Label 4650 6550 2    50   ~ 0
 -0.25V_analog
 Text Label 3900 6150 2    50   ~ 0
 5V
@@ -1208,15 +1206,15 @@ $EndComp
 $Comp
 L Custom_parts:8P8C_Shielded_x4 J3
 U 2 1 5F589234
-P 1200 9350
-F 0 "J3" H 1350 8900 50  0000 R CNN
-F 1 "8P8C_Shielded_x4" H 1550 9900 50  0000 R CNN
-F 2 "Custom Footprints:RJ45_x4-RJSSE-5380-04" V 1200 9375 50  0001 C CNN
-F 3 "https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/rjsse538004.pdf" V 1200 9375 50  0001 C CNN
-F 4 "Amphenol ICC (Commercial Products)" H 1200 9350 50  0001 C CNN "Manufacturer"
-F 5 "RJSSE-5380-04" H 1200 9350 50  0001 C CNN "Part #"
-	2    1200 9350
-	1    0    0    1   
+P 1200 9450
+F 0 "J3" H 1350 9000 50  0000 R CNN
+F 1 "8P8C_Shielded_x4" H 1550 10000 50  0000 R CNN
+F 2 "Custom Footprints:RJ45_x4-RJSSE-5380-04" V 1200 9475 50  0001 C CNN
+F 3 "https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/rjsse538004.pdf" V 1200 9475 50  0001 C CNN
+F 4 "Amphenol ICC (Commercial Products)" H 1200 9450 50  0001 C CNN "Manufacturer"
+F 5 "RJSSE-5380-04" H 1200 9450 50  0001 C CNN "Part #"
+	2    1200 9450
+	1    0    0    -1  
 $EndComp
 $Comp
 L Custom_parts:8P8C_Shielded_x4 J3
@@ -1247,49 +1245,47 @@ $EndComp
 $Comp
 L power:GND #PWR01
 U 1 1 5F59943B
-P 1200 8850
-F 0 "#PWR01" H 1200 8600 50  0001 C CNN
-F 1 "GND" H 1450 8800 50  0000 R CNN
-F 2 "" H 1200 8850 50  0001 C CNN
-F 3 "" H 1200 8850 50  0001 C CNN
-	1    1200 8850
-	-1   0    0    1   
+P 1200 9950
+F 0 "#PWR01" H 1200 9700 50  0001 C CNN
+F 1 "GND" H 1450 9900 50  0000 R CNN
+F 2 "" H 1200 9950 50  0001 C CNN
+F 3 "" H 1200 9950 50  0001 C CNN
+	1    1200 9950
+	-1   0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR03
 U 1 1 5F5CDB2E
-P 1600 9350
-F 0 "#PWR03" H 1600 9100 50  0001 C CNN
-F 1 "GND" V 1600 9250 50  0000 R CNN
-F 2 "" H 1600 9350 50  0001 C CNN
-F 3 "" H 1600 9350 50  0001 C CNN
-	1    1600 9350
+P 1600 9450
+F 0 "#PWR03" H 1600 9200 50  0001 C CNN
+F 1 "GND" V 1600 9350 50  0000 R CNN
+F 2 "" H 1600 9450 50  0001 C CNN
+F 3 "" H 1600 9450 50  0001 C CNN
+	1    1600 9450
 	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR04
 U 1 1 5F5CDB34
-P 1600 9550
-F 0 "#PWR04" H 1600 9300 50  0001 C CNN
-F 1 "GND" V 1600 9450 50  0000 R CNN
-F 2 "" H 1600 9550 50  0001 C CNN
-F 3 "" H 1600 9550 50  0001 C CNN
-	1    1600 9550
+P 1600 9650
+F 0 "#PWR04" H 1600 9400 50  0001 C CNN
+F 1 "GND" V 1600 9550 50  0000 R CNN
+F 2 "" H 1600 9650 50  0001 C CNN
+F 3 "" H 1600 9650 50  0001 C CNN
+	1    1600 9650
 	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR05
 U 1 1 5F5CDB3A
-P 1600 9750
-F 0 "#PWR05" H 1600 9500 50  0001 C CNN
-F 1 "GND" V 1500 9750 50  0000 R CNN
-F 2 "" H 1600 9750 50  0001 C CNN
-F 3 "" H 1600 9750 50  0001 C CNN
-	1    1600 9750
+P 1600 9050
+F 0 "#PWR05" H 1600 8800 50  0001 C CNN
+F 1 "GND" V 1500 9050 50  0000 R CNN
+F 2 "" H 1600 9050 50  0001 C CNN
+F 3 "" H 1600 9050 50  0001 C CNN
+	1    1600 9050
 	0    -1   -1   0   
 $EndComp
-Text Label 1850 9050 0    50   ~ 0
-External_thermistor
 Text Label 9150 1150 2    50   ~ 0
 Interline_PWM
 Text Label 9000 1250 2    50   ~ 0
@@ -1298,15 +1294,13 @@ Text Label 4650 6450 2    50   ~ 0
 Interline_PWM
 Text Label 5400 6450 0    50   ~ 0
 Analog_select
-Text Label 10800 2100 2    50   ~ 0
-Internal_fan_PWM
-Text Label 3050 9950 0    50   ~ 0
+Text Label 13100 1300 0    50   ~ 0
 Internal_fan_PWM
 Wire Notes Line
 	8750 6700 16050 6700
-Text Label 13100 1400 0    50   ~ 0
+Text Label 8700 1600 0    50   ~ 0
 Toggle_red_LED
-Text Label 13100 1300 0    50   ~ 0
+Text Label 8600 1450 0    50   ~ 0
 Toggle_green_LED
 Text Label 10800 2600 2    50   ~ 0
 Over_temp_alarm1
@@ -1334,12 +1328,10 @@ Text Label 6150 10750 0    50   ~ 0
 A-D_input_3
 Text Label 5400 11150 2    50   ~ 0
 A-D_input_4
-Text Label 13100 1600 0    50   ~ 0
+Text Label 13100 1900 0    50   ~ 0
 LED_pot
 Text Label 15050 2750 0    50   ~ 0
 MOSFET_temp
-Text Label 3200 9050 0    50   ~ 0
-3.3V
 Text Label 13100 3000 0    50   ~ 0
 Resistor_temp
 $Comp
@@ -1387,8 +1379,6 @@ Text Label 10800 2900 2    50   ~ 0
 Toggle_switch
 Text Label 13100 2200 0    50   ~ 0
 Internal_Isense
-Text Label 10800 3100 2    50   ~ 0
-External_5V_PWM2
 Wire Wire Line
 	4650 6900 3900 6900
 $Comp
@@ -1458,124 +1448,16 @@ Over_temp_alarm1
 $Comp
 L power:GND #PWR02
 U 1 1 5F6B2779
-P 1600 9150
-F 0 "#PWR02" H 1600 8900 50  0001 C CNN
-F 1 "GND" V 1600 9050 50  0000 R CNN
-F 2 "" H 1600 9150 50  0001 C CNN
-F 3 "" H 1600 9150 50  0001 C CNN
-	1    1600 9150
+P 1600 9250
+F 0 "#PWR02" H 1600 9000 50  0001 C CNN
+F 1 "GND" V 1600 9150 50  0000 R CNN
+F 2 "" H 1600 9250 50  0001 C CNN
+F 3 "" H 1600 9250 50  0001 C CNN
+	1    1600 9250
 	0    -1   -1   0   
 $EndComp
 Text Label 11300 10250 2    50   ~ 0
 Over_temp_alarm2
-Text Label 2200 9150 2    50   ~ 0
-5V
-Wire Wire Line
-	1600 9450 1850 9450
-Wire Wire Line
-	1600 9050 2600 9050
-$Comp
-L Custom_parts:SN74LV4T125PWR U16
-U 1 1 5FB230D1
-P 2350 9650
-F 0 "U16" H 2250 10150 50  0000 C CNN
-F 1 "SN74LV4T125PWR" H 1750 10150 50  0000 C CNN
-F 2 "Custom Footprints:SN74LV4T125" H 1900 9200 50  0001 L BNN
-F 3 "https://www.ti.com/lit/ds/symlink/sn74lv4t125.pdf?HQS=TI-null-null-digikeymode-df-pf-null-wwe&ts=1598425470784" H 2400 9650 50  0001 C CNN
-F 4 "Texas Instruments" H 2350 9650 50  0001 C CNN "Manufacturer"
-F 5 "SN74LV4T125PWR" H 2350 9650 50  0001 C CNN "Part #"
-	1    2350 9650
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0106
-U 1 1 5FB26F71
-P 2200 9950
-F 0 "#PWR0106" H 2200 9700 50  0001 C CNN
-F 1 "GND" V 2200 9850 50  0000 R CNN
-F 2 "" H 2200 9950 50  0001 C CNN
-F 3 "" H 2200 9950 50  0001 C CNN
-	1    2200 9950
-	0    1    -1   0   
-$EndComp
-Text Label 10800 3000 2    50   ~ 0
-External_5V_PWM1
-Text Label 3050 9550 0    50   ~ 0
-External_5V_PWM2
-$Comp
-L power:GND #PWR0108
-U 1 1 5FB6E536
-P 3050 9650
-F 0 "#PWR0108" H 3050 9400 50  0001 C CNN
-F 1 "GND" V 3050 9550 50  0000 R CNN
-F 2 "" H 3050 9650 50  0001 C CNN
-F 3 "" H 3050 9650 50  0001 C CNN
-	1    3050 9650
-	0    -1   1    0   
-$EndComp
-$Comp
-L power:GND #PWR0109
-U 1 1 5FB6EAAA
-P 3050 9450
-F 0 "#PWR0109" H 3050 9200 50  0001 C CNN
-F 1 "GND" V 3050 9350 50  0000 R CNN
-F 2 "" H 3050 9450 50  0001 C CNN
-F 3 "" H 3050 9450 50  0001 C CNN
-	1    3050 9450
-	0    -1   1    0   
-$EndComp
-$Comp
-L power:GND #PWR0154
-U 1 1 5FB6EE63
-P 3050 9250
-F 0 "#PWR0154" H 3050 9000 50  0001 C CNN
-F 1 "GND" V 3050 9150 50  0000 R CNN
-F 2 "" H 3050 9250 50  0001 C CNN
-F 3 "" H 3050 9250 50  0001 C CNN
-	1    3050 9250
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	1850 9550 1850 9450
-Wire Wire Line
-	1900 9450 1900 9250
-Wire Wire Line
-	1600 9250 1900 9250
-$Comp
-L Device:C_Small C37
-U 1 1 5FC38687
-P 2100 9250
-F 0 "C37" V 2050 9050 50  0000 L CNN
-F 1 "2.2uF" V 2050 9300 50  0000 L CNN
-F 2 "Custom Footprints:0508_Capacitor" H 2100 9250 50  0001 C CNN
-F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 2100 9250 50  0001 C CNN
-F 4 "Taiyo Yuden" H 2100 9250 50  0001 C CNN "Manufacturer"
-F 5 "TWK212B7225MD-T" H 2100 9250 50  0001 C CNN "Part #"
-	1    2100 9250
-	0    1    -1   0   
-$EndComp
-Wire Wire Line
-	2200 9150 2200 9250
-Connection ~ 2200 9250
-$Comp
-L power:GND #PWR0179
-U 1 1 5FC646F4
-P 2000 9250
-F 0 "#PWR0179" H 2000 9000 50  0001 C CNN
-F 1 "GND" H 2050 9100 50  0000 R CNN
-F 2 "" H 2000 9250 50  0001 C CNN
-F 3 "" H 2000 9250 50  0001 C CNN
-	1    2000 9250
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	1900 9450 2200 9450
-Wire Wire Line
-	1850 9550 2200 9550
-Wire Wire Line
-	1600 9650 2200 9650
-Text Notes 1450 8900 0    59   ~ 0
-External thermistor and 3x 5V/16mA digital outputs\nOpen jumper for DAC output instead
 Text Notes 1400 7600 0    59   ~ 0
 Analog/digital inputs with 0-3.3V clamp
 Text Notes 1400 6250 0    59   ~ 0
@@ -1773,21 +1655,8 @@ F 5 "SMT-0940-T-3V-R" H 11400 10250 50  0001 C CNN "Part #"
 	1    11400 10250
 	1    0    0    -1  
 $EndComp
-Text Label 13100 3100 0    50   ~ 0
+Text Label 13100 1400 0    50   ~ 0
 External_5V_PWM3
-Text Label 3050 9350 0    50   ~ 0
-External_5V_PWM1
-$Comp
-L Jumper:SolderJumper_2_Bridged JP5
-U 1 1 6012E25F
-P 3050 9050
-F 0 "JP5" H 3050 9150 50  0000 C CNN
-F 1 "SolderJumper_2_Bridged" H 3300 9450 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 3050 9050 50  0001 C CNN
-F 3 "~" H 3050 9050 50  0001 C CNN
-	1    3050 9050
-	1    0    0    -1  
-$EndComp
 $Comp
 L Mechanical:Heatsink HS2
 U 1 1 602A56B6
@@ -1801,19 +1670,6 @@ F 5 "910-40-2-23-2-B-0" H 9900 11150 50  0001 C CNN "Part #"
 	1    9900 11150
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:GND #PWR0172
-U 1 1 6037B5F8
-P 3050 9850
-F 0 "#PWR0172" H 3050 9600 50  0001 C CNN
-F 1 "GND" V 3050 9750 50  0000 R CNN
-F 2 "" H 3050 9850 50  0001 C CNN
-F 3 "" H 3050 9850 50  0001 C CNN
-	1    3050 9850
-	0    -1   1    0   
-$EndComp
-Text Label 2200 9750 2    50   ~ 0
-5V_fan_PWM
 Text Label 9300 10450 2    50   ~ 0
 5V_fan_PWM
 $Comp
@@ -1845,8 +1701,6 @@ F 5 "742C163472JP" V 2000 7750 50  0001 C CNN "Part #"
 	1    2000 7750
 	0    -1   1    0   
 $EndComp
-Text Label 3050 9750 0    50   ~ 0
-External_5V_PWM3
 Text Label 13100 2800 0    50   ~ 0
 Pushbutton_LED
 Connection ~ 11350 8050
@@ -2320,19 +2174,6 @@ F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 8350 50  0001 C 
 F 4 "CTS Resistor Products" V 2000 8350 50  0001 C CNN "Manufacturer"
 F 5 "742C163472JP" V 2000 8350 50  0001 C CNN "Part #"
 	4    2000 8350
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Pack08_Split RN3
-U 6 1 5F641B3C
-P 2750 9050
-F 0 "RN3" V 2650 9050 50  0000 C CNN
-F 1 "4.7k" V 2750 9050 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 3225 9050 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2750 9050 50  0001 C CNN
-F 4 "CTS Resistor Products" V 2750 9050 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 2750 9050 50  0001 C CNN "Part #"
-	6    2750 9050
 	0    -1   1    0   
 $EndComp
 $Comp
@@ -2866,20 +2707,6 @@ Wire Wire Line
 	1350 1650 2000 1650
 Wire Wire Line
 	2600 1650 2850 1650
-$Comp
-L Device:C_Small C9
-U 1 1 5F565AC5
-P 5500 6850
-F 0 "C9" V 5400 6850 50  0000 C CNN
-F 1 "2200pF" V 5300 6850 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 5500 6850 50  0001 C CNN
-F 3 "https://api.kemet.com/component-edge/download/datasheet/C0603C222K1RACTU.pdf" H 5500 6850 50  0001 C CNN
-F 4 "KEMET" H 5500 6850 50  0001 C CNN "Manufacturer"
-F 5 "C0603C222K1RACTU" H 5500 6850 50  0001 C CNN "Part #"
-	1    5500 6850
-	0    1    -1   0   
-$EndComp
-Connection ~ 5400 6850
 Connection ~ 11350 8250
 Wire Wire Line
 	11350 8050 11550 8050
@@ -2953,4 +2780,181 @@ F 5 "RMCF1210JT12R0" H 7550 1900 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 Connection ~ 7550 2000
+$Comp
+L Device:C_Small C9
+U 1 1 5F730CC6
+P 5500 6850
+F 0 "C9" V 5550 6900 50  0000 L CNN
+F 1 "2.2uF" V 5400 6800 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 5500 6850 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 5500 6850 50  0001 C CNN
+F 4 "Taiyo Yuden" H 5500 6850 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 5500 6850 50  0001 C CNN "Part #"
+	1    5500 6850
+	0    1    -1   0   
+$EndComp
+Connection ~ 5400 6850
+Wire Wire Line
+	4650 6550 4350 6550
+Wire Wire Line
+	4350 6550 4350 6750
+Wire Wire Line
+	4350 6750 4650 6750
+Text Notes 1450 8900 0    59   ~ 0
+External thermistor and 3x 5V/16mA digital outputs\nOpen jumper for DAC output instead
+Wire Wire Line
+	1800 9750 1600 9750
+Wire Wire Line
+	1800 9850 1800 9750
+Wire Wire Line
+	2200 9850 1800 9850
+Text Label 3050 10050 0    50   ~ 0
+External_5V_PWM3
+Text Label 2200 9750 2    50   ~ 0
+5V_fan_PWM
+$Comp
+L power:GND #PWR0172
+U 1 1 6037B5F8
+P 3050 9950
+F 0 "#PWR0172" H 3050 9700 50  0001 C CNN
+F 1 "GND" V 3050 9850 50  0000 R CNN
+F 2 "" H 3050 9950 50  0001 C CNN
+F 3 "" H 3050 9950 50  0001 C CNN
+	1    3050 9950
+	0    -1   1    0   
+$EndComp
+Text Label 3050 9650 0    50   ~ 0
+External_5V_PWM1
+Wire Wire Line
+	1850 9650 2200 9650
+$Comp
+L power:GND #PWR0179
+U 1 1 5FC646F4
+P 2000 9350
+F 0 "#PWR0179" H 2000 9100 50  0001 C CNN
+F 1 "GND" H 2050 9200 50  0000 R CNN
+F 2 "" H 2000 9350 50  0001 C CNN
+F 3 "" H 2000 9350 50  0001 C CNN
+	1    2000 9350
+	1    0    0    1   
+$EndComp
+Connection ~ 2200 9350
+Wire Wire Line
+	2200 9250 2200 9350
+$Comp
+L Device:C_Small C37
+U 1 1 5FC38687
+P 2100 9350
+F 0 "C37" V 2050 9150 50  0000 L CNN
+F 1 "2.2uF" V 2050 9400 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 2100 9350 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 2100 9350 50  0001 C CNN
+F 4 "Taiyo Yuden" H 2100 9350 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 2100 9350 50  0001 C CNN "Part #"
+	1    2100 9350
+	0    1    -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0154
+U 1 1 5FB6EE63
+P 3050 9350
+F 0 "#PWR0154" H 3050 9100 50  0001 C CNN
+F 1 "GND" V 3050 9250 50  0000 R CNN
+F 2 "" H 3050 9350 50  0001 C CNN
+F 3 "" H 3050 9350 50  0001 C CNN
+	1    3050 9350
+	0    -1   1    0   
+$EndComp
+$Comp
+L power:GND #PWR0109
+U 1 1 5FB6EAAA
+P 3050 9550
+F 0 "#PWR0109" H 3050 9300 50  0001 C CNN
+F 1 "GND" V 3050 9450 50  0000 R CNN
+F 2 "" H 3050 9550 50  0001 C CNN
+F 3 "" H 3050 9550 50  0001 C CNN
+	1    3050 9550
+	0    -1   1    0   
+$EndComp
+$Comp
+L power:GND #PWR0108
+U 1 1 5FB6E536
+P 3050 9750
+F 0 "#PWR0108" H 3050 9500 50  0001 C CNN
+F 1 "GND" V 3050 9650 50  0000 R CNN
+F 2 "" H 3050 9750 50  0001 C CNN
+F 3 "" H 3050 9750 50  0001 C CNN
+	1    3050 9750
+	0    -1   1    0   
+$EndComp
+Text Label 3050 9450 0    50   ~ 0
+External_5V_PWM2
+$Comp
+L power:GND #PWR0106
+U 1 1 5FB26F71
+P 2200 10050
+F 0 "#PWR0106" H 2200 9800 50  0001 C CNN
+F 1 "GND" V 2200 9950 50  0000 R CNN
+F 2 "" H 2200 10050 50  0001 C CNN
+F 3 "" H 2200 10050 50  0001 C CNN
+	1    2200 10050
+	0    1    -1   0   
+$EndComp
+$Comp
+L Custom_parts:SN74LV4T125PWR U16
+U 1 1 5FB230D1
+P 2350 9750
+F 0 "U16" H 2250 10250 50  0000 C CNN
+F 1 "SN74LV4T125PWR" H 1750 10250 50  0000 C CNN
+F 2 "Custom Footprints:SN74LV4T125" H 1900 9300 50  0001 L BNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74lv4t125.pdf?HQS=TI-null-null-digikeymode-df-pf-null-wwe&ts=1598425470784" H 2400 9750 50  0001 C CNN
+F 4 "Texas Instruments" H 2350 9750 50  0001 C CNN "Manufacturer"
+F 5 "SN74LV4T125PWR" H 2350 9750 50  0001 C CNN "Part #"
+	1    2350 9750
+	-1   0    0    -1  
+$EndComp
+Text Label 2200 9250 2    50   ~ 0
+5V
+Text Label 3050 9850 0    50   ~ 0
+Internal_fan_PWM
+$Comp
+L Device:R_Pack08_Split RN3
+U 6 1 5F641B3C
+P 2750 9150
+F 0 "RN3" V 2650 9150 50  0000 C CNN
+F 1 "4.7k" V 2750 9150 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 3225 9150 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2750 9150 50  0001 C CNN
+F 4 "CTS Resistor Products" V 2750 9150 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 2750 9150 50  0001 C CNN "Part #"
+	6    2750 9150
+	0    -1   1    0   
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Bridged JP5
+U 1 1 6012E25F
+P 3050 9150
+F 0 "JP5" H 3050 9250 50  0000 C CNN
+F 1 "SolderJumper_2_Bridged" H 3300 9550 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 3050 9150 50  0001 C CNN
+F 3 "~" H 3050 9150 50  0001 C CNN
+	1    3050 9150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1600 9150 2600 9150
+Text Label 3200 9150 0    50   ~ 0
+3.3V
+Text Label 1850 9150 0    50   ~ 0
+External_thermistor
+Wire Wire Line
+	1600 9550 2200 9550
+Wire Wire Line
+	1850 9650 1850 9350
+Wire Wire Line
+	1850 9350 1600 9350
+Text Label 13100 1500 0    50   ~ 0
+External_5V_PWM2
+Text Label 13100 1600 0    50   ~ 0
+External_5V_PWM1
 $EndSCHEMATC
