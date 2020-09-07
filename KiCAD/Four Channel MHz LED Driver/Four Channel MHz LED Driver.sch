@@ -2637,7 +2637,7 @@ F 3 "" H 2850 1850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Notes 4550 -50  0    118  ~ 0
-Use smaller LDOs - especially lower dropout on 10V rail\nUse lower wattage (smaller) resistor on 1.8V rail\nAdd RC filter to 12V input to 10V LDO\nRemove inductor and use same rail for 12V to 10V LDO?\nSee if there is a bigger zener set for D6 or split to 2 parts\n\nGND via - 9410-3ML and TIPS#15X1
+See if there is a bigger zener set for D6 or split to 2 parts\n\nGND via - 9410-3ML and TIPS#15X1\n\nAdd shunt from Isense to fan post - https://www.digikey.com/product-detail/en/keystone-electronics/5104/36-5104-ND/4780769
 Wire Wire Line
 	1350 1650 2000 1650
 Wire Wire Line
@@ -2675,9 +2675,9 @@ P 1400 1950
 F 0 "JP2" V 1550 2000 50  0000 R CNN
 F 1 "Jumper_NC_Small" V 1355 1903 50  0001 R CNN
 F 2 "Resistor_SMD:R_1206_3216Metric" H 1400 1950 50  0001 C CNN
-F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 1400 1950 50  0001 C CNN
-F 4 "Stackpole Electronics Inc" V 1400 1950 50  0001 C CNN "Manufacturer"
-F 5 "RMCF1206ZT0R00" V 1400 1950 50  0001 C CNN "Part #"
+F 3 "https://www.keyelco.com/userAssets/file/M65p54.pdf" H 1400 1950 50  0001 C CNN
+F 4 "Keystone Electronics" V 1400 1950 50  0001 C CNN "Manufacturer"
+F 5 "5108" V 1400 1950 50  0001 C CNN "Part #"
 	1    1400 1950
 	0    -1   -1   0   
 $EndComp
@@ -3069,10 +3069,10 @@ F 3 "~" H 2300 2450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0173
 U 1 1 5FAFCBAE
 P 8900 9950
-F 0 "#PWR?" H 8900 9700 50  0001 C CNN
+F 0 "#PWR0173" H 8900 9700 50  0001 C CNN
 F 1 "GND" H 9000 9800 50  0000 R CNN
 F 2 "" H 8900 9950 50  0001 C CNN
 F 3 "" H 8900 9950 50  0001 C CNN
@@ -3080,10 +3080,10 @@ F 3 "" H 8900 9950 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H3
 U 1 1 5FAFCBB6
 P 8900 10050
-F 0 "H?" H 9000 10150 50  0000 L CNN
+F 0 "H3" H 9000 10150 50  0000 L CNN
 F 1 "MountingHole_Pad" H 9000 10008 50  0001 L CNN
 F 2 "Custom Footprints:Ref_only" H 8900 10050 50  0001 C CNN
 F 3 "https://www.mouser.com/datasheet/2/445/971300476-1380811.pdf" H 8900 10050 50  0001 C CNN
@@ -3093,10 +3093,10 @@ F 5 "971300476" H 8900 10050 50  0001 C CNN "Part #"
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0174
 U 1 1 5FB0A3A7
 P 8300 10850
-F 0 "#PWR?" H 8300 10600 50  0001 C CNN
+F 0 "#PWR0174" H 8300 10600 50  0001 C CNN
 F 1 "GND" H 8400 10700 50  0000 R CNN
 F 2 "" H 8300 10850 50  0001 C CNN
 F 3 "" H 8300 10850 50  0001 C CNN
@@ -3104,10 +3104,10 @@ F 3 "" H 8300 10850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H2
 U 1 1 5FB0A3AF
 P 8300 10750
-F 0 "H?" H 8100 10800 50  0000 L CNN
+F 0 "H2" H 8100 10800 50  0000 L CNN
 F 1 "MountingHole_Pad" H 8400 10708 50  0001 L CNN
 F 2 "Custom Footprints:Ref_only" H 8300 10750 50  0001 C CNN
 F 3 "https://www.mouser.com/datasheet/2/445/971300476-1380811.pdf" H 8300 10750 50  0001 C CNN
@@ -3117,10 +3117,10 @@ F 5 "971300476" H 8300 10750 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0175
 U 1 1 5FB1B0A7
 P 8900 10850
-F 0 "#PWR?" H 8900 10600 50  0001 C CNN
+F 0 "#PWR0175" H 8900 10600 50  0001 C CNN
 F 1 "GND" H 9000 10700 50  0000 R CNN
 F 2 "" H 8900 10850 50  0001 C CNN
 F 3 "" H 8900 10850 50  0001 C CNN
@@ -3128,10 +3128,10 @@ F 3 "" H 8900 10850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H4
 U 1 1 5FB1B0AF
 P 8900 10750
-F 0 "H?" H 8700 10800 50  0000 L CNN
+F 0 "H4" H 8700 10800 50  0000 L CNN
 F 1 "MountingHole_Pad" H 9000 10708 50  0001 L CNN
 F 2 "Custom Footprints:Ref_only" H 8900 10750 50  0001 C CNN
 F 3 "https://www.mouser.com/datasheet/2/445/971300476-1380811.pdf" H 8900 10750 50  0001 C CNN
@@ -3141,10 +3141,10 @@ F 5 "971300476" H 8900 10750 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H?
+L Mechanical:MountingHole_Pad H1
 U 1 1 5FACF30E
 P 8300 10050
-F 0 "H?" H 8400 10100 50  0000 L CNN
+F 0 "H1" H 8400 10100 50  0000 L CNN
 F 1 "MountingHole_Pad" H 8400 10008 50  0001 L CNN
 F 2 "Custom Footprints:NF-A9_with_standoffs_and_bolts" H 8300 10050 50  0001 C CNN
 F 3 "https://www.mouser.com/datasheet/2/445/971300476-1380811.pdf" H 8300 10050 50  0001 C CNN
@@ -3154,10 +3154,10 @@ F 5 "971300476" H 8300 10050 50  0001 C CNN "Part #"
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0177
 U 1 1 5FACF308
 P 8300 9950
-F 0 "#PWR?" H 8300 9700 50  0001 C CNN
+F 0 "#PWR0177" H 8300 9700 50  0001 C CNN
 F 1 "GND" H 8400 9800 50  0000 R CNN
 F 2 "" H 8300 9950 50  0001 C CNN
 F 3 "" H 8300 9950 50  0001 C CNN
@@ -3175,6 +3175,17 @@ F 3 "http://suddendocs.samtec.com/catalog_english/tsm.pdf" H 8600 10410 50  0001
 F 4 "Samtec Inc." H 8600 10400 50  0001 C CNN "Manufacturer"
 F 5 "TSM-104-02-L-SV" H 8600 10400 50  0001 C CNN "Part #"
 	1    8600 10400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5FC416EF
+P 1400 2050
+F 0 "#PWR?" H 1400 1800 50  0001 C CNN
+F 1 "GND" H 1600 1950 50  0000 R CNN
+F 2 "" H 1400 2050 50  0001 C CNN
+F 3 "" H 1400 2050 50  0001 C CNN
+	1    1400 2050
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
