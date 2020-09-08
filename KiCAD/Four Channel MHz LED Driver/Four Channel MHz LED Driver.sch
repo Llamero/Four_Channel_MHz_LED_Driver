@@ -594,7 +594,7 @@ U 1 1 5F4EBD0C
 P 1850 3500
 F 0 "JP1" H 1850 3600 50  0000 C CNN
 F 1 "LED wire" H 1850 3700 50  0000 C CNN
-F 2 "Custom Footprints:Wire_Pad" H 1850 3500 50  0001 C CNN
+F 2 "Custom Footprints:L-Wire_Pad" H 1850 3500 50  0001 C CNN
 F 3 "~" H 1850 3500 50  0001 C CNN
 	1    1850 3500
 	1    0    0    -1  
@@ -1319,7 +1319,7 @@ F 3 "" H 5300 8050 50  0001 C CNN
 	1    5300 8050
 	-1   0    0    -1  
 $EndComp
-Text Label 10800 2500 2    50   ~ 0
+Text Label 9250 2300 2    50   ~ 0
 Toggle_switch
 Text Label 8950 1700 2    50   ~ 0
 Internal_Isense
@@ -2370,13 +2370,13 @@ $EndComp
 $Comp
 L power:GND #PWR0150
 U 1 1 5F8E7DFD
-P 8050 4100
-F 0 "#PWR0150" H 8050 3850 50  0001 C CNN
-F 1 "GND" V 8050 4000 50  0000 R CNN
-F 2 "" H 8050 4100 50  0001 C CNN
-F 3 "" H 8050 4100 50  0001 C CNN
-	1    8050 4100
-	0    -1   -1   0   
+P 7650 4000
+F 0 "#PWR0150" H 7650 3750 50  0001 C CNN
+F 1 "GND" V 7650 3900 50  0000 R CNN
+F 2 "" H 7650 4000 50  0001 C CNN
+F 3 "" H 7650 4000 50  0001 C CNN
+	1    7650 4000
+	0    1    1    0   
 $EndComp
 $Comp
 L power:GND #PWR0151
@@ -2444,27 +2444,27 @@ F 3 "" H 9250 5050 50  0001 C CNN
 	1    9250 5050
 	0    1    1    0   
 $EndComp
-Text Label 10800 2600 2    50   ~ 0
-Button1
 Text Label 10800 2800 2    50   ~ 0
-Button2
-Text Label 10800 3000 2    50   ~ 0
-Button3
-Text Label 9500 1700 2    50   ~ 0
-Button4
-Text Label 7650 4000 2    50   ~ 0
 Button1
-Text Label 7650 4750 2    50   ~ 0
+Text Label 10800 2600 2    50   ~ 0
 Button2
-Text Label 9250 4000 2    50   ~ 0
-Button3
-Text Label 9250 4750 2    50   ~ 0
-Button4
 Text Label 10800 2700 2    50   ~ 0
-LED1
-Text Label 10800 2900 2    50   ~ 0
-LED2
+Button3
 Text Label 10800 3100 2    50   ~ 0
+Button4
+Text Label 8350 3900 0    50   ~ 0
+Button1
+Text Label 8350 4650 0    50   ~ 0
+Button2
+Text Label 9950 3900 0    50   ~ 0
+Button3
+Text Label 9950 4650 0    50   ~ 0
+Button4
+Text Label 10800 3000 2    50   ~ 0
+LED1
+Text Label 10800 2500 2    50   ~ 0
+LED2
+Text Label 10800 2900 2    50   ~ 0
 LED3
 Text Label 10800 3200 2    50   ~ 0
 LED4
@@ -2476,10 +2476,6 @@ Text Label 9950 4300 0    50   ~ 0
 LED3
 Text Label 9950 5050 0    50   ~ 0
 LED4
-NoConn ~ 8050 3900
-NoConn ~ 8050 4650
-NoConn ~ 9650 3900
-NoConn ~ 9650 4650
 NoConn ~ 8300 8950
 NoConn ~ 7450 9000
 $Comp
@@ -2524,55 +2520,16 @@ F 5 "EXB-38V151JV" V 5650 2050 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R_Pack04_Split RN2
+L Device:R_Pack08_Split RN2
 U 1 1 5F9E09BB
 P 9800 5050
 F 0 "RN2" V 9900 5050 50  0000 C CNN
 F 1 "150" V 9800 5050 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 10075 5050 50  0001 C CNN
+F 2 "Custom Footprints:EXB-2HV151JV-1605x8" V 10075 5050 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 9800 5050 50  0001 C CNN
 F 4 "Panasonic Electronic Components" V 9800 5050 50  0001 C CNN "Manufacturer"
-F 5 "EXB-38V151JV" V 9800 5050 50  0001 C CNN "Part #"
+F 5 "EXB-2HV151JV" V 9800 5050 50  0001 C CNN "Part #"
 	1    9800 5050
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:R_Pack04_Split RN2
-U 2 1 5F9E5ED4
-P 9800 4300
-F 0 "RN2" V 9900 4300 50  0000 C CNN
-F 1 "150" V 9800 4300 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 10075 4300 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 9800 4300 50  0001 C CNN
-F 4 "Panasonic Electronic Components" V 9800 4300 50  0001 C CNN "Manufacturer"
-F 5 "EXB-38V151JV" V 9800 4300 50  0001 C CNN "Part #"
-	2    9800 4300
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:R_Pack04_Split RN2
-U 3 1 5F9E7B6F
-P 8200 5050
-F 0 "RN2" V 8300 5050 50  0000 C CNN
-F 1 "150" V 8200 5050 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 8475 5050 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 8200 5050 50  0001 C CNN
-F 4 "Panasonic Electronic Components" V 8200 5050 50  0001 C CNN "Manufacturer"
-F 5 "EXB-38V151JV" V 8200 5050 50  0001 C CNN "Part #"
-	3    8200 5050
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:R_Pack04_Split RN2
-U 4 1 5F9E8C0F
-P 8200 4300
-F 0 "RN2" V 8300 4300 50  0000 C CNN
-F 1 "150" V 8200 4300 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 8475 4300 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 8200 4300 50  0001 C CNN
-F 4 "Panasonic Electronic Components" V 8200 4300 50  0001 C CNN "Manufacturer"
-F 5 "EXB-38V151JV" V 8200 4300 50  0001 C CNN "Part #"
-	4    8200 4300
 	0    -1   -1   0   
 $EndComp
 Text Label 13100 1700 0    50   ~ 0
@@ -2588,7 +2545,7 @@ Wire Wire Line
 Wire Wire Line
 	1850 7050 1600 7050
 Wire Wire Line
-	850  5150 1400 5150
+	850  5150 1050 5150
 Text Notes 1700 3200 0    59   ~ 0
 LED bypass capacitors and connectors\nFor high current supplies use an in-line\ncapacitor with the power supply such as:\nUnited Chemi-Con E32D500HPN104MDA5M
 Text Label 4150 3900 2    50   ~ 0
@@ -2920,31 +2877,6 @@ F 3 "" H 11550 8450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:Jumper_NC_Small JP4
-U 1 1 5FC8D4A9
-P 11950 8350
-F 0 "JP4" V 11950 8300 50  0000 R CNN
-F 1 "Jumper_NC_Small" V 11905 8303 50  0001 R CNN
-F 2 "Custom Footprints:20A_shunt_5104" H 11950 8350 50  0001 C CNN
-F 3 "https://www.keyelco.com/userAssets/file/M65p54.pdf" H 11950 8350 50  0001 C CNN
-F 4 "Keystone Electronics" V 11950 8350 50  0001 C CNN "Manufacturer"
-F 5 "5104" V 11950 8350 50  0001 C CNN "Part #"
-	1    11950 8350
-	0    -1   -1   0   
-$EndComp
-Connection ~ 11950 8250
-$Comp
-L power:GND #PWR0181
-U 1 1 5FC8DFD5
-P 11950 8450
-F 0 "#PWR0181" H 11950 8200 50  0001 C CNN
-F 1 "GND" H 12000 8300 50  0000 R CNN
-F 2 "" H 11950 8450 50  0001 C CNN
-F 3 "" H 11950 8450 50  0001 C CNN
-	1    11950 8450
-	1    0    0    -1  
-$EndComp
-$Comp
 L Motor:Fan_4pin M1
 U 1 1 603842B5
 P 8600 10400
@@ -3126,4 +3058,178 @@ F 3 "" H 8900 10750 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 Connection ~ 2300 1950
+$Comp
+L power:GND #PWR0114
+U 1 1 5F7666A8
+P 8050 4100
+F 0 "#PWR0114" H 8050 3850 50  0001 C CNN
+F 1 "GND" V 8050 4000 50  0000 R CNN
+F 2 "" H 8050 4100 50  0001 C CNN
+F 3 "" H 8050 4100 50  0001 C CNN
+	1    8050 4100
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0157
+U 1 1 5F76982C
+P 7650 4750
+F 0 "#PWR0157" H 7650 4500 50  0001 C CNN
+F 1 "GND" V 7650 4650 50  0000 R CNN
+F 2 "" H 7650 4750 50  0001 C CNN
+F 3 "" H 7650 4750 50  0001 C CNN
+	1    7650 4750
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR0158
+U 1 1 5F769EF2
+P 9250 4750
+F 0 "#PWR0158" H 9250 4500 50  0001 C CNN
+F 1 "GND" V 9250 4650 50  0000 R CNN
+F 2 "" H 9250 4750 50  0001 C CNN
+F 3 "" H 9250 4750 50  0001 C CNN
+	1    9250 4750
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR0165
+U 1 1 5F76A90A
+P 9250 4000
+F 0 "#PWR0165" H 9250 3750 50  0001 C CNN
+F 1 "GND" V 9250 3900 50  0000 R CNN
+F 2 "" H 9250 4000 50  0001 C CNN
+F 3 "" H 9250 4000 50  0001 C CNN
+	1    9250 4000
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C_Small C10
+U 1 1 5F7E985C
+P 1050 5250
+F 0 "C10" H 1050 4950 50  0000 C CNN
+F 1 "47uF" H 1050 5050 50  0000 C CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 1050 5250 50  0001 C CNN
+F 3 "https://www.digikey.com/en/ptm/m/murata-electronics-north-america/high-cap-multilayer-ceramic-capacitors?pn_sku=490-16268-1-ND&part_id=7363259" H 1050 5250 50  0001 C CNN
+F 4 "Murata Electronics" H 1050 5250 50  0001 C CNN "Manufacturer"
+F 5 "GRM31CR61E476ME44L" H 1050 5250 50  0001 C CNN "Part #"
+	1    1050 5250
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0166
+U 1 1 5F7E9862
+P 1050 5350
+F 0 "#PWR0166" H 1050 5100 50  0001 C CNN
+F 1 "GND" H 1050 5350 50  0000 R CNN
+F 2 "" H 1050 5350 50  0001 C CNN
+F 3 "" H 1050 5350 50  0001 C CNN
+	1    1050 5350
+	1    0    0    -1  
+$EndComp
+Connection ~ 1050 5150
+Wire Wire Line
+	1050 5150 1400 5150
+$Comp
+L Device:R_Pack08_Split RN2
+U 6 1 5F84EDCC
+P 8200 4650
+F 0 "RN2" V 8100 4650 50  0000 C CNN
+F 1 "150" V 8200 4650 50  0000 C CNN
+F 2 "Custom Footprints:EXB-2HV151JV-1605x8" V 8475 4650 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 8200 4650 50  0001 C CNN
+F 4 "Panasonic Electronic Components" V 8200 4650 50  0001 C CNN "Manufacturer"
+F 5 "EXB-2HV151JV" V 8200 4650 50  0001 C CNN "Part #"
+	6    8200 4650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN2
+U 4 1 5F84D0C7
+P 9800 3900
+F 0 "RN2" V 9700 3900 50  0000 C CNN
+F 1 "150" V 9800 3900 50  0000 C CNN
+F 2 "Custom Footprints:EXB-2HV151JV-1605x8" V 10075 3900 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 9800 3900 50  0001 C CNN
+F 4 "Panasonic Electronic Components" V 9800 3900 50  0001 C CNN "Manufacturer"
+F 5 "EXB-2HV151JV" V 9800 3900 50  0001 C CNN "Part #"
+	4    9800 3900
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN2
+U 2 1 5F84A713
+P 9800 4650
+F 0 "RN2" V 9700 4650 50  0000 C CNN
+F 1 "150" V 9800 4650 50  0000 C CNN
+F 2 "Custom Footprints:EXB-2HV151JV-1605x8" V 10075 4650 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 9800 4650 50  0001 C CNN
+F 4 "Panasonic Electronic Components" V 9800 4650 50  0001 C CNN "Manufacturer"
+F 5 "EXB-2HV151JV" V 9800 4650 50  0001 C CNN "Part #"
+	2    9800 4650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN2
+U 7 1 5F849766
+P 8200 4300
+F 0 "RN2" V 8300 4300 50  0000 C CNN
+F 1 "150" V 8200 4300 50  0000 C CNN
+F 2 "Custom Footprints:EXB-2HV151JV-1605x8" V 8475 4300 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 8200 4300 50  0001 C CNN
+F 4 "Panasonic Electronic Components" V 8200 4300 50  0001 C CNN "Manufacturer"
+F 5 "EXB-2HV151JV" V 8200 4300 50  0001 C CNN "Part #"
+	7    8200 4300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN2
+U 5 1 5F84849F
+P 8200 5050
+F 0 "RN2" V 8300 5050 50  0000 C CNN
+F 1 "150" V 8200 5050 50  0000 C CNN
+F 2 "Custom Footprints:EXB-2HV151JV-1605x8" V 8475 5050 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 8200 5050 50  0001 C CNN
+F 4 "Panasonic Electronic Components" V 8200 5050 50  0001 C CNN "Manufacturer"
+F 5 "EXB-2HV151JV" V 8200 5050 50  0001 C CNN "Part #"
+	5    8200 5050
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN2
+U 3 1 5F84664F
+P 9800 4300
+F 0 "RN2" V 9900 4300 50  0000 C CNN
+F 1 "150" V 9800 4300 50  0000 C CNN
+F 2 "Custom Footprints:EXB-2HV151JV-1605x8" V 10075 4300 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 9800 4300 50  0001 C CNN
+F 4 "Panasonic Electronic Components" V 9800 4300 50  0001 C CNN "Manufacturer"
+F 5 "EXB-2HV151JV" V 9800 4300 50  0001 C CNN "Part #"
+	3    9800 4300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN2
+U 8 1 5F84DE4B
+P 8200 3900
+F 0 "RN2" V 8100 3900 50  0000 C CNN
+F 1 "150" V 8200 3900 50  0000 C CNN
+F 2 "Custom Footprints:EXB-2HV151JV-1605x8" V 8475 3900 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 8200 3900 50  0001 C CNN
+F 4 "Panasonic Electronic Components" V 8200 3900 50  0001 C CNN "Manufacturer"
+F 5 "EXB-2HV151JV" V 8200 3900 50  0001 C CNN "Part #"
+	8    8200 3900
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	9650 3900 9950 3900
+Connection ~ 9650 3900
+Wire Wire Line
+	9950 4650 9650 4650
+Connection ~ 9650 4650
+Wire Wire Line
+	8350 4650 8050 4650
+Connection ~ 8050 4650
+Wire Wire Line
+	8350 3900 8050 3900
+Connection ~ 8050 3900
 $EndSCHEMATC
