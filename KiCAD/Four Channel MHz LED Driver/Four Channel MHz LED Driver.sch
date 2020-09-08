@@ -338,19 +338,19 @@ NoConn ~ 13100 4950
 NoConn ~ 13100 5050
 NoConn ~ 13100 5150
 NoConn ~ 13100 5250
-Text Label 2650 1200 2    50   ~ 0
+Text Label 2600 1000 2    50   ~ 0
 Vin
-Text Label 2000 1000 0    50   ~ 0
+Text Label 1950 800  0    50   ~ 0
 12V
 $Comp
 L power:GND #PWR0123
 U 1 1 5F56462A
-P 2550 1100
-F 0 "#PWR0123" H 2550 850 50  0001 C CNN
-F 1 "GND" V 2450 1050 50  0000 R CNN
-F 2 "" H 2550 1100 50  0001 C CNN
-F 3 "" H 2550 1100 50  0001 C CNN
-	1    2550 1100
+P 2500 900
+F 0 "#PWR0123" H 2500 650 50  0001 C CNN
+F 1 "GND" V 2400 850 50  0000 R CNN
+F 2 "" H 2500 900 50  0001 C CNN
+F 3 "" H 2500 900 50  0001 C CNN
+	1    2500 900 
 	0    1    1    0   
 $EndComp
 Wire Wire Line
@@ -1599,7 +1599,7 @@ F 5 "SMT-0940-T-3V-R" H 11400 10250 50  0001 C CNN "Part #"
 	1    11400 10250
 	1    0    0    -1  
 $EndComp
-Text Label 13100 1400 0    50   ~ 0
+Text Label 13100 1600 0    50   ~ 0
 External_5V_PWM3
 $Comp
 L Mechanical:Heatsink HS2
@@ -2270,47 +2270,47 @@ $EndComp
 $Comp
 L Custom_parts:Conn_01x03_Female J9
 U 1 1 5F7AA12C
-P 2850 1100
-F 0 "J9" H 2750 1250 50  0000 L CNN
-F 1 "Conn_01x03_Female" H 2400 900 50  0000 L CNN
-F 2 "Custom Footprints:Ref_only" H 2850 1100 50  0001 C CNN
-F 3 "https://www.samtec.com/products/ssm-103-l-sv-lc" H 2850 1100 50  0001 C CNN
-F 4 "Samtec Inc." H 2850 1100 50  0001 C CNN "Manufacturer"
-F 5 "SSM-103-L-SV" H 2850 1100 50  0001 C CNN "Part #"
-	1    2850 1100
+P 2800 900
+F 0 "J9" H 2700 1050 50  0000 L CNN
+F 1 "Conn_01x03_Female" H 2350 700 50  0000 L CNN
+F 2 "Custom Footprints:Ref_only" H 2800 900 50  0001 C CNN
+F 3 "https://www.samtec.com/products/ssm-103-l-sv-lc" H 2800 900 50  0001 C CNN
+F 4 "Samtec Inc." H 2800 900 50  0001 C CNN "Manufacturer"
+F 5 "SSM-103-L-SV" H 2800 900 50  0001 C CNN "Part #"
+	1    2800 900 
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0122
 U 1 1 5F7F0B00
-P 2100 1100
-F 0 "#PWR0122" H 2100 850 50  0001 C CNN
-F 1 "GND" V 2200 1050 50  0000 R CNN
-F 2 "" H 2100 1100 50  0001 C CNN
-F 3 "" H 2100 1100 50  0001 C CNN
-	1    2100 1100
+P 2050 900
+F 0 "#PWR0122" H 2050 650 50  0001 C CNN
+F 1 "GND" V 2150 850 50  0000 R CNN
+F 2 "" H 2050 900 50  0001 C CNN
+F 3 "" H 2050 900 50  0001 C CNN
+	1    2050 900 
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	2550 1100 2650 1100
+	2500 900  2600 900 
 $Comp
 L Custom_parts:Conn_01x03_Male J6
 U 1 1 5F80DD63
-P 1800 1100
-F 0 "J6" H 1900 1250 50  0000 C CNN
-F 1 "Conn_01x03_Male" H 2050 900 50  0000 C CNN
-F 2 "Custom Footprints:Ref_only" H 1800 1100 50  0001 C CNN
-F 3 "http://www.adam-tech.com/downloader.php?p=PH1RB-XX-UA.pdf" H 1800 1100 50  0001 C CNN
-F 4 "Adam Tech" H 1800 1100 50  0001 C CNN "Manufacturer"
-F 5 "PH1RB-03-UA" H 1800 1100 50  0001 C CNN "Part #"
-	1    1800 1100
+P 1750 900
+F 0 "J6" H 1850 1050 50  0000 C CNN
+F 1 "Conn_01x03_Male" H 2000 700 50  0000 C CNN
+F 2 "Custom Footprints:Ref_only" H 1750 900 50  0001 C CNN
+F 3 "http://www.adam-tech.com/downloader.php?p=PH1RB-XX-UA.pdf" H 1750 900 50  0001 C CNN
+F 4 "Adam Tech" H 1750 900 50  0001 C CNN "Manufacturer"
+F 5 "PH1RB-03-UA" H 1750 900 50  0001 C CNN "Part #"
+	1    1750 900 
 	1    0    0    -1  
 $EndComp
-Text Label 2000 1200 0    50   ~ 0
+Text Label 1950 1000 0    50   ~ 0
 Vin
 Wire Wire Line
-	2100 1100 2000 1100
-Text Label 2650 1000 2    50   ~ 0
+	2050 900  1950 900 
+Text Label 2600 800  2    50   ~ 0
 12V
 $Comp
 L Custom_parts:Conn_01x08_Female J10
@@ -2585,8 +2585,6 @@ F 3 "" H 2850 1850 50  0001 C CNN
 	1    2850 1850
 	1    0    0    -1  
 $EndComp
-Text Notes 4550 -50  0    118  ~ 0
-See if there is a bigger zener set for D6 or split to 2 parts\n\nGND via - 9410-3ML and TIPS#15X1\n\nAdd shunt from Isense to fan post - https://www.digikey.com/product-detail/en/keystone-electronics/5104/36-5104-ND/4780769
 Wire Wire Line
 	1350 1650 2000 1650
 Wire Wire Line
@@ -2679,7 +2677,7 @@ Wire Wire Line
 	1800 9900 1800 9800
 Wire Wire Line
 	2200 9900 1800 9900
-Text Label 3050 10100 0    50   ~ 0
+Text Label 3050 9700 0    50   ~ 0
 External_5V_PWM3
 Text Label 2200 9800 2    50   ~ 0
 5V_fan_PWM
@@ -2694,7 +2692,7 @@ F 3 "" H 3050 10000 50  0001 C CNN
 	1    3050 10000
 	0    -1   1    0   
 $EndComp
-Text Label 3050 9700 0    50   ~ 0
+Text Label 3050 10100 0    50   ~ 0
 External_5V_PWM1
 Wire Wire Line
 	1850 9700 2200 9700
@@ -2815,7 +2813,7 @@ Wire Wire Line
 	1850 9400 1600 9400
 Text Label 13100 1500 0    50   ~ 0
 External_5V_PWM2
-Text Label 13100 1600 0    50   ~ 0
+Text Label 13100 1400 0    50   ~ 0
 External_5V_PWM1
 $Comp
 L power:GND #PWR0171
@@ -3234,4 +3232,29 @@ Wire Wire Line
 Connection ~ 8050 3900
 NoConn ~ 3650 6250
 NoConn ~ 3650 6550
+$Comp
+L Device:Jumper_NO_Small JP4
+U 1 1 5F9F89CD
+P 2300 1300
+F 0 "JP4" H 2350 1250 50  0000 R CNN
+F 1 "Jumper_NC_Small" V 2255 1253 50  0001 R CNN
+F 2 "Resistor_SMD:R_2010_5025Metric" H 2300 1300 50  0001 C CNN
+F 3 "http://www.koaspeer.com/pdfs/RK73Z.pdf" H 2300 1300 50  0001 C CNN
+F 4 "KOA Speer Electronics, Inc." V 2300 1300 50  0001 C CNN "Manufacturer"
+F 5 "RK73Z2HTTE" V 2300 1300 50  0001 C CNN "Part #"
+	1    2300 1300
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2200 1300 2000 1300
+Wire Wire Line
+	2000 1300 2000 1650
+Connection ~ 2000 1650
+Wire Wire Line
+	2400 1300 2600 1300
+Wire Wire Line
+	2600 1300 2600 1650
+Connection ~ 2600 1650
+Text Notes 2400 1300 0    50   ~ 0
+Optional bypass jumper
 $EndSCHEMATC

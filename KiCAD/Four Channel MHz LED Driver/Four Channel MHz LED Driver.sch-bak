@@ -195,7 +195,7 @@ $EndComp
 Connection ~ 4950 1300
 Text Label 4650 6550 2    50   ~ 0
 -0.25V_analog
-Text Label 3900 6150 2    50   ~ 0
+Text Label 3900 6450 2    50   ~ 0
 5V
 Text Label 2150 6850 0    50   ~ 0
 external_analog
@@ -1234,7 +1234,7 @@ F 3 "" H 1600 9100 50  0001 C CNN
 	1    1600 9100
 	0    -1   -1   0   
 $EndComp
-Text Label 9150 1150 2    50   ~ 0
+Text Label 10800 1500 2    50   ~ 0
 Interline_PWM
 Text Label 9000 1250 2    50   ~ 0
 Analog_select
@@ -1599,7 +1599,7 @@ F 5 "SMT-0940-T-3V-R" H 11400 10250 50  0001 C CNN "Part #"
 	1    11400 10250
 	1    0    0    -1  
 $EndComp
-Text Label 13100 1400 0    50   ~ 0
+Text Label 13100 1600 0    50   ~ 0
 External_5V_PWM3
 $Comp
 L Mechanical:Heatsink HS2
@@ -2132,14 +2132,14 @@ $EndComp
 $Comp
 L Device:R_Pack08_Split RN3
 U 5 1 5F648A31
-P 3900 6300
-F 0 "RN3" V 3800 6300 50  0000 C CNN
-F 1 "4.7k" V 3900 6300 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 4375 6300 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 3900 6300 50  0001 C CNN
-F 4 "CTS Resistor Products" V 3900 6300 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 3900 6300 50  0001 C CNN "Part #"
-	5    3900 6300
+P 3650 6400
+F 0 "RN3" V 3550 6400 50  0000 C CNN
+F 1 "4.7k" V 3650 6400 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 4125 6400 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 3650 6400 50  0001 C CNN
+F 4 "CTS Resistor Products" V 3650 6400 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 3650 6400 50  0001 C CNN "Part #"
+	5    3650 6400
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -2272,7 +2272,7 @@ L Custom_parts:Conn_01x03_Female J9
 U 1 1 5F7AA12C
 P 2850 1100
 F 0 "J9" H 2750 1250 50  0000 L CNN
-F 1 "Conn_01x03_Female" H 2400 900 50  0000 L CNN
+F 1 "Conn_01x03_Female" H 2400 900 50  0001 L CNN
 F 2 "Custom Footprints:Ref_only" H 2850 1100 50  0001 C CNN
 F 3 "https://www.samtec.com/products/ssm-103-l-sv-lc" H 2850 1100 50  0001 C CNN
 F 4 "Samtec Inc." H 2850 1100 50  0001 C CNN "Manufacturer"
@@ -2298,7 +2298,7 @@ L Custom_parts:Conn_01x03_Male J6
 U 1 1 5F80DD63
 P 1800 1100
 F 0 "J6" H 1900 1250 50  0000 C CNN
-F 1 "Conn_01x03_Male" H 2050 900 50  0000 C CNN
+F 1 "Conn_01x03_Male" H 2050 900 50  0001 C CNN
 F 2 "Custom Footprints:Ref_only" H 1800 1100 50  0001 C CNN
 F 3 "http://www.adam-tech.com/downloader.php?p=PH1RB-XX-UA.pdf" H 1800 1100 50  0001 C CNN
 F 4 "Adam Tech" H 1800 1100 50  0001 C CNN "Manufacturer"
@@ -2679,7 +2679,7 @@ Wire Wire Line
 	1800 9900 1800 9800
 Wire Wire Line
 	2200 9900 1800 9900
-Text Label 3050 10100 0    50   ~ 0
+Text Label 3050 9700 0    50   ~ 0
 External_5V_PWM3
 Text Label 2200 9800 2    50   ~ 0
 5V_fan_PWM
@@ -2694,7 +2694,7 @@ F 3 "" H 3050 10000 50  0001 C CNN
 	1    3050 10000
 	0    -1   1    0   
 $EndComp
-Text Label 3050 9700 0    50   ~ 0
+Text Label 3050 10100 0    50   ~ 0
 External_5V_PWM1
 Wire Wire Line
 	1850 9700 2200 9700
@@ -2815,7 +2815,7 @@ Wire Wire Line
 	1850 9400 1600 9400
 Text Label 13100 1500 0    50   ~ 0
 External_5V_PWM2
-Text Label 13100 1600 0    50   ~ 0
+Text Label 13100 1400 0    50   ~ 0
 External_5V_PWM1
 $Comp
 L power:GND #PWR0171
@@ -3232,4 +3232,31 @@ Connection ~ 8050 4650
 Wire Wire Line
 	8350 3900 8050 3900
 Connection ~ 8050 3900
+NoConn ~ 3650 6250
+NoConn ~ 3650 6550
+$Comp
+L Device:Jumper_NO_Small JP4
+U 1 1 5F9F89CD
+P 2300 1300
+F 0 "JP4" H 2350 1250 50  0000 R CNN
+F 1 "Jumper_NC_Small" V 2255 1253 50  0001 R CNN
+F 2 "Resistor_SMD:R_2010_5025Metric" H 2300 1300 50  0001 C CNN
+F 3 "http://www.koaspeer.com/pdfs/RK73Z.pdf" H 2300 1300 50  0001 C CNN
+F 4 "KOA Speer Electronics, Inc." V 2300 1300 50  0001 C CNN "Manufacturer"
+F 5 "RK73Z2HTTE" V 2300 1300 50  0001 C CNN "Part #"
+	1    2300 1300
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2200 1300 2000 1300
+Wire Wire Line
+	2000 1300 2000 1650
+Connection ~ 2000 1650
+Wire Wire Line
+	2400 1300 2600 1300
+Wire Wire Line
+	2600 1300 2600 1650
+Connection ~ 2600 1650
+Text Notes 2400 1300 0    50   ~ 0
+Optional bypass jumper
 $EndSCHEMATC
