@@ -195,7 +195,7 @@ $EndComp
 Connection ~ 4950 1300
 Text Label 4650 6550 2    50   ~ 0
 -0.25V_analog
-Text Label 3900 6150 2    50   ~ 0
+Text Label 3900 6450 2    50   ~ 0
 5V
 Text Label 2150 6850 0    50   ~ 0
 external_analog
@@ -1234,7 +1234,7 @@ F 3 "" H 1600 9100 50  0001 C CNN
 	1    1600 9100
 	0    -1   -1   0   
 $EndComp
-Text Label 9150 1150 2    50   ~ 0
+Text Label 10800 1500 2    50   ~ 0
 Interline_PWM
 Text Label 9000 1250 2    50   ~ 0
 Analog_select
@@ -2132,14 +2132,14 @@ $EndComp
 $Comp
 L Device:R_Pack08_Split RN3
 U 5 1 5F648A31
-P 3900 6300
-F 0 "RN3" V 3800 6300 50  0000 C CNN
-F 1 "4.7k" V 3900 6300 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 4375 6300 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 3900 6300 50  0001 C CNN
-F 4 "CTS Resistor Products" V 3900 6300 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 3900 6300 50  0001 C CNN "Part #"
-	5    3900 6300
+P 3650 6400
+F 0 "RN3" V 3550 6400 50  0000 C CNN
+F 1 "4.7k" V 3650 6400 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 4125 6400 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 3650 6400 50  0001 C CNN
+F 4 "CTS Resistor Products" V 3650 6400 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 3650 6400 50  0001 C CNN "Part #"
+	5    3650 6400
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -3232,4 +3232,6 @@ Connection ~ 8050 4650
 Wire Wire Line
 	8350 3900 8050 3900
 Connection ~ 8050 3900
+NoConn ~ 3650 6250
+NoConn ~ 3650 6550
 $EndSCHEMATC
