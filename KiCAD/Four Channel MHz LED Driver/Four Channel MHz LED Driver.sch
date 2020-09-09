@@ -153,9 +153,9 @@ Wire Wire Line
 	5400 6550 5450 6550
 Wire Wire Line
 	5450 6750 5400 6750
-Text Label 5450 6550 0    50   ~ 0
-internal_analog
 Text Label 5450 6750 0    50   ~ 0
+internal_analog
+Text Label 5450 6550 0    50   ~ 0
 external_analog
 Connection ~ 4750 1700
 Wire Wire Line
@@ -197,7 +197,7 @@ Text Label 4650 6550 2    50   ~ 0
 -0.25V_analog
 Text Label 3900 6450 2    50   ~ 0
 5V
-Text Label 2150 6850 0    50   ~ 0
+Text Label 2150 7050 0    50   ~ 0
 external_analog
 $Comp
 L Connector:Barrel_Jack_Switch J1
@@ -1236,7 +1236,7 @@ F 3 "" H 1600 9100 50  0001 C CNN
 $EndComp
 Text Label 10800 1500 2    50   ~ 0
 Interline_PWM
-Text Label 9000 1250 2    50   ~ 0
+Text Label 10800 2100 2    50   ~ 0
 Analog_select
 Text Label 4650 6450 2    50   ~ 0
 Interline_PWM
@@ -1248,13 +1248,13 @@ Wire Notes Line
 	8750 6700 16050 6700
 Text Label 10800 3300 2    50   ~ 0
 Over_temp_alarm1
-Text Label 8650 3100 2    50   ~ 0
+Text Label 15000 2750 0    50   ~ 0
 A-D_input_1
-Text Label 8650 3200 2    50   ~ 0
+Text Label 15000 2850 0    50   ~ 0
 A-D_input_2
-Text Label 8650 3300 2    50   ~ 0
+Text Label 15000 2950 0    50   ~ 0
 A-D_input_3
-Text Label 8650 3400 2    50   ~ 0
+Text Label 15000 3050 0    50   ~ 0
 A-D_input_4
 Text Label 2150 7750 0    50   ~ 0
 A-D_input_1
@@ -1274,9 +1274,9 @@ Text Label 5400 11150 2    50   ~ 0
 A-D_input_4
 Text Label 13100 3300 0    50   ~ 0
 LED_pot
-Text Label 8600 2850 2    50   ~ 0
+Text Label 15050 2500 0    50   ~ 0
 MOSFET_temp
-Text Label 8600 2750 2    50   ~ 0
+Text Label 15050 2400 0    50   ~ 0
 Resistor_temp
 $Comp
 L Device:Thermistor TH1
@@ -1319,10 +1319,8 @@ F 3 "" H 5300 8050 50  0001 C CNN
 	1    5300 8050
 	-1   0    0    -1  
 $EndComp
-Text Label 9250 2300 2    50   ~ 0
+Text Label 10800 2300 2    50   ~ 0
 Toggle_switch
-Text Label 8950 1700 2    50   ~ 0
-Internal_Isense
 Wire Wire Line
 	4650 6900 3900 6900
 $Comp
@@ -1385,7 +1383,7 @@ F 3 "" H 7550 2500 50  0001 C CNN
 	1    7550 2500
 	1    0    0    -1  
 $EndComp
-Text Label 9050 800  2    50   ~ 0
+Text Label 10800 2200 2    50   ~ 0
 Over_temp_alarm2
 Text Label 11300 10150 2    50   ~ 0
 Over_temp_alarm1
@@ -1512,7 +1510,7 @@ F 5 "SSM-124-L-SV-LC" H 14050 2100 50  0001 C CNN "Part #"
 	1    14050 2100
 	1    0    0    -1  
 $EndComp
-Text Label 8950 2000 2    50   ~ 0
+Text Label 15050 2300 0    50   ~ 0
 External_thermistor
 Wire Wire Line
 	10800 3300 10050 3300
@@ -1853,22 +1851,9 @@ F 3 "" H 3000 11050 50  0001 C CNN
 $EndComp
 Text Label 3000 10850 0    50   ~ 0
 3.3V
-$Comp
-L Custom_parts:BAT54SDW D7
-U 1 1 5F8E6B1A
-P 2450 10750
-F 0 "D7" H 2700 11050 60  0000 C CNN
-F 1 "BAT54SDW" H 2700 10950 60  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 2650 10950 60  0001 L CNN
-F 3 "https://www.diodes.com/assets/Datasheets/ds30152.pdf" H 2650 11050 60  0001 L CNN
-F 4 "Diodes Incorporated" H 2450 10750 50  0001 C CNN "Manufacturer"
-F 5 "BAT54SDW-7-F" H 2450 10750 50  0001 C CNN "Part #"
-	1    2450 10750
-	1    0    0    -1  
-$EndComp
 Text Label 2250 11050 2    50   ~ 0
 external_analog
-Text Label 2150 7050 0    50   ~ 0
+Text Label 2150 6850 0    50   ~ 0
 Isense
 Wire Wire Line
 	850  4050 1150 4050
@@ -2053,7 +2038,7 @@ Wire Wire Line
 	2600 3850 3000 3850
 $Comp
 L Device:R_Pack04_Split RN1
-U 3 1 5F5FBFA1
+U 2 1 5F5FBFA1
 P 2000 6850
 F 0 "RN1" V 1900 6850 50  0000 C CNN
 F 1 "150" V 2000 6850 50  0000 C CNN
@@ -2061,7 +2046,7 @@ F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 2275 6850 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 2000 6850 50  0001 C CNN
 F 4 "Panasonic Electronic Components" V 2000 6850 50  0001 C CNN "Manufacturer"
 F 5 "EXB-38V151JV" V 2000 6850 50  0001 C CNN "Part #"
-	3    2000 6850
+	2    2000 6850
 	0    1    1    0   
 $EndComp
 $Comp
@@ -2119,28 +2104,28 @@ $EndComp
 $Comp
 L Device:R_Pack08_Split RN3
 U 8 1 5F643BA8
-P 4050 8050
-F 0 "RN3" V 4150 8050 50  0000 C CNN
-F 1 "4.7k" V 4050 8050 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 4525 8050 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4050 8050 50  0001 C CNN
-F 4 "CTS Resistor Products" V 4050 8050 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 4050 8050 50  0001 C CNN "Part #"
-	8    4050 8050
-	0    -1   1    0   
+P 2750 9200
+F 0 "RN3" V 2850 9200 50  0000 C CNN
+F 1 "4.7k" V 2750 9200 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 3225 9200 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2750 9200 50  0001 C CNN
+F 4 "CTS Resistor Products" V 2750 9200 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 2750 9200 50  0001 C CNN "Part #"
+	8    2750 9200
+	0    1    -1   0   
 $EndComp
 $Comp
 L Device:R_Pack08_Split RN3
 U 5 1 5F648A31
-P 3650 6400
-F 0 "RN3" V 3550 6400 50  0000 C CNN
-F 1 "4.7k" V 3650 6400 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 4125 6400 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 3650 6400 50  0001 C CNN
-F 4 "CTS Resistor Products" V 3650 6400 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 3650 6400 50  0001 C CNN "Part #"
-	5    3650 6400
-	-1   0    0    -1  
+P 4350 8500
+F 0 "RN3" V 4450 8500 50  0000 C CNN
+F 1 "4.7k" V 4350 8500 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 4825 8500 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4350 8500 50  0001 C CNN
+F 4 "CTS Resistor Products" V 4350 8500 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 4350 8500 50  0001 C CNN "Part #"
+	5    4350 8500
+	0    -1   1    0   
 $EndComp
 $Comp
 L Switch:SW_SPDT SW1
@@ -2480,7 +2465,7 @@ NoConn ~ 8300 8950
 NoConn ~ 7450 9000
 $Comp
 L Device:R_Pack04_Split RN1
-U 4 1 5F9CC36C
+U 1 1 5F9CC36C
 P 2000 7050
 F 0 "RN1" V 1900 7050 50  0000 C CNN
 F 1 "150" V 2000 7050 50  0000 C CNN
@@ -2488,14 +2473,14 @@ F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 2275 7050 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 2000 7050 50  0001 C CNN
 F 4 "Panasonic Electronic Components" V 2000 7050 50  0001 C CNN "Manufacturer"
 F 5 "EXB-38V151JV" V 2000 7050 50  0001 C CNN "Part #"
-	4    2000 7050
+	1    2000 7050
 	0    1    1    0   
 $EndComp
 Wire Wire Line
 	1600 6450 1850 6450
 $Comp
 L Device:R_Pack04_Split RN1
-U 1 1 5F9DAD99
+U 4 1 5F9DAD99
 P 5650 1750
 F 0 "RN1" H 5500 1750 50  0000 C CNN
 F 1 "150" V 5650 1750 50  0000 C CNN
@@ -2503,12 +2488,12 @@ F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 5925 1750 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 5650 1750 50  0001 C CNN
 F 4 "Panasonic Electronic Components" V 5650 1750 50  0001 C CNN "Manufacturer"
 F 5 "EXB-38V151JV" V 5650 1750 50  0001 C CNN "Part #"
-	1    5650 1750
+	4    5650 1750
 	-1   0    0    1   
 $EndComp
 $Comp
 L Device:R_Pack04_Split RN1
-U 2 1 5F9DEBDC
+U 3 1 5F9DEBDC
 P 5650 2050
 F 0 "RN1" H 5800 2050 50  0000 C CNN
 F 1 "150" V 5650 2050 50  0000 C CNN
@@ -2516,7 +2501,7 @@ F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 5925 2050 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 5650 2050 50  0001 C CNN
 F 4 "Panasonic Electronic Components" V 5650 2050 50  0001 C CNN "Manufacturer"
 F 5 "EXB-38V151JV" V 5650 2050 50  0001 C CNN "Part #"
-	2    5650 2050
+	3    5650 2050
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -2632,9 +2617,6 @@ Wire Wire Line
 	5900 1300 6150 1300
 Wire Wire Line
 	6050 1800 6050 2000
-NoConn ~ 2250 10850
-NoConn ~ 2250 10650
-NoConn ~ 3000 10650
 $Comp
 L Device:R_Small R6
 U 1 1 5F6690CD
@@ -2789,14 +2771,14 @@ Internal_fan_PWM
 $Comp
 L Device:R_Pack08_Split RN3
 U 6 1 5F641B3C
-P 2750 9200
-F 0 "RN3" V 2650 9200 50  0000 C CNN
-F 1 "4.7k" V 2750 9200 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 3225 9200 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2750 9200 50  0001 C CNN
-F 4 "CTS Resistor Products" V 2750 9200 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 2750 9200 50  0001 C CNN "Part #"
-	6    2750 9200
+P 4050 8050
+F 0 "RN3" V 4150 8050 50  0000 C CNN
+F 1 "4.7k" V 4050 8050 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 4525 8050 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4050 8050 50  0001 C CNN
+F 4 "CTS Resistor Products" V 4050 8050 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 4050 8050 50  0001 C CNN "Part #"
+	6    4050 8050
 	0    -1   1    0   
 $EndComp
 Wire Wire Line
@@ -3230,8 +3212,6 @@ Connection ~ 8050 4650
 Wire Wire Line
 	8350 3900 8050 3900
 Connection ~ 8050 3900
-NoConn ~ 3650 6250
-NoConn ~ 3650 6550
 $Comp
 L Device:Jumper_NO_Small JP4
 U 1 1 5F9F89CD
@@ -3257,4 +3237,26 @@ Wire Wire Line
 Connection ~ 2600 1650
 Text Notes 2400 1300 0    50   ~ 0
 Optional bypass jumper
+Text Label 4500 8500 0    50   ~ 0
+internal_analog
+Text Label 4200 8500 2    50   ~ 0
+internal_analog
+NoConn ~ 3000 10650
+Text Label 15100 2100 0    50   ~ 0
+Isense
+$Comp
+L Custom_parts:BAT54SDW D7
+U 1 1 5F8E6B1A
+P 2450 10750
+F 0 "D7" H 2700 11050 60  0000 C CNN
+F 1 "BAT54SDW" H 2700 10950 60  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 2650 10950 60  0001 L CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds30152.pdf" H 2650 11050 60  0001 L CNN
+F 4 "Diodes Incorporated" H 2450 10750 50  0001 C CNN "Manufacturer"
+F 5 "BAT54SDW-7-F" H 2450 10750 50  0001 C CNN "Part #"
+	1    2450 10750
+	1    0    0    -1  
+$EndComp
+NoConn ~ 2250 10650
+NoConn ~ 2250 10850
 $EndSCHEMATC
