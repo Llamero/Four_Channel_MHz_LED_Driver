@@ -12,6 +12,12 @@ K single opamp
 F https://www.analog.com/media/en/technical-documentation/data-sheets/AD797.pdf
 $ENDCMP
 #
+$CMP BAT54BRW
+D DIODE ARRAY SCHOTTKY 30V SOT23-3
+K BAT54S-FDICT-ND
+F https://www.diodes.com/assets/Datasheets/ds11005.pdf
+$ENDCMP
+#
 $CMP BAT54SDW
 D DIODE ARRAY SCHOTTKY 30V SOT23-3
 K BAT54S-FDICT-ND

@@ -153,9 +153,9 @@ Wire Wire Line
 	5400 6550 5450 6550
 Wire Wire Line
 	5450 6750 5400 6750
-Text Label 5450 6750 0    50   ~ 0
-internal_analog
 Text Label 5450 6550 0    50   ~ 0
+internal_analog
+Text Label 5450 6750 0    50   ~ 0
 external_analog
 Connection ~ 4750 1700
 Wire Wire Line
@@ -363,20 +363,9 @@ Text Notes 850  8950 1    59   ~ 0
 I/O maximum voltage: +30V/-27V (160mW)\nNiDaq PCI-6110 is +/- 10V 5mA\n∴ minimum impedance is 2000 Ohms
 Text Notes 3900 10400 0    59   ~ 0
 4-channel analog/digital IO with 0-3.3V clamp
-$Comp
-L power:GND #PWR0124
-U 1 1 5F48EF1A
-P 6150 11150
-F 0 "#PWR0124" H 6150 10900 50  0001 C CNN
-F 1 "GND" V 6250 11100 50  0000 R CNN
-F 2 "" H 6150 11150 50  0001 C CNN
-F 3 "" H 6150 11150 50  0001 C CNN
-	1    6150 11150
-	0    -1   -1   0   
-$EndComp
 Text Label 6150 10950 0    50   ~ 0
 3.3V
-Text Label 5400 10950 2    50   ~ 0
+Text Label 6150 11150 0    50   ~ 0
 3.3V
 $Comp
 L power:GND #PWR0125
@@ -390,31 +379,18 @@ F 3 "" H 5400 10750 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Custom_parts:BAT54SDW D4
+L Custom_parts:BAT54BRW D4
 U 1 1 5F48EF0C
 P 5600 10850
 F 0 "D4" H 5775 11197 60  0000 C CNN
-F 1 "BAT54SDW" H 5775 11091 60  0000 C CNN
+F 1 "BAT54BRW" H 5775 11091 60  0000 C CNN
 F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 5800 11050 60  0001 L CNN
 F 3 "https://www.diodes.com/assets/Datasheets/ds11005.pdf" H 5800 11150 60  0001 L CNN
 F 4 "Diodes Incorporated" H 5600 10850 50  0001 C CNN "Manufacturer"
-F 5 "BAT54SDW-7-F" H 5600 10850 50  0001 C CNN "Part #"
+F 5 "BAT54BRW-7-F" H 5600 10850 50  0001 C CNN "Part #"
 	1    5600 10850
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:GND #PWR0126
-U 1 1 5F47759A
-P 4500 11100
-F 0 "#PWR0126" H 4500 10850 50  0001 C CNN
-F 1 "GND" V 4600 11050 50  0000 R CNN
-F 2 "" H 4500 11100 50  0001 C CNN
-F 3 "" H 4500 11100 50  0001 C CNN
-	1    4500 11100
-	0    -1   -1   0   
-$EndComp
-Text Label 4500 10900 0    50   ~ 0
-3.3V
 Text Notes 14200 3100 1    50   ~ 0
 --ADC1--
 Text Notes 14250 2500 2    50   ~ 0
@@ -1065,32 +1041,6 @@ Text Notes 5550 850  0    59   ~ 0
 Op-amp split supply: 12V/-5V to clean 10V/-1.8V
 Text Notes 5200 2750 0    50   ~ 0
 small negative \nreference voltage \nso that LED turns \noff with op-amp \ninput bias
-$Comp
-L Custom_parts:BAT54SDW D2
-U 1 1 5F46875C
-P 3950 10800
-F 0 "D2" H 4200 11100 60  0000 C CNN
-F 1 "BAT54SDW" H 4200 11000 60  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 4150 11000 60  0001 L CNN
-F 3 "https://www.diodes.com/assets/Datasheets/ds30152.pdf" H 4150 11100 60  0001 L CNN
-F 4 "Diodes Incorporated" H 3950 10800 50  0001 C CNN "Manufacturer"
-F 5 "BAT54SDW-7-F" H 3950 10800 50  0001 C CNN "Part #"
-	1    3950 10800
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0176
-U 1 1 5F475E13
-P 3750 10700
-F 0 "#PWR0176" H 3750 10450 50  0001 C CNN
-F 1 "GND" V 3650 10700 50  0000 R CNN
-F 2 "" H 3750 10700 50  0001 C CNN
-F 3 "" H 3750 10700 50  0001 C CNN
-	1    3750 10700
-	0    1    1    0   
-$EndComp
-Text Label 3750 10900 2    50   ~ 0
-3.3V
 Wire Wire Line
 	1100 1650 1350 1650
 Connection ~ 1350 1650
@@ -1248,14 +1198,10 @@ Wire Notes Line
 	8750 6700 16050 6700
 Text Label 10800 3300 2    50   ~ 0
 Over_temp_alarm1
-Text Label 15000 2750 0    50   ~ 0
+Text Label 13100 2900 0    50   ~ 0
 A-D_input_1
-Text Label 15000 2850 0    50   ~ 0
+Text Label 13100 3000 0    50   ~ 0
 A-D_input_2
-Text Label 15000 2950 0    50   ~ 0
-A-D_input_3
-Text Label 15000 3050 0    50   ~ 0
-A-D_input_4
 Text Label 2150 7750 0    50   ~ 0
 A-D_input_1
 Text Label 2150 7950 0    50   ~ 0
@@ -1264,19 +1210,19 @@ Text Label 2150 8150 0    50   ~ 0
 A-D_input_3
 Text Label 2150 8350 0    50   ~ 0
 A-D_input_4
-Text Label 4500 10700 0    50   ~ 0
-A-D_input
 Text Label 3750 11100 2    50   ~ 0
-A-D_input_2
-Text Label 6150 10750 0    50   ~ 0
-A-D_input_3
+A-D_input_1
 Text Label 5400 11150 2    50   ~ 0
+A-D_input_2
+Text Label 4500 10700 0    50   ~ 0
+A-D_input_3
+Text Label 6150 10750 0    50   ~ 0
 A-D_input_4
 Text Label 13100 3300 0    50   ~ 0
 LED_pot
-Text Label 15050 2500 0    50   ~ 0
+Text Label 13100 2100 0    50   ~ 0
 MOSFET_temp
-Text Label 15050 2400 0    50   ~ 0
+Text Label 13100 2200 0    50   ~ 0
 Resistor_temp
 $Comp
 L Device:Thermistor TH1
@@ -1442,10 +1388,6 @@ Wire Wire Line
 Wire Wire Line
 	13100 2900 13850 2900
 Wire Wire Line
-	13100 2800 13850 2800
-Wire Wire Line
-	13100 2700 13850 2700
-Wire Wire Line
 	13100 2600 13850 2600
 Wire Wire Line
 	13100 2500 13850 2500
@@ -1510,7 +1452,7 @@ F 5 "SSM-124-L-SV-LC" H 14050 2100 50  0001 C CNN "Part #"
 	1    14050 2100
 	1    0    0    -1  
 $EndComp
-Text Label 15050 2300 0    50   ~ 0
+Text Label 13100 2000 0    50   ~ 0
 External_thermistor
 Wire Wire Line
 	10800 3300 10050 3300
@@ -1617,19 +1559,6 @@ Text Label 8200 10500 2    50   ~ 0
 Wire Wire Line
 	8200 10500 8300 10500
 NoConn ~ 8300 10300
-$Comp
-L Device:R_Pack08_Split RN3
-U 1 1 5F607B24
-P 2000 7750
-F 0 "RN3" V 1900 7750 50  0000 C CNN
-F 1 "4.7k" V 2000 7750 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 2475 7750 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 7750 50  0001 C CNN
-F 4 "CTS Resistor Products" V 2000 7750 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 2000 7750 50  0001 C CNN "Part #"
-	1    2000 7750
-	0    -1   1    0   
-$EndComp
 Connection ~ 11350 8050
 Wire Wire Line
 	11350 7750 11350 8050
@@ -1838,19 +1767,6 @@ F 5 "TLP3555A(TP1,F" H 3300 4850 50  0001 C CNN "Part #"
 	1    3300 4850
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:GND #PWR0102
-U 1 1 5F8E6B11
-P 3000 11050
-F 0 "#PWR0102" H 3000 10800 50  0001 C CNN
-F 1 "GND" V 3100 11000 50  0000 R CNN
-F 2 "" H 3000 11050 50  0001 C CNN
-F 3 "" H 3000 11050 50  0001 C CNN
-	1    3000 11050
-	0    -1   -1   0   
-$EndComp
-Text Label 3000 10850 0    50   ~ 0
-3.3V
 Text Label 2250 11050 2    50   ~ 0
 external_analog
 Text Label 2150 6850 0    50   ~ 0
@@ -2048,84 +1964,6 @@ F 4 "Panasonic Electronic Components" V 2000 6850 50  0001 C CNN "Manufacturer"
 F 5 "EXB-38V151JV" V 2000 6850 50  0001 C CNN "Part #"
 	2    2000 6850
 	0    1    1    0   
-$EndComp
-$Comp
-L Device:R_Pack08_Split RN3
-U 2 1 5F6407AE
-P 2000 7950
-F 0 "RN3" V 1900 7950 50  0000 C CNN
-F 1 "4.7k" V 2000 7950 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 2475 7950 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 7950 50  0001 C CNN
-F 4 "CTS Resistor Products" V 2000 7950 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 2000 7950 50  0001 C CNN "Part #"
-	2    2000 7950
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Pack08_Split RN3
-U 3 1 5F6410FE
-P 2000 8150
-F 0 "RN3" V 1900 8150 50  0000 C CNN
-F 1 "4.7k" V 2000 8150 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 2475 8150 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 8150 50  0001 C CNN
-F 4 "CTS Resistor Products" V 2000 8150 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 2000 8150 50  0001 C CNN "Part #"
-	3    2000 8150
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Pack08_Split RN3
-U 4 1 5F6416DB
-P 2000 8350
-F 0 "RN3" V 1900 8350 50  0000 C CNN
-F 1 "4.7k" V 2000 8350 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 2475 8350 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 8350 50  0001 C CNN
-F 4 "CTS Resistor Products" V 2000 8350 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 2000 8350 50  0001 C CNN "Part #"
-	4    2000 8350
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Pack08_Split RN3
-U 7 1 5F642C83
-P 4050 7900
-F 0 "RN3" V 3950 7900 50  0000 C CNN
-F 1 "4.7k" V 4050 7900 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 4525 7900 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4050 7900 50  0001 C CNN
-F 4 "CTS Resistor Products" V 4050 7900 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 4050 7900 50  0001 C CNN "Part #"
-	7    4050 7900
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Pack08_Split RN3
-U 8 1 5F643BA8
-P 2750 9200
-F 0 "RN3" V 2850 9200 50  0000 C CNN
-F 1 "4.7k" V 2750 9200 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 3225 9200 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2750 9200 50  0001 C CNN
-F 4 "CTS Resistor Products" V 2750 9200 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 2750 9200 50  0001 C CNN "Part #"
-	8    2750 9200
-	0    1    -1   0   
-$EndComp
-$Comp
-L Device:R_Pack08_Split RN3
-U 5 1 5F648A31
-P 4350 8500
-F 0 "RN3" V 4450 8500 50  0000 C CNN
-F 1 "4.7k" V 4350 8500 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 4825 8500 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4350 8500 50  0001 C CNN
-F 4 "CTS Resistor Products" V 4350 8500 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 4350 8500 50  0001 C CNN "Part #"
-	5    4350 8500
-	0    -1   1    0   
 $EndComp
 $Comp
 L Switch:SW_SPDT SW1
@@ -2768,19 +2606,6 @@ Text Label 2200 9300 2    50   ~ 0
 5V
 Text Label 3050 9900 0    50   ~ 0
 Internal_fan_PWM
-$Comp
-L Device:R_Pack08_Split RN3
-U 6 1 5F641B3C
-P 4050 8050
-F 0 "RN3" V 4150 8050 50  0000 C CNN
-F 1 "4.7k" V 4050 8050 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 4525 8050 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4050 8050 50  0001 C CNN
-F 4 "CTS Resistor Products" V 4050 8050 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 4050 8050 50  0001 C CNN "Part #"
-	6    4050 8050
-	0    -1   1    0   
-$EndComp
 Wire Wire Line
 	1600 9200 2600 9200
 Text Label 2900 9200 0    50   ~ 0
@@ -3237,26 +3062,247 @@ Wire Wire Line
 Connection ~ 2600 1650
 Text Notes 2400 1300 0    50   ~ 0
 Optional bypass jumper
-Text Label 4500 8500 0    50   ~ 0
-internal_analog
-Text Label 4200 8500 2    50   ~ 0
-internal_analog
 NoConn ~ 3000 10650
-Text Label 15100 2100 0    50   ~ 0
+Text Label 13100 1900 0    50   ~ 0
 Isense
 $Comp
-L Custom_parts:BAT54SDW D7
-U 1 1 5F8E6B1A
+L power:GND #PWR0102
+U 1 1 5F795ABB
+P 5400 10950
+F 0 "#PWR0102" H 5400 10700 50  0001 C CNN
+F 1 "GND" V 5300 10900 50  0000 R CNN
+F 2 "" H 5400 10950 50  0001 C CNN
+F 3 "" H 5400 10950 50  0001 C CNN
+	1    5400 10950
+	0    1    1    0   
+$EndComp
+NoConn ~ 2250 10650
+Text Label 4500 10900 0    50   ~ 0
+3.3V
+Text Label 4500 11100 0    50   ~ 0
+3.3V
+$Comp
+L power:GND #PWR0124
+U 1 1 5F7D0257
+P 3750 10700
+F 0 "#PWR0124" H 3750 10450 50  0001 C CNN
+F 1 "GND" V 3650 10650 50  0000 R CNN
+F 2 "" H 3750 10700 50  0001 C CNN
+F 3 "" H 3750 10700 50  0001 C CNN
+	1    3750 10700
+	0    1    1    0   
+$EndComp
+$Comp
+L Custom_parts:BAT54BRW D2
+U 1 1 5F7D025F
+P 3950 10800
+F 0 "D2" H 4125 11147 60  0000 C CNN
+F 1 "BAT54BRW" H 4125 11041 60  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 4150 11000 60  0001 L CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds11005.pdf" H 4150 11100 60  0001 L CNN
+F 4 "Diodes Incorporated" H 3950 10800 50  0001 C CNN "Manufacturer"
+F 5 "BAT54BRW-7-F" H 3950 10800 50  0001 C CNN "Part #"
+	1    3950 10800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0126
+U 1 1 5F7D0267
+P 3750 10900
+F 0 "#PWR0126" H 3750 10650 50  0001 C CNN
+F 1 "GND" V 3650 10850 50  0000 R CNN
+F 2 "" H 3750 10900 50  0001 C CNN
+F 3 "" H 3750 10900 50  0001 C CNN
+	1    3750 10900
+	0    1    1    0   
+$EndComp
+$Comp
+L Custom_parts:BAT54BRW D1
+U 1 1 5F7E5C45
 P 2450 10750
-F 0 "D7" H 2700 11050 60  0000 C CNN
-F 1 "BAT54SDW" H 2700 10950 60  0000 C CNN
+F 0 "D1" H 2625 11097 60  0000 C CNN
+F 1 "BAT54BRW" H 2625 10991 60  0000 C CNN
 F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 2650 10950 60  0001 L CNN
-F 3 "https://www.diodes.com/assets/Datasheets/ds30152.pdf" H 2650 11050 60  0001 L CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds11005.pdf" H 2650 11050 60  0001 L CNN
 F 4 "Diodes Incorporated" H 2450 10750 50  0001 C CNN "Manufacturer"
-F 5 "BAT54SDW-7-F" H 2450 10750 50  0001 C CNN "Part #"
+F 5 "BAT54BRW-7-F" H 2450 10750 50  0001 C CNN "Part #"
 	1    2450 10750
 	1    0    0    -1  
 $EndComp
-NoConn ~ 2250 10650
-NoConn ~ 2250 10850
+NoConn ~ 3000 10850
+$Comp
+L power:GND #PWR0167
+U 1 1 5F81886E
+P 2250 10850
+F 0 "#PWR0167" H 2250 10600 50  0001 C CNN
+F 1 "GND" V 2150 10800 50  0000 R CNN
+F 2 "" H 2250 10850 50  0001 C CNN
+F 3 "" H 2250 10850 50  0001 C CNN
+	1    2250 10850
+	0    1    1    0   
+$EndComp
+Text Label 3000 11050 0    50   ~ 0
+3.3V
+$Comp
+L power:GND #PWR0168
+U 1 1 5F8F520E
+P 4500 8500
+F 0 "#PWR0168" H 4500 8250 50  0001 C CNN
+F 1 "GND" V 4500 8400 50  0000 R CNN
+F 2 "" H 4500 8500 50  0001 C CNN
+F 3 "" H 4500 8500 50  0001 C CNN
+	1    4500 8500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0170
+U 1 1 5F8F5E2F
+P 4200 8500
+F 0 "#PWR0170" H 4200 8250 50  0001 C CNN
+F 1 "GND" V 4200 8400 50  0000 R CNN
+F 2 "" H 4200 8500 50  0001 C CNN
+F 3 "" H 4200 8500 50  0001 C CNN
+	1    4200 8500
+	0    1    1    0   
+$EndComp
+Text Label 13100 3100 0    50   ~ 0
+A-D_input_3
+Text Label 13100 3200 0    50   ~ 0
+A-D_input_4
+Wire Wire Line
+	4200 8500 4500 8500
+Connection ~ 4500 8500
+Connection ~ 4200 8500
+$Comp
+L power:GND #PWR0181
+U 1 1 5F90041C
+P 13850 2700
+F 0 "#PWR0181" H 13850 2450 50  0001 C CNN
+F 1 "GND" V 13850 2550 50  0000 R CNN
+F 2 "" H 13850 2700 50  0001 C CNN
+F 3 "" H 13850 2700 50  0001 C CNN
+	1    13850 2700
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR0176
+U 1 1 5F8FFE49
+P 13100 2700
+F 0 "#PWR0176" H 13100 2450 50  0001 C CNN
+F 1 "GND" V 13100 2550 50  0000 R CNN
+F 2 "" H 13100 2700 50  0001 C CNN
+F 3 "" H 13100 2700 50  0001 C CNN
+	1    13100 2700
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	13100 2800 13850 2800
+$Comp
+L Device:R_Pack08_Split RN3
+U 4 1 5F6416DB
+P 2000 7750
+F 0 "RN3" V 1900 7750 50  0000 C CNN
+F 1 "4.7k" V 2000 7750 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 2475 7750 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 7750 50  0001 C CNN
+F 4 "CTS Resistor Products" V 2000 7750 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 2000 7750 50  0001 C CNN "Part #"
+	4    2000 7750
+	0    1    -1   0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 1 1 5F607B24
+P 2000 8350
+F 0 "RN3" V 1900 8350 50  0000 C CNN
+F 1 "4.7k" V 2000 8350 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 2475 8350 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 8350 50  0001 C CNN
+F 4 "CTS Resistor Products" V 2000 8350 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 2000 8350 50  0001 C CNN "Part #"
+	1    2000 8350
+	0    1    -1   0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 6 1 5F641B3C
+P 4050 8050
+F 0 "RN3" V 4150 8050 50  0000 C CNN
+F 1 "4.7k" V 4050 8050 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 4525 8050 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4050 8050 50  0001 C CNN
+F 4 "CTS Resistor Products" V 4050 8050 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 4050 8050 50  0001 C CNN "Part #"
+	6    4050 8050
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 5 1 5F648A31
+P 4350 8500
+F 0 "RN3" V 4450 8500 50  0000 C CNN
+F 1 "4.7k" V 4350 8500 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 4825 8500 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4350 8500 50  0001 C CNN
+F 4 "CTS Resistor Products" V 4350 8500 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 4350 8500 50  0001 C CNN "Part #"
+	5    4350 8500
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 8 1 5F643BA8
+P 2750 9200
+F 0 "RN3" V 2850 9200 50  0000 C CNN
+F 1 "4.7k" V 2750 9200 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 3225 9200 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2750 9200 50  0001 C CNN
+F 4 "CTS Resistor Products" V 2750 9200 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 2750 9200 50  0001 C CNN "Part #"
+	8    2750 9200
+	0    1    -1   0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 7 1 5F642C83
+P 4050 7900
+F 0 "RN3" V 3950 7900 50  0000 C CNN
+F 1 "4.7k" V 4050 7900 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 4525 7900 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4050 7900 50  0001 C CNN
+F 4 "CTS Resistor Products" V 4050 7900 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 4050 7900 50  0001 C CNN "Part #"
+	7    4050 7900
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 2 1 5F6407AE
+P 2000 8150
+F 0 "RN3" V 1900 8150 50  0000 C CNN
+F 1 "4.7k" V 2000 8150 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 2475 8150 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 8150 50  0001 C CNN
+F 4 "CTS Resistor Products" V 2000 8150 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 2000 8150 50  0001 C CNN "Part #"
+	2    2000 8150
+	0    1    -1   0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 3 1 5F6410FE
+P 2000 7950
+F 0 "RN3" V 1900 7950 50  0000 C CNN
+F 1 "4.7k" V 2000 7950 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 2475 7950 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 7950 50  0001 C CNN
+F 4 "CTS Resistor Products" V 2000 7950 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 2000 7950 50  0001 C CNN "Part #"
+	3    2000 7950
+	0    1    -1   0   
+$EndComp
+Text Notes 13400 2750 0    98   ~ 0
+**
+Text Notes 13400 2800 0    98   ~ 0
+**
 $EndSCHEMATC
