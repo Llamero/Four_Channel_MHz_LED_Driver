@@ -1198,14 +1198,10 @@ Wire Notes Line
 	8750 6700 16050 6700
 Text Label 10800 3300 2    50   ~ 0
 Over_temp_alarm1
-Text Label 15000 2750 0    50   ~ 0
+Text Label 13100 2900 0    50   ~ 0
 A-D_input_1
-Text Label 15000 2850 0    50   ~ 0
+Text Label 13100 3000 0    50   ~ 0
 A-D_input_2
-Text Label 15000 2950 0    50   ~ 0
-A-D_input_3
-Text Label 15000 3050 0    50   ~ 0
-A-D_input_4
 Text Label 2150 7750 0    50   ~ 0
 A-D_input_1
 Text Label 2150 7950 0    50   ~ 0
@@ -1214,13 +1210,13 @@ Text Label 2150 8150 0    50   ~ 0
 A-D_input_3
 Text Label 2150 8350 0    50   ~ 0
 A-D_input_4
-Text Label 4500 10700 0    50   ~ 0
-A-D_input
 Text Label 3750 11100 2    50   ~ 0
-A-D_input_2
-Text Label 6150 10750 0    50   ~ 0
-A-D_input_3
+A-D_input_1
 Text Label 5400 11150 2    50   ~ 0
+A-D_input_2
+Text Label 4500 10700 0    50   ~ 0
+A-D_input_3
+Text Label 6150 10750 0    50   ~ 0
 A-D_input_4
 Text Label 13100 3300 0    50   ~ 0
 LED_pot
@@ -1391,10 +1387,6 @@ Wire Wire Line
 	13100 3000 13850 3000
 Wire Wire Line
 	13100 2900 13850 2900
-Wire Wire Line
-	13100 2800 13850 2800
-Wire Wire Line
-	13100 2700 13850 2700
 Wire Wire Line
 	13100 2600 13850 2600
 Wire Wire Line
@@ -1567,19 +1559,6 @@ Text Label 8200 10500 2    50   ~ 0
 Wire Wire Line
 	8200 10500 8300 10500
 NoConn ~ 8300 10300
-$Comp
-L Device:R_Pack08_Split RN3
-U 1 1 5F607B24
-P 2000 7750
-F 0 "RN3" V 1900 7750 50  0000 C CNN
-F 1 "4.7k" V 2000 7750 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 2475 7750 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 7750 50  0001 C CNN
-F 4 "CTS Resistor Products" V 2000 7750 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 2000 7750 50  0001 C CNN "Part #"
-	1    2000 7750
-	0    -1   1    0   
-$EndComp
 Connection ~ 11350 8050
 Wire Wire Line
 	11350 7750 11350 8050
@@ -1985,84 +1964,6 @@ F 4 "Panasonic Electronic Components" V 2000 6850 50  0001 C CNN "Manufacturer"
 F 5 "EXB-38V151JV" V 2000 6850 50  0001 C CNN "Part #"
 	2    2000 6850
 	0    1    1    0   
-$EndComp
-$Comp
-L Device:R_Pack08_Split RN3
-U 2 1 5F6407AE
-P 2000 7950
-F 0 "RN3" V 1900 7950 50  0000 C CNN
-F 1 "4.7k" V 2000 7950 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 2475 7950 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 7950 50  0001 C CNN
-F 4 "CTS Resistor Products" V 2000 7950 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 2000 7950 50  0001 C CNN "Part #"
-	2    2000 7950
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Pack08_Split RN3
-U 3 1 5F6410FE
-P 2000 8150
-F 0 "RN3" V 1900 8150 50  0000 C CNN
-F 1 "4.7k" V 2000 8150 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 2475 8150 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 8150 50  0001 C CNN
-F 4 "CTS Resistor Products" V 2000 8150 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 2000 8150 50  0001 C CNN "Part #"
-	3    2000 8150
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Pack08_Split RN3
-U 4 1 5F6416DB
-P 2000 8350
-F 0 "RN3" V 1900 8350 50  0000 C CNN
-F 1 "4.7k" V 2000 8350 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 2475 8350 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 8350 50  0001 C CNN
-F 4 "CTS Resistor Products" V 2000 8350 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 2000 8350 50  0001 C CNN "Part #"
-	4    2000 8350
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Pack08_Split RN3
-U 7 1 5F642C83
-P 4050 7900
-F 0 "RN3" V 3950 7900 50  0000 C CNN
-F 1 "4.7k" V 4050 7900 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 4525 7900 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4050 7900 50  0001 C CNN
-F 4 "CTS Resistor Products" V 4050 7900 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 4050 7900 50  0001 C CNN "Part #"
-	7    4050 7900
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Pack08_Split RN3
-U 8 1 5F643BA8
-P 2750 9200
-F 0 "RN3" V 2850 9200 50  0000 C CNN
-F 1 "4.7k" V 2750 9200 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 3225 9200 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2750 9200 50  0001 C CNN
-F 4 "CTS Resistor Products" V 2750 9200 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 2750 9200 50  0001 C CNN "Part #"
-	8    2750 9200
-	0    1    -1   0   
-$EndComp
-$Comp
-L Device:R_Pack08_Split RN3
-U 5 1 5F648A31
-P 4350 8500
-F 0 "RN3" V 4450 8500 50  0000 C CNN
-F 1 "4.7k" V 4350 8500 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 4825 8500 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4350 8500 50  0001 C CNN
-F 4 "CTS Resistor Products" V 4350 8500 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 4350 8500 50  0001 C CNN "Part #"
-	5    4350 8500
-	0    -1   1    0   
 $EndComp
 $Comp
 L Switch:SW_SPDT SW1
@@ -2705,19 +2606,6 @@ Text Label 2200 9300 2    50   ~ 0
 5V
 Text Label 3050 9900 0    50   ~ 0
 Internal_fan_PWM
-$Comp
-L Device:R_Pack08_Split RN3
-U 6 1 5F641B3C
-P 4050 8050
-F 0 "RN3" V 4150 8050 50  0000 C CNN
-F 1 "4.7k" V 4050 8050 50  0000 C CNN
-F 2 "Custom Footprints:2506_8x_R-pack" V 4525 8050 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4050 8050 50  0001 C CNN
-F 4 "CTS Resistor Products" V 4050 8050 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 4050 8050 50  0001 C CNN "Part #"
-	6    4050 8050
-	0    -1   1    0   
-$EndComp
 Wire Wire Line
 	1600 9200 2600 9200
 Text Label 2900 9200 0    50   ~ 0
@@ -3256,10 +3144,10 @@ $EndComp
 Text Label 3000 11050 0    50   ~ 0
 3.3V
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0168
 U 1 1 5F8F520E
 P 4500 8500
-F 0 "#PWR?" H 4500 8250 50  0001 C CNN
+F 0 "#PWR0168" H 4500 8250 50  0001 C CNN
 F 1 "GND" V 4500 8400 50  0000 R CNN
 F 2 "" H 4500 8500 50  0001 C CNN
 F 3 "" H 4500 8500 50  0001 C CNN
@@ -3267,14 +3155,154 @@ F 3 "" H 4500 8500 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0170
 U 1 1 5F8F5E2F
 P 4200 8500
-F 0 "#PWR?" H 4200 8250 50  0001 C CNN
+F 0 "#PWR0170" H 4200 8250 50  0001 C CNN
 F 1 "GND" V 4200 8400 50  0000 R CNN
 F 2 "" H 4200 8500 50  0001 C CNN
 F 3 "" H 4200 8500 50  0001 C CNN
 	1    4200 8500
 	0    1    1    0   
 $EndComp
+Text Label 13100 3100 0    50   ~ 0
+A-D_input_3
+Text Label 13100 3200 0    50   ~ 0
+A-D_input_4
+Wire Wire Line
+	4200 8500 4500 8500
+Connection ~ 4500 8500
+Connection ~ 4200 8500
+$Comp
+L power:GND #PWR0181
+U 1 1 5F90041C
+P 13850 2700
+F 0 "#PWR0181" H 13850 2450 50  0001 C CNN
+F 1 "GND" V 13850 2550 50  0000 R CNN
+F 2 "" H 13850 2700 50  0001 C CNN
+F 3 "" H 13850 2700 50  0001 C CNN
+	1    13850 2700
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR0176
+U 1 1 5F8FFE49
+P 13100 2700
+F 0 "#PWR0176" H 13100 2450 50  0001 C CNN
+F 1 "GND" V 13100 2550 50  0000 R CNN
+F 2 "" H 13100 2700 50  0001 C CNN
+F 3 "" H 13100 2700 50  0001 C CNN
+	1    13100 2700
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	13100 2800 13850 2800
+$Comp
+L Device:R_Pack08_Split RN3
+U 4 1 5F6416DB
+P 2000 7750
+F 0 "RN3" V 1900 7750 50  0000 C CNN
+F 1 "4.7k" V 2000 7750 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 2475 7750 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 7750 50  0001 C CNN
+F 4 "CTS Resistor Products" V 2000 7750 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 2000 7750 50  0001 C CNN "Part #"
+	4    2000 7750
+	0    1    -1   0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 1 1 5F607B24
+P 2000 8350
+F 0 "RN3" V 1900 8350 50  0000 C CNN
+F 1 "4.7k" V 2000 8350 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 2475 8350 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 8350 50  0001 C CNN
+F 4 "CTS Resistor Products" V 2000 8350 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 2000 8350 50  0001 C CNN "Part #"
+	1    2000 8350
+	0    1    -1   0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 6 1 5F641B3C
+P 4050 8050
+F 0 "RN3" V 4150 8050 50  0000 C CNN
+F 1 "4.7k" V 4050 8050 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 4525 8050 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4050 8050 50  0001 C CNN
+F 4 "CTS Resistor Products" V 4050 8050 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 4050 8050 50  0001 C CNN "Part #"
+	6    4050 8050
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 5 1 5F648A31
+P 4350 8500
+F 0 "RN3" V 4450 8500 50  0000 C CNN
+F 1 "4.7k" V 4350 8500 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 4825 8500 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4350 8500 50  0001 C CNN
+F 4 "CTS Resistor Products" V 4350 8500 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 4350 8500 50  0001 C CNN "Part #"
+	5    4350 8500
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 8 1 5F643BA8
+P 2750 9200
+F 0 "RN3" V 2850 9200 50  0000 C CNN
+F 1 "4.7k" V 2750 9200 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 3225 9200 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2750 9200 50  0001 C CNN
+F 4 "CTS Resistor Products" V 2750 9200 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 2750 9200 50  0001 C CNN "Part #"
+	8    2750 9200
+	0    1    -1   0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 7 1 5F642C83
+P 4050 7900
+F 0 "RN3" V 3950 7900 50  0000 C CNN
+F 1 "4.7k" V 4050 7900 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 4525 7900 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4050 7900 50  0001 C CNN
+F 4 "CTS Resistor Products" V 4050 7900 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 4050 7900 50  0001 C CNN "Part #"
+	7    4050 7900
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 2 1 5F6407AE
+P 2000 8150
+F 0 "RN3" V 1900 8150 50  0000 C CNN
+F 1 "4.7k" V 2000 8150 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 2475 8150 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 8150 50  0001 C CNN
+F 4 "CTS Resistor Products" V 2000 8150 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 2000 8150 50  0001 C CNN "Part #"
+	2    2000 8150
+	0    1    -1   0   
+$EndComp
+$Comp
+L Device:R_Pack08_Split RN3
+U 3 1 5F6410FE
+P 2000 7950
+F 0 "RN3" V 1900 7950 50  0000 C CNN
+F 1 "4.7k" V 2000 7950 50  0000 C CNN
+F 2 "Custom Footprints:2506_8x_R-pack" V 2475 7950 50  0001 C CNN
+F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 7950 50  0001 C CNN
+F 4 "CTS Resistor Products" V 2000 7950 50  0001 C CNN "Manufacturer"
+F 5 "742C163472JP" V 2000 7950 50  0001 C CNN "Part #"
+	3    2000 7950
+	0    1    -1   0   
+$EndComp
+Text Notes 13400 2750 0    98   ~ 0
+**
+Text Notes 13400 2800 0    98   ~ 0
+**
 $EndSCHEMATC
