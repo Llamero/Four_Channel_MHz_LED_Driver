@@ -3104,7 +3104,7 @@ F 3 "" H 2100 10650 50  0001 C CNN
 	1    2100 10650
 	0    1    1    0   
 $EndComp
-Text Label 2850 10850 0    50   ~ 0
+Text Label 3050 10850 0    50   ~ 0
 3.3V
 $Comp
 L power:GND #PWR0168
@@ -3306,20 +3306,16 @@ NoConn ~ 2100 11050
 $Comp
 L Device:Jumper_NC_Small JP5
 U 1 1 5F698386
-P 1600 10850
-F 0 "JP5" V 1650 10800 50  0000 R CNN
-F 1 "Jumper_NC_Small" V 1555 10803 50  0001 R CNN
-F 2 "Custom Footprints:20A_shunt_5104" H 1600 10850 50  0001 C CNN
-F 3 "https://www.keyelco.com/userAssets/file/M65p54.pdf" H 1600 10850 50  0001 C CNN
-F 4 "Keystone Electronics" V 1600 10850 50  0001 C CNN "Manufacturer"
-F 5 "5104" V 1600 10850 50  0001 C CNN "Part #"
-	1    1600 10850
-	0    -1   -1   0   
+P 2950 10850
+F 0 "JP5" H 3000 10950 50  0000 R CNN
+F 1 "Jumper_NC_Small" V 2905 10803 50  0001 R CNN
+F 2 "Custom Footprints:20A_shunt_5104" H 2950 10850 50  0001 C CNN
+F 3 "https://www.keyelco.com/userAssets/file/M65p54.pdf" H 2950 10850 50  0001 C CNN
+F 4 "Keystone Electronics" V 2950 10850 50  0001 C CNN "Manufacturer"
+F 5 "5104" V 2950 10850 50  0001 C CNN "Part #"
+	1    2950 10850
+	1    0    0    -1  
 $EndComp
-Text Label 1600 10750 0    50   ~ 0
-3.3V
-Text Label 1600 10950 0    50   ~ 0
-3.3V
 Text Label 10800 1600 2    50   ~ 0
 NC1
 Text Label 10800 1700 2    50   ~ 0

@@ -3320,4 +3320,20 @@ Text Label 1600 10750 0    50   ~ 0
 3.3V
 Text Label 1600 10950 0    50   ~ 0
 3.3V
+Text Label 10800 1600 2    50   ~ 0
+NC1
+Text Label 10800 1700 2    50   ~ 0
+NC2
+Text Label 10800 1800 2    50   ~ 0
+NC3
+Text Label 10800 1900 2    50   ~ 0
+NC4
+Text Label 10800 2000 2    50   ~ 0
+NC5
+Text Label 13100 2300 0    50   ~ 0
+NC6
+Text Label 13100 2500 0    50   ~ 0
+NC7
+Text Label 13100 2800 0    50   ~ 0
+NC8
 $EndSCHEMATC
