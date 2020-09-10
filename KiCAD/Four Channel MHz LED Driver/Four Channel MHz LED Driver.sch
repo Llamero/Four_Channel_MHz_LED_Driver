@@ -2404,19 +2404,6 @@ Wire Wire Line
 	1600 8150 1850 8150
 Wire Wire Line
 	1600 8350 1850 8350
-$Comp
-L Device:Jumper_NC_Small JP2
-U 1 1 5F56E8CF
-P 2300 2050
-F 0 "JP2" V 2300 2050 50  0000 R CNN
-F 1 "Jumper_NC_Small" V 2255 2003 50  0001 R CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" H 2300 2050 50  0001 C CNN
-F 3 "https://www.keyelco.com/userAssets/file/M65p54.pdf" H 2300 2050 50  0001 C CNN
-F 4 "Keystone Electronics" V 2300 2050 50  0001 C CNN "Manufacturer"
-F 5 "5108" V 2300 2050 50  0001 C CNN "Part #"
-	1    2300 2050
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	5900 1300 6150 1300
 Wire Wire Line
@@ -2828,7 +2815,6 @@ F 3 "" H 8900 10750 50  0001 C CNN
 	1    8900 10750
 	-1   0    0    1   
 $EndComp
-Connection ~ 2300 1950
 $Comp
 L power:GND #PWR0114
 U 1 1 5F7666A8
@@ -3332,4 +3318,18 @@ Text Label 13100 2500 0    50   ~ 0
 NC7
 Text Label 13100 2800 0    50   ~ 0
 NC8
+Connection ~ 2300 1950
+$Comp
+L Device:Jumper_NC_Small JP2
+U 1 1 5F56E8CF
+P 2300 2050
+F 0 "JP2" V 2300 2050 50  0000 R CNN
+F 1 "Jumper_NC_Small" V 2255 2003 50  0001 R CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" H 2300 2050 50  0001 C CNN
+F 3 "https://www.keyelco.com/userAssets/file/M65p54.pdf" H 2300 2050 50  0001 C CNN
+F 4 "Keystone Electronics" V 2300 2050 50  0001 C CNN "Manufacturer"
+F 5 "5108" V 2300 2050 50  0001 C CNN "Part #"
+	1    2300 2050
+	0    -1   -1   0   
+$EndComp
 $EndSCHEMATC
