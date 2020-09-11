@@ -972,11 +972,11 @@ F 5 "910-40-2-23-2-B-0" H 9950 11100 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Relay_SolidState:ASSR-1218 U8
+L Relay_SolidState:ASSR-1218 U11
 U 1 1 5F827B60
 P 8100 5550
-F 0 "U8" H 8100 5875 50  0000 C CNN
-F 1 "ASSR-1218" H 8100 5784 50  0000 C CNN
+F 0 "U11" H 7800 5550 50  0000 C CNN
+F 1 "ASSR-1218" H 8100 5784 50  0001 C CNN
 F 2 "Custom Footprints:SSR-SO-4_7.6x3.6mm_P2.54mm" H 7900 5350 50  0001 L CIN
 F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=61844&prodName=TLP3555A" H 8100 5550 50  0001 L CNN
 F 4 "Toshiba Semiconductor and Storage" H 8100 5550 50  0001 C CNN "Manufacturer"
@@ -1026,11 +1026,11 @@ LED-
 Text Label 9750 7850 0    50   ~ 0
 LED-
 $Comp
-L Relay_SolidState:ASSR-1218 U9
+L Relay_SolidState:ASSR-1218 U10
 U 1 1 5F89A743
 P 8100 5850
-F 0 "U9" H 8100 6175 50  0000 C CNN
-F 1 "ASSR-1218" H 8100 6084 50  0000 C CNN
+F 0 "U10" H 7800 5850 50  0000 C CNN
+F 1 "ASSR-1218" H 8100 6084 50  0001 C CNN
 F 2 "Custom Footprints:SSR-SO-4_7.6x3.6mm_P2.54mm" H 7900 5650 50  0001 L CIN
 F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=61844&prodName=TLP3555A" H 8100 5850 50  0001 L CNN
 F 4 "Toshiba Semiconductor and Storage" H 8100 5850 50  0001 C CNN "Manufacturer"
@@ -1039,11 +1039,11 @@ F 5 "TLP3555A(TP1,F" H 8100 5850 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Relay_SolidState:ASSR-1218 U10
+L Relay_SolidState:ASSR-1218 U9
 U 1 1 5F89BDE1
 P 8100 6150
-F 0 "U10" H 8100 6475 50  0000 C CNN
-F 1 "ASSR-1218" H 8100 6384 50  0000 C CNN
+F 0 "U9" H 7800 6150 50  0000 C CNN
+F 1 "ASSR-1218" H 8100 6384 50  0001 C CNN
 F 2 "Custom Footprints:SSR-SO-4_7.6x3.6mm_P2.54mm" H 7900 5950 50  0001 L CIN
 F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=61844&prodName=TLP3555A" H 8100 6150 50  0001 L CNN
 F 4 "Toshiba Semiconductor and Storage" H 8100 6150 50  0001 C CNN "Manufacturer"
@@ -1052,11 +1052,11 @@ F 5 "TLP3555A(TP1,F" H 8100 6150 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Relay_SolidState:ASSR-1218 U11
+L Relay_SolidState:ASSR-1218 U8
 U 1 1 5F89CB25
 P 8100 6450
-F 0 "U11" H 8100 6775 50  0000 C CNN
-F 1 "ASSR-1218" H 8100 6684 50  0000 C CNN
+F 0 "U8" H 7800 6450 50  0000 C CNN
+F 1 "ASSR-1218" H 8100 6250 50  0001 C CNN
 F 2 "Custom Footprints:SSR-SO-4_7.6x3.6mm_P2.54mm" H 7900 6250 50  0001 L CIN
 F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=61844&prodName=TLP3555A" H 8100 6450 50  0001 L CNN
 F 4 "Toshiba Semiconductor and Storage" H 8100 6450 50  0001 C CNN "Manufacturer"
@@ -3336,4 +3336,37 @@ Wire Wire Line
 	1450 4450 1200 4450
 Wire Wire Line
 	650  4450 1200 4450
+$Comp
+L Graphic:Logo_Open_Hardware_Small #LOGO?
+U 1 1 5FF69CC3
+P 12100 9750
+F 0 "#LOGO?" H 12100 10025 50  0001 C CNN
+F 1 "CC license" H 12100 10044 50  0000 C CNN
+F 2 "Custom Footprints:Creative_commons_license" H 12100 9750 50  0001 C CNN
+F 3 "~" H 12100 9750 50  0001 C CNN
+	1    12100 9750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Graphic:Logo_Open_Hardware_Small #LOGO?
+U 1 1 5FF6ADDD
+P 12600 9750
+F 0 "#LOGO?" H 12600 10025 50  0001 C CNN
+F 1 "Jack Polarity" H 12600 10044 50  0000 C CNN
+F 2 "Custom Footprints:Polarity_Center_Positive" H 12600 9750 50  0001 C CNN
+F 3 "~" H 12600 9750 50  0001 C CNN
+	1    12600 9750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Graphic:Logo_Open_Hardware_Small #LOGO?
+U 1 1 5FF6B1EE
+P 13100 9750
+F 0 "#LOGO?" H 13100 10025 50  0001 C CNN
+F 1 "OSHW Logo" H 13100 10044 50  0000 C CNN
+F 2 "Symbol:OSHW-Logo2_7.3x6mm_SilkScreen" H 13100 9750 50  0001 C CNN
+F 3 "~" H 13100 9750 50  0001 C CNN
+	1    13100 9750
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

@@ -1,4 +1,4 @@
-19450935059719775
+19454134658608401
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -48874,6 +48874,13 @@ CUI_PJ1-022-SMT-TR
 3
 3
 Custom Footprints
+Creative_commons_license
+
+
+0
+0
+0
+Custom Footprints
 DAC084S085CIMM
 
 
@@ -48992,6 +48999,13 @@ P110KV1-1F25BR1K
 0
 6
 4
+Custom Footprints
+Polarity_Center_Positive
+Polarity Logo, Center Negative
+Logo Polarity Center Negative
+0
+0
+0
 Custom Footprints
 Pot_with_header
 surface-mounted straight pin header, 1x03, 2.54mm pitch, single row, style 2 (pin 1 right)
