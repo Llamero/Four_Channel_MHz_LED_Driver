@@ -3337,33 +3337,33 @@ Wire Wire Line
 Wire Wire Line
 	650  4450 1200 4450
 $Comp
-L Graphic:Logo_Open_Hardware_Small #LOGO?
+L Graphic:Logo_Open_Hardware_Small LOGO1
 U 1 1 5FF69CC3
 P 12100 9750
-F 0 "#LOGO?" H 12100 10025 50  0001 C CNN
-F 1 "CC license" H 12100 10044 50  0000 C CNN
+F 0 "LOGO1" H 12100 10025 50  0001 C CNN
+F 1 "CC license" H 11900 10050 50  0000 L CNN
 F 2 "Custom Footprints:Creative_commons_license" H 12100 9750 50  0001 C CNN
 F 3 "~" H 12100 9750 50  0001 C CNN
 	1    12100 9750
 	1    0    0    -1  
 $EndComp
 $Comp
-L Graphic:Logo_Open_Hardware_Small #LOGO?
+L Graphic:Logo_Open_Hardware_Small LOGO2
 U 1 1 5FF6ADDD
 P 12600 9750
-F 0 "#LOGO?" H 12600 10025 50  0001 C CNN
-F 1 "Jack Polarity" H 12600 10044 50  0000 C CNN
+F 0 "LOGO2" H 12600 10025 50  0001 C CNN
+F 1 "Jack Polarity" H 12350 10050 50  0000 L CNN
 F 2 "Custom Footprints:Polarity_Center_Positive" H 12600 9750 50  0001 C CNN
 F 3 "~" H 12600 9750 50  0001 C CNN
 	1    12600 9750
 	1    0    0    -1  
 $EndComp
 $Comp
-L Graphic:Logo_Open_Hardware_Small #LOGO?
+L Graphic:Logo_Open_Hardware_Small LOGO3
 U 1 1 5FF6B1EE
 P 13100 9750
-F 0 "#LOGO?" H 13100 10025 50  0001 C CNN
-F 1 "OSHW Logo" H 13100 10044 50  0000 C CNN
+F 0 "LOGO3" H 13100 10025 50  0001 C CNN
+F 1 "OSHW Logo" H 12900 10050 50  0000 L CNN
 F 2 "Symbol:OSHW-Logo2_7.3x6mm_SilkScreen" H 13100 9750 50  0001 C CNN
 F 3 "~" H 13100 9750 50  0001 C CNN
 	1    13100 9750
