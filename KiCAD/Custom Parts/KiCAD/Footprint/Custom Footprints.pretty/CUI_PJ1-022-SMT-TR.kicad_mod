@@ -1,6 +1,6 @@
-(module CUI_PJ1-022-SMT-TR (layer F.Cu) (tedit 5F49E077)
+(module CUI_PJ1-022-SMT-TR (layer F.Cu) (tedit 5F5AE22F)
   (fp_text reference REF** (at -2.807305 -3.768105) (layer F.SilkS)
-    (effects (font (size 1.000827 1.000827) (thickness 0.015)))
+    (effects (font (size 1.000827 1.000827) (thickness 0.15)))
   )
   (fp_text value CUI_PJ1-022-SMT-TR (at 5.42 3.685) (layer F.Fab)
     (effects (font (size 1 1) (thickness 0.015)))

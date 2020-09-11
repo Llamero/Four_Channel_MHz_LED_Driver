@@ -163,21 +163,21 @@ https://forum.pjrc.com/attachment.php?attachmentid=10666&d=1495536536
 $Comp
 L Device:CP1_Small C2
 U 1 1 5F41CA67
-P 950 2900
-F 0 "C2" H 900 3200 50  0000 L CNN
-F 1 "7500uF" H 750 3100 50  0000 L CNN
-F 2 "Capacitor_SMD:CP_Elec_18x22" H 950 2900 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1247.pdf" H 950 2900 50  0001 C CNN
-F 4 "Panasonic Electronic Components" H 950 2900 50  0001 C CNN "Manufacturer"
-F 5 "EEE-FK1C752SM" H 950 2900 50  0001 C CNN "Part #"
-	1    950  2900
+P 950 3450
+F 0 "C2" H 900 3750 50  0000 L CNN
+F 1 "7500uF" H 750 3650 50  0000 L CNN
+F 2 "Capacitor_SMD:CP_Elec_18x22" H 950 3450 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1247.pdf" H 950 3450 50  0001 C CNN
+F 4 "Panasonic Electronic Components" H 950 3450 50  0001 C CNN "Manufacturer"
+F 5 "EEE-FK1C752SM" H 950 3450 50  0001 C CNN "Part #"
+	1    950  3450
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR04
+L power:GND #PWR03
 U 1 1 5F41E64F
 P 950 3000
-F 0 "#PWR04" H 950 2750 50  0001 C CNN
+F 0 "#PWR03" H 950 2750 50  0001 C CNN
 F 1 "GND" H 950 3000 50  0000 R CNN
 F 2 "" H 950 3000 50  0001 C CNN
 F 3 "" H 950 3000 50  0001 C CNN
@@ -185,10 +185,10 @@ F 3 "" H 950 3000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR05
+L power:GND #PWR04
 U 1 1 5F422559
 P 950 3550
-F 0 "#PWR05" H 950 3300 50  0001 C CNN
+F 0 "#PWR04" H 950 3300 50  0001 C CNN
 F 1 "GND" H 950 3550 50  0000 R CNN
 F 2 "" H 950 3550 50  0001 C CNN
 F 3 "" H 950 3550 50  0001 C CNN
@@ -196,10 +196,10 @@ F 3 "" H 950 3550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C5
+L Device:C_Small C4
 U 1 1 5F437161
 P 1200 2900
-F 0 "C5" H 1200 2600 50  0000 C CNN
+F 0 "C4" H 1200 2600 50  0000 C CNN
 F 1 "47uF" H 1200 2700 50  0000 C CNN
 F 2 "Capacitor_SMD:C_1206_3216Metric" H 1200 2900 50  0001 C CNN
 F 3 "https://www.digikey.com/en/ptm/m/murata-electronics-north-america/high-cap-multilayer-ceramic-capacitors?pn_sku=490-16268-1-ND&part_id=7363259" H 1200 2900 50  0001 C CNN
@@ -209,10 +209,10 @@ F 5 "GRM31CR61E476ME44L" H 1200 2900 50  0001 C CNN "Part #"
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR06
+L power:GND #PWR05
 U 1 1 5F45FB13
 P 950 4100
-F 0 "#PWR06" H 950 3850 50  0001 C CNN
+F 0 "#PWR05" H 950 3850 50  0001 C CNN
 F 1 "GND" H 950 4100 50  0000 R CNN
 F 2 "" H 950 4100 50  0001 C CNN
 F 3 "" H 950 4100 50  0001 C CNN
@@ -220,10 +220,10 @@ F 3 "" H 950 4100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR010
+L power:GND #PWR09
 U 1 1 5F47CF6E
 P 1200 3000
-F 0 "#PWR010" H 1200 2750 50  0001 C CNN
+F 0 "#PWR09" H 1200 2750 50  0001 C CNN
 F 1 "GND" H 1200 3000 50  0000 R CNN
 F 2 "" H 1200 3000 50  0001 C CNN
 F 3 "" H 1200 3000 50  0001 C CNN
@@ -231,10 +231,10 @@ F 3 "" H 1200 3000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C6
+L Device:C_Small C5
 U 1 1 5F47E382
 P 1200 3450
-F 0 "C6" H 1200 3150 50  0000 C CNN
+F 0 "C5" H 1200 3150 50  0000 C CNN
 F 1 "47uF" H 1200 3250 50  0000 C CNN
 F 2 "Capacitor_SMD:C_1206_3216Metric" H 1200 3450 50  0001 C CNN
 F 3 "https://www.digikey.com/en/ptm/m/murata-electronics-north-america/high-cap-multilayer-ceramic-capacitors?pn_sku=490-16268-1-ND&part_id=7363259" H 1200 3450 50  0001 C CNN
@@ -244,10 +244,10 @@ F 5 "GRM31CR61E476ME44L" H 1200 3450 50  0001 C CNN "Part #"
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR011
+L power:GND #PWR010
 U 1 1 5F47E388
 P 1200 3550
-F 0 "#PWR011" H 1200 3300 50  0001 C CNN
+F 0 "#PWR010" H 1200 3300 50  0001 C CNN
 F 1 "GND" H 1200 3550 50  0000 R CNN
 F 2 "" H 1200 3550 50  0001 C CNN
 F 3 "" H 1200 3550 50  0001 C CNN
@@ -255,10 +255,10 @@ F 3 "" H 1200 3550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C7
+L Device:C_Small C6
 U 1 1 5F488538
 P 1200 4000
-F 0 "C7" H 1200 3700 50  0000 C CNN
+F 0 "C6" H 1200 3700 50  0000 C CNN
 F 1 "47uF" H 1200 3800 50  0000 C CNN
 F 2 "Capacitor_SMD:C_1206_3216Metric" H 1200 4000 50  0001 C CNN
 F 3 "https://www.digikey.com/en/ptm/m/murata-electronics-north-america/high-cap-multilayer-ceramic-capacitors?pn_sku=490-16268-1-ND&part_id=7363259" H 1200 4000 50  0001 C CNN
@@ -268,10 +268,10 @@ F 5 "GRM31CR61E476ME44L" H 1200 4000 50  0001 C CNN "Part #"
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR012
+L power:GND #PWR011
 U 1 1 5F48853E
 P 1200 4100
-F 0 "#PWR012" H 1200 3850 50  0001 C CNN
+F 0 "#PWR011" H 1200 3850 50  0001 C CNN
 F 1 "GND" H 1200 4100 50  0000 R CNN
 F 2 "" H 1200 4100 50  0001 C CNN
 F 3 "" H 1200 4100 50  0001 C CNN
@@ -279,10 +279,10 @@ F 3 "" H 1200 4100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C8
+L Device:C_Small C7
 U 1 1 5F48D56B
 P 1200 4550
-F 0 "C8" H 1200 4250 50  0000 C CNN
+F 0 "C7" H 1200 4250 50  0000 C CNN
 F 1 "47uF" H 1200 4350 50  0000 C CNN
 F 2 "Capacitor_SMD:C_1206_3216Metric" H 1200 4550 50  0001 C CNN
 F 3 "https://www.digikey.com/en/ptm/m/murata-electronics-north-america/high-cap-multilayer-ceramic-capacitors?pn_sku=490-16268-1-ND&part_id=7363259" H 1200 4550 50  0001 C CNN
@@ -292,10 +292,10 @@ F 5 "GRM31CR61E476ME44L" H 1200 4550 50  0001 C CNN "Part #"
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR013
+L power:GND #PWR012
 U 1 1 5F48D571
 P 1200 4650
-F 0 "#PWR013" H 1200 4400 50  0001 C CNN
+F 0 "#PWR012" H 1200 4400 50  0001 C CNN
 F 1 "GND" H 1200 4650 50  0000 R CNN
 F 2 "" H 1200 4650 50  0001 C CNN
 F 3 "" H 1200 4650 50  0001 C CNN
@@ -332,7 +332,7 @@ Wire Wire Line
 Wire Wire Line
 	1550 3900 1200 3900
 Wire Wire Line
-	1550 4450 1200 4450
+	1550 4450 1450 4450
 Connection ~ 1200 3350
 Connection ~ 1200 3900
 Connection ~ 1200 4450
@@ -555,16 +555,16 @@ F 3 "" H 9750 8750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R_Small R3
+L Device:R_Small R5
 U 1 1 5F599BF8
-P 9750 8650
-F 0 "R3" H 9800 8700 50  0000 L CNN
-F 1 "5" H 9800 8600 50  0000 L CNN
-F 2 "Custom Footprints:TO-252_resistor" H 9750 8650 50  0001 C CNN
-F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 9750 8650 50  0001 C CNN
-F 4 "Ohmite" H 9750 8650 50  0001 C CNN "Manufacturer"
-F 5 "TKH45P5R00FE-TR" H 9750 8650 50  0001 C CNN "Part #"
-	1    9750 8650
+P 10150 8650
+F 0 "R5" H 10200 8700 50  0000 L CNN
+F 1 "5" H 10200 8600 50  0000 L CNN
+F 2 "Custom Footprints:TO-252_resistor" H 10150 8650 50  0001 C CNN
+F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 10150 8650 50  0001 C CNN
+F 4 "Ohmite" H 10150 8650 50  0001 C CNN "Manufacturer"
+F 5 "TKH45P5R00FE-TR" H 10150 8650 50  0001 C CNN "Part #"
+	1    10150 8650
 	-1   0    0    -1  
 $EndComp
 Text Notes 5200 3150 0    50   ~ 0
@@ -875,34 +875,8 @@ Wire Wire Line
 Text Notes 9300 10650 0    59   ~ 0
 Heatsinks
 $Comp
-L Device:R_Small R4
-U 1 1 5F57BF27
-P 9950 8650
-F 0 "R4" H 10000 8700 50  0000 L CNN
-F 1 "5" H 10000 8600 50  0000 L CNN
-F 2 "Custom Footprints:TO-252_resistor" H 9950 8650 50  0001 C CNN
-F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 9950 8650 50  0001 C CNN
-F 4 "Ohmite" H 9950 8650 50  0001 C CNN "Manufacturer"
-F 5 "TKH45P5R00FE-TR" H 9950 8650 50  0001 C CNN "Part #"
-	1    9950 8650
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R5
-U 1 1 5F57C598
-P 10150 8650
-F 0 "R5" H 10200 8700 50  0000 L CNN
-F 1 "5" H 10200 8600 50  0000 L CNN
-F 2 "Custom Footprints:TO-252_resistor" H 10150 8650 50  0001 C CNN
-F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 10150 8650 50  0001 C CNN
-F 4 "Ohmite" H 10150 8650 50  0001 C CNN "Manufacturer"
-F 5 "TKH45P5R00FE-TR" H 10150 8650 50  0001 C CNN "Part #"
-	1    10150 8650
-	-1   0    0    -1  
-$EndComp
-$Comp
 L Device:R_Small R6
-U 1 1 5F57CB17
+U 1 1 5F57BF27
 P 10350 8650
 F 0 "R6" H 10400 8700 50  0000 L CNN
 F 1 "5" H 10400 8600 50  0000 L CNN
@@ -911,6 +885,32 @@ F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 10350 8650 50  000
 F 4 "Ohmite" H 10350 8650 50  0001 C CNN "Manufacturer"
 F 5 "TKH45P5R00FE-TR" H 10350 8650 50  0001 C CNN "Part #"
 	1    10350 8650
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R3
+U 1 1 5F57C598
+P 9750 8650
+F 0 "R3" H 9800 8700 50  0000 L CNN
+F 1 "5" H 9800 8600 50  0000 L CNN
+F 2 "Custom Footprints:TO-252_resistor" H 9750 8650 50  0001 C CNN
+F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 9750 8650 50  0001 C CNN
+F 4 "Ohmite" H 9750 8650 50  0001 C CNN "Manufacturer"
+F 5 "TKH45P5R00FE-TR" H 9750 8650 50  0001 C CNN "Part #"
+	1    9750 8650
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R4
+U 1 1 5F57CB17
+P 9950 8650
+F 0 "R4" H 10000 8700 50  0000 L CNN
+F 1 "5" H 10000 8600 50  0000 L CNN
+F 2 "Custom Footprints:TO-252_resistor" H 9950 8650 50  0001 C CNN
+F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 9950 8650 50  0001 C CNN
+F 4 "Ohmite" H 9950 8650 50  0001 C CNN "Manufacturer"
+F 5 "TKH45P5R00FE-TR" H 9950 8650 50  0001 C CNN "Part #"
+	1    9950 8650
 	-1   0    0    -1  
 $EndComp
 Text Label 8950 5600 2    50   ~ 0
@@ -972,11 +972,11 @@ F 5 "910-40-2-23-2-B-0" H 9950 11100 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Relay_SolidState:ASSR-1218 U8
+L Relay_SolidState:ASSR-1218 U11
 U 1 1 5F827B60
 P 8100 5550
-F 0 "U8" H 8100 5875 50  0000 C CNN
-F 1 "ASSR-1218" H 8100 5784 50  0000 C CNN
+F 0 "U11" H 7800 5550 50  0000 C CNN
+F 1 "ASSR-1218" H 8100 5784 50  0001 C CNN
 F 2 "Custom Footprints:SSR-SO-4_7.6x3.6mm_P2.54mm" H 7900 5350 50  0001 L CIN
 F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=61844&prodName=TLP3555A" H 8100 5550 50  0001 L CNN
 F 4 "Toshiba Semiconductor and Storage" H 8100 5550 50  0001 C CNN "Manufacturer"
@@ -1026,11 +1026,11 @@ LED-
 Text Label 9750 7850 0    50   ~ 0
 LED-
 $Comp
-L Relay_SolidState:ASSR-1218 U9
+L Relay_SolidState:ASSR-1218 U10
 U 1 1 5F89A743
 P 8100 5850
-F 0 "U9" H 8100 6175 50  0000 C CNN
-F 1 "ASSR-1218" H 8100 6084 50  0000 C CNN
+F 0 "U10" H 7800 5850 50  0000 C CNN
+F 1 "ASSR-1218" H 8100 6084 50  0001 C CNN
 F 2 "Custom Footprints:SSR-SO-4_7.6x3.6mm_P2.54mm" H 7900 5650 50  0001 L CIN
 F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=61844&prodName=TLP3555A" H 8100 5850 50  0001 L CNN
 F 4 "Toshiba Semiconductor and Storage" H 8100 5850 50  0001 C CNN "Manufacturer"
@@ -1039,11 +1039,11 @@ F 5 "TLP3555A(TP1,F" H 8100 5850 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Relay_SolidState:ASSR-1218 U10
+L Relay_SolidState:ASSR-1218 U9
 U 1 1 5F89BDE1
 P 8100 6150
-F 0 "U10" H 8100 6475 50  0000 C CNN
-F 1 "ASSR-1218" H 8100 6384 50  0000 C CNN
+F 0 "U9" H 7800 6150 50  0000 C CNN
+F 1 "ASSR-1218" H 8100 6384 50  0001 C CNN
 F 2 "Custom Footprints:SSR-SO-4_7.6x3.6mm_P2.54mm" H 7900 5950 50  0001 L CIN
 F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=61844&prodName=TLP3555A" H 8100 6150 50  0001 L CNN
 F 4 "Toshiba Semiconductor and Storage" H 8100 6150 50  0001 C CNN "Manufacturer"
@@ -1052,11 +1052,11 @@ F 5 "TLP3555A(TP1,F" H 8100 6150 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Relay_SolidState:ASSR-1218 U11
+L Relay_SolidState:ASSR-1218 U8
 U 1 1 5F89CB25
 P 8100 6450
-F 0 "U11" H 8100 6775 50  0000 C CNN
-F 1 "ASSR-1218" H 8100 6684 50  0000 C CNN
+F 0 "U8" H 7800 6450 50  0000 C CNN
+F 1 "ASSR-1218" H 8100 6250 50  0001 C CNN
 F 2 "Custom Footprints:SSR-SO-4_7.6x3.6mm_P2.54mm" H 7900 6250 50  0001 L CIN
 F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=61844&prodName=TLP3555A" H 8100 6450 50  0001 L CNN
 F 4 "Toshiba Semiconductor and Storage" H 8100 6450 50  0001 C CNN "Manufacturer"
@@ -1071,26 +1071,26 @@ Wire Wire Line
 Wire Wire Line
 	650  3900 950  3900
 $Comp
-L Device:CP1_Small C3
+L Device:CP1_Small C1
 U 1 1 5F939007
-P 950 3450
-F 0 "C3" H 900 3750 50  0000 L CNN
-F 1 "7500uF" H 750 3650 50  0000 L CNN
-F 2 "Capacitor_SMD:CP_Elec_18x22" H 950 3450 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1247.pdf" H 950 3450 50  0001 C CNN
-F 4 "Panasonic Electronic Components" H 950 3450 50  0001 C CNN "Manufacturer"
-F 5 "EEE-FK1C752SM" H 950 3450 50  0001 C CNN "Part #"
-	1    950  3450
+P 950 2900
+F 0 "C1" H 900 3200 50  0000 L CNN
+F 1 "7500uF" H 750 3100 50  0000 L CNN
+F 2 "Capacitor_SMD:CP_Elec_18x22" H 950 2900 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1247.pdf" H 950 2900 50  0001 C CNN
+F 4 "Panasonic Electronic Components" H 950 2900 50  0001 C CNN "Manufacturer"
+F 5 "EEE-FK1C752SM" H 950 2900 50  0001 C CNN "Part #"
+	1    950  2900
 	1    0    0    -1  
 $EndComp
 Connection ~ 950  3350
 Wire Wire Line
 	950  3350 1200 3350
 $Comp
-L Device:CP1_Small C4
+L Device:CP1_Small C3
 U 1 1 5F9399C1
 P 950 4000
-F 0 "C4" H 900 4300 50  0000 L CNN
+F 0 "C3" H 900 4300 50  0000 L CNN
 F 1 "7500uF" H 750 4200 50  0000 L CNN
 F 2 "Capacitor_SMD:CP_Elec_18x22" H 950 4000 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1247.pdf" H 950 4000 50  0001 C CNN
@@ -1142,10 +1142,10 @@ F 5 "ELUMOASAQ5C12" H 4150 5750 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Custom_parts:Pushbutton_with_LED_-_ELUMOATHQ3C12 SW5
+L Custom_parts:Pushbutton_with_LED_-_ELUMOATHQ3C12 SW4
 U 1 1 5F4EEFFE
 P 5750 5750
-F 0 "SW5" H 5750 6235 50  0000 C CNN
+F 0 "SW4" H 5750 6235 50  0000 C CNN
 F 1 "Pushbutton_with_LED" H 5750 6144 50  0000 C CNN
 F 2 "Custom Footprints:Pushbutton_LED-ELUMOATHQ3C12" H 5750 6200 50  0001 C CNN
 F 3 "https://www.ckswitches.com/media/1405/elum.pdf" H 5750 5950 50  0001 C CNN
@@ -1248,10 +1248,10 @@ Wire Wire Line
 Wire Wire Line
 	7400 5450 7800 5450
 $Comp
-L Switch:SW_SPDT SW4
+L Switch:SW_SPDT SW5
 U 1 1 5F6733E8
 P 4700 9500
-F 0 "SW4" H 4700 9785 50  0000 C CNN
+F 0 "SW5" H 4700 9785 50  0000 C CNN
 F 1 "SW_SPDT" H 4700 9694 50  0000 C CNN
 F 2 "Custom Footprints:1x5_header_SSM-105-L-SV-BE-LC" H 4700 9500 50  0001 C CNN
 F 3 "https://sten-eswitch-13110800-production.s3.amazonaws.com/system/asset/product_line/data_sheet/131/200.pdf" H 4700 9500 50  0001 C CNN
@@ -1536,8 +1536,6 @@ Text Label 13450 2050 0    50   ~ 0
 SCL0
 Text Label 13450 2150 0    50   ~ 0
 SDA0
-Wire Wire Line
-	650  4450 850  4450
 Text Label 8950 5500 2    50   ~ 0
 LED4-
 Text Label 8950 6100 2    50   ~ 0
@@ -1813,10 +1811,10 @@ F 3 "" H 8000 10900 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR09
+L power:GND #PWR08
 U 1 1 5F7666A8
 P 1150 5650
-F 0 "#PWR09" H 1150 5400 50  0001 C CNN
+F 0 "#PWR08" H 1150 5400 50  0001 C CNN
 F 1 "GND" V 1150 5550 50  0000 R CNN
 F 2 "" H 1150 5650 50  0001 C CNN
 F 3 "" H 1150 5650 50  0001 C CNN
@@ -1857,32 +1855,29 @@ F 3 "" H 3950 5550 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:C_Small C1
+L Device:C_Small C8
 U 1 1 5F7E985C
-P 850 4550
-F 0 "C1" H 850 4250 50  0000 C CNN
-F 1 "47uF" H 850 4350 50  0000 C CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric" H 850 4550 50  0001 C CNN
-F 3 "https://www.digikey.com/en/ptm/m/murata-electronics-north-america/high-cap-multilayer-ceramic-capacitors?pn_sku=490-16268-1-ND&part_id=7363259" H 850 4550 50  0001 C CNN
-F 4 "Murata Electronics" H 850 4550 50  0001 C CNN "Manufacturer"
-F 5 "GRM31CR61E476ME44L" H 850 4550 50  0001 C CNN "Part #"
-	1    850  4550
+P 1450 4550
+F 0 "C8" H 1450 4250 50  0000 C CNN
+F 1 "47uF" H 1450 4350 50  0000 C CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 1450 4550 50  0001 C CNN
+F 3 "https://www.digikey.com/en/ptm/m/murata-electronics-north-america/high-cap-multilayer-ceramic-capacitors?pn_sku=490-16268-1-ND&part_id=7363259" H 1450 4550 50  0001 C CNN
+F 4 "Murata Electronics" H 1450 4550 50  0001 C CNN "Manufacturer"
+F 5 "GRM31CR61E476ME44L" H 1450 4550 50  0001 C CNN "Part #"
+	1    1450 4550
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR03
+L power:GND #PWR016
 U 1 1 5F7E9862
-P 850 4650
-F 0 "#PWR03" H 850 4400 50  0001 C CNN
-F 1 "GND" H 850 4650 50  0000 R CNN
-F 2 "" H 850 4650 50  0001 C CNN
-F 3 "" H 850 4650 50  0001 C CNN
-	1    850  4650
+P 1450 4650
+F 0 "#PWR016" H 1450 4400 50  0001 C CNN
+F 1 "GND" H 1450 4650 50  0000 R CNN
+F 2 "" H 1450 4650 50  0001 C CNN
+F 3 "" H 1450 4650 50  0001 C CNN
+	1    1450 4650
 	1    0    0    -1  
 $EndComp
-Connection ~ 850  4450
-Wire Wire Line
-	850  4450 1200 4450
 $Comp
 L Device:R_Pack08_Split RN1
 U 6 1 5F84EDCC
@@ -2526,10 +2521,10 @@ F 3 "" H 1600 6550 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L power:GND #PWR015
+L power:GND #PWR014
 U 1 1 5F601BD9
 P 1200 7550
-F 0 "#PWR015" H 1200 7300 50  0001 C CNN
+F 0 "#PWR014" H 1200 7300 50  0001 C CNN
 F 1 "GND" H 1450 7500 50  0000 R CNN
 F 2 "" H 1200 7550 50  0001 C CNN
 F 3 "" H 1200 7550 50  0001 C CNN
@@ -2537,10 +2532,10 @@ F 3 "" H 1200 7550 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR014
+L power:GND #PWR013
 U 1 1 5F5F2844
 P 1200 6250
-F 0 "#PWR014" H 1200 6000 50  0001 C CNN
+F 0 "#PWR013" H 1200 6000 50  0001 C CNN
 F 1 "GND" H 1450 6200 50  0000 R CNN
 F 2 "" H 1200 6250 50  0001 C CNN
 F 3 "" H 1200 6250 50  0001 C CNN
@@ -2610,10 +2605,10 @@ F 5 "RJSSE-5380-04" H 1200 9500 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR016
+L power:GND #PWR015
 U 1 1 5F59943B
 P 1200 10000
-F 0 "#PWR016" H 1200 9750 50  0001 C CNN
+F 0 "#PWR015" H 1200 9750 50  0001 C CNN
 F 1 "GND" H 1450 9950 50  0000 R CNN
 F 2 "" H 1200 10000 50  0001 C CNN
 F 3 "" H 1200 10000 50  0001 C CNN
@@ -3142,10 +3137,10 @@ Text Label 1950 1200 0    50   ~ 0
 Text Label 2600 1400 2    50   ~ 0
 Vin
 $Comp
-L power:GND #PWR07
+L power:GND #PWR06
 U 1 1 5F518EFF
 P 1050 1550
-F 0 "#PWR07" H 1050 1300 50  0001 C CNN
+F 0 "#PWR06" H 1050 1300 50  0001 C CNN
 F 1 "GND" V 1055 1422 50  0000 R CNN
 F 2 "" H 1050 1550 50  0001 C CNN
 F 3 "" H 1050 1550 50  0001 C CNN
@@ -3167,10 +3162,10 @@ F 3 "~" H 850 1550 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR08
+L power:GND #PWR07
 U 1 1 5F5035F8
 P 1100 2250
-F 0 "#PWR08" H 1100 2000 50  0001 C CNN
+F 0 "#PWR07" H 1100 2000 50  0001 C CNN
 F 1 "GND" H 1300 2150 50  0000 R CNN
 F 2 "" H 1100 2250 50  0001 C CNN
 F 3 "" H 1100 2250 50  0001 C CNN
@@ -3336,4 +3331,9 @@ Wire Notes Line
 	8000 500  8000 4750
 Wire Wire Line
 	4650 6850 4650 6950
+Connection ~ 1450 4450
+Wire Wire Line
+	1450 4450 1200 4450
+Wire Wire Line
+	650  4450 1200 4450
 $EndSCHEMATC
