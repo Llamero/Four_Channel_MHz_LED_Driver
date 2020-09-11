@@ -2356,8 +2356,6 @@ F 3 "" H 4650 6650 50  0001 C CNN
 	1    4650 6650
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	4650 6900 3900 6900
 $Comp
 L power:GND #PWR017
 U 1 1 5FAA68F2
@@ -2438,12 +2436,7 @@ F 5 "RJSSE-5380-04" H 1200 6750 50  0001 C CNN "Part #"
 	1    0    0    1   
 $EndComp
 Wire Wire Line
-	3900 6450 3900 6900
-Wire Wire Line
 	1600 6650 1850 6650
-Wire Wire Line
-	4650 6900 4650 6950
-Connection ~ 4650 6900
 $Comp
 L power:GND #PWR0148
 U 1 1 5F61F25B
@@ -2556,15 +2549,15 @@ F 3 "" H 1200 6250 50  0001 C CNN
 $EndComp
 Text Notes 850  8950 1    59   ~ 0
 I/O maximum voltage: +30V/-27V (160mW)\nNiDaq PCI-6110 is +/- 10V 5mA\n∴ minimum impedance is 2000 Ohms
-Text Notes 4600 6150 0    59   ~ 0
-Op-amp input mux
+Text Notes 4500 6150 0    59   ~ 0
+Op-amp input 4x1 mux
 Text Notes 2200 7350 0    59   ~ 0
 Current sense voltage ouput
 Wire Wire Line
 	5500 6650 5400 6650
 Text Label 2150 6850 0    50   ~ 0
 external_analog
-Text Label 3900 6450 2    50   ~ 0
+Text Label 4650 6900 2    50   ~ 0
 5V
 Text Label 4650 6550 2    50   ~ 0
 -0.25V_analog
@@ -2580,8 +2573,6 @@ Wire Wire Line
 	5400 6950 5400 6850
 Wire Wire Line
 	4650 6950 5400 6950
-Wire Wire Line
-	4650 6850 4650 6900
 $Comp
 L Custom_parts:TMUX1204DGSR U6
 U 1 1 5F3BA201
@@ -2825,8 +2816,8 @@ Wire Notes Line
 	11800 11200 11800 7000
 Wire Notes Line
 	11800 7000 6700 7000
-Text Notes 7000 5150 0    118  ~ 0
-LED Solid-State Relay Mux\n\n
+Text Notes 6800 5150 0    118  ~ 0
+LED Solid-State Relay 4x1 Mux\n\n
 Text Notes 10850 750  0    118  ~ 0
 Teensy 3.6 180 MHz Microcontroller
 Wire Notes Line
@@ -3343,4 +3334,6 @@ Text Notes 2200 950  0    118  ~ 0
 Voltage Rails: 12V, 10V, 5V, -0.25V, -1.8V, -5V\n\n
 Wire Notes Line
 	8000 500  8000 4750
+Wire Wire Line
+	4650 6850 4650 6950
 $EndSCHEMATC

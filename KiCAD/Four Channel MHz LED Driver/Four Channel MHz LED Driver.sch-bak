@@ -2556,8 +2556,8 @@ F 3 "" H 1200 6250 50  0001 C CNN
 $EndComp
 Text Notes 850  8950 1    59   ~ 0
 I/O maximum voltage: +30V/-27V (160mW)\nNiDaq PCI-6110 is +/- 10V 5mA\n∴ minimum impedance is 2000 Ohms
-Text Notes 4600 6150 0    59   ~ 0
-Op-amp input mux
+Text Notes 4500 6150 0    59   ~ 0
+Op-amp input 4x1 mux
 Text Notes 2200 7350 0    59   ~ 0
 Current sense voltage ouput
 Wire Wire Line
@@ -2825,8 +2825,8 @@ Wire Notes Line
 	11800 11200 11800 7000
 Wire Notes Line
 	11800 7000 6700 7000
-Text Notes 7000 5150 0    118  ~ 0
-LED Solid-State Relay Mux\n\n
+Text Notes 6800 5150 0    118  ~ 0
+LED Solid-State Relay 4x1 Mux\n\n
 Text Notes 10850 750  0    118  ~ 0
 Teensy 3.6 180 MHz Microcontroller
 Wire Notes Line
@@ -3038,8 +3038,8 @@ $EndComp
 Connection ~ 1350 2050
 Wire Wire Line
 	1100 2050 1350 2050
-Text Notes 5550 1250 0    59   ~ 0
-Op-amp split supply: 12V/-5V to clean 10V/-1.8V
+Text Notes 6100 1250 0    59   ~ 0
+Op-amp linear reagulator split supply: \n12V/-5V to clean 10V/-1.8V
 $Comp
 L Device:C_Small C20
 U 1 1 5F47299E
