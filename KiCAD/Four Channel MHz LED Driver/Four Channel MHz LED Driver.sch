@@ -1161,13 +1161,13 @@ Text Label 11150 1650 2    50   ~ 0
 Relay3
 Text Label 11150 1750 2    50   ~ 0
 Relay4
-Text Label 7000 5800 2    50   ~ 0
+Text Label 7300 5450 2    50   ~ 0
 Relay1
-Text Label 7000 5900 2    50   ~ 0
+Text Label 7300 5750 2    50   ~ 0
 Relay2
-Text Label 7000 6000 2    50   ~ 0
+Text Label 7300 6050 2    50   ~ 0
 Relay3
-Text Label 7000 6100 2    50   ~ 0
+Text Label 7300 6350 2    50   ~ 0
 Relay4
 $Comp
 L power:GND #PWR080
@@ -1214,38 +1214,18 @@ F 3 "" H 7800 5650 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R_Pack04 RN4
+L Device:R_Pack04_Split RN4
 U 1 1 5F577F14
-P 7200 6000
-F 0 "RN4" V 6800 6000 50  0000 C CNN
-F 1 "200" V 6900 6000 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 7475 6000 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7200 6000 50  0001 C CNN
-F 4 "Yageo" V 7200 6000 50  0001 C CNN "Manufacturer"
-F 5 "YC164-JR-07200RL" V 7200 6000 50  0001 C CNN "Part #"
-	1    7200 6000
+P 7450 5450
+F 0 "RN4" V 7350 5450 50  0000 C CNN
+F 1 "200" V 7450 5450 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 7725 5450 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7450 5450 50  0001 C CNN
+F 4 "Yageo" V 7450 5450 50  0001 C CNN "Manufacturer"
+F 5 "YC164-JR-07200RL" V 7450 5450 50  0001 C CNN "Part #"
+	1    7450 5450
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	7400 5900 7600 5900
-Wire Wire Line
-	7600 5900 7600 5750
-Wire Wire Line
-	7600 5750 7800 5750
-Wire Wire Line
-	7400 6000 7600 6000
-Wire Wire Line
-	7600 6000 7600 6050
-Wire Wire Line
-	7600 6050 7800 6050
-Wire Wire Line
-	7400 6100 7400 6350
-Wire Wire Line
-	7400 6350 7800 6350
-Wire Wire Line
-	7400 5800 7400 5450
-Wire Wire Line
-	7400 5450 7800 5450
 $Comp
 L Switch:SW_SPDT SW5
 U 1 1 5F6733E8
@@ -2795,8 +2775,6 @@ Wire Notes Line
 	11800 11200 11800 7000
 Wire Notes Line
 	11800 7000 6700 7000
-Text Notes 6800 5150 0    118  ~ 0
-LED Solid-State Relay 4x1 Mux\n\n
 Text Notes 10850 750  0    118  ~ 0
 Teensy 3.6 180 MHz Microcontroller
 Wire Notes Line
@@ -3393,4 +3371,53 @@ F 3 "" H 5450 9350 50  0001 C CNN
 	1    5450 9350
 	0    1    1    0   
 $EndComp
+Text Notes 6800 5150 0    118  ~ 0
+LED Solid-State Relay 4x1 Mux\n\n
+$Comp
+L Device:R_Pack04_Split RN4
+U 2 1 5F913E0A
+P 7450 5750
+F 0 "RN4" V 7350 5750 50  0000 C CNN
+F 1 "200" V 7450 5750 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 7725 5750 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7450 5750 50  0001 C CNN
+F 4 "Yageo" V 7450 5750 50  0001 C CNN "Manufacturer"
+F 5 "YC164-JR-07200RL" V 7450 5750 50  0001 C CNN "Part #"
+	2    7450 5750
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack04_Split RN4
+U 3 1 5F917ED3
+P 7450 6050
+F 0 "RN4" V 7350 6050 50  0000 C CNN
+F 1 "200" V 7450 6050 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 7725 6050 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7450 6050 50  0001 C CNN
+F 4 "Yageo" V 7450 6050 50  0001 C CNN "Manufacturer"
+F 5 "YC164-JR-07200RL" V 7450 6050 50  0001 C CNN "Part #"
+	3    7450 6050
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack04_Split RN4
+U 4 1 5F918827
+P 7450 6350
+F 0 "RN4" V 7350 6350 50  0000 C CNN
+F 1 "200" V 7450 6350 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 7725 6350 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7450 6350 50  0001 C CNN
+F 4 "Yageo" V 7450 6350 50  0001 C CNN "Manufacturer"
+F 5 "YC164-JR-07200RL" V 7450 6350 50  0001 C CNN "Part #"
+	4    7450 6350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7600 5450 7800 5450
+Wire Wire Line
+	7600 5750 7800 5750
+Wire Wire Line
+	7600 6050 7800 6050
+Wire Wire Line
+	7600 6350 7800 6350
 $EndSCHEMATC

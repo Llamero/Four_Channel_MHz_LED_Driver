@@ -1217,12 +1217,12 @@ $Comp
 L Device:R_Pack04 RN4
 U 1 1 5F577F14
 P 7200 6000
-F 0 "RN4" V 6783 6000 50  0000 C CNN
-F 1 "R_Pack04" V 6874 6000 50  0000 C CNN
+F 0 "RN4" V 6800 6000 50  0000 C CNN
+F 1 "200" V 6900 6000 50  0000 C CNN
 F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 7475 6000 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7200 6000 50  0001 C CNN
-F 4 "Panasonic Electronic Components" V 7200 6000 50  0001 C CNN "Manufacturer"
-F 5 "EXB-38V151JV" V 7200 6000 50  0001 C CNN "Part #"
+F 4 "Yageo" V 7200 6000 50  0001 C CNN "Manufacturer"
+F 5 "YC164-JR-07200RL" V 7200 6000 50  0001 C CNN "Part #"
 	1    7200 6000
 	0    1    1    0   
 $EndComp
@@ -2355,7 +2355,7 @@ P 5650 7650
 F 0 "TH2" V 5650 7600 50  0000 L CNN
 F 1 "Thermistor" H 5755 7605 50  0001 L CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" H 5650 7650 50  0001 C CNN
-F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 5650 7650 50  0001 C CNN
+F 3 "https://www.murata.com/products/productdata/8796839149598/NTHCG158.txt?1437969900000" H 5650 7650 50  0001 C CNN
 F 4 "Murata Electronics" H 5650 7650 50  0001 C CNN "Manufacturer"
 F 5 "NCP18XM472J03RB" H 5650 7650 50  0001 C CNN "Part #"
 	1    5650 7650
@@ -2370,7 +2370,7 @@ P 5650 7500
 F 0 "TH1" V 5650 7450 50  0000 L CNN
 F 1 "Thermistor" H 5755 7455 50  0001 L CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" H 5650 7500 50  0001 C CNN
-F 3 "https://ds.murata.co.jp/simsurfing/ntcthermistor.html?lcid=en-us" H 5650 7500 50  0001 C CNN
+F 3 "https://www.murata.com/products/productdata/8796839149598/NTHCG158.txt?1437969900000" H 5650 7500 50  0001 C CNN
 F 4 "Murata Electronics" H 5650 7500 50  0001 C CNN "Manufacturer"
 F 5 "NCP18XM472J03RB" H 5650 7500 50  0001 C CNN "Part #"
 	1    5650 7500
@@ -2527,7 +2527,7 @@ F 3 "" H 1200 6250 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 Text Notes 850  8950 1    59   ~ 0
-I/O maximum voltage: +30V/-27V (160mW)\nNiDaq PCI-6110 is +/- 10V 5mA\n∴ minimum impedance is 2000 Ohms
+I/O maximum voltage: +20V/-17V (62mW)\nNiDaq PCI-6110 is +/- 10V 5mA\n∴ minimum impedance is 2000 Ohms
 Text Notes 4500 6150 0    59   ~ 0
 Op-amp input 4x1 mux
 Text Notes 2200 7350 0    59   ~ 0
@@ -3372,10 +3372,10 @@ F 5 "742C163472JP" V 2000 7750 50  0001 C CNN "Part #"
 	0    1    -1   0   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0101
 U 1 1 5F7CC92E
 P 4150 9500
-F 0 "#PWR?" H 4150 9250 50  0001 C CNN
+F 0 "#PWR0101" H 4150 9250 50  0001 C CNN
 F 1 "GND" V 4150 9400 50  0000 R CNN
 F 2 "" H 4150 9500 50  0001 C CNN
 F 3 "" H 4150 9500 50  0001 C CNN
@@ -3383,10 +3383,10 @@ F 3 "" H 4150 9500 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0102
 U 1 1 5F7CD122
 P 5450 9350
-F 0 "#PWR?" H 5450 9100 50  0001 C CNN
+F 0 "#PWR0102" H 5450 9100 50  0001 C CNN
 F 1 "GND" V 5450 9250 50  0000 R CNN
 F 2 "" H 5450 9350 50  0001 C CNN
 F 3 "" H 5450 9350 50  0001 C CNN

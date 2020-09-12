@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 18)
+    (drawings 19)
     (tracks 1938)
     (zones 0)
     (modules 92)
@@ -3381,7 +3381,7 @@
     (fp_text reference RN4 (at -0.65 -4.4) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value R_Pack04 (at 0 3.5) (layer F.Fab)
+    (fp_text value 200 (at 0 3.5) (layer F.Fab)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_line (start 2.2 2.85) (end -2.21 2.85) (layer F.CrtYd) (width 0.05))
@@ -4471,8 +4471,11 @@
     )
   )
 
-  (gr_line (start 50.99 31.48) (end 133.65 114.04) (layer B.SilkS) (width 0.15))
-  (gr_line (start 133.65 31.5) (end 50.37 114.86) (layer B.SilkS) (width 0.15))
+  (gr_text "Teensy 3.5/3.6" (at 105.05 49.83) (layer F.SilkS) (tstamp 5F5DC4E6)
+    (effects (font (size 1.8 1.8) (thickness 0.3)))
+  )
+  (gr_line (start 88.67 69.15) (end 95.86 76.31) (layer B.SilkS) (width 0.15))
+  (gr_line (start 95.87 69.15) (end 88.68 76.28) (layer B.SilkS) (width 0.15))
   (gr_text * (at 95.31 79.3) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)))
   )
