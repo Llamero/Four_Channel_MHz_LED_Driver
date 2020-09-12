@@ -1516,8 +1516,6 @@ Text Label 4650 5850 0    50   ~ 0
 LED3
 Text Label 6250 5850 0    50   ~ 0
 LED4
-NoConn ~ 5450 9350
-NoConn ~ 4150 9500
 $Comp
 L Device:R_Pack08_Split RN1
 U 1 1 5F9E09BB
@@ -3372,5 +3370,27 @@ F 4 "CTS Resistor Products" V 2000 7750 50  0001 C CNN "Manufacturer"
 F 5 "742C163472JP" V 2000 7750 50  0001 C CNN "Part #"
 	4    2000 7750
 	0    1    -1   0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F7CC92E
+P 4150 9500
+F 0 "#PWR?" H 4150 9250 50  0001 C CNN
+F 1 "GND" V 4150 9400 50  0000 R CNN
+F 2 "" H 4150 9500 50  0001 C CNN
+F 3 "" H 4150 9500 50  0001 C CNN
+	1    4150 9500
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F7CD122
+P 5450 9350
+F 0 "#PWR?" H 5450 9100 50  0001 C CNN
+F 1 "GND" V 5450 9250 50  0000 R CNN
+F 2 "" H 5450 9350 50  0001 C CNN
+F 3 "" H 5450 9350 50  0001 C CNN
+	1    5450 9350
+	0    1    1    0   
 $EndComp
 $EndSCHEMATC
