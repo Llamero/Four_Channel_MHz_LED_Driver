@@ -1,0 +1,45 @@
+Item,Qty,Reference(s),Value,LibPart,Footprint,Datasheet,Manufacturer,Part #
+1,1,BZ1,CPT-2016-75-SMT-TR,Custom_parts:CPT-2016-75-SMT-TR,Custom Footprints:SMT-0940-T-3V-R_9x9_alarm,https://media.digikey.com/pdf/Data%20Sheets/Projects%20Unlimited%20PDFs/SMT_09_Series_DS.pdf,"PUI Audio, Inc.",SMT-0940-T-3V-R
+2,3,"C1, C2, C3",7500uF,Device:CP1_Small,Capacitor_SMD:CP_Elec_18x22,https://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1247.pdf,Panasonic Electronic Components,EEE-FK1C752SM
+3,8,"C4, C5, C6, C7, C8, C10, C13, C14",47uF,Device:C_Small,Capacitor_SMD:C_1206_3216Metric,https://www.digikey.com/en/ptm/m/murata-electronics-north-america/high-cap-multilayer-ceramic-capacitors?pn_sku=490-16268-1-ND&part_id=7363259,Murata Electronics,GRM31CR61E476ME44L
+4,7,"C9, C15, C16, C17, C18, C19, C20",2.2uF,Device:C_Small,Custom Footprints:0508_Capacitor,https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M,Taiyo Yuden,TWK212B7225MD-T
+5,3,"C11, C12, C21",2200pF,Device:C_Small,Capacitor_SMD:C_0603_1608Metric,https://api.kemet.com/component-edge/download/datasheet/C0603C222K1RACTU.pdf,KEMET,C0603C222K1RACTU
+6,3,"D1, D2, D3",BAT54BRW,Custom_parts:BAT54BRW,Package_TO_SOT_SMD:SOT-363_SC-70-6,https://www.diodes.com/assets/Datasheets/ds30152.pdf,Diodes Incorporated,BAT54BRW-7-F
+7,1,D4,D_Zener,Device:D_Zener,Diode_SMD:D_SOD-323,https://www.onsemi.com/pub/Collateral/MM3Z2V4ST1-D.PDF,ON Semiconductor,MM3Z4V7ST1G
+8,1,D5,TVS_Diode,Device:D_Zener_Small_ALT,Custom Footprints:DO-214AA,https://katalog.we-online.de/pbs/datasheet/824520581.pdf,Würth Elektronik,824520581
+9,8,"H1, H2, H3, H4, H5, H6, H7, H8",MountingHole_Pad,Mechanical:MountingHole_Pad,Custom Footprints:Ref_only,http://www.keyelco.com/product-pdf.cfm?p=4559,Keystone Electronics,24354
+10,4,"HS1, HS2, HS3, HS4",HS-PCB,Mechanical:Heatsink,Custom Footprints:Heatsink_910-40-2-23-2-B-0,https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf,Wakefield-Vette,910-40-2-23-2-B-0
+11,1,J1,Barrel_Jack_Switch,Connector:Barrel_Jack_Switch,Custom Footprints:CUI_PJ1-022-SMT-TR,https://www.cuidevices.com/product/resource/digikeypdf/pj1-022-smt-tr.pdf,CUI Devices,PJ1-022-SMT-TR
+12,1,J3,8P8C_Shielded_x4,Custom_parts:8P8C_Shielded_x4,Custom Footprints:RJ45_x4-RJSSE-5380-04,https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/rjsse538004.pdf,Amphenol ICC (Commercial Products),RJSSE-5380-04
+13,1,J4,Conn_01x03_Male,Custom_parts:Conn_01x03_Male,Custom Footprints:Ref_only,http://www.adam-tech.com/downloader.php?p=PH1RB-XX-UA.pdf,Adam Tech,PH1RB-03-UA
+14,1,J5,Conn_01x03_Female,Custom_parts:Conn_01x03_Female,Custom Footprints:Ref_only,https://www.samtec.com/products/ssm-103-l-sv-lc,Samtec Inc.,SSM-103-L-SV
+14,1,J7,Conn_01x03_Female,Custom_parts:Conn_01x03_Female,Custom Footprints:Ref_only,https://www.samtec.com/products/ssm-103-l-sv-lc,Samtec Inc.,SSM-103-L-SV-LC
+15,1,J6,Conn_01x08_Female,Custom_parts:Conn_01x08_Female,Custom Footprints:Ref_only,https://media.digikey.com/pdf/Data%20Sheets/Sullins%20PDFs/Female_Headers.100_DS.pdf,Sullins Connector Solutions,NPTC081KFXC-RC
+16,1,J8,Conn_01x05_Female,Custom_parts:Conn_01x05_Female,Custom Footprints:Ref_only,http://suddendocs.samtec.com/prints/ssm-1xx-xxx-xx-xx-xx-x-xx-footprint.pdf,Samtec Inc.,SSM-105-L-SV-BE-LC-TR
+17,2,"J9, J10",Conn_01x24_Female,Custom_parts:Conn_01x24_Female,Custom Footprints:Ref_only,https://www.samtec.com/partnumber/ssm-124-l-sv-lc?vendor=digikey,Samtec Inc.,SSM-124-L-SV-LC
+18,1,JP2,Jumper_NC_Small,Device:Jumper_NO_Small,Resistor_SMD:R_2010_5025Metric,http://www.koaspeer.com/pdfs/RK73Z.pdf,"KOA Speer Electronics, Inc.",RK73Z2HTTE
+19,1,JP3,Jumper_NC_Small,Device:Jumper_NC_Small,Resistor_SMD:R_1206_3216Metric,https://www.keyelco.com/userAssets/file/M65p54.pdf,Keystone Electronics,5108
+20,2,"JP4, JP5",Jumper_NC_Small,Device:Jumper_NC_Small,Custom Footprints:20A_shunt_5104,https://www.keyelco.com/userAssets/file/M65p54.pdf,Keystone Electronics,5104
+21,1,L1,10uH,pspice:INDUCTOR,Inductor_SMD:L_1210_3225Metric,https://product.tdk.com/info/en/catalog/datasheets/inductor_automotive_power_tfm322512alma_en.pdf?ref_disty=digikey,TDK Corporation,TFM322512ALMA100MTAA
+22,1,M1,Fan_4pin,Motor:Fan_4pin,Custom Footprints:4-pin_fan_SMD,http://suddendocs.samtec.com/catalog_english/tsm.pdf,Samtec Inc.,TSM-104-02-L-SV
+23,1,Q1,SUM70060E,Device:Q_NMOS_GDS,Package_TO_SOT_SMD:TO-263-2,https://www.vishay.com/docs/65383/sum70060e.pdf,Vishay Siliconix,SUM70060E-GE3
+24,2,"R1, R2",12,Device:R_Small,Resistor_SMD:R_1210_3225Metric,https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf,Stackpole Electronics Inc,RMCF1210JT12R0
+25,4,"R3, R4, R5, R6",5,Device:R_Small,Custom Footprints:TO-252_resistor,http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false,Ohmite,TKH45P5R00FE-TR
+26,1,RN1,150,Device:R_Pack08_Split,Custom Footprints:EXB-2HV151JV-1605x8,https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf,Panasonic Electronic Components,EXB-2HV151JV
+27,1,RN2,150,Device:R_Pack04_Split,Resistor_SMD:R_Array_Convex_4x1206,https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf,Panasonic Electronic Components,EXB-38V151JV
+28,1,RN3,4.7k,Device:R_Pack08_Split,Custom Footprints:2506_modified_concave_8x_R-pack,https://www.ctscorp.com/wp-content/uploads/74x.pdf,CTS Resistor Products,742C163472JP
+29,1,RN4,200,Device:R_Pack04_Split,Resistor_SMD:R_Array_Convex_4x1206,https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf,Yageo,YC164-JR-07200RL
+30,1,RV1,R_POT,Device:R_POT,Custom Footprints:Pot_with_header,https://www.bourns.com/docs/Product-Datasheets/3310.pdf,Bourns Inc.,3310C-101-102L
+31,2,"RV2, RV3",R_POT_TRIM,Device:R_POT_TRIM,Custom Footprints:3224W-1-502E,https://www.bourns.com/docs/Product-Datasheets/3224.pdf,Bourns Inc.,3224W-1-501E
+32,4,"SW1, SW2, SW3, SW4",Pushbutton_with_LED,Custom_parts:Pushbutton_with_LED_-_ELUMOATHQ3C12,Custom Footprints:Pushbutton_LED-ELUMOATHQ3C12,https://www.ckswitches.com/media/1405/elum.pdf,C&K,ELUMOASAQ5C12
+33,1,SW5,SW_SPDT,Switch:SW_SPDT,Custom Footprints:1x5_header_SSM-105-L-SV-BE-LC,https://sten-eswitch-13110800-production.s3.amazonaws.com/system/asset/product_line/data_sheet/131/200.pdf,E-Switch,200MSP1T1B1M7QE
+34,2,"TH1, TH2",Thermistor,Device:Thermistor,Resistor_SMD:R_0603_1608Metric,https://www.murata.com/products/productdata/8796839149598/NTHCG158.txt?1437969900000,Murata Electronics,NCP18XM472J03RB
+35,1,U1,12V boost,Regulator_Switching:R-78B1.2-2.0,Custom Footprints:12V_DC-DC_with_header_2117,https://www.pololu.com/product-info-merged/2117,Pololu Corporation,2117
+36,1,U2,SN74LV4T125PWR,Custom_parts:SN74LV4T125PWR,Custom Footprints:SN74LV4T125,https://www.ti.com/lit/ds/symlink/sn74lv4t125.pdf?HQS=TI-null-null-digikeymode-df-pf-null-wwe&ts=1598425470784,Texas Instruments,SN74LV4T125PWR
+37,1,U3,DPBW06F-05,Custom_parts:DPBW06F-05,Custom Footprints:DPBW06F-05_with_header,"https://media.digikey.com/pdf/Data%20Sheets/Mean%20Well%20PDF's/SPBW06,DPBW06_Ds.pdf",MEAN WELL USA Inc.,DPBW06F-05
+38,1,U4,TMUX1204DGSR,Custom_parts:TMUX1204DGSR,Custom Footprints:TMUX1204DGSR,https://www.ti.com/lit/ds/symlink/tmux1204.pdf?ts=1598255085911&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FTMUX1204,Texas Instruments,TMUX1204DGSR
+39,1,U5,BDJ0GA5WEFJ-E2,Custom_parts:BDJ0GA5WEFJ-E2,Custom Footprints:BDJ0GA5WEFJ-E2,http://rohmfs.rohm.com/en/products/databook/datasheet/ic/power/linear_regulator/bdxxga5wefj-e.pdf,Rohm Semiconductor,BDJ0GA5WEFJ-E2
+40,1,U6,ADP7182AUJZ-1.8-R7,Custom_parts:ADP7182AUJZ-1.8-R7,Package_TO_SOT_SMD:TSOT-23-5,https://www.analog.com/media/en/technical-documentation/data-sheets/ADP7182.pdf,Analog Devices Inc.,ADP7182AUJZ-1.8-R7
+41,1,U7,LT6200CS8-10,Custom_parts:LT6200CS8-10,Package_SO:SOIC-8_3.9x4.9mm_P1.27mm,http://www.linear.com/docs/3869,Analog Devices Inc.,LT6200CS8-10#PBF
+42,4,"U8, U9, U10, U11",ASSR-1218,Relay_SolidState:ASSR-1218,Custom Footprints:SSR-SO-4_7.6x3.6mm_P2.54mm,https://toshiba.semicon-storage.com/info/docget.jsp?did=61844&prodName=TLP3555A,Toshiba Semiconductor and Storage,"TLP3555A(TP1,F"
+43,1,U12,Teensy3.6,Custom_parts:Teensy3.6,Custom Footprints:Teensy_3_6_with_headers,https://media.digikey.com/pdf/Data%20Sheets/Sparkfun%20PDFs/DEV-14058_Web.pdf,SparkFun Electronics,DEV-14058

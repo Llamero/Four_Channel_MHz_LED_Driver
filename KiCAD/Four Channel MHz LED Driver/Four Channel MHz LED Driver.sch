@@ -1561,25 +1561,14 @@ External_5V_PWM1
 $Comp
 L Mechanical:MountingHole_Pad H3
 U 1 1 5FACF30E
-P 7400 10200
-F 0 "H3" H 7200 10300 50  0000 L CNN
-F 1 "MountingHole_Pad" H 7500 10158 50  0001 L CNN
-F 2 "Custom Footprints:NF-A9_with_standoffs_and_bolts" H 7400 10200 50  0001 C CNN
-F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 7400 10200 50  0001 C CNN
-F 4 "Keystone Electronics" H 7400 10200 50  0001 C CNN "Manufacturer"
-F 5 "24354" H 7400 10200 50  0001 C CNN "Part #"
-	1    7400 10200
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR073
-U 1 1 5FACF308
-P 7400 10100
-F 0 "#PWR073" H 7400 9850 50  0001 C CNN
-F 1 "GND" H 7500 9950 50  0000 R CNN
-F 2 "" H 7400 10100 50  0001 C CNN
-F 3 "" H 7400 10100 50  0001 C CNN
-	1    7400 10100
+P 7250 11000
+F 0 "H3" H 7350 11100 50  0000 L CNN
+F 1 "MountingHole_Pad" H 7350 10958 50  0001 L CNN
+F 2 "Custom Footprints:NF-A9_with_standoffs_and_bolts" H 7250 11000 50  0001 C CNN
+F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 7250 11000 50  0001 C CNN
+F 4 "Keystone Electronics" H 7250 11000 50  0001 C CNN "Manufacturer"
+F 5 "24354" H 7250 11000 50  0001 C CNN "Part #"
+	1    7250 11000
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -1620,75 +1609,27 @@ F 5 "TSM-104-02-L-SV" H 7700 10550 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H1
-U 1 1 5F5A6FC2
-P 7250 10200
-F 0 "H1" H 7350 10300 50  0000 L CNN
-F 1 "MountingHole_Pad" H 7350 10158 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 7250 10200 50  0001 C CNN
-F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 7250 10200 50  0001 C CNN
-F 4 "Keystone Electronics" H 7250 10200 50  0001 C CNN "Manufacturer"
-F 5 "24354" H 7250 10200 50  0001 C CNN "Part #"
-	1    7250 10200
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR071
-U 1 1 5F5A6FC8
-P 7250 10100
-F 0 "#PWR071" H 7250 9850 50  0001 C CNN
-F 1 "GND" H 7350 9950 50  0000 R CNN
-F 2 "" H 7250 10100 50  0001 C CNN
-F 3 "" H 7250 10100 50  0001 C CNN
-	1    7250 10100
-	-1   0    0    1   
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H7
-U 1 1 5F5B6064
-P 8150 10200
-F 0 "H7" H 7950 10300 50  0000 L CNN
-F 1 "MountingHole_Pad" H 8250 10158 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 8150 10200 50  0001 C CNN
-F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8150 10200 50  0001 C CNN
-F 4 "Keystone Electronics" H 8150 10200 50  0001 C CNN "Manufacturer"
-F 5 "24354" H 8150 10200 50  0001 C CNN "Part #"
-	1    8150 10200
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR085
-U 1 1 5F5B606A
-P 8150 10100
-F 0 "#PWR085" H 8150 9850 50  0001 C CNN
-F 1 "GND" H 8250 9950 50  0000 R CNN
-F 2 "" H 8150 10100 50  0001 C CNN
-F 3 "" H 8150 10100 50  0001 C CNN
-	1    8150 10100
-	-1   0    0    1   
-$EndComp
-$Comp
 L Mechanical:MountingHole_Pad H5
 U 1 1 5F5B6072
-P 8000 10200
-F 0 "H5" H 8100 10300 50  0000 L CNN
-F 1 "MountingHole_Pad" H 8100 10158 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 8000 10200 50  0001 C CNN
-F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8000 10200 50  0001 C CNN
-F 4 "Keystone Electronics" H 8000 10200 50  0001 C CNN "Manufacturer"
-F 5 "24354" H 8000 10200 50  0001 C CNN "Part #"
-	1    8000 10200
+P 8000 11000
+F 0 "H5" H 8100 11100 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8100 10958 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 8000 11000 50  0001 C CNN
+F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8000 11000 50  0001 C CNN
+F 4 "Keystone Electronics" H 8000 11000 50  0001 C CNN "Manufacturer"
+F 5 "24354" H 8000 11000 50  0001 C CNN "Part #"
+	1    8000 11000
 	-1   0    0    1   
 $EndComp
 $Comp
 L power:GND #PWR081
 U 1 1 5F5B6078
-P 8000 10100
-F 0 "#PWR081" H 8000 9850 50  0001 C CNN
-F 1 "GND" H 8100 9950 50  0000 R CNN
-F 2 "" H 8000 10100 50  0001 C CNN
-F 3 "" H 8000 10100 50  0001 C CNN
-	1    8000 10100
+P 8000 10900
+F 0 "#PWR081" H 8000 10650 50  0001 C CNN
+F 1 "GND" H 8100 10750 50  0000 R CNN
+F 2 "" H 8000 10900 50  0001 C CNN
+F 3 "" H 8000 10900 50  0001 C CNN
+	1    8000 10900
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -1716,19 +1657,6 @@ F 3 "" H 7400 10900 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H2
-U 1 1 5F5C58BF
-P 7250 11000
-F 0 "H2" H 7350 11100 50  0000 L CNN
-F 1 "MountingHole_Pad" H 7350 10958 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 7250 11000 50  0001 C CNN
-F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 7250 11000 50  0001 C CNN
-F 4 "Keystone Electronics" H 7250 11000 50  0001 C CNN "Manufacturer"
-F 5 "24354" H 7250 11000 50  0001 C CNN "Part #"
-	1    7250 11000
-	-1   0    0    1   
-$EndComp
-$Comp
 L power:GND #PWR072
 U 1 1 5F5C58C5
 P 7250 10900
@@ -1740,10 +1668,10 @@ F 3 "" H 7250 10900 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H8
-U 1 1 5F5D3AD4
+L Mechanical:MountingHole_Pad H6
+U 1 1 5F5D3AE2
 P 8150 11000
-F 0 "H8" H 7950 11100 50  0000 L CNN
+F 0 "H6" H 7950 11100 50  0000 L CNN
 F 1 "MountingHole_Pad" H 8250 10958 50  0001 L CNN
 F 2 "Custom Footprints:Ref_only" H 8150 11000 50  0001 C CNN
 F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8150 11000 50  0001 C CNN
@@ -1753,38 +1681,14 @@ F 5 "24354" H 8150 11000 50  0001 C CNN "Part #"
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR086
-U 1 1 5F5D3ADA
+L power:GND #PWR082
+U 1 1 5F5D3AE8
 P 8150 10900
-F 0 "#PWR086" H 8150 10650 50  0001 C CNN
+F 0 "#PWR082" H 8150 10650 50  0001 C CNN
 F 1 "GND" H 8250 10750 50  0000 R CNN
 F 2 "" H 8150 10900 50  0001 C CNN
 F 3 "" H 8150 10900 50  0001 C CNN
 	1    8150 10900
-	-1   0    0    1   
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H6
-U 1 1 5F5D3AE2
-P 8000 11000
-F 0 "H6" H 8100 11100 50  0000 L CNN
-F 1 "MountingHole_Pad" H 8100 10958 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 8000 11000 50  0001 C CNN
-F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8000 11000 50  0001 C CNN
-F 4 "Keystone Electronics" H 8000 11000 50  0001 C CNN "Manufacturer"
-F 5 "24354" H 8000 11000 50  0001 C CNN "Part #"
-	1    8000 11000
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR082
-U 1 1 5F5D3AE8
-P 8000 10900
-F 0 "#PWR082" H 8000 10650 50  0001 C CNN
-F 1 "GND" H 8100 10750 50  0000 R CNN
-F 2 "" H 8000 10900 50  0001 C CNN
-F 3 "" H 8000 10900 50  0001 C CNN
-	1    8000 10900
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -3140,10 +3044,10 @@ U 1 1 5F4FA1F9
 P 800 2150
 F 0 "J1" H 857 2467 50  0000 C CNN
 F 1 "Barrel_Jack_Switch" H 857 2376 50  0000 C CNN
-F 2 "Custom Footprints:CUI_PJ1-022-SMT-TR" H 850 2110 50  0001 C CNN
-F 3 "https://www.cuidevices.com/product/resource/digikeypdf/pj1-022-smt-tr.pdf" H 850 2110 50  0001 C CNN
-F 4 "CUI Devices" H 800 2150 50  0001 C CNN "Manufacturer"
-F 5 "PJ1-022-SMT-TR" H 800 2150 50  0001 C CNN "Part #"
+F 2 "Custom Footprints:DC-jack_54-00165" H 850 2110 50  0001 C CNN
+F 3 "https://tensility.s3-us-west-2.amazonaws.com/uploads/product_doc/document/4054/54-00165.pdf" H 850 2110 50  0001 C CNN
+F 4 "Tensility International Corp" H 800 2150 50  0001 C CNN "Manufacturer"
+F 5 "54-00165" H 800 2150 50  0001 C CNN "Part #"
 	1    800  2150
 	1    0    0    -1  
 $EndComp
@@ -3420,4 +3324,52 @@ Wire Wire Line
 	7600 6050 7800 6050
 Wire Wire Line
 	7600 6350 7800 6350
+$Comp
+L Mechanical:MountingHole_Pad H2
+U 1 1 5F5C58BF
+P 8150 10200
+F 0 "H2" H 7950 10300 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8250 10158 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 8150 10200 50  0001 C CNN
+F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8150 10200 50  0001 C CNN
+F 4 "Keystone Electronics" H 8150 10200 50  0001 C CNN "Manufacturer"
+F 5 "24354" H 8150 10200 50  0001 C CNN "Part #"
+	1    8150 10200
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR071
+U 1 1 5F5A6FC8
+P 8000 10100
+F 0 "#PWR071" H 8000 9850 50  0001 C CNN
+F 1 "GND" H 8100 9950 50  0000 R CNN
+F 2 "" H 8000 10100 50  0001 C CNN
+F 3 "" H 8000 10100 50  0001 C CNN
+	1    8000 10100
+	-1   0    0    1   
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H1
+U 1 1 5F5A6FC2
+P 8000 10200
+F 0 "H1" H 8100 10300 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8100 10158 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 8000 10200 50  0001 C CNN
+F 3 "http://www.keyelco.com/product-pdf.cfm?p=4559" H 8000 10200 50  0001 C CNN
+F 4 "Keystone Electronics" H 8000 10200 50  0001 C CNN "Manufacturer"
+F 5 "24354" H 8000 10200 50  0001 C CNN "Part #"
+	1    8000 10200
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR073
+U 1 1 5FACF308
+P 8150 10100
+F 0 "#PWR073" H 8150 9850 50  0001 C CNN
+F 1 "GND" H 8250 9950 50  0000 R CNN
+F 2 "" H 8150 10100 50  0001 C CNN
+F 3 "" H 8150 10100 50  0001 C CNN
+	1    8150 10100
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC
