@@ -2008,32 +2008,6 @@ Wire Wire Line
 	1600 6850 1850 6850
 Wire Wire Line
 	1600 7050 2150 7050
-$Comp
-L Device:R_Pack04_Split RN2
-U 2 1 5F5FBFA1
-P 2000 6850
-F 0 "RN2" V 2100 6850 50  0000 C CNN
-F 1 "150" V 2000 6850 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 2275 6850 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 2000 6850 50  0001 C CNN
-F 4 "Panasonic Electronic Components" V 2000 6850 50  0001 C CNN "Manufacturer"
-F 5 "EXB-38V151JV" V 2000 6850 50  0001 C CNN "Part #"
-	2    2000 6850
-	0    1    -1   0   
-$EndComp
-$Comp
-L Device:R_Pack04_Split RN2
-U 1 1 5F9CC36C
-P 2300 7050
-F 0 "RN2" V 2400 7050 50  0000 C CNN
-F 1 "150" V 2300 7050 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 2575 7050 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 2300 7050 50  0001 C CNN
-F 4 "Panasonic Electronic Components" V 2300 7050 50  0001 C CNN "Manufacturer"
-F 5 "EXB-38V151JV" V 2300 7050 50  0001 C CNN "Part #"
-	1    2300 7050
-	0    1    -1   0   
-$EndComp
 Text Label 1600 7050 0    50   ~ 0
 Isense_internal
 $Comp
@@ -2747,7 +2721,6 @@ Wire Wire Line
 	6050 2200 6050 2400
 Wire Wire Line
 	5900 1700 6150 1700
-Connection ~ 5650 2300
 Wire Wire Line
 	2600 2050 2850 2050
 $Comp
@@ -2775,32 +2748,6 @@ F 3 "https://www.digikey.com/en/ptm/m/murata-electronics-north-america/high-cap-
 F 4 "Murata Electronics" H 2850 2150 50  0001 C CNN "Manufacturer"
 F 5 "GRM31CR61E476ME44L" H 2850 2150 50  0001 C CNN "Part #"
 	1    2850 2150
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:R_Pack04_Split RN2
-U 3 1 5F9DEBDC
-P 5650 2450
-F 0 "RN2" H 5800 2450 50  0000 C CNN
-F 1 "150" V 5650 2450 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 5925 2450 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 5650 2450 50  0001 C CNN
-F 4 "Panasonic Electronic Components" V 5650 2450 50  0001 C CNN "Manufacturer"
-F 5 "EXB-38V151JV" V 5650 2450 50  0001 C CNN "Part #"
-	3    5650 2450
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Pack04_Split RN2
-U 4 1 5F9DAD99
-P 5650 2150
-F 0 "RN2" H 5500 2150 50  0000 C CNN
-F 1 "150" V 5650 2150 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 5925 2150 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 5650 2150 50  0001 C CNN
-F 4 "Panasonic Electronic Components" V 5650 2150 50  0001 C CNN "Manufacturer"
-F 5 "EXB-38V151JV" V 5650 2150 50  0001 C CNN "Part #"
-	4    5650 2150
 	-1   0    0    1   
 $EndComp
 Text Label 2600 1200 2    50   ~ 0
@@ -3372,4 +3319,57 @@ F 3 "" H 8150 10100 50  0001 C CNN
 	1    8150 10100
 	-1   0    0    1   
 $EndComp
+$Comp
+L Device:R_Pack04_Split RN2
+U 1 1 5F7535AC
+P 2300 7050
+F 0 "RN2" V 2200 7050 50  0000 C CNN
+F 1 "200" V 2300 7050 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 2575 7050 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 2300 7050 50  0001 C CNN
+F 4 "Yageo" V 2300 7050 50  0001 C CNN "Manufacturer"
+F 5 "YC164-JR-07200RL" V 2300 7050 50  0001 C CNN "Part #"
+	1    2300 7050
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack04_Split RN2
+U 2 1 5F7575D0
+P 2000 6850
+F 0 "RN2" V 1900 6850 50  0000 C CNN
+F 1 "200" V 2000 6850 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 2275 6850 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 2000 6850 50  0001 C CNN
+F 4 "Yageo" V 2000 6850 50  0001 C CNN "Manufacturer"
+F 5 "YC164-JR-07200RL" V 2000 6850 50  0001 C CNN "Part #"
+	2    2000 6850
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack04_Split RN2
+U 3 1 5F758308
+P 5650 2450
+F 0 "RN2" V 5550 2450 50  0000 C CNN
+F 1 "200" V 5650 2450 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 5925 2450 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 5650 2450 50  0001 C CNN
+F 4 "Yageo" V 5650 2450 50  0001 C CNN "Manufacturer"
+F 5 "YC164-JR-07200RL" V 5650 2450 50  0001 C CNN "Part #"
+	3    5650 2450
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R_Pack04_Split RN2
+U 4 1 5F75DF06
+P 5650 2150
+F 0 "RN2" V 5550 2150 50  0000 C CNN
+F 1 "200" V 5650 2150 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 5925 2150 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 5650 2150 50  0001 C CNN
+F 4 "Yageo" V 5650 2150 50  0001 C CNN "Manufacturer"
+F 5 "YC164-JR-07200RL" V 5650 2150 50  0001 C CNN "Part #"
+	4    5650 2150
+	-1   0    0    1   
+$EndComp
+Connection ~ 5650 2300
 $EndSCHEMATC

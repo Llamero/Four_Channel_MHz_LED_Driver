@@ -3356,7 +3356,7 @@ F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" 
 F 4 "Yageo" V 5650 2450 50  0001 C CNN "Manufacturer"
 F 5 "YC164-JR-07200RL" V 5650 2450 50  0001 C CNN "Part #"
 	3    5650 2450
-	-1   0    0    1   
+	-1   0    0    -1  
 $EndComp
 $Comp
 L Device:R_Pack04_Split RN2
