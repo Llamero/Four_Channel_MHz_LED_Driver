@@ -161,19 +161,6 @@ ADC1
 Text Notes 14750 4050 1    50   ~ 0
 https://forum.pjrc.com/attachment.php?attachmentid=10666&d=1495536536
 $Comp
-L Device:CP1_Small C2
-U 1 1 5F41CA67
-P 950 3450
-F 0 "C2" H 900 3750 50  0000 L CNN
-F 1 "7500uF" H 750 3650 50  0000 L CNN
-F 2 "Capacitor_SMD:CP_Elec_18x22" H 950 3450 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1247.pdf" H 950 3450 50  0001 C CNN
-F 4 "Panasonic Electronic Components" H 950 3450 50  0001 C CNN "Manufacturer"
-F 5 "EEE-FK1C752SM" H 950 3450 50  0001 C CNN "Part #"
-	1    950  3450
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR03
 U 1 1 5F41E64F
 P 950 3000
@@ -1065,42 +1052,19 @@ F 5 "TLP3555A(TP1,F" H 8100 6450 50  0001 C CNN "Part #"
 $EndComp
 Text Label 2650 10750 0    50   ~ 0
 external_analog
-Wire Wire Line
-	650  3350 950  3350
-Wire Wire Line
-	650  3900 950  3900
 $Comp
 L Device:CP1_Small C1
 U 1 1 5F939007
 P 950 2900
 F 0 "C1" H 900 3200 50  0000 L CNN
 F 1 "7500uF" H 750 3100 50  0000 L CNN
-F 2 "Capacitor_SMD:CP_Elec_18x22" H 950 2900 50  0001 C CNN
+F 2 "Custom Footprints:CP_Elec_18x22-EEE-FK1C752SV" H 950 2900 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1247.pdf" H 950 2900 50  0001 C CNN
 F 4 "Panasonic Electronic Components" H 950 2900 50  0001 C CNN "Manufacturer"
-F 5 "EEE-FK1C752SM" H 950 2900 50  0001 C CNN "Part #"
+F 5 "EEE-FK1C752SV" H 950 2900 50  0001 C CNN "Part #"
 	1    950  2900
 	1    0    0    -1  
 $EndComp
-Connection ~ 950  3350
-Wire Wire Line
-	950  3350 1200 3350
-$Comp
-L Device:CP1_Small C3
-U 1 1 5F9399C1
-P 950 4000
-F 0 "C3" H 900 4300 50  0000 L CNN
-F 1 "7500uF" H 750 4200 50  0000 L CNN
-F 2 "Capacitor_SMD:CP_Elec_18x22" H 950 4000 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1247.pdf" H 950 4000 50  0001 C CNN
-F 4 "Panasonic Electronic Components" H 950 4000 50  0001 C CNN "Manufacturer"
-F 5 "EEE-FK1C752SM" H 950 4000 50  0001 C CNN "Part #"
-	1    950  4000
-	1    0    0    -1  
-$EndComp
-Connection ~ 950  3900
-Wire Wire Line
-	950  3900 1200 3900
 $Comp
 L Custom_parts:Pushbutton_with_LED_-_ELUMOATHQ3C12 SW1
 U 1 1 5F4E0761
@@ -3356,7 +3320,7 @@ F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" 
 F 4 "Yageo" V 5650 2450 50  0001 C CNN "Manufacturer"
 F 5 "YC164-JR-07200RL" V 5650 2450 50  0001 C CNN "Part #"
 	3    5650 2450
-	-1   0    0    1   
+	-1   0    0    -1  
 $EndComp
 $Comp
 L Device:R_Pack04_Split RN2
@@ -3372,4 +3336,40 @@ F 5 "YC164-JR-07200RL" V 5650 2150 50  0001 C CNN "Part #"
 	-1   0    0    1   
 $EndComp
 Connection ~ 5650 2300
+Wire Wire Line
+	650  3350 950  3350
+Wire Wire Line
+	650  3900 950  3900
+$Comp
+L Device:CP1_Small C2
+U 1 1 5F762334
+P 950 3450
+F 0 "C2" H 900 3750 50  0000 L CNN
+F 1 "7500uF" H 750 3650 50  0000 L CNN
+F 2 "Custom Footprints:CP_Elec_18x22-EEE-FK1C752SV" H 950 3450 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1247.pdf" H 950 3450 50  0001 C CNN
+F 4 "Panasonic Electronic Components" H 950 3450 50  0001 C CNN "Manufacturer"
+F 5 "EEE-FK1C752SV" H 950 3450 50  0001 C CNN "Part #"
+	1    950  3450
+	1    0    0    -1  
+$EndComp
+Connection ~ 950  3350
+Wire Wire Line
+	950  3350 1200 3350
+$Comp
+L Device:CP1_Small C3
+U 1 1 5F762F58
+P 950 4000
+F 0 "C3" H 900 4300 50  0000 L CNN
+F 1 "7500uF" H 750 4200 50  0000 L CNN
+F 2 "Custom Footprints:CP_Elec_18x22-EEE-FK1C752SV" H 950 4000 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1247.pdf" H 950 4000 50  0001 C CNN
+F 4 "Panasonic Electronic Components" H 950 4000 50  0001 C CNN "Manufacturer"
+F 5 "EEE-FK1C752SV" H 950 4000 50  0001 C CNN "Part #"
+	1    950  4000
+	1    0    0    -1  
+$EndComp
+Connection ~ 950  3900
+Wire Wire Line
+	950  3900 1200 3900
 $EndSCHEMATC
