@@ -3372,4 +3372,52 @@ F 5 "EEE-FK1C752SV" H 950 3450 50  0001 C CNN "Part #"
 	1    950  3450
 	1    0    0    -1  
 $EndComp
+$Comp
+L power:GND #PWR0103
+U 1 1 5F866A9F
+P 8700 7550
+F 0 "#PWR0103" H 8700 7300 50  0001 C CNN
+F 1 "GND" H 8800 7400 50  0000 R CNN
+F 2 "" H 8700 7550 50  0001 C CNN
+F 3 "" H 8700 7550 50  0001 C CNN
+	1    8700 7550
+	-1   0    0    1   
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H7
+U 1 1 5F866AA7
+P 8700 7650
+F 0 "H7" H 8800 7750 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8800 7608 50  0001 L CNN
+F 2 "Custom Footprints:M2_standoff_ground_via" H 8700 7650 50  0001 C CNN
+F 3 "https://www.we-online.com/catalog/datasheet/971100244.pdf" H 8700 7650 50  0001 C CNN
+F 4 "Würth Elektronik" H 8700 7650 50  0001 C CNN "Manufacturer"
+F 5 "971100244" H 8700 7650 50  0001 C CNN "Part #"
+	1    8700 7650
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0104
+U 1 1 5F866AAD
+P 8850 7550
+F 0 "#PWR0104" H 8850 7300 50  0001 C CNN
+F 1 "GND" H 8950 7400 50  0000 R CNN
+F 2 "" H 8850 7550 50  0001 C CNN
+F 3 "" H 8850 7550 50  0001 C CNN
+	1    8850 7550
+	-1   0    0    1   
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H8
+U 1 1 5F8759D2
+P 8850 7650
+F 0 "H8" H 8650 7750 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8950 7608 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 8850 7650 50  0001 C CNN
+F 3 "https://www.we-online.com/catalog/datasheet/971100244.pdf" H 8850 7650 50  0001 C CNN
+F 4 "Würth Elektronik" H 8850 7650 50  0001 C CNN "Manufacturer"
+F 5 "971100244" H 8850 7650 50  0001 C CNN "Part #"
+	1    8850 7650
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC

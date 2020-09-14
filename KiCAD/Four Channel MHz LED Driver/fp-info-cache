@@ -1,4 +1,4 @@
-19462138848400169
+19463739093966622
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -48999,6 +48999,13 @@ LCD-EA_DOGS164N-A
 0
 10
 10
+Custom Footprints
+M2_standoff_ground_via
+
+
+0
+1
+1
 Custom Footprints
 MCP4351-502E
 
