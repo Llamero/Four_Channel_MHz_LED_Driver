@@ -186,4 +186,10 @@ K single opamp
 F http://www.ti.com/lit/ds/symlink/ne5534.pdf
 $ENDCMP
 #
+$CMP SW_SPDT-panel_ground
+D Switch, single pole double throw
+K switch single-pole double-throw spdt ON-ON
+F ~
+$ENDCMP
+#
 #End Doc Library

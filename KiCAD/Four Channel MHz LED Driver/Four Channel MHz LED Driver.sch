@@ -1191,7 +1191,7 @@ F 5 "YC164-JR-07200RL" V 7450 5450 50  0001 C CNN "Part #"
 	0    1    1    0   
 $EndComp
 $Comp
-L Switch:SW_SPDT SW5
+L Custom_parts:SW_SPDT-panel_ground SW5
 U 1 1 5F6733E8
 P 4350 9500
 F 0 "SW5" H 4350 9785 50  0000 C CNN
@@ -2395,8 +2395,6 @@ Wire Notes Line
 	11800 9300 6700 9300
 Text Notes 2600 4950 0    118  ~ 0
 Inputs and Outputs\n
-Text Notes 7000 7400 0    118  ~ 0
-Constant Current LED Driver with Compensation\n\n
 $Comp
 L Custom_parts:8P8C_Shielded_x4 J3
 U 2 1 5F589234
@@ -3372,15 +3370,30 @@ F 5 "EEE-FK1C752SV" H 950 3450 50  0001 C CNN "Part #"
 	1    950  3450
 	1    0    0    -1  
 $EndComp
+Text Notes 3700 -350 0    157  ~ 0
+Sitch to 8-32 standoffs - have only one conductive bolt to case to avoid fround loops
 $Comp
-L power:GND #PWR0103
-U 1 1 5F866A9F
-P 8700 7550
-F 0 "#PWR0103" H 8700 7300 50  0001 C CNN
-F 1 "GND" H 8800 7400 50  0000 R CNN
-F 2 "" H 8700 7550 50  0001 C CNN
-F 3 "" H 8700 7550 50  0001 C CNN
-	1    8700 7550
+L Mechanical:MountingHole_Pad H8
+U 1 1 5F8759D2
+P 8850 7650
+F 0 "H8" H 8650 7750 50  0000 L CNN
+F 1 "MountingHole_Pad" H 8950 7608 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 8850 7650 50  0001 C CNN
+F 3 "https://www.we-online.com/catalog/datasheet/971100244.pdf" H 8850 7650 50  0001 C CNN
+F 4 "Würth Elektronik" H 8850 7650 50  0001 C CNN "Manufacturer"
+F 5 "971100244" H 8850 7650 50  0001 C CNN "Part #"
+	1    8850 7650
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0104
+U 1 1 5F866AAD
+P 8850 7550
+F 0 "#PWR0104" H 8850 7300 50  0001 C CNN
+F 1 "GND" H 8950 7400 50  0000 R CNN
+F 2 "" H 8850 7550 50  0001 C CNN
+F 3 "" H 8850 7550 50  0001 C CNN
+	1    8850 7550
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -3397,29 +3410,75 @@ F 5 "971100244" H 8700 7650 50  0001 C CNN "Part #"
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR0104
-U 1 1 5F866AAD
-P 8850 7550
-F 0 "#PWR0104" H 8850 7300 50  0001 C CNN
-F 1 "GND" H 8950 7400 50  0000 R CNN
-F 2 "" H 8850 7550 50  0001 C CNN
-F 3 "" H 8850 7550 50  0001 C CNN
-	1    8850 7550
+L power:GND #PWR0103
+U 1 1 5F866A9F
+P 8700 7550
+F 0 "#PWR0103" H 8700 7300 50  0001 C CNN
+F 1 "GND" H 8800 7400 50  0000 R CNN
+F 2 "" H 8700 7550 50  0001 C CNN
+F 3 "" H 8700 7550 50  0001 C CNN
+	1    8700 7550
+	-1   0    0    1   
+$EndComp
+Text Notes 7000 7400 0    118  ~ 0
+Constant Current LED Driver with Compensation\n\n
+$Comp
+L Mechanical:MountingHole_Pad H10
+U 1 1 5F6A187E
+P 1050 1200
+F 0 "H10" H 850 1300 50  0000 L CNN
+F 1 "MountingHole_Pad" H 1150 1158 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 1050 1200 50  0001 C CNN
+F 3 "https://www.we-online.com/catalog/datasheet/971100244.pdf" H 1050 1200 50  0001 C CNN
+F 4 "Würth Elektronik" H 1050 1200 50  0001 C CNN "Manufacturer"
+F 5 "971100244" H 1050 1200 50  0001 C CNN "Part #"
+	1    1050 1200
 	-1   0    0    1   
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H8
-U 1 1 5F8759D2
-P 8850 7650
-F 0 "H8" H 8650 7750 50  0000 L CNN
-F 1 "MountingHole_Pad" H 8950 7608 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 8850 7650 50  0001 C CNN
-F 3 "https://www.we-online.com/catalog/datasheet/971100244.pdf" H 8850 7650 50  0001 C CNN
-F 4 "Würth Elektronik" H 8850 7650 50  0001 C CNN "Manufacturer"
-F 5 "971100244" H 8850 7650 50  0001 C CNN "Part #"
-	1    8850 7650
+L power:GND #PWR0105
+U 1 1 5F6A1884
+P 1050 1100
+F 0 "#PWR0105" H 1050 850 50  0001 C CNN
+F 1 "GND" H 1150 950 50  0000 R CNN
+F 2 "" H 1050 1100 50  0001 C CNN
+F 3 "" H 1050 1100 50  0001 C CNN
+	1    1050 1100
 	-1   0    0    1   
 $EndComp
-Text Notes 3700 -350 0    157  ~ 0
-Sitch to 8-32 standoffs - have only one conductive bolt to case to avoid fround loops
+$Comp
+L Mechanical:MountingHole_Pad H9
+U 1 1 5F6A188C
+P 900 1200
+F 0 "H9" H 1000 1300 50  0000 L CNN
+F 1 "MountingHole_Pad" H 1000 1158 50  0001 L CNN
+F 2 "Custom Footprints:M2_standoff_ground_via" H 900 1200 50  0001 C CNN
+F 3 "https://www.we-online.com/catalog/datasheet/971100244.pdf" H 900 1200 50  0001 C CNN
+F 4 "Würth Elektronik" H 900 1200 50  0001 C CNN "Manufacturer"
+F 5 "971100244" H 900 1200 50  0001 C CNN "Part #"
+	1    900  1200
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0106
+U 1 1 5F6A1892
+P 900 1100
+F 0 "#PWR0106" H 900 850 50  0001 C CNN
+F 1 "GND" H 1000 950 50  0000 R CNN
+F 2 "" H 900 1100 50  0001 C CNN
+F 3 "" H 900 1100 50  0001 C CNN
+	1    900  1100
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0107
+U 1 1 5F6CC322
+P 4300 9700
+F 0 "#PWR0107" H 4300 9450 50  0001 C CNN
+F 1 "GND" V 4300 9600 50  0000 R CNN
+F 2 "" H 4300 9700 50  0001 C CNN
+F 3 "" H 4300 9700 50  0001 C CNN
+	1    4300 9700
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
