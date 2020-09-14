@@ -3420,4 +3420,6 @@ F 5 "971100244" H 8850 7650 50  0001 C CNN "Part #"
 	1    8850 7650
 	-1   0    0    1   
 $EndComp
+Text Notes 3700 -350 0    157  ~ 0
+Sitch to 8-32 standoffs - have only one conductive bolt to case to avoid fround loops
 $EndSCHEMATC
