@@ -1,0 +1,63 @@
+Circuit: * C:\Users\Ben\Documents\GitHub\Four_Channel_MHz_LED_Driver\SPICE\SMPS removed for sim speed - magnet wire - SUM70060E and Cat5.asc
+
+C10: Increased Cpar to 4.7e-011
+C9: Increased Cpar to 4.7e-011
+C8: Increased Cpar to 4.7e-011
+C6: Increased Cpar to 4.7e-011
+C5: Increased Cpar to 7.5e-009
+C3: Increased Cpar to 7.5e-009
+C20: Increased Cpar to 7.5e-009
+C13: Increased Cpar to 4.7e-011
+C1: Increased Cpar to 2.2e-015
+Instance "m:u1:2": Length shorter than recommended for a level 3 MOSFET.
+Instance "m:u1:1": Length shorter than recommended for a level 3 MOSFET.
+Direct Newton iteration failed to find .op point.  (Use ".option noopiter" to skip.)
+Starting Gmin stepping
+Gmin = 10
+Gmin = 1.07374
+Gmin = 0.115292
+Gmin = 0.0123794
+Gmin = 0.00132923
+Gmin = 0.000142725
+Gmin = 1.5325e-005
+vernier = 0.5
+vernier = 0.25
+vernier = 0.125
+vernier = 0.0625
+Gmin = 5.02168e-006
+vernier = 0.03125
+vernier = 0.015625
+vernier = 0.0078125
+vernier = 0.00390625
+vernier = 0.00195313
+vernier = 0.000976563
+vernier = 0.000488281
+Gmin = 0
+Gmin stepping failed
+
+Starting source stepping with srcstepmethod=0
+Source Step = 3.0303%
+Source Step = 33.3333%
+Source Step = 63.6364%
+Source Step = 93.9394%
+Source stepping succeeded in finding the operating point.
+
+
+Date: Wed Sep 16 22:09:53 2020
+Total elapsed time: 22.363 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 4305365
+traniter = 4303227
+tranpoints = 1985111
+accept = 1435678
+rejected = 549433
+matrix size = 34
+fillins = 52
+solver = Normal
+Thread vector: 5.4/4.3[2] 1.9/1.4[2] 1.1/1.2[1] 0.2/0.5[1]  2592/500
+Matrix Compiler1: 7.17 KB object code size  0.8/0.5/[0.3]
+Matrix Compiler2: 4.24 KB object code size  0.3/0.4/[0.2]
+

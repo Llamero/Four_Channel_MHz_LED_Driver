@@ -652,10 +652,6 @@ F 3 "" H 7550 2850 50  0001 C CNN
 $EndComp
 Text Label 11150 2550 2    50   ~ 0
 Over_temp_alarm2
-Text Label 11100 10850 2    50   ~ 0
-Over_temp_alarm1
-Text Label 11100 10950 2    50   ~ 0
-Over_temp_alarm2
 $Comp
 L power:GND #PWR055
 U 1 1 5F4A54DD
@@ -671,8 +667,6 @@ Text Label 4600 8600 2    50   ~ 0
 3.3V
 Text Label 4750 8800 0    50   ~ 0
 LED_pot
-Text Notes 10650 10700 0    59   ~ 0
-Overheat alarm
 Text Notes 4150 9100 0    59   ~ 0
 Manual/Auto toggle switch
 Wire Wire Line
@@ -822,34 +816,8 @@ F 5 "SSM-124-L-SV-LC" H 10200 2450 50  0001 C CNN "Part #"
 	1    10200 2450
 	-1   0    0    -1  
 $EndComp
-$Comp
-L Custom_parts:CPT-2016-75-SMT-TR BZ1
-U 1 1 5FE01F50
-P 11200 10950
-F 0 "BZ1" H 11200 11150 60  0000 L CNN
-F 1 "CPT-2016-75-SMT-TR" H 10500 10850 60  0000 L CNN
-F 2 "Custom Footprints:SMT-0940-T-3V-R_9x9_alarm" H 11400 11150 60  0001 L CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Projects%20Unlimited%20PDFs/SMT_09_Series_DS.pdf" H 11400 11250 60  0001 L CNN
-F 4 "PUI Audio, Inc." H 11200 10950 50  0001 C CNN "Manufacturer"
-F 5 "SMT-0940-T-3V-R" H 11200 10950 50  0001 C CNN "Part #"
-	1    11200 10950
-	1    0    0    -1  
-$EndComp
 Text Label 13450 1950 0    50   ~ 0
 External_5V_PWM3
-$Comp
-L Mechanical:Heatsink HS2
-U 1 1 602A56B6
-P 9350 11100
-F 0 "HS2" H 9250 11400 50  0000 L CNN
-F 1 "HS-PCB" H 9200 11300 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 9362 11100 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 9362 11100 50  0001 C CNN
-F 4 "Wakefield-Vette" H 9350 11100 50  0001 C CNN "Manufacturer"
-F 5 "910-40-2-23-2-B-0" H 9350 11100 50  0001 C CNN "Part #"
-	1    9350 11100
-	1    0    0    -1  
-$EndComp
 Text Label 7300 10650 2    50   ~ 0
 5V_fan_PWM
 Wire Wire Line
@@ -858,8 +826,6 @@ NoConn ~ 7400 10450
 Connection ~ 9750 8550
 Wire Wire Line
 	9750 8250 9750 8550
-Text Notes 9300 10700 0    59   ~ 0
-Heatsinks
 $Comp
 L Device:R_Small R6
 U 1 1 5F57BF27
@@ -918,45 +884,6 @@ Text Label 8950 6000 2    50   ~ 0
 Vin
 Text Label 8950 6200 2    50   ~ 0
 Vin
-$Comp
-L Mechanical:Heatsink HS1
-U 1 1 5F785F9D
-P 9050 11100
-F 0 "HS1" H 8950 11400 50  0000 L CNN
-F 1 "HS-PCB" H 8900 11300 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 9062 11100 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 9062 11100 50  0001 C CNN
-F 4 "Wakefield-Vette" H 9050 11100 50  0001 C CNN "Manufacturer"
-F 5 "910-40-2-23-2-B-0" H 9050 11100 50  0001 C CNN "Part #"
-	1    9050 11100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:Heatsink HS3
-U 1 1 5F7863E9
-P 9650 11100
-F 0 "HS3" H 9550 11400 50  0000 L CNN
-F 1 "HS-PCB" H 9500 11300 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 9662 11100 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 9662 11100 50  0001 C CNN
-F 4 "Wakefield-Vette" H 9650 11100 50  0001 C CNN "Manufacturer"
-F 5 "910-40-2-23-2-B-0" H 9650 11100 50  0001 C CNN "Part #"
-	1    9650 11100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:Heatsink HS4
-U 1 1 5F786851
-P 9950 11100
-F 0 "HS4" H 9850 11400 50  0000 L CNN
-F 1 "HS-PCB" H 9800 11300 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 9962 11100 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 9962 11100 50  0001 C CNN
-F 4 "Wakefield-Vette" H 9950 11100 50  0001 C CNN "Manufacturer"
-F 5 "910-40-2-23-2-B-0" H 9950 11100 50  0001 C CNN "Part #"
-	1    9950 11100
-	1    0    0    -1  
-$EndComp
 $Comp
 L Relay_SolidState:ASSR-1218 U11
 U 1 1 5F827B60
@@ -2132,7 +2059,7 @@ MOSFET_temp
 Text Notes 4300 7300 0    59   ~ 0
 Isense resistor and MOSFET\nthermitor temperature monitoring
 Text Notes 1400 6250 0    59   ~ 0
-External analog input with 3.3V zener clamp
+I2C/external analog input/current sense voltage
 Text Notes 1400 7600 0    59   ~ 0
 Analog/digital inputs with 0-3.3V clamp
 $Comp
@@ -2352,8 +2279,6 @@ Text Notes 850  8950 1    59   ~ 0
 I/O maximum voltage: +20V/-17V (62mW)\nNiDaq PCI-6110 is +/- 10V 5mA\n∴ minimum impedance is 2000 Ohms
 Text Notes 4500 6150 0    59   ~ 0
 Op-amp input 4x1 mux
-Text Notes 2200 7350 0    59   ~ 0
-Current sense voltage ouput
 Wire Wire Line
 	5500 6650 5400 6650
 Text Label 2150 6850 0    50   ~ 0
@@ -3493,4 +3418,77 @@ F 3 "" H 5450 9650 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 NoConn ~ 5450 9550
+$Comp
+L Mechanical:Heatsink HS4
+U 1 1 5F786851
+P 9950 11100
+F 0 "HS4" H 9850 11400 50  0000 L CNN
+F 1 "HS-PCB" H 9800 11300 50  0000 L CNN
+F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 9962 11100 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 9962 11100 50  0001 C CNN
+F 4 "Wakefield-Vette" H 9950 11100 50  0001 C CNN "Manufacturer"
+F 5 "910-40-2-23-2-B-0" H 9950 11100 50  0001 C CNN "Part #"
+	1    9950 11100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:Heatsink HS3
+U 1 1 5F7863E9
+P 9650 11100
+F 0 "HS3" H 9550 11400 50  0000 L CNN
+F 1 "HS-PCB" H 9500 11300 50  0000 L CNN
+F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 9662 11100 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 9662 11100 50  0001 C CNN
+F 4 "Wakefield-Vette" H 9650 11100 50  0001 C CNN "Manufacturer"
+F 5 "910-40-2-23-2-B-0" H 9650 11100 50  0001 C CNN "Part #"
+	1    9650 11100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:Heatsink HS1
+U 1 1 5F785F9D
+P 9050 11100
+F 0 "HS1" H 8950 11400 50  0000 L CNN
+F 1 "HS-PCB" H 8900 11300 50  0000 L CNN
+F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 9062 11100 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 9062 11100 50  0001 C CNN
+F 4 "Wakefield-Vette" H 9050 11100 50  0001 C CNN "Manufacturer"
+F 5 "910-40-2-23-2-B-0" H 9050 11100 50  0001 C CNN "Part #"
+	1    9050 11100
+	1    0    0    -1  
+$EndComp
+Text Notes 9300 10700 0    59   ~ 0
+Heatsinks
+$Comp
+L Mechanical:Heatsink HS2
+U 1 1 602A56B6
+P 9350 11100
+F 0 "HS2" H 9250 11400 50  0000 L CNN
+F 1 "HS-PCB" H 9200 11300 50  0000 L CNN
+F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 9362 11100 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 9362 11100 50  0001 C CNN
+F 4 "Wakefield-Vette" H 9350 11100 50  0001 C CNN "Manufacturer"
+F 5 "910-40-2-23-2-B-0" H 9350 11100 50  0001 C CNN "Part #"
+	1    9350 11100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom_parts:CPT-2016-75-SMT-TR BZ1
+U 1 1 5FE01F50
+P 11200 10950
+F 0 "BZ1" H 11200 11150 60  0000 L CNN
+F 1 "CPT-2016-75-SMT-TR" H 10500 10850 60  0000 L CNN
+F 2 "Custom Footprints:SMT-0940-T-3V-R_9x9_alarm" H 11400 11150 60  0001 L CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Projects%20Unlimited%20PDFs/SMT_09_Series_DS.pdf" H 11400 11250 60  0001 L CNN
+F 4 "PUI Audio, Inc." H 11200 10950 50  0001 C CNN "Manufacturer"
+F 5 "SMT-0940-T-3V-R" H 11200 10950 50  0001 C CNN "Part #"
+	1    11200 10950
+	1    0    0    -1  
+$EndComp
+Text Notes 10650 10700 0    59   ~ 0
+Overheat alarm
+Text Label 11100 10950 2    50   ~ 0
+Over_temp_alarm2
+Text Label 11100 10850 2    50   ~ 0
+Over_temp_alarm1
 $EndSCHEMATC
