@@ -1,6 +1,7 @@
-#include "FastCRC/FastCRC.h"
-#include "FastCRC/FastCRC_cpu.h"
-#include "FastCRC/FastCRC_tables.h"
+
+#include <ADC.h>
+#include <ADC_util.h>
+#include <Wire.h>
 
 //Serial constants
 const char DEVICE_NAME[] = "MOM Test Box";
@@ -9,21 +10,14 @@ const long BAUDRATE = 12000000;  //Teensy USB is always 12 Mbit/s - https://www.
 const uint8_t NINITIALIZE = 0; //Number of times to try connecting to GUI until instead booting using default settings
 const boolean NOSERIAL = false; //If the device boots into default configuration due to no serial, turn off serial
 
-#include <SPI.h>
-
 //Pin ID constants
 const int RELAY_PIN[] = {0, 1, 2, 3}; //SSR relays for changing LED channel
 const int INTERLINE_PIN = 4; //Switch between analog input and negative refence voltage to turn off LED
-const int NC_PIN1 = 5; //Not connected
-const int NC_PIN2 = 6; //Not connected
-const int NC_PIN3 = 7; //Not connected
-const int NC_PIN4 = 8; //Not connected
-const int NC_PIN5 = 9; //Not connected
+const int NC_PIN[] = {5, 6, 7, 8, 9, 38}; //Not connected pins
 const int ANALOG_SELECT_PIN = 10; //Switches between internal and external analog input
 const int ALARM_PIN[] = {11, 32}; //Audible alarm
 const int TOGGLE_PIN = 12; //Toggle switch input
 
-const int NC_PIN6 = 13; //Not connected
 const int RESISTOR_TEMP_PIN = 14; //NTC thermistor monitoring current sense resistor temp
 const int MOSFET_TEMP_PIN = 15; //NTC thermistor monitoring current regulator MOSFET temp
 const int EXTERNAL_TEMP = 16; //NTC thermistor monitoring external temp (such as on-board LED thermistor)
@@ -38,11 +32,8 @@ const int LED_PIN[] = {29, 24, 28, 31}; //Indicator LEDs on pushbuttons
 
 const int POT_PIN = 33; //Input voltage from potentiometer
 const int INPUT_PIN[] = {37, 36, 35, 34}; //4-channel analog/digital inputs
-const int NC_PIN7 = 38; //Not connected
 const int DAC0_PIN = A21; //Internal dac to generate internal analog input voltage
 const int DAC1_PIN = A22; //Internal dac - not connected
-
-
 
 //Packet structure is: byte(0) STARTBYTE -> byte(1) packet identifier -> byte(2) packet total length -> byte(3) checksum (data only, excluding header) -> byte(4-n) data packet;
 const float STARTPACKET = -1/0; //Set start delimiter to -infinity
@@ -59,7 +50,7 @@ const int WAVEPACKET = 250+HEADER; //Identifies packet as recorded analog wavefo
 const int DEVICE_NAME_SIZE = sizeof(DEVICE_NAME) + HEADER; //Size of ID packet
 const int SETUPSIZE = SETUPPACKET+HEADER; //Expected size of recieved setup packet, see byte order below:
 const int COMMANDSIZE = 1+HEADER; //Commands are just one byte in length after the header
-const int INITIALTIMEOUT = round(((1000/(float) BAUDRATE)*(64*8)) + 100); //Wait the expected time needed to fill the serial buffer (64 bytes in size) plus a fixed delay of 0.1s to allow the GUI to respond
+const int INITIALTIMEOUT = int(((1000/(float) BAUDRATE)*(64*8)) + 100); //Wait the expected time needed to fill the serial buffer (64 bytes in size) plus a fixed delay of 0.1s to allow the GUI to respond
 
 //Setup variables
 uint8_t WARNTEMP[] = {98, 98, 98}; //warn temps, warn of overheating at 60oC (60oC = 98 on 8-bit ADC)
@@ -111,7 +102,7 @@ uint8_t LEDstate1 = 0; //Variable for the state the LED is in after trigger (POR
 uint8_t ledInt = 255; // 8 bit, need to have switch in 'Auto' position for this to work 
 boolean fault = false; //Track whether in fault to prevent recursive call of fault state
 uint8_t initialCount = 3; //Don't respond to initial status until ADCs have settled
-
+/*
 //PORT D: USB, Switches, Digital I/O
 //0 - USB RX
 //1 - USB TX
@@ -143,44 +134,89 @@ SIGNAL(TIMER0_COMPA_vect)
 {
   updateStatus = true; //Set status flag to true to indicate status should be checked (1 ms has passed)
 }
+*/
+ADC *adc = new ADC(); // adc object;
+const int DEBOUNCE = 100; //ms to wait for switch to stop bouncing
+
 
 void setup() {
-  // set up the ADC
-  ADCSRA &= ~PS_128;  // remove bits set by Arduino library
-  ADCSRA |= PS_4;    //Sets sample rate to 308kHz - best temporal precision for 1-10kHz mirror
-  DIDR0 = B11111111; //Turns off digital input on pins A0-A5 (PORTC) to decrease noise to ADC and current load
-  
-  //Configure digital pins
-  DDRB |= B00111111; //Set all pins as output
-  PORTB &= B11000010; //Set all pins low except pin 9 which powers the input to the AWG
-  DDRD |= B11111000; //Set all pins but USB and toggle switch as output
+  Wire.begin();
+  configurePins();
 
-  //Configure analog switch to negative supply so that LED stays off during initialization
-  PORTD |= B10011000; //Set pins 3, 4 and 7 high
-
-  //Configure Timer0 to send an intterupt every 1 ms - https://learn.adafruit.com/multi-tasking-the-arduino-part-2/timers
-  TIMSK0 &= ~_BV(OCIE0A); //Disable compare A interrupts if using confocal sync - turn off auto-interrupts for initialization so that they do not currupt startup sequence
-  //TIMSK0 |= _BV(OCIE0A); //Otherwise set interrupt to "Compare A" if not d
-
-  Serial.begin(BAUDRATE);
-  Serial.setTimeout(INITIALTIMEOUT);
-  initializeDevice();
 }
 
 //--------------------------------------------------------------SYNCS----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Loop will act as sync router based on toggle switch position
 void loop() {
-  event = 0; //Reset the event flag
-  if(toggleSwitch) manualMode(); //If toggle switch is in manual mode, then revert to manual control of the LED 
-  else{
-    if(SYNCTYPE){ //Confocal sync pipeline - i.e. no interrupts during mirror sync - iterrupts on during standby
-      DDRD &= B11011111; //Set Digital I/O 1 to input to get shutter trigger 
-      if(TRIGGER == 2) DDRD &= B10011111; //If digital mirror sync, then also set digital I/O 2 to input
-      confocalStandby();
+  boolean state[] = {false, false, false, false, false};
+  int a;
+
+  while(true){
+    for(a=0; a<sizeof(PUSHBUTTON_PIN)/sizeof(PUSHBUTTON_PIN[0]); a++){
+      if(digitalRead(PUSHBUTTON_PIN[a])){
+        delay(DEBOUNCE);
+        state[a] = !state[a];
+        digitalWriteFast(LED_PIN[a], state[a]);
+        while(digitalRead(PUSHBUTTON_PIN[a])) delay(DEBOUNCE);
+        delay(DEBOUNCE);
+      }
+    }
+    if(digitalRead(TOGGLE_PIN) != state[4]){
+      delay(DEBOUNCE);
+      state[4] = !state[4];
+      digitalWriteFast(LED_BUILTIN, state[4]);
     }
   }
 }
 
+void configurePins(){
+    int a; //Loop counter
+    ///// ADC0 ////
+    // reference can be ADC_REFERENCE::REF_3V3, ADC_REFERENCE::REF_1V2 (not for Teensy LC) or ADC_REFERENCE::REF_EXT.
+    adc->adc0->setReference(ADC_REFERENCE::REF_3V3); // change all 3.3 to 1.2 if you change the reference to 1V2
+
+    adc->adc0->setAveraging(1); // set number of averages
+    adc->adc0->setResolution(16); // set bits of resolution
+
+    // it can be any of the ADC_CONVERSION_SPEED enum: VERY_LOW_SPEED, LOW_SPEED, MED_SPEED, HIGH_SPEED_16BITS, HIGH_SPEED or VERY_HIGH_SPEED
+    // see the documentation for more information
+    // additionally the conversion speed can also be ADACK_2_4, ADACK_4_0, ADACK_5_2 and ADACK_6_2,
+    // where the numbers are the frequency of the ADC clock in MHz and are independent on the bus speed.
+    adc->adc0->setConversionSpeed(ADC_CONVERSION_SPEED::ADACK_6_2); // change the conversion speed
+    // it can be any of the ADC_MED_SPEED enum: VERY_LOW_SPEED, LOW_SPEED, MED_SPEED, HIGH_SPEED or VERY_HIGH_SPEED
+    adc->adc0->setSamplingSpeed(ADC_SAMPLING_SPEED::HIGH_SPEED); // change the sampling speed
+
+    ////// ADC1 /////
+    adc->adc1->setReference(ADC_REFERENCE::REF_3V3);
+    adc->adc1->setAveraging(1); // set number of averages
+    adc->adc1->setResolution(16); // set bits of resolution
+    adc->adc1->setConversionSpeed(ADC_CONVERSION_SPEED::ADACK_6_2); // change the conversion speed
+    adc->adc1->setSamplingSpeed(ADC_SAMPLING_SPEED::HIGH_SPEED); // change the sampling speed
+
+    ////// INPUT /////
+    pinMode(TOGGLE_PIN, INPUT_PULLUP);
+    for(a=0; a<sizeof(PUSHBUTTON_PIN)/sizeof(PUSHBUTTON_PIN[0]); a++) pinMode(PUSHBUTTON_PIN[a], INPUT_PULLUP);
+
+    ////// OUTPUT /////
+    for(a=0; a<sizeof(RELAY_PIN)/sizeof(RELAY_PIN[0]); a++) pinMode(RELAY_PIN[a], OUTPUT);
+    pinMode(INTERLINE_PIN, OUTPUT);
+    pinMode(ANALOG_SELECT_PIN, OUTPUT);
+    pinMode(LED_BUILTIN, OUTPUT);
+    for(a=0; a<sizeof(ALARM_PIN)/sizeof(ALARM_PIN[0]); a++) pinMode(ALARM_PIN[a], OUTPUT);
+    for(a=0; a<sizeof(OUTPUT_PIN)/sizeof(OUTPUT_PIN[0]); a++) pinMode(OUTPUT_PIN[a], OUTPUT);
+    pinMode(FAN_PWM_PIN, OUTPUT);
+    for(a=0; a<sizeof(LED_PIN)/sizeof(LED_PIN[0]); a++) pinMode(LED_PIN[a], OUTPUT);
+    
+    ////// DISABLE /////
+    for(a=0; a<sizeof(NC_PIN)/sizeof(NC_PIN[0]); a++) pinMode(NC_PIN[a], INPUT_DISABLE);
+    for(a=0; a<sizeof(INPUT_PIN)/sizeof(INPUT_PIN[0]); a++) pinMode(INPUT_PIN[a], INPUT_DISABLE);
+
+    ////// I2C /////
+    Wire.setSDA(SDA0_PIN);
+    Wire.setSCL(SCL0_PIN);
+}
+
+/*
 //Wait for digital trigger event (usually shutter) to start mirror sync
 void confocalStandby(){
   updateAWG(ledInt);//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -593,3 +629,4 @@ void packetError(){
   }
   delay(1000);
 }
+*/

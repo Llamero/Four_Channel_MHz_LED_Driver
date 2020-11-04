@@ -1044,13 +1044,13 @@ F 5 "ELUMOASAQ5C12" H 5750 5750 50  0001 C CNN "Part #"
 	1    5750 5750
 	1    0    0    -1  
 $EndComp
-Text Label 11150 1450 2    50   ~ 0
-Relay1
-Text Label 11150 1550 2    50   ~ 0
-Relay2
-Text Label 11150 1650 2    50   ~ 0
-Relay3
 Text Label 11150 1750 2    50   ~ 0
+Relay1
+Text Label 11150 1650 2    50   ~ 0
+Relay2
+Text Label 11150 1550 2    50   ~ 0
+Relay3
+Text Label 11150 1450 2    50   ~ 0
 Relay4
 Text Label 7300 5450 2    50   ~ 0
 Relay1
@@ -1110,7 +1110,7 @@ U 1 1 5F577F14
 P 7450 5450
 F 0 "RN4" V 7350 5450 50  0000 C CNN
 F 1 "200" V 7450 5450 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 7725 5450 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0612" V 7725 5450 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7450 5450 50  0001 C CNN
 F 4 "Yageo" V 7450 5450 50  0001 C CNN "Manufacturer"
 F 5 "YC164-JR-07200RL" V 7450 5450 50  0001 C CNN "Part #"
@@ -3117,7 +3117,7 @@ U 2 1 5F913E0A
 P 7450 5750
 F 0 "RN4" V 7350 5750 50  0000 C CNN
 F 1 "200" V 7450 5750 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 7725 5750 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0612" V 7725 5750 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7450 5750 50  0001 C CNN
 F 4 "Yageo" V 7450 5750 50  0001 C CNN "Manufacturer"
 F 5 "YC164-JR-07200RL" V 7450 5750 50  0001 C CNN "Part #"
@@ -3130,7 +3130,7 @@ U 3 1 5F917ED3
 P 7450 6050
 F 0 "RN4" V 7350 6050 50  0000 C CNN
 F 1 "200" V 7450 6050 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 7725 6050 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0612" V 7725 6050 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7450 6050 50  0001 C CNN
 F 4 "Yageo" V 7450 6050 50  0001 C CNN "Manufacturer"
 F 5 "YC164-JR-07200RL" V 7450 6050 50  0001 C CNN "Part #"
@@ -3143,7 +3143,7 @@ U 4 1 5F918827
 P 7450 6350
 F 0 "RN4" V 7350 6350 50  0000 C CNN
 F 1 "200" V 7450 6350 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 7725 6350 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0612" V 7725 6350 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7450 6350 50  0001 C CNN
 F 4 "Yageo" V 7450 6350 50  0001 C CNN "Manufacturer"
 F 5 "YC164-JR-07200RL" V 7450 6350 50  0001 C CNN "Part #"
@@ -3212,7 +3212,7 @@ U 1 1 5F7535AC
 P 2300 7050
 F 0 "RN2" V 2200 7050 50  0000 C CNN
 F 1 "200" V 2300 7050 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 2575 7050 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0612" V 2575 7050 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 2300 7050 50  0001 C CNN
 F 4 "Yageo" V 2300 7050 50  0001 C CNN "Manufacturer"
 F 5 "YC164-JR-07200RL" V 2300 7050 50  0001 C CNN "Part #"
@@ -3225,7 +3225,7 @@ U 2 1 5F7575D0
 P 2000 6850
 F 0 "RN2" V 1900 6850 50  0000 C CNN
 F 1 "200" V 2000 6850 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 2275 6850 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0612" V 2275 6850 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 2000 6850 50  0001 C CNN
 F 4 "Yageo" V 2000 6850 50  0001 C CNN "Manufacturer"
 F 5 "YC164-JR-07200RL" V 2000 6850 50  0001 C CNN "Part #"
@@ -3238,7 +3238,7 @@ U 3 1 5F758308
 P 5650 2400
 F 0 "RN2" V 5550 2400 50  0000 C CNN
 F 1 "200" V 5650 2400 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 5925 2400 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0612" V 5925 2400 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 5650 2400 50  0001 C CNN
 F 4 "Yageo" V 5650 2400 50  0001 C CNN "Manufacturer"
 F 5 "YC164-JR-07200RL" V 5650 2400 50  0001 C CNN "Part #"
@@ -3251,7 +3251,7 @@ U 4 1 5F75DF06
 P 5650 2100
 F 0 "RN2" V 5550 2100 50  0000 C CNN
 F 1 "200" V 5650 2100 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x1206" V 5925 2100 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0612" V 5925 2100 50  0001 C CNN
 F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 5650 2100 50  0001 C CNN
 F 4 "Yageo" V 5650 2100 50  0001 C CNN "Manufacturer"
 F 5 "YC164-JR-07200RL" V 5650 2100 50  0001 C CNN "Part #"

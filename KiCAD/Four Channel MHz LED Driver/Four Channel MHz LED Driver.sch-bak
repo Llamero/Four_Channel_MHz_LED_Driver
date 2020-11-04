@@ -1891,9 +1891,9 @@ Text Label 11150 2350 2    50   ~ 0
 NC5
 Text Label 13450 2650 0    50   ~ 0
 NC6
-Text Label 13450 2850 0    50   ~ 0
-NC7
 Text Label 13450 3150 0    50   ~ 0
+NC7
+Text Label 13450 2850 0    50   ~ 0
 NC8
 Wire Wire Line
 	1600 6850 1850 6850
