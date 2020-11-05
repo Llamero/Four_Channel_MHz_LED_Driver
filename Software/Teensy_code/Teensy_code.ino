@@ -167,6 +167,7 @@ void loop() {
   pinMode(SDA0_PIN, OUTPUT);
   pinMode(SCL0_PIN, OUTPUT);
   pinMode(INPUT_PIN[0], INPUT);
+  /*
   while(true){
     a = adc->adc1->analogRead(INPUT_PIN[0]);
     if(state[0] && a>500){
@@ -178,7 +179,7 @@ void loop() {
       state[0] = !state[0];
     }
   }
-  
+  */
   /*
   while(true){
     a = digitalReadFast(INPUT_PIN[0]);
@@ -254,7 +255,7 @@ void loop() {
   delay(4000);
 */  
   
-/*
+
   while(true){
     for(a=0; a<sizeof(PUSHBUTTON_PIN)/sizeof(PUSHBUTTON_PIN[0]); a++){
       if(digitalRead(PUSHBUTTON_PIN[a])){
@@ -263,6 +264,12 @@ void loop() {
         digitalWriteFast(LED_PIN[a], state[a]);
         while(digitalRead(PUSHBUTTON_PIN[a])) delay(DEBOUNCE);
         delay(DEBOUNCE);
+        if(state[a]){
+          analogWrite(FAN_PWM_PIN, a*1000+1000);
+        }
+        else{
+          analogWrite(FAN_PWM_PIN, 0);
+        }
       }
     }
     if(digitalRead(TOGGLE_PIN) != state[4]){
@@ -271,7 +278,7 @@ void loop() {
       digitalWriteFast(LED_BUILTIN, state[4]);
     }
   }
-  */
+  
 }
 
 void configurePins(){
