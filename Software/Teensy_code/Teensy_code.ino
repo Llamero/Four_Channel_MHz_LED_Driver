@@ -13,14 +13,14 @@ const boolean NOSERIAL = false; //If the device boots into default configuration
 //Pin ID constants
 const int RELAY_PIN[] = {0, 1, 2, 3}; //SSR relays for changing LED channel
 const int INTERLINE_PIN = 4; //Switch between analog input and negative refence voltage to turn off LED
-const int NC_PIN[] = {5, 6, 7, 8, 9, 38}; //Not connected pins
+const int NC_PIN[] = {5, 6, 7, 8, 9, 38, 39}; //Not connected pins
 const int ANALOG_SELECT_PIN = 10; //Switches between internal and external analog input
 const int ALARM_PIN[] = {11, 32}; //Audible alarm
 const int TOGGLE_PIN = 12; //Toggle switch input
 
 const int RESISTOR_TEMP_PIN = 14; //NTC thermistor monitoring current sense resistor temp
 const int MOSFET_TEMP_PIN = 15; //NTC thermistor monitoring current regulator MOSFET temp
-const int EXTERNAL_TEMP = 16; //NTC thermistor monitoring external temp (such as on-board LED thermistor)
+const int EXTERNAL_TEMP_PIN = 16; //NTC thermistor monitoring external temp (such as on-board LED thermistor)
 const int ISENSE_PIN = 17; //Analog input to measure current sense voltage
 const int SDA0_PIN = 18; //I2C SDA pin for optional peripheral comunication
 const int SCL0_PIN = 19; //I2C SCL pin for optional peripheral comunication
@@ -137,20 +137,124 @@ SIGNAL(TIMER0_COMPA_vect)
 */
 ADC *adc = new ADC(); // adc object;
 const int DEBOUNCE = 100; //ms to wait for switch to stop bouncing
-
+const int SERIESRESISTOR = 4700;
+const int THERMISTORNOMINAL = 4700;
+const int BCOEFFICIENT = 3560;
+const float TEMPERATURENOMINAL = 25;
 
 void setup() {
   Wire.begin();
   configurePins();
-
+  digitalWriteFast(RELAY_PIN[3], HIGH);
+  digitalWriteFast(INTERLINE_PIN, LOW);
+  digitalWriteFast(ANALOG_SELECT_PIN, HIGH);
+  digitalWriteFast(FAN_PWM_PIN, LOW);
+  analogWrite(A21, 4095);
+  Wire.setClock(3400000);
+  Serial.begin(BAUDRATE);
+  Serial.setTimeout(INITIALTIMEOUT);
 }
 
 //--------------------------------------------------------------SYNCS----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Loop will act as sync router based on toggle switch position
 void loop() {
   boolean state[] = {false, false, false, false, false};
-  int a;
+  int a = 0;
+  float mos_temp;
+  float res_temp;
+  float ext_temp;
+  noInterrupts();
+  pinMode(SDA0_PIN, OUTPUT);
+  pinMode(SCL0_PIN, OUTPUT);
+  pinMode(INPUT_PIN[0], INPUT);
+  while(true){
+    a = adc->adc1->analogRead(INPUT_PIN[0]);
+    if(state[0] && a>500){
+      digitalWriteFast(OUTPUT_PIN[2], state[0]);
+      state[0] = !state[0];
+    }
+    else if(!state[0] && a<500){
+      digitalWriteFast(OUTPUT_PIN[2], state[0]);
+      state[0] = !state[0];
+    }
+  }
+  
+  /*
+  while(true){
+    a = digitalReadFast(INPUT_PIN[0]);
+    digitalWriteFast(OUTPUT_PIN[2], a);
 
+    a = digitalRead(INPUT_PIN[0]);
+    if(state[0] && a){
+      digitalWriteFast(OUTPUT_PIN[2], HIGH);
+      state[0] = false;
+    }
+    else if(!state[0] && !a){
+      digitalWriteFast(OUTPUT_PIN[2], LOW);
+      state[0] = true;
+    }
+  }
+  */
+  /*
+  while(true){
+    ext_temp = (float) adc->adc1->analogRead(INPUT_PIN[0]);
+    ext_temp = ext_temp/adc->adc0->getMaxValue();
+    ext_temp = round(ext_temp*100);
+    for(a=0; a<ext_temp; a++){
+      Serial.print(" ");
+    }
+    Serial.println("X");
+    delay(5);
+    
+    digitalWriteFast(OUTPUT_PIN[0], HIGH);
+    digitalWriteFast(OUTPUT_PIN[2], HIGH);
+    delayMicroseconds(1);
+    digitalWriteFast(OUTPUT_PIN[0], LOW);
+    digitalWriteFast(OUTPUT_PIN[2], LOW);
+    delayMicroseconds(1);
+    
+  }
+*/
+  
+
+/*
+  analogWriteFrequency(INTERLINE_PIN, 117187); // Teensy 3.0 pin 3 also changes to 375 kHz
+  analogWriteResolution(9);
+  while(true){
+    if(digitalRead(PUSHBUTTON_PIN[a])){
+        delay(DEBOUNCE);
+        state[a] = !state[a];
+        digitalWriteFast(LED_PIN[a], state[a]);
+        while(digitalRead(PUSHBUTTON_PIN[a])) delay(DEBOUNCE);
+        delay(DEBOUNCE);
+    }
+    if(state[a]){
+      digitalWriteFast(INTERLINE_PIN, HIGH);
+    }
+    else{
+      digitalWriteFast(INTERLINE_PIN, LOW);
+    }
+  }    
+  */
+  
+  /*
+  float val = sin(phase) * 2000.0 + 2050.0;
+  analogWrite(A21, (int)val);
+  phase = phase + 0.02;
+  if (phase >= twopi) phase = 0;
+  while (usec < 5) ; // wait
+  usec = usec - 5;
+ */
+/*  
+  digitalWriteFast(RELAY_PIN[3], HIGH);
+  digitalWriteFast(LED_BUILTIN, HIGH);
+  delay(4000);
+  digitalWriteFast(RELAY_PIN[3], LOW);
+  digitalWriteFast(LED_BUILTIN, LOW);
+  delay(4000);
+*/  
+  
+/*
   while(true){
     for(a=0; a<sizeof(PUSHBUTTON_PIN)/sizeof(PUSHBUTTON_PIN[0]); a++){
       if(digitalRead(PUSHBUTTON_PIN[a])){
@@ -167,10 +271,12 @@ void loop() {
       digitalWriteFast(LED_BUILTIN, state[4]);
     }
   }
+  */
 }
 
 void configurePins(){
     int a; //Loop counter
+    analogWriteResolution(12);
     ///// ADC0 ////
     // reference can be ADC_REFERENCE::REF_3V3, ADC_REFERENCE::REF_1V2 (not for Teensy LC) or ADC_REFERENCE::REF_EXT.
     adc->adc0->setReference(ADC_REFERENCE::REF_3V3); // change all 3.3 to 1.2 if you change the reference to 1V2
@@ -182,16 +288,16 @@ void configurePins(){
     // see the documentation for more information
     // additionally the conversion speed can also be ADACK_2_4, ADACK_4_0, ADACK_5_2 and ADACK_6_2,
     // where the numbers are the frequency of the ADC clock in MHz and are independent on the bus speed.
-    adc->adc0->setConversionSpeed(ADC_CONVERSION_SPEED::ADACK_6_2); // change the conversion speed
+    adc->adc0->setConversionSpeed(ADC_CONVERSION_SPEED::VERY_HIGH_SPEED); // change the conversion speed
     // it can be any of the ADC_MED_SPEED enum: VERY_LOW_SPEED, LOW_SPEED, MED_SPEED, HIGH_SPEED or VERY_HIGH_SPEED
-    adc->adc0->setSamplingSpeed(ADC_SAMPLING_SPEED::HIGH_SPEED); // change the sampling speed
+    adc->adc0->setSamplingSpeed(ADC_SAMPLING_SPEED::VERY_HIGH_SPEED); // change the sampling speed
 
     ////// ADC1 /////
     adc->adc1->setReference(ADC_REFERENCE::REF_3V3);
     adc->adc1->setAveraging(1); // set number of averages
     adc->adc1->setResolution(16); // set bits of resolution
-    adc->adc1->setConversionSpeed(ADC_CONVERSION_SPEED::ADACK_6_2); // change the conversion speed
-    adc->adc1->setSamplingSpeed(ADC_SAMPLING_SPEED::HIGH_SPEED); // change the sampling speed
+    adc->adc1->setConversionSpeed(ADC_CONVERSION_SPEED::VERY_HIGH_SPEED); // change the conversion speed
+    adc->adc1->setSamplingSpeed(ADC_SAMPLING_SPEED::VERY_HIGH_SPEED); // change the sampling speed
 
     ////// INPUT /////
     pinMode(TOGGLE_PIN, INPUT_PULLUP);
@@ -210,12 +316,25 @@ void configurePins(){
     ////// DISABLE /////
     for(a=0; a<sizeof(NC_PIN)/sizeof(NC_PIN[0]); a++) pinMode(NC_PIN[a], INPUT_DISABLE);
     for(a=0; a<sizeof(INPUT_PIN)/sizeof(INPUT_PIN[0]); a++) pinMode(INPUT_PIN[a], INPUT_DISABLE);
-
+    pinMode(EXTERNAL_TEMP_PIN, INPUT_DISABLE);
+    
     ////// I2C /////
     Wire.setSDA(SDA0_PIN);
     Wire.setSCL(SCL0_PIN);
 }
 
+float thermistorTemp(float raw){
+  float steinhart;
+  raw = adc->adc0->getMaxValue() / raw - 1;
+  raw = SERIESRESISTOR / raw;
+  steinhart = raw / THERMISTORNOMINAL;     // (R/Ro)
+  steinhart = log(steinhart);                  // ln(R/Ro)
+  steinhart /= BCOEFFICIENT;                   // 1/B * ln(R/Ro)
+  steinhart += 1.0 / (TEMPERATURENOMINAL + 273.15); // + (1/To)
+  steinhart = 1.0 / steinhart;                 // Invert
+  steinhart -= 273.15;    
+  return steinhart;
+}
 /*
 //Wait for digital trigger event (usually shutter) to start mirror sync
 void confocalStandby(){
