@@ -167,9 +167,17 @@ void loop() {
   pinMode(SDA0_PIN, OUTPUT);
   pinMode(SCL0_PIN, OUTPUT);
   pinMode(INPUT_PIN[0], INPUT);
-  /*
+  
   while(true){
-    a = adc->adc1->analogRead(INPUT_PIN[0]);
+    a = analogRead(MOSFET_TEMP_PIN);
+    Serial.println(a);
+    digitalWriteFast(OUTPUT_PIN[2], HIGH);
+    ext_temp = convertTemp(a);
+    digitalWriteFast(OUTPUT_PIN[2], LOW);
+    a = convertTemp(ext_temp);
+    Serial.println(a);
+    Serial.println();
+    /*
     if(state[0] && a>500){
       digitalWriteFast(OUTPUT_PIN[2], state[0]);
       state[0] = !state[0];
@@ -178,8 +186,9 @@ void loop() {
       digitalWriteFast(OUTPUT_PIN[2], state[0]);
       state[0] = !state[0];
     }
+    */
   }
-  */
+  
   /*
   while(true){
     a = digitalReadFast(INPUT_PIN[0]);
@@ -330,17 +339,64 @@ void configurePins(){
     Wire.setSCL(SCL0_PIN);
 }
 
-float thermistorTemp(float raw){
+float convertTemp(int input){
   float steinhart;
+  float raw = (float) input;
   raw = adc->adc0->getMaxValue() / raw - 1;
+  Serial.print(raw);
+  Serial.print(" ");
   raw = SERIESRESISTOR / raw;
+  Serial.print(raw);
+  Serial.print(" ");
   steinhart = raw / THERMISTORNOMINAL;     // (R/Ro)
+  Serial.print(steinhart);
+  Serial.print(" ");
   steinhart = log(steinhart);                  // ln(R/Ro)
+  Serial.print(steinhart);
+  Serial.print(" ");
   steinhart /= BCOEFFICIENT;                   // 1/B * ln(R/Ro)
+  Serial.print(steinhart);
+  Serial.print(" ");
   steinhart += 1.0 / (TEMPERATURENOMINAL + 273.15); // + (1/To)
+  Serial.print(steinhart);
+  Serial.print(" ");
   steinhart = 1.0 / steinhart;                 // Invert
-  steinhart -= 273.15;    
+  Serial.print(steinhart);
+  Serial.print(" ");
+  steinhart -= 273.15;   
+  Serial.print(steinhart);
+  Serial.println(" "); 
   return steinhart;
+}
+
+int convertTemp(float input){
+  float steinhart = input;
+  float raw;
+  steinhart += 273.15; 
+  Serial.print(steinhart);
+  Serial.print(" "); 
+  steinhart = 1.0 / steinhart; 
+  Serial.print(steinhart);
+  Serial.print(" "); 
+  steinhart -= 1.0 / (TEMPERATURENOMINAL + 273.15); // + (1/To)
+  Serial.print(steinhart);
+  Serial.print(" "); 
+  steinhart *= BCOEFFICIENT;
+  Serial.print(steinhart);
+  Serial.print(" "); 
+  steinhart = exp(steinhart);
+  Serial.print(steinhart);
+  Serial.print(" "); 
+  raw = steinhart * THERMISTORNOMINAL;
+  Serial.print(raw);
+  Serial.print(" "); 
+  raw = SERIESRESISTOR/raw;
+  Serial.print(raw);
+  Serial.print(" "); 
+  raw = adc->adc0->getMaxValue()/(raw+1);
+  Serial.print(raw);
+  Serial.println(" "); 
+  return (int) round(raw);
 }
 /*
 //Wait for digital trigger event (usually shutter) to start mirror sync
