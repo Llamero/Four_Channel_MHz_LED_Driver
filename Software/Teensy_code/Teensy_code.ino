@@ -3,6 +3,11 @@
 #include <ADC_util.h>
 #include <Wire.h>
 
+#define PIN_DISABLE 0
+#define PIN_ANALOG 1
+#define PIN_DIGITAL 2
+
+
 //Serial constants
 const char DEVICE_NAME[] = "MOM Test Box";
 //const char DEVICE_NAME[] = "Just an Arduino";
@@ -53,14 +58,15 @@ const int COMMANDSIZE = 1+HEADER; //Commands are just one byte in length after t
 const int INITIALTIMEOUT = int(((1000/(float) BAUDRATE)*(64*8)) + 100); //Wait the expected time needed to fill the serial buffer (64 bytes in size) plus a fixed delay of 0.1s to allow the GUI to respond
 
 //Setup variables
-uint8_t WARNTEMP[] = {98, 98, 98}; //warn temps, warn of overheating at 60oC (60oC = 98 on 8-bit ADC)
-uint8_t FAULTTEMP[] = {50, 50, 50}; //fault temps. enter fault at 80oC (80oC = 66 on 8-bit ADC)
-uint16_t DELAY1 = 480; //Delay from trigger to LED trigger state
-uint16_t DELAY2 = 505; //Delay from delay 1 to LED standby state
-uint16_t DELAY3 = 815;
-uint16_t ATHRESHOLD = 5; //Threshold for analog trigger - 5=0.1 offset on MOM
+float WARN_TEMP[] = {70, 70, 70}; //Warning temperatures (°C) for the MOSFET, resisitor, and external thermistor correspondingly.  This is also the temp the board need to cool down to before reactivating after a fault
+float FAULT_TEMP[] = {85, 85, 85}; //Fault temperature(°C) for the MOSFET, resisitor, and external thermistor correspondingly.  If the board rises above this temp it will deactivate the LED and driver until the temperature falls below the warn temperature
+int WARN_ADC_TEMP[] = {0, 0, 0}; //Warning temperatures (in ADC units)  for the MOSFET, resisitor, and external thermistor correspondingly.  This is also the temp the board need to cool down to before reactivating after a fault
+int FAULT_ADC_TEMP[] = {0, 0, 0}; //Fault temperature(in ADC units) for the MOSFET, resisitor, and external thermistor correspondingly.  If the board rises above this temp it will deactivate the LED and driver until the temperature falls below the warn temperature
+uint32_t DELAYS[] = {480, 505, 815}; //Delay (in µs) from trigger to LED trigger states
+boolean 
+float ATHRESHOLDS_VOLTS[] = {0, 0, 0, 0}; //Threshold (in volts) for analog triggers
+int ATHRESHOLDS_ADC[] = {0, 0, 0, 0}; //Threshold (in volts) for analog triggers
 boolean DELAYORDER = 0; //Order of delays before trigger (0 = LED starts off, 1 = LED starts on);
-boolean DELAYUNITS = 0; //us or ms delay - confocal sync will always use us - us is also capped at 16383 (0 = us; 1 = ms)
 uint8_t FANMINTEMP = 173; //LED temp at which the PWM fan runs at minimum speed, - default to room temp (25oC = 173 on 8-bit ADC)
 uint8_t FANMAXTEMP = WARNTEMP[0]; //LED temp above which the PWM fan runs at maximum speed, - default to warn temp  
 uint8_t TRIGGER = 1; //trigger (0=toggle, 1=analog, 2=digital - confocal uses separate digital to trigger syncing)
@@ -78,6 +84,11 @@ boolean LEDSOURCE = 1; //LED intensity signal source (0 = Ext source, 1 = AWG so
 boolean TRIGHOLD = 0; //trigger hold (0 = single shot, 1 = repeat until trigger resets), 
 uint8_t AWGSOURCE = 0; //AWG source (0=rxPacket, 1=mirror the intensity knob - hold fixed during sync, 2 - live update during sync),             
 uint8_t SYNCOUT = 0; //Digital I/O 2 as sync out (0=false, 64=true)
+int DEBOUNCE = 100; //ms to wait for switch to stop bouncing
+int SERIESRESISTOR = 4700;
+int THERMISTORNOMINAL = 4700;
+int BCOEFFICIENT = 3545;
+float TEMPERATURENOMINAL = 25;
 
 //Packet structure is: byte(0) STARTBYTE -> byte(1) packet identifier -> byte(2) packet total length -> byte(3) checksum (data only, excluding header) -> byte(4-n) data packet;
 //Maximum data packet size is 252 bytes (256 bytes - 4 bytes for header)
@@ -136,11 +147,7 @@ SIGNAL(TIMER0_COMPA_vect)
 }
 */
 ADC *adc = new ADC(); // adc object;
-const int DEBOUNCE = 100; //ms to wait for switch to stop bouncing
-const int SERIESRESISTOR = 4700;
-const int THERMISTORNOMINAL = 4700;
-const int BCOEFFICIENT = 3560;
-const float TEMPERATURENOMINAL = 25;
+
 
 void setup() {
   Wire.begin();
@@ -343,59 +350,27 @@ float convertTemp(int input){
   float steinhart;
   float raw = (float) input;
   raw = adc->adc0->getMaxValue() / raw - 1;
-  Serial.print(raw);
-  Serial.print(" ");
   raw = SERIESRESISTOR / raw;
-  Serial.print(raw);
-  Serial.print(" ");
   steinhart = raw / THERMISTORNOMINAL;     // (R/Ro)
-  Serial.print(steinhart);
-  Serial.print(" ");
   steinhart = log(steinhart);                  // ln(R/Ro)
-  Serial.print(steinhart);
-  Serial.print(" ");
   steinhart /= BCOEFFICIENT;                   // 1/B * ln(R/Ro)
-  Serial.print(steinhart);
-  Serial.print(" ");
   steinhart += 1.0 / (TEMPERATURENOMINAL + 273.15); // + (1/To)
-  Serial.print(steinhart);
-  Serial.print(" ");
   steinhart = 1.0 / steinhart;                 // Invert
-  Serial.print(steinhart);
-  Serial.print(" ");
   steinhart -= 273.15;   
-  Serial.print(steinhart);
-  Serial.println(" "); 
   return steinhart;
 }
 
 int convertTemp(float input){
   float steinhart = input;
   float raw;
-  steinhart += 273.15; 
-  Serial.print(steinhart);
-  Serial.print(" "); 
-  steinhart = 1.0 / steinhart; 
-  Serial.print(steinhart);
-  Serial.print(" "); 
-  steinhart -= 1.0 / (TEMPERATURENOMINAL + 273.15); // + (1/To)
-  Serial.print(steinhart);
-  Serial.print(" "); 
+  steinhart += 273.15;  
+  steinhart = 1.0 / steinhart;  
+  steinhart -= 1.0 / (TEMPERATURENOMINAL + 273.15); // + (1/To); 
   steinhart *= BCOEFFICIENT;
-  Serial.print(steinhart);
-  Serial.print(" "); 
-  steinhart = exp(steinhart);
-  Serial.print(steinhart);
-  Serial.print(" "); 
-  raw = steinhart * THERMISTORNOMINAL;
-  Serial.print(raw);
-  Serial.print(" "); 
+  steinhart = exp(steinhart);; 
+  raw = steinhart * THERMISTORNOMINAL; 
   raw = SERIESRESISTOR/raw;
-  Serial.print(raw);
-  Serial.print(" "); 
-  raw = adc->adc0->getMaxValue()/(raw+1);
-  Serial.print(raw);
-  Serial.println(" "); 
+  raw = adc->adc0->getMaxValue()/(raw+1); 
   return (int) round(raw);
 }
 /*
