@@ -1,12 +1,5 @@
-
-#include <ADC.h>
-#include <ADC_util.h>
 #include <Wire.h>
-
-#define PIN_DISABLE 0
-#define PIN_ANALOG 1
-#define PIN_DIGITAL 2
-
+#include "pinSetup.h"
 
 //Serial constants
 const char DEVICE_NAME[] = "MOM Test Box";
@@ -15,32 +8,7 @@ const long BAUDRATE = 12000000;  //Teensy USB is always 12 Mbit/s - https://www.
 const uint8_t NINITIALIZE = 0; //Number of times to try connecting to GUI until instead booting using default settings
 const boolean NOSERIAL = false; //If the device boots into default configuration due to no serial, turn off serial
 
-//Pin ID constants
-const int RELAY_PIN[] = {0, 1, 2, 3}; //SSR relays for changing LED channel
-const int INTERLINE_PIN = 4; //Switch between analog input and negative refence voltage to turn off LED
-const int NC_PIN[] = {5, 6, 7, 8, 9, 38, 39}; //Not connected pins
-const int ANALOG_SELECT_PIN = 10; //Switches between internal and external analog input
-const int ALARM_PIN[] = {11, 32}; //Audible alarm
-const int TOGGLE_PIN = 12; //Toggle switch input
-
-const int RESISTOR_TEMP_PIN = 14; //NTC thermistor monitoring current sense resistor temp
-const int MOSFET_TEMP_PIN = 15; //NTC thermistor monitoring current regulator MOSFET temp
-const int EXTERNAL_TEMP_PIN = 16; //NTC thermistor monitoring external temp (such as on-board LED thermistor)
-const int ISENSE_PIN = 17; //Analog input to measure current sense voltage
-const int SDA0_PIN = 18; //I2C SDA pin for optional peripheral comunication
-const int SCL0_PIN = 19; //I2C SCL pin for optional peripheral comunication
-const int OUTPUT_PIN[] = {22, 21, 20}; //5V output pins for external triggering/PWM
-const int FAN_PWM_PIN = 23; //5V PWM to control internal fan speed
-
-const int PUSHBUTTON_PIN[] = {27, 25, 26, 30}; //Four pushbutton inputs 
-const int LED_PIN[] = {29, 24, 28, 31}; //Indicator LEDs on pushbuttons
-
-const int POT_PIN = 33; //Input voltage from potentiometer
-const int INPUT_PIN[] = {37, 36, 35, 34}; //4-channel analog/digital inputs
-const int DAC0_PIN = A21; //Internal dac to generate internal analog input voltage
-const int DAC1_PIN = A22; //Internal dac - not connected
-
-//Packet structure is: byte(0) STARTBYTE -> byte(1) packet identifier -> byte(2) packet total length -> byte(3) checksum (data only, excluding header) -> byte(4-n) data packet;
+//Serial variables - packet structure: START-LENGTH-CHECKSUM-DATA(0)-...-DATA(n)-STOP
 const float STARTPACKET = -1/0; //Set start delimiter to -infinity
 const float ENDPACKET = 1/0; //Set end delimiter to +infinity
 const int IDPACKET = 1; //Identifies packet as device identification packet
@@ -48,35 +16,30 @@ const int STATUSPACKET = 2; //Identifies packet as temperature recordings and pa
 const int FAULTPACKET = 10; //Identifies packet as driver entering or exiting fault state - or if received, then commanding driver to enter fault state (i.e. fault test)
 const int RESETPACKET = 11; //Identifies packet commanding driver to reset
 const int DISCONNECTPACKET = 12; //Identifies packet commanding driver to reset
-const int AWGPACKET = 13; //Identifies packet commanding change in AWG
 const int SETUPPACKET = 20; //Identifies packet as receiving setup configuration information
-const int HEADER = 4; //Indentifies length of header
-const int WAVEPACKET = 250+HEADER; //Identifies packet as recorded analog waveform - also is number of bytes in packet
-const int DEVICE_NAME_SIZE = sizeof(DEVICE_NAME) + HEADER; //Size of ID packet
-const int SETUPSIZE = SETUPPACKET+HEADER; //Expected size of recieved setup packet, see byte order below:
-const int COMMANDSIZE = 1+HEADER; //Commands are just one byte in length after the header
+const int AWGPACKET = 21; //Identifies packet commanding change in AWG
 const int INITIALTIMEOUT = int(((1000/(float) BAUDRATE)*(64*8)) + 100); //Wait the expected time needed to fill the serial buffer (64 bytes in size) plus a fixed delay of 0.1s to allow the GUI to respond
 
-//Setup variables
-float WARN_TEMP[] = {70, 70, 70}; //Warning temperatures (°C) for the MOSFET, resisitor, and external thermistor correspondingly.  This is also the temp the board need to cool down to before reactivating after a fault
-float FAULT_TEMP[] = {85, 85, 85}; //Fault temperature(°C) for the MOSFET, resisitor, and external thermistor correspondingly.  If the board rises above this temp it will deactivate the LED and driver until the temperature falls below the warn temperature
-int WARN_ADC_TEMP[] = {0, 0, 0}; //Warning temperatures (in ADC units)  for the MOSFET, resisitor, and external thermistor correspondingly.  This is also the temp the board need to cool down to before reactivating after a fault
-int FAULT_ADC_TEMP[] = {0, 0, 0}; //Fault temperature(in ADC units) for the MOSFET, resisitor, and external thermistor correspondingly.  If the board rises above this temp it will deactivate the LED and driver until the temperature falls below the warn temperature
+uint32_t check_sum = 0; //value for storing the checksum of the data packet.  
+uint8_t tx_packet[256]; //Array for storing data packets to be sent to GUI - start of packet is {0, 0}
+uint8_t rx_buffer[256]; //Array for storing data stream from GUI or saving as wave measurement
+uint8_t rx_index = 0; //Index for placing next received byte in the rx circular buffer
+uint8_t rx_start = 0; //Index for start of packet in rx buffer
+boolean initialized = false; //Whether device has received initialization intructions from GUI
+uint8_t task_index = 0; //Index for recording current position in background task list
+uint8_t event = 0; //Flag for whether an event happened within the interrupt that needs to be taken care of
+
+//Sync and input variables
 uint32_t DELAYS[] = {480, 505, 815}; //Delay (in µs) from trigger to LED trigger states
-boolean 
+boolean LED_START_STATE = false; //Whether the LED should be on (true) or off (false) at the start of delay 1
 float ATHRESHOLDS_VOLTS[] = {0, 0, 0, 0}; //Threshold (in volts) for analog triggers
 int ATHRESHOLDS_ADC[] = {0, 0, 0, 0}; //Threshold (in volts) for analog triggers
-boolean DELAYORDER = 0; //Order of delays before trigger (0 = LED starts off, 1 = LED starts on);
-uint8_t FANMINTEMP = 173; //LED temp at which the PWM fan runs at minimum speed, - default to room temp (25oC = 173 on 8-bit ADC)
-uint8_t FANMAXTEMP = WARNTEMP[0]; //LED temp above which the PWM fan runs at maximum speed, - default to warn temp  
-uint8_t TRIGGER = 1; //trigger (0=toggle, 1=analog, 2=digital - confocal uses separate digital to trigger syncing)
-uint8_t ANALOGSEL = 3; //(analog select (3 = diode, 4 = raw) 
-uint8_t FAULTLED = B00000100; //Alarm to alert to warning temperature (0=false, 4=true)
+boolean ANALOG_INPUTS[] = {false, false, false, false}; //Whether the input signal is analog or digital for each channel
+int SYNC_CHANNEL = 1; //Which input channel is the sync signal
+int SHUTTER_CHANNEL = 0; //Which channel is the shutter input 
 uint8_t FAULTVOLUME = 127; //Volume of alarm to alert to fault temperature (0 = min, 127 = max);
 uint8_t STARTVOLUME = 10; //Volume of short tone upon initializing (0 = min, 127 = max);
-boolean PWMFAN = 0; //Digital I/O as PWM fan controller (0=N/A, 1=on)
-uint8_t FANPIN = 0; //Which digital ouput to use to drive the fan (0=N/A, 32=I/O 1, 64=I/O 2)
-boolean SYNCTYPE = 1; //sync type (0=regular, 1=confocal sync (pipeline syncs through fast routines)
+boolean SYNCTYPE = 1; //preset sync type
 boolean DTRIGGERPOL = 1; //digital trigger polarity (0 = Low, 1 = High)
 boolean ATRIGGERPOL = 1; //analog trigger polarity (0 = Falling, 1 = Rising)
 boolean SHUTTERTRIGGERPOL = 0; //Shutter trigger polarity (0 = Low, 1 = High) - only used for confocal syncs
@@ -84,24 +47,15 @@ boolean LEDSOURCE = 1; //LED intensity signal source (0 = Ext source, 1 = AWG so
 boolean TRIGHOLD = 0; //trigger hold (0 = single shot, 1 = repeat until trigger resets), 
 uint8_t AWGSOURCE = 0; //AWG source (0=rxPacket, 1=mirror the intensity knob - hold fixed during sync, 2 - live update during sync),             
 uint8_t SYNCOUT = 0; //Digital I/O 2 as sync out (0=false, 64=true)
-int DEBOUNCE = 100; //ms to wait for switch to stop bouncing
-int SERIESRESISTOR = 4700;
-int THERMISTORNOMINAL = 4700;
-int BCOEFFICIENT = 3545;
-float TEMPERATURENOMINAL = 25;
+const uint16_t DEBOUNCE = 100; //ms to wait for switch to stop bouncing
 
-//Packet structure is: byte(0) STARTBYTE -> byte(1) packet identifier -> byte(2) packet total length -> byte(3) checksum (data only, excluding header) -> byte(4-n) data packet;
-//Maximum data packet size is 252 bytes (256 bytes - 4 bytes for header)
-uint8_t checkSum = 0; //byte for verifying data integrity
-uint8_t txPacket[64]; //Array for storing data packets to be sent to GUI - start of packet is {0, 0}
-uint8_t rxBuffer[256]; //Array for storing data stream from GUI or saving as wave measurement
-uint8_t rxIndex = 0; //Index for placing next received byte in the rx circular buffer
-uint8_t rxStart = 0; //Index for start of packet in rx buffer
-boolean initialized = false; //Whether device has received initialization intructions from GUI
-uint8_t taskIndex = 0; //Index for recording current position in background tasks 0-2 - record temperatures, 3 - record knob, 4 - sync status (on/off), 5-toggle switch, 6-build header, 7-17 - send byte[n-7]
-uint8_t event = 0; //Flag for whether an event happened within the interrupt that needs to be taken care of - 1 - serial event, 2 - toggle event, 3 - failsafe event
+
+//Output variables
+int EXT_FAN_CHANNEL = 0; //Which channel is used for PWM to the external fan (negative value = inactive)
+int EXT_SYNC_CHANNEL = 1; //Which channel is used for sending a 5V HIGH when the LED is on and 0V LOW when LED is off (negative value = inactive) 
 
 //Other  variables
+
 int a = 0; //Dummy int counter
 uint8_t counter = 0; //Dummy 8-bit counter
 boolean syncStatus = false; //Flag for tracking if actively triggering LED or in standby
@@ -146,18 +100,26 @@ SIGNAL(TIMER0_COMPA_vect)
   updateStatus = true; //Set status flag to true to indicate status should be checked (1 ms has passed)
 }
 */
-ADC *adc = new ADC(); // adc object;
+
+//Convert between byte list and float
+typedef union
+{
+ float float_var;
+ uint8_t bytes[4];
+} FLOATUNION_t;
+
+//ADC *adc = new ADC(); // adc object;
+pinSetup pin;
+FLOATUNION_t floatUnion; //Convert byte list <-> float
 
 
 void setup() {
-  Wire.begin();
-  configurePins();
-  digitalWriteFast(RELAY_PIN[3], HIGH);
-  digitalWriteFast(INTERLINE_PIN, LOW);
-  digitalWriteFast(ANALOG_SELECT_PIN, HIGH);
-  digitalWriteFast(FAN_PWM_PIN, LOW);
+  pin.configurePins();
+  digitalWriteFast(pin.RELAY[3], HIGH);
+  digitalWriteFast(pin.INTERLINE, LOW);
+  digitalWriteFast(pin.ANALOG_SELECT, LOW);
+  digitalWriteFast(pin.FAN_PWM, LOW);
   analogWrite(A21, 4095);
-  Wire.setClock(3400000);
   Serial.begin(BAUDRATE);
   Serial.setTimeout(INITIALTIMEOUT);
 }
@@ -171,26 +133,33 @@ void loop() {
   float res_temp;
   float ext_temp;
   noInterrupts();
-  pinMode(SDA0_PIN, OUTPUT);
-  pinMode(SCL0_PIN, OUTPUT);
-  pinMode(INPUT_PIN[0], INPUT);
+  pinMode(pin.SDA0, OUTPUT);
+  pinMode(pin.SCL0, OUTPUT);
+  pinMode(pin.INPUTS[0], INPUT);
   
   while(true){
-    a = analogRead(MOSFET_TEMP_PIN);
-    Serial.println(a);
-    digitalWriteFast(OUTPUT_PIN[2], HIGH);
-    ext_temp = convertTemp(a);
-    digitalWriteFast(OUTPUT_PIN[2], LOW);
+    a = analogRead(pin.MOSFET_TEMP);
+    digitalWriteFast(pin.OUTPUTS[2], HIGH);
+    ext_temp = pin.mosfetTemp();
+    digitalWriteFast(pin.OUTPUTS[2], LOW);
+    
+    Serial.print(a);
+    Serial.print(" = ");
+    Serial.print(ext_temp);
+    Serial.println("°C");
+    delay(100);
+    
+    /*
     a = convertTemp(ext_temp);
     Serial.println(a);
     Serial.println();
     /*
     if(state[0] && a>500){
-      digitalWriteFast(OUTPUT_PIN[2], state[0]);
+      digitalWriteFast(pin.OUTPUTS[2], state[0]);
       state[0] = !state[0];
     }
     else if(!state[0] && a<500){
-      digitalWriteFast(OUTPUT_PIN[2], state[0]);
+      digitalWriteFast(pin.OUTPUTS[2], state[0]);
       state[0] = !state[0];
     }
     */
@@ -271,7 +240,7 @@ void loop() {
   delay(4000);
 */  
   
-
+/*
   while(true){
     for(a=0; a<sizeof(PUSHBUTTON_PIN)/sizeof(PUSHBUTTON_PIN[0]); a++){
       if(digitalRead(PUSHBUTTON_PIN[a])){
@@ -294,85 +263,11 @@ void loop() {
       digitalWriteFast(LED_BUILTIN, state[4]);
     }
   }
-  
+ */ 
 }
 
-void configurePins(){
-    int a; //Loop counter
-    analogWriteResolution(12);
-    ///// ADC0 ////
-    // reference can be ADC_REFERENCE::REF_3V3, ADC_REFERENCE::REF_1V2 (not for Teensy LC) or ADC_REFERENCE::REF_EXT.
-    adc->adc0->setReference(ADC_REFERENCE::REF_3V3); // change all 3.3 to 1.2 if you change the reference to 1V2
 
-    adc->adc0->setAveraging(1); // set number of averages
-    adc->adc0->setResolution(16); // set bits of resolution
 
-    // it can be any of the ADC_CONVERSION_SPEED enum: VERY_LOW_SPEED, LOW_SPEED, MED_SPEED, HIGH_SPEED_16BITS, HIGH_SPEED or VERY_HIGH_SPEED
-    // see the documentation for more information
-    // additionally the conversion speed can also be ADACK_2_4, ADACK_4_0, ADACK_5_2 and ADACK_6_2,
-    // where the numbers are the frequency of the ADC clock in MHz and are independent on the bus speed.
-    adc->adc0->setConversionSpeed(ADC_CONVERSION_SPEED::VERY_HIGH_SPEED); // change the conversion speed
-    // it can be any of the ADC_MED_SPEED enum: VERY_LOW_SPEED, LOW_SPEED, MED_SPEED, HIGH_SPEED or VERY_HIGH_SPEED
-    adc->adc0->setSamplingSpeed(ADC_SAMPLING_SPEED::VERY_HIGH_SPEED); // change the sampling speed
-
-    ////// ADC1 /////
-    adc->adc1->setReference(ADC_REFERENCE::REF_3V3);
-    adc->adc1->setAveraging(1); // set number of averages
-    adc->adc1->setResolution(16); // set bits of resolution
-    adc->adc1->setConversionSpeed(ADC_CONVERSION_SPEED::VERY_HIGH_SPEED); // change the conversion speed
-    adc->adc1->setSamplingSpeed(ADC_SAMPLING_SPEED::VERY_HIGH_SPEED); // change the sampling speed
-
-    ////// INPUT /////
-    pinMode(TOGGLE_PIN, INPUT_PULLUP);
-    for(a=0; a<sizeof(PUSHBUTTON_PIN)/sizeof(PUSHBUTTON_PIN[0]); a++) pinMode(PUSHBUTTON_PIN[a], INPUT_PULLUP);
-
-    ////// OUTPUT /////
-    for(a=0; a<sizeof(RELAY_PIN)/sizeof(RELAY_PIN[0]); a++) pinMode(RELAY_PIN[a], OUTPUT);
-    pinMode(INTERLINE_PIN, OUTPUT);
-    pinMode(ANALOG_SELECT_PIN, OUTPUT);
-    pinMode(LED_BUILTIN, OUTPUT);
-    for(a=0; a<sizeof(ALARM_PIN)/sizeof(ALARM_PIN[0]); a++) pinMode(ALARM_PIN[a], OUTPUT);
-    for(a=0; a<sizeof(OUTPUT_PIN)/sizeof(OUTPUT_PIN[0]); a++) pinMode(OUTPUT_PIN[a], OUTPUT);
-    pinMode(FAN_PWM_PIN, OUTPUT);
-    for(a=0; a<sizeof(LED_PIN)/sizeof(LED_PIN[0]); a++) pinMode(LED_PIN[a], OUTPUT);
-    
-    ////// DISABLE /////
-    for(a=0; a<sizeof(NC_PIN)/sizeof(NC_PIN[0]); a++) pinMode(NC_PIN[a], INPUT_DISABLE);
-    for(a=0; a<sizeof(INPUT_PIN)/sizeof(INPUT_PIN[0]); a++) pinMode(INPUT_PIN[a], INPUT_DISABLE);
-    pinMode(EXTERNAL_TEMP_PIN, INPUT_DISABLE);
-    
-    ////// I2C /////
-    Wire.setSDA(SDA0_PIN);
-    Wire.setSCL(SCL0_PIN);
-}
-
-float convertTemp(int input){
-  float steinhart;
-  float raw = (float) input;
-  raw = adc->adc0->getMaxValue() / raw - 1;
-  raw = SERIESRESISTOR / raw;
-  steinhart = raw / THERMISTORNOMINAL;     // (R/Ro)
-  steinhart = log(steinhart);                  // ln(R/Ro)
-  steinhart /= BCOEFFICIENT;                   // 1/B * ln(R/Ro)
-  steinhart += 1.0 / (TEMPERATURENOMINAL + 273.15); // + (1/To)
-  steinhart = 1.0 / steinhart;                 // Invert
-  steinhart -= 273.15;   
-  return steinhart;
-}
-
-int convertTemp(float input){
-  float steinhart = input;
-  float raw;
-  steinhart += 273.15;  
-  steinhart = 1.0 / steinhart;  
-  steinhart -= 1.0 / (TEMPERATURENOMINAL + 273.15); // + (1/To); 
-  steinhart *= BCOEFFICIENT;
-  steinhart = exp(steinhart);; 
-  raw = steinhart * THERMISTORNOMINAL; 
-  raw = SERIESRESISTOR/raw;
-  raw = adc->adc0->getMaxValue()/(raw+1); 
-  return (int) round(raw);
-}
 /*
 //Wait for digital trigger event (usually shutter) to start mirror sync
 void confocalStandby(){
