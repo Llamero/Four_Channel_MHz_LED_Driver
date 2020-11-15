@@ -22,35 +22,29 @@ import serial
 import struct
 import tkinter as tk
 from tkinter import ttk
+import matplotlib.pyplot as plt
 
 
 LARGE_FONT= ("Verdana", 12)
 style.use("ggplot")
 f = Figure(figsize=(5,5), dpi=100)
 a = f.add_subplot(111)
+a.axis((0,1440,-0.1,1.1))
+a.set_xlabel("Time (µs)")
+a.set_ylabel("LED Current (A)")
+x = list(range(1600));
+x = [num *0.9 for num in x]
+l2, = a.plot(x, list(range(1600)))
 stream_wave = False;
 
-def animate(i):
-    global stream_wave
-    if(stream_wave):
-        x = list(range(1600));
-        x = [num *0.9 for num in x]
-        ser.write(b'\x61')
-        s=ser.read(1600*2)
-        y=list(struct.iter_unpack("1600H", s))
-        y = list(y[0])
-        y = [num / 65535 for num in y]
 
-        a.clear()
-        a.axis((0,1440,-0.1,1.1))
-        a.plot(x, y)
 
 
 
 class SeaofBTCapp(tk.Tk):
 
     def __init__(self, *args, **kwargs):
-
+        global f
         tk.Tk.__init__(self, *args, **kwargs)
 
 ##        tk.Tk.iconbitmap(self, default="clienticon.ico")
@@ -73,6 +67,8 @@ class SeaofBTCapp(tk.Tk):
             frame.grid(row=0, column=0, sticky="nsew")
 
         self.show_frame(StartPage)
+        self.ani = animation.FuncAnimation(f, self.animate, interval=100) #https://stackoverflow.com/questions/48564181/how-to-stop-funcanimation-by-func-in-matplotlib
+
 
     def show_frame(self, cont):
         global stream_wave
@@ -84,6 +80,19 @@ class SeaofBTCapp(tk.Tk):
             stream_wave = False
         frame = self.frames[cont]
         frame.tkraise()
+
+    def animate(self, i):
+        global stream_wave
+        if(stream_wave):
+            self.ani.event_source.interval = 50
+            ser.write(b'\x61')
+            s=ser.read(1600*2)
+            y=list(struct.iter_unpack("1600H", s))
+            y = list(y[0])
+            y = [num / 65535 for num in y]
+            l2.set_ydata(y)
+        else:
+            self.ani.event_source.interval = 1000
 
 
 class StartPage(tk.Frame):
@@ -161,7 +170,6 @@ ser = serial.Serial('COM5')
 ser.close()
 ser.open()
 app = SeaofBTCapp()
-ani = animation.FuncAnimation(f, animate, interval=100)
 app.mainloop()
 
 def main():
