@@ -14,10 +14,12 @@ class pinSetup
     pinSetup();
     void configurePins();
     void setValues(float WARN_TEMP[3], float FAULT_TEMP[3], float FAN_LIMITS_TEMP[2], int EXT_THERMISTORNOMINAL, int EXT_BCOEFFICIENT, float EXT_TEMPERATURENOMINAL);
-    int adcMax();
-    float mosfetTemp();
-    float resistorTemp();
-    float extTemp();
+    int adcMax(); //Returns the maximum value for the ADC
+    float mosfetTemp(); //Returns the current temperature of the MOSFET thermistor in °C
+    float resistorTemp(); //Returns the current temperature of the current sense resistor thermistor in °C
+    float extTemp(); //Returns the current temperature of the external thermistor in °C
+    float adcToTemp(int adc, int therm_nominal, float temp_nominal, int b_coefficient); //Convert raw ADC value to temperature in °C
+    int tempToAdc(float temperature, int therm_nominal, float temp_nominal, int b_coefficient); //Convert temperature in °C to equivalent ADC value
     
     constexpr static int RELAY[4] = {0, 1, 2, 3}; //SSR relays for changing LED channel
     const static int INTERLINE = 4; //Switch between analog input and negative refence voltage to turn off LED
@@ -25,6 +27,7 @@ class pinSetup
     const static int ANALOG_SELECT = 10; //Switches between internal and external analog input
     constexpr static int ALARM[2] = {11, 32}; //Audible alarm
     const static int TOGGLE = 12; //Toggle switch input
+    const static uint16_t DEBOUNCE = 100; //ms to wait for switch to stop bouncing
     
     const static int RESISTOR_TEMP = 14; //NTC thermistor monitoring current sense resistor temp
     const static int MOSFET_TEMP = 15; //NTC thermistor monitoring current regulator MOSFET temp
@@ -44,9 +47,9 @@ class pinSetup
     const static int DAC1 = A22; //Internal dac - not connected
 
   private:
-    float adcToTemp(int adc, int therm_nominal, float temp_nominal, int b_coefficient); //Convert raw ADC value to temperature in °C
-    int tempToAdc(float temperature, int therm_nominal, float temp_nominal, int b_coefficient); //Convert temperature in °C to equivalent ADC value
-    
+    void init(); //Initialize reference variables
+    void convertToAdc(); //Convert reference temperatures to ADC values
+   
     //ADC setup
     const static int adcAveraging = 1; //Number of times to average adc recording before returning value
     const static int adcResolution = 16; //Number of significant bits to return per adc recording
@@ -65,10 +68,6 @@ class pinSetup
     static int _EXT_THERMISTOR_NOMINAL; //Value of thermistor resistor on PCB at nominal temp (normally 25°C)
     static int _EXT_B_COEFFICIENT; //Beta value for the PCB thermistor
     static float _EXT_TEMPERATURE_NOMINAL; //Reference temperature for the nominal resistance on the thermistor on the PCB
-
-  protected:
-    void init();
-    void convertToAdc();
 };
    
 #endif

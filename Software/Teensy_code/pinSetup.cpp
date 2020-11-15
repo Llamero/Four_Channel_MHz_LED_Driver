@@ -15,7 +15,7 @@ ADC *adc = new ADC(); // adc object;
 const static int pinSetup::NC[] = {5, 6, 7, 8, 9, 38, 39}; //Not connected pins
 float _WARN_TEMP[] = {70, 70, 70}; //Warning temperatures (°C) for the MOSFET, resisitor, and external thermistor correspondingly.  This is also the temp the board need to cool down to before reactivating after a fault
 float _FAULT_TEMP[] = {85, 85, 85}; //Fault temperature(°C) for the MOSFET, resisitor, and external thermistor correspondingly.  If the board rises above this temp it will deactivate the LED and driver until the temperature falls below the warn temperature
-float _FAN_LIMITS_TEMP[2] = {30, _WARN_TEMP[0]}; //LED temp at which the PWM fan runs at minimum speed - default to just above room temp so that fan turns off when driver is inactive
+float _FAN_LIMITS_TEMP[] = {30, _WARN_TEMP[0]}; //LED temp at which the PWM fan runs at minimum speed - default to just above room temp so that fan turns off when driver is inactive
 int _EXT_THERMISTOR_NOMINAL = 4700; //Value of thermistor resistor on PCB at nominal temp (normally 25°C)
 int _EXT_B_COEFFICIENT = 3545; //Beta value for the PCB thermistor
 float _EXT_TEMPERATURE_NOMINAL = 25; //Reference temperature for the nominal resistance on the thermistor on the PCB
@@ -87,13 +87,21 @@ void pinSetup::configurePins(){
 
     ////// OUTPUT /////
     for(a=0; a<sizeof(RELAY)/sizeof(RELAY[0]); a++) pinMode(RELAY[a], OUTPUT);
+    for(a=0; a<sizeof(RELAY)/sizeof(RELAY[0]); a++) digitalWriteFast(RELAY[a], LOW);
     pinMode(INTERLINE, OUTPUT);
+    digitalWriteFast(INTERLINE, LOW);
     pinMode(ANALOG_SELECT, OUTPUT);
+    digitalWriteFast(ANALOG_SELECT, LOW);
     pinMode(LED_BUILTIN, OUTPUT);
+    digitalWriteFast(LED_BUILTIN, LOW);
     for(a=0; a<sizeof(ALARM)/sizeof(ALARM[0]); a++) pinMode(ALARM[a], OUTPUT);
+    for(a=0; a<sizeof(ALARM)/sizeof(ALARM[0]); a++) digitalWriteFast(ALARM[a], LOW);
     for(a=0; a<sizeof(OUTPUTS)/sizeof(OUTPUTS[0]); a++) pinMode(OUTPUTS[a], OUTPUT);
+    for(a=0; a<sizeof(OUTPUTS)/sizeof(OUTPUTS[0]); a++) digitalWriteFast(OUTPUTS[a], LOW);
     pinMode(FAN_PWM, OUTPUT);
+    digitalWriteFast(FAN_PWM, LOW);
     for(a=0; a<sizeof(LED)/sizeof(LED[0]); a++) pinMode(LED[a], OUTPUT);
+    for(a=0; a<sizeof(LED)/sizeof(LED[0]); a++) digitalWriteFast(LED[a], LOW);
     
     ////// DISABLE /////
     for(a=0; a<sizeof(INPUTS)/sizeof(INPUTS[0]); a++) pinMode(INPUTS[a], INPUT_DISABLE);

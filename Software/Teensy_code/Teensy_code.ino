@@ -1,5 +1,6 @@
 #include <Wire.h>
 #include "pinSetup.h"
+#include "syncMode.h"
 
 //Serial constants
 const char DEVICE_NAME[] = "MOM Test Box";
@@ -29,30 +30,11 @@ boolean initialized = false; //Whether device has received initialization intruc
 uint8_t task_index = 0; //Index for recording current position in background task list
 uint8_t event = 0; //Flag for whether an event happened within the interrupt that needs to be taken care of
 
-//Sync and input variables
-uint32_t DELAYS[] = {480, 505, 815}; //Delay (in µs) from trigger to LED trigger states
-boolean LED_START_STATE = false; //Whether the LED should be on (true) or off (false) at the start of delay 1
-float ATHRESHOLDS_VOLTS[] = {0, 0, 0, 0}; //Threshold (in volts) for analog triggers
-int ATHRESHOLDS_ADC[] = {0, 0, 0, 0}; //Threshold (in volts) for analog triggers
-boolean ANALOG_INPUTS[] = {false, false, false, false}; //Whether the input signal is analog or digital for each channel
-int SYNC_CHANNEL = 1; //Which input channel is the sync signal
-int SHUTTER_CHANNEL = 0; //Which channel is the shutter input 
-uint8_t FAULTVOLUME = 127; //Volume of alarm to alert to fault temperature (0 = min, 127 = max);
-uint8_t STARTVOLUME = 10; //Volume of short tone upon initializing (0 = min, 127 = max);
-boolean SYNCTYPE = 1; //preset sync type
-boolean DTRIGGERPOL = 1; //digital trigger polarity (0 = Low, 1 = High)
-boolean ATRIGGERPOL = 1; //analog trigger polarity (0 = Falling, 1 = Rising)
-boolean SHUTTERTRIGGERPOL = 0; //Shutter trigger polarity (0 = Low, 1 = High) - only used for confocal syncs
-boolean LEDSOURCE = 1; //LED intensity signal source (0 = Ext source, 1 = AWG source)
-boolean TRIGHOLD = 0; //trigger hold (0 = single shot, 1 = repeat until trigger resets), 
-uint8_t AWGSOURCE = 0; //AWG source (0=rxPacket, 1=mirror the intensity knob - hold fixed during sync, 2 - live update during sync),             
-uint8_t SYNCOUT = 0; //Digital I/O 2 as sync out (0=false, 64=true)
-const uint16_t DEBOUNCE = 100; //ms to wait for switch to stop bouncing
 
 
-//Output variables
-int EXT_FAN_CHANNEL = 0; //Which channel is used for PWM to the external fan (negative value = inactive)
-int EXT_SYNC_CHANNEL = 1; //Which channel is used for sending a 5V HIGH when the LED is on and 0V LOW when LED is off (negative value = inactive) 
+
+
+
 
 //Other  variables
 
@@ -110,6 +92,7 @@ typedef union
 
 //ADC *adc = new ADC(); // adc object;
 pinSetup pin;
+syncMode sync;
 FLOATUNION_t floatUnion; //Convert byte list <-> float
 
 
@@ -267,103 +250,7 @@ void loop() {
 }
 
 
-
 /*
-//Wait for digital trigger event (usually shutter) to start mirror sync
-void confocalStandby(){
-  updateAWG(ledInt);//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  PORTD = LEDstate0; //Set LED to standby state
-  while((boolean) (PIND & B00100000) != SHUTTERTRIGGERPOL){
-    interrupts(); //Turn on interrupts to automatically manage checking status
-    if(updateStatus) checkStatus();
-    if(event) return; //If event is a toogle event break loop and exit function 
-  }
-  noInterrupts(); //Turn off interrupts to keep precise timing during trigger syncs
-  if(TRIGGER == 2) confocalDigitalSync();
-  else confocalAnalogSync();
-}
-
-void confocalDigitalSync(){
-  PORTD = LEDstate0; //Set LED to standby state
-  while ((boolean) (PIND & B00100000) == SHUTTERTRIGGERPOL){ //While shutter is open - continue using mirror sync  
-    if(DTRIGGERPOL) while(~PIND & B01000000); //Wait for sync trigger
-    else while(PIND & B01000000); //Wait for sync trigger
-    delayMicroseconds(DELAY1);
-    PORTD = LEDstate1; //Set LED to post trigger state
-    delayMicroseconds(DELAY2);
-    PORTD = LEDstate0; //Set LED to standby state
-    checkStatus();
-    if(event) return; //If event is a toogle event break loop and exit function
-  }
-  confocalStandby();
-}
-
-void confocalAnalogSync(){
-  PORTD = LEDstate0; //Set LED to standby state
-  analogRead(ANALOGSEL);
-  while ((boolean) (PIND & B00100000) == SHUTTERTRIGGERPOL){ //While shutter is open - continue using mirror sync  
-    if(ATRIGGERPOL) while(analogRead(ANALOGSEL) < ATHRESHOLD); //Wait for sync trigger - 8us jitter
-    else while(analogRead(ANALOGSEL) > ATHRESHOLD); //Wait for sync trigger
-    delayMicroseconds(DELAY1);
-    PORTD = LEDstate1; //Set LED to post trigger state
-    delayMicroseconds(DELAY2);
-    PORTD = LEDstate0; //Set LED to standby state
-    delayMicroseconds(DELAY3);
-    PORTD = LEDstate1; //Set LED to post trigger state
-    delayMicroseconds(DELAY2);
-    PORTD = LEDstate0; //Set LED to standby state
-    checkStatus();
-    if(event) return; //If event is a toogle event break loop and exit function
-    analogRead(ANALOGSEL); //Refresh analog sync pin
-  }
-  confocalStandby(); 
-}
-
-void checkStatus(){
-  if(!taskIndex && initialCount) initialCount--;
-  taskIndex++; //Increment task index
-  updateStatus = false; //Reset status flag
-  if(SYNCTYPE) interrupts(); //Turn interrupts back on if in confocal mode - needed for serial communication
-  if(taskIndex >= 0 && taskIndex <= 2){ //Record temperature - 12us
-    analogRead(taskIndex)>>2;
-    txPacket[HEADER + taskIndex] = analogRead(taskIndex)>>2; //Get temperature reading and convert to 8-bit
-  }
-  else if(taskIndex == 3){ //Get intensity knob position - 12us
-    analogRead(POT);
-    txPacket[HEADER + taskIndex] = analogRead(POT)>>2;
-  }
-  else if(taskIndex >= STATUSPACKET && taskIndex < (2*STATUSPACKET+HEADER) && !initialCount){ //6us
-    Serial.write(txPacket[taskIndex - STATUSPACKET]);
-  }
-  else if(taskIndex == 4){ //Perform all fast tasks as one set
-    txPacket[HEADER + taskIndex++] = syncStatus;
-    txPacket[HEADER + taskIndex] = PIND & B00000100; //Check toggle switch
-    if((txPacket[HEADER] < FAULTTEMP[0] || txPacket[HEADER+1] < FAULTTEMP[1] || txPacket[HEADER+2] < FAULTTEMP[2]) && !initialCount) event = 3; //Check whether device is overheating and enter failsafe if it is
-    buildPacket(STATUSPACKET, STATUSPACKET+HEADER);
-  }
-  //For remainder of checks monitor toggle switch and serial alternately to prevent over-riding event flags if both happen synchronously
-  else if(taskIndex%2){ //Check for received serial packet
-    if (Serial.available()){
-      event = 1; //Set event flag to check rx serial buffer if data is available
-    }
-  }
-  else{ //Monitor for change in toggle switch
-    if(toggleSwitch ^ (PIND & B00000100)){
-      toggleSwitch = (PIND & B00000100); 
-      event = 2;
-    } 
-  }
-  if(SYNCTYPE) noInterrupts(); //Turn interrupts back off if in confocal mode - removes 5us jitter in sync timing
-  if(event) eventHandler(); //If an event was found - run the event handler
-}
-
-void eventHandler(){ //Take no action on event 2 as the calling function needs to clear first to avoid infinite recursion
-  if(event != 2){
-    if(event==1) processReceivedPackets();
-    else if(event==3 && !fault) failSafe();
-    event = 0; //Reset event handler
-  }
-}
 
 //--------------------------------------------------------------INITIALIZE-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void initializeDevice(){
