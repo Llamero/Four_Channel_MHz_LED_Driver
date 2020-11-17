@@ -23,6 +23,7 @@ import struct
 import tkinter as tk
 from tkinter import ttk
 import matplotlib.pyplot as plt
+import math
 
 
 LARGE_FONT= ("Verdana", 12)
@@ -32,24 +33,21 @@ a = f.add_subplot(111)
 a.axis((0,1440,-0.1,1.1))
 a.set_xlabel("Time (µs)")
 a.set_ylabel("LED Current (A)")
-x = list(range(1600));
+x = list(range(1600))
 x = [num *0.9 for num in x]
 l2, = a.plot(x, list(range(1600)))
-stream_wave = False;
-
-
-
+stream_wave = False
 
 
 class SeaofBTCapp(tk.Tk):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, ser, *args, **kwargs):
         global f
+        self.ser = ser
         tk.Tk.__init__(self, *args, **kwargs)
 
-##        tk.Tk.iconbitmap(self, default="clienticon.ico")
-##        tk.Tk.wm_title(self, "Sea of BTC client")
-
+#        tk.Tk.iconbitmap(self, default="clienticon.ico")
+#        tk.Tk.wm_title(self, "Sea of BTC client")
 
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand = True)
@@ -69,7 +67,6 @@ class SeaofBTCapp(tk.Tk):
         self.show_frame(StartPage)
         self.ani = animation.FuncAnimation(f, self.animate, interval=100) #https://stackoverflow.com/questions/48564181/how-to-stop-funcanimation-by-func-in-matplotlib
 
-
     def show_frame(self, cont):
         global stream_wave
         print(cont)
@@ -83,10 +80,10 @@ class SeaofBTCapp(tk.Tk):
 
     def animate(self, i):
         global stream_wave
-        if(stream_wave):
+        if stream_wave:
             self.ani.event_source.interval = 50
-            ser.write(b'\x61')
-            s=ser.read(1600*2)
+            self.ser.write(b'\x01')
+            s=self.ser.read(1600*2)
             y=list(struct.iter_unpack("1600H", s))
             y = list(y[0])
             y = [num / 65535 for num in y]
@@ -130,6 +127,26 @@ class PageOne(tk.Frame):
                             command=lambda: controller.show_frame(PageTwo))
         button2.pack()
 
+    # def monitorTemp():
+    #     ser.write(b'\x01')
+    #     s=ser.read(2)
+    #     ADC_temp=list(struct.iter_unpack("H", s))
+    #     ADC_temp = list(y[0])[0]
+    #     adcToTemp()
+
+    def adcToTemp(adc, therm_nominal, temp_nominal, b_coefficient):
+        steinhart
+        raw = adc
+        raw = adcMax() / raw - 1
+        raw = SERIES_RESISTOR / raw
+        steinhart = raw / therm_nominal             #(R/Ro)
+        steinhart = math.log(steinhart)             #ln(R/Ro)
+        steinhart /= b_coefficient                  #1/B * ln(R/Ro)
+        steinhart += 1.0 / (temp_nominal + 273.15)  # + (1/To)
+        steinhart = 1.0 / steinhart                 # Invert
+        steinhart -= 273.15
+        return steinhart
+
 
 class PageTwo(tk.Frame):
 
@@ -166,14 +183,14 @@ class PageThree(tk.Frame):
         toolbar.update()
         canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
-ser = serial.Serial('COM5')
-ser.close()
-ser.open()
-app = SeaofBTCapp()
-app.mainloop()
 
 def main():
-    pass
+    ser = serial.Serial('COM7')
+    ser.close()
+    ser.open()
+    app = SeaofBTCapp(ser)
+    app.mainloop()
+
 
 if __name__ == '__main__':
     main()
