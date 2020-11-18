@@ -22,7 +22,6 @@ import serial
 import struct
 import tkinter as tk
 from tkinter import ttk
-import matplotlib.pyplot as plt
 import math
 
 
@@ -36,11 +35,11 @@ a.set_ylabel("LED Current (A)")
 x = list(range(1600))
 x = [num *0.9 for num in x]
 l2, = a.plot(x, list(range(1600)))
-stream_wave = False
+GUI_state = 0
 
 
 class SeaofBTCapp(tk.Tk):
-
+    ser = 0
     def __init__(self, ser, *args, **kwargs):
         global f
         self.ser = ser
@@ -58,7 +57,7 @@ class SeaofBTCapp(tk.Tk):
 
         for F in (StartPage, PageOne, PageTwo, PageThree):
 
-            frame = F(container, self)
+            frame = F(container, self, ser)
 
             self.frames[F] = frame
 
@@ -69,18 +68,23 @@ class SeaofBTCapp(tk.Tk):
 
     def show_frame(self, cont):
         global stream_wave
-        print(cont)
-        print(PageThree)
-        if cont == PageThree:
-            stream_wave = True
-        else:
-            stream_wave = False
+        global GUI_state
+        if cont == StartPage:
+            GUI_state = 0
+        elif cont == PageOne:
+            GUI_state = 1
+        elif cont == PageTwo:
+            GUI_state = 2
+            print("hi")
+            self.cont.monitorTemp()
+        elif cont == PageThree:
+            GUI_state = 3
         frame = self.frames[cont]
         frame.tkraise()
 
     def animate(self, i):
-        global stream_wave
-        if stream_wave:
+        global GUI_state
+        if GUI_state == 3:
             self.ani.event_source.interval = 50
             self.ser.write(b'\x01')
             s=self.ser.read(1600*2)
@@ -94,7 +98,7 @@ class SeaofBTCapp(tk.Tk):
 
 class StartPage(tk.Frame):
 
-    def __init__(self, parent, controller):
+    def __init__(self, parent, controller, ser):
         tk.Frame.__init__(self,parent)
         label = tk.Label(self, text="Start Page", font=LARGE_FONT)
         label.pack(pady=10,padx=10)
@@ -111,10 +115,9 @@ class StartPage(tk.Frame):
                             command=lambda: controller.show_frame(PageThree))
         button3.pack()
 
-
 class PageOne(tk.Frame):
 
-    def __init__(self, parent, controller):
+    def __init__(self, parent, controller, ser):
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Page One!!!", font=LARGE_FONT)
         label.pack(pady=10,padx=10)
@@ -127,32 +130,15 @@ class PageOne(tk.Frame):
                             command=lambda: controller.show_frame(PageTwo))
         button2.pack()
 
-    # def monitorTemp():
-    #     ser.write(b'\x01')
-    #     s=ser.read(2)
-    #     ADC_temp=list(struct.iter_unpack("H", s))
-    #     ADC_temp = list(y[0])[0]
-    #     adcToTemp()
-
-    def adcToTemp(adc, therm_nominal, temp_nominal, b_coefficient):
-        steinhart
-        raw = adc
-        raw = adcMax() / raw - 1
-        raw = SERIES_RESISTOR / raw
-        steinhart = raw / therm_nominal             #(R/Ro)
-        steinhart = math.log(steinhart)             #ln(R/Ro)
-        steinhart /= b_coefficient                  #1/B * ln(R/Ro)
-        steinhart += 1.0 / (temp_nominal + 273.15)  # + (1/To)
-        steinhart = 1.0 / steinhart                 # Invert
-        steinhart -= 273.15
-        return steinhart
-
 
 class PageTwo(tk.Frame):
 
-    def __init__(self, parent, controller):
+    def __init__(self, parent, controller, ser):
+        self.ser = ser
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Page Two!!!", font=LARGE_FONT)
+        label.pack(pady=10,padx=10)
+        label = tk.Label(self, text="Temperature: ", font=LARGE_FONT)
         label.pack(pady=10,padx=10)
 
         button1 = ttk.Button(self, text="Back to Home",
@@ -163,10 +149,34 @@ class PageTwo(tk.Frame):
                             command=lambda: controller.show_frame(PageOne))
         button2.pack()
 
+    def monitorTemp(self):
+        global GUI_state
+        self.ser.write(b'\x01')
+        s = self.ser.read(2)
+        print(GUI_state)
+        adc_temp = list(struct.iter_unpack("H", s))
+        adc_temp = list(adc_temp[0])[0]
+        #adcToTemp()
+        while GUI_state == 2:
+            tk.Frame.after(self, 500, self.monitorTemp)
+
+    def adcToTemp(adc, therm_nominal, temp_nominal, b_coefficient):
+        steinhart
+        raw = adc
+        raw = adcMax() / raw - 1
+        raw = SERIES_RESISTOR / raw
+        steinhart = raw / therm_nominal  # (R/Ro)
+        steinhart = math.log(steinhart)  # ln(R/Ro)
+        steinhart /= b_coefficient  # 1/B * ln(R/Ro)
+        steinhart += 1.0 / (temp_nominal + 273.15)  # + (1/To)
+        steinhart = 1.0 / steinhart  # Invert
+        steinhart -= 273.15
+        return steinhart
+
 
 class PageThree(tk.Frame):
 
-    def __init__(self, parent, controller):
+    def __init__(self, parent, controller, ser):
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text="Graph Page!", font=LARGE_FONT)
         label.pack(pady=10,padx=10)
