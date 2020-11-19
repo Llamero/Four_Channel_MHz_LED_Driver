@@ -15,7 +15,8 @@ import numpy as np
 import sys
 import serial
 import struct
-
+import qdarkstyle
+import os
 
 class uiDialog(object):
     def __init__(self, ser):
@@ -24,9 +25,9 @@ class uiDialog(object):
         self.timer.timeout.connect(self.update)
         self.font = QtGui.QFont()
         self.font.setPixelSize(20)
-        self.label_style = {'color': '#FFF', 'font-size': '20pt'}
-        pg.setConfigOption('background', 'k')
-        pg.setConfigOption('foreground', 'w')
+        self.label_style = {'font-size': '20pt'}
+ #       pg.setConfigOption('background', 'k')
+ #       pg.setConfigOption('foreground', 'w')
  #       pg.setConfigOptions(antialias=True)
 
 
@@ -50,8 +51,8 @@ class uiDialog(object):
         self.pushButton.clicked.connect(self.draw)
         self.pushButton_2.clicked.connect(self.clear)
 
-        self.graphicsView.getAxis('bottom').setPen('w', width=2)
-        self.graphicsView.getAxis('left').setPen('w', width=2)
+#        self.graphicsView.getAxis('bottom').setPen('w', width=2)
+#        self.graphicsView.getAxis('left').setPen('w', width=2)
         self.graphicsView.getAxis("bottom").setStyle(tickFont=self.font)
         self.graphicsView.getAxis("left").setStyle(tickFont=self.font)
         self.graphicsView.getAxis("bottom").setStyle(tickTextOffset=20)
@@ -97,7 +98,18 @@ if __name__ == "__main__":
     ser.close()
     ser.open()
     app = QtWidgets.QApplication(sys.argv)
+    app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
     Dialog = QtWidgets.QDialog()
+    # set the environment variable to use a specific wrapper
+    # it can be set to PyQt, PyQt5, PySide or PySide2 (not implemented yet)
+    os.environ['PYQTGRAPH_QT_LIB'] = 'PyQt5'
+
+    # import from pyqtgraph instead of doing it directly
+    # note that PyQtGraph always uses PyQt4 API
+    from pyqtgraph.Qt import QtGui
+
+    # setup stylesheet
+    app.setStyleSheet(qdarkstyle.load_stylesheet(qt_api=os.environ['PYQTGRAPH_QT_LIB']))
     ui = uiDialog(ser)
     ui.setupUi(Dialog)
     Dialog.show()
