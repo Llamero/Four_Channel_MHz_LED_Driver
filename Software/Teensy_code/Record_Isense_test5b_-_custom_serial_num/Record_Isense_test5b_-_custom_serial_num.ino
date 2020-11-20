@@ -1,12 +1,4 @@
-/* Example for using DMA with ADC
-    This example uses DMA object to do the sampling.  It does not use a timer so it runs
-    at whatever speed the ADC will run at with current settings.
-    It should work for Teensy LC, 3.x and T4
-  DMA: using AnalogBufferDMA with two buffers, this runs in continuous mode and when one buffer fills
-    an interrupt is signaled, which sets flag saying it has data, which this test application
-    scans the data, and computes things like a minimum, maximum, average values and an RMS value.
-    For the RMS it keeps the average from the previous set of data.
-*/
+
 #include <ADC.h>
 #include <AnalogBufferDMA.h>
 #include "pinSetup.h"
@@ -22,22 +14,24 @@ boolean fanState = false;
 float mos;
 float res;
 
-extern "C"
-{
-    struct usb_string_descriptor_struct
-    {
-        uint8_t bLength;
-        uint8_t bDescriptorType;
-        uint16_t wString[10];
-    };
 
-    usb_string_descriptor_struct usb_string_serial_number =
-    {
-         22,  // 2 + 2*length of the sn string
-         3,
-         {'M','H','Z','_', 'L', 'E', 'D','0','2',0},
-    };
-}
+//Uncomment to assign a custom serial number to the driver
+//extern "C"
+//{
+//    struct usb_string_descriptor_struct
+//    {
+//        uint8_t bLength;
+//        uint8_t bDescriptorType;
+//        uint16_t wString[10];
+//    };
+//
+//    usb_string_descriptor_struct usb_string_serial_number =
+//    {
+//         22,  // 2 + 2*length of the sn string
+//         3,
+//         {'M','H','Z','_', 'L', 'E', 'D','0','1',0},
+//    };
+//}
 
 void setup() {
   //Initialize CPU clock counter for sub-microsecond delays
