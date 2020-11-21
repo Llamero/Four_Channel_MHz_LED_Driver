@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>581</width>
-    <height>824</height>
+    <width>558</width>
+    <height>537</height>
    </rect>
   </property>
   <property name="font">
@@ -19,7 +19,7 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
+   <item row="0" column="0" alignment="Qt::AlignTop">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
       <number>0</number>
@@ -28,8 +28,59 @@
       <attribute name="title">
        <string>Text</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_7">
+      <layout class="QGridLayout" name="gridLayout_7" rowstretch="0,0,1">
        <item row="1" column="0" alignment="Qt::AlignTop">
+        <widget class="QGroupBox" name="groupBox_7">
+         <property name="title">
+          <string>LED</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_10">
+          <item row="1" column="1">
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>Current Limit: NC</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>Current: NC</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>Current Resolution: NC</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="label_13">
+            <property name="text">
+             <string>PWM Frequency: NC</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_10">
+            <property name="text">
+             <string>PWM: NC</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLabel" name="label_14">
+            <property name="text">
+             <string>PWM Resolution: NC</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0" alignment="Qt::AlignTop">
         <widget class="QGroupBox" name="groupBox_6">
          <property name="title">
           <string>Temperature</string>
@@ -64,13 +115,6 @@
            </widget>
           </item>
          </layout>
-        </widget>
-       </item>
-       <item row="0" column="1" rowspan="2">
-        <widget class="QScrollBar" name="verticalScrollBar">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
         </widget>
        </item>
        <item row="0" column="0" alignment="Qt::AlignTop">
