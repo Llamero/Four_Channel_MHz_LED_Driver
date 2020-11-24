@@ -9,9 +9,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>708</width>
-    <height>1219</height>
+    <width>400</width>
+    <height>600</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>400</width>
+    <height>600</height>
+   </size>
   </property>
   <property name="font">
    <font>
@@ -35,7 +41,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -310,14 +316,20 @@
        <layout class="QGridLayout" name="gridLayout_9"/>
       </widget>
       <widget class="QWidget" name="configure_tab">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
        <attribute name="title">
         <string>Configure</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_10">
-        <item row="1" column="4">
-         <widget class="QPushButton" name="pushButton_5">
+        <item row="1" column="1">
+         <widget class="QPushButton" name="pushButton_6">
           <property name="text">
-           <string>Load Configuration</string>
+           <string>Upload to Driver</string>
           </property>
          </widget>
         </item>
@@ -331,8 +343,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>664</width>
-             <height>1075</height>
+             <width>689</width>
+             <height>1072</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_16">
@@ -1170,10 +1182,17 @@
           </widget>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="pushButton_6">
+        <item row="1" column="4">
+         <widget class="QPushButton" name="pushButton_5">
           <property name="text">
-           <string>Upload to Driver</string>
+           <string>Load Configuration</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="Line" name="line_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
           </property>
          </widget>
         </item>
@@ -1188,13 +1207,6 @@
          <widget class="QPushButton" name="pushButton_13">
           <property name="text">
            <string>Download from Driver</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="Line" name="line_3">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
           </property>
          </widget>
         </item>
@@ -1330,7 +1342,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>708</width>
+     <width>400</width>
      <height>21</height>
     </rect>
    </property>
