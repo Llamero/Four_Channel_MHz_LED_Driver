@@ -373,7 +373,7 @@
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-46</y>
+                 <y>-29</y>
                  <width>753</width>
                  <height>628</height>
                 </rect>
@@ -1346,7 +1346,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-290</y>
+             <y>-51</y>
              <width>771</width>
              <height>1072</height>
             </rect>
@@ -1618,7 +1618,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
               <property name="title">
                <string>External Thermistor</string>
               </property>
-              <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,0,0,0">
+              <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,10,0,10">
                <item row="0" column="0">
                 <widget class="QLabel" name="label_16">
                  <property name="text">
