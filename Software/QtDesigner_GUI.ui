@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>614</width>
-    <height>830</height>
+    <width>832</width>
+    <height>926</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -41,7 +41,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -359,22 +359,22 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>570</width>
-             <height>686</height>
+             <width>788</width>
+             <height>782</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
             <item row="3" column="0">
              <widget class="QToolBox" name="toolBox">
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="page">
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
-                 <width>523</width>
+                 <y>-46</y>
+                 <width>753</width>
                  <height>628</height>
                 </rect>
                </property>
@@ -428,10 +428,10 @@
                    <string>Event: Trigger LOW</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_29">
-                   <item row="0" column="0">
+                   <item row="0" column="0" alignment="Qt::AlignTop">
                     <widget class="QTabWidget" name="tabWidget_2">
                      <property name="currentIndex">
-                      <number>1</number>
+                      <number>0</number>
                      </property>
                      <widget class="QWidget" name="tab">
                       <attribute name="title">
@@ -750,7 +750,7 @@
                   </layout>
                  </widget>
                 </item>
-                <item row="2" column="0">
+                <item row="2" column="0" alignment="Qt::AlignTop">
                  <widget class="QGroupBox" name="groupBox_18">
                   <property name="title">
                    <string>Event: Trigger HIGH</string>
@@ -759,7 +759,7 @@
                    <item row="0" column="0">
                     <widget class="QTabWidget" name="tabWidget_3">
                      <property name="currentIndex">
-                      <number>2</number>
+                      <number>1</number>
                      </property>
                      <widget class="QWidget" name="tab_4">
                       <attribute name="title">
@@ -1098,8 +1098,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>552</width>
-                 <height>503</height>
+                 <width>534</width>
+                 <height>599</height>
                 </rect>
                </property>
                <attribute name="label">
@@ -1243,7 +1243,13 @@
                       <property name="frameShadow">
                        <enum>QFrame::Raised</enum>
                       </property>
-                      <layout class="QGridLayout" name="gridLayout_34">
+                      <layout class="QGridLayout" name="gridLayout_34" columnstretch="10,13">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
                        <item row="0" column="0">
                         <widget class="QLabel" name="label_32">
                          <property name="text">
@@ -1340,8 +1346,8 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>0</y>
-             <width>611</width>
+             <y>-290</y>
+             <width>771</width>
              <height>1072</height>
             </rect>
            </property>
@@ -1547,7 +1553,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
               <property name="title">
                <string>Temperature</string>
               </property>
-              <layout class="QGridLayout" name="gridLayout_12">
+              <layout class="QGridLayout" name="gridLayout_12" columnstretch="0,10,0,10">
                <item row="1" column="1">
                 <widget class="QSpinBox" name="spinBox_3">
                  <property name="specialValueText">
@@ -1612,11 +1618,18 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
               <property name="title">
                <string>External Thermistor</string>
               </property>
-              <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,10,0,10">
+              <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,0,0,0">
                <item row="0" column="0">
                 <widget class="QLabel" name="label_16">
                  <property name="text">
                   <string>Resistance at 25°C (Ω):</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QSpinBox" name="spinBox_10">
+                 <property name="specialValueText">
+                  <string>3560</string>
                  </property>
                 </widget>
                </item>
@@ -1631,13 +1644,6 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                 <widget class="QSpinBox" name="spinBox_9">
                  <property name="specialValueText">
                   <string>4700</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="3">
-                <widget class="QSpinBox" name="spinBox_10">
-                 <property name="specialValueText">
-                  <string>3560</string>
                  </property>
                 </widget>
                </item>
@@ -2048,25 +2054,18 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
               <property name="title">
                <string>Fan</string>
               </property>
-              <layout class="QGridLayout" name="gridLayout_13">
-               <item row="1" column="2">
-                <widget class="QLabel" name="label_15">
-                 <property name="text">
-                  <string>External Fan Max (°C):</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QSpinBox" name="spinBox_5">
+              <layout class="QGridLayout" name="gridLayout_13" columnstretch="0,10,0,10,0,0">
+               <item row="1" column="1">
+                <widget class="QSpinBox" name="spinBox_7">
                  <property name="specialValueText">
-                  <string>30</string>
+                  <string>60</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="2">
-                <widget class="QLabel" name="label_13">
+                <widget class="QLabel" name="label_14">
                  <property name="text">
-                  <string>Driver Fan Max (°C):</string>
+                  <string>External Fan Min (°C):</string>
                  </property>
                 </widget>
                </item>
@@ -2077,35 +2076,21 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                  </property>
                 </widget>
                </item>
-               <item row="1" column="3">
-                <widget class="QSpinBox" name="spinBox_8">
-                 <property name="specialValueText">
-                  <string>60</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QSpinBox" name="spinBox_7">
-                 <property name="specialValueText">
-                  <string>60</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="3">
-                <widget class="QSpinBox" name="spinBox_6">
+               <item row="0" column="1">
+                <widget class="QSpinBox" name="spinBox_5">
                  <property name="specialValueText">
                   <string>30</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_14">
+               <item row="1" column="2">
+                <widget class="QLabel" name="label_15">
                  <property name="text">
-                  <string>External Fan Min (°C):</string>
+                  <string>External Fan Max (°C):</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="0" colspan="4">
+               <item row="2" column="0" colspan="6">
                 <widget class="QFrame" name="frame_2">
                  <property name="frameShape">
                   <enum>QFrame::StyledPanel</enum>
@@ -2171,6 +2156,27 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                    </widget>
                   </item>
                  </layout>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_13">
+                 <property name="text">
+                  <string>Driver Fan Max (°C):</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="3" colspan="3">
+                <widget class="QSpinBox" name="spinBox_8">
+                 <property name="specialValueText">
+                  <string>60</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3" colspan="3">
+                <widget class="QSpinBox" name="spinBox_6">
+                 <property name="specialValueText">
+                  <string>30</string>
+                 </property>
                 </widget>
                </item>
               </layout>
@@ -2340,7 +2346,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>614</width>
+     <width>832</width>
      <height>21</height>
     </rect>
    </property>
