@@ -3295,8 +3295,6 @@ F 5 "EEE-FK1C752SV" H 950 3400 50  0001 C CNN "Part #"
 	1    950  3400
 	1    0    0    -1  
 $EndComp
-Text Notes 3700 -350 0    157  ~ 0
-Sitch to 8-32 standoffs - have only one conductive bolt to case to avoid fround loops
 $Comp
 L Mechanical:MountingHole_Pad H8
 U 1 1 5F8759D2
