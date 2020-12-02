@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>613</width>
-    <height>640</height>
+    <width>496</width>
+    <height>481</height>
    </rect>
   </property>
   <property name="font">
@@ -42,20 +42,6 @@
           <string>LED</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_10">
-          <item row="0" column="1">
-           <widget class="QLabel" name="label_15">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-              <underline>false</underline>
-             </font>
-            </property>
-            <property name="text">
-             <string>Channel #:</string>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="2">
            <widget class="QLabel" name="label_10">
             <property name="font">
@@ -70,20 +56,6 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="2">
-           <widget class="QLabel" name="label_16">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-              <underline>false</underline>
-             </font>
-            </property>
-            <property name="text">
-             <string>Channel Name:</string>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="1">
            <widget class="QLabel" name="label_9">
             <property name="font">
@@ -95,6 +67,34 @@
             </property>
             <property name="text">
              <string>Current: NC</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_15">
+            <property name="font">
+             <font>
+              <weight>50</weight>
+              <bold>false</bold>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="text">
+             <string>Channel #:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="label_16">
+            <property name="font">
+             <font>
+              <weight>50</weight>
+              <bold>false</bold>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="text">
+             <string>Channel Name:</string>
             </property>
            </widget>
           </item>

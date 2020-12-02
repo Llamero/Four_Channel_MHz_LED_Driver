@@ -1,0 +1,39 @@
+* C:\Users\Ben\Documents\GitHub\Four_Channel_MHz_LED_Driver\SPICE\SMPS removed for sim speed - magnet wire - SUM70060E and Cat5.asc
+V1 N007 0 PULSE(-0.5 2.5 0 5n 5n 10u 20u)
+R1 N008 0 2.5 tol=1 pwr=35W
+D1 N002 N003 PT-121-B
+V3 P001 0 12 Rser=0.001
+R8 N008 N004 140 tol=1 pwr=0.1
+C1 N005 N004 0.0022µ V=25 Irms=140m Rser=200m Lser=477p
+R5 N006 N005 100
+C13 N001 0 47µ V=25 Irms=8 Rser=0.005 Lser=1.591n
+C20 N001 0 7500µ V=50 Irms=3.8 Rser=0.033 Lser=30n
+D4 N008 N003 SMBJ24CA
+R2 N001 P002 0.0047
+L2 N002 P002 131n
+C2 N002 N003 208p
+V2 0 P003 1.8 Rser=0.001
+V4 P004 0 10 Rser=0.001
+L5 P001 N001 10n Rser=1m
+XU3 N007 N004 N005 P004 P003 NC_01 LT6200-10
+XU1 N003 N006 N008 SUM70060E
+C3 N001 0 7500µ V=50 Irms=3.8 Rser=0.033 Lser=30n
+C5 N001 0 7500µ V=50 Irms=3.8 Rser=0.033 Lser=30n
+C6 0 N001 47µ V=25 Irms=8 Rser=0.005 Lser=1.591n
+C8 0 N001 47µ V=25 Irms=8 Rser=0.005 Lser=1.591n
+C9 0 N001 47µ V=25 Irms=8 Rser=0.005 Lser=1.591n
+C10 0 N001 47µ V=25 Irms=8 Rser=0.005 Lser=1.591n
+.model D D
+.lib C:\Users\Ben\Documents\LTspiceXVII\lib\cmp\standard.dio
+.tran 0 330u 290u
+* 1 meter of Cat5 cable - 4x twisted pair\nhttps://en.wikipedia.org/wiki/Category_5_cable
+* Ref for split supply: http://www.analog.com/en/technical-articles/signal-level-shifting-with-module-regulator-for-positive-to-negative-inverting-applications.html
+.include SUM70060E_PS_RC_Rev_A.LIB
+*.options gmin=1e-9
+*.options abstol=1e-10
+*.options reltol=0.003
+*.options cshunt=1e-16
+.lib C:\Users\Ben\Documents\GitHub\Four_Channel_MHz_LED_Driver\SPICE\SUM70060E_PS_RC_Rev_A.LIB
+.lib LTC2.LIB
+.backanno
+.end

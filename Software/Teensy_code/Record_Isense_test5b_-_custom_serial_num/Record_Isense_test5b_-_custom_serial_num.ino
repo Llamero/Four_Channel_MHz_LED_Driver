@@ -38,8 +38,20 @@ void setup() {
   ARM_DEMCR |= ARM_DEMCR_TRCENA;
   ARM_DWT_CTRL |= ARM_DWT_CTRL_CYCCNTENA;
   Serial.begin(9600);
-  while(!Serial);
+//  while(!Serial);
   pin.configurePins();
+  digitalWriteFast(pin.RELAY[0], HIGH);
+  digitalWriteFast(pin.ANALOG_SELECT, LOW);
+  analogWrite(pin.DAC0, 2500);
+  analogWriteFrequency(pin.INTERLINE, 234375);
+  analogWrite(pin.INTERLINE, 0);
+//  digitalWriteFast(pin.LED[0], HIGH);
+//  digitalWriteFast(pin.LED[1], HIGH);
+//  digitalWriteFast(pin.LED[2], HIGH);
+//  digitalWriteFast(pin.LED[3], HIGH);
+  while(true) delay(1000);
+
+  
   analogWrite(pin.DAC0, 4095);
   digitalWriteFast(pin.RELAY[3], HIGH);
 //  analogWriteFrequency(pin.INTERLINE, 7324);

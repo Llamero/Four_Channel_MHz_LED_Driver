@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>600</height>
+    <width>614</width>
+    <height>830</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -41,7 +41,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -313,7 +313,1005 @@
        <attribute name="title">
         <string>Sync</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_9"/>
+       <layout class="QGridLayout" name="gridLayout_9">
+        <item row="1" column="1">
+         <widget class="QPushButton" name="pushButton_16">
+          <property name="text">
+           <string>Download from Driver</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="pushButton_17">
+          <property name="text">
+           <string>Upload to Driver</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="Line" name="line_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="QPushButton" name="pushButton_14">
+          <property name="text">
+           <string>Save Configuration</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <widget class="QPushButton" name="pushButton_15">
+          <property name="text">
+           <string>Load Configuration</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" colspan="5">
+         <widget class="QScrollArea" name="scrollArea_2">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_2">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>570</width>
+             <height>686</height>
+            </rect>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_23">
+            <item row="3" column="0">
+             <widget class="QToolBox" name="toolBox">
+              <property name="currentIndex">
+               <number>1</number>
+              </property>
+              <widget class="QWidget" name="page">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>523</width>
+                 <height>628</height>
+                </rect>
+               </property>
+               <attribute name="label">
+                <string>Digital</string>
+               </attribute>
+               <layout class="QGridLayout" name="gridLayout_24" rowstretch="0,10,10,10">
+                <item row="0" column="0">
+                 <widget class="QGroupBox" name="groupBox_15">
+                  <property name="title">
+                   <string>Trigger Channel</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_28">
+                   <item row="0" column="0">
+                    <widget class="QRadioButton" name="radioButton_23">
+                     <property name="text">
+                      <string>Channel #1</string>
+                     </property>
+                     <property name="checked">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QRadioButton" name="radioButton_26">
+                     <property name="text">
+                      <string>Channel #2</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="2">
+                    <widget class="QRadioButton" name="radioButton_34">
+                     <property name="text">
+                      <string>Channel #3</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="3">
+                    <widget class="QRadioButton" name="radioButton_35">
+                     <property name="text">
+                      <string>Channel #4</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item row="1" column="0" alignment="Qt::AlignTop">
+                 <widget class="QGroupBox" name="groupBox_17">
+                  <property name="title">
+                   <string>Event: Trigger LOW</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_29">
+                   <item row="0" column="0">
+                    <widget class="QTabWidget" name="tabWidget_2">
+                     <property name="currentIndex">
+                      <number>1</number>
+                     </property>
+                     <widget class="QWidget" name="tab">
+                      <attribute name="title">
+                       <string>LED Off</string>
+                      </attribute>
+                      <layout class="QGridLayout" name="gridLayout_41">
+                       <item row="0" column="0">
+                        <widget class="QLabel" name="label_28">
+                         <property name="text">
+                          <string>Turn active LED off</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                     <widget class="QWidget" name="tab_2">
+                      <attribute name="title">
+                       <string>Constant Value</string>
+                      </attribute>
+                      <layout class="QGridLayout" name="gridLayout_44">
+                       <item row="0" column="0">
+                        <widget class="QGroupBox" name="groupBox_21">
+                         <property name="title">
+                          <string>LED Channel</string>
+                         </property>
+                         <layout class="QGridLayout" name="gridLayout_42">
+                          <item row="0" column="2">
+                           <widget class="QRadioButton" name="radioButton_46">
+                            <property name="text">
+                             <string>LED #3</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QRadioButton" name="radioButton_47">
+                            <property name="text">
+                             <string>LED #1</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QRadioButton" name="radioButton_48">
+                            <property name="text">
+                             <string>LED #2</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="4">
+                           <widget class="QRadioButton" name="radioButton_49">
+                            <property name="text">
+                             <string>Current LED</string>
+                            </property>
+                            <property name="checked">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="3">
+                           <widget class="QRadioButton" name="radioButton_50">
+                            <property name="text">
+                             <string>LED #4</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item row="1" column="0">
+                        <widget class="QFrame" name="frame_5">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QGridLayout" name="gridLayout_43" columnstretch="0,10,0">
+                          <item row="1" column="2">
+                           <widget class="QLabel" name="label_47">
+                            <property name="text">
+                             <string>%</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QDoubleSpinBox" name="doubleSpinBox_20">
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                            <property name="maximum">
+                             <double>100.000000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="QLabel" name="label_48">
+                            <property name="text">
+                             <string>%</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="0">
+                           <widget class="QLabel" name="label_49">
+                            <property name="text">
+                             <string>Duration:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="1">
+                           <widget class="QDoubleSpinBox" name="doubleSpinBox_21">
+                            <property name="toolTip">
+                             <string>Set value to 0 for LED to stay on for duration of trigger</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                            <property name="readOnly">
+                             <bool>false</bool>
+                            </property>
+                            <property name="specialValueText">
+                             <string/>
+                            </property>
+                            <property name="maximum">
+                             <double>4294.960000000000036</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="1">
+                           <widget class="QDoubleSpinBox" name="doubleSpinBox_22">
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                            <property name="maximum">
+                             <double>100.000000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_50">
+                            <property name="text">
+                             <string>LED PWM:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="2">
+                           <widget class="QLabel" name="label_51">
+                            <property name="text">
+                             <string>sec</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="0">
+                           <widget class="QLabel" name="label_52">
+                            <property name="text">
+                             <string>LED Current:</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                     <widget class="QWidget" name="tab_3">
+                      <attribute name="title">
+                       <string>Arbitrary Wave</string>
+                      </attribute>
+                      <layout class="QGridLayout" name="gridLayout_45">
+                       <item row="0" column="0" colspan="2">
+                        <widget class="QTableWidget" name="tableWidget_3">
+                         <property name="rowCount">
+                          <number>100</number>
+                         </property>
+                         <property name="columnCount">
+                          <number>4</number>
+                         </property>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <column>
+                          <property name="text">
+                           <string>LED #</string>
+                          </property>
+                         </column>
+                         <column>
+                          <property name="text">
+                           <string>LED PWM (%)</string>
+                          </property>
+                         </column>
+                         <column>
+                          <property name="text">
+                           <string>LED current (%)</string>
+                          </property>
+                         </column>
+                         <column>
+                          <property name="text">
+                           <string>Duration (s)</string>
+                          </property>
+                         </column>
+                        </widget>
+                       </item>
+                       <item row="1" column="0">
+                        <widget class="QPushButton" name="pushButton_23">
+                         <property name="text">
+                          <string>Load Wave File</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="1" column="1">
+                        <widget class="QPushButton" name="pushButton_22">
+                         <property name="text">
+                          <string>Save Wave File</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QGroupBox" name="groupBox_18">
+                  <property name="title">
+                   <string>Event: Trigger HIGH</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_30">
+                   <item row="0" column="0">
+                    <widget class="QTabWidget" name="tabWidget_3">
+                     <property name="currentIndex">
+                      <number>2</number>
+                     </property>
+                     <widget class="QWidget" name="tab_4">
+                      <attribute name="title">
+                       <string>LED Off</string>
+                      </attribute>
+                      <layout class="QGridLayout" name="gridLayout_46">
+                       <item row="0" column="0">
+                        <widget class="QLabel" name="label_29">
+                         <property name="text">
+                          <string>Turn active LED off</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                     <widget class="QWidget" name="tab_5">
+                      <attribute name="title">
+                       <string>Constant Value</string>
+                      </attribute>
+                      <layout class="QGridLayout" name="gridLayout_47" rowstretch="0,10">
+                       <item row="0" column="0">
+                        <widget class="QGroupBox" name="groupBox_22">
+                         <property name="title">
+                          <string>LED Channel</string>
+                         </property>
+                         <layout class="QGridLayout" name="gridLayout_48">
+                          <item row="0" column="2">
+                           <widget class="QRadioButton" name="radioButton_51">
+                            <property name="text">
+                             <string>LED #3</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QRadioButton" name="radioButton_52">
+                            <property name="text">
+                             <string>LED #1</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QRadioButton" name="radioButton_53">
+                            <property name="text">
+                             <string>LED #2</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="4">
+                           <widget class="QRadioButton" name="radioButton_54">
+                            <property name="text">
+                             <string>Current LED</string>
+                            </property>
+                            <property name="checked">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="3">
+                           <widget class="QRadioButton" name="radioButton_55">
+                            <property name="text">
+                             <string>LED #4</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item row="1" column="0">
+                        <widget class="QFrame" name="frame_6">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QGridLayout" name="gridLayout_49" columnstretch="0,10,0">
+                          <item row="1" column="2">
+                           <widget class="QLabel" name="label_53">
+                            <property name="text">
+                             <string>%</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QDoubleSpinBox" name="doubleSpinBox_23">
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                            <property name="maximum">
+                             <double>100.000000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="QLabel" name="label_54">
+                            <property name="text">
+                             <string>%</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="0">
+                           <widget class="QLabel" name="label_55">
+                            <property name="text">
+                             <string>Duration:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="1">
+                           <widget class="QDoubleSpinBox" name="doubleSpinBox_24">
+                            <property name="toolTip">
+                             <string>Set value to 0 for LED to stay on for duration of trigger</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                            <property name="readOnly">
+                             <bool>false</bool>
+                            </property>
+                            <property name="specialValueText">
+                             <string/>
+                            </property>
+                            <property name="maximum">
+                             <double>4294.960000000000036</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="1">
+                           <widget class="QDoubleSpinBox" name="doubleSpinBox_25">
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                            <property name="maximum">
+                             <double>100.000000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_56">
+                            <property name="text">
+                             <string>LED PWM:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="2">
+                           <widget class="QLabel" name="label_57">
+                            <property name="text">
+                             <string>sec</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="0">
+                           <widget class="QLabel" name="label_58">
+                            <property name="text">
+                             <string>LED Current:</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                     <widget class="QWidget" name="tab_6">
+                      <attribute name="title">
+                       <string>Arbitrary Wave</string>
+                      </attribute>
+                      <layout class="QGridLayout" name="gridLayout_50">
+                       <item row="0" column="0" colspan="2">
+                        <widget class="QTableWidget" name="tableWidget_4">
+                         <property name="rowCount">
+                          <number>100</number>
+                         </property>
+                         <property name="columnCount">
+                          <number>4</number>
+                         </property>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <row/>
+                         <column>
+                          <property name="text">
+                           <string>LED #</string>
+                          </property>
+                         </column>
+                         <column>
+                          <property name="text">
+                           <string>LED PWM (%)</string>
+                          </property>
+                         </column>
+                         <column>
+                          <property name="text">
+                           <string>LED current (%)</string>
+                          </property>
+                         </column>
+                         <column>
+                          <property name="text">
+                           <string>Duration (s)</string>
+                          </property>
+                         </column>
+                        </widget>
+                       </item>
+                       <item row="1" column="0">
+                        <widget class="QPushButton" name="pushButton_24">
+                         <property name="text">
+                          <string>Load Wave File</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="1" column="1">
+                        <widget class="QPushButton" name="pushButton_25">
+                         <property name="text">
+                          <string>Save Wave File</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <spacer name="verticalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>5</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="page_2">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>552</width>
+                 <height>503</height>
+                </rect>
+               </property>
+               <attribute name="label">
+                <string>Analog</string>
+               </attribute>
+               <layout class="QGridLayout" name="gridLayout_25">
+                <item row="0" column="1">
+                 <widget class="QGroupBox" name="groupBox_23">
+                  <property name="title">
+                   <string>LED Channel</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_51">
+                   <item row="0" column="2">
+                    <widget class="QRadioButton" name="radioButton_56">
+                     <property name="text">
+                      <string>LED #3</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QRadioButton" name="radioButton_57">
+                     <property name="text">
+                      <string>LED #1</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QRadioButton" name="radioButton_58">
+                     <property name="text">
+                      <string>LED #2</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="4">
+                    <widget class="QRadioButton" name="radioButton_59">
+                     <property name="text">
+                      <string>Current LED</string>
+                     </property>
+                     <property name="checked">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="3">
+                    <widget class="QRadioButton" name="radioButton_60">
+                     <property name="text">
+                      <string>LED #4</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QTabWidget" name="tabWidget_4">
+                  <property name="currentIndex">
+                   <number>0</number>
+                  </property>
+                  <widget class="QWidget" name="tab_7">
+                   <attribute name="title">
+                    <string>Buffered</string>
+                   </attribute>
+                   <layout class="QGridLayout" name="gridLayout_32" rowstretch="0,0,10">
+                    <item row="0" column="0" colspan="2" alignment="Qt::AlignTop">
+                     <widget class="QGroupBox" name="groupBox_16">
+                      <property name="title">
+                       <string>Input Channel</string>
+                      </property>
+                      <layout class="QGridLayout" name="gridLayout_31">
+                       <item row="0" column="0">
+                        <widget class="QRadioButton" name="radioButton_36">
+                         <property name="text">
+                          <string>Channel #1</string>
+                         </property>
+                         <property name="checked">
+                          <bool>true</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="1">
+                        <widget class="QRadioButton" name="radioButton_37">
+                         <property name="text">
+                          <string>Channel #2</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="2">
+                        <widget class="QRadioButton" name="radioButton_38">
+                         <property name="text">
+                          <string>Channel #3</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="3">
+                        <widget class="QRadioButton" name="radioButton_39">
+                         <property name="text">
+                          <string>Channel #4</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="label_31">
+                      <property name="text">
+                       <string># of ADC samples per step:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1" alignment="Qt::AlignTop">
+                     <widget class="QSlider" name="horizontalSlider_4">
+                      <property name="minimum">
+                       <number>1</number>
+                      </property>
+                      <property name="maximum">
+                       <number>5</number>
+                      </property>
+                      <property name="singleStep">
+                       <number>0</number>
+                      </property>
+                      <property name="pageStep">
+                       <number>1</number>
+                      </property>
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="tickPosition">
+                       <enum>QSlider::TicksBothSides</enum>
+                      </property>
+                      <property name="tickInterval">
+                       <number>1</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0" colspan="2" alignment="Qt::AlignTop">
+                     <widget class="QFrame" name="frame_3">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QGridLayout" name="gridLayout_34">
+                       <item row="0" column="0">
+                        <widget class="QLabel" name="label_32">
+                         <property name="text">
+                          <string># of averages: 1</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="1">
+                        <widget class="QLabel" name="label_33">
+                         <property name="text">
+                          <string>Approximate bandwidth: x kHz</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="tab_8">
+                   <attribute name="title">
+                    <string>Unbuffered</string>
+                   </attribute>
+                   <layout class="QGridLayout" name="gridLayout_33" rowstretch="0">
+                    <item row="0" column="0" alignment="Qt::AlignTop">
+                     <widget class="QLabel" name="label_30">
+                      <property name="text">
+                       <string>Warning: This mode bypasses any programmed current limits and uses the dedicated &quot;External Analog&quot; channel to directly connect the input analog voltage to the non-inverting input of the driver's op-amp.  Supplying excessive voltage to this input can damage the LED, Teensy, and driver circuit.  This mode should be used only when very low-latency and/or high-bandwidth is required. Use this mode at your own risk.
+
+This input is clamped to 0-3.3V, and is rated for -3V to +6V max.  The input has a very high impedance in the 0-3.3V range, and a low 200 ohm impedance outside the 0-3.3V range.
+
+Due to the input offset voltage on the op-amp, a small negative voltage (around -50mV) will need to be input to fully turn off the LED.    </string>
+                      </property>
+                      <property name="wordWrap">
+                       <bool>true</bool>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="page_3">
+               <attribute name="label">
+                <string>Confocal</string>
+               </attribute>
+               <layout class="QGridLayout" name="gridLayout_26"/>
+              </widget>
+              <widget class="QWidget" name="page_8">
+               <attribute name="label">
+                <string>Serial</string>
+               </attribute>
+              </widget>
+              <widget class="QWidget" name="page_4">
+               <attribute name="label">
+                <string>Custom</string>
+               </attribute>
+               <layout class="QGridLayout" name="gridLayout_27"/>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="configure_tab">
        <property name="minimumSize">
@@ -343,7 +1341,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>689</width>
+             <width>611</width>
              <height>1072</height>
             </rect>
            </property>
@@ -901,7 +1899,7 @@
               <property name="title">
                <string>Merge Channels</string>
               </property>
-              <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,0,0,0,0,0,0,0,0">
+              <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,0,0,0,0,0,0,0">
                <item row="1" column="1">
                 <widget class="QRadioButton" name="radioButton_24">
                  <property name="text">
@@ -1342,7 +2340,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>614</width>
      <height>21</height>
     </rect>
    </property>
@@ -1446,12 +2444,12 @@
  </designerdata>
  <buttongroups>
   <buttongroup name="axis_button_group"/>
-  <buttongroup name="Ch_merge_4_button_group"/>
-  <buttongroup name="Ch_merge_2_button_group"/>
-  <buttongroup name="channel_button_group"/>
-  <buttongroup name="Ch_merge_1_button_group"/>
-  <buttongroup name="intensity_button_group"/>
   <buttongroup name="Ch_merge_3_button_group"/>
   <buttongroup name="ext_fan_button_group"/>
+  <buttongroup name="Ch_merge_2_button_group"/>
+  <buttongroup name="intensity_button_group"/>
+  <buttongroup name="channel_button_group"/>
+  <buttongroup name="Ch_merge_1_button_group"/>
+  <buttongroup name="Ch_merge_4_button_group"/>
  </buttongroups>
 </ui>
