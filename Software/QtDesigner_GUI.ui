@@ -503,7 +503,7 @@
                    <string/>
                   </property>
                   <property name="title">
-                   <string>Event: Trigger LOW</string>
+                   <string>Event: Trigger LOW (&lt;1.0V)</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_35">
                    <item row="0" column="0" alignment="Qt::AlignTop">
@@ -900,37 +900,37 @@
                  </widget>
                 </item>
                 <item row="2" column="0" alignment="Qt::AlignTop">
-                 <widget class="QGroupBox" name="sync_digital_trigger_low_box_2">
+                 <widget class="QGroupBox" name="sync_digital_trigger_high_box">
                   <property name="toolTip">
-                   <string>Driver configration when the digital trigger goes LOW (&lt;1.0V)</string>
+                   <string>Driver configration when the digital trigger goes HIGH (&gt;2.5V)</string>
                   </property>
                   <property name="statusTip">
                    <string/>
                   </property>
                   <property name="title">
-                   <string>Event: Trigger LOW</string>
+                   <string>Event: Trigger HIGH (&gt;2.5V)</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_70">
                    <item row="0" column="0" alignment="Qt::AlignTop">
-                    <widget class="QTabWidget" name="sync_digital_trigger_low_tab_3">
+                    <widget class="QTabWidget" name="sync_digital_trigger_high_tab">
                      <property name="toolTip">
-                      <string>Select event type for when trigger goes LOW (&lt;1.0V)</string>
+                      <string>Select event type for when trigger goes HIGH (&gt;2.5V)</string>
                      </property>
                      <property name="currentIndex">
                       <number>1</number>
                      </property>
-                     <widget class="QWidget" name="sync_digital_trigger_low_off_tab_3">
+                     <widget class="QWidget" name="sync_digital_trigger_high_off_tab">
                       <property name="toolTip">
-                       <string>Turn LED off when trigger goes LOW (&lt;1.0V)</string>
+                       <string>Turn LED off when trigger goes HIGH (&gt;2.5V)</string>
                       </property>
                       <attribute name="title">
                        <string>LED Off</string>
                       </attribute>
                       <layout class="QGridLayout" name="gridLayout_71">
                        <item row="0" column="0">
-                        <widget class="QLabel" name="sync_digital_trigger_low_off_label_3">
+                        <widget class="QLabel" name="sync_digital_trigger_high_off_label">
                          <property name="toolTip">
-                          <string>Turn LED off when trigger goes LOW (&lt;1.0V)</string>
+                          <string>Turn LED off when trigger goes HIGH (&gt;2.5V)</string>
                          </property>
                          <property name="text">
                           <string>Turn active LED off</string>
@@ -939,27 +939,27 @@
                        </item>
                       </layout>
                      </widget>
-                     <widget class="QWidget" name="sync_digital_trigger_low_constant_tab_3">
+                     <widget class="QWidget" name="sync_digital_trigger_high_constant_tab">
                       <property name="toolTip">
-                       <string>Turn LED on to constant intensity when trigger goes LOW (&lt;1.0V)</string>
+                       <string>Turn LED on to constant intensity when trigger goes HIGH (&gt;2.5V)</string>
                       </property>
                       <attribute name="title">
                        <string>Constant Value</string>
                       </attribute>
                       <layout class="QGridLayout" name="gridLayout_72">
                        <item row="0" column="0" alignment="Qt::AlignTop">
-                        <widget class="QGroupBox" name="sync_digital_trigger_low_constant_LED_box_3">
+                        <widget class="QGroupBox" name="sync_digital_trigger_high_constant_LED_box">
                          <property name="toolTip">
-                          <string>Select the active LED channel when trigger is LOW (&lt;1.0V)</string>
+                          <string>Select the active LED channel when trigger is HIGH (&gt;2.5V)</string>
                          </property>
                          <property name="title">
                           <string>LED Channel</string>
                          </property>
                          <layout class="QGridLayout" name="gridLayout_73">
                           <item row="0" column="2">
-                           <widget class="QRadioButton" name="sync_digital_trigger_low_constant_LED3_button_3">
+                           <widget class="QRadioButton" name="sync_digital_trigger_high_constant_LED3_button">
                             <property name="toolTip">
-                             <string>Set LED #3 active when trigger goes LOW (&lt;1.0V)</string>
+                             <string>Set LED #3 active when trigger goes HIGH (&gt;2.5V)</string>
                             </property>
                             <property name="text">
                              <string>LED #3</string>
@@ -967,9 +967,9 @@
                            </widget>
                           </item>
                           <item row="0" column="0">
-                           <widget class="QRadioButton" name="sync_digital_trigger_low_constant_LED1_button_3">
+                           <widget class="QRadioButton" name="sync_digital_trigger_high_constant_LED1_button">
                             <property name="toolTip">
-                             <string>Set LED #1 active when trigger goes LOW (&lt;1.0V)</string>
+                             <string>Set LED #1 active when trigger goes HIGH (&gt;2.5V)</string>
                             </property>
                             <property name="text">
                              <string>LED #1</string>
@@ -977,9 +977,9 @@
                            </widget>
                           </item>
                           <item row="0" column="1">
-                           <widget class="QRadioButton" name="sync_digital_trigger_low_constant_LED2_button_3">
+                           <widget class="QRadioButton" name="sync_digital_trigger_high_constant_LED2_button">
                             <property name="toolTip">
-                             <string>Set LED #2 active when trigger goes LOW (&lt;1.0V)</string>
+                             <string>Set LED #2 active when trigger goes HIGH (&gt;2.5V)</string>
                             </property>
                             <property name="text">
                              <string>LED #2</string>
@@ -987,9 +987,9 @@
                            </widget>
                           </item>
                           <item row="0" column="4">
-                           <widget class="QRadioButton" name="sync_digital_trigger_low_constant_LEDn_button_3">
+                           <widget class="QRadioButton" name="sync_digital_trigger_high_constant_LEDn_button">
                             <property name="toolTip">
-                             <string>Do not change active LED when trigger goes LOW (&lt;1.0V)</string>
+                             <string>Do not change active LED when trigger goes HIGH (&gt;2.5V)</string>
                             </property>
                             <property name="text">
                              <string>Current LED</string>
@@ -1000,9 +1000,9 @@
                            </widget>
                           </item>
                           <item row="0" column="3">
-                           <widget class="QRadioButton" name="sync_digital_trigger_low_constant_LED4_button_3">
+                           <widget class="QRadioButton" name="sync_digital_trigger_high_constant_LED4_button">
                             <property name="toolTip">
-                             <string>Set LED #4 active when trigger goes LOW (&lt;1.0V)</string>
+                             <string>Set LED #4 active when trigger goes HIGH (&gt;2.5V)</string>
                             </property>
                             <property name="text">
                              <string>LED #4</string>
@@ -1013,9 +1013,9 @@
                         </widget>
                        </item>
                        <item row="1" column="0">
-                        <widget class="QFrame" name="sync_digital_trigger_low_constant_config_frame_3">
+                        <widget class="QFrame" name="sync_digital_trigger_high_constant_config_frame">
                          <property name="toolTip">
-                          <string>Set the LED intensity and duration when the digital trigger goes LOW (&lt;1.0V)</string>
+                          <string>Set the LED intensity and duration when the digital trigger goes HIGH (&gt;2.5V)</string>
                          </property>
                          <property name="frameShape">
                           <enum>QFrame::StyledPanel</enum>
@@ -1025,9 +1025,9 @@
                          </property>
                          <layout class="QGridLayout" name="gridLayout_74" columnstretch="0,10,0">
                           <item row="1" column="2">
-                           <widget class="QLabel" name="sync_digital_trigger_low_constant_config_current_label2_3">
+                           <widget class="QLabel" name="sync_digital_trigger_high_constant_config_current_label2">
                             <property name="toolTip">
-                             <string>Set the LED current when the digital trigger goes LOW (&lt;1.0V)</string>
+                             <string>Set the LED current when the digital trigger goes HIGH (&gt;2.5V)</string>
                             </property>
                             <property name="text">
                              <string>%</string>
@@ -1035,9 +1035,9 @@
                            </widget>
                           </item>
                           <item row="0" column="1">
-                           <widget class="QDoubleSpinBox" name="sync_digital_trigger_low_constant_config_PWM_box_3">
+                           <widget class="QDoubleSpinBox" name="sync_digital_trigger_high_constant_config_PWM_box">
                             <property name="toolTip">
-                             <string>Set the LED PWM when the digital trigger goes LOW (&lt;1.0V)</string>
+                             <string>Set the LED PWM when the digital trigger goes HIGH (&gt;2.5V)</string>
                             </property>
                             <property name="alignment">
                              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1051,9 +1051,9 @@
                            </widget>
                           </item>
                           <item row="0" column="2">
-                           <widget class="QLabel" name="sync_digital_trigger_low_constant_config_PWM_label2_3">
+                           <widget class="QLabel" name="sync_digital_trigger_high_constant_config_PWM_label2">
                             <property name="toolTip">
-                             <string>Set the LED PWM when the digital trigger goes LOW (&lt;1.0V)</string>
+                             <string>Set the LED PWM when the digital trigger goes HIGH (&gt;2.5V)</string>
                             </property>
                             <property name="text">
                              <string>%</string>
@@ -1061,9 +1061,9 @@
                            </widget>
                           </item>
                           <item row="2" column="0">
-                           <widget class="QLabel" name="sync_digital_trigger_low_constant_config_duration_label1_3">
+                           <widget class="QLabel" name="sync_digital_trigger_high_constant_config_duration_label1">
                             <property name="toolTip">
-                             <string>NOTE: 0 seconds = LED stays on until trigger goes HIGH (&gt;2.5V)</string>
+                             <string>NOTE: 0 seconds = LED stays on until trigger goes LOW (&lt;1.0V)</string>
                             </property>
                             <property name="text">
                              <string>Duration:</string>
@@ -1071,9 +1071,9 @@
                            </widget>
                           </item>
                           <item row="2" column="1">
-                           <widget class="QDoubleSpinBox" name="sync_digital_trigger_low_constant_config_duration_box_3">
+                           <widget class="QDoubleSpinBox" name="sync_digital_trigger_high_constant_config_duration_box">
                             <property name="toolTip">
-                             <string>NOTE: 0 seconds = LED stays on until trigger goes HIGH (&gt;2.5V)</string>
+                             <string>NOTE: 0 seconds = LED stays on until trigger goes LOW (&lt;1.0V)</string>
                             </property>
                             <property name="alignment">
                              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1093,9 +1093,9 @@
                            </widget>
                           </item>
                           <item row="1" column="1">
-                           <widget class="QDoubleSpinBox" name="sync_digital_trigger_low_constant_config_current_box_3">
+                           <widget class="QDoubleSpinBox" name="sync_digital_trigger_high_constant_config_current_box">
                             <property name="toolTip">
-                             <string>Set the LED current when the digital trigger goes LOW (&lt;1.0V)</string>
+                             <string>Set the LED current when the digital trigger goes HIGH (&gt;2.5V)</string>
                             </property>
                             <property name="alignment">
                              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1109,9 +1109,9 @@
                            </widget>
                           </item>
                           <item row="0" column="0">
-                           <widget class="QLabel" name="sync_digital_trigger_low_constant_config_PWM_label1_3">
+                           <widget class="QLabel" name="sync_digital_trigger_high_constant_config_PWM_label1">
                             <property name="toolTip">
-                             <string>Set the LED PWM when the digital trigger goes LOW (&lt;1.0V)</string>
+                             <string>Set the LED PWM when the digital trigger goes HIGH (&gt;2.5V)</string>
                             </property>
                             <property name="text">
                              <string>LED PWM:</string>
@@ -1119,14 +1119,14 @@
                            </widget>
                           </item>
                           <item row="2" column="2">
-                           <widget class="QLabel" name="sync_digital_trigger_low_constant_config_duration_label2_3">
+                           <widget class="QLabel" name="sync_digital_trigger_high_constant_config_duration_label2">
                             <property name="font">
                              <font>
                               <strikeout>false</strikeout>
                              </font>
                             </property>
                             <property name="toolTip">
-                             <string>NOTE: 0 seconds = LED stays on until trigger goes HIGH (&gt;2.5V)</string>
+                             <string>NOTE: 0 seconds = LED stays on until trigger goes LOW (&lt;1.0V)</string>
                             </property>
                             <property name="text">
                              <string>sec</string>
@@ -1134,9 +1134,9 @@
                            </widget>
                           </item>
                           <item row="1" column="0">
-                           <widget class="QLabel" name="sync_digital_trigger_low_constant_config_current_label1_3">
+                           <widget class="QLabel" name="sync_digital_trigger_high_constant_config_current_label1">
                             <property name="toolTip">
-                             <string>Set the LED current when the digital trigger goes LOW (&lt;1.0V)</string>
+                             <string>Set the LED current when the digital trigger goes HIGH (&gt;2.5V)</string>
                             </property>
                             <property name="text">
                              <string>LED Current:</string>
@@ -2665,8 +2665,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>905</width>
-             <height>1094</height>
+             <width>749</width>
+             <height>1072</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_16">
