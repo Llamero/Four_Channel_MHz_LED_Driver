@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>810</width>
-    <height>1106</height>
+    <width>616</width>
+    <height>1270</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -29,7 +29,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" colspan="3">
+    <item row="0" column="0">
      <widget class="QTabWidget" name="gui_master_tab">
       <property name="enabled">
        <bool>true</bool>
@@ -365,10 +365,10 @@
         <string>Sync</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_9">
-        <item row="1" column="5">
-         <widget class="QPushButton" name="sync_load_button">
-          <property name="text">
-           <string>Load Configuration</string>
+        <item row="1" column="3">
+         <widget class="Line" name="sync_button_line">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
           </property>
          </widget>
         </item>
@@ -379,6 +379,13 @@
           </property>
          </widget>
         </item>
+        <item row="1" column="4">
+         <widget class="QPushButton" name="sync_save_button">
+          <property name="text">
+           <string>Save Configuration</string>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="1">
          <widget class="QPushButton" name="sync_download_button">
           <property name="text">
@@ -386,17 +393,10 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="3">
-         <widget class="Line" name="sync_button_line">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="4">
-         <widget class="QPushButton" name="sync_save_button">
+        <item row="1" column="5">
+         <widget class="QPushButton" name="sync_load_button">
           <property name="text">
-           <string>Save Configuration</string>
+           <string>Load Configuration</string>
           </property>
          </widget>
         </item>
@@ -410,8 +410,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>766</width>
-             <height>962</height>
+             <width>572</width>
+             <height>1126</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -421,15 +421,15 @@
                <string>Select the active sync mode to configure</string>
               </property>
               <property name="currentIndex">
-               <number>0</number>
+               <number>2</number>
               </property>
               <widget class="QWidget" name="sync_digital_page">
                <property name="geometry">
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>748</width>
-                 <height>779</height>
+                 <width>581</width>
+                 <height>628</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -440,7 +440,7 @@
                </attribute>
                <layout class="QGridLayout" name="gridLayout_24" rowstretch="0,1,1,10" rowminimumheight="0,0,0,0">
                 <item row="0" column="0">
-                 <widget class="QGroupBox" name="sync_digital_trigger_box">
+                 <widget class="QGroupBox" name="sync_digital_trigger_channel_box">
                   <property name="toolTip">
                    <string>Select the input channel the trigger is connected to.</string>
                   </property>
@@ -512,7 +512,7 @@
                       <string>Select event type for when trigger goes LOW (&lt;1.0V)</string>
                      </property>
                      <property name="currentIndex">
-                      <number>1</number>
+                      <number>2</number>
                      </property>
                      <widget class="QWidget" name="sync_digital_trigger_low_off_tab">
                       <property name="toolTip">
@@ -743,13 +743,19 @@
                        </item>
                       </layout>
                      </widget>
-                     <widget class="QWidget" name="tab_3">
+                     <widget class="QWidget" name="sync_digital_trigger_low_sequence_tab">
+                      <property name="toolTip">
+                       <string>Run LED through sequence of intensities when trigger goes LOW (&lt;1.0V)</string>
+                      </property>
                       <attribute name="title">
                        <string>Sequence</string>
                       </attribute>
                       <layout class="QGridLayout" name="gridLayout_45">
                        <item row="0" column="0" colspan="2">
-                        <widget class="QTableWidget" name="tableWidget_3">
+                        <widget class="QTableWidget" name="sync_digital_trigger_low_sequence_table">
+                         <property name="toolTip">
+                          <string>LED intensity sequence file</string>
+                         </property>
                          <property name="rowCount">
                           <number>100</number>
                          </property>
@@ -879,14 +885,20 @@
                         </widget>
                        </item>
                        <item row="1" column="0">
-                        <widget class="QPushButton" name="pushButton_23">
+                        <widget class="QPushButton" name="sync_digital_trigger_low_sequence_load_button">
+                         <property name="toolTip">
+                          <string>Load LED intensity sequence file (*.lsq)</string>
+                         </property>
                          <property name="text">
                           <string>Load Wave File</string>
                          </property>
                         </widget>
                        </item>
                        <item row="1" column="1">
-                        <widget class="QPushButton" name="pushButton_22">
+                        <widget class="QPushButton" name="sync_digital_trigger_low_sequence_save_button">
+                         <property name="toolTip">
+                          <string>Save LED intensity sequence file (*.lsq)</string>
+                         </property>
                          <property name="text">
                           <string>Save Wave File</string>
                          </property>
@@ -917,7 +929,7 @@
                       <string>Select event type for when trigger goes HIGH (&gt;2.5V)</string>
                      </property>
                      <property name="currentIndex">
-                      <number>1</number>
+                      <number>2</number>
                      </property>
                      <widget class="QWidget" name="sync_digital_trigger_high_off_tab">
                       <property name="toolTip">
@@ -1148,13 +1160,19 @@
                        </item>
                       </layout>
                      </widget>
-                     <widget class="QWidget" name="tab_5">
+                     <widget class="QWidget" name="sync_digital_trigger_high_sequence_tab">
+                      <property name="toolTip">
+                       <string>Run LED through sequence of intensities when trigger goes HIGH (&gt;2.5V)</string>
+                      </property>
                       <attribute name="title">
                        <string>Sequence</string>
                       </attribute>
                       <layout class="QGridLayout" name="gridLayout_75">
                        <item row="0" column="0" colspan="2">
-                        <widget class="QTableWidget" name="tableWidget_7">
+                        <widget class="QTableWidget" name="sync_digital_trigger_high_sequence_table">
+                         <property name="toolTip">
+                          <string>LED intensity sequence file</string>
+                         </property>
                          <property name="rowCount">
                           <number>100</number>
                          </property>
@@ -1284,14 +1302,20 @@
                         </widget>
                        </item>
                        <item row="1" column="0">
-                        <widget class="QPushButton" name="pushButton_30">
+                        <widget class="QPushButton" name="sync_digital_trigger_high_sequence_load_button">
+                         <property name="toolTip">
+                          <string>Load LED intensity sequence file (*.lsq)</string>
+                         </property>
                          <property name="text">
                           <string>Load Wave File</string>
                          </property>
                         </widget>
                        </item>
                        <item row="1" column="1">
-                        <widget class="QPushButton" name="pushButton_31">
+                        <widget class="QPushButton" name="sync_digital_trigger_high_sequence_save_button">
+                         <property name="toolTip">
+                          <string>Save LED intensity sequence file (*.lsq)</string>
+                         </property>
                          <property name="text">
                           <string>Save Wave File</string>
                          </property>
@@ -1305,7 +1329,7 @@
                  </widget>
                 </item>
                 <item row="3" column="0">
-                 <spacer name="verticalSpacer">
+                 <spacer name="sync_digital_spacer">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
@@ -1319,135 +1343,69 @@
                 </item>
                </layout>
               </widget>
-              <widget class="QWidget" name="page_2">
+              <widget class="QWidget" name="sync_analog_page">
                <property name="geometry">
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>504</width>
-                 <height>282</height>
+                 <width>679</width>
+                 <height>561</height>
                 </rect>
+               </property>
+               <property name="toolTip">
+                <string>Control LED intensity remotely with an analog voltage</string>
                </property>
                <attribute name="label">
                 <string>Analog</string>
                </attribute>
                <layout class="QGridLayout" name="gridLayout_25">
-                <item row="0" column="1">
-                 <widget class="QGroupBox" name="groupBox_23">
-                  <property name="title">
-                   <string>LED Channel</string>
-                  </property>
-                  <layout class="QGridLayout" name="gridLayout_51">
-                   <item row="0" column="2">
-                    <widget class="QRadioButton" name="radioButton_56">
-                     <property name="text">
-                      <string>LED #3</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="0">
-                    <widget class="QRadioButton" name="radioButton_57">
-                     <property name="text">
-                      <string>LED #1</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QRadioButton" name="radioButton_58">
-                     <property name="text">
-                      <string>LED #2</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="4">
-                    <widget class="QRadioButton" name="radioButton_59">
-                     <property name="text">
-                      <string>Current LED</string>
-                     </property>
-                     <property name="checked">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="3">
-                    <widget class="QRadioButton" name="radioButton_60">
-                     <property name="text">
-                      <string>LED #4</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QTabWidget" name="tabWidget_4">
+                <item row="3" column="1">
+                 <widget class="QTabWidget" name="sync_analog_output_tab">
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>2</number>
                   </property>
-                  <widget class="QWidget" name="tab_7">
+                  <widget class="QWidget" name="sync_analog_output_PWM_tab">
+                   <property name="toolTip">
+                    <string>Convert analog input voltage to LED PWM output</string>
+                   </property>
                    <attribute name="title">
-                    <string>Buffered</string>
+                    <string>Buffered - PWM</string>
                    </attribute>
                    <layout class="QGridLayout" name="gridLayout_32" rowstretch="0,0,10">
-                    <item row="0" column="0" colspan="2" alignment="Qt::AlignTop">
-                     <widget class="QGroupBox" name="groupBox_16">
-                      <property name="title">
-                       <string>Input Channel</string>
-                      </property>
-                      <layout class="QGridLayout" name="gridLayout_31">
-                       <item row="0" column="0">
-                        <widget class="QRadioButton" name="radioButton_36">
-                         <property name="text">
-                          <string>Channel #1</string>
-                         </property>
-                         <property name="checked">
-                          <bool>true</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="0" column="1">
-                        <widget class="QRadioButton" name="radioButton_37">
-                         <property name="text">
-                          <string>Channel #2</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="0" column="2">
-                        <widget class="QRadioButton" name="radioButton_38">
-                         <property name="text">
-                          <string>Channel #3</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="0" column="3">
-                        <widget class="QRadioButton" name="radioButton_39">
-                         <property name="text">
-                          <string>Channel #4</string>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </widget>
-                    </item>
                     <item row="1" column="0">
-                     <widget class="QLabel" name="label_31">
+                     <widget class="QLabel" name="sync_analog_output_PWM_avg_slider_label">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="toolTip">
+                       <string>Set the size of the sliding window mean used to filter the ADC</string>
+                      </property>
                       <property name="text">
                        <string># of ADC samples per step:</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="1" column="1" alignment="Qt::AlignTop">
-                     <widget class="QSlider" name="horizontalSlider_4">
+                    <item row="1" column="1">
+                     <widget class="QSlider" name="sync_analog_output_PWM_avg_slider">
+                      <property name="toolTip">
+                       <string>Set the size of the sliding window mean used to filter the ADC</string>
+                      </property>
                       <property name="minimum">
                        <number>1</number>
                       </property>
                       <property name="maximum">
-                       <number>5</number>
+                       <number>100</number>
                       </property>
                       <property name="singleStep">
                        <number>0</number>
                       </property>
                       <property name="pageStep">
+                       <number>1</number>
+                      </property>
+                      <property name="value">
                        <number>1</number>
                       </property>
                       <property name="orientation">
@@ -1457,12 +1415,15 @@
                        <enum>QSlider::TicksBothSides</enum>
                       </property>
                       <property name="tickInterval">
-                       <number>1</number>
+                       <number>10</number>
                       </property>
                      </widget>
                     </item>
                     <item row="2" column="0" colspan="2" alignment="Qt::AlignTop">
-                     <widget class="QFrame" name="frame_3">
+                     <widget class="QFrame" name="sync_analog_output_PWM_avg_frame">
+                      <property name="toolTip">
+                       <string>Current size of the sliding window mean</string>
+                      </property>
                       <property name="frameShape">
                        <enum>QFrame::StyledPanel</enum>
                       </property>
@@ -1477,14 +1438,20 @@
                         <number>0</number>
                        </property>
                        <item row="0" column="0">
-                        <widget class="QLabel" name="label_32">
+                        <widget class="QLabel" name="sync_analog_output_PWM_avg_num_label">
+                         <property name="toolTip">
+                          <string>The width of the sliding window mean</string>
+                         </property>
                          <property name="text">
                           <string># of averages: 1</string>
                          </property>
                         </widget>
                        </item>
                        <item row="0" column="1">
-                        <widget class="QLabel" name="label_33">
+                        <widget class="QLabel" name="sync_analog_output_PWM_avg_bandiwdth_label">
+                         <property name="toolTip">
+                          <string>Estimated maximum bandwidth for the sliding window mean</string>
+                         </property>
                          <property name="text">
                           <string>Approximate bandwidth: x kHz</string>
                          </property>
@@ -1493,15 +1460,136 @@
                       </layout>
                      </widget>
                     </item>
+                    <item row="0" column="0" colspan="2">
+                     <widget class="QLabel" name="sync_analog_output_PWM_label">
+                      <property name="text">
+                       <string>Control LED intensity by converting analog input voltage to LED PWM</string>
+                      </property>
+                     </widget>
+                    </item>
                    </layout>
                   </widget>
-                  <widget class="QWidget" name="tab_8">
+                  <widget class="QWidget" name="sync_analog_output_current_tab">
+                   <property name="toolTip">
+                    <string>Convert analog input voltage to LED current output</string>
+                   </property>
                    <attribute name="title">
-                    <string>Unbuffered</string>
+                    <string>Buffered - Current</string>
+                   </attribute>
+                   <layout class="QGridLayout" name="gridLayout_30" rowstretch="0,0,10">
+                    <item row="2" column="0" colspan="2" alignment="Qt::AlignTop">
+                     <widget class="QFrame" name="sync_analog_output_current_avg_frame">
+                      <property name="toolTip">
+                       <string>Current size of the sliding window mean</string>
+                      </property>
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QGridLayout" name="gridLayout_47" columnstretch="10,13">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <item row="0" column="0">
+                        <widget class="QLabel" name="sync_analog_output_current_avg_num_label">
+                         <property name="toolTip">
+                          <string>The width of the sliding window mean</string>
+                         </property>
+                         <property name="text">
+                          <string># of averages: 1</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="1">
+                        <widget class="QLabel" name="sync_analog_output_current_avg_bandiwdth_label">
+                         <property name="toolTip">
+                          <string>Estimated maximum bandwidth for the sliding window mean</string>
+                         </property>
+                         <property name="text">
+                          <string>Approximate bandwidth: x kHz</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QSlider" name="sync_analog_output_current_avg_slider">
+                      <property name="toolTip">
+                       <string>Set the size of the sliding window mean used to filter the ADC</string>
+                      </property>
+                      <property name="minimum">
+                       <number>1</number>
+                      </property>
+                      <property name="maximum">
+                       <number>100</number>
+                      </property>
+                      <property name="singleStep">
+                       <number>0</number>
+                      </property>
+                      <property name="pageStep">
+                       <number>1</number>
+                      </property>
+                      <property name="value">
+                       <number>1</number>
+                      </property>
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="tickPosition">
+                       <enum>QSlider::TicksBothSides</enum>
+                      </property>
+                      <property name="tickInterval">
+                       <number>10</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="sync_analog_output_current_avg_slider_label">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="toolTip">
+                       <string>Set the size of the sliding window mean used to filter the ADC</string>
+                      </property>
+                      <property name="text">
+                       <string># of ADC samples per step:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="0" colspan="2">
+                     <widget class="QLabel" name="sync_analog_output_current_label">
+                      <property name="toolTip">
+                       <string>Convert analog input voltage to LED current output</string>
+                      </property>
+                      <property name="text">
+                       <string>Control LED intensity by converting analog input voltage to LED current</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="sync_analog_output_unbuffered_tab">
+                   <property name="toolTip">
+                    <string>Directly drive the op-amp non-inverting input with an external analog voltage</string>
+                   </property>
+                   <attribute name="title">
+                    <string>Unbuffered - Current</string>
                    </attribute>
                    <layout class="QGridLayout" name="gridLayout_33" rowstretch="0">
                     <item row="0" column="0" alignment="Qt::AlignTop">
-                     <widget class="QLabel" name="label_30">
+                     <widget class="QLabel" name="sync_analog_output_unbuffered_label">
+                      <property name="toolTip">
+                       <string>Use at your own risk...</string>
+                      </property>
                       <property name="text">
                        <string>Warning: This mode bypasses any programmed current limits and uses the dedicated &quot;External Analog&quot; channel to directly connect the input analog voltage to the non-inverting input of the driver's op-amp.  Supplying excessive voltage to this input can damage the LED, Teensy, and driver circuit.  This mode should be used only when very low-latency and/or high-bandwidth is required. Use this mode at your own risk.
 
@@ -1518,23 +1606,146 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                   </widget>
                  </widget>
                 </item>
+                <item row="1" column="1">
+                 <widget class="QGroupBox" name="sync_analog_input_channel_box">
+                  <property name="toolTip">
+                   <string>Select the input channel the external analog signal is connected to.</string>
+                  </property>
+                  <property name="title">
+                   <string>Input Channel</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_31">
+                   <item row="0" column="0">
+                    <widget class="QRadioButton" name="sync_analog_input1_button">
+                     <property name="toolTip">
+                      <string>Analog signal on input channel #1</string>
+                     </property>
+                     <property name="text">
+                      <string>Channel #1</string>
+                     </property>
+                     <property name="checked">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QRadioButton" name="sync_analog_input2_button">
+                     <property name="toolTip">
+                      <string>Analog signal on input channel #2</string>
+                     </property>
+                     <property name="text">
+                      <string>Channel #2</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="2">
+                    <widget class="QRadioButton" name="sync_analog_input3_button">
+                     <property name="toolTip">
+                      <string>Analog signal on input channel #3</string>
+                     </property>
+                     <property name="text">
+                      <string>Channel #3</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="3">
+                    <widget class="QRadioButton" name="sync_analog_input4_button">
+                     <property name="toolTip">
+                      <string>Analog signal on input channel #4</string>
+                     </property>
+                     <property name="text">
+                      <string>Channel #4</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QGroupBox" name="sync_analog_LED_box">
+                  <property name="toolTip">
+                   <string>Select the LED channel to be synced </string>
+                  </property>
+                  <property name="title">
+                   <string>LED Channel</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_51">
+                   <item row="0" column="0">
+                    <widget class="QRadioButton" name="sync_analog_LED1_button">
+                     <property name="toolTip">
+                      <string>Sync LED #1 to the analog input</string>
+                     </property>
+                     <property name="text">
+                      <string>LED #1</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="3">
+                    <widget class="QRadioButton" name="sync_analog_LED4_button">
+                     <property name="toolTip">
+                      <string>Sync LED #4 to the analog input</string>
+                     </property>
+                     <property name="text">
+                      <string>LED #4</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="4">
+                    <widget class="QRadioButton" name="sync_analog_LEDn_button">
+                     <property name="toolTip">
+                      <string>Sync current active LED to the analog input</string>
+                     </property>
+                     <property name="text">
+                      <string>Current LED</string>
+                     </property>
+                     <property name="checked">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QRadioButton" name="sync_analog_LED2_button">
+                     <property name="toolTip">
+                      <string>Sync LED #2 to the analog input</string>
+                     </property>
+                     <property name="text">
+                      <string>LED #2</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="2">
+                    <widget class="QRadioButton" name="sync_analog_LED3_button">
+                     <property name="toolTip">
+                      <string>Sync LED #3 to the analog input</string>
+                     </property>
+                     <property name="text">
+                      <string>LED #3</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
                </layout>
               </widget>
-              <widget class="QWidget" name="page_3">
+              <widget class="QWidget" name="sync_confocal_page">
                <property name="geometry">
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>543</width>
-                 <height>1048</height>
+                 <width>537</width>
+                 <height>1030</height>
                 </rect>
+               </property>
+               <property name="toolTip">
+                <string>Sync the LED output to a confocal laser scanning microscope</string>
                </property>
                <attribute name="label">
                 <string>Confocal</string>
                </attribute>
                <layout class="QGridLayout" name="gridLayout_26">
                 <item row="0" column="0" alignment="Qt::AlignTop">
-                 <widget class="QFrame" name="frame_4">
+                 <widget class="QFrame" name="sync_confocal_frame">
                   <property name="frameShape">
                    <enum>QFrame::StyledPanel</enum>
                   </property>
@@ -1542,6 +1753,18 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                    <enum>QFrame::Raised</enum>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_62">
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
                    <item row="4" column="0">
                     <widget class="QGroupBox" name="groupBox_20">
                      <property name="title">
@@ -1672,30 +1895,97 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                     </widget>
                    </item>
                    <item row="2" column="0">
-                    <widget class="QGroupBox" name="groupBox_29">
+                    <widget class="QGroupBox" name="sync_confocal_line_box">
+                     <property name="toolTip">
+                      <string>Configure the sync input for the line scan</string>
+                     </property>
                      <property name="title">
                       <string>Line Sync</string>
                      </property>
-                     <layout class="QGridLayout" name="gridLayout_67" columnstretch="0,0,10">
-                      <item row="3" column="0" colspan="3">
-                       <widget class="QTabWidget" name="tabWidget_8">
-                        <property name="currentIndex">
-                         <number>0</number>
+                     <layout class="QGridLayout" name="gridLayout_49">
+                      <item row="0" column="0">
+                       <widget class="QGroupBox" name="sync_confocal_line_channel_box">
+                        <property name="toolTip">
+                         <string>Select the input channel the external analog signal is connected to.</string>
                         </property>
-                        <widget class="QWidget" name="tab_17">
+                        <property name="title">
+                         <string>Input Channel</string>
+                        </property>
+                        <layout class="QGridLayout" name="gridLayout_48">
+                         <item row="0" column="0">
+                          <widget class="QRadioButton" name="sync_confocal_line_input1_button">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                           <property name="toolTip">
+                            <string>Channel #1 is fixed as the shutter input</string>
+                           </property>
+                           <property name="text">
+                            <string>Shutter only</string>
+                           </property>
+                           <property name="checkable">
+                            <bool>false</bool>
+                           </property>
+                           <property name="checked">
+                            <bool>false</bool>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="1">
+                          <widget class="QRadioButton" name="sync_confocal_line_input2_button">
+                           <property name="toolTip">
+                            <string>Line sync input on channel #2</string>
+                           </property>
+                           <property name="text">
+                            <string>Channel #2</string>
+                           </property>
+                           <property name="checked">
+                            <bool>true</bool>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="2">
+                          <widget class="QRadioButton" name="sync_confocal_line_input3_button">
+                           <property name="toolTip">
+                            <string>Line sync input on channel #3</string>
+                           </property>
+                           <property name="text">
+                            <string>Channel #3</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="3">
+                          <widget class="QRadioButton" name="sync_confocal_line_input4_button">
+                           <property name="toolTip">
+                            <string>Line sync input on channel #4</string>
+                           </property>
+                           <property name="text">
+                            <string>Channel #4</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item row="1" column="0">
+                       <widget class="QTabWidget" name="sync_confocal_line_tab">
+                        <property name="currentIndex">
+                         <number>1</number>
+                        </property>
+                        <widget class="QWidget" name="sync_confocal_line_digital_tab">
                          <attribute name="title">
                           <string>Digital - Line Clock</string>
                          </attribute>
                          <layout class="QGridLayout" name="gridLayout_65" columnstretch="0,0,10">
                           <item row="0" column="0">
-                           <widget class="QLabel" name="label_72">
+                           <widget class="QLabel" name="sync_confocal_line_digital_label">
                             <property name="text">
                              <string>Trigger Polarity:</string>
                             </property>
                            </widget>
                           </item>
                           <item row="0" column="1">
-                           <widget class="QRadioButton" name="radioButton_79">
+                           <widget class="QRadioButton" name="sync_confocal_line_digital_high_button">
                             <property name="text">
                              <string>HIGH</string>
                             </property>
@@ -1705,7 +1995,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                            </widget>
                           </item>
                           <item row="0" column="2">
-                           <widget class="QRadioButton" name="radioButton_80">
+                           <widget class="QRadioButton" name="sync_confocal_line_digital_low_button">
                             <property name="text">
                              <string>LOW</string>
                             </property>
@@ -1713,27 +2003,27 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                           </item>
                          </layout>
                         </widget>
-                        <widget class="QWidget" name="tab_18">
+                        <widget class="QWidget" name="sync_confocal_line_analog_tab">
                          <attribute name="title">
                           <string>Analog - Mirror Voltage</string>
                          </attribute>
                          <layout class="QGridLayout" name="gridLayout_66" columnstretch="0,0,0">
                           <item row="1" column="0">
-                           <widget class="QLabel" name="label_73">
+                           <widget class="QLabel" name="sync_confocal_line_analog_polarity_label">
                             <property name="text">
                              <string>Trigger polarity:</string>
                             </property>
                            </widget>
                           </item>
                           <item row="0" column="0">
-                           <widget class="QLabel" name="label_74">
+                           <widget class="QLabel" name="sync_confocal_line_analog_threshold_label1">
                             <property name="text">
                              <string>Threshold Voltage:</string>
                             </property>
                            </widget>
                           </item>
                           <item row="1" column="1">
-                           <widget class="QRadioButton" name="radioButton_81">
+                           <widget class="QRadioButton" name="sync_confocal_line_analog_polarity_above_button">
                             <property name="text">
                              <string>Above Threshold</string>
                             </property>
@@ -1743,14 +2033,14 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                            </widget>
                           </item>
                           <item row="1" column="2">
-                           <widget class="QRadioButton" name="radioButton_82">
+                           <widget class="QRadioButton" name="sync_confocal_line_analog_polarity_below_button">
                             <property name="text">
                              <string>Below Threshold</string>
                             </property>
                            </widget>
                           </item>
                           <item row="0" column="1">
-                           <widget class="QDoubleSpinBox" name="doubleSpinBox_15">
+                           <widget class="QDoubleSpinBox" name="sync_confocal_line_analog_threshold_box">
                             <property name="alignment">
                              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                             </property>
@@ -1766,7 +2056,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                            </widget>
                           </item>
                           <item row="0" column="2">
-                           <widget class="QLabel" name="label_75">
+                           <widget class="QLabel" name="sync_confocal_line_analog_threshold_label2">
                             <property name="text">
                              <string>V</string>
                             </property>
@@ -1774,49 +2064,6 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                           </item>
                          </layout>
                         </widget>
-                       </widget>
-                      </item>
-                      <item row="2" column="0" colspan="3">
-                       <widget class="QGroupBox" name="groupBox_30">
-                        <property name="title">
-                         <string>Channel</string>
-                        </property>
-                        <layout class="QGridLayout" name="gridLayout_64">
-                         <item row="1" column="2">
-                          <widget class="QRadioButton" name="radioButton_77">
-                           <property name="text">
-                            <string>Channel #3</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="1" column="1">
-                          <widget class="QRadioButton" name="radioButton_76">
-                           <property name="text">
-                            <string>Channel #2</string>
-                           </property>
-                           <property name="checked">
-                            <bool>true</bool>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="1" column="0">
-                          <widget class="QRadioButton" name="radioButton_75">
-                           <property name="enabled">
-                            <bool>false</bool>
-                           </property>
-                           <property name="text">
-                            <string>Shutter Only</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="1" column="3">
-                          <widget class="QRadioButton" name="radioButton_78">
-                           <property name="text">
-                            <string>Channel #4</string>
-                           </property>
-                          </widget>
-                         </item>
-                        </layout>
                        </widget>
                       </item>
                      </layout>
@@ -2193,7 +2440,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                          </sizepolicy>
                         </property>
                         <property name="currentIndex">
-                         <number>1</number>
+                         <number>2</number>
                         </property>
                         <widget class="QWidget" name="tab_11">
                          <attribute name="title">
@@ -2541,39 +2788,60 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                     </widget>
                    </item>
                    <item row="0" column="0">
-                    <widget class="QGroupBox" name="groupBox_28">
+                    <widget class="QGroupBox" name="sync_confocal_shutter_box">
+                     <property name="toolTip">
+                      <string>The shutter output voltage is used to determine the start and stop of a scan.</string>
+                     </property>
                      <property name="title">
                       <string>Shutter Sync</string>
                      </property>
-                     <layout class="QGridLayout" name="gridLayout_63" columnstretch="0,0,0">
-                      <item row="1" column="0">
-                       <widget class="QLabel" name="label_71">
-                        <property name="text">
-                         <string>Trigger polarity:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="0" colspan="3">
-                       <widget class="QLabel" name="label_34">
-                        <property name="text">
-                         <string>NOTE: Connect the shutter sync input to channel #1.</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="2">
-                       <widget class="QRadioButton" name="radioButton_74">
-                        <property name="text">
-                         <string>LOW</string>
-                        </property>
-                       </widget>
-                      </item>
+                     <layout class="QGridLayout" name="gridLayout_63" columnstretch="0,0,10">
                       <item row="1" column="1">
-                       <widget class="QRadioButton" name="radioButton_73">
+                       <widget class="QRadioButton" name="sync_confocal_shutter_high_button">
+                        <property name="toolTip">
+                         <string>Shutter output voltage goes high when shutter is open</string>
+                        </property>
                         <property name="text">
                          <string>HIGH</string>
                         </property>
                         <property name="checked">
                          <bool>true</bool>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="0">
+                       <widget class="QLabel" name="sync_confocal_shutter_polarity_label">
+                        <property name="minimumSize">
+                         <size>
+                          <width>0</width>
+                          <height>0</height>
+                         </size>
+                        </property>
+                        <property name="toolTip">
+                         <string>The polarity of the shutter output voltage when the shutter is open.</string>
+                        </property>
+                        <property name="text">
+                         <string>Shutter open trigger polarity:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="2">
+                       <widget class="QRadioButton" name="sync_confocal_shutter_low_button">
+                        <property name="toolTip">
+                         <string>Shutter output voltage goes low when shutter is open</string>
+                        </property>
+                        <property name="text">
+                         <string>LOW</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="0" colspan="3">
+                       <widget class="QLabel" name="sync_confocal_shutter_label">
+                        <property name="toolTip">
+                         <string>The shutter input channel is fixed to channel #1</string>
+                        </property>
+                        <property name="text">
+                         <string>NOTE: Connect the shutter sync input to channel #1.</string>
                         </property>
                        </widget>
                       </item>
@@ -2665,8 +2933,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>749</width>
-             <height>1072</height>
+             <width>611</width>
+             <height>1109</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_16">
@@ -3664,7 +3932,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>810</width>
+     <width>616</width>
      <height>21</height>
     </rect>
    </property>
@@ -3768,12 +4036,12 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
  </designerdata>
  <buttongroups>
   <buttongroup name="Ch_merge_3_button_group"/>
-  <buttongroup name="ext_fan_button_group"/>
   <buttongroup name="channel_button_group"/>
-  <buttongroup name="Ch_merge_1_button_group"/>
   <buttongroup name="axis_button_group"/>
+  <buttongroup name="ext_fan_button_group"/>
+  <buttongroup name="Ch_merge_1_button_group"/>
   <buttongroup name="Ch_merge_2_button_group"/>
-  <buttongroup name="Ch_merge_4_button_group"/>
   <buttongroup name="intensity_button_group"/>
+  <buttongroup name="Ch_merge_4_button_group"/>
  </buttongroups>
 </ui>
