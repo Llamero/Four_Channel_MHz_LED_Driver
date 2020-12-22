@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>616</width>
-    <height>1270</height>
+    <width>686</width>
+    <height>1274</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -410,8 +410,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>572</width>
-             <height>1126</height>
+             <width>642</width>
+             <height>1130</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -428,8 +428,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>581</width>
-                 <height>628</height>
+                 <width>554</width>
+                 <height>943</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -512,7 +512,7 @@
                       <string>Select event type for when trigger goes LOW (&lt;1.0V)</string>
                      </property>
                      <property name="currentIndex">
-                      <number>2</number>
+                      <number>0</number>
                      </property>
                      <widget class="QWidget" name="sync_digital_trigger_low_off_tab">
                       <property name="toolTip">
@@ -1348,8 +1348,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>679</width>
-                 <height>561</height>
+                 <width>554</width>
+                 <height>943</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1732,9 +1732,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
-                 <width>537</width>
-                 <height>1030</height>
+                 <y>-83</y>
+                 <width>607</width>
+                 <height>1048</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1752,7 +1752,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                   <property name="frameShadow">
                    <enum>QFrame::Raised</enum>
                   </property>
-                  <layout class="QGridLayout" name="gridLayout_62">
+                  <layout class="QGridLayout" name="gridLayout_39">
                    <property name="leftMargin">
                     <number>0</number>
                    </property>
@@ -1765,136 +1765,68 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                    <property name="bottomMargin">
                     <number>0</number>
                    </property>
-                   <item row="4" column="0">
-                    <widget class="QGroupBox" name="groupBox_20">
-                     <property name="title">
-                      <string>Delays</string>
+                   <item row="0" column="0">
+                    <widget class="QGroupBox" name="sync_confocal_shutter_box">
+                     <property name="toolTip">
+                      <string>The shutter output voltage is used to determine the start and stop of a scan.</string>
                      </property>
-                     <layout class="QGridLayout" name="gridLayout_37">
-                      <item row="2" column="1">
-                       <widget class="QDoubleSpinBox" name="doubleSpinBox_13">
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                        <property name="maximum">
-                         <double>23860929.000000000000000</double>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="3" column="0">
-                       <widget class="QLabel" name="label_41">
-                        <property name="text">
-                         <string>3) Bidirectional: time between windows:</string>
-                        </property>
-                       </widget>
-                      </item>
+                     <property name="title">
+                      <string>Shutter Sync</string>
+                     </property>
+                     <layout class="QGridLayout" name="gridLayout_63" columnstretch="0,0,10">
                       <item row="1" column="1">
-                       <widget class="QDoubleSpinBox" name="doubleSpinBox_12">
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                       <widget class="QRadioButton" name="sync_confocal_shutter_high_button">
+                        <property name="toolTip">
+                         <string>Shutter output voltage goes high when shutter is open</string>
                         </property>
-                        <property name="maximum">
-                         <double>23860929.000000000000000</double>
+                        <property name="text">
+                         <string>HIGH</string>
                         </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="0" colspan="3">
-                       <widget class="QFrame" name="frame_9">
-                        <property name="frameShape">
-                         <enum>QFrame::StyledPanel</enum>
+                        <property name="checked">
+                         <bool>true</bool>
                         </property>
-                        <property name="frameShadow">
-                         <enum>QFrame::Raised</enum>
-                        </property>
-                        <layout class="QGridLayout" name="gridLayout_29" rowstretch="0,0,0" columnstretch="0,0,0">
-                         <property name="leftMargin">
-                          <number>0</number>
-                         </property>
-                         <property name="topMargin">
-                          <number>0</number>
-                         </property>
-                         <property name="rightMargin">
-                          <number>0</number>
-                         </property>
-                         <property name="bottomMargin">
-                          <number>0</number>
-                         </property>
-                         <item row="2" column="1">
-                          <widget class="QRadioButton" name="radioButton_40">
-                           <property name="text">
-                            <string>Unidirectional</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="2" column="0">
-                          <widget class="QLabel" name="label_35">
-                           <property name="text">
-                            <string>Scan mode:</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="2" column="2">
-                          <widget class="QRadioButton" name="radioButton_41">
-                           <property name="text">
-                            <string>Bidirectional</string>
-                           </property>
-                           <property name="checked">
-                            <bool>true</bool>
-                           </property>
-                          </widget>
-                         </item>
-                        </layout>
                        </widget>
                       </item>
                       <item row="1" column="0">
-                       <widget class="QLabel" name="label_39">
+                       <widget class="QLabel" name="sync_confocal_shutter_polarity_label">
+                        <property name="minimumSize">
+                         <size>
+                          <width>0</width>
+                          <height>0</height>
+                         </size>
+                        </property>
+                        <property name="toolTip">
+                         <string>The polarity of the shutter output voltage when the shutter is open.</string>
+                        </property>
                         <property name="text">
-                         <string>1) From trigger to flyback window:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="3" column="1">
-                       <widget class="QDoubleSpinBox" name="doubleSpinBox_11">
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                        <property name="maximum">
-                         <double>23860929.000000000000000</double>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="2">
-                       <widget class="QLabel" name="label_43">
-                        <property name="text">
-                         <string>µs</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="0">
-                       <widget class="QLabel" name="label_40">
-                        <property name="text">
-                         <string>2) Duration of flyback window:</string>
+                         <string>Shutter open trigger polarity:</string>
                         </property>
                        </widget>
                       </item>
                       <item row="1" column="2">
-                       <widget class="QLabel" name="label_42">
+                       <widget class="QRadioButton" name="sync_confocal_shutter_low_button">
+                        <property name="toolTip">
+                         <string>Shutter output voltage goes low when shutter is open</string>
+                        </property>
                         <property name="text">
-                         <string>µs</string>
+                         <string>LOW</string>
                         </property>
                        </widget>
                       </item>
-                      <item row="3" column="2">
-                       <widget class="QLabel" name="label_76">
+                      <item row="0" column="0" colspan="3">
+                       <widget class="QLabel" name="sync_confocal_shutter_label">
+                        <property name="toolTip">
+                         <string>The shutter input channel is fixed to channel #1</string>
+                        </property>
                         <property name="text">
-                         <string>µs</string>
+                         <string>NOTE: Connect the shutter sync input to channel #1.</string>
                         </property>
                        </widget>
                       </item>
                      </layout>
                     </widget>
                    </item>
-                   <item row="2" column="0">
+                   <item row="1" column="0">
                     <widget class="QGroupBox" name="sync_confocal_line_box">
                      <property name="toolTip">
                       <string>Configure the sync input for the line scan</string>
@@ -2069,386 +2001,168 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                      </layout>
                     </widget>
                    </item>
-                   <item row="6" column="0">
-                    <widget class="QGroupBox" name="groupBox_26">
+                   <item row="2" column="0">
+                    <widget class="QGroupBox" name="sync_confocal_delay_box">
                      <property name="title">
-                      <string>Event: Outside flyback window</string>
+                      <string>Delays</string>
                      </property>
-                     <layout class="QGridLayout" name="gridLayout_40">
-                      <item row="0" column="0">
-                       <widget class="QTabWidget" name="tabWidget_7">
-                        <property name="currentIndex">
-                         <number>0</number>
+                     <layout class="QGridLayout" name="gridLayout_37">
+                      <item row="2" column="1">
+                       <widget class="QDoubleSpinBox" name="doubleSpinBox_13">
+                        <property name="alignment">
+                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                         </property>
-                        <widget class="QWidget" name="tab_14">
-                         <attribute name="title">
-                          <string>LED Off</string>
-                         </attribute>
-                         <layout class="QGridLayout" name="gridLayout_57">
-                          <item row="0" column="0">
-                           <widget class="QLabel" name="label_46">
-                            <property name="text">
-                             <string>Turn active LED off</string>
-                            </property>
-                           </widget>
-                          </item>
-                         </layout>
-                        </widget>
-                        <widget class="QWidget" name="tab_15">
-                         <attribute name="title">
-                          <string>Constant Value</string>
-                         </attribute>
-                         <layout class="QGridLayout" name="gridLayout_58" rowstretch="0,10">
-                          <item row="0" column="0">
-                           <widget class="QGroupBox" name="groupBox_27">
-                            <property name="title">
-                             <string>LED Channel</string>
-                            </property>
-                            <layout class="QGridLayout" name="gridLayout_59">
-                             <item row="0" column="2">
-                              <widget class="QRadioButton" name="radioButton_68">
-                               <property name="text">
-                                <string>LED #3</string>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="0" column="0">
-                              <widget class="QRadioButton" name="radioButton_69">
-                               <property name="text">
-                                <string>LED #1</string>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="0" column="1">
-                              <widget class="QRadioButton" name="radioButton_70">
-                               <property name="text">
-                                <string>LED #2</string>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="0" column="4">
-                              <widget class="QRadioButton" name="radioButton_71">
-                               <property name="text">
-                                <string>Current LED</string>
-                               </property>
-                               <property name="checked">
-                                <bool>true</bool>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="0" column="3">
-                              <widget class="QRadioButton" name="radioButton_72">
-                               <property name="text">
-                                <string>LED #4</string>
-                               </property>
-                              </widget>
-                             </item>
-                            </layout>
-                           </widget>
-                          </item>
-                          <item row="1" column="0">
-                           <widget class="QFrame" name="frame_8">
-                            <property name="frameShape">
-                             <enum>QFrame::StyledPanel</enum>
-                            </property>
-                            <property name="frameShadow">
-                             <enum>QFrame::Raised</enum>
-                            </property>
-                            <layout class="QGridLayout" name="gridLayout_60" columnstretch="0,10,0">
-                             <item row="1" column="2">
-                              <widget class="QLabel" name="label_65">
-                               <property name="text">
-                                <string>%</string>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="0" column="1">
-                              <widget class="QDoubleSpinBox" name="doubleSpinBox_29">
-                               <property name="alignment">
-                                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                               </property>
-                               <property name="decimals">
-                                <number>3</number>
-                               </property>
-                               <property name="maximum">
-                                <double>100.000000000000000</double>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="0" column="2">
-                              <widget class="QLabel" name="label_66">
-                               <property name="text">
-                                <string>%</string>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="2" column="0">
-                              <widget class="QLabel" name="label_67">
-                               <property name="text">
-                                <string>Duration:</string>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="2" column="1">
-                              <widget class="QDoubleSpinBox" name="doubleSpinBox_30">
-                               <property name="toolTip">
-                                <string>Set value to 0 for LED to stay on for duration of trigger</string>
-                               </property>
-                               <property name="alignment">
-                                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                               </property>
-                               <property name="readOnly">
-                                <bool>false</bool>
-                               </property>
-                               <property name="specialValueText">
-                                <string/>
-                               </property>
-                               <property name="decimals">
-                                <number>3</number>
-                               </property>
-                               <property name="maximum">
-                                <double>4294.960000000000036</double>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="1" column="1">
-                              <widget class="QDoubleSpinBox" name="doubleSpinBox_31">
-                               <property name="alignment">
-                                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                               </property>
-                               <property name="decimals">
-                                <number>3</number>
-                               </property>
-                               <property name="maximum">
-                                <double>100.000000000000000</double>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="0" column="0">
-                              <widget class="QLabel" name="label_68">
-                               <property name="text">
-                                <string>LED PWM:</string>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="2" column="2">
-                              <widget class="QLabel" name="label_69">
-                               <property name="text">
-                                <string>sec</string>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="1" column="0">
-                              <widget class="QLabel" name="label_70">
-                               <property name="text">
-                                <string>LED Current:</string>
-                               </property>
-                              </widget>
-                             </item>
-                            </layout>
-                           </widget>
-                          </item>
-                         </layout>
-                        </widget>
-                        <widget class="QWidget" name="tab_16">
-                         <attribute name="title">
-                          <string>Sequence</string>
-                         </attribute>
-                         <layout class="QGridLayout" name="gridLayout_61">
-                          <item row="0" column="0" colspan="2">
-                           <widget class="QTableWidget" name="tableWidget_6">
-                            <property name="rowCount">
-                             <number>100</number>
-                            </property>
-                            <property name="columnCount">
-                             <number>4</number>
-                            </property>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <column>
-                             <property name="text">
-                              <string>LED #</string>
-                             </property>
-                            </column>
-                            <column>
-                             <property name="text">
-                              <string>LED PWM (%)</string>
-                             </property>
-                            </column>
-                            <column>
-                             <property name="text">
-                              <string>LED current (%)</string>
-                             </property>
-                            </column>
-                            <column>
-                             <property name="text">
-                              <string>Duration (s)</string>
-                             </property>
-                            </column>
-                           </widget>
-                          </item>
-                          <item row="1" column="0">
-                           <widget class="QPushButton" name="pushButton_28">
-                            <property name="text">
-                             <string>Load Wave File</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item row="1" column="1">
-                           <widget class="QPushButton" name="pushButton_29">
-                            <property name="text">
-                             <string>Save Wave File</string>
-                            </property>
-                           </widget>
-                          </item>
-                         </layout>
-                        </widget>
-                        <widget class="QWidget" name="tab_10">
-                         <attribute name="title">
-                          <string>External Analog</string>
-                         </attribute>
-                         <layout class="QGridLayout" name="gridLayout_39">
-                          <item row="0" column="0">
-                           <widget class="QLabel" name="label_37">
-                            <property name="text">
-                             <string>Warning: This mode bypasses preset current limits and uses the dedicated &quot;External Analog&quot; channel to directly connect the input analog voltage to the non-inverting input of the driver's op-amp.  Supplying excessive voltage to this input can damage the LED, Teensy, and driver circuit. Use this mode at your own risk.
-
-This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negative voltage (around -50mV) will need to be input to fully turn off the LED.    </string>
-                            </property>
-                            <property name="wordWrap">
-                             <bool>true</bool>
-                            </property>
-                           </widget>
-                          </item>
-                         </layout>
-                        </widget>
+                        <property name="maximum">
+                         <double>23860929.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="3" column="0">
+                       <widget class="QLabel" name="label_41">
+                        <property name="text">
+                         <string>3) Bidirectional: time between windows:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="1">
+                       <widget class="QDoubleSpinBox" name="doubleSpinBox_12">
+                        <property name="alignment">
+                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                        </property>
+                        <property name="maximum">
+                         <double>23860929.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="0" colspan="3">
+                       <widget class="QFrame" name="frame_9">
+                        <property name="frameShape">
+                         <enum>QFrame::StyledPanel</enum>
+                        </property>
+                        <property name="frameShadow">
+                         <enum>QFrame::Raised</enum>
+                        </property>
+                        <layout class="QGridLayout" name="gridLayout_29" rowstretch="0,0,0" columnstretch="0,0,0">
+                         <property name="leftMargin">
+                          <number>0</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>0</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>0</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>0</number>
+                         </property>
+                         <item row="2" column="1">
+                          <widget class="QRadioButton" name="radioButton_40">
+                           <property name="text">
+                            <string>Unidirectional</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="2" column="0">
+                          <widget class="QLabel" name="label_35">
+                           <property name="text">
+                            <string>Scan mode:</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="2" column="2">
+                          <widget class="QRadioButton" name="radioButton_41">
+                           <property name="text">
+                            <string>Bidirectional</string>
+                           </property>
+                           <property name="checked">
+                            <bool>true</bool>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item row="1" column="0">
+                       <widget class="QLabel" name="label_39">
+                        <property name="text">
+                         <string>1) From trigger to flyback window:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="3" column="1">
+                       <widget class="QDoubleSpinBox" name="doubleSpinBox_11">
+                        <property name="alignment">
+                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                        </property>
+                        <property name="maximum">
+                         <double>23860929.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="2">
+                       <widget class="QLabel" name="label_43">
+                        <property name="text">
+                         <string>µs</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="0">
+                       <widget class="QLabel" name="label_40">
+                        <property name="text">
+                         <string>2) Duration of flyback window:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="2">
+                       <widget class="QLabel" name="label_42">
+                        <property name="text">
+                         <string>µs</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="3" column="2">
+                       <widget class="QLabel" name="label_76">
+                        <property name="text">
+                         <string>µs</string>
+                        </property>
                        </widget>
                       </item>
                      </layout>
                     </widget>
                    </item>
-                   <item row="5" column="0">
-                    <widget class="QGroupBox" name="groupBox_24">
-                     <property name="title">
-                      <string>Event: During flyback window</string>
+                   <item row="3" column="0">
+                    <widget class="QGroupBox" name="sync_confocal_image_box">
+                     <property name="toolTip">
+                      <string>Configure LED intensity input when the laser is inside the image FOV</string>
                      </property>
-                     <layout class="QGridLayout" name="gridLayout_38">
-                      <item row="0" column="0">
-                       <widget class="QTabWidget" name="tabWidget_6">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
+                     <property name="statusTip">
+                      <string/>
+                     </property>
+                     <property name="title">
+                      <string>Event: Image Scan</string>
+                     </property>
+                     <layout class="QGridLayout" name="gridLayout_50">
+                      <item row="0" column="0" alignment="Qt::AlignTop">
+                       <widget class="QTabWidget" name="sync_confocal_image_tab">
+                        <property name="toolTip">
+                         <string>Select event type for when the laser is inside the image FOV</string>
                         </property>
                         <property name="currentIndex">
                          <number>2</number>
                         </property>
-                        <widget class="QWidget" name="tab_11">
+                        <widget class="QWidget" name="sync_confocal_image_off_tab">
+                         <property name="toolTip">
+                          <string>Turn LED off when the laser is inside the image FOV</string>
+                         </property>
                          <attribute name="title">
                           <string>LED Off</string>
                          </attribute>
-                         <layout class="QGridLayout" name="gridLayout_52">
+                         <layout class="QGridLayout" name="gridLayout_62">
                           <item row="0" column="0">
-                           <widget class="QLabel" name="label_45">
+                           <widget class="QLabel" name="sync_confocal_image_off_label">
+                            <property name="toolTip">
+                             <string>Turn LED off when the laser is inside the image FOV</string>
+                            </property>
                             <property name="text">
                              <string>Turn active LED off</string>
                             </property>
@@ -2456,40 +2170,58 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                           </item>
                          </layout>
                         </widget>
-                        <widget class="QWidget" name="tab_12">
+                        <widget class="QWidget" name="sync_confocal_image_constant_tab">
+                         <property name="toolTip">
+                          <string>Turn LED on to constant intensity when the laser is inside the image FOV</string>
+                         </property>
                          <attribute name="title">
                           <string>Constant Value</string>
                          </attribute>
-                         <layout class="QGridLayout" name="gridLayout_53">
-                          <item row="0" column="0">
-                           <widget class="QGroupBox" name="groupBox_25">
+                         <layout class="QGridLayout" name="gridLayout_64">
+                          <item row="0" column="0" alignment="Qt::AlignTop">
+                           <widget class="QGroupBox" name="sync_confocal_image_constant_LED_box">
+                            <property name="toolTip">
+                             <string>Select the active LED channel when the laser is inside the image FOV</string>
+                            </property>
                             <property name="title">
                              <string>LED Channel</string>
                             </property>
-                            <layout class="QGridLayout" name="gridLayout_54">
+                            <layout class="QGridLayout" name="gridLayout_67">
                              <item row="0" column="2">
-                              <widget class="QRadioButton" name="radioButton_63">
+                              <widget class="QRadioButton" name="sync_confocal_image_constant_LED3_button">
+                               <property name="toolTip">
+                                <string>Set LED #3 active when the laser is inside the image FOV</string>
+                               </property>
                                <property name="text">
                                 <string>LED #3</string>
                                </property>
                               </widget>
                              </item>
                              <item row="0" column="0">
-                              <widget class="QRadioButton" name="radioButton_64">
+                              <widget class="QRadioButton" name="sync_confocal_image_constant_LED1_button">
+                               <property name="toolTip">
+                                <string>Set LED #1 active when the laser is inside the image FOV</string>
+                               </property>
                                <property name="text">
                                 <string>LED #1</string>
                                </property>
                               </widget>
                              </item>
                              <item row="0" column="1">
-                              <widget class="QRadioButton" name="radioButton_65">
+                              <widget class="QRadioButton" name="sync_confocal_image_constant_LED2_button">
+                               <property name="toolTip">
+                                <string>Set LED #2 active when the laser is inside the image FOV</string>
+                               </property>
                                <property name="text">
                                 <string>LED #2</string>
                                </property>
                               </widget>
                              </item>
                              <item row="0" column="4">
-                              <widget class="QRadioButton" name="radioButton_66">
+                              <widget class="QRadioButton" name="sync_confocal_image_constant_LEDn_button">
+                               <property name="toolTip">
+                                <string>Do not change active LED when the laser is inside the image FOV</string>
+                               </property>
                                <property name="text">
                                 <string>Current LED</string>
                                </property>
@@ -2499,7 +2231,10 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                               </widget>
                              </item>
                              <item row="0" column="3">
-                              <widget class="QRadioButton" name="radioButton_67">
+                              <widget class="QRadioButton" name="sync_confocal_image_constant_LED4_button">
+                               <property name="toolTip">
+                                <string>Set LED #4 active when the laser is inside the image FOV</string>
+                               </property>
                                <property name="text">
                                 <string>LED #4</string>
                                </property>
@@ -2509,23 +2244,32 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                            </widget>
                           </item>
                           <item row="1" column="0">
-                           <widget class="QFrame" name="frame_7">
+                           <widget class="QFrame" name="sync_confocal_image_constant_config_frame">
+                            <property name="toolTip">
+                             <string>Set the LED intensity and duration when the laser is inside the image FOV</string>
+                            </property>
                             <property name="frameShape">
                              <enum>QFrame::StyledPanel</enum>
                             </property>
                             <property name="frameShadow">
                              <enum>QFrame::Raised</enum>
                             </property>
-                            <layout class="QGridLayout" name="gridLayout_55" columnstretch="0,10,0">
+                            <layout class="QGridLayout" name="gridLayout_69" columnstretch="0,10,0">
                              <item row="1" column="2">
-                              <widget class="QLabel" name="label_59">
+                              <widget class="QLabel" name="sync_confocal_image_constant_config_current_label2">
+                               <property name="toolTip">
+                                <string>Set the LED current when the laser is inside the image FOV</string>
+                               </property>
                                <property name="text">
                                 <string>%</string>
                                </property>
                               </widget>
                              </item>
                              <item row="0" column="1">
-                              <widget class="QDoubleSpinBox" name="doubleSpinBox_26">
+                              <widget class="QDoubleSpinBox" name="sync_confocal_image_constant_config_PWM_box">
+                               <property name="toolTip">
+                                <string>Set the LED PWM when the laser is inside the image FOV</string>
+                               </property>
                                <property name="alignment">
                                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                                </property>
@@ -2538,23 +2282,29 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                               </widget>
                              </item>
                              <item row="0" column="2">
-                              <widget class="QLabel" name="label_60">
+                              <widget class="QLabel" name="sync_confocal_image_constant_config_PWM_label2">
+                               <property name="toolTip">
+                                <string>Set the LED PWM when the laser is inside the image FOV</string>
+                               </property>
                                <property name="text">
                                 <string>%</string>
                                </property>
                               </widget>
                              </item>
                              <item row="2" column="0">
-                              <widget class="QLabel" name="label_61">
+                              <widget class="QLabel" name="sync_confocal_image_constant_config_duration_label1">
+                               <property name="toolTip">
+                                <string>NOTE: 0 seconds = LED stays on until mirror flyback</string>
+                               </property>
                                <property name="text">
                                 <string>Duration:</string>
                                </property>
                               </widget>
                              </item>
                              <item row="2" column="1">
-                              <widget class="QDoubleSpinBox" name="doubleSpinBox_27">
+                              <widget class="QDoubleSpinBox" name="sync_confocal_image_constant_config_duration_box">
                                <property name="toolTip">
-                                <string>Set value to 0 for LED to stay on for duration of trigger</string>
+                                <string>NOTE: 0 seconds = LED stays on until mirror flyback</string>
                                </property>
                                <property name="alignment">
                                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2574,7 +2324,10 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                               </widget>
                              </item>
                              <item row="1" column="1">
-                              <widget class="QDoubleSpinBox" name="doubleSpinBox_28">
+                              <widget class="QDoubleSpinBox" name="sync_confocal_image_constant_config_current_box">
+                               <property name="toolTip">
+                                <string>Set the LED current when the laser is inside the image FOV</string>
+                               </property>
                                <property name="alignment">
                                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                                </property>
@@ -2587,21 +2340,35 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                               </widget>
                              </item>
                              <item row="0" column="0">
-                              <widget class="QLabel" name="label_62">
+                              <widget class="QLabel" name="sync_confocal_image_constant_config_PWM_label1">
+                               <property name="toolTip">
+                                <string>Set the LED PWM when the laser is inside the image FOV</string>
+                               </property>
                                <property name="text">
                                 <string>LED PWM:</string>
                                </property>
                               </widget>
                              </item>
                              <item row="2" column="2">
-                              <widget class="QLabel" name="label_63">
+                              <widget class="QLabel" name="sync_confocal_image_constant_config_duration_label2">
+                               <property name="font">
+                                <font>
+                                 <strikeout>false</strikeout>
+                                </font>
+                               </property>
+                               <property name="toolTip">
+                                <string>NOTE: 0 seconds = LED stays on until mirror flyback</string>
+                               </property>
                                <property name="text">
                                 <string>sec</string>
                                </property>
                               </widget>
                              </item>
                              <item row="1" column="0">
-                              <widget class="QLabel" name="label_64">
+                              <widget class="QLabel" name="sync_confocal_image_constant_config_current_label1">
+                               <property name="toolTip">
+                                <string>Set the LED current when the laser is inside the image FOV</string>
+                               </property>
                                <property name="text">
                                 <string>LED Current:</string>
                                </property>
@@ -2612,13 +2379,19 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                           </item>
                          </layout>
                         </widget>
-                        <widget class="QWidget" name="tab_13">
+                        <widget class="QWidget" name="sync_confocal_image_sequence_tab">
+                         <property name="toolTip">
+                          <string>Run LED through sequence of intensities when the laser is inside the image FOV</string>
+                         </property>
                          <attribute name="title">
                           <string>Sequence</string>
                          </attribute>
-                         <layout class="QGridLayout" name="gridLayout_56">
+                         <layout class="QGridLayout" name="gridLayout_76">
                           <item row="0" column="0" colspan="2">
-                           <widget class="QTableWidget" name="tableWidget_5">
+                           <widget class="QTableWidget" name="sync_confocal_image_sequence_table">
+                            <property name="toolTip">
+                             <string>LED intensity sequence file</string>
+                            </property>
                             <property name="rowCount">
                              <number>100</number>
                             </property>
@@ -2748,14 +2521,20 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                            </widget>
                           </item>
                           <item row="1" column="0">
-                           <widget class="QPushButton" name="pushButton_26">
+                           <widget class="QPushButton" name="sync_confocal_image_sequence_load_button">
+                            <property name="toolTip">
+                             <string>Load LED intensity sequence file (*.lsq)</string>
+                            </property>
                             <property name="text">
                              <string>Load Wave File</string>
                             </property>
                            </widget>
                           </item>
                           <item row="1" column="1">
-                           <widget class="QPushButton" name="pushButton_27">
+                           <widget class="QPushButton" name="sync_confocal_image_sequence_save_button">
+                            <property name="toolTip">
+                             <string>Save LED intensity sequence file (*.lsq)</string>
+                            </property>
                             <property name="text">
                              <string>Save Wave File</string>
                             </property>
@@ -2763,13 +2542,19 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                           </item>
                          </layout>
                         </widget>
-                        <widget class="QWidget" name="tab_9">
+                        <widget class="QWidget" name="sync_confocal_image_external_tab">
+                         <property name="toolTip">
+                          <string>Directly drive the op-amp non-inverting input with an external analog voltage</string>
+                         </property>
                          <attribute name="title">
                           <string>External Analog</string>
                          </attribute>
                          <layout class="QGridLayout" name="gridLayout_36">
                           <item row="0" column="0">
-                           <widget class="QLabel" name="label_36">
+                           <widget class="QLabel" name="sync_confocal_image_external_label">
+                            <property name="toolTip">
+                             <string>Use at your own risk...</string>
+                            </property>
                             <property name="text">
                              <string>Warning: This mode bypasses preset current limits and uses the dedicated &quot;External Analog&quot; channel to directly connect the input analog voltage to the non-inverting input of the driver's op-amp.  Supplying excessive voltage to this input can damage the LED, Teensy, and driver circuit. Use this mode at your own risk.
 
@@ -2787,62 +2572,443 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                      </layout>
                     </widget>
                    </item>
-                   <item row="0" column="0">
-                    <widget class="QGroupBox" name="sync_confocal_shutter_box">
+                   <item row="4" column="0">
+                    <widget class="QGroupBox" name="sync_confocal_flyback_box">
                      <property name="toolTip">
-                      <string>The shutter output voltage is used to determine the start and stop of a scan.</string>
+                      <string>Configure LED intensity input when the laser is outside the image FOV (flyback)</string>
+                     </property>
+                     <property name="statusTip">
+                      <string/>
                      </property>
                      <property name="title">
-                      <string>Shutter Sync</string>
+                      <string>Event: Mirror Flyback</string>
                      </property>
-                     <layout class="QGridLayout" name="gridLayout_63" columnstretch="0,0,10">
-                      <item row="1" column="1">
-                       <widget class="QRadioButton" name="sync_confocal_shutter_high_button">
+                     <layout class="QGridLayout" name="gridLayout_52">
+                      <item row="0" column="0" alignment="Qt::AlignTop">
+                       <widget class="QTabWidget" name="sync_confocal_flyback_tab">
                         <property name="toolTip">
-                         <string>Shutter output voltage goes high when shutter is open</string>
+                         <string>Select event type for when the laser is outside the image FOV (flyback)</string>
                         </property>
-                        <property name="text">
-                         <string>HIGH</string>
+                        <property name="currentIndex">
+                         <number>3</number>
                         </property>
-                        <property name="checked">
-                         <bool>true</bool>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="0">
-                       <widget class="QLabel" name="sync_confocal_shutter_polarity_label">
-                        <property name="minimumSize">
-                         <size>
-                          <width>0</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="toolTip">
-                         <string>The polarity of the shutter output voltage when the shutter is open.</string>
-                        </property>
-                        <property name="text">
-                         <string>Shutter open trigger polarity:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="2">
-                       <widget class="QRadioButton" name="sync_confocal_shutter_low_button">
-                        <property name="toolTip">
-                         <string>Shutter output voltage goes low when shutter is open</string>
-                        </property>
-                        <property name="text">
-                         <string>LOW</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="0" colspan="3">
-                       <widget class="QLabel" name="sync_confocal_shutter_label">
-                        <property name="toolTip">
-                         <string>The shutter input channel is fixed to channel #1</string>
-                        </property>
-                        <property name="text">
-                         <string>NOTE: Connect the shutter sync input to channel #1.</string>
-                        </property>
+                        <widget class="QWidget" name="sync_confocal_flyback_off_tab">
+                         <property name="toolTip">
+                          <string>Turn LED off when the laser is outside the image FOV (flyback)</string>
+                         </property>
+                         <attribute name="title">
+                          <string>LED Off</string>
+                         </attribute>
+                         <layout class="QGridLayout" name="gridLayout_89">
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="sync_confocal_flyback_off_label">
+                            <property name="toolTip">
+                             <string>Turn LED off when the laser is outside the image FOV (flyback)</string>
+                            </property>
+                            <property name="text">
+                             <string>Turn active LED off</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                        <widget class="QWidget" name="sync_confocal_flyback_constant_tab">
+                         <property name="toolTip">
+                          <string>Turn LED on to constant intensity when the laser is outside the image FOV (flyback)</string>
+                         </property>
+                         <attribute name="title">
+                          <string>Constant Value</string>
+                         </attribute>
+                         <layout class="QGridLayout" name="gridLayout_90">
+                          <item row="0" column="0" alignment="Qt::AlignTop">
+                           <widget class="QGroupBox" name="sync_confocal_flyback_constant_LED_box">
+                            <property name="toolTip">
+                             <string>Select the active LED channel when the laser is outside the image FOV (flyback)</string>
+                            </property>
+                            <property name="title">
+                             <string>LED Channel</string>
+                            </property>
+                            <layout class="QGridLayout" name="gridLayout_91">
+                             <item row="0" column="2">
+                              <widget class="QRadioButton" name="sync_confocal_flyback_constant_LED3_button">
+                               <property name="toolTip">
+                                <string>Set LED #3 active when the laser is outside the image FOV (flyback)</string>
+                               </property>
+                               <property name="text">
+                                <string>LED #3</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="0" column="0">
+                              <widget class="QRadioButton" name="sync_confocal_flyback_constant_LED1_button">
+                               <property name="toolTip">
+                                <string>Set LED #1 active when the laser is outside the image FOV (flyback)</string>
+                               </property>
+                               <property name="text">
+                                <string>LED #1</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="0" column="1">
+                              <widget class="QRadioButton" name="sync_confocal_flyback_constant_LED2_button">
+                               <property name="toolTip">
+                                <string>Set LED #2 active when the laser is outside the image FOV (flyback)</string>
+                               </property>
+                               <property name="text">
+                                <string>LED #2</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="0" column="4">
+                              <widget class="QRadioButton" name="sync_confocal_flyback_constant_LEDn_button">
+                               <property name="toolTip">
+                                <string>Do not change active LED when the laser is outside the image FOV (flyback)</string>
+                               </property>
+                               <property name="text">
+                                <string>Current LED</string>
+                               </property>
+                               <property name="checked">
+                                <bool>true</bool>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="0" column="3">
+                              <widget class="QRadioButton" name="sync_confocal_flyback_constant_LED4_button">
+                               <property name="toolTip">
+                                <string>Set LED #4 active when the laser is outside the image FOV (flyback)</string>
+                               </property>
+                               <property name="text">
+                                <string>LED #4</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item row="1" column="0">
+                           <widget class="QFrame" name="sync_confocal_flyback_constant_config_frame">
+                            <property name="toolTip">
+                             <string>Set the LED intensity and duration when the laser is outside the image FOV (flyback)</string>
+                            </property>
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QGridLayout" name="gridLayout_92" columnstretch="0,10,0">
+                             <item row="1" column="2">
+                              <widget class="QLabel" name="sync_confocal_flyback_constant_config_current_label2">
+                               <property name="toolTip">
+                                <string>Set the LED current when the laser is outside the image FOV (flyback)</string>
+                               </property>
+                               <property name="text">
+                                <string>%</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="0" column="1">
+                              <widget class="QDoubleSpinBox" name="sync_confocal_flyback_constant_config_PWM_box">
+                               <property name="toolTip">
+                                <string>Set the LED PWM when the laser is outside the image FOV (flyback)</string>
+                               </property>
+                               <property name="alignment">
+                                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                               </property>
+                               <property name="decimals">
+                                <number>3</number>
+                               </property>
+                               <property name="maximum">
+                                <double>100.000000000000000</double>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="0" column="2">
+                              <widget class="QLabel" name="sync_confocal_flyback_constant_config_PWM_label2">
+                               <property name="toolTip">
+                                <string>Set the LED PWM when the laser is outside the image FOV (flyback)</string>
+                               </property>
+                               <property name="text">
+                                <string>%</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="2" column="0">
+                              <widget class="QLabel" name="sync_confocal_flyback_constant_config_duration_label1">
+                               <property name="toolTip">
+                                <string>NOTE: 0 seconds = LED stays on until start of image scan</string>
+                               </property>
+                               <property name="text">
+                                <string>Duration:</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="2" column="1">
+                              <widget class="QDoubleSpinBox" name="sync_confocal_flyback_constant_config_duration_box">
+                               <property name="toolTip">
+                                <string>NOTE: 0 seconds = LED stays on until start of image scan</string>
+                               </property>
+                               <property name="alignment">
+                                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                               </property>
+                               <property name="readOnly">
+                                <bool>false</bool>
+                               </property>
+                               <property name="specialValueText">
+                                <string/>
+                               </property>
+                               <property name="decimals">
+                                <number>3</number>
+                               </property>
+                               <property name="maximum">
+                                <double>4294.960000000000036</double>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="1" column="1">
+                              <widget class="QDoubleSpinBox" name="sync_confocal_flyback_constant_config_current_box">
+                               <property name="toolTip">
+                                <string>Set the LED current when the laser is outside the image FOV (flyback)</string>
+                               </property>
+                               <property name="alignment">
+                                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                               </property>
+                               <property name="decimals">
+                                <number>3</number>
+                               </property>
+                               <property name="maximum">
+                                <double>100.000000000000000</double>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="0" column="0">
+                              <widget class="QLabel" name="sync_confocal_flyback_constant_config_PWM_label1">
+                               <property name="toolTip">
+                                <string>Set the LED PWM when the laser is outside the image FOV (flyback)</string>
+                               </property>
+                               <property name="text">
+                                <string>LED PWM:</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="2" column="2">
+                              <widget class="QLabel" name="sync_confocal_flyback_constant_config_duration_label2">
+                               <property name="font">
+                                <font>
+                                 <strikeout>false</strikeout>
+                                </font>
+                               </property>
+                               <property name="toolTip">
+                                <string>NOTE: 0 seconds = LED stays on until start of image scan</string>
+                               </property>
+                               <property name="text">
+                                <string>sec</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="1" column="0">
+                              <widget class="QLabel" name="sync_confocal_flyback_constant_config_current_label1">
+                               <property name="toolTip">
+                                <string>Set the LED current when the laser is outside the image FOV (flyback)</string>
+                               </property>
+                               <property name="text">
+                                <string>LED Current:</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                        <widget class="QWidget" name="sync_confocal_flyback_sequence_tab">
+                         <property name="toolTip">
+                          <string>Run LED through sequence of intensities when the laser is outside the image FOV (flyback)</string>
+                         </property>
+                         <attribute name="title">
+                          <string>Sequence</string>
+                         </attribute>
+                         <layout class="QGridLayout" name="gridLayout_93">
+                          <item row="0" column="0" colspan="2">
+                           <widget class="QTableWidget" name="sync_confocal_flyback_sequence_table">
+                            <property name="toolTip">
+                             <string>LED intensity sequence file</string>
+                            </property>
+                            <property name="rowCount">
+                             <number>100</number>
+                            </property>
+                            <property name="columnCount">
+                             <number>4</number>
+                            </property>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <row/>
+                            <column>
+                             <property name="text">
+                              <string>LED #</string>
+                             </property>
+                            </column>
+                            <column>
+                             <property name="text">
+                              <string>LED PWM (%)</string>
+                             </property>
+                            </column>
+                            <column>
+                             <property name="text">
+                              <string>LED current (%)</string>
+                             </property>
+                            </column>
+                            <column>
+                             <property name="text">
+                              <string>Duration (s)</string>
+                             </property>
+                            </column>
+                           </widget>
+                          </item>
+                          <item row="1" column="0">
+                           <widget class="QPushButton" name="sync_confocal_flyback_sequence_load_button">
+                            <property name="toolTip">
+                             <string>Load LED intensity sequence file (*.lsq)</string>
+                            </property>
+                            <property name="text">
+                             <string>Load Wave File</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="1">
+                           <widget class="QPushButton" name="sync_confocal_flyback_sequence_save_button">
+                            <property name="toolTip">
+                             <string>Save LED intensity sequence file (*.lsq)</string>
+                            </property>
+                            <property name="text">
+                             <string>Save Wave File</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                        <widget class="QWidget" name="sync_confocal_flyback_external_tab">
+                         <property name="toolTip">
+                          <string>Directly drive the op-amp non-inverting input with an external analog voltage</string>
+                         </property>
+                         <attribute name="title">
+                          <string>External Analog</string>
+                         </attribute>
+                         <layout class="QGridLayout" name="gridLayout_38">
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="sync_confocal_flyback_external_label">
+                            <property name="toolTip">
+                             <string>Use at your own risk...</string>
+                            </property>
+                            <property name="text">
+                             <string>Warning: This mode bypasses preset current limits and uses the dedicated &quot;External Analog&quot; channel to directly connect the input analog voltage to the non-inverting input of the driver's op-amp.  Supplying excessive voltage to this input can damage the LED, Teensy, and driver circuit. Use this mode at your own risk.
+
+This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negative voltage (around -50mV) will need to be input to fully turn off the LED.    </string>
+                            </property>
+                            <property name="wordWrap">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
                        </widget>
                       </item>
                      </layout>
@@ -2933,8 +3099,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>611</width>
-             <height>1109</height>
+             <width>642</width>
+             <height>1130</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_16">
@@ -3932,7 +4098,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>616</width>
+     <width>686</width>
      <height>21</height>
     </rect>
    </property>
