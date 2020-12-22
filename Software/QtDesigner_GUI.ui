@@ -428,8 +428,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>554</width>
-                 <height>943</height>
+                 <width>523</width>
+                 <height>628</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1348,8 +1348,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>554</width>
-                 <height>943</height>
+                 <width>548</width>
+                 <height>471</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1732,9 +1732,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-83</y>
-                 <width>607</width>
-                 <height>1048</height>
+                 <y>0</y>
+                 <width>525</width>
+                 <height>1080</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3024,8 +3024,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>624</width>
-                 <height>947</height>
+                 <width>308</width>
+                 <height>37</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3095,18 +3095,18 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
        </attribute>
        <layout class="QGridLayout" name="gridLayout_10">
         <item row="1" column="1">
-         <widget class="QPushButton" name="pushButton_6">
+         <widget class="QPushButton" name="configure_upload_button">
           <property name="text">
            <string>Upload to Driver</string>
           </property>
          </widget>
         </item>
         <item row="0" column="0" colspan="5">
-         <widget class="QScrollArea" name="scrollArea">
+         <widget class="QScrollArea" name="configure_scroll_area">
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents">
+          <widget class="QWidget" name="configure_scroll_area_contents">
            <property name="geometry">
             <rect>
              <x>0</x>
@@ -3168,13 +3168,13 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
              </widget>
             </item>
             <item row="0" column="0">
-             <widget class="QGroupBox" name="groupBox_14">
+             <widget class="QGroupBox" name="configure_name_box">
               <property name="title">
                <string>Name</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_20">
                <item row="0" column="1">
-                <widget class="QLineEdit" name="lineEdit">
+                <widget class="QLineEdit" name="configure_name_driver_line_edit">
                  <property name="text">
                   <string>123456789</string>
                  </property>
@@ -3183,29 +3183,25 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  </property>
                 </widget>
                </item>
-               <item row="0" column="3">
-                <widget class="QLabel" name="label_26">
-                 <property name="text">
-                  <string>123456789</string>
-                 </property>
-                </widget>
-               </item>
                <item row="0" column="0">
-                <widget class="QLabel" name="label_24">
+                <widget class="QLabel" name="configure_name_driver_label">
                  <property name="text">
                   <string>Driver Name:</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="2">
-                <widget class="QLabel" name="label_25">
+                <widget class="QLabel" name="configure_name_driver_serial_label">
+                 <property name="lineWidth">
+                  <number>10</number>
+                 </property>
                  <property name="text">
-                  <string>Serial #:</string>
+                  <string>Serial #: 123456789</string>
                  </property>
                 </widget>
                </item>
                <item row="1" column="0" colspan="4">
-                <widget class="QFrame" name="frame">
+                <widget class="QFrame" name="configure_name_LED_frame">
                  <property name="frameShape">
                   <enum>QFrame::StyledPanel</enum>
                  </property>
@@ -3220,7 +3216,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                    <number>0</number>
                   </property>
                   <item row="0" column="0">
-                   <widget class="QCheckBox" name="checkBox_11">
+                   <widget class="QCheckBox" name="configure_name_LED1_box">
                     <property name="text">
                      <string>LED #1</string>
                     </property>
@@ -3230,7 +3226,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                    </widget>
                   </item>
                   <item row="1" column="1" colspan="2">
-                   <widget class="QLineEdit" name="lineEdit_3">
+                   <widget class="QLineEdit" name="configure_name_LED2_line_edit">
                     <property name="text">
                      <string>LED #2</string>
                     </property>
@@ -3240,7 +3236,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                    </widget>
                   </item>
                   <item row="0" column="1" colspan="2">
-                   <widget class="QLineEdit" name="lineEdit_2">
+                   <widget class="QLineEdit" name="configure_name_LED1_line_edit">
                     <property name="text">
                      <string>LED #1</string>
                     </property>
@@ -3250,7 +3246,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                    </widget>
                   </item>
                   <item row="1" column="3">
-                   <widget class="QCheckBox" name="checkBox_14">
+                   <widget class="QCheckBox" name="configure_name_LED4_box">
                     <property name="text">
                      <string>LED #4</string>
                     </property>
@@ -3260,7 +3256,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                    </widget>
                   </item>
                   <item row="1" column="0">
-                   <widget class="QCheckBox" name="checkBox_13">
+                   <widget class="QCheckBox" name="configure_name_LED2_box">
                     <property name="text">
                      <string>LED #2</string>
                     </property>
@@ -3270,7 +3266,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                    </widget>
                   </item>
                   <item row="0" column="3">
-                   <widget class="QCheckBox" name="checkBox_12">
+                   <widget class="QCheckBox" name="configure_name_LED3_box">
                     <property name="text">
                      <string>LED #3</string>
                     </property>
@@ -3280,7 +3276,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                    </widget>
                   </item>
                   <item row="0" column="4">
-                   <widget class="QLineEdit" name="lineEdit_4">
+                   <widget class="QLineEdit" name="configure_name_LED3_line_edit">
                     <property name="text">
                      <string>LED #3</string>
                     </property>
@@ -3290,7 +3286,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                    </widget>
                   </item>
                   <item row="1" column="4">
-                   <widget class="QLineEdit" name="lineEdit_5">
+                   <widget class="QLineEdit" name="configure_name_LED4_line_edit">
                     <property name="text">
                      <string>LED #4</string>
                     </property>
@@ -3313,62 +3309,62 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
              </widget>
             </item>
             <item row="5" column="0">
-             <widget class="QGroupBox" name="groupBox_6">
+             <widget class="QGroupBox" name="configure_temperature_box">
               <property name="title">
                <string>Temperature</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_12" columnstretch="0,10,0,10">
                <item row="1" column="1">
-                <widget class="QSpinBox" name="spinBox_3">
+                <widget class="QSpinBox" name="configure_temperature_transistor_fault_box">
                  <property name="specialValueText">
                   <string>80</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="3">
-                <widget class="QSpinBox" name="spinBox_2">
+                <widget class="QSpinBox" name="configure_temperature_resistor_warn_box">
                  <property name="specialValueText">
                   <string>65</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QSpinBox" name="spinBox">
+                <widget class="QSpinBox" name="configure_temperature_transistor_warn_box">
                  <property name="specialValueText">
                   <string>65</string>
                  </property>
                 </widget>
                </item>
                <item row="1" column="2">
-                <widget class="QLabel" name="label_9">
+                <widget class="QLabel" name="configure_temperature_resistor_fault_label">
                  <property name="text">
                   <string>Resistor Fault (°C):</string>
                  </property>
                 </widget>
                </item>
                <item row="1" column="3">
-                <widget class="QSpinBox" name="spinBox_4">
+                <widget class="QSpinBox" name="configure_temperature_resistor_fault_box">
                  <property name="specialValueText">
                   <string>80</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="2">
-                <widget class="QLabel" name="label_8">
+                <widget class="QLabel" name="configure_temperature_resistor_warn_label">
                  <property name="text">
                   <string>Resistor Warn (°C):</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="0">
-                <widget class="QLabel" name="label_10">
+                <widget class="QLabel" name="configure_temperature_transistor_warn_label">
                  <property name="text">
                   <string>Transistor Warn (°C):</string>
                  </property>
                 </widget>
                </item>
                <item row="1" column="0">
-                <widget class="QLabel" name="label_11">
+                <widget class="QLabel" name="configure_temperature_transistor_fault_label">
                  <property name="text">
                   <string>Transistor Fault (°C):</string>
                  </property>
@@ -3422,13 +3418,13 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QGroupBox" name="groupBox_10">
+             <widget class="QGroupBox" name="configure_resistor_box">
               <property name="title">
                <string>Current Sense Resistors (Ω) </string>
               </property>
               <layout class="QGridLayout" name="gridLayout_15" columnstretch="0,10,0,10,0,10,0,10">
                <item row="0" column="0">
-                <widget class="QCheckBox" name="checkBox_3">
+                <widget class="QCheckBox" name="configure_resistor1_box">
                  <property name="text">
                   <string/>
                  </property>
@@ -3438,7 +3434,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </widget>
                </item>
                <item row="0" column="2">
-                <widget class="QCheckBox" name="checkBox_4">
+                <widget class="QCheckBox" name="configure_resistor2_box">
                  <property name="text">
                   <string/>
                  </property>
@@ -3448,28 +3444,28 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </widget>
                </item>
                <item row="0" column="4">
-                <widget class="QCheckBox" name="checkBox_5">
+                <widget class="QCheckBox" name="configure_resistor3_box">
                  <property name="text">
                   <string/>
                  </property>
                 </widget>
                </item>
                <item row="0" column="6">
-                <widget class="QCheckBox" name="checkBox_6">
+                <widget class="QCheckBox" name="configure_resistor4_box">
                  <property name="text">
                   <string/>
                  </property>
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+                <widget class="QDoubleSpinBox" name="configure_resistor1_spin_box">
                  <property name="specialValueText">
                   <string>5.00</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="3">
-                <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
+                <widget class="QDoubleSpinBox" name="configure_resistor2_spin_box">
                  <property name="enabled">
                   <bool>true</bool>
                  </property>
@@ -3479,14 +3475,14 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </widget>
                </item>
                <item row="0" column="5">
-                <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
+                <widget class="QDoubleSpinBox" name="configure_resistor3_spin_box">
                  <property name="enabled">
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item row="0" column="7">
-                <widget class="QDoubleSpinBox" name="doubleSpinBox_6">
+                <widget class="QDoubleSpinBox" name="configure_resistor4_spin_box">
                  <property name="enabled">
                   <bool>false</bool>
                  </property>
@@ -3578,27 +3574,27 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QGroupBox" name="groupBox_11">
+             <widget class="QGroupBox" name="configure_current_limit_box">
               <property name="title">
                <string>LED Current Limit (A)</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_17" columnstretch="0,10,0,10">
                <item row="1" column="3">
-                <widget class="QDoubleSpinBox" name="doubleSpinBox_10">
+                <widget class="QDoubleSpinBox" name="configure_current_limit_LED4_spin_box">
                  <property name="specialValueText">
                   <string>1.00</string>
                  </property>
                 </widget>
                </item>
                <item row="2" column="0" colspan="4">
-                <widget class="QPushButton" name="pushButton_10">
+                <widget class="QPushButton" name="configure_current_limit_test_button">
                  <property name="text">
                   <string>Test LED Current</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="2">
-                <widget class="QCheckBox" name="checkBox_9">
+                <widget class="QCheckBox" name="configure_current_limit_LED3_box">
                  <property name="text">
                   <string>LED #3</string>
                  </property>
@@ -3608,7 +3604,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </widget>
                </item>
                <item row="1" column="0">
-                <widget class="QCheckBox" name="checkBox_8">
+                <widget class="QCheckBox" name="configure_current_limit_LED2_box">
                  <property name="text">
                   <string>LED #2</string>
                  </property>
@@ -3618,21 +3614,21 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QDoubleSpinBox" name="doubleSpinBox_7">
+                <widget class="QDoubleSpinBox" name="configure_current_limit_LED1_spin_box">
                  <property name="specialValueText">
                   <string>1.00</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="3">
-                <widget class="QDoubleSpinBox" name="doubleSpinBox_8">
+                <widget class="QDoubleSpinBox" name="configure_current_limit_LED3_spin_box">
                  <property name="specialValueText">
                   <string>1.00</string>
                  </property>
                 </widget>
                </item>
                <item row="1" column="2">
-                <widget class="QCheckBox" name="checkBox_10">
+                <widget class="QCheckBox" name="configure_current_limit_LED4_box">
                  <property name="text">
                   <string>LED #4</string>
                  </property>
@@ -3642,14 +3638,14 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </widget>
                </item>
                <item row="1" column="1">
-                <widget class="QDoubleSpinBox" name="doubleSpinBox_9">
+                <widget class="QDoubleSpinBox" name="configure_current_limit_LED2_spin_box">
                  <property name="specialValueText">
                   <string>1.00</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="0">
-                <widget class="QCheckBox" name="checkBox_7">
+                <widget class="QCheckBox" name="configure_current_limit_LED1_box">
                  <property name="text">
                   <string>LED #1</string>
                  </property>
@@ -3662,7 +3658,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
              </widget>
             </item>
             <item row="3" column="0" alignment="Qt::AlignTop">
-             <widget class="QGroupBox" name="groupBox_13">
+             <widget class="QGroupBox" name="configure_LED_merge_box">
               <property name="toolTip">
                <string>Combine channels to drive LEDs at up to 4A.</string>
               </property>
@@ -3671,7 +3667,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
               </property>
               <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,0,0,0,0,0,0,0">
                <item row="1" column="1">
-                <widget class="QRadioButton" name="radioButton_24">
+                <widget class="QRadioButton" name="configure_LED_merge_channel2_button1">
                  <property name="text">
                   <string>LED #1</string>
                  </property>
@@ -3681,7 +3677,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </widget>
                </item>
                <item row="2" column="3" rowspan="2">
-                <widget class="QRadioButton" name="radioButton_29">
+                <widget class="QRadioButton" name="configure_LED_merge_channel3_button2">
                  <property name="text">
                   <string>LED #2</string>
                  </property>
@@ -3691,21 +3687,21 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </widget>
                </item>
                <item row="1" column="0">
-                <widget class="QLabel" name="label_21">
+                <widget class="QLabel" name="configure_LED_merge_channel2_label">
                  <property name="text">
                   <string>Channel #2:</string>
                  </property>
                 </widget>
                </item>
                <item row="4" column="0">
-                <widget class="QLabel" name="label_23">
+                <widget class="QLabel" name="configure_LED_merge_channel4_label">
                  <property name="text">
                   <string>Channel #4:</string>
                  </property>
                 </widget>
                </item>
                <item row="1" column="3">
-                <widget class="QRadioButton" name="radioButton_25">
+                <widget class="QRadioButton" name="configure_LED_merge_channel2_button2">
                  <property name="text">
                   <string>LED #2</string>
                  </property>
@@ -3718,21 +3714,21 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </widget>
                </item>
                <item row="2" column="0">
-                <widget class="QLabel" name="label_22">
+                <widget class="QLabel" name="configure_LED_merge_channel3_label">
                  <property name="text">
                   <string>Channel #3:</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="0">
-                <widget class="QLabel" name="label_20">
+                <widget class="QLabel" name="configure_LED_merge_channel1_label">
                  <property name="text">
                   <string>Channel #1:</string>
                  </property>
                 </widget>
                </item>
                <item row="2" column="1" rowspan="2">
-                <widget class="QRadioButton" name="radioButton_28">
+                <widget class="QRadioButton" name="configure_LED_merge_channel3_button1">
                  <property name="text">
                   <string>LED #1</string>
                  </property>
@@ -3742,7 +3738,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </widget>
                </item>
                <item row="4" column="1">
-                <widget class="QRadioButton" name="radioButton_32">
+                <widget class="QRadioButton" name="configure_LED_merge_channel4_button1">
                  <property name="text">
                   <string>LED #1</string>
                  </property>
@@ -3752,7 +3748,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QRadioButton" name="radioButton_18">
+                <widget class="QRadioButton" name="configure_LED_merge_channel1_button1">
                  <property name="text">
                   <string>LED #1</string>
                  </property>
@@ -3765,7 +3761,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </widget>
                </item>
                <item row="4" column="3">
-                <widget class="QRadioButton" name="radioButton_33">
+                <widget class="QRadioButton" name="configure_LED_merge_channel4_button2">
                  <property name="text">
                   <string>LED #2</string>
                  </property>
@@ -3775,7 +3771,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </widget>
                </item>
                <item row="2" column="5" rowspan="2">
-                <widget class="QRadioButton" name="radioButton_27">
+                <widget class="QRadioButton" name="configure_LED_merge_channel3_button3">
                  <property name="text">
                   <string>LED #3</string>
                  </property>
@@ -3788,7 +3784,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </widget>
                </item>
                <item row="4" column="5">
-                <widget class="QRadioButton" name="radioButton_31">
+                <widget class="QRadioButton" name="configure_LED_merge_channel4_button3">
                  <property name="text">
                   <string>LED #3</string>
                  </property>
@@ -3798,7 +3794,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </widget>
                </item>
                <item row="4" column="7">
-                <widget class="QRadioButton" name="radioButton_30">
+                <widget class="QRadioButton" name="configure_LED_merge_channel4_button4">
                  <property name="text">
                   <string>LED #4</string>
                  </property>
@@ -3951,28 +3947,28 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
          </widget>
         </item>
         <item row="1" column="4">
-         <widget class="QPushButton" name="pushButton_5">
+         <widget class="QPushButton" name="configure_load_button">
           <property name="text">
            <string>Load Configuration</string>
           </property>
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="Line" name="line_3">
+         <widget class="Line" name="configure_line">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="QPushButton" name="pushButton_7">
+         <widget class="QPushButton" name="configure_save_button">
           <property name="text">
            <string>Save Configuration</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QPushButton" name="pushButton_13">
+         <widget class="QPushButton" name="configure_download_button">
           <property name="text">
            <string>Download from Driver</string>
           </property>
@@ -4213,13 +4209,13 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="Ch_merge_3_button_group"/>
+  <buttongroup name="intensity_button_group"/>
   <buttongroup name="channel_button_group"/>
+  <buttongroup name="Ch_merge_4_button_group"/>
   <buttongroup name="axis_button_group"/>
   <buttongroup name="ext_fan_button_group"/>
-  <buttongroup name="Ch_merge_1_button_group"/>
+  <buttongroup name="Ch_merge_3_button_group"/>
   <buttongroup name="Ch_merge_2_button_group"/>
-  <buttongroup name="intensity_button_group"/>
-  <buttongroup name="Ch_merge_4_button_group"/>
+  <buttongroup name="Ch_merge_1_button_group"/>
  </buttongroups>
 </ui>
