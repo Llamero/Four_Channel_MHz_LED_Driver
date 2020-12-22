@@ -41,7 +41,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -421,7 +421,7 @@
                <string>Select the active sync mode to configure</string>
               </property>
               <property name="currentIndex">
-               <number>2</number>
+               <number>4</number>
               </property>
               <widget class="QWidget" name="sync_digital_page">
                <property name="geometry">
@@ -3019,21 +3019,27 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </item>
                </layout>
               </widget>
-              <widget class="QWidget" name="page_8">
+              <widget class="QWidget" name="sync_serial_page">
                <property name="geometry">
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>308</width>
-                 <height>37</height>
+                 <width>624</width>
+                 <height>947</height>
                 </rect>
+               </property>
+               <property name="toolTip">
+                <string>Stream LED intensity changes to driver over USB</string>
                </property>
                <attribute name="label">
                 <string>Serial</string>
                </attribute>
                <layout class="QGridLayout" name="gridLayout_68">
                 <item row="0" column="0" alignment="Qt::AlignTop">
-                 <widget class="QLabel" name="label">
+                 <widget class="QLabel" name="sync_serial_label">
+                  <property name="toolTip">
+                   <string>Stream LED intensity changes to driver over USB</string>
+                  </property>
                   <property name="text">
                    <string>Description for serial connection protocol</string>
                   </property>
@@ -3041,21 +3047,27 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </item>
                </layout>
               </widget>
-              <widget class="QWidget" name="page_4">
+              <widget class="QWidget" name="sync_custom_page">
                <property name="geometry">
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>276</width>
-                 <height>37</height>
+                 <width>624</width>
+                 <height>947</height>
                 </rect>
+               </property>
+               <property name="toolTip">
+                <string>Use custom written LED sync function in the LED driver code</string>
                </property>
                <attribute name="label">
                 <string>Custom</string>
                </attribute>
                <layout class="QGridLayout" name="gridLayout_27">
                 <item row="0" column="0" alignment="Qt::AlignTop">
-                 <widget class="QLabel" name="label_2">
+                 <widget class="QLabel" name="sync_custom_label">
+                  <property name="toolTip">
+                   <string>Use custom written LED sync function in the LED driver code</string>
+                  </property>
                   <property name="text">
                    <string>Description for custom sync function</string>
                   </property>
