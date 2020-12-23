@@ -3116,463 +3116,6 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_16">
-            <item row="9" column="0">
-             <widget class="QGroupBox" name="groupBox_7">
-              <property name="title">
-               <string>Audio</string>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_11">
-               <item row="1" column="1">
-                <widget class="QSlider" name="horizontalSlider_2">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_4">
-                 <property name="text">
-                  <string>Fault Volume</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_3">
-                 <property name="text">
-                  <string>Boot Volume</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QSlider" name="horizontalSlider">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2">
-                <widget class="QPushButton" name="pushButton_8">
-                 <property name="text">
-                  <string>Test</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="2">
-                <widget class="QPushButton" name="pushButton_9">
-                 <property name="text">
-                  <string>Test</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QGroupBox" name="configure_name_box">
-              <property name="title">
-               <string>Name</string>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_20">
-               <item row="0" column="1">
-                <widget class="QLineEdit" name="configure_name_driver_line_edit">
-                 <property name="text">
-                  <string>123456789</string>
-                 </property>
-                 <property name="maxLength">
-                  <number>15</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="configure_name_driver_label">
-                 <property name="text">
-                  <string>Driver Name:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2">
-                <widget class="QLabel" name="configure_name_driver_serial_label">
-                 <property name="lineWidth">
-                  <number>10</number>
-                 </property>
-                 <property name="text">
-                  <string>Serial #: 123456789</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0" colspan="4">
-                <widget class="QFrame" name="configure_name_LED_frame">
-                 <property name="frameShape">
-                  <enum>QFrame::StyledPanel</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Raised</enum>
-                 </property>
-                 <layout class="QGridLayout" name="gridLayout_21" columnstretch="0,10,0,0,10">
-                  <property name="leftMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>0</number>
-                  </property>
-                  <item row="0" column="0">
-                   <widget class="QCheckBox" name="configure_name_LED1_box">
-                    <property name="text">
-                     <string>LED #1</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="1" colspan="2">
-                   <widget class="QLineEdit" name="configure_name_LED2_line_edit">
-                    <property name="text">
-                     <string>LED #2</string>
-                    </property>
-                    <property name="maxLength">
-                     <number>15</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="1" colspan="2">
-                   <widget class="QLineEdit" name="configure_name_LED1_line_edit">
-                    <property name="text">
-                     <string>LED #1</string>
-                    </property>
-                    <property name="maxLength">
-                     <number>15</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="3">
-                   <widget class="QCheckBox" name="configure_name_LED4_box">
-                    <property name="text">
-                     <string>LED #4</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QCheckBox" name="configure_name_LED2_box">
-                    <property name="text">
-                     <string>LED #2</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="3">
-                   <widget class="QCheckBox" name="configure_name_LED3_box">
-                    <property name="text">
-                     <string>LED #3</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="4">
-                   <widget class="QLineEdit" name="configure_name_LED3_line_edit">
-                    <property name="text">
-                     <string>LED #3</string>
-                    </property>
-                    <property name="maxLength">
-                     <number>15</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="4">
-                   <widget class="QLineEdit" name="configure_name_LED4_line_edit">
-                    <property name="text">
-                     <string>LED #4</string>
-                    </property>
-                    <property name="maxLength">
-                     <number>15</number>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="8" column="0">
-             <widget class="Line" name="line_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0">
-             <widget class="QGroupBox" name="configure_temperature_box">
-              <property name="title">
-               <string>Temperature</string>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_12" columnstretch="0,10,0,10">
-               <item row="1" column="1">
-                <widget class="QSpinBox" name="configure_temperature_transistor_fault_box">
-                 <property name="specialValueText">
-                  <string>80</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="3">
-                <widget class="QSpinBox" name="configure_temperature_resistor_warn_box">
-                 <property name="specialValueText">
-                  <string>65</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QSpinBox" name="configure_temperature_transistor_warn_box">
-                 <property name="specialValueText">
-                  <string>65</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="2">
-                <widget class="QLabel" name="configure_temperature_resistor_fault_label">
-                 <property name="text">
-                  <string>Resistor Fault (°C):</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="3">
-                <widget class="QSpinBox" name="configure_temperature_resistor_fault_box">
-                 <property name="specialValueText">
-                  <string>80</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2">
-                <widget class="QLabel" name="configure_temperature_resistor_warn_label">
-                 <property name="text">
-                  <string>Resistor Warn (°C):</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="configure_temperature_transistor_warn_label">
-                 <property name="text">
-                  <string>Transistor Warn (°C):</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="configure_temperature_transistor_fault_label">
-                 <property name="text">
-                  <string>Transistor Fault (°C):</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="7" column="0">
-             <widget class="QGroupBox" name="groupBox_9">
-              <property name="title">
-               <string>External Thermistor</string>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,10,0,10">
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_16">
-                 <property name="text">
-                  <string>Resistance at 25°C (Ω):</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="3">
-                <widget class="QSpinBox" name="spinBox_10">
-                 <property name="specialValueText">
-                  <string>3560</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2">
-                <widget class="QLabel" name="label_17">
-                 <property name="text">
-                  <string>Beta (K):</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QSpinBox" name="spinBox_9">
-                 <property name="specialValueText">
-                  <string>4700</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="4" column="0" colspan="2">
-             <widget class="Line" name="line">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QGroupBox" name="configure_resistor_box">
-              <property name="title">
-               <string>Current Sense Resistors (Ω) </string>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_15" columnstretch="0,10,0,10,0,10,0,10">
-               <item row="0" column="0">
-                <widget class="QCheckBox" name="configure_resistor1_box">
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="checked">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2">
-                <widget class="QCheckBox" name="configure_resistor2_box">
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="checked">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="4">
-                <widget class="QCheckBox" name="configure_resistor3_box">
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="6">
-                <widget class="QCheckBox" name="configure_resistor4_box">
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QDoubleSpinBox" name="configure_resistor1_spin_box">
-                 <property name="specialValueText">
-                  <string>5.00</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="3">
-                <widget class="QDoubleSpinBox" name="configure_resistor2_spin_box">
-                 <property name="enabled">
-                  <bool>true</bool>
-                 </property>
-                 <property name="specialValueText">
-                  <string>10.0</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="5">
-                <widget class="QDoubleSpinBox" name="configure_resistor3_spin_box">
-                 <property name="enabled">
-                  <bool>false</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="7">
-                <widget class="QDoubleSpinBox" name="configure_resistor4_spin_box">
-                 <property name="enabled">
-                  <bool>false</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="10" column="0">
-             <widget class="QGroupBox" name="groupBox_12">
-              <property name="title">
-               <string>Pushbutton LEDs</string>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_18">
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_18">
-                 <property name="text">
-                  <string>Intensity</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_19">
-                 <property name="text">
-                  <string>Fault:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QRadioButton" name="radioButton_13">
-                 <property name="text">
-                  <string>Flash</string>
-                 </property>
-                 <property name="checked">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="4">
-                <widget class="QRadioButton" name="radioButton_14">
-                 <property name="text">
-                  <string>Solid</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="2">
-                <widget class="QRadioButton" name="radioButton_15">
-                 <property name="text">
-                  <string>Chase</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="3">
-                <widget class="QRadioButton" name="radioButton_16">
-                 <property name="text">
-                  <string>Pulse</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="5">
-                <widget class="QRadioButton" name="radioButton_17">
-                 <property name="text">
-                  <string>Disable</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="6">
-                <widget class="QPushButton" name="pushButton_12">
-                 <property name="text">
-                  <string>Test</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="6">
-                <widget class="QPushButton" name="pushButton_11">
-                 <property name="text">
-                  <string>Test</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1" colspan="5">
-                <widget class="QSlider" name="horizontalSlider_3">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
             <item row="1" column="0">
              <widget class="QGroupBox" name="configure_current_limit_box">
               <property name="title">
@@ -3655,6 +3198,211 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </widget>
                </item>
               </layout>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QGroupBox" name="configure_fan_box">
+              <property name="title">
+               <string>Fan</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_13" columnstretch="0,10,0,10,0,0">
+               <item row="1" column="1">
+                <widget class="QSpinBox" name="configure_fan_driver_max_box">
+                 <property name="specialValueText">
+                  <string>60</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QLabel" name="configure_fan_external_min_label">
+                 <property name="text">
+                  <string>External Fan Min (°C):</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="configure_fan_driver_min_label">
+                 <property name="text">
+                  <string>Driver Fan Min (°C):</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QSpinBox" name="configure_fan_driver_min_box">
+                 <property name="specialValueText">
+                  <string>30</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="2">
+                <widget class="QLabel" name="configure_fan_external_max_label">
+                 <property name="text">
+                  <string>External Fan Max (°C):</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0" colspan="6">
+                <widget class="QFrame" name="configure_fan_external_output_frame">
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_22" columnstretch="1,1,1,1,1">
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <item row="0" column="1">
+                   <widget class="QRadioButton" name="configure_fan_external_output1_box">
+                    <property name="text">
+                     <string>Output #1</string>
+                    </property>
+                    <attribute name="buttonGroup">
+                     <string notr="true">ext_fan_button_group</string>
+                    </attribute>
+                   </widget>
+                  </item>
+                  <item row="0" column="2">
+                   <widget class="QRadioButton" name="configure_fan_external_output2_box">
+                    <property name="text">
+                     <string>Output #2</string>
+                    </property>
+                    <attribute name="buttonGroup">
+                     <string notr="true">ext_fan_button_group</string>
+                    </attribute>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="configure_fan_external_output_label">
+                    <property name="text">
+                     <string>External Fan PWM Output:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="3">
+                   <widget class="QRadioButton" name="configure_fan_external_output3_box">
+                    <property name="text">
+                     <string>Output #3</string>
+                    </property>
+                    <attribute name="buttonGroup">
+                     <string notr="true">ext_fan_button_group</string>
+                    </attribute>
+                   </widget>
+                  </item>
+                  <item row="0" column="4">
+                   <widget class="QRadioButton" name="configure_fan_external_no_output_box">
+                    <property name="text">
+                     <string>None</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                    <attribute name="buttonGroup">
+                     <string notr="true">ext_fan_button_group</string>
+                    </attribute>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="configure_fan_driver_max_label">
+                 <property name="text">
+                  <string>Driver Fan Max (°C):</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="3" colspan="3">
+                <widget class="QSpinBox" name="configure_fan_external_max_box">
+                 <property name="specialValueText">
+                  <string>60</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3" colspan="3">
+                <widget class="QSpinBox" name="configure_fan_external_min_box">
+                 <property name="specialValueText">
+                  <string>30</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QGroupBox" name="configure_temperature_box">
+              <property name="title">
+               <string>Temperature</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_12" columnstretch="0,10,0,10">
+               <item row="1" column="1">
+                <widget class="QSpinBox" name="configure_temperature_transistor_fault_box">
+                 <property name="specialValueText">
+                  <string>80</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QSpinBox" name="configure_temperature_resistor_warn_box">
+                 <property name="specialValueText">
+                  <string>65</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QSpinBox" name="configure_temperature_transistor_warn_box">
+                 <property name="specialValueText">
+                  <string>65</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="2">
+                <widget class="QLabel" name="configure_temperature_resistor_fault_label">
+                 <property name="text">
+                  <string>Resistor Fault (°C):</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="3">
+                <widget class="QSpinBox" name="configure_temperature_resistor_fault_box">
+                 <property name="specialValueText">
+                  <string>80</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QLabel" name="configure_temperature_resistor_warn_label">
+                 <property name="text">
+                  <string>Resistor Warn (°C):</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="configure_temperature_transistor_warn_label">
+                 <property name="text">
+                  <string>Transistor Warn (°C):</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="configure_temperature_transistor_fault_label">
+                 <property name="text">
+                  <string>Transistor Fault (°C):</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="8" column="0">
+             <widget class="Line" name="configure_line2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
              </widget>
             </item>
             <item row="3" column="0" alignment="Qt::AlignTop">
@@ -3809,133 +3557,415 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
               </layout>
              </widget>
             </item>
-            <item row="6" column="0">
-             <widget class="QGroupBox" name="groupBox_8">
+            <item row="0" column="0">
+             <widget class="QGroupBox" name="configure_name_box">
               <property name="title">
-               <string>Fan</string>
+               <string>Name</string>
               </property>
-              <layout class="QGridLayout" name="gridLayout_13" columnstretch="0,10,0,10,0,0">
-               <item row="1" column="1">
-                <widget class="QSpinBox" name="spinBox_7">
-                 <property name="specialValueText">
-                  <string>60</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2">
-                <widget class="QLabel" name="label_14">
+              <layout class="QGridLayout" name="gridLayout_20">
+               <item row="0" column="1">
+                <widget class="QLineEdit" name="configure_name_driver_line_edit">
                  <property name="text">
-                  <string>External Fan Min (°C):</string>
+                  <string>123456789</string>
+                 </property>
+                 <property name="maxLength">
+                  <number>15</number>
                  </property>
                 </widget>
                </item>
                <item row="0" column="0">
-                <widget class="QLabel" name="label_12">
+                <widget class="QLabel" name="configure_name_driver_label">
                  <property name="text">
-                  <string>Driver Fan Min (°C):</string>
+                  <string>Driver Name:</string>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="1">
-                <widget class="QSpinBox" name="spinBox_5">
-                 <property name="specialValueText">
-                  <string>30</string>
+               <item row="0" column="2">
+                <widget class="QLabel" name="configure_name_driver_serial_label">
+                 <property name="lineWidth">
+                  <number>10</number>
                  </property>
-                </widget>
-               </item>
-               <item row="1" column="2">
-                <widget class="QLabel" name="label_15">
                  <property name="text">
-                  <string>External Fan Max (°C):</string>
+                  <string>Serial #: 123456789</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="0" colspan="6">
-                <widget class="QFrame" name="frame_2">
+               <item row="1" column="0" colspan="4">
+                <widget class="QFrame" name="configure_name_LED_frame">
                  <property name="frameShape">
                   <enum>QFrame::StyledPanel</enum>
                  </property>
                  <property name="frameShadow">
                   <enum>QFrame::Raised</enum>
                  </property>
-                 <layout class="QGridLayout" name="gridLayout_22" columnstretch="1,1,1,1,1">
+                 <layout class="QGridLayout" name="gridLayout_21" columnstretch="0,10,0,0,10">
                   <property name="leftMargin">
                    <number>0</number>
                   </property>
                   <property name="rightMargin">
                    <number>0</number>
                   </property>
-                  <item row="0" column="1">
-                   <widget class="QRadioButton" name="radioButton_19">
-                    <property name="text">
-                     <string>Output #1</string>
-                    </property>
-                    <attribute name="buttonGroup">
-                     <string notr="true">ext_fan_button_group</string>
-                    </attribute>
-                   </widget>
-                  </item>
-                  <item row="0" column="2">
-                   <widget class="QRadioButton" name="radioButton_20">
-                    <property name="text">
-                     <string>Output #2</string>
-                    </property>
-                    <attribute name="buttonGroup">
-                     <string notr="true">ext_fan_button_group</string>
-                    </attribute>
-                   </widget>
-                  </item>
                   <item row="0" column="0">
-                   <widget class="QLabel" name="label_27">
+                   <widget class="QCheckBox" name="configure_name_LED1_box">
                     <property name="text">
-                     <string>External Fan PWM Output:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="3">
-                   <widget class="QRadioButton" name="radioButton_21">
-                    <property name="text">
-                     <string>Output #3</string>
-                    </property>
-                    <attribute name="buttonGroup">
-                     <string notr="true">ext_fan_button_group</string>
-                    </attribute>
-                   </widget>
-                  </item>
-                  <item row="0" column="4">
-                   <widget class="QRadioButton" name="radioButton_22">
-                    <property name="text">
-                     <string>None</string>
+                     <string>LED #1</string>
                     </property>
                     <property name="checked">
                      <bool>true</bool>
                     </property>
-                    <attribute name="buttonGroup">
-                     <string notr="true">ext_fan_button_group</string>
-                    </attribute>
+                   </widget>
+                  </item>
+                  <item row="1" column="1" colspan="2">
+                   <widget class="QLineEdit" name="configure_name_LED2_line_edit">
+                    <property name="text">
+                     <string>LED #2</string>
+                    </property>
+                    <property name="maxLength">
+                     <number>15</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1" colspan="2">
+                   <widget class="QLineEdit" name="configure_name_LED1_line_edit">
+                    <property name="text">
+                     <string>LED #1</string>
+                    </property>
+                    <property name="maxLength">
+                     <number>15</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="3">
+                   <widget class="QCheckBox" name="configure_name_LED4_box">
+                    <property name="text">
+                     <string>LED #4</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QCheckBox" name="configure_name_LED2_box">
+                    <property name="text">
+                     <string>LED #2</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="3">
+                   <widget class="QCheckBox" name="configure_name_LED3_box">
+                    <property name="text">
+                     <string>LED #3</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="4">
+                   <widget class="QLineEdit" name="configure_name_LED3_line_edit">
+                    <property name="text">
+                     <string>LED #3</string>
+                    </property>
+                    <property name="maxLength">
+                     <number>15</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="4">
+                   <widget class="QLineEdit" name="configure_name_LED4_line_edit">
+                    <property name="text">
+                     <string>LED #4</string>
+                    </property>
+                    <property name="maxLength">
+                     <number>15</number>
+                    </property>
                    </widget>
                   </item>
                  </layout>
                 </widget>
                </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_13">
+              </layout>
+             </widget>
+            </item>
+            <item row="4" column="0" colspan="2">
+             <widget class="Line" name="configure_line1">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QGroupBox" name="configure_resistor_box">
+              <property name="title">
+               <string>Current Sense Resistors (Ω) </string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_15" columnstretch="0,10,0,10,0,10,0,10">
+               <item row="0" column="0">
+                <widget class="QCheckBox" name="configure_resistor1_box">
                  <property name="text">
-                  <string>Driver Fan Max (°C):</string>
+                  <string/>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="3" colspan="3">
-                <widget class="QSpinBox" name="spinBox_8">
-                 <property name="specialValueText">
-                  <string>60</string>
+               <item row="0" column="2">
+                <widget class="QCheckBox" name="configure_resistor2_box">
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="3" colspan="3">
-                <widget class="QSpinBox" name="spinBox_6">
+               <item row="0" column="4">
+                <widget class="QCheckBox" name="configure_resistor3_box">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="6">
+                <widget class="QCheckBox" name="configure_resistor4_box">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QDoubleSpinBox" name="configure_resistor1_spin_box">
                  <property name="specialValueText">
-                  <string>30</string>
+                  <string>5.00</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QDoubleSpinBox" name="configure_resistor2_spin_box">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="specialValueText">
+                  <string>10.0</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="5">
+                <widget class="QDoubleSpinBox" name="configure_resistor3_spin_box">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="7">
+                <widget class="QDoubleSpinBox" name="configure_resistor4_spin_box">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="QGroupBox" name="configure_thermistor_box">
+              <property name="title">
+               <string>External Thermistor</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,10,0,10">
+               <item row="0" column="0">
+                <widget class="QLabel" name="configure_thermistor_resistance_label">
+                 <property name="text">
+                  <string>Resistance at 25°C (Ω):</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QSpinBox" name="configure_thermistor_beta_box">
+                 <property name="specialValueText">
+                  <string>3560</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QLabel" name="configure_thermistor_beta_label">
+                 <property name="text">
+                  <string>Beta (K):</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QSpinBox" name="configure_thermistor_resistance_box">
+                 <property name="specialValueText">
+                  <string>4700</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="10" column="0">
+             <widget class="QGroupBox" name="configure_pushbutton_box">
+              <property name="title">
+               <string>Pushbutton LEDs</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_18">
+               <item row="0" column="0">
+                <widget class="QLabel" name="configure_pushbutton_intensity_label">
+                 <property name="text">
+                  <string>Intensity</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="configure_pushbutton_alarm_label">
+                 <property name="text">
+                  <string>Alarm:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QRadioButton" name="configure_pushbutton_alarm_flash_button">
+                 <property name="text">
+                  <string>Flash</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="4">
+                <widget class="QRadioButton" name="configure_pushbutton_alarm_solid_button">
+                 <property name="text">
+                  <string>Solid</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="2">
+                <widget class="QRadioButton" name="configure_pushbutton_alarm_chase_button">
+                 <property name="text">
+                  <string>Chase</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="3">
+                <widget class="QRadioButton" name="configure_pushbutton_alarm_pulse_button">
+                 <property name="text">
+                  <string>Pulse</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="5">
+                <widget class="QRadioButton" name="configure_pushbutton_alarm_disable_button">
+                 <property name="text">
+                  <string>Disable</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="6">
+                <widget class="QPushButton" name="configure_pushbutton_alarm_test_button">
+                 <property name="text">
+                  <string>Test</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="6">
+                <widget class="QPushButton" name="configure_pushbutton_intensity_button">
+                 <property name="text">
+                  <string>Test</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1" colspan="5">
+                <widget class="QSlider" name="configure_pushbutton_intensity_slider">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="value">
+                  <number>100</number>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="9" column="0">
+             <widget class="QGroupBox" name="configure_audio_box">
+              <property name="title">
+               <string>Audio</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_11">
+               <item row="1" column="1">
+                <widget class="QSlider" name="configure_audio_alarm_slider">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="value">
+                  <number>100</number>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="tickPosition">
+                  <enum>QSlider::TicksAbove</enum>
+                 </property>
+                 <property name="tickInterval">
+                  <number>10</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="configure_audio_alarm_label">
+                 <property name="text">
+                  <string>Alarm Volume</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="configure_audio_status_label">
+                 <property name="text">
+                  <string>Status Volume</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QSlider" name="configure_audio_status_slider">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="value">
+                  <number>20</number>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="tickPosition">
+                  <enum>QSlider::TicksAbove</enum>
+                 </property>
+                 <property name="tickInterval">
+                  <number>10</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="configure_audio_status_button">
+                 <property name="text">
+                  <string>Test</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="2">
+                <widget class="QPushButton" name="configure_audio_alarm_button">
+                 <property name="text">
+                  <string>Test</string>
                  </property>
                 </widget>
                </item>
@@ -3954,7 +3984,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="Line" name="configure_line">
+         <widget class="Line" name="configure_line3">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
