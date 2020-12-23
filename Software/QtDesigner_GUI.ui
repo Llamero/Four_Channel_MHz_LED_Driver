@@ -428,8 +428,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>523</width>
-                 <height>628</height>
+                 <width>624</width>
+                 <height>947</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -512,7 +512,7 @@
                       <string>Select event type for when trigger goes LOW (&lt;1.0V)</string>
                      </property>
                      <property name="currentIndex">
-                      <number>0</number>
+                      <number>2</number>
                      </property>
                      <widget class="QWidget" name="sync_digital_trigger_low_off_tab">
                       <property name="toolTip">
@@ -929,7 +929,7 @@
                       <string>Select event type for when trigger goes HIGH (&gt;2.5V)</string>
                      </property>
                      <property name="currentIndex">
-                      <number>2</number>
+                      <number>1</number>
                      </property>
                      <widget class="QWidget" name="sync_digital_trigger_high_off_tab">
                       <property name="toolTip">
@@ -1348,8 +1348,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>548</width>
-                 <height>471</height>
+                 <width>624</width>
+                 <height>947</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1362,7 +1362,7 @@
                 <item row="3" column="1">
                  <widget class="QTabWidget" name="sync_analog_output_tab">
                   <property name="currentIndex">
-                   <number>2</number>
+                   <number>0</number>
                   </property>
                   <widget class="QWidget" name="sync_analog_output_PWM_tab">
                    <property name="toolTip">
@@ -1732,8 +1732,8 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
-                 <width>525</width>
+                 <y>-133</y>
+                 <width>607</width>
                  <height>1080</height>
                 </rect>
                </property>
@@ -2148,7 +2148,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                          <string>Select event type for when the laser is inside the image FOV</string>
                         </property>
                         <property name="currentIndex">
-                         <number>2</number>
+                         <number>3</number>
                         </property>
                         <widget class="QWidget" name="sync_confocal_image_off_tab">
                          <property name="toolTip">
@@ -2590,7 +2590,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                          <string>Select event type for when the laser is outside the image FOV (flyback)</string>
                         </property>
                         <property name="currentIndex">
-                         <number>3</number>
+                         <number>1</number>
                         </property>
                         <widget class="QWidget" name="sync_confocal_flyback_off_tab">
                          <property name="toolTip">
@@ -3024,8 +3024,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>308</width>
-                 <height>37</height>
+                 <width>624</width>
+                 <height>947</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3118,19 +3118,31 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
            <layout class="QGridLayout" name="gridLayout_16">
             <item row="1" column="0">
              <widget class="QGroupBox" name="configure_current_limit_box">
+              <property name="toolTip">
+               <string>Set the current limit for each LED channel.</string>
+              </property>
               <property name="title">
                <string>LED Current Limit (A)</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_17" columnstretch="0,10,0,10">
                <item row="1" column="3">
                 <widget class="QDoubleSpinBox" name="configure_current_limit_LED4_spin_box">
+                 <property name="toolTip">
+                  <string>Set the current limit (in amps) for LED channel #4</string>
+                 </property>
                  <property name="specialValueText">
-                  <string>1.00</string>
+                  <string/>
+                 </property>
+                 <property name="value">
+                  <double>1.000000000000000</double>
                  </property>
                 </widget>
                </item>
                <item row="2" column="0" colspan="4">
                 <widget class="QPushButton" name="configure_current_limit_test_button">
+                 <property name="toolTip">
+                  <string>This will briefly drive each active LED channel at the maximum current.  Any LED channels that failed to reach the set current (such as a disconnected channel) will be deactivated.</string>
+                 </property>
                  <property name="text">
                   <string>Test LED Current</string>
                  </property>
@@ -3138,6 +3150,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="2">
                 <widget class="QCheckBox" name="configure_current_limit_LED3_box">
+                 <property name="toolTip">
+                  <string>Check this box to activate LED channel #3</string>
+                 </property>
                  <property name="text">
                   <string>LED #3</string>
                  </property>
@@ -3148,6 +3163,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="0">
                 <widget class="QCheckBox" name="configure_current_limit_LED2_box">
+                 <property name="toolTip">
+                  <string>Check this box to activate LED channel #2</string>
+                 </property>
                  <property name="text">
                   <string>LED #2</string>
                  </property>
@@ -3158,20 +3176,35 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="1">
                 <widget class="QDoubleSpinBox" name="configure_current_limit_LED1_spin_box">
+                 <property name="toolTip">
+                  <string>Set the current limit (in amps) for LED channel #1</string>
+                 </property>
                  <property name="specialValueText">
-                  <string>1.00</string>
+                  <string/>
+                 </property>
+                 <property name="value">
+                  <double>1.000000000000000</double>
                  </property>
                 </widget>
                </item>
                <item row="0" column="3">
                 <widget class="QDoubleSpinBox" name="configure_current_limit_LED3_spin_box">
+                 <property name="toolTip">
+                  <string>Set the current limit (in amps) for LED channel #3</string>
+                 </property>
                  <property name="specialValueText">
-                  <string>1.00</string>
+                  <string/>
+                 </property>
+                 <property name="value">
+                  <double>1.000000000000000</double>
                  </property>
                 </widget>
                </item>
                <item row="1" column="2">
                 <widget class="QCheckBox" name="configure_current_limit_LED4_box">
+                 <property name="toolTip">
+                  <string>Check this box to activate LED channel #4</string>
+                 </property>
                  <property name="text">
                   <string>LED #4</string>
                  </property>
@@ -3182,13 +3215,22 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="1">
                 <widget class="QDoubleSpinBox" name="configure_current_limit_LED2_spin_box">
+                 <property name="toolTip">
+                  <string>Set the current limit (in amps) for LED channel #2</string>
+                 </property>
                  <property name="specialValueText">
-                  <string>1.00</string>
+                  <string/>
+                 </property>
+                 <property name="value">
+                  <double>1.000000000000000</double>
                  </property>
                 </widget>
                </item>
                <item row="0" column="0">
                 <widget class="QCheckBox" name="configure_current_limit_LED1_box">
+                 <property name="toolTip">
+                  <string>Check this box to activate LED channel #1</string>
+                 </property>
                  <property name="text">
                   <string>LED #1</string>
                  </property>
@@ -3209,7 +3251,13 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                <item row="1" column="1">
                 <widget class="QSpinBox" name="configure_fan_driver_max_box">
                  <property name="specialValueText">
-                  <string>60</string>
+                  <string/>
+                 </property>
+                 <property name="maximum">
+                  <number>150</number>
+                 </property>
+                 <property name="value">
+                  <number>60</number>
                  </property>
                 </widget>
                </item>
@@ -3230,7 +3278,13 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                <item row="0" column="1">
                 <widget class="QSpinBox" name="configure_fan_driver_min_box">
                  <property name="specialValueText">
-                  <string>30</string>
+                  <string/>
+                 </property>
+                 <property name="maximum">
+                  <number>150</number>
+                 </property>
+                 <property name="value">
+                  <number>30</number>
                  </property>
                 </widget>
                </item>
@@ -3319,14 +3373,26 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                <item row="1" column="3" colspan="3">
                 <widget class="QSpinBox" name="configure_fan_external_max_box">
                  <property name="specialValueText">
-                  <string>60</string>
+                  <string/>
+                 </property>
+                 <property name="maximum">
+                  <number>150</number>
+                 </property>
+                 <property name="value">
+                  <number>60</number>
                  </property>
                 </widget>
                </item>
                <item row="0" column="3" colspan="3">
                 <widget class="QSpinBox" name="configure_fan_external_min_box">
                  <property name="specialValueText">
-                  <string>30</string>
+                  <string/>
+                 </property>
+                 <property name="maximum">
+                  <number>150</number>
+                 </property>
+                 <property name="value">
+                  <number>30</number>
                  </property>
                 </widget>
                </item>
@@ -3335,33 +3401,66 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             </item>
             <item row="5" column="0">
              <widget class="QGroupBox" name="configure_temperature_box">
+              <property name="toolTip">
+               <string>Configure the maximum temperature limits for the LED driver</string>
+              </property>
               <property name="title">
                <string>Temperature</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_12" columnstretch="0,10,0,10">
                <item row="1" column="1">
                 <widget class="QSpinBox" name="configure_temperature_transistor_fault_box">
+                 <property name="toolTip">
+                  <string>If the transistor exceeds this temperature the driver will automatically turn off until it cools back down.</string>
+                 </property>
                  <property name="specialValueText">
-                  <string>80</string>
+                  <string/>
+                 </property>
+                 <property name="maximum">
+                  <number>150</number>
+                 </property>
+                 <property name="value">
+                  <number>80</number>
                  </property>
                 </widget>
                </item>
                <item row="0" column="3">
                 <widget class="QSpinBox" name="configure_temperature_resistor_warn_box">
+                 <property name="toolTip">
+                  <string>This is the temperature the resistor(s) must cool back down to before the driver turns back on after a thermal fault.</string>
+                 </property>
                  <property name="specialValueText">
-                  <string>65</string>
+                  <string/>
+                 </property>
+                 <property name="maximum">
+                  <number>180</number>
+                 </property>
+                 <property name="value">
+                  <number>60</number>
                  </property>
                 </widget>
                </item>
                <item row="0" column="1">
                 <widget class="QSpinBox" name="configure_temperature_transistor_warn_box">
+                 <property name="toolTip">
+                  <string>This is the temperature the transistor must cool back down to before the driver turns back on after a thermal fault.</string>
+                 </property>
                  <property name="specialValueText">
-                  <string>65</string>
+                  <string/>
+                 </property>
+                 <property name="maximum">
+                  <number>150</number>
+                 </property>
+                 <property name="value">
+                  <number>60</number>
                  </property>
                 </widget>
                </item>
                <item row="1" column="2">
                 <widget class="QLabel" name="configure_temperature_resistor_fault_label">
+                 <property name="toolTip">
+                  <string>If the resistor(s) exceed this temperature the driver will automatically turn off until it cools back down.</string>
+                 </property>
                  <property name="text">
                   <string>Resistor Fault (°C):</string>
                  </property>
@@ -3369,20 +3468,25 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="3">
                 <widget class="QSpinBox" name="configure_temperature_resistor_fault_box">
-                 <property name="specialValueText">
-                  <string>80</string>
+                 <property name="toolTip">
+                  <string>If the resistor(s) exceed this temperature the driver will automatically turn off until it cools back down.</string>
                  </property>
-                </widget>
-               </item>
-               <item row="0" column="2">
-                <widget class="QLabel" name="configure_temperature_resistor_warn_label">
-                 <property name="text">
-                  <string>Resistor Warn (°C):</string>
+                 <property name="specialValueText">
+                  <string/>
+                 </property>
+                 <property name="maximum">
+                  <number>180</number>
+                 </property>
+                 <property name="value">
+                  <number>80</number>
                  </property>
                 </widget>
                </item>
                <item row="0" column="0">
                 <widget class="QLabel" name="configure_temperature_transistor_warn_label">
+                 <property name="toolTip">
+                  <string>This is the temperature the transistor must cool back down to before the driver turns back on after a thermal fault.</string>
+                 </property>
                  <property name="text">
                   <string>Transistor Warn (°C):</string>
                  </property>
@@ -3390,8 +3494,21 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="0">
                 <widget class="QLabel" name="configure_temperature_transistor_fault_label">
+                 <property name="toolTip">
+                  <string>If the transistor exceeds this temperature the driver will automatically turn off until it cools back down.</string>
+                 </property>
                  <property name="text">
                   <string>Transistor Fault (°C):</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QLabel" name="configure_temperature_resistor_warn_label">
+                 <property name="toolTip">
+                  <string>This is the temperature the resistor(s) must cool back down to before the driver turns back on after a thermal fault.</string>
+                 </property>
+                 <property name="text">
+                  <string>Resistor Warn (°C):</string>
                  </property>
                 </widget>
                </item>
@@ -3407,15 +3524,21 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             </item>
             <item row="3" column="0" alignment="Qt::AlignTop">
              <widget class="QGroupBox" name="configure_LED_merge_box">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
               <property name="toolTip">
-               <string>Combine channels to drive LEDs at up to 4A.</string>
+               <string>Combine individual LED channels to drive LEDs at up to 4 amps (1 amp per channel).</string>
               </property>
               <property name="title">
                <string>Merge Channels</string>
               </property>
-              <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,0,0,0,0,0,0,0">
+              <layout class="QGridLayout" name="gridLayout_19" rowstretch="0,0,0,0,0" columnstretch="0,0,0,0,0,0,0,0">
                <item row="1" column="1">
                 <widget class="QRadioButton" name="configure_LED_merge_channel2_button1">
+                 <property name="toolTip">
+                  <string>Connect LED #1 to channel #2</string>
+                 </property>
                  <property name="text">
                   <string>LED #1</string>
                  </property>
@@ -3426,6 +3549,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="2" column="3" rowspan="2">
                 <widget class="QRadioButton" name="configure_LED_merge_channel3_button2">
+                 <property name="toolTip">
+                  <string>Connect LED #2 to channel #3</string>
+                 </property>
                  <property name="text">
                   <string>LED #2</string>
                  </property>
@@ -3436,6 +3562,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="0">
                 <widget class="QLabel" name="configure_LED_merge_channel2_label">
+                 <property name="toolTip">
+                  <string>Select the LED # connected to channel #2</string>
+                 </property>
                  <property name="text">
                   <string>Channel #2:</string>
                  </property>
@@ -3443,6 +3572,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="4" column="0">
                 <widget class="QLabel" name="configure_LED_merge_channel4_label">
+                 <property name="toolTip">
+                  <string>Select the LED # connected to channel #4</string>
+                 </property>
                  <property name="text">
                   <string>Channel #4:</string>
                  </property>
@@ -3450,6 +3582,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="3">
                 <widget class="QRadioButton" name="configure_LED_merge_channel2_button2">
+                 <property name="toolTip">
+                  <string>Connect LED #2 to channel #2</string>
+                 </property>
                  <property name="text">
                   <string>LED #2</string>
                  </property>
@@ -3463,6 +3598,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="2" column="0">
                 <widget class="QLabel" name="configure_LED_merge_channel3_label">
+                 <property name="toolTip">
+                  <string>Select the LED # connected to channel #3</string>
+                 </property>
                  <property name="text">
                   <string>Channel #3:</string>
                  </property>
@@ -3470,6 +3608,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="0">
                 <widget class="QLabel" name="configure_LED_merge_channel1_label">
+                 <property name="toolTip">
+                  <string>LED #1 is always connected to channel #1</string>
+                 </property>
                  <property name="text">
                   <string>Channel #1:</string>
                  </property>
@@ -3477,6 +3618,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="2" column="1" rowspan="2">
                 <widget class="QRadioButton" name="configure_LED_merge_channel3_button1">
+                 <property name="toolTip">
+                  <string>Connect LED #1 to channel #3</string>
+                 </property>
                  <property name="text">
                   <string>LED #1</string>
                  </property>
@@ -3487,6 +3631,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="4" column="1">
                 <widget class="QRadioButton" name="configure_LED_merge_channel4_button1">
+                 <property name="toolTip">
+                  <string>Connect LED #1 to channel #4</string>
+                 </property>
                  <property name="text">
                   <string>LED #1</string>
                  </property>
@@ -3497,6 +3644,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="1">
                 <widget class="QRadioButton" name="configure_LED_merge_channel1_button1">
+                 <property name="toolTip">
+                  <string>LED #1 is always connected to channel #1</string>
+                 </property>
                  <property name="text">
                   <string>LED #1</string>
                  </property>
@@ -3510,6 +3660,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="4" column="3">
                 <widget class="QRadioButton" name="configure_LED_merge_channel4_button2">
+                 <property name="toolTip">
+                  <string>Connect LED #2 to channel #4</string>
+                 </property>
                  <property name="text">
                   <string>LED #2</string>
                  </property>
@@ -3520,6 +3673,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="2" column="5" rowspan="2">
                 <widget class="QRadioButton" name="configure_LED_merge_channel3_button3">
+                 <property name="toolTip">
+                  <string>Connect LED #3 to channel #3</string>
+                 </property>
                  <property name="text">
                   <string>LED #3</string>
                  </property>
@@ -3533,6 +3689,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="4" column="5">
                 <widget class="QRadioButton" name="configure_LED_merge_channel4_button3">
+                 <property name="toolTip">
+                  <string>Connect LED #1 to channel #4</string>
+                 </property>
                  <property name="text">
                   <string>LED #3</string>
                  </property>
@@ -3559,12 +3718,18 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             </item>
             <item row="0" column="0">
              <widget class="QGroupBox" name="configure_name_box">
+              <property name="toolTip">
+               <string>Set a unique name for the LED driver and each connected LED</string>
+              </property>
               <property name="title">
                <string>Name</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_20">
                <item row="0" column="1">
                 <widget class="QLineEdit" name="configure_name_driver_line_edit">
+                 <property name="toolTip">
+                  <string>Enter a unique name for the LED driver (optional)</string>
+                 </property>
                  <property name="text">
                   <string>123456789</string>
                  </property>
@@ -3575,6 +3740,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="0">
                 <widget class="QLabel" name="configure_name_driver_label">
+                 <property name="toolTip">
+                  <string>Enter a unique name for the LED driver (optional)</string>
+                 </property>
                  <property name="text">
                   <string>Driver Name:</string>
                  </property>
@@ -3582,6 +3750,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="2">
                 <widget class="QLabel" name="configure_name_driver_serial_label">
+                 <property name="toolTip">
+                  <string>Serial number for selected LED driver.  This can be editted in the driver code - see manual for details.</string>
+                 </property>
                  <property name="lineWidth">
                   <number>10</number>
                  </property>
@@ -3607,6 +3778,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   </property>
                   <item row="0" column="0">
                    <widget class="QCheckBox" name="configure_name_LED1_box">
+                    <property name="toolTip">
+                     <string>Check this box to activate LED channel #1</string>
+                    </property>
                     <property name="text">
                      <string>LED #1</string>
                     </property>
@@ -3617,6 +3791,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   </item>
                   <item row="1" column="1" colspan="2">
                    <widget class="QLineEdit" name="configure_name_LED2_line_edit">
+                    <property name="toolTip">
+                     <string>Enter a unique name for LED channel #2 (optional)</string>
+                    </property>
                     <property name="text">
                      <string>LED #2</string>
                     </property>
@@ -3627,6 +3804,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   </item>
                   <item row="0" column="1" colspan="2">
                    <widget class="QLineEdit" name="configure_name_LED1_line_edit">
+                    <property name="toolTip">
+                     <string>Enter a unique name for LED channel #1 (optional)</string>
+                    </property>
                     <property name="text">
                      <string>LED #1</string>
                     </property>
@@ -3637,6 +3817,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   </item>
                   <item row="1" column="3">
                    <widget class="QCheckBox" name="configure_name_LED4_box">
+                    <property name="toolTip">
+                     <string>Check this box to activate LED channel #4</string>
+                    </property>
                     <property name="text">
                      <string>LED #4</string>
                     </property>
@@ -3647,6 +3830,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   </item>
                   <item row="1" column="0">
                    <widget class="QCheckBox" name="configure_name_LED2_box">
+                    <property name="toolTip">
+                     <string>Check this box to activate LED channel #2</string>
+                    </property>
                     <property name="text">
                      <string>LED #2</string>
                     </property>
@@ -3657,6 +3843,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   </item>
                   <item row="0" column="3">
                    <widget class="QCheckBox" name="configure_name_LED3_box">
+                    <property name="toolTip">
+                     <string>Check this box to activate LED channel #3</string>
+                    </property>
                     <property name="text">
                      <string>LED #3</string>
                     </property>
@@ -3667,6 +3856,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   </item>
                   <item row="0" column="4">
                    <widget class="QLineEdit" name="configure_name_LED3_line_edit">
+                    <property name="toolTip">
+                     <string>Enter a unique name for LED channel #3 (optional)</string>
+                    </property>
                     <property name="text">
                      <string>LED #3</string>
                     </property>
@@ -3677,6 +3869,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   </item>
                   <item row="1" column="4">
                    <widget class="QLineEdit" name="configure_name_LED4_line_edit">
+                    <property name="toolTip">
+                     <string>Enter a unique name for LED channel #4 (optional)</string>
+                    </property>
                     <property name="text">
                      <string>LED #4</string>
                     </property>
@@ -3700,14 +3895,26 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             </item>
             <item row="2" column="0">
              <widget class="QGroupBox" name="configure_resistor_box">
+              <property name="toolTip">
+               <string>List the current sense resistor values used on the driver.  It is critical these values are correct for proper driver function.</string>
+              </property>
               <property name="title">
                <string>Current Sense Resistors (Ω) </string>
               </property>
               <layout class="QGridLayout" name="gridLayout_15" columnstretch="0,10,0,10,0,10,0,10">
                <item row="0" column="0">
                 <widget class="QCheckBox" name="configure_resistor1_box">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="toolTip">
+                  <string>This cannot be inactivated.  There must be at least one listed current sense resistor.</string>
+                 </property>
                  <property name="text">
                   <string/>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
                  </property>
                  <property name="checked">
                   <bool>true</bool>
@@ -3716,16 +3923,22 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="2">
                 <widget class="QCheckBox" name="configure_resistor2_box">
+                 <property name="toolTip">
+                  <string>Check if there is a second current sense resistor on the driver.</string>
+                 </property>
                  <property name="text">
                   <string/>
                  </property>
                  <property name="checked">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item row="0" column="4">
                 <widget class="QCheckBox" name="configure_resistor3_box">
+                 <property name="toolTip">
+                  <string>Check if there is a third current sense resistor on the driver.</string>
+                 </property>
                  <property name="text">
                   <string/>
                  </property>
@@ -3733,6 +3946,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="6">
                 <widget class="QCheckBox" name="configure_resistor4_box">
+                 <property name="toolTip">
+                  <string>Check if there is a fourth current sense resistor on the driver.</string>
+                 </property>
                  <property name="text">
                   <string/>
                  </property>
@@ -3740,18 +3956,42 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="1">
                 <widget class="QDoubleSpinBox" name="configure_resistor1_spin_box">
+                 <property name="toolTip">
+                  <string>Value of the first current sense resistor (in ohms).</string>
+                 </property>
                  <property name="specialValueText">
-                  <string>5.00</string>
+                  <string/>
+                 </property>
+                 <property name="minimum">
+                  <double>0.010000000000000</double>
+                 </property>
+                 <property name="maximum">
+                  <double>1000.000000000000000</double>
+                 </property>
+                 <property name="value">
+                  <double>5.000000000000000</double>
                  </property>
                 </widget>
                </item>
                <item row="0" column="3">
                 <widget class="QDoubleSpinBox" name="configure_resistor2_spin_box">
                  <property name="enabled">
-                  <bool>true</bool>
+                  <bool>false</bool>
+                 </property>
+                 <property name="toolTip">
+                  <string>Value of the second current sense resistor (in ohms)</string>
                  </property>
                  <property name="specialValueText">
-                  <string>10.0</string>
+                  <string/>
+                 </property>
+                 <property name="minimum">
+                  <double>0.010000000000000</double>
+                 </property>
+                 <property name="maximum">
+                  <double>1000.000000000000000</double>
+                 </property>
+                 <property name="value">
+                  <double>1000.000000000000000</double>
                  </property>
                 </widget>
                </item>
@@ -3760,12 +4000,36 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  <property name="enabled">
                   <bool>false</bool>
                  </property>
+                 <property name="toolTip">
+                  <string>Value of the third current sense resistor (in ohms).</string>
+                 </property>
+                 <property name="minimum">
+                  <double>0.010000000000000</double>
+                 </property>
+                 <property name="maximum">
+                  <double>1000.000000000000000</double>
+                 </property>
+                 <property name="value">
+                  <double>1000.000000000000000</double>
+                 </property>
                 </widget>
                </item>
                <item row="0" column="7">
                 <widget class="QDoubleSpinBox" name="configure_resistor4_spin_box">
                  <property name="enabled">
                   <bool>false</bool>
+                 </property>
+                 <property name="toolTip">
+                  <string>Value of the fourth current sense resistor (in ohms).</string>
+                 </property>
+                 <property name="minimum">
+                  <double>0.010000000000000</double>
+                 </property>
+                 <property name="maximum">
+                  <double>1000.000000000000000</double>
+                 </property>
+                 <property name="value">
+                  <double>1000.000000000000000</double>
                  </property>
                 </widget>
                </item>
@@ -3774,26 +4038,18 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             </item>
             <item row="7" column="0">
              <widget class="QGroupBox" name="configure_thermistor_box">
+              <property name="toolTip">
+               <string>Configure the properties and temperature limits for an external thermistor, such as on a high current COB LED (optional)</string>
+              </property>
               <property name="title">
                <string>External Thermistor</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,10,0,10">
-               <item row="0" column="0">
-                <widget class="QLabel" name="configure_thermistor_resistance_label">
-                 <property name="text">
-                  <string>Resistance at 25°C (Ω):</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="3">
-                <widget class="QSpinBox" name="configure_thermistor_beta_box">
-                 <property name="specialValueText">
-                  <string>3560</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2">
+               <item row="1" column="0">
                 <widget class="QLabel" name="configure_thermistor_beta_label">
+                 <property name="toolTip">
+                  <string>Beta (K) of the thermistor - see data sheet of external device for details.</string>
+                 </property>
                  <property name="text">
                   <string>Beta (K):</string>
                  </property>
@@ -3802,7 +4058,88 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                <item row="0" column="1">
                 <widget class="QSpinBox" name="configure_thermistor_resistance_box">
                  <property name="specialValueText">
-                  <string>4700</string>
+                  <string/>
+                 </property>
+                 <property name="minimum">
+                  <number>1</number>
+                 </property>
+                 <property name="maximum">
+                  <number>100000</number>
+                 </property>
+                 <property name="value">
+                  <number>4700</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QSpinBox" name="configure_thermistor_beta_box">
+                 <property name="specialValueText">
+                  <string/>
+                 </property>
+                 <property name="minimum">
+                  <number>1</number>
+                 </property>
+                 <property name="maximum">
+                  <number>9999</number>
+                 </property>
+                 <property name="value">
+                  <number>3560</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="configure_thermistor_resistance_label">
+                 <property name="toolTip">
+                  <string>Nominal resistance of the thermistor at 25°C - see data sheet of external device for details.</string>
+                 </property>
+                 <property name="text">
+                  <string>Resistance at 25°C (Ω):</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QLabel" name="configure_thermistor_warn_label">
+                 <property name="toolTip">
+                  <string>This is the temperature the external component must cool back down to before the driver turns back on after a thermal fault.</string>
+                 </property>
+                 <property name="text">
+                  <string>External Warn (°C):</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QSpinBox" name="configure_thermistor_warn_box">
+                 <property name="toolTip">
+                  <string>This is the temperature the external component must cool back down to before the driver turns back on after a thermal fault.</string>
+                 </property>
+                 <property name="maximum">
+                  <number>150</number>
+                 </property>
+                 <property name="value">
+                  <number>60</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="2">
+                <widget class="QLabel" name="configure_thermistor_fault_label">
+                 <property name="toolTip">
+                  <string>If the external device exceeds this temperature the driver will automatically turn off until it cools back down.</string>
+                 </property>
+                 <property name="text">
+                  <string>External Fault (°C):</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="3">
+                <widget class="QSpinBox" name="configure_thermistor_fault_box">
+                 <property name="toolTip">
+                  <string>If the external device exceeds this temperature the driver will automatically turn off until it cools back down.</string>
+                 </property>
+                 <property name="maximum">
+                  <number>150</number>
+                 </property>
+                 <property name="value">
+                  <number>80</number>
                  </property>
                 </widget>
                </item>
@@ -4158,16 +4495,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <addaction name="actionStatus"/>
     <addaction name="actionSync_plot"/>
    </widget>
-   <widget class="QMenu" name="menuLoad">
-    <property name="title">
-     <string>Load</string>
-    </property>
-    <addaction name="actionAWG_File"/>
-    <addaction name="actionSync_file"/>
-   </widget>
    <addaction name="menuConnection"/>
    <addaction name="menuVIew"/>
-   <addaction name="menuLoad"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionDisconnect">
