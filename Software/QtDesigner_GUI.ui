@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>761</width>
-    <height>986</height>
+    <width>896</width>
+    <height>1224</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -402,8 +402,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>717</width>
-             <height>774</height>
+             <width>892</width>
+             <height>1036</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -413,15 +413,15 @@
                <string>Select the active sync mode to configure</string>
               </property>
               <property name="currentIndex">
-               <number>4</number>
+               <number>2</number>
               </property>
               <widget class="QWidget" name="sync_digital_page">
                <property name="geometry">
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>682</width>
-                 <height>628</height>
+                 <width>1066</width>
+                 <height>749</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -504,7 +504,7 @@
                       <string>Select event type for when trigger goes LOW (&lt;1.0V)</string>
                      </property>
                      <property name="currentIndex">
-                      <number>1</number>
+                      <number>0</number>
                      </property>
                      <widget class="QWidget" name="sync_digital_trigger_low_off_tab">
                       <property name="toolTip">
@@ -1340,8 +1340,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>699</width>
-                 <height>591</height>
+                 <width>1066</width>
+                 <height>749</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1733,8 +1733,8 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-439</y>
-                 <width>682</width>
+                 <y>0</y>
+                 <width>857</width>
                  <height>1030</height>
                 </rect>
                </property>
@@ -2227,7 +2227,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                          <string>Select event type for when the laser is inside the image FOV</string>
                         </property>
                         <property name="currentIndex">
-                         <number>1</number>
+                         <number>0</number>
                         </property>
                         <widget class="QWidget" name="sync_confocal_image_off_tab">
                          <property name="toolTip">
@@ -3103,8 +3103,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>624</width>
-                 <height>947</height>
+                 <width>1066</width>
+                 <height>749</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3131,8 +3131,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>699</width>
-                 <height>591</height>
+                 <width>1066</width>
+                 <height>749</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3280,7 +3280,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>700</width>
+             <width>835</width>
              <height>1103</height>
             </rect>
            </property>
@@ -4382,6 +4382,16 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  </property>
                 </widget>
                </item>
+               <item row="0" column="6">
+                <widget class="QPushButton" name="configure_pushbutton_intensity_button">
+                 <property name="toolTip">
+                  <string>Test pushbutton LED intensity</string>
+                 </property>
+                 <property name="text">
+                  <string>Test</string>
+                 </property>
+                </widget>
+               </item>
                <item row="1" column="0">
                 <widget class="QLabel" name="configure_pushbutton_alarm_label">
                  <property name="toolTip">
@@ -4389,19 +4399,6 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  </property>
                  <property name="text">
                   <string>Alarm:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QRadioButton" name="configure_pushbutton_alarm_flash_button">
-                 <property name="toolTip">
-                  <string>Flash the LEDs on and off during a critical fault such as an over-temperature fault.</string>
-                 </property>
-                 <property name="text">
-                  <string>Flash</string>
-                 </property>
-                 <property name="checked">
-                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
@@ -4425,23 +4422,16 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  </property>
                 </widget>
                </item>
-               <item row="1" column="3">
-                <widget class="QRadioButton" name="configure_pushbutton_alarm_pulse_button">
+               <item row="1" column="1">
+                <widget class="QRadioButton" name="configure_pushbutton_alarm_flash_button">
                  <property name="toolTip">
-                  <string>Ramp LED intensity during a critical fault such as an over-temperature fault.</string>
+                  <string>Flash the LEDs on and off during a critical fault such as an over-temperature fault.</string>
                  </property>
                  <property name="text">
-                  <string>Pulse</string>
+                  <string>Flash</string>
                  </property>
-                </widget>
-               </item>
-               <item row="1" column="5">
-                <widget class="QRadioButton" name="configure_pushbutton_alarm_disable_button">
-                 <property name="toolTip">
-                  <string>Do not change LEDs during a critical fault such as an over-temperature fault.</string>
-                 </property>
-                 <property name="text">
-                  <string>Disable</string>
+                 <property name="checked">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
@@ -4455,13 +4445,13 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  </property>
                 </widget>
                </item>
-               <item row="0" column="6">
-                <widget class="QPushButton" name="configure_pushbutton_intensity_button">
+               <item row="1" column="3">
+                <widget class="QRadioButton" name="configure_pushbutton_alarm_pulse_button">
                  <property name="toolTip">
-                  <string>Test pushbutton LED intensity</string>
+                  <string>Ramp LED intensity during a critical fault such as an over-temperature fault.</string>
                  </property>
                  <property name="text">
-                  <string>Test</string>
+                  <string>Pulse</string>
                  </property>
                 </widget>
                </item>
@@ -4484,6 +4474,16 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  </property>
                  <property name="tickInterval">
                   <number>10</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="5">
+                <widget class="QRadioButton" name="configure_pushbutton_alarm_disable_button">
+                 <property name="toolTip">
+                  <string>Do not change LEDs during a critical fault such as an over-temperature fault.</string>
+                 </property>
+                 <property name="text">
+                  <string>Disable</string>
                  </property>
                 </widget>
                </item>
@@ -4634,13 +4634,152 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
         <string>Calibration</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_7" columnstretch="10,0,0,0">
+        <item row="3" column="0" colspan="3">
+         <widget class="QGroupBox" name="calibration_scale_box">
+          <property name="toolTip">
+           <string>Set the Y-axis scale as percent of the active LED current limit.</string>
+          </property>
+          <property name="title">
+           <string>Y-axis scale</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_8" columnstretch="10,10,10,10,10,0,0,0">
+           <item row="0" column="6">
+            <widget class="QDoubleSpinBox" name="calibration_scale_custom_box">
+             <property name="toolTip">
+              <string>Set the Y-axis scale to a custom percentage of the active LED current limit.</string>
+             </property>
+             <property name="decimals">
+              <number>1</number>
+             </property>
+             <property name="minimum">
+              <double>0.100000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>1000.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.000000000000000</double>
+             </property>
+             <property name="value">
+              <double>1.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QRadioButton" name="calibration_scale_10_button">
+             <property name="toolTip">
+              <string>Set the Y-axis scale to 10% of the active LED current limit.</string>
+             </property>
+             <property name="text">
+              <string>10%</string>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">axis_button_group</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QRadioButton" name="calibration_scale_100_button">
+             <property name="toolTip">
+              <string>Set the Y-axis scale to 100% of the active LED current limit.</string>
+             </property>
+             <property name="text">
+              <string>100%</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">axis_button_group</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="0" column="5">
+            <widget class="QRadioButton" name="calibration_scale_custom_button">
+             <property name="toolTip">
+              <string>Set the Y-axis scale to a custom percentage of the active LED current limit.</string>
+             </property>
+             <property name="text">
+              <string>Custom:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QRadioButton" name="calibration_scale_50_button">
+             <property name="toolTip">
+              <string>Set the Y-axis scale to 50% of the active LED current limit.</string>
+             </property>
+             <property name="text">
+              <string>50%</string>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">axis_button_group</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QRadioButton" name="calibration_scale_25_button">
+             <property name="toolTip">
+              <string>Set the Y-axis scale to 25% of the active LED current limit.</string>
+             </property>
+             <property name="text">
+              <string>25%</string>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">axis_button_group</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QRadioButton" name="calibration_scale_5_button">
+             <property name="toolTip">
+              <string>Set the Y-axis scale to 5% of the active LED current limit.</string>
+             </property>
+             <property name="text">
+              <string>5%</string>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">axis_button_group</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="0" column="7">
+            <widget class="QLabel" name="calibration_scale_custom_label">
+             <property name="toolTip">
+              <string>Set the Y-axis scale to a custom percentage of the active LED current limit.</string>
+             </property>
+             <property name="text">
+              <string>%</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
         <item row="0" column="0" colspan="4">
-         <widget class="PlotWidget" name="graphicsView"/>
+         <widget class="PlotWidget" name="calibration_plot_window">
+          <property name="toolTip">
+           <string>Plot of LED current response to two 500 µs square-wave pulses, sampled at 1.1 MHz.</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QPushButton" name="calibration_run_button">
+          <property name="toolTip">
+           <string>Press to start/stop LED driver and plot of resulting LED current.</string>
+          </property>
+          <property name="text">
+           <string>Run</string>
+          </property>
+         </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+         <widget class="QDoubleSpinBox" name="calibration_current_box">
           <property name="enabled">
            <bool>true</bool>
+          </property>
+          <property name="toolTip">
+           <string>Active LED current as a percent of the set current limit.</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -4648,20 +4787,16 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
           <property name="decimals">
            <number>1</number>
           </property>
-         </widget>
-        </item>
-        <item row="4" column="0" colspan="4">
-         <widget class="QCheckBox" name="checkBox_2">
-          <property name="toolTip">
-           <string>Ignore physical knob and toggle switch</string>
-          </property>
-          <property name="text">
-           <string>Enable software control of LED current</string>
+          <property name="value">
+           <double>100.000000000000000</double>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLabel" name="label_6">
+         <widget class="QLabel" name="calibration_current_label1">
+          <property name="toolTip">
+           <string>Active LED current as a percent of the set current limit.</string>
+          </property>
           <property name="text">
            <string>LED Current:</string>
           </property>
@@ -4671,76 +4806,23 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="QLabel" name="label_7">
+         <widget class="QLabel" name="calibration_current_label2">
+          <property name="toolTip">
+           <string>Active LED current as a percent of the set current limit.</string>
+          </property>
           <property name="text">
            <string>%</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QPushButton" name="pushButton_2">
+        <item row="4" column="0" colspan="4">
+         <widget class="QCheckBox" name="calibration_software_control_box">
+          <property name="toolTip">
+           <string>Ignores physical knob</string>
+          </property>
           <property name="text">
-           <string>Run</string>
+           <string>Enable software control of LED current</string>
           </property>
-         </widget>
-        </item>
-        <item row="3" column="0" colspan="3">
-         <widget class="QGroupBox" name="groupBox_5">
-          <property name="title">
-           <string>Y-axis scale</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_8">
-           <item row="0" column="4">
-            <widget class="QRadioButton" name="radioButton_12">
-             <property name="text">
-              <string>6%</string>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">axis_button_group</string>
-             </attribute>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QRadioButton" name="radioButton_10">
-             <property name="text">
-              <string>25%</string>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">axis_button_group</string>
-             </attribute>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QRadioButton" name="radioButton_9">
-             <property name="text">
-              <string>50%</string>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">axis_button_group</string>
-             </attribute>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QRadioButton" name="radioButton_8">
-             <property name="text">
-              <string>100%</string>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">axis_button_group</string>
-             </attribute>
-            </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="QRadioButton" name="radioButton_11">
-             <property name="text">
-              <string>12.5%</string>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">axis_button_group</string>
-             </attribute>
-            </widget>
-           </item>
-          </layout>
          </widget>
         </item>
        </layout>
@@ -4749,6 +4831,15 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
        <attribute name="title">
         <string>About</string>
        </attribute>
+       <layout class="QGridLayout" name="gridLayout_46">
+        <item row="0" column="0">
+         <widget class="QLabel" name="about_label">
+          <property name="text">
+           <string>About the software and Github link</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -4759,7 +4850,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>761</width>
+     <width>896</width>
      <height>21</height>
     </rect>
    </property>
