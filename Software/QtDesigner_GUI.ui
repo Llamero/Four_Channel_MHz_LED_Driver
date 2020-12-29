@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>896</width>
-    <height>1224</height>
+    <width>814</width>
+    <height>993</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -41,7 +41,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -78,7 +78,7 @@
               <string>LED #3</string>
              </property>
              <attribute name="buttonGroup">
-              <string notr="true">channel_button_group</string>
+              <string notr="true">main_channel_button_group</string>
              </attribute>
             </widget>
            </item>
@@ -94,7 +94,7 @@
               <bool>true</bool>
              </property>
              <attribute name="buttonGroup">
-              <string notr="true">channel_button_group</string>
+              <string notr="true">main_channel_button_group</string>
              </attribute>
             </widget>
            </item>
@@ -107,7 +107,7 @@
               <string>LED #2</string>
              </property>
              <attribute name="buttonGroup">
-              <string notr="true">channel_button_group</string>
+              <string notr="true">main_channel_button_group</string>
              </attribute>
             </widget>
            </item>
@@ -120,7 +120,7 @@
               <string>LED #4</string>
              </property>
              <attribute name="buttonGroup">
-              <string notr="true">channel_button_group</string>
+              <string notr="true">main_channel_button_group</string>
              </attribute>
             </widget>
            </item>
@@ -325,7 +325,7 @@
               <bool>true</bool>
              </property>
              <attribute name="buttonGroup">
-              <string notr="true">intensity_button_group</string>
+              <string notr="true">main_intensity_button_group</string>
              </attribute>
             </widget>
            </item>
@@ -338,7 +338,7 @@
               <string>LED Current</string>
              </property>
              <attribute name="buttonGroup">
-              <string notr="true">intensity_button_group</string>
+              <string notr="true">main_intensity_button_group</string>
              </attribute>
             </widget>
            </item>
@@ -351,7 +351,7 @@
               <string>LED Off</string>
              </property>
              <attribute name="buttonGroup">
-              <string notr="true">intensity_button_group</string>
+              <string notr="true">main_intensity_button_group</string>
              </attribute>
             </widget>
            </item>
@@ -402,8 +402,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>892</width>
-             <height>1036</height>
+             <width>770</width>
+             <height>781</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -413,15 +413,15 @@
                <string>Select the active sync mode to configure</string>
               </property>
               <property name="currentIndex">
-               <number>2</number>
+               <number>4</number>
               </property>
               <widget class="QWidget" name="sync_digital_page">
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
-                 <width>1066</width>
-                 <height>749</height>
+                 <y>-137</y>
+                 <width>523</width>
+                 <height>628</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -451,6 +451,9 @@
                      <property name="checked">
                       <bool>true</bool>
                      </property>
+                     <attribute name="buttonGroup">
+                      <string notr="true">sync_digital_trigger_button_group</string>
+                     </attribute>
                     </widget>
                    </item>
                    <item row="0" column="1">
@@ -461,6 +464,9 @@
                      <property name="text">
                       <string>Channel #2</string>
                      </property>
+                     <attribute name="buttonGroup">
+                      <string notr="true">sync_digital_trigger_button_group</string>
+                     </attribute>
                     </widget>
                    </item>
                    <item row="0" column="2">
@@ -471,6 +477,9 @@
                      <property name="text">
                       <string>Channel #3</string>
                      </property>
+                     <attribute name="buttonGroup">
+                      <string notr="true">sync_digital_trigger_button_group</string>
+                     </attribute>
                     </widget>
                    </item>
                    <item row="0" column="3">
@@ -481,6 +490,9 @@
                      <property name="text">
                       <string>Channel #4</string>
                      </property>
+                     <attribute name="buttonGroup">
+                      <string notr="true">sync_digital_trigger_button_group</string>
+                     </attribute>
                     </widget>
                    </item>
                   </layout>
@@ -551,6 +563,9 @@
                             <property name="text">
                              <string>LED #3</string>
                             </property>
+                            <attribute name="buttonGroup">
+                             <string notr="true">sync_digital_trigger_low_channel_button_group</string>
+                            </attribute>
                            </widget>
                           </item>
                           <item row="0" column="0">
@@ -561,6 +576,9 @@
                             <property name="text">
                              <string>LED #1</string>
                             </property>
+                            <attribute name="buttonGroup">
+                             <string notr="true">sync_digital_trigger_low_channel_button_group</string>
+                            </attribute>
                            </widget>
                           </item>
                           <item row="0" column="1">
@@ -571,6 +589,9 @@
                             <property name="text">
                              <string>LED #2</string>
                             </property>
+                            <attribute name="buttonGroup">
+                             <string notr="true">sync_digital_trigger_low_channel_button_group</string>
+                            </attribute>
                            </widget>
                           </item>
                           <item row="0" column="4">
@@ -584,6 +605,9 @@
                             <property name="checked">
                              <bool>true</bool>
                             </property>
+                            <attribute name="buttonGroup">
+                             <string notr="true">sync_digital_trigger_low_channel_button_group</string>
+                            </attribute>
                            </widget>
                           </item>
                           <item row="0" column="3">
@@ -594,6 +618,9 @@
                             <property name="text">
                              <string>LED #4</string>
                             </property>
+                            <attribute name="buttonGroup">
+                             <string notr="true">sync_digital_trigger_low_channel_button_group</string>
+                            </attribute>
                            </widget>
                           </item>
                          </layout>
@@ -968,6 +995,9 @@
                             <property name="text">
                              <string>LED #3</string>
                             </property>
+                            <attribute name="buttonGroup">
+                             <string notr="true">sync_digital_trigger_high_channel_button_group</string>
+                            </attribute>
                            </widget>
                           </item>
                           <item row="0" column="0">
@@ -978,6 +1008,9 @@
                             <property name="text">
                              <string>LED #1</string>
                             </property>
+                            <attribute name="buttonGroup">
+                             <string notr="true">sync_digital_trigger_high_channel_button_group</string>
+                            </attribute>
                            </widget>
                           </item>
                           <item row="0" column="1">
@@ -988,6 +1021,9 @@
                             <property name="text">
                              <string>LED #2</string>
                             </property>
+                            <attribute name="buttonGroup">
+                             <string notr="true">sync_digital_trigger_high_channel_button_group</string>
+                            </attribute>
                            </widget>
                           </item>
                           <item row="0" column="4">
@@ -1001,6 +1037,9 @@
                             <property name="checked">
                              <bool>true</bool>
                             </property>
+                            <attribute name="buttonGroup">
+                             <string notr="true">sync_digital_trigger_high_channel_button_group</string>
+                            </attribute>
                            </widget>
                           </item>
                           <item row="0" column="3">
@@ -1011,6 +1050,9 @@
                             <property name="text">
                              <string>LED #4</string>
                             </property>
+                            <attribute name="buttonGroup">
+                             <string notr="true">sync_digital_trigger_high_channel_button_group</string>
+                            </attribute>
                            </widget>
                           </item>
                          </layout>
@@ -1340,8 +1382,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1066</width>
-                 <height>749</height>
+                 <width>752</width>
+                 <height>598</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1357,7 +1399,7 @@
                    <string>Configure how the analog input will be converted to LED output.</string>
                   </property>
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>2</number>
                   </property>
                   <widget class="QWidget" name="sync_analog_output_PWM_tab">
                    <property name="toolTip">
@@ -1627,6 +1669,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                      <property name="checked">
                       <bool>true</bool>
                      </property>
+                     <attribute name="buttonGroup">
+                      <string notr="true">sync_analog_input_channel_button_group</string>
+                     </attribute>
                     </widget>
                    </item>
                    <item row="0" column="1">
@@ -1637,6 +1682,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                      <property name="text">
                       <string>Channel #2</string>
                      </property>
+                     <attribute name="buttonGroup">
+                      <string notr="true">sync_analog_input_channel_button_group</string>
+                     </attribute>
                     </widget>
                    </item>
                    <item row="0" column="2">
@@ -1647,6 +1695,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                      <property name="text">
                       <string>Channel #3</string>
                      </property>
+                     <attribute name="buttonGroup">
+                      <string notr="true">sync_analog_input_channel_button_group</string>
+                     </attribute>
                     </widget>
                    </item>
                    <item row="0" column="3">
@@ -1657,6 +1708,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                      <property name="text">
                       <string>Channel #4</string>
                      </property>
+                     <attribute name="buttonGroup">
+                      <string notr="true">sync_analog_input_channel_button_group</string>
+                     </attribute>
                     </widget>
                    </item>
                   </layout>
@@ -1679,6 +1733,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                      <property name="text">
                       <string>LED #1</string>
                      </property>
+                     <attribute name="buttonGroup">
+                      <string notr="true">sync_analog_led_channel_button_group</string>
+                     </attribute>
                     </widget>
                    </item>
                    <item row="0" column="3">
@@ -1689,6 +1746,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                      <property name="text">
                       <string>LED #4</string>
                      </property>
+                     <attribute name="buttonGroup">
+                      <string notr="true">sync_analog_led_channel_button_group</string>
+                     </attribute>
                     </widget>
                    </item>
                    <item row="0" column="4">
@@ -1702,6 +1762,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                      <property name="checked">
                       <bool>true</bool>
                      </property>
+                     <attribute name="buttonGroup">
+                      <string notr="true">sync_analog_led_channel_button_group</string>
+                     </attribute>
                     </widget>
                    </item>
                    <item row="0" column="1">
@@ -1712,6 +1775,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                      <property name="text">
                       <string>LED #2</string>
                      </property>
+                     <attribute name="buttonGroup">
+                      <string notr="true">sync_analog_led_channel_button_group</string>
+                     </attribute>
                     </widget>
                    </item>
                    <item row="0" column="2">
@@ -1722,6 +1788,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                      <property name="text">
                       <string>LED #3</string>
                      </property>
+                     <attribute name="buttonGroup">
+                      <string notr="true">sync_analog_led_channel_button_group</string>
+                     </attribute>
                     </widget>
                    </item>
                   </layout>
@@ -1733,9 +1802,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
-                 <width>857</width>
-                 <height>1030</height>
+                 <y>-482</y>
+                 <width>735</width>
+                 <height>1080</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1786,6 +1855,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                         <property name="checked">
                          <bool>true</bool>
                         </property>
+                        <attribute name="buttonGroup">
+                         <string notr="true">sync_confocal_shutter_polarity_button_group</string>
+                        </attribute>
                        </widget>
                       </item>
                       <item row="1" column="0">
@@ -1812,6 +1884,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                         <property name="text">
                          <string>LOW</string>
                         </property>
+                        <attribute name="buttonGroup">
+                         <string notr="true">sync_confocal_shutter_polarity_button_group</string>
+                        </attribute>
                        </widget>
                       </item>
                       <item row="0" column="0" colspan="3">
@@ -1862,6 +1937,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                            <property name="checked">
                             <bool>false</bool>
                            </property>
+                           <attribute name="buttonGroup">
+                            <string notr="true">sync_confocal_line_input_button_group</string>
+                           </attribute>
                           </widget>
                          </item>
                          <item row="0" column="1">
@@ -1875,6 +1953,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                            <property name="checked">
                             <bool>true</bool>
                            </property>
+                           <attribute name="buttonGroup">
+                            <string notr="true">sync_confocal_line_input_button_group</string>
+                           </attribute>
                           </widget>
                          </item>
                          <item row="0" column="2">
@@ -1885,6 +1966,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                            <property name="text">
                             <string>Channel #3</string>
                            </property>
+                           <attribute name="buttonGroup">
+                            <string notr="true">sync_confocal_line_input_button_group</string>
+                           </attribute>
                           </widget>
                          </item>
                          <item row="0" column="3">
@@ -1895,6 +1979,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                            <property name="text">
                             <string>Channel #4</string>
                            </property>
+                           <attribute name="buttonGroup">
+                            <string notr="true">sync_confocal_line_input_button_group</string>
+                           </attribute>
                           </widget>
                          </item>
                         </layout>
@@ -1934,6 +2021,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                             <property name="checked">
                              <bool>true</bool>
                             </property>
+                            <attribute name="buttonGroup">
+                             <string notr="true">sync_confocal_line_digital_polarity_button_group</string>
+                            </attribute>
                            </widget>
                           </item>
                           <item row="0" column="2">
@@ -1944,6 +2034,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                             <property name="text">
                              <string>LOW</string>
                             </property>
+                            <attribute name="buttonGroup">
+                             <string notr="true">sync_confocal_line_digital_polarity_button_group</string>
+                            </attribute>
                            </widget>
                           </item>
                          </layout>
@@ -1987,6 +2080,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                             <property name="checked">
                              <bool>true</bool>
                             </property>
+                            <attribute name="buttonGroup">
+                             <string notr="true">sync_confocal_line_analog_polarity_button_group</string>
+                            </attribute>
                            </widget>
                           </item>
                           <item row="1" column="2">
@@ -1997,6 +2093,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                             <property name="text">
                              <string>Below Threshold</string>
                             </property>
+                            <attribute name="buttonGroup">
+                             <string notr="true">sync_confocal_line_analog_polarity_button_group</string>
+                            </attribute>
                            </widget>
                           </item>
                           <item row="0" column="1">
@@ -2115,6 +2214,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                            <property name="text">
                             <string>Unidirectional</string>
                            </property>
+                           <attribute name="buttonGroup">
+                            <string notr="true">sync_confocal_scan_mode_button_group</string>
+                           </attribute>
                           </widget>
                          </item>
                          <item row="2" column="0">
@@ -2138,6 +2240,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                            <property name="checked">
                             <bool>true</bool>
                            </property>
+                           <attribute name="buttonGroup">
+                            <string notr="true">sync_confocal_scan_mode_button_group</string>
+                           </attribute>
                           </widget>
                          </item>
                         </layout>
@@ -2227,7 +2332,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                          <string>Select event type for when the laser is inside the image FOV</string>
                         </property>
                         <property name="currentIndex">
-                         <number>0</number>
+                         <number>3</number>
                         </property>
                         <widget class="QWidget" name="sync_confocal_image_off_tab">
                          <property name="toolTip">
@@ -2274,6 +2379,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                                <property name="text">
                                 <string>LED #3</string>
                                </property>
+                               <attribute name="buttonGroup">
+                                <string notr="true">sync_confocal_image_LED_channel_button_group</string>
+                               </attribute>
                               </widget>
                              </item>
                              <item row="0" column="0">
@@ -2284,6 +2392,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                                <property name="text">
                                 <string>LED #1</string>
                                </property>
+                               <attribute name="buttonGroup">
+                                <string notr="true">sync_confocal_image_LED_channel_button_group</string>
+                               </attribute>
                               </widget>
                              </item>
                              <item row="0" column="1">
@@ -2294,6 +2405,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                                <property name="text">
                                 <string>LED #2</string>
                                </property>
+                               <attribute name="buttonGroup">
+                                <string notr="true">sync_confocal_image_LED_channel_button_group</string>
+                               </attribute>
                               </widget>
                              </item>
                              <item row="0" column="4">
@@ -2307,6 +2421,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                                <property name="checked">
                                 <bool>true</bool>
                                </property>
+                               <attribute name="buttonGroup">
+                                <string notr="true">sync_confocal_image_LED_channel_button_group</string>
+                               </attribute>
                               </widget>
                              </item>
                              <item row="0" column="3">
@@ -2317,6 +2434,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                                <property name="text">
                                 <string>LED #4</string>
                                </property>
+                               <attribute name="buttonGroup">
+                                <string notr="true">sync_confocal_image_LED_channel_button_group</string>
+                               </attribute>
                               </widget>
                              </item>
                             </layout>
@@ -2716,6 +2836,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                                <property name="text">
                                 <string>LED #3</string>
                                </property>
+                               <attribute name="buttonGroup">
+                                <string notr="true">sync_confocal_flyback_LED_channel_button_group</string>
+                               </attribute>
                               </widget>
                              </item>
                              <item row="0" column="0">
@@ -2726,6 +2849,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                                <property name="text">
                                 <string>LED #1</string>
                                </property>
+                               <attribute name="buttonGroup">
+                                <string notr="true">sync_confocal_flyback_LED_channel_button_group</string>
+                               </attribute>
                               </widget>
                              </item>
                              <item row="0" column="1">
@@ -2736,6 +2862,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                                <property name="text">
                                 <string>LED #2</string>
                                </property>
+                               <attribute name="buttonGroup">
+                                <string notr="true">sync_confocal_flyback_LED_channel_button_group</string>
+                               </attribute>
                               </widget>
                              </item>
                              <item row="0" column="4">
@@ -2749,6 +2878,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                                <property name="checked">
                                 <bool>true</bool>
                                </property>
+                               <attribute name="buttonGroup">
+                                <string notr="true">sync_confocal_flyback_LED_channel_button_group</string>
+                               </attribute>
                               </widget>
                              </item>
                              <item row="0" column="3">
@@ -2759,6 +2891,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                                <property name="text">
                                 <string>LED #4</string>
                                </property>
+                               <attribute name="buttonGroup">
+                                <string notr="true">sync_confocal_flyback_LED_channel_button_group</string>
+                               </attribute>
                               </widget>
                              </item>
                             </layout>
@@ -3103,8 +3238,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1066</width>
-                 <height>749</height>
+                 <width>752</width>
+                 <height>598</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3131,8 +3266,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1066</width>
-                 <height>749</height>
+                 <width>752</width>
+                 <height>598</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3279,8 +3414,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>0</y>
-             <width>835</width>
+             <y>-254</y>
+             <width>753</width>
              <height>1103</height>
             </rect>
            </property>
@@ -3506,7 +3641,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                      <string>Output #1</string>
                     </property>
                     <attribute name="buttonGroup">
-                     <string notr="true">ext_fan_button_group</string>
+                     <string notr="true">configure_ext_fan_button_group</string>
                     </attribute>
                    </widget>
                   </item>
@@ -3519,7 +3654,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                      <string>Output #2</string>
                     </property>
                     <attribute name="buttonGroup">
-                     <string notr="true">ext_fan_button_group</string>
+                     <string notr="true">configure_ext_fan_button_group</string>
                     </attribute>
                    </widget>
                   </item>
@@ -3542,7 +3677,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                      <string>Output #3</string>
                     </property>
                     <attribute name="buttonGroup">
-                     <string notr="true">ext_fan_button_group</string>
+                     <string notr="true">configure_ext_fan_button_group</string>
                     </attribute>
                    </widget>
                   </item>
@@ -3558,7 +3693,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                      <bool>true</bool>
                     </property>
                     <attribute name="buttonGroup">
-                     <string notr="true">ext_fan_button_group</string>
+                     <string notr="true">configure_ext_fan_button_group</string>
                     </attribute>
                    </widget>
                   </item>
@@ -3754,7 +3889,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   <string>LED #1</string>
                  </property>
                  <attribute name="buttonGroup">
-                  <string notr="true">Ch_merge_2_button_group</string>
+                  <string notr="true">configure_ch_merge_2_button_group</string>
                  </attribute>
                 </widget>
                </item>
@@ -3767,7 +3902,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   <string>LED #2</string>
                  </property>
                  <attribute name="buttonGroup">
-                  <string notr="true">Ch_merge_3_button_group</string>
+                  <string notr="true">configure_ch_merge_3_button_group</string>
                  </attribute>
                 </widget>
                </item>
@@ -3803,7 +3938,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   <bool>true</bool>
                  </property>
                  <attribute name="buttonGroup">
-                  <string notr="true">Ch_merge_2_button_group</string>
+                  <string notr="true">configure_ch_merge_2_button_group</string>
                  </attribute>
                 </widget>
                </item>
@@ -3836,7 +3971,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   <string>LED #1</string>
                  </property>
                  <attribute name="buttonGroup">
-                  <string notr="true">Ch_merge_3_button_group</string>
+                  <string notr="true">configure_ch_merge_3_button_group</string>
                  </attribute>
                 </widget>
                </item>
@@ -3849,7 +3984,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   <string>LED #1</string>
                  </property>
                  <attribute name="buttonGroup">
-                  <string notr="true">Ch_merge_4_button_group</string>
+                  <string notr="true">configure_ch_merge_4_button_group</string>
                  </attribute>
                 </widget>
                </item>
@@ -3865,7 +4000,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   <bool>true</bool>
                  </property>
                  <attribute name="buttonGroup">
-                  <string notr="true">Ch_merge_1_button_group</string>
+                  <string notr="true">configure_ch_merge_1_button_group</string>
                  </attribute>
                 </widget>
                </item>
@@ -3878,7 +4013,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   <string>LED #2</string>
                  </property>
                  <attribute name="buttonGroup">
-                  <string notr="true">Ch_merge_4_button_group</string>
+                  <string notr="true">configure_ch_merge_4_button_group</string>
                  </attribute>
                 </widget>
                </item>
@@ -3894,7 +4029,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   <bool>true</bool>
                  </property>
                  <attribute name="buttonGroup">
-                  <string notr="true">Ch_merge_3_button_group</string>
+                  <string notr="true">configure_ch_merge_3_button_group</string>
                  </attribute>
                 </widget>
                </item>
@@ -3907,7 +4042,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   <string>LED #3</string>
                  </property>
                  <attribute name="buttonGroup">
-                  <string notr="true">Ch_merge_4_button_group</string>
+                  <string notr="true">configure_ch_merge_4_button_group</string>
                  </attribute>
                 </widget>
                </item>
@@ -3920,7 +4055,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   <bool>true</bool>
                  </property>
                  <attribute name="buttonGroup">
-                  <string notr="true">Ch_merge_4_button_group</string>
+                  <string notr="true">configure_ch_merge_4_button_group</string>
                  </attribute>
                 </widget>
                </item>
@@ -4410,6 +4545,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  <property name="text">
                   <string>Solid</string>
                  </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">configure_pushbutton_LED_button_group</string>
+                 </attribute>
                 </widget>
                </item>
                <item row="1" column="2">
@@ -4420,6 +4558,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  <property name="text">
                   <string>Chase</string>
                  </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">configure_pushbutton_LED_button_group</string>
+                 </attribute>
                 </widget>
                </item>
                <item row="1" column="1">
@@ -4433,6 +4574,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  <property name="checked">
                   <bool>true</bool>
                  </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">configure_pushbutton_LED_button_group</string>
+                 </attribute>
                 </widget>
                </item>
                <item row="1" column="6">
@@ -4453,6 +4597,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  <property name="text">
                   <string>Pulse</string>
                  </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">configure_pushbutton_LED_button_group</string>
+                 </attribute>
                 </widget>
                </item>
                <item row="0" column="1" colspan="5">
@@ -4485,6 +4632,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  <property name="text">
                   <string>Disable</string>
                  </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">configure_pushbutton_LED_button_group</string>
+                 </attribute>
                 </widget>
                </item>
               </layout>
@@ -4674,7 +4824,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
               <string>10%</string>
              </property>
              <attribute name="buttonGroup">
-              <string notr="true">axis_button_group</string>
+              <string notr="true">calibration_axis_button_group</string>
              </attribute>
             </widget>
            </item>
@@ -4690,7 +4840,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
               <bool>true</bool>
              </property>
              <attribute name="buttonGroup">
-              <string notr="true">axis_button_group</string>
+              <string notr="true">calibration_axis_button_group</string>
              </attribute>
             </widget>
            </item>
@@ -4702,6 +4852,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
              <property name="text">
               <string>Custom:</string>
              </property>
+             <attribute name="buttonGroup">
+              <string notr="true">calibration_axis_button_group</string>
+             </attribute>
             </widget>
            </item>
            <item row="0" column="1">
@@ -4713,7 +4866,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
               <string>50%</string>
              </property>
              <attribute name="buttonGroup">
-              <string notr="true">axis_button_group</string>
+              <string notr="true">calibration_axis_button_group</string>
              </attribute>
             </widget>
            </item>
@@ -4726,7 +4879,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
               <string>25%</string>
              </property>
              <attribute name="buttonGroup">
-              <string notr="true">axis_button_group</string>
+              <string notr="true">calibration_axis_button_group</string>
              </attribute>
             </widget>
            </item>
@@ -4739,7 +4892,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
               <string>5%</string>
              </property>
              <attribute name="buttonGroup">
-              <string notr="true">axis_button_group</string>
+              <string notr="true">calibration_axis_button_group</string>
              </attribute>
             </widget>
            </item>
@@ -4845,38 +4998,38 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
+  <widget class="QMenuBar" name="menu_bar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>896</width>
+     <width>814</width>
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuConnection">
+   <widget class="QMenu" name="menu_connection">
     <property name="toolTip">
      <string/>
     </property>
     <property name="title">
      <string>Connection</string>
     </property>
-    <addaction name="actionDisconnect"/>
+    <addaction name="menu_connection_disconnect"/>
     <addaction name="separator"/>
-    <addaction name="actionTest_LED_connections"/>
+    <addaction name="menu_connection_test_connection"/>
    </widget>
-   <widget class="QMenu" name="menuVIew">
+   <widget class="QMenu" name="menu_view">
     <property name="title">
      <string>View</string>
     </property>
-    <addaction name="actionStatus"/>
-    <addaction name="actionSync_plot"/>
+    <addaction name="menu_view_status"/>
+    <addaction name="menu_view_sync"/>
    </widget>
-   <addaction name="menuConnection"/>
-   <addaction name="menuVIew"/>
+   <addaction name="menu_connection"/>
+   <addaction name="menu_view"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionDisconnect">
+  <action name="menu_connection_disconnect">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -4886,15 +5039,24 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
    <property name="text">
     <string>Disconnect</string>
    </property>
+   <property name="toolTip">
+    <string>Disconnect from active LED driver.</string>
+   </property>
   </action>
-  <action name="actionStatus">
+  <action name="menu_view_status">
    <property name="text">
     <string>Status</string>
    </property>
+   <property name="toolTip">
+    <string>Open a new window showing status information about the active LED driver</string>
+   </property>
   </action>
-  <action name="actionSync_plot">
+  <action name="menu_view_sync">
    <property name="text">
     <string>Sync plot</string>
+   </property>
+   <property name="toolTip">
+    <string>Open a new window showing a plot of the programmed sync output</string>
    </property>
   </action>
   <action name="actionDriver_Configuration">
@@ -4912,9 +5074,12 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <string>Sync file</string>
    </property>
   </action>
-  <action name="actionTest_LED_connections">
+  <action name="menu_connection_test_connection">
    <property name="text">
     <string>Test LED connections</string>
+   </property>
+   <property name="toolTip">
+    <string>Search for LED driver USB connections</string>
    </property>
   </action>
  </widget>
@@ -4945,14 +5110,27 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="axis_button_group"/>
-  <buttongroup name="Ch_merge_1_button_group"/>
-  <buttongroup name="Ch_merge_3_button_group"/>
-  <buttongroup name="Ch_merge_2_button_group"/>
-  <buttongroup name="channel_button_group"/>
-  <buttongroup name="intensity_button_group"/>
-  <buttongroup name="Ch_merge_4_button_group"/>
-  <buttongroup name="ext_fan_button_group"/>
+  <buttongroup name="calibration_axis_button_group"/>
+  <buttongroup name="configure_ch_merge_1_button_group"/>
+  <buttongroup name="configure_ch_merge_3_button_group"/>
+  <buttongroup name="configure_ch_merge_2_button_group"/>
+  <buttongroup name="main_channel_button_group"/>
+  <buttongroup name="main_intensity_button_group"/>
+  <buttongroup name="configure_ch_merge_4_button_group"/>
+  <buttongroup name="configure_ext_fan_button_group"/>
   <buttongroup name="sync_output_button_group"/>
+  <buttongroup name="sync_digital_trigger_button_group"/>
+  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
+  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
+  <buttongroup name="sync_analog_led_channel_button_group"/>
+  <buttongroup name="sync_analog_input_channel_button_group"/>
+  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
+  <buttongroup name="sync_confocal_line_input_button_group"/>
+  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
+  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
+  <buttongroup name="sync_confocal_scan_mode_button_group"/>
+  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
+  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
+  <buttongroup name="configure_pushbutton_LED_button_group"/>
  </buttongroups>
 </ui>
