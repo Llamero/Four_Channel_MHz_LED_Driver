@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>686</width>
-    <height>1274</height>
+    <width>761</width>
+    <height>986</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -155,7 +155,7 @@
            <item row="0" column="1" alignment="Qt::AlignTop">
             <widget class="QLabel" name="main_driver_serial_label">
              <property name="toolTip">
-              <string>USB serial number of Teensy</string>
+              <string>USB serial number of the Teensy controlling the LED driver.</string>
              </property>
              <property name="text">
               <string>Serial #:</string>
@@ -365,53 +365,45 @@
         <string>Sync</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_9">
-        <item row="1" column="3">
+        <item row="2" column="1">
+         <widget class="QPushButton" name="sync_download_button">
+          <property name="toolTip">
+           <string>Update sync window with the current driver sync configuration.</string>
+          </property>
+          <property name="text">
+           <string>Download from Driver</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="5">
+         <widget class="QPushButton" name="sync_load_button">
+          <property name="toolTip">
+           <string>Load a sync configuration text file (*.lsc)</string>
+          </property>
+          <property name="text">
+           <string>Load Configuration</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
          <widget class="Line" name="sync_button_line">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
-         <widget class="QPushButton" name="sync_upload_button">
-          <property name="text">
-           <string>Upload to Driver</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="4">
-         <widget class="QPushButton" name="sync_save_button">
-          <property name="text">
-           <string>Save Configuration</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="sync_download_button">
-          <property name="text">
-           <string>Download from Driver</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="5">
-         <widget class="QPushButton" name="sync_load_button">
-          <property name="text">
-           <string>Load Configuration</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="1" colspan="5">
-         <widget class="QScrollArea" name="scrollArea_2">
+         <widget class="QScrollArea" name="sync_scroll_area">
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents_2">
+          <widget class="QWidget" name="sync_scroll_contents">
            <property name="geometry">
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>642</width>
-             <height>1130</height>
+             <width>717</width>
+             <height>774</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -428,8 +420,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>624</width>
-                 <height>947</height>
+                 <width>682</width>
+                 <height>628</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -512,7 +504,7 @@
                       <string>Select event type for when trigger goes LOW (&lt;1.0V)</string>
                      </property>
                      <property name="currentIndex">
-                      <number>2</number>
+                      <number>1</number>
                      </property>
                      <widget class="QWidget" name="sync_digital_trigger_low_off_tab">
                       <property name="toolTip">
@@ -1348,8 +1340,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>624</width>
-                 <height>947</height>
+                 <width>699</width>
+                 <height>591</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1361,6 +1353,9 @@
                <layout class="QGridLayout" name="gridLayout_25">
                 <item row="3" column="1">
                  <widget class="QTabWidget" name="sync_analog_output_tab">
+                  <property name="toolTip">
+                   <string>Configure how the analog input will be converted to LED output.</string>
+                  </property>
                   <property name="currentIndex">
                    <number>0</number>
                   </property>
@@ -1381,7 +1376,7 @@
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>Set the size of the sliding window mean used to filter the ADC</string>
+                       <string>Set the number of individual reads to average to filter the input ADC</string>
                       </property>
                       <property name="text">
                        <string># of ADC samples per step:</string>
@@ -1391,7 +1386,7 @@
                     <item row="1" column="1">
                      <widget class="QSlider" name="sync_analog_output_PWM_avg_slider">
                       <property name="toolTip">
-                       <string>Set the size of the sliding window mean used to filter the ADC</string>
+                       <string>Set the number of individual reads to average to filter the input ADC</string>
                       </property>
                       <property name="minimum">
                        <number>1</number>
@@ -1422,7 +1417,7 @@
                     <item row="2" column="0" colspan="2" alignment="Qt::AlignTop">
                      <widget class="QFrame" name="sync_analog_output_PWM_avg_frame">
                       <property name="toolTip">
-                       <string>Current size of the sliding window mean</string>
+                       <string>Current number of ADC samples per step</string>
                       </property>
                       <property name="frameShape">
                        <enum>QFrame::StyledPanel</enum>
@@ -1440,7 +1435,7 @@
                        <item row="0" column="0">
                         <widget class="QLabel" name="sync_analog_output_PWM_avg_num_label">
                          <property name="toolTip">
-                          <string>The width of the sliding window mean</string>
+                          <string>The number of ADC samples per step.</string>
                          </property>
                          <property name="text">
                           <string># of averages: 1</string>
@@ -1450,7 +1445,7 @@
                        <item row="0" column="1">
                         <widget class="QLabel" name="sync_analog_output_PWM_avg_bandiwdth_label">
                          <property name="toolTip">
-                          <string>Estimated maximum bandwidth for the sliding window mean</string>
+                          <string>Estimated maximum bandwidth analog output.</string>
                          </property>
                          <property name="text">
                           <string>Approximate bandwidth: x kHz</string>
@@ -1462,8 +1457,14 @@
                     </item>
                     <item row="0" column="0" colspan="2">
                      <widget class="QLabel" name="sync_analog_output_PWM_label">
+                      <property name="toolTip">
+                       <string>LED current will be set to the configured current limit for the LED.</string>
+                      </property>
                       <property name="text">
-                       <string>Control LED intensity by converting analog input voltage to LED PWM</string>
+                       <string>Control LED intensity by converting a 0 - 3.3V analog input to LED PWM</string>
+                      </property>
+                      <property name="wordWrap">
+                       <bool>false</bool>
                       </property>
                      </widget>
                     </item>
@@ -1480,7 +1481,7 @@
                     <item row="2" column="0" colspan="2" alignment="Qt::AlignTop">
                      <widget class="QFrame" name="sync_analog_output_current_avg_frame">
                       <property name="toolTip">
-                       <string>Current size of the sliding window mean</string>
+                       <string>Current number of ADC samples per step</string>
                       </property>
                       <property name="frameShape">
                        <enum>QFrame::StyledPanel</enum>
@@ -1498,7 +1499,7 @@
                        <item row="0" column="0">
                         <widget class="QLabel" name="sync_analog_output_current_avg_num_label">
                          <property name="toolTip">
-                          <string>The width of the sliding window mean</string>
+                          <string>The number of ADC samples per step.</string>
                          </property>
                          <property name="text">
                           <string># of averages: 1</string>
@@ -1508,7 +1509,7 @@
                        <item row="0" column="1">
                         <widget class="QLabel" name="sync_analog_output_current_avg_bandiwdth_label">
                          <property name="toolTip">
-                          <string>Estimated maximum bandwidth for the sliding window mean</string>
+                          <string>Estimated maximum bandwidth analog output.</string>
                          </property>
                          <property name="text">
                           <string>Approximate bandwidth: x kHz</string>
@@ -1521,7 +1522,7 @@
                     <item row="1" column="1">
                      <widget class="QSlider" name="sync_analog_output_current_avg_slider">
                       <property name="toolTip">
-                       <string>Set the size of the sliding window mean used to filter the ADC</string>
+                       <string>Set the number of individual reads to average to filter the input ADC</string>
                       </property>
                       <property name="minimum">
                        <number>1</number>
@@ -1558,7 +1559,7 @@
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>Set the size of the sliding window mean used to filter the ADC</string>
+                       <string>Set the number of individual reads to average to filter the input ADC</string>
                       </property>
                       <property name="text">
                        <string># of ADC samples per step:</string>
@@ -1568,7 +1569,7 @@
                     <item row="0" column="0" colspan="2">
                      <widget class="QLabel" name="sync_analog_output_current_label">
                       <property name="toolTip">
-                       <string>Convert analog input voltage to LED current output</string>
+                       <string>The LED current will be adjusted so the voltage across the current sense resistor matches the input voltage.</string>
                       </property>
                       <property name="text">
                        <string>Control LED intensity by converting analog input voltage to LED current</string>
@@ -1732,9 +1733,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-133</y>
-                 <width>607</width>
-                 <height>1080</height>
+                 <y>-439</y>
+                 <width>682</width>
+                 <height>1030</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1777,7 +1778,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                       <item row="1" column="1">
                        <widget class="QRadioButton" name="sync_confocal_shutter_high_button">
                         <property name="toolTip">
-                         <string>Shutter output voltage goes high when shutter is open</string>
+                         <string>Shutter output voltage goes HIGH (&gt;2.5V) when shutter is open</string>
                         </property>
                         <property name="text">
                          <string>HIGH</string>
@@ -1806,7 +1807,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                       <item row="1" column="2">
                        <widget class="QRadioButton" name="sync_confocal_shutter_low_button">
                         <property name="toolTip">
-                         <string>Shutter output voltage goes low when shutter is open</string>
+                         <string>Shutter output voltage goes LOW (&lt;1.0V) when shutter is open</string>
                         </property>
                         <property name="text">
                          <string>LOW</string>
@@ -1829,7 +1830,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                    <item row="1" column="0">
                     <widget class="QGroupBox" name="sync_confocal_line_box">
                      <property name="toolTip">
-                      <string>Configure the sync input for the line scan</string>
+                      <string>Configure the input for syncing the driver to the line scan</string>
                      </property>
                      <property name="title">
                       <string>Line Sync</string>
@@ -1838,7 +1839,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                       <item row="0" column="0">
                        <widget class="QGroupBox" name="sync_confocal_line_channel_box">
                         <property name="toolTip">
-                         <string>Select the input channel the external analog signal is connected to.</string>
+                         <string>Select the input channel the line sync is connected to.</string>
                         </property>
                         <property name="title">
                          <string>Input Channel</string>
@@ -1905,12 +1906,18 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                          <number>1</number>
                         </property>
                         <widget class="QWidget" name="sync_confocal_line_digital_tab">
+                         <property name="toolTip">
+                          <string>Sync the driver to a digital line clock</string>
+                         </property>
                          <attribute name="title">
                           <string>Digital - Line Clock</string>
                          </attribute>
                          <layout class="QGridLayout" name="gridLayout_65" columnstretch="0,0,10">
                           <item row="0" column="0">
                            <widget class="QLabel" name="sync_confocal_line_digital_label">
+                            <property name="toolTip">
+                             <string>Polarity of the line clock trigger.</string>
+                            </property>
                             <property name="text">
                              <string>Trigger Polarity:</string>
                             </property>
@@ -1918,6 +1925,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                           </item>
                           <item row="0" column="1">
                            <widget class="QRadioButton" name="sync_confocal_line_digital_high_button">
+                            <property name="toolTip">
+                             <string>Sync the driver to the line clock when it goes HIGH (&gt;2.5V).</string>
+                            </property>
                             <property name="text">
                              <string>HIGH</string>
                             </property>
@@ -1928,6 +1938,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                           </item>
                           <item row="0" column="2">
                            <widget class="QRadioButton" name="sync_confocal_line_digital_low_button">
+                            <property name="toolTip">
+                             <string>Sync the driver to the line clock when it goes LOW (&lt;1.0V).</string>
+                            </property>
                             <property name="text">
                              <string>LOW</string>
                             </property>
@@ -1936,12 +1949,18 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                          </layout>
                         </widget>
                         <widget class="QWidget" name="sync_confocal_line_analog_tab">
+                         <property name="toolTip">
+                          <string>Sync the driver to the analog voltage driving the scanning mirror.</string>
+                         </property>
                          <attribute name="title">
                           <string>Analog - Mirror Voltage</string>
                          </attribute>
                          <layout class="QGridLayout" name="gridLayout_66" columnstretch="0,0,0">
                           <item row="1" column="0">
                            <widget class="QLabel" name="sync_confocal_line_analog_polarity_label">
+                            <property name="toolTip">
+                             <string>Set the polarity of the driver sync.</string>
+                            </property>
                             <property name="text">
                              <string>Trigger polarity:</string>
                             </property>
@@ -1949,6 +1968,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                           </item>
                           <item row="0" column="0">
                            <widget class="QLabel" name="sync_confocal_line_analog_threshold_label1">
+                            <property name="toolTip">
+                             <string>The voltage threshold that the driver will sync to.</string>
+                            </property>
                             <property name="text">
                              <string>Threshold Voltage:</string>
                             </property>
@@ -1956,6 +1978,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                           </item>
                           <item row="1" column="1">
                            <widget class="QRadioButton" name="sync_confocal_line_analog_polarity_above_button">
+                            <property name="toolTip">
+                             <string>Sync the driver when the mirror voltage rises above the set threshold.</string>
+                            </property>
                             <property name="text">
                              <string>Above Threshold</string>
                             </property>
@@ -1966,6 +1991,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                           </item>
                           <item row="1" column="2">
                            <widget class="QRadioButton" name="sync_confocal_line_analog_polarity_below_button">
+                            <property name="toolTip">
+                             <string>Sync the driver when the mirror voltage falls below the set threshold.</string>
+                            </property>
                             <property name="text">
                              <string>Below Threshold</string>
                             </property>
@@ -1973,6 +2001,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                           </item>
                           <item row="0" column="1">
                            <widget class="QDoubleSpinBox" name="sync_confocal_line_analog_threshold_box">
+                            <property name="toolTip">
+                             <string>The voltage threshold that the driver will sync to (0.01V - 3.29V).</string>
+                            </property>
                             <property name="alignment">
                              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                             </property>
@@ -1985,10 +2016,16 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                             <property name="maximum">
                              <double>3.290000000000000</double>
                             </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
                            </widget>
                           </item>
                           <item row="0" column="2">
                            <widget class="QLabel" name="sync_confocal_line_analog_threshold_label2">
+                            <property name="toolTip">
+                             <string>The voltage threshold that the driver will sync to.</string>
+                            </property>
                             <property name="text">
                              <string>V</string>
                             </property>
@@ -2003,12 +2040,18 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                    </item>
                    <item row="2" column="0">
                     <widget class="QGroupBox" name="sync_confocal_delay_box">
+                     <property name="toolTip">
+                      <string>Configure the delays relative to the sync trigger to align the LED output with the edges of the FOV.</string>
+                     </property>
                      <property name="title">
                       <string>Delays</string>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_37">
                       <item row="2" column="1">
-                       <widget class="QDoubleSpinBox" name="doubleSpinBox_13">
+                       <widget class="QDoubleSpinBox" name="sync_confocal_delay2_box">
+                        <property name="toolTip">
+                         <string>Set the time between the start of flyback and when the scan re-enters the FOV.</string>
+                        </property>
                         <property name="alignment">
                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                         </property>
@@ -2018,14 +2061,20 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                        </widget>
                       </item>
                       <item row="3" column="0">
-                       <widget class="QLabel" name="label_41">
+                       <widget class="QLabel" name="sync_confocal_delay3_label1">
+                        <property name="toolTip">
+                         <string>Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).</string>
+                        </property>
                         <property name="text">
                          <string>3) Bidirectional: time between windows:</string>
                         </property>
                        </widget>
                       </item>
                       <item row="1" column="1">
-                       <widget class="QDoubleSpinBox" name="doubleSpinBox_12">
+                       <widget class="QDoubleSpinBox" name="sync_confocal_delay1_box">
+                        <property name="toolTip">
+                         <string>Set the time between the line sync trigger and the edge of the FOV/start of flyback.</string>
+                        </property>
                         <property name="alignment">
                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                         </property>
@@ -2035,7 +2084,10 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                        </widget>
                       </item>
                       <item row="0" column="0" colspan="3">
-                       <widget class="QFrame" name="frame_9">
+                       <widget class="QFrame" name="sync_confocal_scan_mode_frame">
+                        <property name="toolTip">
+                         <string>Set whether the confocal microscope will be doing a unidirectional or bidirectional scan.</string>
+                        </property>
                         <property name="frameShape">
                          <enum>QFrame::StyledPanel</enum>
                         </property>
@@ -2056,21 +2108,30 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                           <number>0</number>
                          </property>
                          <item row="2" column="1">
-                          <widget class="QRadioButton" name="radioButton_40">
+                          <widget class="QRadioButton" name="sync_confocal_scan_unidirectional_button">
+                           <property name="toolTip">
+                            <string>The confocal microscope is scanning in unidirectional mode (one scan line per mirror cycle)</string>
+                           </property>
                            <property name="text">
                             <string>Unidirectional</string>
                            </property>
                           </widget>
                          </item>
                          <item row="2" column="0">
-                          <widget class="QLabel" name="label_35">
+                          <widget class="QLabel" name="sync_confocal_scan_mode_label">
+                           <property name="toolTip">
+                            <string>Set the scan mode the confocal microscope is using</string>
+                           </property>
                            <property name="text">
                             <string>Scan mode:</string>
                            </property>
                           </widget>
                          </item>
                          <item row="2" column="2">
-                          <widget class="QRadioButton" name="radioButton_41">
+                          <widget class="QRadioButton" name="sync_confocal_scan_bidirectional_button">
+                           <property name="toolTip">
+                            <string>The confocal microscope is scanning in bidirectional mode (two scan lines per mirror cycle)</string>
+                           </property>
                            <property name="text">
                             <string>Bidirectional</string>
                            </property>
@@ -2083,14 +2144,20 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                        </widget>
                       </item>
                       <item row="1" column="0">
-                       <widget class="QLabel" name="label_39">
+                       <widget class="QLabel" name="sync_confocal_delay1_label1">
+                        <property name="toolTip">
+                         <string>Set the time between the line sync trigger and the edge of the FOV/start of flyback.</string>
+                        </property>
                         <property name="text">
                          <string>1) From trigger to flyback window:</string>
                         </property>
                        </widget>
                       </item>
                       <item row="3" column="1">
-                       <widget class="QDoubleSpinBox" name="doubleSpinBox_11">
+                       <widget class="QDoubleSpinBox" name="sync_confocal_delay3_box">
+                        <property name="toolTip">
+                         <string>Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).</string>
+                        </property>
                         <property name="alignment">
                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                         </property>
@@ -2100,28 +2167,40 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                        </widget>
                       </item>
                       <item row="2" column="2">
-                       <widget class="QLabel" name="label_43">
+                       <widget class="QLabel" name="sync_confocal_delay2_label2">
+                        <property name="toolTip">
+                         <string>Set the time between the start of flyback and when the scan re-enters the FOV.</string>
+                        </property>
                         <property name="text">
                          <string>µs</string>
                         </property>
                        </widget>
                       </item>
                       <item row="2" column="0">
-                       <widget class="QLabel" name="label_40">
+                       <widget class="QLabel" name="sync_confocal_delay2_label1">
+                        <property name="toolTip">
+                         <string>Set the time between the start of flyback and when the scan re-enters the FOV.</string>
+                        </property>
                         <property name="text">
                          <string>2) Duration of flyback window:</string>
                         </property>
                        </widget>
                       </item>
                       <item row="1" column="2">
-                       <widget class="QLabel" name="label_42">
+                       <widget class="QLabel" name="sync_confocal_delay1_label2">
+                        <property name="toolTip">
+                         <string>Set the time between the line sync trigger and the edge of the FOV/start of flyback.</string>
+                        </property>
                         <property name="text">
                          <string>µs</string>
                         </property>
                        </widget>
                       </item>
                       <item row="3" column="2">
-                       <widget class="QLabel" name="label_76">
+                       <widget class="QLabel" name="sync_confocal_delay3_label2">
+                        <property name="toolTip">
+                         <string>Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).</string>
+                        </property>
                         <property name="text">
                          <string>µs</string>
                         </property>
@@ -2133,7 +2212,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                    <item row="3" column="0">
                     <widget class="QGroupBox" name="sync_confocal_image_box">
                      <property name="toolTip">
-                      <string>Configure LED intensity input when the laser is inside the image FOV</string>
+                      <string>Configure LED intensity when the laser is inside the image FOV</string>
                      </property>
                      <property name="statusTip">
                       <string/>
@@ -2148,7 +2227,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                          <string>Select event type for when the laser is inside the image FOV</string>
                         </property>
                         <property name="currentIndex">
-                         <number>3</number>
+                         <number>1</number>
                         </property>
                         <widget class="QWidget" name="sync_confocal_image_off_tab">
                          <property name="toolTip">
@@ -2294,7 +2373,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <item row="2" column="0">
                               <widget class="QLabel" name="sync_confocal_image_constant_config_duration_label1">
                                <property name="toolTip">
-                                <string>NOTE: 0 seconds = LED stays on until mirror flyback</string>
+                                <string>NOTE: 0 seconds = LED stays on when the laser is inside the image FOV until end of scan</string>
                                </property>
                                <property name="text">
                                 <string>Duration:</string>
@@ -2304,7 +2383,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <item row="2" column="1">
                               <widget class="QDoubleSpinBox" name="sync_confocal_image_constant_config_duration_box">
                                <property name="toolTip">
-                                <string>NOTE: 0 seconds = LED stays on until mirror flyback</string>
+                                <string>NOTE: 0 seconds = LED stays on when the laser is inside the image FOV until end of scan</string>
                                </property>
                                <property name="alignment">
                                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2357,7 +2436,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                                 </font>
                                </property>
                                <property name="toolTip">
-                                <string>NOTE: 0 seconds = LED stays on until mirror flyback</string>
+                                <string>NOTE: 0 seconds = LED stays on when the laser is inside the image FOV until end of scan</string>
                                </property>
                                <property name="text">
                                 <string>sec</string>
@@ -2575,7 +2654,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                    <item row="4" column="0">
                     <widget class="QGroupBox" name="sync_confocal_flyback_box">
                      <property name="toolTip">
-                      <string>Configure LED intensity input when the laser is outside the image FOV (flyback)</string>
+                      <string>Configure LED intensity when the laser is outside the image FOV (flyback)</string>
                      </property>
                      <property name="statusTip">
                       <string/>
@@ -2736,7 +2815,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <item row="2" column="0">
                               <widget class="QLabel" name="sync_confocal_flyback_constant_config_duration_label1">
                                <property name="toolTip">
-                                <string>NOTE: 0 seconds = LED stays on until start of image scan</string>
+                                <string>NOTE: 0 seconds = LED stays on during flyback until end of scan</string>
                                </property>
                                <property name="text">
                                 <string>Duration:</string>
@@ -2746,7 +2825,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <item row="2" column="1">
                               <widget class="QDoubleSpinBox" name="sync_confocal_flyback_constant_config_duration_box">
                                <property name="toolTip">
-                                <string>NOTE: 0 seconds = LED stays on until start of image scan</string>
+                                <string>NOTE: 0 seconds = LED stays on during flyback until end of scan</string>
                                </property>
                                <property name="alignment">
                                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2784,7 +2863,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <item row="0" column="0">
                               <widget class="QLabel" name="sync_confocal_flyback_constant_config_PWM_label1">
                                <property name="toolTip">
-                                <string>Set the LED PWM when the laser is outside the image FOV (flyback)</string>
+                                <string>Set the LED duration when the laser is outside the image FOV (flyback)</string>
                                </property>
                                <property name="text">
                                 <string>LED PWM:</string>
@@ -2799,7 +2878,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                                 </font>
                                </property>
                                <property name="toolTip">
-                                <string>NOTE: 0 seconds = LED stays on until start of image scan</string>
+                                <string>NOTE: 0 seconds = LED stays on during flyback until end of scan</string>
                                </property>
                                <property name="text">
                                 <string>sec</string>
@@ -3052,8 +3131,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>624</width>
-                 <height>947</height>
+                 <width>699</width>
+                 <height>591</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3066,7 +3145,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <item row="0" column="0" alignment="Qt::AlignTop">
                  <widget class="QLabel" name="sync_custom_label">
                   <property name="toolTip">
-                   <string>Use custom written LED sync function in the LED driver code</string>
+                   <string>Use the &quot;custom&quot; sync function in the LED driver code</string>
                   </property>
                   <property name="text">
                    <string>Description for custom sync function</string>
@@ -3079,6 +3158,93 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             </item>
            </layout>
           </widget>
+         </widget>
+        </item>
+        <item row="2" column="4">
+         <widget class="QPushButton" name="sync_save_button">
+          <property name="toolTip">
+           <string>Save sync configuration as a text file (*.lsc)</string>
+          </property>
+          <property name="text">
+           <string>Save Configuration</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QPushButton" name="sync_upload_button">
+          <property name="toolTip">
+           <string>Upload the new sync configuration to the LED driver.</string>
+          </property>
+          <property name="text">
+           <string>Upload to Driver</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" colspan="5">
+         <widget class="QGroupBox" name="sync_output_box">
+          <property name="toolTip">
+           <string>Select a sync output channel.  This channel will output 5V when the LED is on, and 0V when the LED is off.</string>
+          </property>
+          <property name="title">
+           <string>Sync Output</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_40">
+           <item row="0" column="0">
+            <widget class="QRadioButton" name="sync_output1_button">
+             <property name="toolTip">
+              <string>Sync output #1 to the LED on/off state (5V out = LED on, 0V out = LED off)</string>
+             </property>
+             <property name="text">
+              <string>Output #1</string>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">sync_output_button_group</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QRadioButton" name="sync_output3_button">
+             <property name="toolTip">
+              <string>Sync output #3 to the LED on/off state (5V out = LED on, 0V out = LED off)</string>
+             </property>
+             <property name="text">
+              <string>Output #3</string>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">sync_output_button_group</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QRadioButton" name="sync_output2_button">
+             <property name="toolTip">
+              <string>Sync output #2 to the LED on/off state (5V out = LED on, 0V out = LED off)</string>
+             </property>
+             <property name="text">
+              <string>Output #2</string>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">sync_output_button_group</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QRadioButton" name="sync_output_none_button">
+             <property name="toolTip">
+              <string>Deactivate sync output.</string>
+             </property>
+             <property name="text">
+              <string>None</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">sync_output_button_group</string>
+             </attribute>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
@@ -3096,6 +3262,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
        <layout class="QGridLayout" name="gridLayout_10">
         <item row="1" column="1">
          <widget class="QPushButton" name="configure_upload_button">
+          <property name="toolTip">
+           <string>Upload the new configuration to the LED driver.</string>
+          </property>
           <property name="text">
            <string>Upload to Driver</string>
           </property>
@@ -3111,8 +3280,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>642</width>
-             <height>1130</height>
+             <width>700</width>
+             <height>1103</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_16">
@@ -3244,12 +3413,18 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             </item>
             <item row="6" column="0">
              <widget class="QGroupBox" name="configure_fan_box">
+              <property name="toolTip">
+               <string>Configure the fan speed as a function of temperature</string>
+              </property>
               <property name="title">
                <string>Fan</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_13" columnstretch="0,10,0,10,0,0">
                <item row="1" column="1">
                 <widget class="QSpinBox" name="configure_fan_driver_max_box">
+                 <property name="toolTip">
+                  <string>Internal fan speed will linearly increase with temperature, reaching full speed at this temperature.</string>
+                 </property>
                  <property name="specialValueText">
                   <string/>
                  </property>
@@ -3263,6 +3438,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="2">
                 <widget class="QLabel" name="configure_fan_external_min_label">
+                 <property name="toolTip">
+                  <string>External fan will turn off below this temperature.</string>
+                 </property>
                  <property name="text">
                   <string>External Fan Min (°C):</string>
                  </property>
@@ -3270,6 +3448,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="0">
                 <widget class="QLabel" name="configure_fan_driver_min_label">
+                 <property name="toolTip">
+                  <string>Internal fan will turn off below this temperature.</string>
+                 </property>
                  <property name="text">
                   <string>Driver Fan Min (°C):</string>
                  </property>
@@ -3277,6 +3458,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="1">
                 <widget class="QSpinBox" name="configure_fan_driver_min_box">
+                 <property name="toolTip">
+                  <string>Internal fan will turn off below this temperature.</string>
+                 </property>
                  <property name="specialValueText">
                   <string/>
                  </property>
@@ -3290,6 +3474,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="2">
                 <widget class="QLabel" name="configure_fan_external_max_label">
+                 <property name="toolTip">
+                  <string>External fan speed will linearly increase with temperature, reaching full speed at this temperature.</string>
+                 </property>
                  <property name="text">
                   <string>External Fan Max (°C):</string>
                  </property>
@@ -3312,6 +3499,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   </property>
                   <item row="0" column="1">
                    <widget class="QRadioButton" name="configure_fan_external_output1_box">
+                    <property name="toolTip">
+                     <string>Use ouput #1 for the 5V PWM that will control the external fan speed.</string>
+                    </property>
                     <property name="text">
                      <string>Output #1</string>
                     </property>
@@ -3322,6 +3512,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   </item>
                   <item row="0" column="2">
                    <widget class="QRadioButton" name="configure_fan_external_output2_box">
+                    <property name="toolTip">
+                     <string>Use ouput #2 for the 5V PWM that will control the external fan speed.</string>
+                    </property>
                     <property name="text">
                      <string>Output #2</string>
                     </property>
@@ -3332,6 +3525,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   </item>
                   <item row="0" column="0">
                    <widget class="QLabel" name="configure_fan_external_output_label">
+                    <property name="toolTip">
+                     <string>Select the ouput for the 5V PWM that will control the external fan speed.</string>
+                    </property>
                     <property name="text">
                      <string>External Fan PWM Output:</string>
                     </property>
@@ -3339,6 +3535,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   </item>
                   <item row="0" column="3">
                    <widget class="QRadioButton" name="configure_fan_external_output3_box">
+                    <property name="toolTip">
+                     <string>Use ouput #3 for the 5V PWM that will control the external fan speed.</string>
+                    </property>
                     <property name="text">
                      <string>Output #3</string>
                     </property>
@@ -3349,6 +3548,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   </item>
                   <item row="0" column="4">
                    <widget class="QRadioButton" name="configure_fan_external_no_output_box">
+                    <property name="toolTip">
+                     <string>Deactivate external fan speed control</string>
+                    </property>
                     <property name="text">
                      <string>None</string>
                     </property>
@@ -3365,6 +3567,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="0">
                 <widget class="QLabel" name="configure_fan_driver_max_label">
+                 <property name="toolTip">
+                  <string>Internal fan speed will linearly increase with temperature, reaching full speed at this temperature.</string>
+                 </property>
                  <property name="text">
                   <string>Driver Fan Max (°C):</string>
                  </property>
@@ -3372,6 +3577,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="3" colspan="3">
                 <widget class="QSpinBox" name="configure_fan_external_max_box">
+                 <property name="toolTip">
+                  <string>External fan speed will linearly increase with temperature, reaching full speed at this temperature.</string>
+                 </property>
                  <property name="specialValueText">
                   <string/>
                  </property>
@@ -3385,6 +3593,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="3" colspan="3">
                 <widget class="QSpinBox" name="configure_fan_external_min_box">
+                 <property name="toolTip">
+                  <string>External fan will turn off below this temperature.</string>
+                 </property>
                  <property name="specialValueText">
                   <string/>
                  </property>
@@ -3402,7 +3613,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <item row="5" column="0">
              <widget class="QGroupBox" name="configure_temperature_box">
               <property name="toolTip">
-               <string>Configure the maximum temperature limits for the LED driver</string>
+               <string>Configure the temperature limits for the LED driver</string>
               </property>
               <property name="title">
                <string>Temperature</string>
@@ -3459,7 +3670,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                <item row="1" column="2">
                 <widget class="QLabel" name="configure_temperature_resistor_fault_label">
                  <property name="toolTip">
-                  <string>If the resistor(s) exceed this temperature the driver will automatically turn off until it cools back down.</string>
+                  <string>If the resistor(s) exceed this temperature the driver will automatically turn off until they cool back down.</string>
                  </property>
                  <property name="text">
                   <string>Resistor Fault (°C):</string>
@@ -3469,7 +3680,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                <item row="1" column="3">
                 <widget class="QSpinBox" name="configure_temperature_resistor_fault_box">
                  <property name="toolTip">
-                  <string>If the resistor(s) exceed this temperature the driver will automatically turn off until it cools back down.</string>
+                  <string>If the resistor(s) exceed this temperature the driver will automatically turn off until they cool back down.</string>
                  </property>
                  <property name="specialValueText">
                   <string/>
@@ -4057,6 +4268,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="1">
                 <widget class="QSpinBox" name="configure_thermistor_resistance_box">
+                 <property name="toolTip">
+                  <string>Nominal resistance of the thermistor at 25°C - see data sheet of external device for details.</string>
+                 </property>
                  <property name="specialValueText">
                   <string/>
                  </property>
@@ -4073,6 +4287,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="1">
                 <widget class="QSpinBox" name="configure_thermistor_beta_box">
+                 <property name="toolTip">
+                  <string>Beta (K) of the thermistor - see data sheet of external device for details.</string>
+                 </property>
                  <property name="specialValueText">
                   <string/>
                  </property>
@@ -4148,12 +4365,18 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             </item>
             <item row="10" column="0">
              <widget class="QGroupBox" name="configure_pushbutton_box">
+              <property name="toolTip">
+               <string>Congifure the built-in LEDs on the four pushbuttons.</string>
+              </property>
               <property name="title">
                <string>Pushbutton LEDs</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_18">
                <item row="0" column="0">
                 <widget class="QLabel" name="configure_pushbutton_intensity_label">
+                 <property name="toolTip">
+                  <string>Set the intensity of the pushbuttons</string>
+                 </property>
                  <property name="text">
                   <string>Intensity</string>
                  </property>
@@ -4161,6 +4384,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="0">
                 <widget class="QLabel" name="configure_pushbutton_alarm_label">
+                 <property name="toolTip">
+                  <string>Set the LED display when a critical fault occurs such as an over-temperature fault.</string>
+                 </property>
                  <property name="text">
                   <string>Alarm:</string>
                  </property>
@@ -4168,6 +4394,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="1">
                 <widget class="QRadioButton" name="configure_pushbutton_alarm_flash_button">
+                 <property name="toolTip">
+                  <string>Flash the LEDs on and off during a critical fault such as an over-temperature fault.</string>
+                 </property>
                  <property name="text">
                   <string>Flash</string>
                  </property>
@@ -4178,6 +4407,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="4">
                 <widget class="QRadioButton" name="configure_pushbutton_alarm_solid_button">
+                 <property name="toolTip">
+                  <string>Illuminate all LEDs during a critical fault such as an over-temperature fault.</string>
+                 </property>
                  <property name="text">
                   <string>Solid</string>
                  </property>
@@ -4185,6 +4417,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="2">
                 <widget class="QRadioButton" name="configure_pushbutton_alarm_chase_button">
+                 <property name="toolTip">
+                  <string>Sequentially illuminate the LEDs during a critical fault such as an over-temperature fault.</string>
+                 </property>
                  <property name="text">
                   <string>Chase</string>
                  </property>
@@ -4192,6 +4427,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="3">
                 <widget class="QRadioButton" name="configure_pushbutton_alarm_pulse_button">
+                 <property name="toolTip">
+                  <string>Ramp LED intensity during a critical fault such as an over-temperature fault.</string>
+                 </property>
                  <property name="text">
                   <string>Pulse</string>
                  </property>
@@ -4199,6 +4437,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="5">
                 <widget class="QRadioButton" name="configure_pushbutton_alarm_disable_button">
+                 <property name="toolTip">
+                  <string>Do not change LEDs during a critical fault such as an over-temperature fault.</string>
+                 </property>
                  <property name="text">
                   <string>Disable</string>
                  </property>
@@ -4206,6 +4447,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="6">
                 <widget class="QPushButton" name="configure_pushbutton_alarm_test_button">
+                 <property name="toolTip">
+                  <string>Test fault illumination pattern.</string>
+                 </property>
                  <property name="text">
                   <string>Test</string>
                  </property>
@@ -4213,6 +4457,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="6">
                 <widget class="QPushButton" name="configure_pushbutton_intensity_button">
+                 <property name="toolTip">
+                  <string>Test pushbutton LED intensity</string>
+                 </property>
                  <property name="text">
                   <string>Test</string>
                  </property>
@@ -4220,6 +4467,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="1" colspan="5">
                 <widget class="QSlider" name="configure_pushbutton_intensity_slider">
+                 <property name="toolTip">
+                  <string>Set the intensity of the pushbuttons</string>
+                 </property>
                  <property name="maximum">
                   <number>100</number>
                  </property>
@@ -4229,6 +4479,12 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
+                 <property name="tickPosition">
+                  <enum>QSlider::TicksAbove</enum>
+                 </property>
+                 <property name="tickInterval">
+                  <number>10</number>
+                 </property>
                 </widget>
                </item>
               </layout>
@@ -4236,12 +4492,18 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             </item>
             <item row="9" column="0">
              <widget class="QGroupBox" name="configure_audio_box">
+              <property name="toolTip">
+               <string>Configure audio settings</string>
+              </property>
               <property name="title">
                <string>Audio</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_11">
                <item row="1" column="1">
                 <widget class="QSlider" name="configure_audio_alarm_slider">
+                 <property name="toolTip">
+                  <string>Set the tone volume for critical faults such as an over-temperature fault.</string>
+                 </property>
                  <property name="maximum">
                   <number>100</number>
                  </property>
@@ -4261,6 +4523,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="0">
                 <widget class="QLabel" name="configure_audio_alarm_label">
+                 <property name="toolTip">
+                  <string>Set the tone volume for critical faults such as an over-temperature fault.</string>
+                 </property>
                  <property name="text">
                   <string>Alarm Volume</string>
                  </property>
@@ -4268,6 +4533,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="0">
                 <widget class="QLabel" name="configure_audio_status_label">
+                 <property name="toolTip">
+                  <string>Set the tone volume for notifications such as verifying successful boot and successful upload.</string>
+                 </property>
                  <property name="text">
                   <string>Status Volume</string>
                  </property>
@@ -4275,6 +4543,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="1">
                 <widget class="QSlider" name="configure_audio_status_slider">
+                 <property name="toolTip">
+                  <string>Set the tone volume for notifications such as verifying successful boot and successful upload.</string>
+                 </property>
                  <property name="maximum">
                   <number>100</number>
                  </property>
@@ -4294,6 +4565,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="0" column="2">
                 <widget class="QPushButton" name="configure_audio_status_button">
+                 <property name="toolTip">
+                  <string>Test status tone volume.</string>
+                 </property>
                  <property name="text">
                   <string>Test</string>
                  </property>
@@ -4301,6 +4575,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                </item>
                <item row="1" column="2">
                 <widget class="QPushButton" name="configure_audio_alarm_button">
+                 <property name="toolTip">
+                  <string>Test alarm tone volume.</string>
+                 </property>
                  <property name="text">
                   <string>Test</string>
                  </property>
@@ -4315,13 +4592,16 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
         </item>
         <item row="1" column="4">
          <widget class="QPushButton" name="configure_load_button">
+          <property name="toolTip">
+           <string>Load a LED driver configuration text file (*.lcf)</string>
+          </property>
           <property name="text">
            <string>Load Configuration</string>
           </property>
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="Line" name="configure_line3">
+         <widget class="Line" name="configure_button_line">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -4329,6 +4609,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
         </item>
         <item row="1" column="3">
          <widget class="QPushButton" name="configure_save_button">
+          <property name="toolTip">
+           <string>Save LED driver configuration as a text file (*.lcf)</string>
+          </property>
           <property name="text">
            <string>Save Configuration</string>
           </property>
@@ -4336,6 +4619,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
         </item>
         <item row="1" column="0">
          <widget class="QPushButton" name="configure_download_button">
+          <property name="toolTip">
+           <string>Update configure window with the current driver configuration.</string>
+          </property>
           <property name="text">
            <string>Download from Driver</string>
           </property>
@@ -4473,7 +4759,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>686</width>
+     <width>761</width>
      <height>21</height>
     </rect>
    </property>
@@ -4568,13 +4854,14 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="intensity_button_group"/>
-  <buttongroup name="channel_button_group"/>
-  <buttongroup name="Ch_merge_4_button_group"/>
   <buttongroup name="axis_button_group"/>
-  <buttongroup name="ext_fan_button_group"/>
+  <buttongroup name="Ch_merge_1_button_group"/>
   <buttongroup name="Ch_merge_3_button_group"/>
   <buttongroup name="Ch_merge_2_button_group"/>
-  <buttongroup name="Ch_merge_1_button_group"/>
+  <buttongroup name="channel_button_group"/>
+  <buttongroup name="intensity_button_group"/>
+  <buttongroup name="Ch_merge_4_button_group"/>
+  <buttongroup name="ext_fan_button_group"/>
+  <buttongroup name="sync_output_button_group"/>
  </buttongroups>
 </ui>
