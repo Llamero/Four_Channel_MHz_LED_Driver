@@ -9,13 +9,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>814</width>
-    <height>993</height>
+    <width>475</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>400</width>
+    <width>475</width>
     <height>600</height>
    </size>
   </property>
@@ -41,7 +41,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -402,8 +402,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>770</width>
-             <height>781</height>
+             <width>431</width>
+             <height>388</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -413,13 +413,13 @@
                <string>Select the active sync mode to configure</string>
               </property>
               <property name="currentIndex">
-               <number>4</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="sync_digital_page">
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-137</y>
+                 <y>0</y>
                  <width>523</width>
                  <height>628</height>
                 </rect>
@@ -1399,7 +1399,7 @@
                    <string>Configure how the analog input will be converted to LED output.</string>
                   </property>
                   <property name="currentIndex">
-                   <number>2</number>
+                   <number>0</number>
                   </property>
                   <widget class="QWidget" name="sync_analog_output_PWM_tab">
                    <property name="toolTip">
@@ -1802,9 +1802,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-482</y>
+                 <y>-432</y>
                  <width>735</width>
-                 <height>1080</height>
+                 <height>1030</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -2332,7 +2332,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                          <string>Select event type for when the laser is inside the image FOV</string>
                         </property>
                         <property name="currentIndex">
-                         <number>3</number>
+                         <number>0</number>
                         </property>
                         <widget class="QWidget" name="sync_confocal_image_off_tab">
                          <property name="toolTip">
@@ -3414,8 +3414,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-254</y>
-             <width>753</width>
+             <y>0</y>
+             <width>611</width>
              <height>1103</height>
             </rect>
            </property>
@@ -5003,7 +5003,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>814</width>
+     <width>475</width>
      <height>21</height>
     </rect>
    </property>
