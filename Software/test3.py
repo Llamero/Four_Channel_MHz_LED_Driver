@@ -11,6 +11,7 @@ class Ui(QtWidgets.QMainWindow):
         uic.loadUi('QtDesigner_GUI.ui', self)
         self.menu_view_dark_mode.triggered.connect(self.test)
         self.app.setStyleSheet("")
+        self.app.setFont(QFont("MS Shell Dlg 2", 12))
         self.show()
 
     def test(self):
@@ -19,6 +20,10 @@ class Ui(QtWidgets.QMainWindow):
 
         else:
             self.app.setStyleSheet("")
+
+        self.app.setFont(QFont("MS Shell Dlg 2", 12))
+
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
