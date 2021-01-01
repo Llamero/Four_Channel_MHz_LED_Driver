@@ -1,7 +1,6 @@
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 from PyQt5.QtGui import QFont, QPalette, QColor
 import qdarkstyle #This awesome style sheet was made by Colin Duquesnoy and Daniel Cosmo Pizetta - https://github.com/ColinDuquesnoy/QDarkStyleSheet
-import sys
 
 class Ui(QtWidgets.QMainWindow):
     def __init__(self, app):
@@ -25,7 +24,3 @@ class Ui(QtWidgets.QMainWindow):
 
 
 
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    window = Ui(app)
-    app.exec_()
