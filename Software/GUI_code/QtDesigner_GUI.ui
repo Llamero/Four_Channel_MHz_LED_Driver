@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>511</width>
-    <height>655</height>
+    <width>792</width>
+    <height>864</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -48,7 +48,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -284,6 +284,9 @@
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
              </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
              <property name="decimals">
               <number>3</number>
              </property>
@@ -409,8 +412,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>467</width>
-             <height>440</height>
+             <width>748</width>
+             <height>649</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -420,14 +423,14 @@
                <string>Select the active sync mode to configure</string>
               </property>
               <property name="currentIndex">
-               <number>2</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="sync_digital_page">
                <property name="geometry">
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>523</width>
+                 <width>713</width>
                  <height>628</height>
                 </rect>
                </property>
@@ -797,7 +800,7 @@
                           <number>4</number>
                          </property>
                          <attribute name="horizontalHeaderStretchLastSection">
-                          <bool>true</bool>
+                          <bool>false</bool>
                          </attribute>
                          <attribute name="verticalHeaderCascadingSectionResizes">
                           <bool>false</bool>
@@ -3593,8 +3596,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>0</y>
-             <width>611</width>
+             <y>-34</y>
+             <width>731</width>
              <height>1103</height>
             </rect>
            </property>
@@ -4059,6 +4062,35 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                <string>Merge Channels</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_19" rowstretch="0,0,0,0,0" columnstretch="0,0,0,0,0,0,0,0">
+               <item row="2" column="5" rowspan="2">
+                <widget class="QRadioButton" name="configure_LED_merge_channel3_button3">
+                 <property name="toolTip">
+                  <string>Connect LED #3 to channel #3</string>
+                 </property>
+                 <property name="text">
+                  <string>LED #3</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">configure_ch_merge_3_button_group</string>
+                 </attribute>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QRadioButton" name="configure_LED_merge_channel1_button2">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string>LED #2</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
                <item row="1" column="1">
                 <widget class="QRadioButton" name="configure_LED_merge_channel2_button1">
                  <property name="toolTip">
@@ -4085,6 +4117,19 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  </attribute>
                 </widget>
                </item>
+               <item row="4" column="7">
+                <widget class="QRadioButton" name="configure_LED_merge_channel4_button4">
+                 <property name="text">
+                  <string>LED #4</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">configure_ch_merge_4_button_group</string>
+                 </attribute>
+                </widget>
+               </item>
                <item row="1" column="0">
                 <widget class="QLabel" name="configure_LED_merge_channel2_label">
                  <property name="toolTip">
@@ -4095,29 +4140,16 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  </property>
                 </widget>
                </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="configure_LED_merge_channel4_label">
+               <item row="4" column="5">
+                <widget class="QRadioButton" name="configure_LED_merge_channel4_button3">
                  <property name="toolTip">
-                  <string>Select the LED # connected to channel #4</string>
+                  <string>Connect LED #3 to channel #4</string>
                  </property>
                  <property name="text">
-                  <string>Channel #4:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="3">
-                <widget class="QRadioButton" name="configure_LED_merge_channel2_button2">
-                 <property name="toolTip">
-                  <string>Connect LED #2 to channel #2</string>
-                 </property>
-                 <property name="text">
-                  <string>LED #2</string>
-                 </property>
-                 <property name="checked">
-                  <bool>true</bool>
+                  <string>LED #3</string>
                  </property>
                  <attribute name="buttonGroup">
-                  <string notr="true">configure_ch_merge_2_button_group</string>
+                  <string notr="true">configure_ch_merge_4_button_group</string>
                  </attribute>
                 </widget>
                </item>
@@ -4141,16 +4173,38 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  </property>
                 </widget>
                </item>
-               <item row="2" column="1" rowspan="2">
-                <widget class="QRadioButton" name="configure_LED_merge_channel3_button1">
+               <item row="0" column="1">
+                <widget class="QRadioButton" name="configure_LED_merge_channel1_button1">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
                  <property name="toolTip">
-                  <string>Connect LED #1 to channel #3</string>
+                  <string>LED #1 is always connected to channel #1</string>
                  </property>
                  <property name="text">
                   <string>LED #1</string>
                  </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
                  <attribute name="buttonGroup">
-                  <string notr="true">configure_ch_merge_3_button_group</string>
+                  <string notr="true">configure_ch_merge_1_button_group</string>
+                 </attribute>
+                </widget>
+               </item>
+               <item row="1" column="3">
+                <widget class="QRadioButton" name="configure_LED_merge_channel2_button2">
+                 <property name="toolTip">
+                  <string>Connect LED #2 to channel #2</string>
+                 </property>
+                 <property name="text">
+                  <string>LED #2</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">configure_ch_merge_2_button_group</string>
                  </attribute>
                 </widget>
                </item>
@@ -4167,19 +4221,26 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  </attribute>
                 </widget>
                </item>
-               <item row="0" column="1">
-                <widget class="QRadioButton" name="configure_LED_merge_channel1_button1">
+               <item row="4" column="0">
+                <widget class="QLabel" name="configure_LED_merge_channel4_label">
                  <property name="toolTip">
-                  <string>LED #1 is always connected to channel #1</string>
+                  <string>Select the LED # connected to channel #4</string>
+                 </property>
+                 <property name="text">
+                  <string>Channel #4:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1" rowspan="2">
+                <widget class="QRadioButton" name="configure_LED_merge_channel3_button1">
+                 <property name="toolTip">
+                  <string>Connect LED #1 to channel #3</string>
                  </property>
                  <property name="text">
                   <string>LED #1</string>
                  </property>
-                 <property name="checked">
-                  <bool>true</bool>
-                 </property>
                  <attribute name="buttonGroup">
-                  <string notr="true">configure_ch_merge_1_button_group</string>
+                  <string notr="true">configure_ch_merge_3_button_group</string>
                  </attribute>
                 </widget>
                </item>
@@ -4196,46 +4257,54 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  </attribute>
                 </widget>
                </item>
-               <item row="2" column="5" rowspan="2">
-                <widget class="QRadioButton" name="configure_LED_merge_channel3_button3">
-                 <property name="toolTip">
-                  <string>Connect LED #3 to channel #3</string>
+               <item row="0" column="5">
+                <widget class="QRadioButton" name="configure_LED_merge_channel1_button3">
+                 <property name="enabled">
+                  <bool>false</bool>
                  </property>
                  <property name="text">
                   <string>LED #3</string>
                  </property>
-                 <property name="checked">
-                  <bool>true</bool>
-                 </property>
-                 <attribute name="buttonGroup">
-                  <string notr="true">configure_ch_merge_3_button_group</string>
-                 </attribute>
                 </widget>
                </item>
-               <item row="4" column="5">
-                <widget class="QRadioButton" name="configure_LED_merge_channel4_button3">
-                 <property name="toolTip">
-                  <string>Connect LED #3 to channel #4</string>
+               <item row="1" column="5">
+                <widget class="QRadioButton" name="configure_LED_merge_channel2_button3">
+                 <property name="enabled">
+                  <bool>false</bool>
                  </property>
                  <property name="text">
                   <string>LED #3</string>
                  </property>
-                 <attribute name="buttonGroup">
-                  <string notr="true">configure_ch_merge_4_button_group</string>
-                 </attribute>
                 </widget>
                </item>
-               <item row="4" column="7">
-                <widget class="QRadioButton" name="configure_LED_merge_channel4_button4">
+               <item row="0" column="7">
+                <widget class="QRadioButton" name="configure_LED_merge_channel1_button4">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
                  <property name="text">
                   <string>LED #4</string>
                  </property>
-                 <property name="checked">
-                  <bool>true</bool>
+                </widget>
+               </item>
+               <item row="1" column="7">
+                <widget class="QRadioButton" name="configure_LED_merge_channel2_button4">
+                 <property name="enabled">
+                  <bool>false</bool>
                  </property>
-                 <attribute name="buttonGroup">
-                  <string notr="true">configure_ch_merge_4_button_group</string>
-                 </attribute>
+                 <property name="text">
+                  <string>LED #4</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="7">
+                <widget class="QRadioButton" name="configure_LED_merge_channel3_button4">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string>LED #4</string>
+                 </property>
                 </widget>
                </item>
               </layout>
@@ -5182,7 +5251,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>511</width>
+     <width>792</width>
      <height>24</height>
     </rect>
    </property>
@@ -5308,27 +5377,27 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="main_channel_button_group"/>
-  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
-  <buttongroup name="sync_analog_led_channel_button_group"/>
-  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
-  <buttongroup name="configure_ch_merge_2_button_group"/>
-  <buttongroup name="sync_digital_trigger_button_group"/>
-  <buttongroup name="sync_output_button_group"/>
-  <buttongroup name="configure_ch_merge_3_button_group"/>
-  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
-  <buttongroup name="sync_confocal_line_input_button_group"/>
-  <buttongroup name="configure_pushbutton_LED_button_group"/>
-  <buttongroup name="main_intensity_button_group"/>
   <buttongroup name="sync_confocal_scan_mode_button_group"/>
-  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
-  <buttongroup name="sync_analog_input_channel_button_group"/>
-  <buttongroup name="calibration_axis_button_group"/>
-  <buttongroup name="configure_ext_fan_button_group"/>
-  <buttongroup name="configure_ch_merge_4_button_group"/>
   <buttongroup name="configure_ch_merge_1_button_group"/>
+  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
   <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
-  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
+  <buttongroup name="sync_digital_trigger_button_group"/>
+  <buttongroup name="configure_ext_fan_button_group"/>
+  <buttongroup name="configure_ch_merge_2_button_group"/>
+  <buttongroup name="main_intensity_button_group"/>
+  <buttongroup name="configure_ch_merge_3_button_group"/>
+  <buttongroup name="calibration_axis_button_group"/>
+  <buttongroup name="configure_pushbutton_LED_button_group"/>
+  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
+  <buttongroup name="configure_ch_merge_4_button_group"/>
+  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
   <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
+  <buttongroup name="sync_output_button_group"/>
+  <buttongroup name="sync_analog_input_channel_button_group"/>
+  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
+  <buttongroup name="sync_confocal_line_input_button_group"/>
+  <buttongroup name="main_channel_button_group"/>
+  <buttongroup name="sync_analog_led_channel_button_group"/>
+  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
  </buttongroups>
 </ui>

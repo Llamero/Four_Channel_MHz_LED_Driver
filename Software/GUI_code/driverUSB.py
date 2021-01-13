@@ -11,7 +11,7 @@ MAGIC_SEND = "kc1oISEIZ60AYJqH4J1P" #Magic number sent to Teensy to verify that 
 MAGIC_RECEIVE = "kvlWfsBplgasrsh3un5K" #Magic number received from Teensy verifying it is an LED driver
 
 class usbSerial():
-    def __init__(self, app):
+    def __init__(self):
         self.debug = True #Prints debug messages
         self.ser_num = None #Serial number of the USB connected device
         self.com_list_teensy = []  # List of USB COM ports that have the same VENDOR_ID and PRODUCT_ID as a Teensy
@@ -52,33 +52,62 @@ class usbSerial():
             self.active_serial = None
             return False
 
-    def magicNumberCheck(self):
-        pass
-
     def serial_send(self, packet):
         try:
-            cobs_packet = cobs.encode(packet)
-            self.active_serial.write(cobs_packet)
+            packet_bytearray = bytearray(packet) #Convert packet to byte array for COBS encoding
+            if len(packet_bytearray) > 250: #Confirm that the packet is not too large
+                raise ValueError
+            cobs_packet = cobs.encode(packet_bytearray) #COBS encode packet for framing
+            packet_length = len(cobs_packet) #Measure length of COBS encoded packet
+            packet_length = packet_length.to_bytes(1) #Convert length header to byte
+            self.active_serial.write(packet_length) #Send length header byte to driver
+            self.active_serial.write(cobs_packet) #Send COBS encoded data packet
             return True
         except serial.SerialException:
             if self.debug:
                 print("Failed to send data packet to driver.")
             return False
+        except ValueError:
+            if self.debug:
+                print("Send packet length :" + str(len(packet_bytearray)) + " is not 0-250 bytes.")
+            return False
 
 
-    def serial_receive(self, size = 4, read_timeout = 1):
+    def serial_receive(self, read_timeout = 0.1):
+        #Get packet length header from serial stream
         try:
-            self.active_serial.timeout(read_timeout)
-            read_buffer = self.active_serial.read(size)
-            if(size == 4):
-                self.processCommand(read_buffer)
-            return read_buffer
+            packet_size = self.active_serial.read()
         except serial.SerialException:
-            print("Failed to receive data packet from driver.")
+            if self.debug:
+                print("Failed to receive packet size byte from driver.")
             return None
-        except cobs.DecodeError:
-            print("Invalid COBS packet received.")
-            return None
+
+        if packet_size == 0: #If packet size is 0, then message is ACK byte
+            return True
+
+        else: #Retrieve the full data packet
+            try:
+                if packet_size > 250:  # Confirm that the packet is not too large
+                    raise ValueError
+                self.active_serial.timeout(read_timeout)
+                read_buffer = self.active_serial.read(packet_size)
+                read_buffer = cobs.decode(read_buffer) #Decode packet
+                return read_buffer
+            except serial.SerialException:
+                if self.debug:
+                    print("Failed to receive data packet from driver.")
+                return None
+            except cobs.DecodeError:
+                if self.debug:
+                    print("Invalid COBS packet received.")
+                return None
+            except ValueError:
+                if self.debug:
+                    print("Receive packet length :" + str(packet_size) + " is not 0-250 bytes.")
+                return None
+
+    def magicNumberCheck(self):
+        pass
 
 
 
