@@ -27,15 +27,17 @@ class Ui(QtWidgets.QMainWindow):
 
         self.config_model = OrderedDict()
         self.initializeModel()
-        widget = self.config_model["LED3"]["Channels"][0]
+        widget = self.config_model["Temperature"]["Transistor"]["Warn"]
         if isinstance(widget, QtWidgets.QLineEdit):
             print(widget.text())
-        elif isinstance(widget, QtWidgets.QRadioButton):
+        elif isinstance(widget, QtWidgets.QRadioButton) or isinstance(widget, QtWidgets.QCheckBox):
             print(widget.isChecked())
+        elif isinstance(widget, QtWidgets.QSpinBox) or isinstance(widget, QtWidgets.QDoubleSpinBox):
+            print(widget.value())
         self.show()
 
     def test(self):
-        if(self.menu_view_dark_mode.isChecked()):
+        if self.menu_view_dark_mode.isChecked():
             self.app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
 
         else:
@@ -53,3 +55,10 @@ class Ui(QtWidgets.QMainWindow):
                     eval("self.configure_LED_merge_channel2_button" + str(led_number)),
                     eval("self.configure_LED_merge_channel3_button" + str(led_number)),
                     eval("self.configure_LED_merge_channel4_button" + str(led_number))])])
+        for resistor in range(1,5):
+            self.config_model["Resistor" + str(resistor)] = OrderedDict(
+                [("Value", eval("self.configure_resistor" + str(resistor) + "_spin_box")),
+                 ("Active", eval("self.configure_resistor" + str(resistor) + "_box"))])
+        self.config_model["Temperature"] = OrderedDict()
+        for source in ["Transistor", "Resistor", "External"]:
+            self.config_model["Temperature"][source] = OrderedDict([("Warn", eval("self.configure_temperature_" + source.lower() + "_warn_box")), ("Fault", eval("self.configure_temperature_" + source.lower() + "_fault_box"))])
