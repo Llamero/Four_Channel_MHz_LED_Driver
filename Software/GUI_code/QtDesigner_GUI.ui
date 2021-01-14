@@ -48,7 +48,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -423,13 +423,13 @@
                <string>Select the active sync mode to configure</string>
               </property>
               <property name="currentIndex">
-               <number>0</number>
+               <number>2</number>
               </property>
               <widget class="QWidget" name="sync_digital_page">
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
+                 <y>-162</y>
                  <width>713</width>
                  <height>628</height>
                 </rect>
@@ -971,7 +971,7 @@
                           <string>Load LED intensity sequence file (*.lsq)</string>
                          </property>
                          <property name="text">
-                          <string>Load Wave File</string>
+                          <string>Load Sequence File</string>
                          </property>
                         </widget>
                        </item>
@@ -981,7 +981,7 @@
                           <string>Save LED intensity sequence file (*.lsq)</string>
                          </property>
                          <property name="text">
-                          <string>Save Wave File</string>
+                          <string>Save Sequence File</string>
                          </property>
                         </widget>
                        </item>
@@ -1272,7 +1272,7 @@
                           <string>Save LED intensity sequence file (*.lsq)</string>
                          </property>
                          <property name="text">
-                          <string>Save Wave File</string>
+                          <string>Save Sequence File</string>
                          </property>
                         </widget>
                        </item>
@@ -1453,7 +1453,7 @@
                           <string>Load LED intensity sequence file (*.lsq)</string>
                          </property>
                          <property name="text">
-                          <string>Load Wave File</string>
+                          <string>Load Sequence File</string>
                          </property>
                         </widget>
                        </item>
@@ -1484,8 +1484,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>553</width>
-                 <height>307</height>
+                 <width>730</width>
+                 <height>466</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1904,8 +1904,8 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
-                 <width>525</width>
+                 <y>-564</y>
+                 <width>713</width>
                  <height>1030</height>
                 </rect>
                </property>
@@ -2696,7 +2696,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <string>Save LED intensity sequence file (*.lsq)</string>
                             </property>
                             <property name="text">
-                             <string>Save Wave File</string>
+                             <string>Save Sequence File</string>
                             </property>
                            </widget>
                           </item>
@@ -2706,7 +2706,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <string>Load LED intensity sequence file (*.lsq)</string>
                             </property>
                             <property name="text">
-                             <string>Load Wave File</string>
+                             <string>Load Sequence File</string>
                             </property>
                            </widget>
                           </item>
@@ -3364,7 +3364,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <string>Load LED intensity sequence file (*.lsq)</string>
                             </property>
                             <property name="text">
-                             <string>Load Wave File</string>
+                             <string>Load Sequence File</string>
                             </property>
                            </widget>
                           </item>
@@ -3374,7 +3374,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <string>Save LED intensity sequence file (*.lsq)</string>
                             </property>
                             <property name="text">
-                             <string>Save Wave File</string>
+                             <string>Save Sequence File</string>
                             </property>
                            </widget>
                           </item>
@@ -3596,7 +3596,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-269</y>
+             <y>-386</y>
              <width>731</width>
              <height>1103</height>
             </rect>
