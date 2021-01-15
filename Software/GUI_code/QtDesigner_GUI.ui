@@ -423,13 +423,13 @@
                <string>Select the active sync mode to configure</string>
               </property>
               <property name="currentIndex">
-               <number>2</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="sync_digital_page">
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-162</y>
+                 <y>-155</y>
                  <width>713</width>
                  <height>628</height>
                 </rect>
@@ -794,7 +794,7 @@
                           <string>LED intensity sequence file</string>
                          </property>
                          <property name="rowCount">
-                          <number>100</number>
+                          <number>4</number>
                          </property>
                          <property name="columnCount">
                           <number>4</number>
@@ -811,102 +811,6 @@
                          <attribute name="verticalHeaderStretchLastSection">
                           <bool>false</bool>
                          </attribute>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
                          <row/>
                          <row/>
                          <row/>
@@ -1288,107 +1192,11 @@
                           <string>LED intensity sequence file</string>
                          </property>
                          <property name="rowCount">
-                          <number>100</number>
+                          <number>4</number>
                          </property>
                          <property name="columnCount">
                           <number>4</number>
                          </property>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
-                         <row/>
                          <row/>
                          <row/>
                          <row/>
@@ -1484,8 +1292,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>730</width>
-                 <height>466</height>
+                 <width>553</width>
+                 <height>307</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1904,7 +1712,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-564</y>
+                 <y>0</y>
                  <width>713</width>
                  <height>1030</height>
                 </rect>
@@ -2722,107 +2530,11 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <string>LED intensity sequence file</string>
                             </property>
                             <property name="rowCount">
-                             <number>100</number>
+                             <number>4</number>
                             </property>
                             <property name="columnCount">
                              <number>4</number>
                             </property>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
                             <row/>
                             <row/>
                             <row/>
@@ -3199,107 +2911,11 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <string>LED intensity sequence file</string>
                             </property>
                             <property name="rowCount">
-                             <number>100</number>
+                             <number>4</number>
                             </property>
                             <property name="columnCount">
                              <number>4</number>
                             </property>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
-                            <row/>
                             <row/>
                             <row/>
                             <row/>
@@ -3596,7 +3212,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-386</y>
+             <y>0</y>
              <width>731</width>
              <height>1103</height>
             </rect>
@@ -5353,27 +4969,27 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="sync_confocal_scan_mode_button_group"/>
-  <buttongroup name="configure_ch_merge_1_button_group"/>
-  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
-  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
+  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
   <buttongroup name="sync_digital_trigger_button_group"/>
-  <buttongroup name="configure_ext_fan_button_group"/>
-  <buttongroup name="configure_ch_merge_2_button_group"/>
   <buttongroup name="main_intensity_button_group"/>
+  <buttongroup name="configure_ch_merge_1_button_group"/>
+  <buttongroup name="configure_ch_merge_2_button_group"/>
   <buttongroup name="configure_ch_merge_3_button_group"/>
-  <buttongroup name="calibration_axis_button_group"/>
+  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
+  <buttongroup name="sync_confocal_line_input_button_group"/>
+  <buttongroup name="sync_analog_input_channel_button_group"/>
+  <buttongroup name="configure_ch_merge_4_button_group"/>
+  <buttongroup name="configure_ext_fan_button_group"/>
+  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
   <buttongroup name="configure_pushbutton_LED_button_group"/>
   <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
-  <buttongroup name="configure_ch_merge_4_button_group"/>
-  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
-  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
-  <buttongroup name="sync_output_button_group"/>
-  <buttongroup name="sync_analog_input_channel_button_group"/>
-  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
-  <buttongroup name="sync_confocal_line_input_button_group"/>
-  <buttongroup name="main_channel_button_group"/>
+  <buttongroup name="sync_confocal_scan_mode_button_group"/>
+  <buttongroup name="calibration_axis_button_group"/>
   <buttongroup name="sync_analog_led_channel_button_group"/>
+  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
+  <buttongroup name="sync_output_button_group"/>
+  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
+  <buttongroup name="main_channel_button_group"/>
   <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
  </buttongroups>
 </ui>

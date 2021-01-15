@@ -2,8 +2,7 @@ from PyQt5 import QtGui, QtCore, QtWidgets, uic
 from PyQt5.QtGui import QFont
 import qdarkstyle  # This awesome style sheet was made by Colin Duquesnoy and Daniel Cosmo Pizetta - https://github.com/ColinDuquesnoy/QDarkStyleSheet
 from collections import OrderedDict
-import guiSequence as seq
-import guiModels as model
+import guiMapper
 import usbThread
 
 
@@ -27,12 +26,13 @@ class Ui(QtWidgets.QMainWindow):
                     widget = eval("self.configure_LED_merge_channel" + str(channel) + "_button" + str(button))
                     widget.setVisible(False)
 
-        self.config_model = model.initializeConfigModel(self)
+        # Map gui widgets to ordered dictionaries
+        self.config_model = guiMapper.initializeConfigModel(self)
+
+        # Assign events to widgets
+        guiMapper.initializeEvents(self)
         self.sync_model = OrderedDict()
-        self.menu_view_dark_mode.triggered.connect(self.toggleSkin)
-        # self.loadSequence(self.sync_confocal_image_sequence_table)
-        self.sync_confocal_image_sequence_save_button.clicked.connect(lambda: seq.saveSequence(self, self.sync_confocal_image_sequence_table))
-        self.sync_confocal_image_sequence_load_button.clicked.connect(lambda: seq.loadSequence(self, self.sync_confocal_image_sequence_table))
+
         print(self.getValue(self.config_model["Fan"]["Driver"]["Min"]))
         self.show()
 

@@ -1,5 +1,9 @@
-from PyQt5 import QtWidgets
 from collections import OrderedDict
+import guiSequence as seq
+
+
+
+from PyQt5 import QtGui
 
 def initializeConfigModel(self):
     config_model = OrderedDict()
@@ -54,3 +58,17 @@ def initializeConfigModel(self):
                                                               self.configure_pushbutton_alarm_solid_button])])
 
     return config_model
+
+def initializeEvents(self):
+    #Dark mode view
+    self.menu_view_dark_mode.triggered.connect(self.toggleSkin)
+
+    #Save and load sequence files
+    self.sync_digital_trigger_low_sequence_save_button.clicked.connect(lambda: seq.saveSequence(self, self.sync_digital_trigger_low_sequence_table))
+    self.sync_digital_trigger_low_sequence_load_button.clicked.connect(lambda: seq.loadSequence(self, self.sync_digital_trigger_low_sequence_table))
+    self.sync_digital_trigger_high_sequence_save_button.clicked.connect(lambda: seq.saveSequence(self, self.sync_digital_trigger_high_sequence_table))
+    self.sync_digital_trigger_high_sequence_load_button.clicked.connect(lambda: seq.loadSequence(self, self.sync_digital_trigger_high_sequence_table))
+    self.sync_confocal_image_sequence_save_button.clicked.connect(lambda: seq.saveSequence(self, self.sync_confocal_image_sequence_table))
+    self.sync_confocal_image_sequence_load_button.clicked.connect(lambda: seq.loadSequence(self, self.sync_confocal_image_sequence_table))
+    self.sync_confocal_flyback_sequence_save_button.clicked.connect(lambda: seq.saveSequence(self, self.sync_confocal_flyback_sequence_table))
+    self.sync_confocal_flyback_sequence_load_button.clicked.connect(lambda: seq.loadSequence(self, self.sync_confocal_flyback_sequence_table))

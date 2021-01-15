@@ -77,11 +77,11 @@ def verifySequence(self, stream, widget):
             if csv_headers[column] != data and column < 4:
                 self.message_box.setText(
                     "Error: CSV header \"" + data + "\" does not match table header \"" + widget_headers[
-                        column] + "\". Import aborted.")
+                        column] + "\". Process aborted.")
                 self.message_box.exec()
                 return False
     else:
-        self.message_box.setText("Error: CSV file is empty or only contains headers, import aborted.")
+        self.message_box.setText("Error: CSV file is empty or only contains headers, process aborted.")
         self.message_box.exec()
         return False
 
@@ -99,25 +99,25 @@ def verifySequence(self, stream, widget):
                     data = float(data)
                 except:
                     self.message_box.setText(
-                        "Error: \"" + str(data) + "\" at row #" + str(row + 1) + " is not a number. Import aborted.")
+                        "Error: \"" + str(data) + "\" at row #" + str(row + 1) + " is not a number. Process aborted.")
                     self.message_box.exec()
                     return False
             if column == 0:
                 if data not in [0, 1, 2, 3, 4]:
                     self.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
-                        row + 1) + " is not a valid LED integer (0-4). Import aborted.")
+                        row + 1) + " is not a valid LED integer (0-4). Process aborted.")
                     self.message_box.exec()
                     return False
             elif column in [1, 2]:
                 if data < 0 or data > 100 or data is None:
                     self.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
-                        row + 1) + " is not a valid percentage (0-100). Import aborted.")
+                        row + 1) + " is not a valid percentage (0-100). Process aborted.")
                     self.message_box.exec()
                     return False
             elif column == 3:
                 if (data < 10e-6 and data != 0) or data > 3600 or data is None:
                     self.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
-                        row + 1) + " is not a valid duration (0 or 0.00001-3600). Import aborted.")
+                        row + 1) + " is not a valid duration (0 or 0.00001-3600). Process aborted.")
                     self.message_box.exec()
                     return False
     return widget_headers
