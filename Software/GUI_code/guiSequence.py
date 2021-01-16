@@ -141,10 +141,10 @@ def dynamicallyCheckTable(self, widget):
                 item = widget.item(row, column)
                 if item is not None:
                     row_data[column] = str(item.text())
-                    if not verifyCell(self, column, row, row_data[column]):
-                        widget.setItem(row, column, None)
-                        row_data[column] = None
-                        break
+                    if row_data[column] == "" or not verifyCell(self, column, row, row_data[column]):
+                            widget.setItem(row, column, None)
+                            row_data[column] = None
+                            break
 
             if None not in row_data:
                 writer.writerow(row_data)
