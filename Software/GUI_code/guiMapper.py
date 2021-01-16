@@ -72,3 +72,6 @@ def initializeEvents(self):
     self.sync_confocal_image_sequence_load_button.clicked.connect(lambda: seq.loadSequence(self, self.sync_confocal_image_sequence_table))
     self.sync_confocal_flyback_sequence_save_button.clicked.connect(lambda: seq.saveSequence(self, self.sync_confocal_flyback_sequence_table))
     self.sync_confocal_flyback_sequence_load_button.clicked.connect(lambda: seq.loadSequence(self, self.sync_confocal_flyback_sequence_table))
+
+    #Changes to sequence table
+    self.sync_digital_trigger_low_sequence_table.itemChanged.connect(lambda: seq.dynamicallyCheckTable(self, self.sync_digital_trigger_low_sequence_table))

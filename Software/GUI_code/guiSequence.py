@@ -45,12 +45,10 @@ def saveSequence(self, widget):  # derived from - https://stackoverflow.com/ques
                     item = widget.item(row, column)
                     if item is not None:
                         row_data[column] = str(item.text())
-                    else:
-                        break
-                else:
+
+                if row_data != [None] * len(widget_headers): #Exclude empty rows
                     writer.writerow(row_data)
-                    continue
-                break
+
             widget_headers = verifySequence(self, stream, widget)
 
             if widget_headers:
@@ -64,11 +62,11 @@ def verifySequence(self, stream, widget):
     stream.seek(0)
     row_count = sum(1 for row in csv.reader(stream))
 
-    # Verify CSV file
+    # Verify file
     stream.seek(0)
     reader = csv.reader(stream)
 
-    # Verify CSV header
+    # Verify header
     csv_headers = next(reader, None)
     widget_header_obj = [widget.horizontalHeaderItem(c) for c in range(widget.columnCount())]
     widget_headers = [x.text() for x in widget_header_obj if x is not None]
@@ -81,11 +79,11 @@ def verifySequence(self, stream, widget):
                 self.message_box.exec()
                 return False
     else:
-        self.message_box.setText("Error: CSV file is empty or only contains headers, process aborted.")
+        self.message_box.setText("Error: Table is empty or only contains headers, process aborted.")
         self.message_box.exec()
         return False
 
-    # Verify csv file data
+    # Verify data
     for row, row_data in enumerate(reader):
         if len(widget_headers) > len(row_data):
             self.message_box.setText(
@@ -95,29 +93,65 @@ def verifySequence(self, stream, widget):
             return False
         for column, data in enumerate(row_data):
             if column < len(widget_headers):
-                try:
-                    data = float(data)
-                except:
-                    self.message_box.setText(
-                        "Error: \"" + str(data) + "\" at row #" + str(row + 1) + " is not a number. Process aborted.")
-                    self.message_box.exec()
+                if not verifyCell(self, column, row, data):
                     return False
-            if column == 0:
-                if data not in [0, 1, 2, 3, 4]:
-                    self.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
-                        row + 1) + " is not a valid LED integer (0-4). Process aborted.")
-                    self.message_box.exec()
-                    return False
-            elif column in [1, 2]:
-                if data < 0 or data > 100 or data is None:
-                    self.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
-                        row + 1) + " is not a valid percentage (0-100). Process aborted.")
-                    self.message_box.exec()
-                    return False
-            elif column == 3:
-                if (data < 10e-6 and data != 0) or data > 3600 or data is None:
-                    self.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
-                        row + 1) + " is not a valid duration (0 or 0.00001-3600). Process aborted.")
-                    self.message_box.exec()
-                    return False
+
     return widget_headers
+
+def verifyCell(self, column, row, data):
+    try:
+        data = float(data)
+    except:
+        self.message_box.setText(
+            "Error: \"" + str(data) + "\" at row #" + str(row + 1) + " column #" + str(column + 1) + " is not a number. Process aborted.")
+        self.message_box.exec()
+        return False
+
+    if column == 0:
+        if data not in [0, 1, 2, 3, 4]:
+            self.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
+                row + 1) + " is not a valid LED integer (0-4). Process aborted.")
+            self.message_box.exec()
+            return False
+    elif column in [1, 2]:
+        if data < 0 or data > 100 or data is None:
+            self.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
+                row + 1) + " is not a valid percentage (0-100). Process aborted.")
+            self.message_box.exec()
+            return False
+    elif column == 3:
+        if (data < 10e-6 and data != 0) or data > 3600 or data is None:
+            self.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
+                row + 1) + " is not a valid duration (0 or 0.00001-3600). Process aborted.")
+            self.message_box.exec()
+            return False
+    return True
+
+def dynamicallyCheckTable(self, widget):
+    widget_header_obj = [widget.horizontalHeaderItem(c) for c in range(widget.columnCount())]
+    widget_headers = [x.text() for x in widget_header_obj if x is not None]
+
+    with tempfile.TemporaryFile(mode="w+", suffix=".csv", newline='') as stream:  # "newline=''" removes extra newline from windows - https://stackoverflow.com/questions/3191528/csv-in-python-adding-an-extra-carriage-return-on-windows
+        writer = csv.writer(stream)
+        writer.writerow(widget_headers)
+        valid_row_count = 0
+        for row in range(widget.rowCount()):
+            row_data = [None] * len(widget_headers)
+            for column in range(widget.columnCount()):
+                item = widget.item(row, column)
+                if item is not None:
+                    row_data[column] = str(item.text())
+                    if not verifyCell(self, column, row, row_data[column]):
+                        widget.setItem(row, column, None)
+                        row_data[column] = None
+                        break
+
+            if None not in row_data:
+                writer.writerow(row_data)
+                valid_row_count += 1
+
+        if valid_row_count > 0:
+            if verifySequence(self, stream, widget):
+                print(valid_row_count)
+                if valid_row_count >= widget.rowCount():
+                    widget.insertRow(widget.rowCount())
