@@ -19,14 +19,17 @@ def loadSequence(self, widget):  # derived from - https://stackoverflow.com/ques
                 next(reader, None)
 
                 # Clear table
-                widget.setRowCount(1)
+                widget.setRowCount(0)
+                widget.itemChanged.disconnect() #Speed up CSV loading by preventing widget from validating every cell as data is loaded
                 for row_data in reader:
-                    row = widget.rowCount()-1
+                    row = widget.rowCount()
+                    widget.insertRow(row)
                     for column, data in enumerate(row_data):
                         if column < len(widget_headers):
-                            print(repr(data))
                             item = QtGui.QTableWidgetItem(str(data))
                             widget.setItem(row, column, item)
+                widget.insertRow(row+1) #Add one extra row to allow for editing
+                widget.itemChanged.connect(lambda: dynamicallyCheckTable(self, widget)) #Reconnect the widget cell validation
 
 
 def saveSequence(self, widget):  # derived from - https://stackoverflow.com/questions/12608835/writing-a-qtablewidget-to-a-csv-or-xls
@@ -57,6 +60,7 @@ def saveSequence(self, widget):  # derived from - https://stackoverflow.com/ques
                         file_writer.writerow(row_data)
 
 def verifySequence(self, stream, widget):
+    print("o")
     stream.seek(0)
     row_count = sum(1 for row in csv.reader(stream))
 
@@ -126,6 +130,7 @@ def verifyCell(self, column, row, data):
     return True
 
 def dynamicallyCheckTable(self, widget):
+    row_subsample = 1000  #Only load the lest segment of the table for very large tables to prevent lag
     widget_header_obj = [widget.horizontalHeaderItem(c) for c in range(widget.columnCount())]
     widget_headers = [x.text() for x in widget_header_obj if x is not None]
 
@@ -133,7 +138,12 @@ def dynamicallyCheckTable(self, widget):
         writer = csv.writer(stream)
         writer.writerow(widget_headers)
         valid_row_count = 0
-        for row in range(widget.rowCount()):
+
+        end_row = widget.rowCount()
+        start_row = end_row-row_subsample
+        if start_row < 0:
+            start_row = 0
+        for row in range(start_row, end_row):
             row_data = [None] * len(widget_headers)
             for column in range(widget.columnCount()):
                 item = widget.item(row, column)
@@ -150,5 +160,5 @@ def dynamicallyCheckTable(self, widget):
 
         if valid_row_count > 0:
             if verifySequence(self, stream, widget):
-                if valid_row_count >= widget.rowCount():
+                if valid_row_count >= end_row-start_row:
                     widget.insertRow(widget.rowCount())
