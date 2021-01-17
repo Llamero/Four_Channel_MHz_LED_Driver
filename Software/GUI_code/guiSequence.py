@@ -2,13 +2,12 @@ import csv
 import tempfile
 from PyQt5 import QtGui
 
-def loadSequence(self, widget):  # derived from - https://stackoverflow.com/questions/12608835/writing-a-qtablewidget-to-a-csv-or-xls
-    path = QtGui.QFileDialog.getOpenFileName(
-        self, 'Open File', '', 'CSV(*.csv)')
+def loadSequence(gui, widget):  # derived from - https://stackoverflow.com/questions/12608835/writing-a-qtablewidget-to-a-csv-or-xls
+    path = QtGui.QFileDialog.getOpenFileName(gui, 'Open File', '', 'CSV(*.csv)')
     if path[0] != "":
         # Count number of rows in CSV file
-        with open(str(path[0]), 'r') as stream:
-            widget_headers = verifySequence(self, stream, widget)
+        with open(str(path[0]), 'rU') as stream:
+            widget_headers = verifySequence(gui, stream, widget)
 
         # Import csv file
         if widget_headers:
@@ -29,11 +28,11 @@ def loadSequence(self, widget):  # derived from - https://stackoverflow.com/ques
                             item = QtGui.QTableWidgetItem(str(data))
                             widget.setItem(row, column, item)
                 widget.insertRow(row+1) #Add one extra row to allow for editing
-                widget.itemChanged.connect(lambda: dynamicallyCheckTable(self, widget)) #Reconnect the widget cell validation
+                widget.itemChanged.connect(lambda: dynamicallyCheckTable(gui, widget)) #Reconnect the widget cell validation
 
 
-def saveSequence(self, widget):  # derived from - https://stackoverflow.com/questions/12608835/writing-a-qtablewidget-to-a-csv-or-xls
-    path = QtGui.QFileDialog.getSaveFileName(self, 'Save File', '', 'CSV(*.csv)')
+def saveSequence(gui, widget):  # derived from - https://stackoverflow.com/questions/12608835/writing-a-qtablewidget-to-a-csv-or-xls
+    path = QtGui.QFileDialog.getSaveFileName(gui, 'Save File', '', 'CSV(*.csv)')
     if path[0] != "":
         widget_header_obj = [widget.horizontalHeaderItem(c) for c in range(widget.columnCount())]
         widget_headers = [x.text() for x in widget_header_obj if x is not None]
@@ -50,7 +49,7 @@ def saveSequence(self, widget):  # derived from - https://stackoverflow.com/ques
                 if row_data != [None] * len(widget_headers): #Exclude empty rows
                     writer.writerow(row_data)
 
-            widget_headers = verifySequence(self, stream, widget)
+            widget_headers = verifySequence(gui, stream, widget)
 
             if widget_headers:
                 with open(str(path[0]), 'w', newline='') as output_file:
@@ -59,8 +58,7 @@ def saveSequence(self, widget):  # derived from - https://stackoverflow.com/ques
                     for row_data in csv.reader(stream):
                         file_writer.writerow(row_data)
 
-def verifySequence(self, stream, widget):
-    print("o")
+def verifySequence(gui, stream, widget):
     stream.seek(0)
     row_count = sum(1 for row in csv.reader(stream))
 
@@ -75,62 +73,62 @@ def verifySequence(self, stream, widget):
     if csv_headers is not None and row_count > 1 and len(csv_headers) >= len(widget_headers):
         for column, data in enumerate(widget_headers):
             if csv_headers[column] != data and column < 4:
-                self.message_box.setText(
+                gui.message_box.setText(
                     "Error: CSV header \"" + data + "\" does not match table header \"" + widget_headers[
                         column] + "\". Process aborted.")
-                self.message_box.exec()
+                gui.message_box.exec()
                 return False
     else:
-        self.message_box.setText("Error: Table is empty or only contains headers, process aborted.")
-        self.message_box.exec()
+        gui.message_box.setText("Error: Table is empty or only contains headers, process aborted.")
+        gui.message_box.exec()
         return False
 
     # Verify data
     for row, row_data in enumerate(reader):
         if len(widget_headers) > len(row_data):
-            self.message_box.setText(
+            gui.message_box.setText(
                 "Error: Row #" + str(row + 1) + " has only " + str(len(row_data)) + " cells. At least " + str(
                     len(widget_headers)) + " cells are required.  Import aborted.")
-            self.message_box.exec()
+            gui.message_box.exec()
             return False
         for column, data in enumerate(row_data):
             if column < len(widget_headers):
-                if not verifyCell(self, column, row, data):
+                if not verifyCell(gui, column, row, data):
                     return False
 
     return widget_headers
 
-def verifyCell(self, column, row, data):
+def verifyCell(gui, column, row, data):
     try:
         data = float(data)
     except:
-        self.message_box.setText(
+        gui.message_box.setText(
             "Error: \"" + str(data) + "\" at row #" + str(row + 1) + " column #" + str(column + 1) + " is not a number. Process aborted.")
-        self.message_box.exec()
+        gui.message_box.exec()
         return False
 
     if column == 0:
         if data not in [0, 1, 2, 3, 4]:
-            self.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
+            gui.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
                 row + 1) + " is not a valid LED integer (0-4). Process aborted.")
-            self.message_box.exec()
+            gui.message_box.exec()
             return False
     elif column in [1, 2]:
         if data < 0 or data > 100 or data is None:
-            self.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
+            gui.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
                 row + 1) + " is not a valid percentage (0-100). Process aborted.")
-            self.message_box.exec()
+            gui.message_box.exec()
             return False
     elif column == 3:
         if (data < 10e-6 and data != 0) or data > 3600 or data is None:
-            self.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
+            gui.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
                 row + 1) + " is not a valid duration (0 or 0.00001-3600). Process aborted.")
-            self.message_box.exec()
+            gui.message_box.exec()
             return False
     return True
 
-def dynamicallyCheckTable(self, widget):
-    row_subsample = 1000  #Only load the lest segment of the table for very large tables to prevent lag
+def dynamicallyCheckTable(gui, widget):
+    row_subsample = 1000  #Only load the last segment of the table for very large tables to prevent lag
     widget_header_obj = [widget.horizontalHeaderItem(c) for c in range(widget.columnCount())]
     widget_headers = [x.text() for x in widget_header_obj if x is not None]
 
@@ -149,7 +147,7 @@ def dynamicallyCheckTable(self, widget):
                 item = widget.item(row, column)
                 if item is not None:
                     row_data[column] = str(item.text())
-                    if row_data[column] == "" or not verifyCell(self, column, row, row_data[column]):
+                    if row_data[column] == "" or not verifyCell(gui, column, row, row_data[column]):
                         widget.setItem(row, column, None)
                         row_data[column] = None
                         break
@@ -159,6 +157,6 @@ def dynamicallyCheckTable(self, widget):
                 valid_row_count += 1
 
         if valid_row_count > 0:
-            if verifySequence(self, stream, widget):
+            if verifySequence(gui, stream, widget):
                 if valid_row_count >= end_row-start_row:
                     widget.insertRow(widget.rowCount())

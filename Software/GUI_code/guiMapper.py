@@ -5,76 +5,76 @@ import guiSequence as seq
 
 from PyQt5 import QtGui
 
-def initializeConfigModel(self):
+def initializeConfigModel(gui):
     config_model = OrderedDict()
-    config_model["Driver name"] = self.configure_name_driver_line_edit
+    config_model["Driver name"] = gui.configure_name_driver_line_edit
     # LEDs
     for led_number in range(1, 5):
         config_model["LED" + str(led_number)] = OrderedDict(
-            [("ID", eval("self.configure_name_LED" + str(led_number) + "_line_edit")),
-             ("Active", eval("self.configure_name_LED" + str(led_number) + "_box")),
-             ("Current limit", eval("self.configure_current_limit_LED" + str(led_number) + "_spin_box")),
+            [("ID", eval("gui.configure_name_LED" + str(led_number) + "_line_edit")),
+             ("Active", eval("gui.configure_name_LED" + str(led_number) + "_box")),
+             ("Current limit", eval("gui.configure_current_limit_LED" + str(led_number) + "_spin_box")),
              ("Channels", [
-                 eval("self.configure_LED_merge_channel1_button" + str(led_number)),
-                 eval("self.configure_LED_merge_channel2_button" + str(led_number)),
-                 eval("self.configure_LED_merge_channel3_button" + str(led_number)),
-                 eval("self.configure_LED_merge_channel4_button" + str(led_number))])])
+                 eval("gui.configure_LED_merge_channel1_button" + str(led_number)),
+                 eval("gui.configure_LED_merge_channel2_button" + str(led_number)),
+                 eval("gui.configure_LED_merge_channel3_button" + str(led_number)),
+                 eval("gui.configure_LED_merge_channel4_button" + str(led_number))])])
     # Current sense resistors
     for resistor in range(1, 5):
         config_model["Resistor" + str(resistor)] = OrderedDict(
-            [("Value", eval("self.configure_resistor" + str(resistor) + "_spin_box")),
-             ("Active", eval("self.configure_resistor" + str(resistor) + "_box"))])
+            [("Value", eval("gui.configure_resistor" + str(resistor) + "_spin_box")),
+             ("Active", eval("gui.configure_resistor" + str(resistor) + "_box"))])
 
     # Temperature cutoffs
     config_model["Temperature"] = OrderedDict()
     for source in ["Transistor", "Resistor", "External"]:
         config_model["Temperature"][source] = OrderedDict(
-            [("Warn", eval("self.configure_temperature_" + source.lower() + "_warn_box")),
-             ("Fault", eval("self.configure_temperature_" + source.lower() + "_fault_box"))])
+            [("Warn", eval("gui.configure_temperature_" + source.lower() + "_warn_box")),
+             ("Fault", eval("gui.configure_temperature_" + source.lower() + "_fault_box"))])
 
     # Fan settings
     config_model["Fan"] = OrderedDict()
     for source in ["Driver", "External"]:
         config_model["Fan"][source] = OrderedDict(
-            [("Min", eval("self.configure_fan_" + source.lower() + "_min_box")),
-             ("Max", eval("self.configure_fan_" + source.lower() + "_max_box"))])
-    config_model["Fan"]["Channel"] = [self.configure_fan_external_output1_box,
-                                           self.configure_fan_external_output2_box,
-                                           self.configure_fan_external_output3_box]
+            [("Min", eval("gui.configure_fan_" + source.lower() + "_min_box")),
+             ("Max", eval("gui.configure_fan_" + source.lower() + "_max_box"))])
+    config_model["Fan"]["Channel"] = [gui.configure_fan_external_output1_box,
+                                           gui.configure_fan_external_output2_box,
+                                           gui.configure_fan_external_output3_box]
 
     # External Thermistor
     config_model["Thermistor"] = OrderedDict(
-        [("Resistance", self.configure_thermistor_resistance_box), ("Beta", self.configure_thermistor_beta_box)])
+        [("Resistance", gui.configure_thermistor_resistance_box), ("Beta", gui.configure_thermistor_beta_box)])
 
     # Audio settings
     config_model["Audio"] = OrderedDict(
-        [("Status", self.configure_audio_status_slider), ("Alarm", self.configure_audio_alarm_slider)])
+        [("Status", gui.configure_audio_status_slider), ("Alarm", gui.configure_audio_alarm_slider)])
 
     # Pushbuttons
-    config_model["Pushbutton"] = OrderedDict([("Intensity", self.configure_pushbutton_intensity_slider),
-                                                   ("Alarm", [self.configure_pushbutton_alarm_flash_button,
-                                                              self.configure_pushbutton_alarm_chase_button,
-                                                              self.configure_pushbutton_alarm_pulse_button,
-                                                              self.configure_pushbutton_alarm_solid_button])])
+    config_model["Pushbutton"] = OrderedDict([("Intensity", gui.configure_pushbutton_intensity_slider),
+                                                   ("Alarm", [gui.configure_pushbutton_alarm_flash_button,
+                                                              gui.configure_pushbutton_alarm_chase_button,
+                                                              gui.configure_pushbutton_alarm_pulse_button,
+                                                              gui.configure_pushbutton_alarm_solid_button])])
 
     return config_model
 
-def initializeEvents(self):
+def initializeEvents(gui):
     #Dark mode view
-    self.menu_view_dark_mode.triggered.connect(self.toggleSkin)
+    gui.menu_view_dark_mode.triggered.connect(gui.toggleSkin)
 
     #Save and load sequence files
-    self.sync_digital_trigger_low_sequence_save_button.clicked.connect(lambda: seq.saveSequence(self, self.sync_digital_trigger_low_sequence_table))
-    self.sync_digital_trigger_low_sequence_load_button.clicked.connect(lambda: seq.loadSequence(self, self.sync_digital_trigger_low_sequence_table))
-    self.sync_digital_trigger_high_sequence_save_button.clicked.connect(lambda: seq.saveSequence(self, self.sync_digital_trigger_high_sequence_table))
-    self.sync_digital_trigger_high_sequence_load_button.clicked.connect(lambda: seq.loadSequence(self, self.sync_digital_trigger_high_sequence_table))
-    self.sync_confocal_image_sequence_save_button.clicked.connect(lambda: seq.saveSequence(self, self.sync_confocal_image_sequence_table))
-    self.sync_confocal_image_sequence_load_button.clicked.connect(lambda: seq.loadSequence(self, self.sync_confocal_image_sequence_table))
-    self.sync_confocal_flyback_sequence_save_button.clicked.connect(lambda: seq.saveSequence(self, self.sync_confocal_flyback_sequence_table))
-    self.sync_confocal_flyback_sequence_load_button.clicked.connect(lambda: seq.loadSequence(self, self.sync_confocal_flyback_sequence_table))
+    gui.sync_digital_trigger_low_sequence_save_button.clicked.connect(lambda: seq.saveSequence(gui, gui.sync_digital_trigger_low_sequence_table))
+    gui.sync_digital_trigger_low_sequence_load_button.clicked.connect(lambda: seq.loadSequence(gui, gui.sync_digital_trigger_low_sequence_table))
+    gui.sync_digital_trigger_high_sequence_save_button.clicked.connect(lambda: seq.saveSequence(gui, gui.sync_digital_trigger_high_sequence_table))
+    gui.sync_digital_trigger_high_sequence_load_button.clicked.connect(lambda: seq.loadSequence(gui, gui.sync_digital_trigger_high_sequence_table))
+    gui.sync_confocal_image_sequence_save_button.clicked.connect(lambda: seq.saveSequence(gui, gui.sync_confocal_image_sequence_table))
+    gui.sync_confocal_image_sequence_load_button.clicked.connect(lambda: seq.loadSequence(gui, gui.sync_confocal_image_sequence_table))
+    gui.sync_confocal_flyback_sequence_save_button.clicked.connect(lambda: seq.saveSequence(gui, gui.sync_confocal_flyback_sequence_table))
+    gui.sync_confocal_flyback_sequence_load_button.clicked.connect(lambda: seq.loadSequence(gui, gui.sync_confocal_flyback_sequence_table))
 
     #Changes to sequence table
-    self.sync_digital_trigger_low_sequence_table.itemChanged.connect(lambda: seq.dynamicallyCheckTable(self, self.sync_digital_trigger_low_sequence_table))
-    self.sync_digital_trigger_high_sequence_table.itemChanged.connect(lambda: seq.dynamicallyCheckTable(self, self.sync_digital_trigger_high_sequence_table))
-    self.sync_confocal_flyback_sequence_table.itemChanged.connect(lambda: seq.dynamicallyCheckTable(self, self.sync_confocal_flyback_sequence_table))
-    self.sync_confocal_image_sequence_table.itemChanged.connect(lambda: seq.dynamicallyCheckTable(self, self.sync_confocal_image_sequence_table))
+    gui.sync_digital_trigger_low_sequence_table.itemChanged.connect(lambda: seq.dynamicallyCheckTable(gui, gui.sync_digital_trigger_low_sequence_table))
+    gui.sync_digital_trigger_high_sequence_table.itemChanged.connect(lambda: seq.dynamicallyCheckTable(gui, gui.sync_digital_trigger_high_sequence_table))
+    gui.sync_confocal_flyback_sequence_table.itemChanged.connect(lambda: seq.dynamicallyCheckTable(gui, gui.sync_confocal_flyback_sequence_table))
+    gui.sync_confocal_image_sequence_table.itemChanged.connect(lambda: seq.dynamicallyCheckTable(gui, gui.sync_confocal_image_sequence_table))
