@@ -12,27 +12,25 @@ def loadSequence(self, widget):  # derived from - https://stackoverflow.com/ques
 
         # Import csv file
         if widget_headers:
-            with open(str(path[0]), 'r') as stream:
+            with open(str(path[0]), 'rU') as stream:
                 reader = csv.reader(stream)
 
                 # Remove header from stream
                 next(reader, None)
 
                 # Clear table
-                widget.setRowCount(0)
-                for row_data in csv.reader(stream):
-                    row = widget.rowCount()
-                    widget.insertRow(row)
+                widget.setRowCount(1)
+                for row_data in reader:
+                    row = widget.rowCount()-1
                     for column, data in enumerate(row_data):
                         if column < len(widget_headers):
+                            print(repr(data))
                             item = QtGui.QTableWidgetItem(str(data))
                             widget.setItem(row, column, item)
 
-            widget.insertRow(row + 1)  # Add one more empty row to allow for editing
 
 def saveSequence(self, widget):  # derived from - https://stackoverflow.com/questions/12608835/writing-a-qtablewidget-to-a-csv-or-xls
-    path = QtGui.QFileDialog.getSaveFileName(
-        self, 'Save File', '', 'CSV(*.csv)')
+    path = QtGui.QFileDialog.getSaveFileName(self, 'Save File', '', 'CSV(*.csv)')
     if path[0] != "":
         widget_header_obj = [widget.horizontalHeaderItem(c) for c in range(widget.columnCount())]
         widget_headers = [x.text() for x in widget_header_obj if x is not None]
@@ -54,9 +52,9 @@ def saveSequence(self, widget):  # derived from - https://stackoverflow.com/ques
             if widget_headers:
                 with open(str(path[0]), 'w', newline='') as output_file:
                     stream.seek(0)
-                    reader = csv.reader(stream)
                     file_writer = csv.writer(output_file)
-                    file_writer.writerows(reader)
+                    for row_data in csv.reader(stream):
+                        file_writer.writerow(row_data)
 
 def verifySequence(self, stream, widget):
     stream.seek(0)
@@ -142,9 +140,9 @@ def dynamicallyCheckTable(self, widget):
                 if item is not None:
                     row_data[column] = str(item.text())
                     if row_data[column] == "" or not verifyCell(self, column, row, row_data[column]):
-                            widget.setItem(row, column, None)
-                            row_data[column] = None
-                            break
+                        widget.setItem(row, column, None)
+                        row_data[column] = None
+                        break
 
             if None not in row_data:
                 writer.writerow(row_data)
@@ -152,6 +150,5 @@ def dynamicallyCheckTable(self, widget):
 
         if valid_row_count > 0:
             if verifySequence(self, stream, widget):
-                print(valid_row_count)
                 if valid_row_count >= widget.rowCount():
                     widget.insertRow(widget.rowCount())
