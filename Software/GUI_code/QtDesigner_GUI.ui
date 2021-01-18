@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>792</width>
+    <width>776</width>
     <height>864</height>
    </rect>
   </property>
@@ -412,7 +412,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>748</width>
+             <width>732</width>
              <height>649</height>
             </rect>
            </property>
@@ -429,8 +429,8 @@
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-155</y>
-                 <width>713</width>
+                 <y>-142</y>
+                 <width>697</width>
                  <height>628</height>
                 </rect>
                </property>
@@ -605,7 +605,7 @@
                            </widget>
                           </item>
                           <item row="0" column="4">
-                           <widget class="QRadioButton" name="sync_digital_trigger_low_constant_LEDn_button">
+                           <widget class="QRadioButton" name="sync_digital_trigger_low_constant_LED0_button">
                             <property name="toolTip">
                              <string>Do not change active LED when trigger goes LOW (&lt;1.0V)</string>
                             </property>
@@ -914,7 +914,7 @@
                       <string>Select event type for when trigger goes HIGH (&gt;2.5V)</string>
                      </property>
                      <property name="currentIndex">
-                      <number>2</number>
+                      <number>1</number>
                      </property>
                      <widget class="QWidget" name="sync_digital_trigger_high_off_tab">
                       <property name="toolTip">
@@ -993,7 +993,7 @@
                            </widget>
                           </item>
                           <item row="0" column="4">
-                           <widget class="QRadioButton" name="sync_digital_trigger_high_constant_LEDn_button">
+                           <widget class="QRadioButton" name="sync_digital_trigger_high_constant_LED0_button">
                             <property name="toolTip">
                              <string>Do not change active LED when trigger goes HIGH (&gt;2.5V)</string>
                             </property>
@@ -1292,8 +1292,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>553</width>
-                 <height>307</height>
+                 <width>714</width>
+                 <height>466</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1309,7 +1309,7 @@
                    <string>Configure how the analog input will be converted to LED output.</string>
                   </property>
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>2</number>
                   </property>
                   <widget class="QWidget" name="sync_analog_output_PWM_tab">
                    <property name="toolTip">
@@ -1662,7 +1662,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                     </widget>
                    </item>
                    <item row="0" column="4">
-                    <widget class="QRadioButton" name="sync_analog_LEDn_button">
+                    <widget class="QRadioButton" name="sync_analog_LED0_button">
                      <property name="toolTip">
                       <string>Sync current active LED to the analog input</string>
                      </property>
@@ -1712,8 +1712,8 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
-                 <width>713</width>
+                 <y>-338</y>
+                 <width>697</width>
                  <height>1030</height>
                 </rect>
                </property>
@@ -2242,7 +2242,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                          <string>Select event type for when the laser is inside the image FOV</string>
                         </property>
                         <property name="currentIndex">
-                         <number>2</number>
+                         <number>1</number>
                         </property>
                         <widget class="QWidget" name="sync_confocal_image_off_tab">
                          <property name="toolTip">
@@ -3036,8 +3036,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>308</width>
-                 <height>37</height>
+                 <width>714</width>
+                 <height>466</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3064,8 +3064,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>276</width>
-                 <height>37</height>
+                 <width>714</width>
+                 <height>466</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3212,8 +3212,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>0</y>
-             <width>731</width>
+             <y>-386</y>
+             <width>715</width>
              <height>1103</height>
             </rect>
            </property>
@@ -4843,7 +4843,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>792</width>
+     <width>776</width>
      <height>24</height>
     </rect>
    </property>
@@ -4969,27 +4969,27 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
-  <buttongroup name="sync_digital_trigger_button_group"/>
-  <buttongroup name="main_intensity_button_group"/>
-  <buttongroup name="configure_ch_merge_1_button_group"/>
-  <buttongroup name="configure_ch_merge_2_button_group"/>
-  <buttongroup name="configure_ch_merge_3_button_group"/>
-  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
-  <buttongroup name="sync_confocal_line_input_button_group"/>
-  <buttongroup name="sync_analog_input_channel_button_group"/>
-  <buttongroup name="configure_ch_merge_4_button_group"/>
-  <buttongroup name="configure_ext_fan_button_group"/>
   <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
-  <buttongroup name="configure_pushbutton_LED_button_group"/>
+  <buttongroup name="sync_confocal_line_input_button_group"/>
+  <buttongroup name="configure_ext_fan_button_group"/>
+  <buttongroup name="configure_ch_merge_2_button_group"/>
+  <buttongroup name="configure_ch_merge_4_button_group"/>
   <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
-  <buttongroup name="sync_confocal_scan_mode_button_group"/>
+  <buttongroup name="main_intensity_button_group"/>
   <buttongroup name="calibration_axis_button_group"/>
+  <buttongroup name="main_channel_button_group"/>
+  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
+  <buttongroup name="configure_ch_merge_1_button_group"/>
+  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
   <buttongroup name="sync_analog_led_channel_button_group"/>
+  <buttongroup name="configure_ch_merge_3_button_group"/>
   <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
   <buttongroup name="sync_output_button_group"/>
-  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
-  <buttongroup name="main_channel_button_group"/>
+  <buttongroup name="sync_confocal_scan_mode_button_group"/>
+  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
+  <buttongroup name="configure_pushbutton_LED_button_group"/>
+  <buttongroup name="sync_digital_trigger_button_group"/>
+  <buttongroup name="sync_analog_input_channel_button_group"/>
   <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
  </buttongroups>
 </ui>

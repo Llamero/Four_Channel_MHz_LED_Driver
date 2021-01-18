@@ -28,12 +28,12 @@ class Ui(QtWidgets.QMainWindow):
 
         # Map gui widgets to ordered dictionaries
         self.config_model = guiMapper.initializeConfigModel(self)
+        self.sync_model = guiMapper.initializeSyncModel(self)
 
         # Assign events to widgets
         guiMapper.initializeEvents(self)
-        self.sync_model = OrderedDict()
 
-        print(self.getValue(self.config_model["Fan"]["Driver"]["Min"]))
+        print(self.getValue(self.sync_model["Digital"]["Low"]["LED"]))
         self.show()
 
     def toggleSkin(self):
@@ -53,16 +53,54 @@ class Ui(QtWidgets.QMainWindow):
         elif isinstance(widget, QtWidgets.QSpinBox) or isinstance(widget, QtWidgets.QDoubleSpinBox) or isinstance(
                 widget, QtWidgets.QSlider) or isinstance(widget, QtWidgets.QDial):
             return widget.value()
+        elif isinstance(widget, QtWidgets.QToolBox):
+            return widget.itemText(widget.currentIndex())
+        elif isinstance(widget, list):
+            if isinstance(widget[0], QtWidgets.QRadioButton):
+                checked_list = []
+                for element in widget:
+                    if element.isChecked():
+                        checked_list.append(element.text())
+                return checked_list
+        elif isinstance(widget, QtWidgets.QTabWidget):
+            return widget.tabText(widget.currentIndex())
         elif isinstance(widget, QtWidgets.QTableWidget):
             pass
 
+
     def setValue(self, widget, value):
         if isinstance(widget, QtWidgets.QLineEdit):
-            return widget.setText(value)
+            widget.setText(value)
         elif isinstance(widget, QtWidgets.QRadioButton) or isinstance(widget, QtWidgets.QCheckBox):
-            return widget.setChecked(value)
+            widget.setChecked(value)
         elif isinstance(widget, QtWidgets.QSpinBox) or isinstance(widget, QtWidgets.QDoubleSpinBox) or isinstance(
                 widget, QtWidgets.QSlider) or isinstance(widget, QtWidgets.QDial):
-            return widget.setValue(value)
+            widget.setValue(value)
+        elif isinstance(widget, QtWidgets.QToolBox):
+            widget.itemText(widget.currentIndex())
+        elif isinstance(widget, list):
+            if isinstance(widget[0], QtWidgets.QRadioButton):
+                if isinstance(value, str):
+                    value = [value]
+                for name in value:
+                    for element in widget:
+                        if element.text() == name:
+                            element.setChecked(True)
+        elif isinstance(widget, QtWidgets.QTabWidget):
+            for index in range(widget.count()):
+                if value == widget.tabText(index):
+                    widget.setCurrentIndex(index)
+        elif isinstance(widget, QtWidgets.QTableWidget):
+            pass
+
+
+    def toggleLedActive(self, led_number):
+        led_state = self.getValue(self.config_model["LED" + str(led_number)]["Active"])
+        widget_list = [self.config_model["LED" + str(led_number)]["ID"], self.config_model["LED" + str(led_number)]["Current limit"]]
+        widget_list += self.config_model["LED" + str(led_number)]["Channels"]
+        for widget in widget_list:
+            widget.setEnabled(led_state)
+
+
 
 

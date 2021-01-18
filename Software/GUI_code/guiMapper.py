@@ -55,26 +55,89 @@ def initializeConfigModel(gui):
                                                    ("Alarm", [gui.configure_pushbutton_alarm_flash_button,
                                                               gui.configure_pushbutton_alarm_chase_button,
                                                               gui.configure_pushbutton_alarm_pulse_button,
-                                                              gui.configure_pushbutton_alarm_solid_button])])
+                                                              gui.configure_pushbutton_alarm_solid_button,
+                                                              gui.configure_pushbutton_alarm_disable_button])])
 
     return config_model
 
+def initializeSyncModel(gui):
+    def initializeDigital():
+        nonlocal gui
+        sync_model["Digital"] = OrderedDict()
+        sync_model["Digital"]["Channel"] = []
+        for channel_number in range(1, 5):
+            sync_model["Digital"]["Channel"].append(eval("gui.sync_digital_input" + str(channel_number) + "_button"))
+        for trigger in ["Low", "High"]:
+            sync_model["Digital"][trigger] = OrderedDict()
+            sync_model["Digital"][trigger]["Mode"] = eval("gui.sync_digital_trigger_" + trigger.lower() + "_tab")
+            sync_model["Digital"][trigger]
+            sync_model["Digital"][trigger]["LED"] = []
+            for led_number in range(5):
+                sync_model["Digital"][trigger]["LED"].append(eval("gui.sync_digital_trigger_" + trigger.lower() + "_constant_LED" + str(led_number) + "_button"))
+            sync_model["Digital"][trigger]["PWM"] = eval("gui.sync_digital_trigger_" + trigger.lower() + "_constant_config_PWM_box")
+            sync_model["Digital"][trigger]["Current"] = eval("gui.sync_digital_trigger_" + trigger.lower() + "_constant_config_current_box")
+            sync_model["Digital"][trigger]["Duration"] = eval("gui.sync_digital_trigger_" + trigger.lower() + "_constant_config_duration_box")
+
+    sync_model = OrderedDict()
+    sync_model["Mode"] = gui.sync_toolbox
+    initializeDigital()
+    return sync_model
+
+
+
+
+
+
+
+
 def initializeEvents(gui):
+    def sequenceEvents():
+        nonlocal gui
+        # Save and load sequence files
+        gui.sync_digital_trigger_low_sequence_save_button.clicked.connect(
+            lambda: seq.saveSequence(gui, gui.sync_digital_trigger_low_sequence_table))
+        gui.sync_digital_trigger_low_sequence_load_button.clicked.connect(
+            lambda: seq.loadSequence(gui, gui.sync_digital_trigger_low_sequence_table))
+        gui.sync_digital_trigger_high_sequence_save_button.clicked.connect(
+            lambda: seq.saveSequence(gui, gui.sync_digital_trigger_high_sequence_table))
+        gui.sync_digital_trigger_high_sequence_load_button.clicked.connect(
+            lambda: seq.loadSequence(gui, gui.sync_digital_trigger_high_sequence_table))
+        gui.sync_confocal_image_sequence_save_button.clicked.connect(
+            lambda: seq.saveSequence(gui, gui.sync_confocal_image_sequence_table))
+        gui.sync_confocal_image_sequence_load_button.clicked.connect(
+            lambda: seq.loadSequence(gui, gui.sync_confocal_image_sequence_table))
+        gui.sync_confocal_flyback_sequence_save_button.clicked.connect(
+            lambda: seq.saveSequence(gui, gui.sync_confocal_flyback_sequence_table))
+        gui.sync_confocal_flyback_sequence_load_button.clicked.connect(
+            lambda: seq.loadSequence(gui, gui.sync_confocal_flyback_sequence_table))
+
+        # Changes to sequence table
+        gui.sync_digital_trigger_low_sequence_table.itemChanged.connect(
+            lambda: seq.dynamicallyCheckTable(gui, gui.sync_digital_trigger_low_sequence_table))
+        gui.sync_digital_trigger_high_sequence_table.itemChanged.connect(
+            lambda: seq.dynamicallyCheckTable(gui, gui.sync_digital_trigger_high_sequence_table))
+        gui.sync_confocal_flyback_sequence_table.itemChanged.connect(
+            lambda: seq.dynamicallyCheckTable(gui, gui.sync_confocal_flyback_sequence_table))
+        gui.sync_confocal_image_sequence_table.itemChanged.connect(
+            lambda: seq.dynamicallyCheckTable(gui, gui.sync_confocal_image_sequence_table))
+
+    def ledCheckBoxEvents():
+        nonlocal gui
+        # Changes to LED check boxes - toggle whether LED is active
+        gui.configure_name_LED1_box.stateChanged.connect(lambda: gui.toggleLedActive(1))
+        gui.configure_name_LED2_box.stateChanged.connect(lambda: gui.toggleLedActive(2))
+        gui.configure_name_LED3_box.stateChanged.connect(lambda: gui.toggleLedActive(3))
+        gui.configure_name_LED4_box.stateChanged.connect(lambda: gui.toggleLedActive(4))
+
+    sequenceEvents()
+    ledCheckBoxEvents()
+
+
+
     #Dark mode view
     gui.menu_view_dark_mode.triggered.connect(gui.toggleSkin)
 
-    #Save and load sequence files
-    gui.sync_digital_trigger_low_sequence_save_button.clicked.connect(lambda: seq.saveSequence(gui, gui.sync_digital_trigger_low_sequence_table))
-    gui.sync_digital_trigger_low_sequence_load_button.clicked.connect(lambda: seq.loadSequence(gui, gui.sync_digital_trigger_low_sequence_table))
-    gui.sync_digital_trigger_high_sequence_save_button.clicked.connect(lambda: seq.saveSequence(gui, gui.sync_digital_trigger_high_sequence_table))
-    gui.sync_digital_trigger_high_sequence_load_button.clicked.connect(lambda: seq.loadSequence(gui, gui.sync_digital_trigger_high_sequence_table))
-    gui.sync_confocal_image_sequence_save_button.clicked.connect(lambda: seq.saveSequence(gui, gui.sync_confocal_image_sequence_table))
-    gui.sync_confocal_image_sequence_load_button.clicked.connect(lambda: seq.loadSequence(gui, gui.sync_confocal_image_sequence_table))
-    gui.sync_confocal_flyback_sequence_save_button.clicked.connect(lambda: seq.saveSequence(gui, gui.sync_confocal_flyback_sequence_table))
-    gui.sync_confocal_flyback_sequence_load_button.clicked.connect(lambda: seq.loadSequence(gui, gui.sync_confocal_flyback_sequence_table))
 
-    #Changes to sequence table
-    gui.sync_digital_trigger_low_sequence_table.itemChanged.connect(lambda: seq.dynamicallyCheckTable(gui, gui.sync_digital_trigger_low_sequence_table))
-    gui.sync_digital_trigger_high_sequence_table.itemChanged.connect(lambda: seq.dynamicallyCheckTable(gui, gui.sync_digital_trigger_high_sequence_table))
-    gui.sync_confocal_flyback_sequence_table.itemChanged.connect(lambda: seq.dynamicallyCheckTable(gui, gui.sync_confocal_flyback_sequence_table))
-    gui.sync_confocal_image_sequence_table.itemChanged.connect(lambda: seq.dynamicallyCheckTable(gui, gui.sync_confocal_image_sequence_table))
+
+
+
