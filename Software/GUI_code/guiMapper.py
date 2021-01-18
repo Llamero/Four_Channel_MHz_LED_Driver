@@ -70,7 +70,6 @@ def initializeSyncModel(gui):
         for trigger in ["Low", "High"]:
             sync_model["Digital"][trigger] = OrderedDict()
             sync_model["Digital"][trigger]["Mode"] = eval("gui.sync_digital_trigger_" + trigger.lower() + "_tab")
-            sync_model["Digital"][trigger]
             sync_model["Digital"][trigger]["LED"] = []
             for led_number in range(5):
                 sync_model["Digital"][trigger]["LED"].append(eval("gui.sync_digital_trigger_" + trigger.lower() + "_constant_LED" + str(led_number) + "_button"))
@@ -78,9 +77,54 @@ def initializeSyncModel(gui):
             sync_model["Digital"][trigger]["Current"] = eval("gui.sync_digital_trigger_" + trigger.lower() + "_constant_config_current_box")
             sync_model["Digital"][trigger]["Duration"] = eval("gui.sync_digital_trigger_" + trigger.lower() + "_constant_config_duration_box")
 
+    def initializeAnalog():
+        nonlocal gui
+        sync_model["Analog"] = OrderedDict()
+        sync_model["Analog"]["LED"] = []
+        for led_number in range(5):
+            sync_model["Analog"]["LED"].append(eval("gui.sync_analog_LED" + str(led_number) + "_button"))
+        sync_model["Analog"]["Channel"] = []
+        for channel_number in range(1, 5):
+            sync_model["Analog"]["Channel"].append(eval("gui.sync_analog_input" + str(channel_number) + "_button"))
+        sync_model["Analog"]["Mode"] = gui.sync_analog_output_tab
+        sync_model["Analog"]["PWM"] = gui.sync_analog_output_PWM_avg_slider
+        sync_model["Analog"]["Current"] = gui.sync_analog_output_current_avg_slider
+
+    def initializeConfocal():
+        nonlocal gui
+        sync_model["Confocal"] = OrderedDict()
+        sync_model["Confocal"]["Shutter"] = [gui.sync_confocal_shutter_low_button, gui.sync_confocal_shutter_high_button]
+        sync_model["Confocal"]["Channel"] = []
+        for channel_number in range(1, 5):
+            sync_model["Confocal"]["Channel"].append(eval("gui.sync_confocal_line_input" + str(channel_number) + "_button"))
+        sync_model["Confocal"]["Line"] = gui.sync_confocal_line_tab
+        sync_model["Confocal"]["Digital"] = [gui.sync_confocal_line_digital_low_button, gui.sync_confocal_line_digital_high_button]
+        sync_model["Confocal"]["Threshold"] = gui.sync_confocal_line_analog_threshold_box
+        sync_model["Confocal"]["Polarity"] = [gui.sync_confocal_line_analog_polarity_above_button, gui.sync_confocal_line_analog_polarity_below_button]
+        sync_model["Confocal"]["Delay"] = OrderedDict()
+        sync_model["Confocal"]["Delay"]["Mode"] = [gui.sync_confocal_scan_unidirectional_button, gui.sync_confocal_scan_bidirectional_button]
+        for delay in range(1,4):
+            sync_model["Confocal"]["Delay"][str(delay)] = eval("gui.sync_confocal_delay" + str(delay) + "_box")
+        for event in ["Image", "Flyback"]:
+            sync_model["Confocal"][event] = OrderedDict()
+            sync_model["Confocal"][event]["Mode"] = eval("gui.sync_confocal_" + event.lower() + "_tab")
+            sync_model["Confocal"][event]["LED"] = []
+            for led_number in range(5):
+                sync_model["Confocal"][event]["LED"].append(eval("gui.sync_confocal_" + event.lower() + "_constant_LED" + str(led_number) + "_button"))
+            sync_model["Confocal"][event]["PWM"] = eval("gui.sync_confocal_" + event.lower() + "_constant_config_PWM_box")
+            sync_model["Confocal"][event]["Current"] = eval("gui.sync_confocal_" + event.lower() + "_constant_config_current_box")
+            sync_model["Confocal"][event]["Duration"] = eval("gui.sync_confocal_" + event.lower() + "_constant_config_duration_box")
+        
+
+
+
+
     sync_model = OrderedDict()
     sync_model["Mode"] = gui.sync_toolbox
     initializeDigital()
+    initializeAnalog()
+    initializeConfocal()
+
     return sync_model
 
 

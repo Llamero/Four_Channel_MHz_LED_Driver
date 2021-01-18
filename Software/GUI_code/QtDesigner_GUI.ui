@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>776</width>
-    <height>864</height>
+    <width>687</width>
+    <height>951</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -412,8 +412,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>732</width>
-             <height>649</height>
+             <width>643</width>
+             <height>736</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -429,8 +429,8 @@
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-142</y>
-                 <width>697</width>
+                 <y>-75</y>
+                 <width>608</width>
                  <height>628</height>
                 </rect>
                </property>
@@ -526,7 +526,7 @@
                       <string>Select event type for when trigger goes LOW (&lt;1.0V)</string>
                      </property>
                      <property name="currentIndex">
-                      <number>2</number>
+                      <number>1</number>
                      </property>
                      <widget class="QWidget" name="sync_digital_trigger_low_off_tab">
                       <property name="toolTip">
@@ -914,7 +914,7 @@
                       <string>Select event type for when trigger goes HIGH (&gt;2.5V)</string>
                      </property>
                      <property name="currentIndex">
-                      <number>1</number>
+                      <number>0</number>
                      </property>
                      <widget class="QWidget" name="sync_digital_trigger_high_off_tab">
                       <property name="toolTip">
@@ -1712,8 +1712,8 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-338</y>
-                 <width>697</width>
+                 <y>-477</y>
+                 <width>608</width>
                  <height>1030</height>
                 </rect>
                </property>
@@ -1753,21 +1753,15 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                      <property name="title">
                       <string>Shutter Sync</string>
                      </property>
-                     <layout class="QGridLayout" name="gridLayout_63" columnstretch="0,0,10">
-                      <item row="1" column="1">
-                       <widget class="QRadioButton" name="sync_confocal_shutter_high_button">
+                     <layout class="QGridLayout" name="gridLayout_63" columnstretch="0,0,20,0">
+                      <item row="0" column="0" colspan="4">
+                       <widget class="QLabel" name="sync_confocal_shutter_label">
                         <property name="toolTip">
-                         <string>Shutter output voltage goes HIGH (&gt;2.5V) when shutter is open</string>
+                         <string>The shutter input channel is fixed to channel #1</string>
                         </property>
                         <property name="text">
-                         <string>HIGH</string>
+                         <string>NOTE: Connect the shutter sync input to channel #1.</string>
                         </property>
-                        <property name="checked">
-                         <bool>true</bool>
-                        </property>
-                        <attribute name="buttonGroup">
-                         <string notr="true">sync_confocal_shutter_polarity_button_group</string>
-                        </attribute>
                        </widget>
                       </item>
                       <item row="1" column="0">
@@ -1786,7 +1780,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                         </property>
                        </widget>
                       </item>
-                      <item row="1" column="2">
+                      <item row="1" column="1">
                        <widget class="QRadioButton" name="sync_confocal_shutter_low_button">
                         <property name="toolTip">
                          <string>Shutter output voltage goes LOW (&lt;1.0V) when shutter is open</string>
@@ -1799,14 +1793,20 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                         </attribute>
                        </widget>
                       </item>
-                      <item row="0" column="0" colspan="3">
-                       <widget class="QLabel" name="sync_confocal_shutter_label">
+                      <item row="1" column="2" colspan="2">
+                       <widget class="QRadioButton" name="sync_confocal_shutter_high_button">
                         <property name="toolTip">
-                         <string>The shutter input channel is fixed to channel #1</string>
+                         <string>Shutter output voltage goes HIGH (&gt;2.5V) when shutter is open</string>
                         </property>
                         <property name="text">
-                         <string>NOTE: Connect the shutter sync input to channel #1.</string>
+                         <string>HIGH</string>
                         </property>
+                        <property name="checked">
+                         <bool>true</bool>
+                        </property>
+                        <attribute name="buttonGroup">
+                         <string notr="true">sync_confocal_shutter_polarity_button_group</string>
+                        </attribute>
                        </widget>
                       </item>
                      </layout>
@@ -1909,7 +1909,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                          <attribute name="title">
                           <string>Digital - Line Clock</string>
                          </attribute>
-                         <layout class="QGridLayout" name="gridLayout_65" columnstretch="0,0,10">
+                         <layout class="QGridLayout" name="gridLayout_65" columnstretch="0,0,0,20">
                           <item row="0" column="0">
                            <widget class="QLabel" name="sync_confocal_line_digital_label">
                             <property name="toolTip">
@@ -1920,7 +1920,20 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="1">
+                          <item row="0" column="2">
+                           <widget class="QRadioButton" name="sync_confocal_line_digital_low_button">
+                            <property name="toolTip">
+                             <string>Sync the driver to the line clock when it goes LOW (&lt;1.0V).</string>
+                            </property>
+                            <property name="text">
+                             <string>LOW</string>
+                            </property>
+                            <attribute name="buttonGroup">
+                             <string notr="true">sync_confocal_line_digital_polarity_button_group</string>
+                            </attribute>
+                           </widget>
+                          </item>
+                          <item row="0" column="3">
                            <widget class="QRadioButton" name="sync_confocal_line_digital_high_button">
                             <property name="toolTip">
                              <string>Sync the driver to the line clock when it goes HIGH (&gt;2.5V).</string>
@@ -1930,19 +1943,6 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                             </property>
                             <property name="checked">
                              <bool>true</bool>
-                            </property>
-                            <attribute name="buttonGroup">
-                             <string notr="true">sync_confocal_line_digital_polarity_button_group</string>
-                            </attribute>
-                           </widget>
-                          </item>
-                          <item row="0" column="2">
-                           <widget class="QRadioButton" name="sync_confocal_line_digital_low_button">
-                            <property name="toolTip">
-                             <string>Sync the driver to the line clock when it goes LOW (&lt;1.0V).</string>
-                            </property>
-                            <property name="text">
-                             <string>LOW</string>
                             </property>
                             <attribute name="buttonGroup">
                              <string notr="true">sync_confocal_line_digital_polarity_button_group</string>
@@ -2056,10 +2056,10 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                       <string>Delays</string>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_37">
-                      <item row="2" column="1">
-                       <widget class="QDoubleSpinBox" name="sync_confocal_delay2_box">
+                      <item row="3" column="1">
+                       <widget class="QDoubleSpinBox" name="sync_confocal_delay3_box">
                         <property name="toolTip">
-                         <string>Set the time between the start of flyback and when the scan re-enters the FOV.</string>
+                         <string>Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).</string>
                         </property>
                         <property name="alignment">
                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2089,6 +2089,59 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                         </property>
                         <property name="maximum">
                          <double>23860929.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="0">
+                       <widget class="QLabel" name="sync_confocal_delay2_label1">
+                        <property name="toolTip">
+                         <string>Set the time between the start of flyback and when the scan re-enters the FOV.</string>
+                        </property>
+                        <property name="text">
+                         <string>2) Duration of flyback window:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="2">
+                       <widget class="QLabel" name="sync_confocal_delay2_label2">
+                        <property name="toolTip">
+                         <string>Set the time between the start of flyback and when the scan re-enters the FOV.</string>
+                        </property>
+                        <property name="text">
+                         <string>µs</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="1">
+                       <widget class="QDoubleSpinBox" name="sync_confocal_delay2_box">
+                        <property name="toolTip">
+                         <string>Set the time between the start of flyback and when the scan re-enters the FOV.</string>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                        </property>
+                        <property name="maximum">
+                         <double>23860929.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="3" column="2">
+                       <widget class="QLabel" name="sync_confocal_delay3_label2">
+                        <property name="toolTip">
+                         <string>Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).</string>
+                        </property>
+                        <property name="text">
+                         <string>µs</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="2">
+                       <widget class="QLabel" name="sync_confocal_delay1_label2">
+                        <property name="toolTip">
+                         <string>Set the time between the line sync trigger and the edge of the FOV/start of flyback.</string>
+                        </property>
+                        <property name="text">
+                         <string>µs</string>
                         </property>
                        </widget>
                       </item>
@@ -2165,59 +2218,6 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                         </property>
                         <property name="text">
                          <string>1) From trigger to flyback window:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="3" column="1">
-                       <widget class="QDoubleSpinBox" name="sync_confocal_delay3_box">
-                        <property name="toolTip">
-                         <string>Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                        <property name="maximum">
-                         <double>23860929.000000000000000</double>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="2">
-                       <widget class="QLabel" name="sync_confocal_delay2_label2">
-                        <property name="toolTip">
-                         <string>Set the time between the start of flyback and when the scan re-enters the FOV.</string>
-                        </property>
-                        <property name="text">
-                         <string>µs</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="0">
-                       <widget class="QLabel" name="sync_confocal_delay2_label1">
-                        <property name="toolTip">
-                         <string>Set the time between the start of flyback and when the scan re-enters the FOV.</string>
-                        </property>
-                        <property name="text">
-                         <string>2) Duration of flyback window:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="2">
-                       <widget class="QLabel" name="sync_confocal_delay1_label2">
-                        <property name="toolTip">
-                         <string>Set the time between the line sync trigger and the edge of the FOV/start of flyback.</string>
-                        </property>
-                        <property name="text">
-                         <string>µs</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="3" column="2">
-                       <widget class="QLabel" name="sync_confocal_delay3_label2">
-                        <property name="toolTip">
-                         <string>Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).</string>
-                        </property>
-                        <property name="text">
-                         <string>µs</string>
                         </property>
                        </widget>
                       </item>
@@ -2321,7 +2321,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                               </widget>
                              </item>
                              <item row="0" column="4">
-                              <widget class="QRadioButton" name="sync_confocal_image_constant_LEDn_button">
+                              <widget class="QRadioButton" name="sync_confocal_image_constant_LED0_button">
                                <property name="toolTip">
                                 <string>Do not change active LED when the laser is inside the image FOV</string>
                                </property>
@@ -2609,7 +2609,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <string>Use at your own risk...</string>
                             </property>
                             <property name="text">
-                             <string>Warning: This mode bypasses preset current limits and uses the dedicated &quot;External Analog&quot; channel to directly connect the input analog voltage to the non-inverting input of the driver's op-amp.  Supplying excessive voltage to this input can damage the LED, Teensy, and driver circuit. Use this mode at your own risk.
+                             <string>Warning: This mode bypasses preset current limits and uses the dedicated &quot;External Analog&quot; channel to directly connect the input analog voltage to the non-inverting input of the driver's op-amp.  Supplying excessive voltage to this input can damage the LED, Teensy, and driver circuit. The currently active LED will be driven. Use this mode at your own risk.
 
 This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negative voltage (around -50mV) will need to be input to fully turn off the LED.    </string>
                             </property>
@@ -2643,7 +2643,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                          <string>Select event type for when the laser is outside the image FOV (flyback)</string>
                         </property>
                         <property name="currentIndex">
-                         <number>2</number>
+                         <number>0</number>
                         </property>
                         <widget class="QWidget" name="sync_confocal_flyback_off_tab">
                          <property name="toolTip">
@@ -2722,7 +2722,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                               </widget>
                              </item>
                              <item row="0" column="4">
-                              <widget class="QRadioButton" name="sync_confocal_flyback_constant_LEDn_button">
+                              <widget class="QRadioButton" name="sync_confocal_flyback_constant_LED0_button">
                                <property name="toolTip">
                                 <string>Do not change active LED when the laser is outside the image FOV (flyback)</string>
                                </property>
@@ -3010,7 +3010,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <string>Use at your own risk...</string>
                             </property>
                             <property name="text">
-                             <string>Warning: This mode bypasses preset current limits and uses the dedicated &quot;External Analog&quot; channel to directly connect the input analog voltage to the non-inverting input of the driver's op-amp.  Supplying excessive voltage to this input can damage the LED, Teensy, and driver circuit. Use this mode at your own risk.
+                             <string>Warning: This mode bypasses preset current limits and uses the dedicated &quot;External Analog&quot; channel to directly connect the input analog voltage to the non-inverting input of the driver's op-amp.  Supplying excessive voltage to this input can damage the LED, Teensy, and driver circuit. The currently active LED will be driven. Use this mode at your own risk.
 
 This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negative voltage (around -50mV) will need to be input to fully turn off the LED.    </string>
                             </property>
@@ -3212,8 +3212,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-386</y>
-             <width>715</width>
+             <y>-299</y>
+             <width>626</width>
              <height>1103</height>
             </rect>
            </property>
@@ -4843,7 +4843,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>776</width>
+     <width>687</width>
      <height>24</height>
     </rect>
    </property>

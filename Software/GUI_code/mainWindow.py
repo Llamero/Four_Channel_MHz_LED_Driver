@@ -98,6 +98,11 @@ class Ui(QtWidgets.QMainWindow):
         led_state = self.getValue(self.config_model["LED" + str(led_number)]["Active"])
         widget_list = [self.config_model["LED" + str(led_number)]["ID"], self.config_model["LED" + str(led_number)]["Current limit"]]
         widget_list += self.config_model["LED" + str(led_number)]["Channels"]
+        widget_list.append(self.sync_model["Digital"]["High"]["LED"][led_number])
+        widget_list.append(self.sync_model["Digital"]["Low"]["LED"][led_number])
+        widget_list.append(self.sync_model["Analog"]["LED"][led_number])
+        widget_list.append(self.sync_model["Confocal"]["Image"]["LED"][led_number])
+        widget_list.append(self.sync_model["Confocal"]["Flyback"]["LED"][led_number])
         for widget in widget_list:
             widget.setEnabled(led_state)
 
