@@ -129,6 +129,12 @@ def initializeSyncModel(gui):
     return sync_model
 
 def initializeEvents(gui):
+    def mainEvents():
+        nonlocal gui
+
+        #Connect dial and spinbox values - https://www.youtube.com/watch?v=BSP9sB0JoaE
+        gui.main_intensity_dial.valueChanged.connect(gui.main_intensity_spinbox.setValue)
+        gui.main_intensity_spinbox.valueChanged.connect(lambda: gui.main_intensity_dial.setValue(round(gui.getValue(gui.main_intensity_spinbox))))
 
     def configureEvents():
         nonlocal gui
@@ -203,6 +209,7 @@ def initializeEvents(gui):
         gui.sync_save_button.clicked.connect(lambda: seq.findUnsavedSeqThenSave(gui, gui.sync_model))
         gui.sync_load_button.clicked.connect(lambda: fileIO.loadConfiguration(gui, gui.sync_model))
 
+    mainEvents()
     syncEvents()
     configureEvents()
 
