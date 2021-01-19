@@ -67,26 +67,31 @@ class Ui(QtWidgets.QMainWindow):
 
 
     def setValue(self, widget, value):
-        if isinstance(widget, QtWidgets.QLineEdit):
-            widget.setText(str(value))
-        elif isinstance(widget, QtWidgets.QRadioButton) or isinstance(widget, QtWidgets.QCheckBox):
-            widget.setChecked(bool(value))
-        elif isinstance(widget, QtWidgets.QSpinBox) or isinstance(widget, QtWidgets.QDoubleSpinBox) or isinstance(
-                widget, QtWidgets.QSlider) or isinstance(widget, QtWidgets.QDial):
-            widget.setValue(float(value))
-        elif isinstance(widget, QtWidgets.QToolBox):
-            widget.itemText(widget.currentIndex())
-        elif isinstance(widget, list):
-            if isinstance(widget[0], QtWidgets.QRadioButton):
-                for element in widget:
-                    if element.text() == str(value):
-                        element.setChecked(True)
-        elif isinstance(widget, QtWidgets.QTabWidget):
-            for index in range(widget.count()):
-                if value == widget.tabText(index):
-                    widget.setCurrentIndex(index)
-        elif isinstance(widget, QtWidgets.QTableWidget):
-            pass
+        try:
+            if isinstance(widget, QtWidgets.QLineEdit):
+                widget.setText(str(value))
+            elif isinstance(widget, QtWidgets.QRadioButton) or isinstance(widget, QtWidgets.QCheckBox):
+                widget.setChecked(bool(value))
+            elif isinstance(widget, QtWidgets.QSpinBox) or isinstance(widget, QtWidgets.QDoubleSpinBox) or isinstance(
+                    widget, QtWidgets.QSlider) or isinstance(widget, QtWidgets.QDial):
+                widget.setValue(float(value))
+            elif isinstance(widget, QtWidgets.QToolBox):
+                widget.itemText(widget.currentIndex())
+            elif isinstance(widget, list):
+                if isinstance(widget[0], QtWidgets.QRadioButton):
+                    for element in widget:
+                        if element.text() == str(value):
+                            element.setChecked(True)
+            elif isinstance(widget, QtWidgets.QTabWidget):
+                for index in range(widget.count()):
+                    if value == widget.tabText(index):
+                        widget.setCurrentIndex(index)
+            elif isinstance(widget, QtWidgets.QTableWidget):
+                pass
+        except ValueError:
+            return False
+        else:
+            return True
 
 
     def toggleLedActive(self, led_number):

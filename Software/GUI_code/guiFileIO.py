@@ -44,7 +44,10 @@ def loadConfiguration(gui):
                         value = ast.literal_eval(key)
                     except ValueError:
                         value = ast.literal_eval("\'" + key+ "\'") #Fix literal_eval ValueError - https://stackoverflow.com/questions/14611352/malformed-string-valueerror-ast-literal-eval-with-string-representation-of-tup
-                gui.setValue(dictionary, value)
+                if not gui.setValue(dictionary, value):
+                    gui.message_box.setText("Error: \"" + line + "\" is not a valid configuration. Load aborted at this step.")
+                    gui.message_box.exec()
+                    return
                 
                 
 
