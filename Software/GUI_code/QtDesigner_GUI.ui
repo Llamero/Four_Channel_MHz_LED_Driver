@@ -48,7 +48,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -429,7 +429,7 @@
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-75</y>
+                 <y>0</y>
                  <width>608</width>
                  <height>628</height>
                 </rect>
@@ -1292,8 +1292,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>714</width>
-                 <height>466</height>
+                 <width>553</width>
+                 <height>307</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1309,7 +1309,7 @@
                    <string>Configure how the analog input will be converted to LED output.</string>
                   </property>
                   <property name="currentIndex">
-                   <number>2</number>
+                   <number>0</number>
                   </property>
                   <widget class="QWidget" name="sync_analog_output_PWM_tab">
                    <property name="toolTip">
@@ -1712,8 +1712,8 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-477</y>
-                 <width>608</width>
+                 <y>0</y>
+                 <width>525</width>
                  <height>1030</height>
                 </rect>
                </property>
@@ -3036,8 +3036,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>714</width>
-                 <height>466</height>
+                 <width>308</width>
+                 <height>37</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3064,8 +3064,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>714</width>
-                 <height>466</height>
+                 <width>276</width>
+                 <height>37</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3162,7 +3162,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             </widget>
            </item>
            <item row="0" column="3">
-            <widget class="QRadioButton" name="sync_output_none_button">
+            <widget class="QRadioButton" name="sync_output0_button">
              <property name="toolTip">
               <string>Deactivate sync output.</string>
              </property>
@@ -3212,7 +3212,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-299</y>
+             <y>-124</y>
              <width>626</width>
              <height>1103</height>
             </rect>
@@ -3456,7 +3456,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                    </widget>
                   </item>
                   <item row="0" column="4">
-                   <widget class="QRadioButton" name="configure_fan_external_no_output_box">
+                   <widget class="QRadioButton" name="configure_fan_external_output0_box">
                     <property name="toolTip">
                      <string>Deactivate external fan speed control</string>
                     </property>
@@ -4970,26 +4970,26 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
  </designerdata>
  <buttongroups>
   <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
-  <buttongroup name="sync_confocal_line_input_button_group"/>
-  <buttongroup name="configure_ext_fan_button_group"/>
-  <buttongroup name="configure_ch_merge_2_button_group"/>
-  <buttongroup name="configure_ch_merge_4_button_group"/>
-  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
-  <buttongroup name="main_intensity_button_group"/>
   <buttongroup name="calibration_axis_button_group"/>
-  <buttongroup name="main_channel_button_group"/>
-  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
-  <buttongroup name="configure_ch_merge_1_button_group"/>
+  <buttongroup name="configure_ch_merge_4_button_group"/>
+  <buttongroup name="configure_pushbutton_LED_button_group"/>
+  <buttongroup name="main_intensity_button_group"/>
+  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
   <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
-  <buttongroup name="sync_analog_led_channel_button_group"/>
-  <buttongroup name="configure_ch_merge_3_button_group"/>
+  <buttongroup name="sync_confocal_line_input_button_group"/>
   <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
+  <buttongroup name="main_channel_button_group"/>
+  <buttongroup name="configure_ch_merge_1_button_group"/>
+  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
+  <buttongroup name="sync_analog_input_channel_button_group"/>
   <buttongroup name="sync_output_button_group"/>
   <buttongroup name="sync_confocal_scan_mode_button_group"/>
-  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
-  <buttongroup name="configure_pushbutton_LED_button_group"/>
   <buttongroup name="sync_digital_trigger_button_group"/>
-  <buttongroup name="sync_analog_input_channel_button_group"/>
+  <buttongroup name="sync_analog_led_channel_button_group"/>
   <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
+  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
+  <buttongroup name="configure_ch_merge_3_button_group"/>
+  <buttongroup name="configure_ch_merge_2_button_group"/>
+  <buttongroup name="configure_ext_fan_button_group"/>
  </buttongroups>
 </ui>

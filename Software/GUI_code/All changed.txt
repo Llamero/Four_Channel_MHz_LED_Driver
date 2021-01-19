@@ -1,0 +1,42 @@
+Driver name:Yo!
+LED1:ID:UV
+LED1:Active:True
+LED1:Current limit:2.0
+LED2:ID:Blue
+LED2:Active:True
+LED2:Current limit:3.0
+LED3:ID:Green
+LED3:Active:True
+LED3:Current limit:4.0
+LED4:ID:Red
+LED4:Active:True
+LED4:Current limit:5.0
+Channel1:LED #1
+Channel2:LED #1
+Channel3:LED #2
+Channel4:LED #3
+Resistor1:Value:6.0
+Resistor1:Active:True
+Resistor2:Value:1000.0
+Resistor2:Active:False
+Resistor3:Value:1000.0
+Resistor3:Active:False
+Resistor4:Value:1000.0
+Resistor4:Active:False
+Temperature:Transistor:Warn:7
+Temperature:Transistor:Fault:8
+Temperature:Resistor:Warn:9
+Temperature:Resistor:Fault:10
+Temperature:External:Warn:17
+Temperature:External:Fault:18
+Fan:Driver:Min:11
+Fan:Driver:Max:12
+Fan:External:Min:13
+Fan:External:Max:14
+Fan:Channel:None
+Thermistor:Resistance:15
+Thermistor:Beta:16
+Audio:Status:0
+Audio:Alarm:10
+Pushbutton:Intensity:20
+Pushbutton:Alarm:Disable

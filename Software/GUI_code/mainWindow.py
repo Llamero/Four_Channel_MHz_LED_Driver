@@ -57,11 +57,9 @@ class Ui(QtWidgets.QMainWindow):
             return widget.itemText(widget.currentIndex())
         elif isinstance(widget, list):
             if isinstance(widget[0], QtWidgets.QRadioButton):
-                checked_list = []
                 for element in widget:
                     if element.isChecked():
-                        checked_list.append(element.text())
-                return checked_list
+                        return element.text()
         elif isinstance(widget, QtWidgets.QTabWidget):
             return widget.tabText(widget.currentIndex())
         elif isinstance(widget, QtWidgets.QTableWidget):
@@ -70,22 +68,19 @@ class Ui(QtWidgets.QMainWindow):
 
     def setValue(self, widget, value):
         if isinstance(widget, QtWidgets.QLineEdit):
-            widget.setText(value)
+            widget.setText(str(value))
         elif isinstance(widget, QtWidgets.QRadioButton) or isinstance(widget, QtWidgets.QCheckBox):
-            widget.setChecked(value)
+            widget.setChecked(bool(value))
         elif isinstance(widget, QtWidgets.QSpinBox) or isinstance(widget, QtWidgets.QDoubleSpinBox) or isinstance(
                 widget, QtWidgets.QSlider) or isinstance(widget, QtWidgets.QDial):
-            widget.setValue(value)
+            widget.setValue(float(value))
         elif isinstance(widget, QtWidgets.QToolBox):
             widget.itemText(widget.currentIndex())
         elif isinstance(widget, list):
             if isinstance(widget[0], QtWidgets.QRadioButton):
-                if isinstance(value, str):
-                    value = [value]
-                for name in value:
-                    for element in widget:
-                        if element.text() == name:
-                            element.setChecked(True)
+                for element in widget:
+                    if element.text() == str(value):
+                        element.setChecked(True)
         elif isinstance(widget, QtWidgets.QTabWidget):
             for index in range(widget.count()):
                 if value == widget.tabText(index):

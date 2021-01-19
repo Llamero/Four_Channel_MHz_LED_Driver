@@ -1,8 +1,6 @@
 from collections import OrderedDict
 import guiSequence as seq
-
-
-
+import guiFileIO as fileIO
 from PyQt5 import QtGui
 
 def initializeConfigModel(gui):
@@ -13,12 +11,14 @@ def initializeConfigModel(gui):
         config_model["LED" + str(led_number)] = OrderedDict(
             [("ID", eval("gui.configure_name_LED" + str(led_number) + "_line_edit")),
              ("Active", eval("gui.configure_name_LED" + str(led_number) + "_box")),
-             ("Current limit", eval("gui.configure_current_limit_LED" + str(led_number) + "_spin_box")),
-             ("Channels", [
-                 eval("gui.configure_LED_merge_channel1_button" + str(led_number)),
-                 eval("gui.configure_LED_merge_channel2_button" + str(led_number)),
-                 eval("gui.configure_LED_merge_channel3_button" + str(led_number)),
-                 eval("gui.configure_LED_merge_channel4_button" + str(led_number))])])
+             ("Current limit", eval("gui.configure_current_limit_LED" + str(led_number) + "_spin_box"))])
+
+    #Channels
+    for channel in range(1,5):
+        config_model["Channel" + str(channel)] = []
+        for led_number in range(1,5):
+            config_model["Channel" + str(channel)].append(eval("gui.configure_LED_merge_channel" + str(channel) + "_button" + str(led_number)))
+
     # Current sense resistors
     for resistor in range(1, 5):
         config_model["Resistor" + str(resistor)] = OrderedDict(
@@ -38,9 +38,9 @@ def initializeConfigModel(gui):
         config_model["Fan"][source] = OrderedDict(
             [("Min", eval("gui.configure_fan_" + source.lower() + "_min_box")),
              ("Max", eval("gui.configure_fan_" + source.lower() + "_max_box"))])
-    config_model["Fan"]["Channel"] = [gui.configure_fan_external_output1_box,
-                                           gui.configure_fan_external_output2_box,
-                                           gui.configure_fan_external_output3_box]
+    config_model["Fan"]["Channel"] = []
+    for channel in range(4):
+        config_model["Fan"]["Channel"].append(eval("gui.configure_fan_external_output" + str(channel) + "_box"))
 
     # External Thermistor
     config_model["Thermistor"] = OrderedDict(
@@ -114,67 +114,71 @@ def initializeSyncModel(gui):
             sync_model["Confocal"][event]["PWM"] = eval("gui.sync_confocal_" + event.lower() + "_constant_config_PWM_box")
             sync_model["Confocal"][event]["Current"] = eval("gui.sync_confocal_" + event.lower() + "_constant_config_current_box")
             sync_model["Confocal"][event]["Duration"] = eval("gui.sync_confocal_" + event.lower() + "_constant_config_duration_box")
-        
-
-
-
 
     sync_model = OrderedDict()
     sync_model["Mode"] = gui.sync_toolbox
     initializeDigital()
     initializeAnalog()
     initializeConfocal()
+    sync_model["Output"] = []
+    for output in range(4):
+        sync_model["Output"].append(eval("gui.sync_output" + str(output) + "_button"))
 
     return sync_model
 
-
-
-
-
-
-
-
 def initializeEvents(gui):
-    def sequenceEvents():
+
+    def configureEvents():
         nonlocal gui
-        # Save and load sequence files
-        gui.sync_digital_trigger_low_sequence_save_button.clicked.connect(
-            lambda: seq.saveSequence(gui, gui.sync_digital_trigger_low_sequence_table))
-        gui.sync_digital_trigger_low_sequence_load_button.clicked.connect(
-            lambda: seq.loadSequence(gui, gui.sync_digital_trigger_low_sequence_table))
-        gui.sync_digital_trigger_high_sequence_save_button.clicked.connect(
-            lambda: seq.saveSequence(gui, gui.sync_digital_trigger_high_sequence_table))
-        gui.sync_digital_trigger_high_sequence_load_button.clicked.connect(
-            lambda: seq.loadSequence(gui, gui.sync_digital_trigger_high_sequence_table))
-        gui.sync_confocal_image_sequence_save_button.clicked.connect(
-            lambda: seq.saveSequence(gui, gui.sync_confocal_image_sequence_table))
-        gui.sync_confocal_image_sequence_load_button.clicked.connect(
-            lambda: seq.loadSequence(gui, gui.sync_confocal_image_sequence_table))
-        gui.sync_confocal_flyback_sequence_save_button.clicked.connect(
-            lambda: seq.saveSequence(gui, gui.sync_confocal_flyback_sequence_table))
-        gui.sync_confocal_flyback_sequence_load_button.clicked.connect(
-            lambda: seq.loadSequence(gui, gui.sync_confocal_flyback_sequence_table))
+        def ledCheckBoxEvents():
+            nonlocal gui
+            # Changes to LED check boxes - toggle whether LED is active
+            gui.configure_name_LED1_box.stateChanged.connect(lambda: gui.toggleLedActive(1))
+            gui.configure_name_LED2_box.stateChanged.connect(lambda: gui.toggleLedActive(2))
+            gui.configure_name_LED3_box.stateChanged.connect(lambda: gui.toggleLedActive(3))
+            gui.configure_name_LED4_box.stateChanged.connect(lambda: gui.toggleLedActive(4))
 
-        # Changes to sequence table
-        gui.sync_digital_trigger_low_sequence_table.itemChanged.connect(
-            lambda: seq.dynamicallyCheckTable(gui, gui.sync_digital_trigger_low_sequence_table))
-        gui.sync_digital_trigger_high_sequence_table.itemChanged.connect(
-            lambda: seq.dynamicallyCheckTable(gui, gui.sync_digital_trigger_high_sequence_table))
-        gui.sync_confocal_flyback_sequence_table.itemChanged.connect(
-            lambda: seq.dynamicallyCheckTable(gui, gui.sync_confocal_flyback_sequence_table))
-        gui.sync_confocal_image_sequence_table.itemChanged.connect(
-            lambda: seq.dynamicallyCheckTable(gui, gui.sync_confocal_image_sequence_table))
+        ledCheckBoxEvents()
+        gui.configure_save_button.clicked.connect(lambda: fileIO.saveConfiguration(gui))
+        gui.configure_load_button.clicked.connect(lambda: fileIO.loadConfiguration(gui))
 
-    def ledCheckBoxEvents():
+    def syncEvents():
         nonlocal gui
-        # Changes to LED check boxes - toggle whether LED is active
-        gui.configure_name_LED1_box.stateChanged.connect(lambda: gui.toggleLedActive(1))
-        gui.configure_name_LED2_box.stateChanged.connect(lambda: gui.toggleLedActive(2))
-        gui.configure_name_LED3_box.stateChanged.connect(lambda: gui.toggleLedActive(3))
-        gui.configure_name_LED4_box.stateChanged.connect(lambda: gui.toggleLedActive(4))
 
-    sequenceEvents()
-    ledCheckBoxEvents()
+        def sequenceEvents():
+            nonlocal gui
+            # Save and load sequence files
+            gui.sync_digital_trigger_low_sequence_save_button.clicked.connect(
+                lambda: seq.saveSequence(gui, gui.sync_digital_trigger_low_sequence_table))
+            gui.sync_digital_trigger_low_sequence_load_button.clicked.connect(
+                lambda: seq.loadSequence(gui, gui.sync_digital_trigger_low_sequence_table))
+            gui.sync_digital_trigger_high_sequence_save_button.clicked.connect(
+                lambda: seq.saveSequence(gui, gui.sync_digital_trigger_high_sequence_table))
+            gui.sync_digital_trigger_high_sequence_load_button.clicked.connect(
+                lambda: seq.loadSequence(gui, gui.sync_digital_trigger_high_sequence_table))
+            gui.sync_confocal_image_sequence_save_button.clicked.connect(
+                lambda: seq.saveSequence(gui, gui.sync_confocal_image_sequence_table))
+            gui.sync_confocal_image_sequence_load_button.clicked.connect(
+                lambda: seq.loadSequence(gui, gui.sync_confocal_image_sequence_table))
+            gui.sync_confocal_flyback_sequence_save_button.clicked.connect(
+                lambda: seq.saveSequence(gui, gui.sync_confocal_flyback_sequence_table))
+            gui.sync_confocal_flyback_sequence_load_button.clicked.connect(
+                lambda: seq.loadSequence(gui, gui.sync_confocal_flyback_sequence_table))
+
+            # Changes to sequence table
+            gui.sync_digital_trigger_low_sequence_table.itemChanged.connect(
+                lambda: seq.dynamicallyCheckTable(gui, gui.sync_digital_trigger_low_sequence_table))
+            gui.sync_digital_trigger_high_sequence_table.itemChanged.connect(
+                lambda: seq.dynamicallyCheckTable(gui, gui.sync_digital_trigger_high_sequence_table))
+            gui.sync_confocal_flyback_sequence_table.itemChanged.connect(
+                lambda: seq.dynamicallyCheckTable(gui, gui.sync_confocal_flyback_sequence_table))
+            gui.sync_confocal_image_sequence_table.itemChanged.connect(
+                lambda: seq.dynamicallyCheckTable(gui, gui.sync_confocal_image_sequence_table))
+
+        sequenceEvents()
+
+    syncEvents()
+    configureEvents()
 
 
 
