@@ -1,7 +1,7 @@
 Driver name:Yo!
 LED1:ID:UV
 LED1:Active:True
-LED1:Current limit:200
+LED1:Current limit:-1
 LED2:ID:Blue
 LED2:Active:True
 LED2:Current limit:3.0

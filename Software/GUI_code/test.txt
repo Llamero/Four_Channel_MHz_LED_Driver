@@ -1,20 +1,20 @@
-Driver name:123
-LED1:ID:Purple
+Driver name:123456789
+LED1:ID:LED #1
 LED1:Active:True
 LED1:Current limit:1.0
-LED1:Channels:['LED #1']
 LED2:ID:LED #2
 LED2:Active:True
 LED2:Current limit:1.0
-LED2:Channels:['LED #2']
 LED3:ID:LED #3
 LED3:Active:True
 LED3:Current limit:1.0
-LED3:Channels:['LED #3']
 LED4:ID:LED #4
 LED4:Active:True
 LED4:Current limit:1.0
-LED4:Channels:['LED #4']
+Channel1:LED #1
+Channel2:LED #2
+Channel3:LED #3
+Channel4:LED #4
 Resistor1:Value:5.0
 Resistor1:Active:True
 Resistor2:Value:1000.0
@@ -33,10 +33,10 @@ Fan:Driver:Min:30
 Fan:Driver:Max:60
 Fan:External:Min:30
 Fan:External:Max:60
-Fan:Channel:['None']
+Fan:Channel:None
 Thermistor:Resistance:4700
 Thermistor:Beta:3560
 Audio:Status:20
 Audio:Alarm:100
 Pushbutton:Intensity:100
-Pushbutton:Alarm:['Flash']
+Pushbutton:Alarm:Flash

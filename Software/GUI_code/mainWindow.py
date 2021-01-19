@@ -3,6 +3,7 @@ from PyQt5.QtGui import QFont
 import qdarkstyle  # This awesome style sheet was made by Colin Duquesnoy and Daniel Cosmo Pizetta - https://github.com/ColinDuquesnoy/QDarkStyleSheet
 from collections import OrderedDict
 import guiMapper
+import guiSequence as seq
 import usbThread
 
 
@@ -18,6 +19,7 @@ class Ui(QtWidgets.QMainWindow):
 
         #Initialize message box
         self.message_box = QtWidgets.QMessageBox() # https://pythonbasics.org/pyqt-qmessagebox/
+        self.message_box.setIcon(QtWidgets.QMessageBox.Warning)
 
         # Hide dummy widgets
         for channel in range(1, 5):
@@ -64,7 +66,8 @@ class Ui(QtWidgets.QMainWindow):
             return widget.tabText(widget.currentIndex())
         elif isinstance(widget, QtWidgets.QTableWidget):
             pass
-
+        elif isinstance(widget, str) or widget is None:
+            return str(widget)
 
     def setValue(self, widget, value):
         try:
@@ -76,7 +79,9 @@ class Ui(QtWidgets.QMainWindow):
                     widget, QtWidgets.QSlider) or isinstance(widget, QtWidgets.QDial):
                 widget.setValue(float(value))
             elif isinstance(widget, QtWidgets.QToolBox):
-                widget.itemText(widget.currentIndex())
+                for index in range(widget.count()):
+                    if str(value) == widget.itemText(index):
+                        widget.setCurrentIndex(index)
             elif isinstance(widget, list):
                 if isinstance(widget[0], QtWidgets.QRadioButton):
                     for element in widget:
@@ -88,6 +93,8 @@ class Ui(QtWidgets.QMainWindow):
                         widget.setCurrentIndex(index)
             elif isinstance(widget, QtWidgets.QTableWidget):
                 pass
+            elif isinstance(widget, str):
+                seq.loadSequence()
         except ValueError:
             return False
         else:

@@ -1,0 +1,42 @@
+Mode::Digital
+Digital::Channel::Channel #1
+Digital::Low::Mode::Sequence
+Digital::Low::LED::Current LED
+Digital::Low::PWM::0.0
+Digital::Low::Current::0.0
+Digital::Low::Duration::0.0
+Digital::Low::Sequence::None
+Digital::High::Mode::Sequence
+Digital::High::LED::Current LED
+Digital::High::PWM::0.0
+Digital::High::Current::0.0
+Digital::High::Duration::0.0
+Digital::High::Sequence::
+Analog::LED::Current LED
+Analog::Channel::Channel #1
+Analog::Mode::Buffered - PWM
+Analog::PWM::1
+Analog::Current::1
+Confocal::Shutter::HIGH
+Confocal::Channel::Channel #2
+Confocal::Line::Analog - Mirror Voltage
+Confocal::Digital::HIGH
+Confocal::Threshold::0.01
+Confocal::Polarity::Above Threshold
+Confocal::Delay::Mode::Bidirectional
+Confocal::Delay::1::0.0
+Confocal::Delay::2::0.0
+Confocal::Delay::3::0.0
+Confocal::Image::Mode::Constant Value
+Confocal::Image::LED::Current LED
+Confocal::Image::PWM::0.0
+Confocal::Image::Current::0.0
+Confocal::Image::Duration::0.0
+Confocal::Image::Sequence::
+Confocal::Flyback::Mode::LED Off
+Confocal::Flyback::LED::Current LED
+Confocal::Flyback::PWM::0.0
+Confocal::Flyback::Current::0.0
+Confocal::Flyback::Duration::0.0
+Confocal::Flyback::Sequence::
+Output::None

@@ -48,7 +48,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -391,7 +391,7 @@
            <string>Load a sync configuration text file (*.lsc)</string>
           </property>
           <property name="text">
-           <string>Load Configuration</string>
+           <string>Load Sync</string>
           </property>
          </widget>
         </item>
@@ -526,7 +526,7 @@
                       <string>Select event type for when trigger goes LOW (&lt;1.0V)</string>
                      </property>
                      <property name="currentIndex">
-                      <number>1</number>
+                      <number>2</number>
                      </property>
                      <widget class="QWidget" name="sync_digital_trigger_low_off_tab">
                       <property name="toolTip">
@@ -783,7 +783,7 @@
                       </attribute>
                       <layout class="QGridLayout" name="gridLayout_45">
                        <item row="0" column="0" colspan="2">
-                        <widget class="QTableWidget" name="sync_digital_trigger_low_sequence_table">
+                        <widget class="QTableWidget" name="sync_digital_low_sequence_table">
                          <property name="font">
                           <font>
                            <family>MS Shell Dlg 2</family>
@@ -914,7 +914,7 @@
                       <string>Select event type for when trigger goes HIGH (&gt;2.5V)</string>
                      </property>
                      <property name="currentIndex">
-                      <number>0</number>
+                      <number>2</number>
                      </property>
                      <widget class="QWidget" name="sync_digital_trigger_high_off_tab">
                       <property name="toolTip">
@@ -1181,7 +1181,7 @@
                         </widget>
                        </item>
                        <item row="0" column="0" colspan="2">
-                        <widget class="QTableWidget" name="sync_digital_trigger_high_sequence_table">
+                        <widget class="QTableWidget" name="sync_digital_high_sequence_table">
                          <property name="font">
                           <font>
                            <family>MS Shell Dlg 2</family>
@@ -1713,7 +1713,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>525</width>
+                 <width>608</width>
                  <height>1030</height>
                 </rect>
                </property>
@@ -3099,7 +3099,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
            <string>Save sync configuration as a text file (*.lsc)</string>
           </property>
           <property name="text">
-           <string>Save Configuration</string>
+           <string>Save Sync</string>
           </property>
          </widget>
         </item>
@@ -3212,7 +3212,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-124</y>
+             <y>0</y>
              <width>626</width>
              <height>1103</height>
             </rect>
