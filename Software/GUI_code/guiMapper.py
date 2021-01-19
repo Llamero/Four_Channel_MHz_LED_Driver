@@ -1,6 +1,6 @@
 from collections import OrderedDict
 import guiSequence as seq
-import guiFileIO as fileIO
+import guiConfigIO as fileIO
 from PyQt5 import QtGui
 
 def initializeConfigModel(gui):
@@ -132,6 +132,9 @@ def initializeEvents(gui):
 
     def configureEvents():
         nonlocal gui
+        def driverNameEvents():
+            gui.configure_name_driver_line_edit.textChanged.connect(lambda: gui.changeDriverName(gui.configure_name_driver_line_edit))
+
         def ledCheckBoxEvents():
             nonlocal gui
             # Changes to LED check boxes - toggle whether LED is active
@@ -140,7 +143,17 @@ def initializeEvents(gui):
             gui.configure_name_LED3_box.stateChanged.connect(lambda: gui.toggleLedActive(3))
             gui.configure_name_LED4_box.stateChanged.connect(lambda: gui.toggleLedActive(4))
 
+        def ledNameEvents():
+            nonlocal gui
+            # Changes to LED check boxes - toggle whether LED is active
+            gui.configure_name_LED1_line_edit.textChanged.connect(lambda: gui.changeLedName(1, gui.configure_name_LED1_line_edit))
+            gui.configure_name_LED2_line_edit.textChanged.connect(lambda: gui.changeLedName(2, gui.configure_name_LED2_line_edit))
+            gui.configure_name_LED3_line_edit.textChanged.connect(lambda: gui.changeLedName(3, gui.configure_name_LED3_line_edit))
+            gui.configure_name_LED4_line_edit.textChanged.connect(lambda: gui.changeLedName(4, gui.configure_name_LED4_line_edit))
+
+        driverNameEvents()
         ledCheckBoxEvents()
+        ledNameEvents()
         gui.configure_save_button.clicked.connect(lambda: fileIO.saveConfiguration(gui, gui.config_model))
         gui.configure_load_button.clicked.connect(lambda: fileIO.loadConfiguration(gui, gui.config_model))
 

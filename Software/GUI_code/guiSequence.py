@@ -2,7 +2,7 @@ import csv
 import tempfile
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QMessageBox
-import guiFileIO as FileIO
+import guiConfigIO as FileIO
 
 def loadSequence(gui, widget, path_keys):  # derived from - https://stackoverflow.com/questions/12608835/writing-a-qtablewidget-to-a-csv-or-xls
     path = getSequencePath(gui, path_keys)
@@ -37,7 +37,7 @@ def loadSequence(gui, widget, path_keys):  # derived from - https://stackoverflo
                     widget.itemChanged.connect(lambda: dynamicallyCheckTable(gui, widget, path_keys)) #Reconnect the widget cell validation
 
         except FileNotFoundError:
-            gui.message_box.setText(str(path) + " is not a valid path. Please find the sequence file manually.")
+            gui.message_box.setText("\"" + str(path) + "\" is not a valid path. Please find the sequence file manually.")
             gui.message_box.exec()
             setSequencePath(gui, path_keys, None) #Clear invalid path from model
             loadSequence(gui, widget, path_keys)

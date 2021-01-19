@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>687</width>
-    <height>951</height>
+    <width>694</width>
+    <height>917</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -48,7 +48,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -148,9 +148,9 @@
           <property name="title">
            <string>Driver ID</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_3">
+          <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,10,0,10">
            <item row="0" column="0">
-            <widget class="QLabel" name="main_driver_name_label">
+            <widget class="QLabel" name="main_driver_name_label1">
              <property name="toolTip">
               <string>Custom driver name set in configuration</string>
              </property>
@@ -159,13 +159,27 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="1" alignment="Qt::AlignTop">
-            <widget class="QLabel" name="main_driver_serial_label">
+           <item row="0" column="1">
+            <widget class="QLabel" name="main_driver_name_label2">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2" alignment="Qt::AlignTop">
+            <widget class="QLabel" name="main_driver_serial_label1">
              <property name="toolTip">
               <string>USB serial number of the Teensy controlling the LED driver.</string>
              </property>
              <property name="text">
               <string>Serial #:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="main_driver_serial_label2">
+             <property name="text">
+              <string/>
              </property>
             </widget>
            </item>
@@ -412,8 +426,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>643</width>
-             <height>736</height>
+             <width>650</width>
+             <height>702</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -423,14 +437,14 @@
                <string>Select the active sync mode to configure</string>
               </property>
               <property name="currentIndex">
-               <number>0</number>
+               <number>2</number>
               </property>
               <widget class="QWidget" name="sync_digital_page">
                <property name="geometry">
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>608</width>
+                 <width>615</width>
                  <height>628</height>
                 </rect>
                </property>
@@ -526,7 +540,7 @@
                       <string>Select event type for when trigger goes LOW (&lt;1.0V)</string>
                      </property>
                      <property name="currentIndex">
-                      <number>2</number>
+                      <number>1</number>
                      </property>
                      <widget class="QWidget" name="sync_digital_trigger_low_off_tab">
                       <property name="toolTip">
@@ -914,7 +928,7 @@
                       <string>Select event type for when trigger goes HIGH (&gt;2.5V)</string>
                      </property>
                      <property name="currentIndex">
-                      <number>2</number>
+                      <number>1</number>
                      </property>
                      <widget class="QWidget" name="sync_digital_trigger_high_off_tab">
                       <property name="toolTip">
@@ -1292,8 +1306,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>553</width>
-                 <height>307</height>
+                 <width>632</width>
+                 <height>519</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1712,8 +1726,8 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
-                 <width>608</width>
+                 <y>-511</y>
+                 <width>615</width>
                  <height>1030</height>
                 </rect>
                </property>
@@ -2643,7 +2657,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                          <string>Select event type for when the laser is outside the image FOV (flyback)</string>
                         </property>
                         <property name="currentIndex">
-                         <number>0</number>
+                         <number>1</number>
                         </property>
                         <widget class="QWidget" name="sync_confocal_flyback_off_tab">
                          <property name="toolTip">
@@ -3213,7 +3227,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>626</width>
+             <width>633</width>
              <height>1103</height>
             </rect>
            </property>
@@ -3910,14 +3924,14 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
               <property name="title">
                <string>Name</string>
               </property>
-              <layout class="QGridLayout" name="gridLayout_20">
+              <layout class="QGridLayout" name="gridLayout_20" columnstretch="0,10,0,10">
                <item row="0" column="1">
                 <widget class="QLineEdit" name="configure_name_driver_line_edit">
                  <property name="toolTip">
                   <string>Enter a unique name for the LED driver (optional)</string>
                  </property>
                  <property name="text">
-                  <string>123456789</string>
+                  <string/>
                  </property>
                  <property name="maxLength">
                   <number>15</number>
@@ -3935,7 +3949,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 </widget>
                </item>
                <item row="0" column="2">
-                <widget class="QLabel" name="configure_name_driver_serial_label">
+                <widget class="QLabel" name="configure_name_driver_serial_label1">
                  <property name="toolTip">
                   <string>Serial number for selected LED driver.  This can be editted in the driver code - see manual for details.</string>
                  </property>
@@ -3943,7 +3957,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                   <number>10</number>
                  </property>
                  <property name="text">
-                  <string>Serial #: 123456789</string>
+                  <string>Serial #:</string>
                  </property>
                 </widget>
                </item>
@@ -4067,6 +4081,13 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                    </widget>
                   </item>
                  </layout>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QLabel" name="configure_name_driver_serial_label2">
+                 <property name="text">
+                  <string/>
+                 </property>
                 </widget>
                </item>
               </layout>
@@ -4843,7 +4864,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>687</width>
+     <width>694</width>
      <height>24</height>
     </rect>
    </property>

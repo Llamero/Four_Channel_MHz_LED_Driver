@@ -100,6 +100,9 @@ class Ui(QtWidgets.QMainWindow):
         else:
             return True
 
+    def changeDriverName(self, widget):
+        name = self.getValue(widget)
+        self.main_driver_name_label2.setText(str(name))
 
     def toggleLedActive(self, led_number):
         led_state = self.getValue(self.config_model["LED" + str(led_number)]["Active"])
@@ -112,6 +115,21 @@ class Ui(QtWidgets.QMainWindow):
         widget_list.append(self.sync_model["Confocal"]["Flyback"]["LED"][led_number])
         for widget in widget_list:
             widget.setEnabled(led_state)
+
+    def changeLedName(self, led_number, widget):
+        name = self.getValue(widget)
+        widget_list = [eval("self.main_channel_LED" + str(led_number) + "_button"),
+                       eval("self.sync_digital_trigger_low_constant_LED" + str(led_number) + "_button"),
+                       eval("self.sync_digital_trigger_high_constant_LED" + str(led_number) + "_button"),
+                       eval("self.sync_analog_LED" + str(led_number) + "_button"),
+                       eval("self.sync_confocal_image_constant_LED" + str(led_number) + "_button"),
+                       eval("self.sync_confocal_flyback_constant_LED" + str(led_number) + "_button"),
+                       eval("self.configure_current_limit_LED" + str(led_number) + "_label")]
+        for channel in range(1,5):
+            widget_list.append(eval("self.configure_LED_merge_channel" + str(channel) + "_button" + str(led_number) + ""))
+
+        for widget in widget_list:
+            widget.setText(str(name))
 
 
 

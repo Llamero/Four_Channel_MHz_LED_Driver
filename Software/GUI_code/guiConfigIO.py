@@ -25,6 +25,7 @@ def saveConfiguration(gui, model, file=None):
         writeLines("", model)
 
 def loadConfiguration(gui, model, file=None):
+    lines = []
     if file is None:
         path = QtGui.QFileDialog.getOpenFileName(gui, 'Open File', '', 'TXT(*.txt)')
         if path[0] != "":
