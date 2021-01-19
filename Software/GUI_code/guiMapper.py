@@ -145,15 +145,23 @@ def initializeEvents(gui):
 
         def ledNameEvents():
             nonlocal gui
-            # Changes to LED check boxes - toggle whether LED is active
+            # Changes to LED names - updates GUI LED references with new name
             gui.configure_name_LED1_line_edit.textChanged.connect(lambda: gui.changeLedName(1, gui.configure_name_LED1_line_edit))
             gui.configure_name_LED2_line_edit.textChanged.connect(lambda: gui.changeLedName(2, gui.configure_name_LED2_line_edit))
             gui.configure_name_LED3_line_edit.textChanged.connect(lambda: gui.changeLedName(3, gui.configure_name_LED3_line_edit))
             gui.configure_name_LED4_line_edit.textChanged.connect(lambda: gui.changeLedName(4, gui.configure_name_LED4_line_edit))
 
+        def resistorCheckBoxEvents():
+            nonlocal gui
+            # Changes to resistor check boxes - toggle whether resistor is active
+            gui.configure_resistor2_box.stateChanged.connect(lambda: gui.toggleResistorActive(2))
+            gui.configure_resistor3_box.stateChanged.connect(lambda: gui.toggleResistorActive(3))
+            gui.configure_resistor4_box.stateChanged.connect(lambda: gui.toggleResistorActive(4))
+
         driverNameEvents()
         ledCheckBoxEvents()
         ledNameEvents()
+        resistorCheckBoxEvents()
         gui.configure_save_button.clicked.connect(lambda: fileIO.saveConfiguration(gui, gui.config_model))
         gui.configure_load_button.clicked.connect(lambda: fileIO.loadConfiguration(gui, gui.config_model))
 
@@ -191,6 +199,7 @@ def initializeEvents(gui):
                 lambda: seq.dynamicallyCheckTable(gui, gui.sync_confocal_flyback_sequence_table, ["Confocal", "Flyback", "Sequence"]))
 
         sequenceEvents()
+        gui.sync_confocal_scan_unidirectional_button.toggled.connect(lambda: gui.toggleScanMode())
         gui.sync_save_button.clicked.connect(lambda: seq.findUnsavedSeqThenSave(gui, gui.sync_model))
         gui.sync_load_button.clicked.connect(lambda: fileIO.loadConfiguration(gui, gui.sync_model))
 

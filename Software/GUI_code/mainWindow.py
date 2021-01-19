@@ -116,6 +116,10 @@ class Ui(QtWidgets.QMainWindow):
         for widget in widget_list:
             widget.setEnabled(led_state)
 
+    def toggleResistorActive(self, resistor_number):
+            resistor_state = self.getValue(self.config_model["Resistor" + str(resistor_number)]["Active"])
+            self.config_model["Resistor" + str(resistor_number)]["Value"].setEnabled(resistor_state)
+
     def changeLedName(self, led_number, widget):
         name = self.getValue(widget)
         widget_list = [eval("self.main_channel_LED" + str(led_number) + "_button"),
@@ -131,6 +135,14 @@ class Ui(QtWidgets.QMainWindow):
         for widget in widget_list:
             widget.setText(str(name))
 
-
-
+    def toggleScanMode(self):
+        unidirectional = self.getValue(self.sync_confocal_scan_unidirectional_button)
+        if unidirectional:
+            self.sync_confocal_delay3_label1.setText("3) From flyback to line trigger reset:")
+            self.sync_confocal_delay3_label1.setToolTip("Set the additional time required for line sync trigger to reset after the flyback window.")
+            self.sync_confocal_delay3_box.setToolTip("Set the additional time required for line sync trigger to reset after the flyback window.")
+        else:
+            self.sync_confocal_delay3_label1.setText("3) Bidirectional: time between windows:")
+            self.sync_confocal_delay3_label1.setToolTip("Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).")
+            self.sync_confocal_delay3_box.setToolTip("Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).")
 

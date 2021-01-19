@@ -48,7 +48,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -4882,8 +4882,6 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
      <string>Connection</string>
     </property>
     <addaction name="menu_connection_disconnect"/>
-    <addaction name="separator"/>
-    <addaction name="menu_connection_test_connection"/>
    </widget>
    <widget class="QMenu" name="menu_view">
     <property name="title">
