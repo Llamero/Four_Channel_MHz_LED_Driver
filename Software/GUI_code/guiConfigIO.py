@@ -1,3 +1,4 @@
+import math
 import tempfile
 from PyQt5 import QtGui
 from collections import OrderedDict
@@ -67,9 +68,39 @@ def loadConfiguration(gui, model, file=None):
                     gui.message_box.exec()
                     return
 
+    #Check if external fan and sync out are on the same channel and disable used channels
+    for channel in range(1,4):
+        if gui.getValue(gui.config_model["Fan"]["Channel"][channel]) and gui.getValue(gui.sync_model["Output"][channel]):
+            gui.message_box.setText("Warning: The external fan output and sync output are both using output #" + str(channel) + ". Change one of these channels for the driver to function properly.")
+            gui.message_box.exec()
+        else:
+            if gui.getValue(gui.config_model["Fan"]["Channel"][channel]):
+                gui.disableUsedOutputs(channel, "config")
+            else:
+                gui.disableUsedOutputs(channel, "sync")
+    checkCurrentLimits(gui)
+
 def downloadConfiguration(gui, file):
     pass
 
 def uploadConfiguration(gui):
     pass
+
+def checkCurrentLimits(gui):
+    total_resistance = 0
+    for resistor in range(1,5):
+        if gui.getValue(gui.config_model["Resistor" + str(resistor)]["Active"]):
+            total_resistance += 1/gui.getValue(gui.config_model["Resistor" + str(resistor)]["Value"])
+    total_resistance = 1/total_resistance
+    maximum_current = 3.33/total_resistance
+    maximum_current = round(maximum_current, -int(math.floor(math.log10(abs(maximum_current))))+1) #Report max current to 2 significant figures - https://stackoverflow.com/questions/3410976/how-to-round-a-number-to-significant-figures-in-python
+
+    for led_number in range(1,5):
+        gui.config_model["LED" + str(led_number)]["Current Limit"].setMaximum(maximum_current)
+        gui.config_model["LED" + str(led_number)]["Current Limit"].setToolTip("Set the current limit (in amps) for LED #1"
+                                                                              " - " + str(maximum_current) + " amps maximum.")
+    gui.configure_current_limit_box.setTitle("LED Current Limit (" + str(maximum_current) + "A Max)")
+
+
+
 

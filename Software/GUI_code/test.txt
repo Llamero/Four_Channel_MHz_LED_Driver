@@ -33,7 +33,7 @@ Fan::Driver::Min::30
 Fan::Driver::Max::60
 Fan::External::Min::30
 Fan::External::Max::60
-Fan::Channel::None
+Fan::Channel::Output #2
 Thermistor::Resistance::4700
 Thermistor::Beta::3560
 Audio::Status::20

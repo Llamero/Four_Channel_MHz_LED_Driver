@@ -11,7 +11,7 @@ def initializeConfigModel(gui):
         config_model["LED" + str(led_number)] = OrderedDict(
             [("ID", eval("gui.configure_name_LED" + str(led_number) + "_line_edit")),
              ("Active", eval("gui.configure_name_LED" + str(led_number) + "_box")),
-             ("Current limit", eval("gui.configure_current_limit_LED" + str(led_number) + "_spin_box"))])
+             ("Current Limit", eval("gui.configure_current_limit_LED" + str(led_number) + "_spin_box"))])
 
     #Channels
     for channel in range(1,5):
@@ -166,6 +166,10 @@ def initializeEvents(gui):
             gui.configure_resistor3_box.stateChanged.connect(lambda: gui.toggleResistorActive(3))
             gui.configure_resistor4_box.stateChanged.connect(lambda: gui.toggleResistorActive(4))
 
+        def resistorValueEvents():
+            for resistor_number in range(1,5):
+                gui.config_model["Resistor" + str(resistor_number)]["Value"].valueChanged.connect(lambda: fileIO.checkCurrentLimits(gui))
+
         def fanChannelEvents():
             gui.config_model["Fan"]["Channel"][0].clicked.connect(lambda: gui.disableUsedOutputs(0, "config"))
             gui.config_model["Fan"]["Channel"][1].clicked.connect(lambda: gui.disableUsedOutputs(1, "config"))
@@ -176,6 +180,7 @@ def initializeEvents(gui):
         ledCheckBoxEvents()
         ledNameEvents()
         resistorCheckBoxEvents()
+        resistorValueEvents()
         fanChannelEvents()
         gui.configure_save_button.clicked.connect(lambda: fileIO.saveConfiguration(gui, gui.config_model))
         gui.configure_load_button.clicked.connect(lambda: fileIO.loadConfiguration(gui, gui.config_model))

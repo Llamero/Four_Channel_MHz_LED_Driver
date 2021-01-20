@@ -4,6 +4,7 @@ import qdarkstyle  # This awesome style sheet was made by Colin Duquesnoy and Da
 from collections import OrderedDict
 import guiMapper
 import guiSequence as seq
+import guiConfigIO as fileIO
 import usbThread
 
 
@@ -34,7 +35,7 @@ class Ui(QtWidgets.QMainWindow):
 
         # Assign events to widgets
         guiMapper.initializeEvents(self)
-
+        fileIO.checkCurrentLimits(self)
         print(self.getValue(self.sync_model["Digital"]["Low"]["LED"]))
         self.show()
 
@@ -121,6 +122,7 @@ class Ui(QtWidgets.QMainWindow):
     def toggleResistorActive(self, resistor_number):
             resistor_state = self.getValue(self.config_model["Resistor" + str(resistor_number)]["Active"])
             self.config_model["Resistor" + str(resistor_number)]["Value"].setEnabled(resistor_state)
+            fileIO.checkCurrentLimits(self)
 
     def changeLedName(self, led_number, widget):
         name = self.getValue(widget)
@@ -174,7 +176,7 @@ class Ui(QtWidgets.QMainWindow):
             widget_list = self.config_model["Fan"]["Channel"]
         else:
             widget_list = self.sync_model["Output"]
-        
+
         for index, button in enumerate(widget_list):
             if index == channel and channel != 0:
                 button.setEnabled(False)
