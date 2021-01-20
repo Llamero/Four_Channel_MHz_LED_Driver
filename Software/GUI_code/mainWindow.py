@@ -183,6 +183,12 @@ class Ui(QtWidgets.QMainWindow):
             else:
                 button.setEnabled(True)
 
+    def toggleSoftwareControl(self, software_enable):
+        self.main_intensity_dial.setEnabled(software_enable)
+        self.main_intensity_spinbox.setReadOnly(not software_enable)
+
+    def lockInterface(self):
+        
 
 
 

@@ -138,6 +138,8 @@ def initializeEvents(gui):
         gui.main_intensity_spinbox.valueChanged.connect(
             lambda: gui.syncDialAndSpinbox(gui.main_intensity_spinbox, gui.main_intensity_dial))
 
+        gui.main_software_control_checkbox.stateChanged.connect(lambda: gui.toggleSoftwareControl(gui.getValue(gui.main_software_control_checkbox)))
+
     def configureEvents():
         nonlocal gui
         def driverNameEvents():
