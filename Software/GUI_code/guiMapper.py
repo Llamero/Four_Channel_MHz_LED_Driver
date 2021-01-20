@@ -133,8 +133,10 @@ def initializeEvents(gui):
         nonlocal gui
 
         #Connect dial and spinbox values - https://www.youtube.com/watch?v=BSP9sB0JoaE
-        gui.main_intensity_dial.valueChanged.connect(gui.main_intensity_spinbox.setValue)
-        gui.main_intensity_spinbox.valueChanged.connect(lambda: gui.main_intensity_dial.setValue(round(gui.getValue(gui.main_intensity_spinbox))))
+        gui.main_intensity_dial.valueChanged.connect(
+            lambda: gui.syncDialAndSpinbox(gui.main_intensity_dial, gui.main_intensity_spinbox))
+        gui.main_intensity_spinbox.valueChanged.connect(
+            lambda: gui.syncDialAndSpinbox(gui.main_intensity_spinbox, gui.main_intensity_dial))
 
     def configureEvents():
         nonlocal gui
@@ -164,10 +166,17 @@ def initializeEvents(gui):
             gui.configure_resistor3_box.stateChanged.connect(lambda: gui.toggleResistorActive(3))
             gui.configure_resistor4_box.stateChanged.connect(lambda: gui.toggleResistorActive(4))
 
+        def fanChannelEvents():
+            gui.config_model["Fan"]["Channel"][0].clicked.connect(lambda: gui.disableUsedOutputs(0, "config"))
+            gui.config_model["Fan"]["Channel"][1].clicked.connect(lambda: gui.disableUsedOutputs(1, "config"))
+            gui.config_model["Fan"]["Channel"][2].clicked.connect(lambda: gui.disableUsedOutputs(2, "config"))
+            gui.config_model["Fan"]["Channel"][3].clicked.connect(lambda: gui.disableUsedOutputs(3, "config"))
+
         driverNameEvents()
         ledCheckBoxEvents()
         ledNameEvents()
         resistorCheckBoxEvents()
+        fanChannelEvents()
         gui.configure_save_button.clicked.connect(lambda: fileIO.saveConfiguration(gui, gui.config_model))
         gui.configure_load_button.clicked.connect(lambda: fileIO.loadConfiguration(gui, gui.config_model))
 
@@ -204,7 +213,15 @@ def initializeEvents(gui):
             gui.sync_confocal_flyback_sequence_table.itemChanged.connect(
                 lambda: seq.dynamicallyCheckTable(gui, gui.sync_confocal_flyback_sequence_table, ["Confocal", "Flyback", "Sequence"]))
 
+        def outputChannelEvents():
+            gui.sync_model["Output"][0].clicked.connect(lambda: gui.disableUsedOutputs(0, "sync"))
+            gui.sync_model["Output"][1].clicked.connect(lambda: gui.disableUsedOutputs(1, "sync"))
+            gui.sync_model["Output"][2].clicked.connect(lambda: gui.disableUsedOutputs(2, "sync"))
+            gui.sync_model["Output"][3].clicked.connect(lambda: gui.disableUsedOutputs(3, "sync"))
+
         sequenceEvents()
+        outputChannelEvents()
+        gui.sync_analog_output_tab.currentChanged.connect(lambda: gui.toggleAnalogChannel(gui.sync_analog_output_tab))
         gui.sync_confocal_scan_unidirectional_button.toggled.connect(lambda: gui.toggleScanMode())
         gui.sync_save_button.clicked.connect(lambda: seq.findUnsavedSeqThenSave(gui, gui.sync_model))
         gui.sync_load_button.clicked.connect(lambda: fileIO.loadConfiguration(gui, gui.sync_model))

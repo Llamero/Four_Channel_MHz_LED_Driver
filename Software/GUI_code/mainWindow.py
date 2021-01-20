@@ -77,7 +77,7 @@ class Ui(QtWidgets.QMainWindow):
                 widget.setChecked(bool(value))
             elif isinstance(widget, QtWidgets.QSpinBox) or isinstance(widget, QtWidgets.QDoubleSpinBox) or isinstance(
                     widget, QtWidgets.QSlider) or isinstance(widget, QtWidgets.QDial):
-                widget.setValue(float(value))
+                widget.setValue(value)
             elif isinstance(widget, QtWidgets.QToolBox):
                 for index in range(widget.count()):
                     if str(value) == widget.itemText(index):
@@ -107,12 +107,14 @@ class Ui(QtWidgets.QMainWindow):
     def toggleLedActive(self, led_number):
         led_state = self.getValue(self.config_model["LED" + str(led_number)]["Active"])
         widget_list = [self.config_model["LED" + str(led_number)]["ID"], self.config_model["LED" + str(led_number)]["Current limit"]]
-        widget_list += self.config_model["LED" + str(led_number)]["Channels"]
+        for channel in range(1,5):
+            widget_list.append(eval("self.configure_LED_merge_channel" + str(channel) + "_button" + str(led_number) + ""))
         widget_list.append(self.sync_model["Digital"]["High"]["LED"][led_number])
         widget_list.append(self.sync_model["Digital"]["Low"]["LED"][led_number])
         widget_list.append(self.sync_model["Analog"]["LED"][led_number])
         widget_list.append(self.sync_model["Confocal"]["Image"]["LED"][led_number])
         widget_list.append(self.sync_model["Confocal"]["Flyback"]["LED"][led_number])
+        widget_list.append(eval("self.main_channel_LED" + str(led_number) + "_button"))
         for widget in widget_list:
             widget.setEnabled(led_state)
 
@@ -145,4 +147,41 @@ class Ui(QtWidgets.QMainWindow):
             self.sync_confocal_delay3_label1.setText("3) Bidirectional: time between windows:")
             self.sync_confocal_delay3_label1.setToolTip("Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).")
             self.sync_confocal_delay3_box.setToolTip("Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).")
+
+    def syncDialAndSpinbox(self, widget_in, widget_out):
+        if isinstance(widget_in, QtWidgets.QDial):
+            value = float(self.getValue(widget_in)) * 100.0 / float(widget_in.maximum())
+            out_value = self.getValue(widget_out)
+        else:
+            value = round(self.getValue(widget_in) * widget_out.maximum() / 100)
+            out_value = self.getValue(widget_out)
+
+        if value != out_value:
+            self.setValue(widget_out, value)
+
+    def toggleAnalogChannel(self, widget):
+        name = self.getValue(widget)
+        if name == "Unbuffered - Current":
+            enable = False
+        else:
+            enable = True
+        for channel in range(1,5):
+            button = eval("self.sync_analog_input" + str(channel) + "_button")
+            button.setEnabled(enable)
+
+    def disableUsedOutputs(self, channel, source):
+        if source == "sync":
+            widget_list = self.config_model["Fan"]["Channel"]
+        else:
+            widget_list = self.sync_model["Output"]
+        
+        for index, button in enumerate(widget_list):
+            if index == channel and channel != 0:
+                button.setEnabled(False)
+            else:
+                button.setEnabled(True)
+
+
+
+
 
