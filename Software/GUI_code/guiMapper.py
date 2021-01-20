@@ -137,6 +137,7 @@ def initializeEvents(gui):
             lambda: gui.toggleSkin(gui.menu_view_skins_dark, gui.menu_view_skins_light, "dark"))
         gui.menu_view_skins_light.triggered.connect(
             lambda: gui.toggleSkin(gui.menu_view_skins_light, gui.menu_view_skins_dark, "light"))
+        gui.menu_view_lock_interface.triggered.connect(lambda: gui.lockInterface(gui.menu_view_lock_interface))
 
     def mainEvents():
         nonlocal gui

@@ -129,7 +129,6 @@ class Ui(QtWidgets.QMainWindow):
 
     def changeLedName(self, led_number, widget):
         name = self.getValue(widget)
-##############FIX WITH CALLS TO MAIN MODEL##################################
         widget_list = [eval("self.main_channel_LED" + str(led_number) + "_button"),
                        self.sync_model["Digital"]["Low"]["LED"][led_number],
                        self.sync_model["Digital"]["High"]["LED"][led_number],
@@ -192,8 +191,10 @@ class Ui(QtWidgets.QMainWindow):
         self.main_intensity_spinbox.setReadOnly(not software_enable)
 
 
-    def lockInterface(self):
-        pass
+    def lockInterface(self, widget):
+        self.gui_master_tab.setEnabled(not widget.isChecked())
+
+
 
 
 
