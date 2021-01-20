@@ -57,7 +57,7 @@
        <attribute name="title">
         <string>Main</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0,0,10,0,0" columnstretch="10,0">
+       <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0,0,10,0" columnstretch="10,0">
         <property name="horizontalSpacing">
          <number>3</number>
         </property>
@@ -68,7 +68,7 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_5">
            <item row="1" column="0">
-            <widget class="QSlider" name="verticalSlider">
+            <widget class="QSlider" name="main_toggle_slider">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -84,7 +84,7 @@
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QLabel" name="label">
+            <widget class="QLabel" name="main_toggle_manual_label">
              <property name="text">
               <string>Manual</string>
              </property>
@@ -94,7 +94,7 @@
             </widget>
            </item>
            <item row="0" column="0">
-            <widget class="QLabel" name="label_2">
+            <widget class="QLabel" name="main_toggle_sync_label">
              <property name="text">
               <string>Sync</string>
              </property>
@@ -349,7 +349,7 @@
          </widget>
         </item>
         <item row="4" column="0" colspan="2">
-         <widget class="QFrame" name="frame">
+         <widget class="QFrame" name="main_control_frame">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
@@ -370,7 +370,7 @@
             <number>0</number>
            </property>
            <item row="3" column="1">
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="main_control_software_button">
              <property name="text">
               <string>Software Control</string>
              </property>
@@ -386,9 +386,9 @@
             </widget>
            </item>
            <item row="3" column="0">
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="main_control_physical_button">
              <property name="text">
-              <string>Manual Control</string>
+              <string>Physical Control</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -1746,7 +1746,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>809</width>
+                 <width>525</width>
                  <height>1030</height>
                 </rect>
                </property>
@@ -3245,7 +3245,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-47</y>
+             <y>0</y>
              <width>611</width>
              <height>1103</height>
             </rect>
@@ -4912,23 +4912,23 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <property name="title">
      <string>View</string>
     </property>
-    <widget class="QMenu" name="menuDark_mode">
+    <widget class="QMenu" name="menu_view_skins">
      <property name="title">
       <string>Skins</string>
      </property>
-     <addaction name="actionLight_Mode"/>
-     <addaction name="actionDark_Mode"/>
+     <addaction name="menu_view_skins_light"/>
+     <addaction name="menu_view_skins_dark"/>
     </widget>
-    <widget class="QMenu" name="menuWindows">
+    <widget class="QMenu" name="menu_view_windows">
      <property name="title">
       <string>Windows</string>
      </property>
-     <addaction name="actionStatus"/>
-     <addaction name="actionSync_plot"/>
+     <addaction name="menu_view_windows_status"/>
+     <addaction name="menu_view_windows_sync_plot"/>
     </widget>
-    <addaction name="menuWindows"/>
-    <addaction name="menuDark_mode"/>
-    <addaction name="actionLock_Interface"/>
+    <addaction name="menu_view_windows"/>
+    <addaction name="menu_view_skins"/>
+    <addaction name="menu_view_lock_interface"/>
    </widget>
    <addaction name="menu_connection"/>
    <addaction name="menu_view"/>
@@ -4987,7 +4987,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <string>Search for LED driver USB connections</string>
    </property>
   </action>
-  <action name="actionDark_Mode">
+  <action name="menu_view_skins_dark">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -4995,7 +4995,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <string>Dark Mode</string>
    </property>
   </action>
-  <action name="actionLight_Mode">
+  <action name="menu_view_skins_light">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -5006,17 +5006,17 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <string>Light Mode</string>
    </property>
   </action>
-  <action name="actionStatus">
+  <action name="menu_view_windows_status">
    <property name="text">
     <string>Status</string>
    </property>
   </action>
-  <action name="actionSync_plot">
+  <action name="menu_view_windows_sync_plot">
    <property name="text">
     <string>Sync plot</string>
    </property>
   </action>
-  <action name="actionLock_Interface">
+  <action name="menu_view_lock_interface">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -5052,28 +5052,28 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="configure_pushbutton_LED_button_group"/>
-  <buttongroup name="configure_ch_merge_2_button_group"/>
-  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
-  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
-  <buttongroup name="configure_ch_merge_3_button_group"/>
-  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
+  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
   <buttongroup name="configure_ext_fan_button_group"/>
-  <buttongroup name="sync_analog_led_channel_button_group"/>
-  <buttongroup name="sync_output_button_group"/>
-  <buttongroup name="configure_ch_merge_4_button_group"/>
-  <buttongroup name="main_channel_button_group"/>
-  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
+  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
+  <buttongroup name="configure_pushbutton_LED_button_group"/>
   <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
-  <buttongroup name="sync_confocal_line_input_button_group"/>
-  <buttongroup name="sync_digital_trigger_button_group"/>
-  <buttongroup name="calibration_axis_button_group"/>
   <buttongroup name="main_intensity_button_group"/>
   <buttongroup name="configure_ch_merge_1_button_group"/>
-  <buttongroup name="sync_analog_input_channel_button_group"/>
+  <buttongroup name="main_channel_button_group"/>
+  <buttongroup name="sync_analog_led_channel_button_group"/>
+  <buttongroup name="calibration_axis_button_group"/>
+  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
   <buttongroup name="sync_confocal_scan_mode_button_group"/>
+  <buttongroup name="configure_ch_merge_4_button_group"/>
+  <buttongroup name="sync_analog_input_channel_button_group"/>
+  <buttongroup name="configure_ch_merge_2_button_group"/>
+  <buttongroup name="sync_digital_trigger_button_group"/>
   <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
-  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
   <buttongroup name="main_toggle_control_group"/>
+  <buttongroup name="sync_confocal_line_input_button_group"/>
+  <buttongroup name="configure_ch_merge_3_button_group"/>
+  <buttongroup name="sync_output_button_group"/>
+  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
+  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
  </buttongroups>
 </ui>

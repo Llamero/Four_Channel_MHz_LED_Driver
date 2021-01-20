@@ -39,19 +39,11 @@ class Ui(QtWidgets.QMainWindow):
         print(self.getValue(self.sync_model["Digital"]["Low"]["LED"]))
         self.show()
 
-    def toggleSkin(self):
-        if self.menu_view_dark_mode.isChecked():
-            self.app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
-
-        else:
-            self.app.setStyleSheet("")
-
-        self.app.setFont(QFont("MS Shell Dlg 2", 12))
-
     def getValue(self, widget):
         if isinstance(widget, QtWidgets.QLineEdit):
             return widget.text()
-        elif isinstance(widget, QtWidgets.QRadioButton) or isinstance(widget, QtWidgets.QCheckBox):
+        elif isinstance(widget, QtWidgets.QRadioButton) or isinstance(widget, QtWidgets.QCheckBox) or isinstance(
+                    widget, QtWidgets.QPushButton):
             return widget.isChecked()
         elif isinstance(widget, QtWidgets.QSpinBox) or isinstance(widget, QtWidgets.QDoubleSpinBox) or isinstance(
                 widget, QtWidgets.QSlider) or isinstance(widget, QtWidgets.QDial):
@@ -74,7 +66,8 @@ class Ui(QtWidgets.QMainWindow):
         try:
             if isinstance(widget, QtWidgets.QLineEdit):
                 widget.setText(str(value))
-            elif isinstance(widget, QtWidgets.QRadioButton) or isinstance(widget, QtWidgets.QCheckBox):
+            elif isinstance(widget, QtWidgets.QRadioButton) or isinstance(widget, QtWidgets.QCheckBox) or isinstance(
+                    widget, QtWidgets.QPushButton):
                 widget.setChecked(bool(value))
             elif isinstance(widget, QtWidgets.QSpinBox) or isinstance(widget, QtWidgets.QDoubleSpinBox) or isinstance(
                     widget, QtWidgets.QSlider) or isinstance(widget, QtWidgets.QDial):
@@ -101,13 +94,24 @@ class Ui(QtWidgets.QMainWindow):
         else:
             return True
 
+    def toggleSkin(self, enable_widget, disable_widget, mode):
+        enable_widget.setChecked(True)
+        disable_widget.setChecked(False)
+        if mode == "dark":
+            self.app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+
+        else:
+            self.app.setStyleSheet("")
+
+        self.app.setFont(QFont("MS Shell Dlg 2", 12))
+
     def changeDriverName(self, widget):
         name = self.getValue(widget)
         self.main_driver_name_label2.setText(str(name))
 
     def toggleLedActive(self, led_number):
         led_state = self.getValue(self.config_model["LED" + str(led_number)]["Active"])
-        widget_list = [self.config_model["LED" + str(led_number)]["ID"], self.config_model["LED" + str(led_number)]["Current limit"]]
+        widget_list = [self.config_model["LED" + str(led_number)]["ID"], self.config_model["LED" + str(led_number)]["Current Limit"]]
         for channel in range(1,5):
             widget_list.append(eval("self.configure_LED_merge_channel" + str(channel) + "_button" + str(led_number) + ""))
         widget_list.append(self.sync_model["Digital"]["High"]["LED"][led_number])
@@ -185,10 +189,12 @@ class Ui(QtWidgets.QMainWindow):
 
     def toggleSoftwareControl(self, software_enable):
         self.main_intensity_dial.setEnabled(software_enable)
+        self.main_toggle_slider.setEnabled(software_enable)
         self.main_intensity_spinbox.setReadOnly(not software_enable)
 
+
     def lockInterface(self):
-        
+        pass
 
 
 

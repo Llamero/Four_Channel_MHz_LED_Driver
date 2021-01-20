@@ -129,6 +129,15 @@ def initializeSyncModel(gui):
     return sync_model
 
 def initializeEvents(gui):
+    def menuEvents():
+        nonlocal gui
+
+        # Dark/light mode view
+        gui.menu_view_skins_dark.triggered.connect(
+            lambda: gui.toggleSkin(gui.menu_view_skins_dark, gui.menu_view_skins_light, "dark"))
+        gui.menu_view_skins_light.triggered.connect(
+            lambda: gui.toggleSkin(gui.menu_view_skins_light, gui.menu_view_skins_dark, "light"))
+
     def mainEvents():
         nonlocal gui
 
@@ -138,35 +147,35 @@ def initializeEvents(gui):
         gui.main_intensity_spinbox.valueChanged.connect(
             lambda: gui.syncDialAndSpinbox(gui.main_intensity_spinbox, gui.main_intensity_dial))
 
-        gui.main_software_control_checkbox.stateChanged.connect(lambda: gui.toggleSoftwareControl(gui.getValue(gui.main_software_control_checkbox)))
+        gui.main_control_software_button.toggled.connect(lambda: gui.toggleSoftwareControl(gui.getValue(gui.main_control_software_button)))
 
     def configureEvents():
         nonlocal gui
         def driverNameEvents():
-            gui.configure_name_driver_line_edit.textChanged.connect(lambda: gui.changeDriverName(gui.configure_name_driver_line_edit))
+            gui.config_model["Driver name"].textChanged.connect(lambda: gui.changeDriverName(gui.configure_name_driver_line_edit))
 
         def ledCheckBoxEvents():
             nonlocal gui
             # Changes to LED check boxes - toggle whether LED is active
-            gui.configure_name_LED1_box.stateChanged.connect(lambda: gui.toggleLedActive(1))
-            gui.configure_name_LED2_box.stateChanged.connect(lambda: gui.toggleLedActive(2))
-            gui.configure_name_LED3_box.stateChanged.connect(lambda: gui.toggleLedActive(3))
-            gui.configure_name_LED4_box.stateChanged.connect(lambda: gui.toggleLedActive(4))
+            gui.config_model["LED1"]["Active"].stateChanged.connect(lambda: gui.toggleLedActive(1))
+            gui.config_model["LED2"]["Active"].stateChanged.connect(lambda: gui.toggleLedActive(2))
+            gui.config_model["LED3"]["Active"].stateChanged.connect(lambda: gui.toggleLedActive(3))
+            gui.config_model["LED4"]["Active"].stateChanged.connect(lambda: gui.toggleLedActive(4))
 
         def ledNameEvents():
             nonlocal gui
             # Changes to LED names - updates GUI LED references with new name
-            gui.configure_name_LED1_line_edit.textChanged.connect(lambda: gui.changeLedName(1, gui.configure_name_LED1_line_edit))
-            gui.configure_name_LED2_line_edit.textChanged.connect(lambda: gui.changeLedName(2, gui.configure_name_LED2_line_edit))
-            gui.configure_name_LED3_line_edit.textChanged.connect(lambda: gui.changeLedName(3, gui.configure_name_LED3_line_edit))
-            gui.configure_name_LED4_line_edit.textChanged.connect(lambda: gui.changeLedName(4, gui.configure_name_LED4_line_edit))
+            gui.config_model["LED1"]["ID"].textChanged.connect(lambda: gui.changeLedName(1, gui.config_model["LED1"]["ID"]))
+            gui.config_model["LED2"]["ID"].textChanged.connect(lambda: gui.changeLedName(2, gui.config_model["LED2"]["ID"]))
+            gui.config_model["LED3"]["ID"].textChanged.connect(lambda: gui.changeLedName(3, gui.config_model["LED3"]["ID"]))
+            gui.config_model["LED4"]["ID"].textChanged.connect(lambda: gui.changeLedName(4, gui.config_model["LED4"]["ID"]))
 
         def resistorCheckBoxEvents():
             nonlocal gui
             # Changes to resistor check boxes - toggle whether resistor is active
-            gui.configure_resistor2_box.stateChanged.connect(lambda: gui.toggleResistorActive(2))
-            gui.configure_resistor3_box.stateChanged.connect(lambda: gui.toggleResistorActive(3))
-            gui.configure_resistor4_box.stateChanged.connect(lambda: gui.toggleResistorActive(4))
+            gui.config_model["Resistor2"]["Active"].stateChanged.connect(lambda: gui.toggleResistorActive(2))
+            gui.config_model["Resistor3"]["Active"].stateChanged.connect(lambda: gui.toggleResistorActive(3))
+            gui.config_model["Resistor4"]["Active"].stateChanged.connect(lambda: gui.toggleResistorActive(4))
 
         def resistorValueEvents():
             for resistor_number in range(1,5):
@@ -233,14 +242,12 @@ def initializeEvents(gui):
         gui.sync_save_button.clicked.connect(lambda: seq.findUnsavedSeqThenSave(gui, gui.sync_model))
         gui.sync_load_button.clicked.connect(lambda: fileIO.loadConfiguration(gui, gui.sync_model))
 
+    menuEvents()
     mainEvents()
     syncEvents()
     configureEvents()
 
 
-
-    #Dark mode view
-    gui.menu_view_dark_mode.triggered.connect(gui.toggleSkin)
 
 
 
