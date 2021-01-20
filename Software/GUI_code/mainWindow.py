@@ -22,16 +22,15 @@ class Ui(QtWidgets.QMainWindow):
         self.message_box = QtWidgets.QMessageBox() # https://pythonbasics.org/pyqt-qmessagebox/
         self.message_box.setIcon(QtWidgets.QMessageBox.Warning)
 
-        # Hide dummy widgets
-        for channel in range(1, 5):
-            for button in range(1, 5):
-                if channel < button:
-                    widget = eval("self.configure_LED_merge_channel" + str(channel) + "_button" + str(button))
-                    widget.setVisible(False)
-
         # Map gui widgets to ordered dictionaries
         self.config_model = guiMapper.initializeConfigModel(self)
         self.sync_model = guiMapper.initializeSyncModel(self)
+
+        # Hide dummy widgets
+        for channel in range(1, 5):
+            for button in range(4):
+                if channel <= button:
+                    self.config_model["Channel" + str(channel)][button].setVisible(False)
 
         # Assign events to widgets
         guiMapper.initializeEvents(self)
@@ -130,22 +129,23 @@ class Ui(QtWidgets.QMainWindow):
 
     def changeLedName(self, led_number, widget):
         name = self.getValue(widget)
+##############FIX WITH CALLS TO MAIN MODEL##################################
         widget_list = [eval("self.main_channel_LED" + str(led_number) + "_button"),
-                       eval("self.sync_digital_trigger_low_constant_LED" + str(led_number) + "_button"),
-                       eval("self.sync_digital_trigger_high_constant_LED" + str(led_number) + "_button"),
-                       eval("self.sync_analog_LED" + str(led_number) + "_button"),
-                       eval("self.sync_confocal_image_constant_LED" + str(led_number) + "_button"),
-                       eval("self.sync_confocal_flyback_constant_LED" + str(led_number) + "_button"),
+                       self.sync_model["Digital"]["Low"]["LED"][led_number],
+                       self.sync_model["Digital"]["High"]["LED"][led_number],
+                       self.sync_model["Analog"]["LED"][led_number],
+                       self.sync_model["Confocal"]["Image"]["LED"][led_number],
+                       self.sync_model["Confocal"]["Flyback"]["LED"][led_number],
                        eval("self.configure_current_limit_LED" + str(led_number) + "_label")]
         for channel in range(1,5):
-            widget_list.append(eval("self.configure_LED_merge_channel" + str(channel) + "_button" + str(led_number) + ""))
+            widget_list.append(self.config_model["Channel" + str(channel)][led_number-1])
 
         for widget in widget_list:
             widget.setText(str(name))
 
     def toggleScanMode(self):
-        unidirectional = self.getValue(self.sync_confocal_scan_unidirectional_button)
-        if unidirectional:
+        scan_mode = self.getValue(self.sync_model["Confocal"]["Delay"]["Mode"])
+        if scan_mode == "Unidirectional":
             self.sync_confocal_delay3_label1.setText("3) From flyback to line trigger reset:")
             self.sync_confocal_delay3_label1.setToolTip("Set the additional time required for line sync trigger to reset after the flyback window.")
             self.sync_confocal_delay3_box.setToolTip("Set the additional time required for line sync trigger to reset after the flyback window.")
@@ -171,9 +171,8 @@ class Ui(QtWidgets.QMainWindow):
             enable = False
         else:
             enable = True
-        for channel in range(1,5):
-            button = eval("self.sync_analog_input" + str(channel) + "_button")
-            button.setEnabled(enable)
+        for channel in range(4):
+            self.sync_model["Analog"]["Channel"][channel].setEnabled(enable)
 
     def disableUsedOutputs(self, channel, source):
         if source == "sync":
