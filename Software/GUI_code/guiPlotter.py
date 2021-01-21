@@ -45,13 +45,17 @@ def setCalibrationScale(gui):
     y = [current, current]
 
 def startAnimation(gui, timeline):
-    timeline.setFrameRange(0, 720)
+    timeline.setFrameRange(0, 1440)
     timeline.frameChanged.connect(lambda: updatePlot(gui, timeline))
     timeline.start()
+    gui.calibration_run_button.clicked.disconnect()
+    gui.calibration_run_button.setText("Stop")
+    gui.calibration_run_button.clicked.connect(lambda: stopAnimation(gui, timeline))
 
-
-
-
+def stopAnimation(gui, timeline):
+    timeline.stop()
+    gui.calibration_run_button.setText("Run")
+    gui.calibration_run_button.clicked.connect(lambda: startAnimation(gui, timeline))
 
 def updatePlot(gui, timeline):
     interval = timeline.frameCount()
@@ -66,7 +70,6 @@ def updatePlot(gui, timeline):
             y_de[x] = 0.5
         else:
             y_de[x] = 0
-    print(interval)
     y_de.rotate(interval)
     gui.calibration_plot_window.plot(x_de, y_de, pen=pg.mkPen('g', width=1), clear=True)
     gui.calibration_plot_window.plot(x_line, y_line, pen=pg.mkPen('m', width=1))

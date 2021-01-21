@@ -256,7 +256,7 @@ def initializeEvents(gui):
         nonlocal gui
         gui.calibration_current_box.valueChanged.connect(lambda: plot.setCalibrationScale(gui))
 
-        gui.calibration_run_button.clicked.connect(lambda: plot.startAnimation(gui, TimeLine(loopCount=0, interval=10)))
+        gui.calibration_run_button.clicked.connect(lambda: plot.startAnimation(gui, TimeLine(loopCount=0, interval=1)))
 
 
     menuEvents()
@@ -290,6 +290,8 @@ class TimeLine(QtCore.QObject):
         if self._loopCount > 0:
             if self._loop_counter >= self.loopCount():
                 self._timer.stop()
+    def stop(self):
+        self._timer.stop()
 
     def setLoopCount(self, loopCount):
         self._loopCount = loopCount
