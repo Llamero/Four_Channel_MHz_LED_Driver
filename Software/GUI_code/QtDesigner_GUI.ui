@@ -48,7 +48,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -61,6 +61,58 @@
         <property name="horizontalSpacing">
          <number>3</number>
         </property>
+        <item row="0" column="0" colspan="2" alignment="Qt::AlignTop">
+         <widget class="QGroupBox" name="main_driver_ID_box">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>500</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Identification of the active LED driver</string>
+          </property>
+          <property name="title">
+           <string>Driver ID</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,10,0,10">
+           <item row="0" column="0">
+            <widget class="QLabel" name="main_driver_name_label1">
+             <property name="toolTip">
+              <string>Custom driver name set in configuration</string>
+             </property>
+             <property name="text">
+              <string>Name:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="main_driver_name_label2">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2" alignment="Qt::AlignTop">
+            <widget class="QLabel" name="main_driver_serial_label1">
+             <property name="toolTip">
+              <string>USB serial number of the Teensy controlling the LED driver.</string>
+             </property>
+             <property name="text">
+              <string>Serial #:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="main_driver_serial_label2">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
         <item row="2" column="1" rowspan="2">
          <widget class="QGroupBox" name="main_toggle_box">
           <property name="title">
@@ -101,6 +153,44 @@
              <property name="alignment">
               <set>Qt::AlignCenter</set>
              </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Manual Control Source</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_8">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="main_control_physical_button">
+             <property name="text">
+              <string>LED Driver</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">main_toggle_control_group</string>
+             </attribute>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="main_control_software_button">
+             <property name="text">
+              <string>Software</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">main_toggle_control_group</string>
+             </attribute>
             </widget>
            </item>
           </layout>
@@ -223,58 +313,6 @@
           </layout>
          </widget>
         </item>
-        <item row="0" column="0" colspan="2" alignment="Qt::AlignTop">
-         <widget class="QGroupBox" name="main_driver_ID_box">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>500</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>Identification of the active LED driver</string>
-          </property>
-          <property name="title">
-           <string>Driver ID</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,10,0,10">
-           <item row="0" column="0">
-            <widget class="QLabel" name="main_driver_name_label1">
-             <property name="toolTip">
-              <string>Custom driver name set in configuration</string>
-             </property>
-             <property name="text">
-              <string>Name:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="main_driver_name_label2">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2" alignment="Qt::AlignTop">
-            <widget class="QLabel" name="main_driver_serial_label1">
-             <property name="toolTip">
-              <string>USB serial number of the Teensy controlling the LED driver.</string>
-             </property>
-             <property name="text">
-              <string>Serial #:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="QLabel" name="main_driver_serial_label2">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
         <item row="1" column="0" colspan="2" alignment="Qt::AlignTop">
          <widget class="QGroupBox" name="main_channel_box">
           <property name="minimumSize">
@@ -348,59 +386,6 @@
           </layout>
          </widget>
         </item>
-        <item row="4" column="0" colspan="2">
-         <widget class="QFrame" name="main_control_frame">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_53">
-           <property name="leftMargin">
-            <number>0</number>
-           </property>
-           <property name="topMargin">
-            <number>0</number>
-           </property>
-           <property name="rightMargin">
-            <number>0</number>
-           </property>
-           <property name="bottomMargin">
-            <number>0</number>
-           </property>
-           <item row="3" column="1">
-            <widget class="QPushButton" name="main_control_software_button">
-             <property name="text">
-              <string>Software Control</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">main_toggle_control_group</string>
-             </attribute>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QPushButton" name="main_control_physical_button">
-             <property name="text">
-              <string>Physical Control</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">main_toggle_control_group</string>
-             </attribute>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="sync_tab">
@@ -456,7 +441,7 @@
                <string>Select the active sync mode to configure</string>
               </property>
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="sync_digital_page">
                <property name="geometry">
@@ -4670,138 +4655,6 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
         <string>Calibration</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_7" columnstretch="10,0,0,0">
-        <item row="3" column="0" colspan="3">
-         <widget class="QGroupBox" name="calibration_scale_box">
-          <property name="toolTip">
-           <string>Set the Y-axis scale as percent of the active LED current limit.</string>
-          </property>
-          <property name="title">
-           <string>Y-axis scale</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_8" columnstretch="10,10,10,10,10,0,0,0">
-           <item row="0" column="6">
-            <widget class="QDoubleSpinBox" name="calibration_scale_custom_box">
-             <property name="toolTip">
-              <string>Set the Y-axis scale to a custom percentage of the active LED current limit.</string>
-             </property>
-             <property name="decimals">
-              <number>1</number>
-             </property>
-             <property name="minimum">
-              <double>0.100000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>1000.000000000000000</double>
-             </property>
-             <property name="singleStep">
-              <double>0.000000000000000</double>
-             </property>
-             <property name="value">
-              <double>1.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="QRadioButton" name="calibration_scale_10_button">
-             <property name="toolTip">
-              <string>Set the Y-axis scale to 10% of the active LED current limit.</string>
-             </property>
-             <property name="text">
-              <string>10%</string>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">calibration_axis_button_group</string>
-             </attribute>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QRadioButton" name="calibration_scale_100_button">
-             <property name="toolTip">
-              <string>Set the Y-axis scale to 100% of the active LED current limit.</string>
-             </property>
-             <property name="text">
-              <string>100%</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">calibration_axis_button_group</string>
-             </attribute>
-            </widget>
-           </item>
-           <item row="0" column="5">
-            <widget class="QRadioButton" name="calibration_scale_custom_button">
-             <property name="toolTip">
-              <string>Set the Y-axis scale to a custom percentage of the active LED current limit.</string>
-             </property>
-             <property name="text">
-              <string>Custom:</string>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">calibration_axis_button_group</string>
-             </attribute>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QRadioButton" name="calibration_scale_50_button">
-             <property name="toolTip">
-              <string>Set the Y-axis scale to 50% of the active LED current limit.</string>
-             </property>
-             <property name="text">
-              <string>50%</string>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">calibration_axis_button_group</string>
-             </attribute>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QRadioButton" name="calibration_scale_25_button">
-             <property name="toolTip">
-              <string>Set the Y-axis scale to 25% of the active LED current limit.</string>
-             </property>
-             <property name="text">
-              <string>25%</string>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">calibration_axis_button_group</string>
-             </attribute>
-            </widget>
-           </item>
-           <item row="0" column="4">
-            <widget class="QRadioButton" name="calibration_scale_5_button">
-             <property name="toolTip">
-              <string>Set the Y-axis scale to 5% of the active LED current limit.</string>
-             </property>
-             <property name="text">
-              <string>5%</string>
-             </property>
-             <attribute name="buttonGroup">
-              <string notr="true">calibration_axis_button_group</string>
-             </attribute>
-            </widget>
-           </item>
-           <item row="0" column="7">
-            <widget class="QLabel" name="calibration_scale_custom_label">
-             <property name="toolTip">
-              <string>Set the Y-axis scale to a custom percentage of the active LED current limit.</string>
-             </property>
-             <property name="text">
-              <string>%</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="0" column="0" colspan="4">
-         <widget class="PlotWidget" name="calibration_plot_window">
-          <property name="toolTip">
-           <string>Plot of LED current response to two 500 µs square-wave pulses, sampled at 1.1 MHz.</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="0">
          <widget class="QPushButton" name="calibration_run_button">
           <property name="toolTip">
@@ -4809,6 +4662,16 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
           </property>
           <property name="text">
            <string>Run</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QLabel" name="calibration_current_label2">
+          <property name="toolTip">
+           <string>Active LED current as a percent of the set current limit.</string>
+          </property>
+          <property name="text">
+           <string>%</string>
           </property>
          </widget>
         </item>
@@ -4826,8 +4689,26 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
           <property name="decimals">
            <number>1</number>
           </property>
+          <property name="minimum">
+           <double>0.100000000000000</double>
+          </property>
           <property name="value">
            <double>100.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="4">
+         <widget class="PlotWidget" name="calibration_plot_window">
+          <property name="toolTip">
+           <string>Plot of LED current response to two 500 µs square-wave pulses, sampled at 1.1 MHz.</string>
+          </property>
+          <property name="sceneRect">
+           <rectf>
+            <x>0.000000000000000</x>
+            <y>0.000000000000000</y>
+            <width>0.000000000000000</width>
+            <height>0.000000000000000</height>
+           </rectf>
           </property>
          </widget>
         </item>
@@ -4841,26 +4722,6 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="3">
-         <widget class="QLabel" name="calibration_current_label2">
-          <property name="toolTip">
-           <string>Active LED current as a percent of the set current limit.</string>
-          </property>
-          <property name="text">
-           <string>%</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0" colspan="4">
-         <widget class="QCheckBox" name="calibration_software_control_box">
-          <property name="toolTip">
-           <string>Ignores physical knob</string>
-          </property>
-          <property name="text">
-           <string>Enable software control of LED current</string>
           </property>
          </widget>
         </item>
@@ -5052,28 +4913,28 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
-  <buttongroup name="configure_ext_fan_button_group"/>
-  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
-  <buttongroup name="configure_pushbutton_LED_button_group"/>
-  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
-  <buttongroup name="main_intensity_button_group"/>
-  <buttongroup name="configure_ch_merge_1_button_group"/>
-  <buttongroup name="main_channel_button_group"/>
-  <buttongroup name="sync_analog_led_channel_button_group"/>
-  <buttongroup name="calibration_axis_button_group"/>
-  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
-  <buttongroup name="sync_confocal_scan_mode_button_group"/>
-  <buttongroup name="configure_ch_merge_4_button_group"/>
-  <buttongroup name="sync_analog_input_channel_button_group"/>
-  <buttongroup name="configure_ch_merge_2_button_group"/>
-  <buttongroup name="sync_digital_trigger_button_group"/>
-  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
-  <buttongroup name="main_toggle_control_group"/>
-  <buttongroup name="sync_confocal_line_input_button_group"/>
   <buttongroup name="configure_ch_merge_3_button_group"/>
-  <buttongroup name="sync_output_button_group"/>
+  <buttongroup name="configure_ch_merge_1_button_group"/>
+  <buttongroup name="sync_confocal_scan_mode_button_group"/>
+  <buttongroup name="configure_pushbutton_LED_button_group"/>
+  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
   <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
+  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
+  <buttongroup name="configure_ch_merge_2_button_group"/>
   <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
+  <buttongroup name="configure_ext_fan_button_group"/>
+  <buttongroup name="sync_confocal_line_input_button_group"/>
+  <buttongroup name="sync_output_button_group"/>
+  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
+  <buttongroup name="sync_digital_trigger_button_group"/>
+  <buttongroup name="main_intensity_button_group"/>
+  <buttongroup name="main_toggle_control_group"/>
+  <buttongroup name="sync_analog_led_channel_button_group"/>
+  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
+  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
+  <buttongroup name="main_channel_button_group"/>
+  <buttongroup name="sync_analog_input_channel_button_group"/>
+  <buttongroup name="calibration_axis_button_group"/>
+  <buttongroup name="configure_ch_merge_4_button_group"/>
  </buttongroups>
 </ui>

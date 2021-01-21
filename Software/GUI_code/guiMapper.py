@@ -1,7 +1,8 @@
 from collections import OrderedDict
 import guiSequence as seq
 import guiConfigIO as fileIO
-from PyQt5 import QtGui
+import guiPlotter as plot
+from PyQt5 import QtGui, QtCore
 
 def initializeConfigModel(gui):
     config_model = OrderedDict()
@@ -150,6 +151,13 @@ def initializeEvents(gui):
 
         gui.main_control_software_button.toggled.connect(lambda: gui.toggleSoftwareControl(gui.getValue(gui.main_control_software_button)))
 
+        #Update configure plot current limits when active LED is changed
+        gui.main_channel_LED1_button.clicked.connect(lambda: gui.updateActiveLED(1))
+        gui.main_channel_LED2_button.clicked.connect(lambda: gui.updateActiveLED(2))
+        gui.main_channel_LED3_button.clicked.connect(lambda: gui.updateActiveLED(3))
+        gui.main_channel_LED4_button.clicked.connect(lambda: gui.updateActiveLED(4))
+
+
     def configureEvents():
         nonlocal gui
         def driverNameEvents():
@@ -236,17 +244,81 @@ def initializeEvents(gui):
             gui.sync_model["Output"][2].clicked.connect(lambda: gui.disableUsedOutputs(2, "sync"))
             gui.sync_model["Output"][3].clicked.connect(lambda: gui.disableUsedOutputs(3, "sync"))
 
-        sequenceEvents()
-        outputChannelEvents()
         gui.sync_analog_output_tab.currentChanged.connect(lambda: gui.toggleAnalogChannel(gui.sync_analog_output_tab))
         gui.sync_confocal_scan_unidirectional_button.toggled.connect(lambda: gui.toggleScanMode())
         gui.sync_save_button.clicked.connect(lambda: seq.findUnsavedSeqThenSave(gui, gui.sync_model))
         gui.sync_load_button.clicked.connect(lambda: fileIO.loadConfiguration(gui, gui.sync_model))
 
+        sequenceEvents()
+        outputChannelEvents()
+
+    def calibrationEvents():
+        nonlocal gui
+        gui.calibration_current_box.valueChanged.connect(lambda: plot.setCalibrationScale(gui))
+
+        gui.calibration_run_button.clicked.connect(lambda: plot.startAnimation(gui, TimeLine(loopCount=0, interval=10)))
+
+
     menuEvents()
     mainEvents()
     syncEvents()
     configureEvents()
+    calibrationEvents()
+
+#Timer class for animating widgets such as the PyQtgraph
+class TimeLine(QtCore.QObject):
+    frameChanged = QtCore.pyqtSignal(int)
+
+    def __init__(self, interval=60, loopCount=1, parent=None):
+        super(TimeLine, self).__init__(parent)
+        self._startFrame = 0
+        self._endFrame = 0
+        self._loopCount = loopCount
+        self._timer = QtCore.QTimer(self, timeout=self.on_timeout)
+        self._counter = 0
+        self._loop_counter = 0
+        self.setInterval(interval)
+
+    def on_timeout(self):
+        if self._startFrame <= self._counter < self._endFrame:
+            self.frameChanged.emit(self._counter)
+            self._counter += 1
+        else:
+            self._counter = 0
+            self._loop_counter += 1
+
+        if self._loopCount > 0:
+            if self._loop_counter >= self.loopCount():
+                self._timer.stop()
+
+    def setLoopCount(self, loopCount):
+        self._loopCount = loopCount
+
+    def loopCount(self):
+        return self._loopCount
+
+    def frameCount(self):
+        return self._counter
+
+    interval = QtCore.pyqtProperty(int, fget=loopCount, fset=setLoopCount)
+
+    def setInterval(self, interval):
+        self._timer.setInterval(interval)
+
+    def interval(self):
+        return self._timer.interval()
+
+    interval = QtCore.pyqtProperty(int, fget=interval, fset=setInterval)
+
+    def setFrameRange(self, startFrame, endFrame):
+        self._startFrame = startFrame
+        self._endFrame = endFrame
+
+    @QtCore.pyqtSlot()
+    def start(self):
+        self._counter = 0
+        self._loop_counter = 0
+        self._timer.start()
 
 
 

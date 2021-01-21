@@ -2,9 +2,11 @@ from PyQt5 import QtGui, QtCore, QtWidgets, uic
 from PyQt5.QtGui import QFont
 import qdarkstyle  # This awesome style sheet was made by Colin Duquesnoy and Daniel Cosmo Pizetta - https://github.com/ColinDuquesnoy/QDarkStyleSheet
 from collections import OrderedDict
+import pyqtgraph as pg
 import guiMapper
 import guiSequence as seq
 import guiConfigIO as fileIO
+import guiPlotter as plot
 import usbThread
 
 
@@ -17,7 +19,8 @@ class Ui(QtWidgets.QMainWindow):
         uic.loadUi('QtDesigner_GUI.ui', self)
         self.app.setStyleSheet("")
         self.app.setFont(QFont("MS Shell Dlg 2", 12))
-
+        self.l = pg.GraphicsLayout(border='g')
+        self.calibration_plot_window.setContentsMargins(100., 100., 100., 100.)
         #Initialize message box
         self.message_box = QtWidgets.QMessageBox() # https://pythonbasics.org/pyqt-qmessagebox/
         self.message_box.setIcon(QtWidgets.QMessageBox.Warning)
@@ -35,6 +38,7 @@ class Ui(QtWidgets.QMainWindow):
         # Assign events to widgets
         guiMapper.initializeEvents(self)
         fileIO.checkCurrentLimits(self)
+        plot.initializeCalibrationPlot(self)
         print(self.getValue(self.sync_model["Digital"]["Low"]["LED"]))
         self.show()
 
@@ -192,8 +196,11 @@ class Ui(QtWidgets.QMainWindow):
 
 
     def lockInterface(self, widget):
+        self.gui_master_tab.setCurrentIndex(0) #Jump to main page before locking interface
         self.gui_master_tab.setEnabled(not widget.isChecked())
 
+    def updateActiveLED(self, led_number):
+        plot.setCalibrationScale(self)
 
 
 
