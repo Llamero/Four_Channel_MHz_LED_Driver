@@ -4,8 +4,12 @@ from PyQt5 import QtGui
 from PyQt5.QtWidgets import QMessageBox
 import guiConfigIO as FileIO
 
-def loadSequence(gui, widget, path_keys):  # derived from - https://stackoverflow.com/questions/12608835/writing-a-qtablewidget-to-a-csv-or-xls
-    path = getSequencePath(gui, path_keys)
+def loadSequence(gui, widget, path_keys, get_path=False):  # derived from - https://stackoverflow.com/questions/12608835/writing-a-qtablewidget-to-a-csv-or-xls
+    if get_path:
+        path = getSequencePath(gui, path_keys)
+    else:
+        path = None
+    print(path)
     if not path:
         path = QtGui.QFileDialog.getOpenFileName(gui, 'Open File', '', 'CSV(*.csv)')[0] #If no path is specified, ask for valid path
 
@@ -45,9 +49,12 @@ def loadSequence(gui, widget, path_keys):  # derived from - https://stackoverflo
         else:
             setSequencePath(gui, path_keys, str(path))
 
-def saveSequence(gui, widget, path_keys):  # derived from - https://stackoverflow.com/questions/12608835/writing-a-qtablewidget-to-a-csv-or-xls
-    path = getSequencePath(gui, path_keys)
-
+def saveSequence(gui, widget, path_keys, get_path=None):  # derived from - https://stackoverflow.com/questions/12608835/writing-a-qtablewidget-to-a-csv-or-xls
+    if get_path:
+        path = getSequencePath(gui, path_keys)
+    else:
+        path = None
+    print(path)
     if not path: #If no path is specified, ask for valid path
         path = QtGui.QFileDialog.getSaveFileName(gui, 'Save File', '', 'CSV(*.csv)')[0]
 

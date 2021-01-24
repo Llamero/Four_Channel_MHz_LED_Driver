@@ -58,11 +58,15 @@ def loadConfiguration(gui, model, file=None):
                         value = ast.literal_eval(key)
                     except ValueError:
                         value = ast.literal_eval("\'" + key+ "\'") #Fix literal_eval ValueError - https://stackoverflow.com/questions/14611352/malformed-string-valueerror-ast-literal-eval-with-string-representation-of-tup
+                    except SyntaxError:
+                        gui.message_box.setText("Error: \"" + line + "\" could not be parsed. Load aborted at this step.")
+                        gui.message_box.exec()
+                        return
                 if key_path[-1] == "Sequence": #Process sequence file loads separately
                     seq.setSequencePath(gui, key_path, value) #Save path to dictionary
                     widget = eval("gui.sync_" + key_path[0].lower() + "_" + key_path[1].lower() + "_sequence_table") #Assign to proper widget table
                     if value != "None":
-                        seq.loadSequence(gui, widget, key_path) #Load sequence file to table
+                        seq.loadSequence(gui, widget, key_path, True) #Load sequence file to table
                 elif not gui.setValue(dictionary, value):
                     gui.message_box.setText("Error: \"" + key +"\" is not a valid value in \"" + line + "\". Load aborted at this step.")
                     gui.message_box.exec()

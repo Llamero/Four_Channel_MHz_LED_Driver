@@ -1,20 +1,20 @@
 Driver name::Yo!
 LED1::ID::UV
 LED1::Active::True
-LED1::Current Limit::-1
+LED1::Current Limit::0.3
 LED2::ID::Blue
 LED2::Active::True
-LED2::Current Limit::3.0
+LED2::Current Limit::0.56
 LED3::ID::Green
 LED3::Active::True
-LED3::Current Limit::4.0
+LED3::Current Limit::0.56
 LED4::ID::Red
 LED4::Active::True
-LED4::Current Limit::5.0
-Channel1::LED #1
-Channel2::LED #1
-Channel3::LED #2
-Channel4::LED #3
+LED4::Current Limit::0.56
+Channel1::UV
+Channel2::Blue
+Channel3::Green
+Channel4::Red
 Resistor1::Value::6.0
 Resistor1::Active::True
 Resistor2::Value::1000.0

@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>475</width>
-    <height>600</height>
+    <width>705</width>
+    <height>846</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -48,7 +48,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -166,6 +166,9 @@
           <layout class="QGridLayout" name="gridLayout_8">
            <item row="0" column="0">
             <widget class="QPushButton" name="main_control_physical_button">
+             <property name="toolTip">
+              <string>Enable physical control of LED driver via knob and switch.  Ignores GUI inputs.</string>
+             </property>
              <property name="text">
               <string>LED Driver</string>
              </property>
@@ -179,6 +182,9 @@
            </item>
            <item row="0" column="1">
             <widget class="QPushButton" name="main_control_software_button">
+             <property name="toolTip">
+              <string>Enable GUI control of LED driver.  Ignores physical knob and toggle switch on driver.</string>
+             </property>
              <property name="text">
               <string>Software</string>
              </property>
@@ -430,8 +436,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>431</width>
-             <height>385</height>
+             <width>661</width>
+             <height>631</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -448,7 +454,7 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>523</width>
+                 <width>626</width>
                  <height>628</height>
                 </rect>
                </property>
@@ -3231,7 +3237,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>611</width>
+             <width>644</width>
              <height>1103</height>
             </rect>
            </property>
@@ -4690,7 +4696,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
            <number>1</number>
           </property>
           <property name="minimum">
-           <double>0.100000000000000</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="value">
            <double>100.000000000000000</double>
@@ -4750,7 +4756,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>475</width>
+     <width>705</width>
      <height>24</height>
     </rect>
    </property>
@@ -4913,28 +4919,27 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="configure_ch_merge_3_button_group"/>
-  <buttongroup name="configure_ch_merge_1_button_group"/>
-  <buttongroup name="sync_confocal_scan_mode_button_group"/>
-  <buttongroup name="configure_pushbutton_LED_button_group"/>
-  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
-  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
-  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
-  <buttongroup name="configure_ch_merge_2_button_group"/>
-  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
-  <buttongroup name="configure_ext_fan_button_group"/>
-  <buttongroup name="sync_confocal_line_input_button_group"/>
-  <buttongroup name="sync_output_button_group"/>
-  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
-  <buttongroup name="sync_digital_trigger_button_group"/>
-  <buttongroup name="main_intensity_button_group"/>
   <buttongroup name="main_toggle_control_group"/>
-  <buttongroup name="sync_analog_led_channel_button_group"/>
-  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
-  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
-  <buttongroup name="main_channel_button_group"/>
   <buttongroup name="sync_analog_input_channel_button_group"/>
-  <buttongroup name="calibration_axis_button_group"/>
+  <buttongroup name="configure_ch_merge_2_button_group"/>
+  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
+  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
+  <buttongroup name="main_intensity_button_group"/>
+  <buttongroup name="configure_ch_merge_3_button_group"/>
+  <buttongroup name="sync_output_button_group"/>
+  <buttongroup name="configure_ch_merge_1_button_group"/>
+  <buttongroup name="sync_analog_led_channel_button_group"/>
+  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
+  <buttongroup name="configure_ext_fan_button_group"/>
+  <buttongroup name="main_channel_button_group"/>
+  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
+  <buttongroup name="configure_pushbutton_LED_button_group"/>
+  <buttongroup name="sync_digital_trigger_button_group"/>
+  <buttongroup name="sync_confocal_scan_mode_button_group"/>
+  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
+  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
   <buttongroup name="configure_ch_merge_4_button_group"/>
+  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
+  <buttongroup name="sync_confocal_line_input_button_group"/>
  </buttongroups>
 </ui>

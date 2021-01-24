@@ -31,11 +31,13 @@ def initializeCalibrationPlot(gui):
 
 def activeCurrent(gui):
     #Get current limit of active LED
-    led_list = []
     for led_number in range(1,5):
-        led_list.append(eval("gui.main_channel_LED" + str(led_number) + "_button"))
-    active_led = gui.getValue(led_list)[-1]
-    return gui.getValue(gui.config_model["LED" + active_led]["Current Limit"])*gui.getValue(gui.calibration_current_box)/100 #Return current limit * scale
+        widget = eval("gui.main_channel_LED" + str(led_number) + "_button")
+        if gui.getValue(widget):
+            return gui.getValue(gui.config_model["LED" + str(led_number)]["Current Limit"]) * gui.getValue(gui.calibration_current_box) / 100  # Return current limit * scale
+    else:
+        return None
+
 
 def setCalibrationScale(gui):
     current = activeCurrent(gui)
@@ -45,7 +47,7 @@ def setCalibrationScale(gui):
     y = [current, current]
 
 def startAnimation(gui, timeline):
-    timeline.setFrameRange(0, 1440)
+    timeline.setFrameRange(0, 144)
     timeline.frameChanged.connect(lambda: updatePlot(gui, timeline))
     timeline.start()
     gui.calibration_run_button.clicked.disconnect()
@@ -70,7 +72,7 @@ def updatePlot(gui, timeline):
             y_de[x] = 0.5
         else:
             y_de[x] = 0
-    y_de.rotate(interval)
+    y_de.rotate(interval*10)
     gui.calibration_plot_window.plot(x_de, y_de, pen=pg.mkPen('g', width=1), clear=True)
     gui.calibration_plot_window.plot(x_line, y_line, pen=pg.mkPen('m', width=1))
 

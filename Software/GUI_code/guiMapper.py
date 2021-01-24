@@ -256,7 +256,7 @@ def initializeEvents(gui):
         nonlocal gui
         gui.calibration_current_box.valueChanged.connect(lambda: plot.setCalibrationScale(gui))
 
-        gui.calibration_run_button.clicked.connect(lambda: plot.startAnimation(gui, TimeLine(loopCount=0, interval=1)))
+        gui.calibration_run_button.clicked.connect(lambda: plot.startAnimation(gui, TimeLine(loopCount=0, interval=50)))
 
 
     menuEvents()
