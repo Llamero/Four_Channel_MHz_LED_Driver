@@ -1,6 +1,7 @@
-#include <Wire.h>
 #include "pinSetup.h"
 #include "syncMode.h"
+#include "usbSerial.h"
+
 
 //Serial constants
 const char DEVICE_NAME[] = "MOM Test Box";
@@ -9,32 +10,26 @@ const long BAUDRATE = 12000000;  //Teensy USB is always 12 Mbit/s - https://www.
 const uint8_t NINITIALIZE = 0; //Number of times to try connecting to GUI until instead booting using default settings
 const boolean NOSERIAL = false; //If the device boots into default configuration due to no serial, turn off serial
 
-//Serial variables - packet structure: START-LENGTH-CHECKSUM-DATA(0)-...-DATA(n)-STOP
-const float STARTPACKET = -1/0; //Set start delimiter to -infinity
-const float ENDPACKET = 1/0; //Set end delimiter to +infinity
-const int IDPACKET = 1; //Identifies packet as device identification packet
-const int STATUSPACKET = 2; //Identifies packet as temperature recordings and panel status
-const int FAULTPACKET = 10; //Identifies packet as driver entering or exiting fault state - or if received, then commanding driver to enter fault state (i.e. fault test)
-const int RESETPACKET = 11; //Identifies packet commanding driver to reset
-const int DISCONNECTPACKET = 12; //Identifies packet commanding driver to reset
-const int SETUPPACKET = 20; //Identifies packet as receiving setup configuration information
-const int AWGPACKET = 21; //Identifies packet commanding change in AWG
-const int INITIALTIMEOUT = int(((1000/(float) BAUDRATE)*(64*8)) + 100); //Wait the expected time needed to fill the serial buffer (64 bytes in size) plus a fixed delay of 0.1s to allow the GUI to respond
-
-uint32_t check_sum = 0; //value for storing the checksum of the data packet.  
-uint8_t tx_packet[256]; //Array for storing data packets to be sent to GUI - start of packet is {0, 0}
-uint8_t rx_buffer[256]; //Array for storing data stream from GUI or saving as wave measurement
-uint8_t rx_index = 0; //Index for placing next received byte in the rx circular buffer
-uint8_t rx_start = 0; //Index for start of packet in rx buffer
-boolean initialized = false; //Whether device has received initialization intructions from GUI
-uint8_t task_index = 0; //Index for recording current position in background task list
-uint8_t event = 0; //Flag for whether an event happened within the interrupt that needs to be taken care of
-
-
-
-
-
-
+////Serial variables - packet structure: START-LENGTH-CHECKSUM-DATA(0)-...-DATA(n)-STOP
+//const float STARTPACKET = -1/0; //Set start delimiter to -infinity
+//const float ENDPACKET = 1/0; //Set end delimiter to +infinity
+//const int IDPACKET = 1; //Identifies packet as device identification packet
+//const int STATUSPACKET = 2; //Identifies packet as temperature recordings and panel status
+//const int FAULTPACKET = 10; //Identifies packet as driver entering or exiting fault state - or if received, then commanding driver to enter fault state (i.e. fault test)
+//const int RESETPACKET = 11; //Identifies packet commanding driver to reset
+//const int DISCONNECTPACKET = 12; //Identifies packet commanding driver to reset
+//const int SETUPPACKET = 20; //Identifies packet as receiving setup configuration information
+//const int AWGPACKET = 21; //Identifies packet commanding change in AWG
+//const int INITIALTIMEOUT = int(((1000/(float) BAUDRATE)*(64*8)) + 100); //Wait the expected time needed to fill the serial buffer (64 bytes in size) plus a fixed delay of 0.1s to allow the GUI to respond
+//
+//uint32_t check_sum = 0; //value for storing the checksum of the data packet.  
+//uint8_t tx_packet[256]; //Array for storing data packets to be sent to GUI - start of packet is {0, 0}
+//uint8_t rx_buffer[256]; //Array for storing data stream from GUI or saving as wave measurement
+//uint8_t rx_index = 0; //Index for placing next received byte in the rx circular buffer
+//uint8_t rx_start = 0; //Index for start of packet in rx buffer
+//boolean initialized = false; //Whether device has received initialization intructions from GUI
+//uint8_t task_index = 0; //Index for recording current position in background task list
+//uint8_t event = 0; //Flag for whether an event happened within the interrupt that needs to be taken care of
 
 //Other  variables
 
@@ -49,39 +44,6 @@ uint8_t LEDstate1 = 0; //Variable for the state the LED is in after trigger (POR
 uint8_t ledInt = 255; // 8 bit, need to have switch in 'Auto' position for this to work 
 boolean fault = false; //Track whether in fault to prevent recursive call of fault state
 uint8_t initialCount = 3; //Don't respond to initial status until ADCs have settled
-/*
-//PORT D: USB, Switches, Digital I/O
-//0 - USB RX
-//1 - USB TX
-//2 - Toggle Switch
-//3 - Analog Switch 1 (PWM)
-//4 - Analog Switch 2
-//5 - Digital I/O 1
-//6 - Digital I/O 2
-//7 - +5V Supply
-
-//PORTB: Digital Pot, Alarm
-//8 - CS
-//9 - Digital Pot Input (PWM)
-//10 - Warning LED
-//11 - MOSI
-//12 - Warning Buzzer
-//13 - CLK
-
-void(* resetPacket) (void) = 0;  //declare reset fuction at address 0 - calling this allows setup code to re-run
-
-union //For converting between uint16_t and pair of uint8_t (to allow sending and receiving uint16_t data over serial)
-{
-   uint16_t value;
-   uint8_t bValue[2];
-} bytesToUint16;
-
-// Interrupt is called once a millisecond, when no in scan sync
-SIGNAL(TIMER0_COMPA_vect) 
-{
-  updateStatus = true; //Set status flag to true to indicate status should be checked (1 ms has passed)
-}
-*/
 
 //Convert between byte list and float
 typedef union
@@ -93,60 +55,64 @@ typedef union
 //ADC *adc = new ADC(); // adc object;
 pinSetup pin;
 syncMode sync;
+usbSerial usbSerial;
 FLOATUNION_t floatUnion; //Convert byte list <-> float
 
 
 void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
   pin.configurePins();
+  usbSerial.startSerial();
   digitalWriteFast(pin.RELAY[3], HIGH);
   digitalWriteFast(pin.INTERLINE, LOW);
   digitalWriteFast(pin.ANALOG_SELECT, LOW);
   digitalWriteFast(pin.FAN_PWM, LOW);
   analogWrite(A21, 4095);
-  Serial.begin(BAUDRATE);
-  Serial.setTimeout(INITIALTIMEOUT);
 }
 
 //--------------------------------------------------------------SYNCS----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Loop will act as sync router based on toggle switch position
 void loop() {
-  boolean state[] = {false, false, false, false, false};
-  int a = 0;
-  float mos_temp;
-  float res_temp;
-  float ext_temp;
-  noInterrupts();
-  pinMode(pin.SDA0, OUTPUT);
-  pinMode(pin.SCL0, OUTPUT);
-  pinMode(pin.INPUTS[0], INPUT);
   
-  while(true){
-    a = analogRead(pin.MOSFET_TEMP);
-    digitalWriteFast(pin.OUTPUTS[2], HIGH);
-    ext_temp = pin.mosfetTemp();
-    digitalWriteFast(pin.OUTPUTS[2], LOW);
-    
-    Serial.print(a);
-    Serial.print(" = ");
-    Serial.print(ext_temp);
-    Serial.println("°C");
-    delay(100);
-    
-    /*
-    a = convertTemp(ext_temp);
-    Serial.println(a);
-    Serial.println();
-    /*
-    if(state[0] && a>500){
-      digitalWriteFast(pin.OUTPUTS[2], state[0]);
-      state[0] = !state[0];
-    }
-    else if(!state[0] && a<500){
-      digitalWriteFast(pin.OUTPUTS[2], state[0]);
-      state[0] = !state[0];
-    }
-    */
-  }
+  usbSerial.checkBuffer();
+
+//  boolean state[] = {false, false, false, false, false};
+//  int a = 0;
+//  float mos_temp;
+//  float res_temp;
+//  float ext_temp;
+//  noInterrupts();
+//  pinMode(pin.SDA0, OUTPUT);
+//  pinMode(pin.SCL0, OUTPUT);
+//  pinMode(pin.INPUTS[0], INPUT);
+//  
+//  while(true){
+//    a = analogRead(pin.MOSFET_TEMP);
+//    digitalWriteFast(pin.OUTPUTS[2], HIGH);
+//    ext_temp = pin.mosfetTemp();
+//    digitalWriteFast(pin.OUTPUTS[2], LOW);
+//    
+//    Serial.print(a);
+//    Serial.print(" = ");
+//    Serial.print(ext_temp);
+//    Serial.println("°C");
+//    delay(100);
+//    
+//    /*
+//    a = convertTemp(ext_temp);
+//    Serial.println(a);
+//    Serial.println();
+//    /*
+//    if(state[0] && a>500){
+//      digitalWriteFast(pin.OUTPUTS[2], state[0]);
+//      state[0] = !state[0];
+//    }
+//    else if(!state[0] && a<500){
+//      digitalWriteFast(pin.OUTPUTS[2], state[0]);
+//      state[0] = !state[0];
+//    }
+//    */
+//  }
   
   /*
   while(true){

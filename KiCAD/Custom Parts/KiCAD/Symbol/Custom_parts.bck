@@ -12,10 +12,34 @@ K single opamp
 F https://www.analog.com/media/en/technical-documentation/data-sheets/AD797.pdf
 $ENDCMP
 #
+$CMP BAT54BRW
+D DIODE ARRAY SCHOTTKY 30V SOT23-3
+K BAT54S-FDICT-ND
+F https://www.diodes.com/assets/Datasheets/ds11005.pdf
+$ENDCMP
+#
 $CMP BAT54SDW
 D DIODE ARRAY SCHOTTKY 30V SOT23-3
 K BAT54S-FDICT-ND
 F https://www.diodes.com/assets/Datasheets/ds11005.pdf
+$ENDCMP
+#
+$CMP CPT-2016-75-SMT-TR
+D AUDIO PIEZO TRANSDUCER 30V TH
+K 445-2525-1-ND PS
+F https://product.tdk.com/info/en/catalog/datasheets/piezoelectronic_buzzer_ps_en.pdf
+$ENDCMP
+#
+$CMP Conn_01x03_Female
+D Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F ~
+$ENDCMP
+#
+$CMP Conn_01x03_Male
+D Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F ~
 $ENDCMP
 #
 $CMP Conn_01x04_Male
@@ -24,8 +48,26 @@ K connector
 F ~
 $ENDCMP
 #
+$CMP Conn_01x05_Female
+D Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F ~
+$ENDCMP
+#
 $CMP Conn_01x05_Male
 D Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F ~
+$ENDCMP
+#
+$CMP Conn_01x08_Female
+D Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F ~
+$ENDCMP
+#
+$CMP Conn_01x24_Female
+D Generic connector, single row, 01x24, script generated (kicad-library-utils/schlib/autogen/connector/)
 K connector
 F ~
 $ENDCMP
@@ -70,6 +112,12 @@ $CMP LT6200CS8-10
 D Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8
 K single opamp
 F http://www.ti.com/lit/ds/symlink/ne5534.pdf
+$ENDCMP
+#
+$CMP Pushbutton_with_LED_-_ELUMOATHQ3C12
+D Switch, single pole double throw, illuminated paddle, red and green LEDs
+K switch single-pole double-throw spdt ON-ON illuminated red green
+F http://www.nkkswitches.com/pdf/gwillum.pdf
 $ENDCMP
 #
 $CMP RJ31_Shielded
@@ -126,10 +174,22 @@ K 8P8C RJ female connector
 F ~
 $ENDCMP
 #
+$CMP R_POT_SPST
+D Potentiometer
+K resistor variable
+F ~
+$ENDCMP
+#
 $CMP SA5534
 D Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8
 K single opamp
 F http://www.ti.com/lit/ds/symlink/ne5534.pdf
+$ENDCMP
+#
+$CMP SW_SPDT-panel_ground
+D Switch, single pole double throw
+K switch single-pole double-throw spdt ON-ON
+F ~
 $ENDCMP
 #
 #End Doc Library
