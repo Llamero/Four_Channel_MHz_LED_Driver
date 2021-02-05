@@ -5,15 +5,15 @@
 #include "TimeLib.h"
 
 //Setup SD card
-const int chipSelect = BUILTIN_SDCARD;
-boolean boot_file_saved = false; //Whether the boot log has been saved to the SD card
+const static int chipSelect = BUILTIN_SDCARD;
+static boolean boot_file_saved = false; //Whether the boot log has been saved to the SD card
 
 const static char SDcard::seq_bin_dir[] = "seq_bin"; //Directory to save boot log files into - max length 8 char
 const static char SDcard::seq_txt_dir[] = "seq_txt"; //Directory to save data log files into - max length 8 char
 const static char SDcard::config_txt_dir[] = "config"; //Directory to save boot log files into - max length 8 char
 const static char SDcard::waveform_dir[] = "waveform"; //Directory to save recorded LED waveforms
-char boot_text[10][20]; //Initialize array for storing boot information
-int boot_index = 0; //current index in the boot log
+static char boot_text[10][20]; //Initialize array for storing boot information
+static int boot_index = 0; //current index in the boot log
 
 
 Sd2Card card;
@@ -28,12 +28,12 @@ SDcard::SDcard()
   
 }
 
-void SDcard::init(){
+static void SDcard::init(){
   
 }
 
 // call back for file timestamps - from: https://forum.arduino.cc/index.php?topic=348562.0
-void dateTime(uint16_t* date, uint16_t* time) {
+static void dateTime(uint16_t* date, uint16_t* time) {
   time_t unix_t = now();
   // return date using FAT_DATE macro to format fields
   *date = FAT_DATE(year(unix_t), month(unix_t), day(unix_t));
@@ -41,7 +41,7 @@ void dateTime(uint16_t* date, uint16_t* time) {
   *time = FAT_TIME(hour(unix_t), minute(unix_t), second(unix_t));
 }
 
-void SDcard::inititializeSD(){
+static void SDcard::inititializeSD(){
   // set date time callback function for applying RTC synced time stamps to SD card file time stamps
   SdFile::dateTimeCallback(dateTime);
 
@@ -139,7 +139,7 @@ void SDcard::inititializeSD(){
 }
 
 //Save data to the SD card
-uint32_t SDcard::saveToSD(char (*file_path), char *data_array, uint32_t start_index, uint32_t end_index, boolean force_write){
+static uint32_t SDcard::saveToSD(char (*file_path), char *data_array, uint32_t start_index, uint32_t end_index, boolean force_write){
   uint32_t log_size = end_index-start_index;
   
   if(force_write || log_size >= 512){ 
@@ -168,7 +168,7 @@ uint32_t SDcard::saveToSD(char (*file_path), char *data_array, uint32_t start_in
 }
 
 //Save data to the SD card
-uint32_t SDcard::readFromSD(char (*file_path), char *data_array, uint32_t start_index, uint32_t end_index, boolean force_read){
+static uint32_t SDcard::readFromSD(char (*file_path), char *data_array, uint32_t start_index, uint32_t end_index, boolean force_read){
   uint32_t log_size = end_index-start_index;
   
   if(force_read || log_size >= 512){ 

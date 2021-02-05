@@ -12,14 +12,14 @@ class pinSetup
 {
   public:
     pinSetup();
-    void configurePins();
-    void setValues(float WARN_TEMP[3], float FAULT_TEMP[3], float FAN_LIMITS_TEMP[2], int EXT_THERMISTORNOMINAL, int EXT_BCOEFFICIENT, float EXT_TEMPERATURENOMINAL);
-    int adcMax(); //Returns the maximum value for the ADC
-    float mosfetTemp(); //Returns the current temperature of the MOSFET thermistor in °C
-    float resistorTemp(); //Returns the current temperature of the current sense resistor thermistor in °C
-    float extTemp(); //Returns the current temperature of the external thermistor in °C
-    float adcToTemp(int adc, int therm_nominal, float temp_nominal, int b_coefficient); //Convert raw ADC value to temperature in °C
-    int tempToAdc(float temperature, int therm_nominal, float temp_nominal, int b_coefficient); //Convert temperature in °C to equivalent ADC value
+    static void configurePins();
+    static void setValues(float WARN_TEMP[3], float FAULT_TEMP[3], float FAN_LIMITS_TEMP[2], int EXT_THERMISTORNOMINAL, int EXT_BCOEFFICIENT, float EXT_TEMPERATURENOMINAL);
+    static int adcMax(); //Returns the maximum value for the ADC
+    static float mosfetTemp(); //Returns the current temperature of the MOSFET thermistor in °C
+    static float resistorTemp(); //Returns the current temperature of the current sense resistor thermistor in °C
+    static float extTemp(); //Returns the current temperature of the external thermistor in °C
+    static float adcToTemp(int adc, int therm_nominal, float temp_nominal, int b_coefficient); //Convert raw ADC value to temperature in °C
+    static int tempToAdc(float temperature, int therm_nominal, float temp_nominal, int b_coefficient); //Convert temperature in °C to equivalent ADC value
     
     constexpr static int RELAY[4] = {0, 1, 2, 3}; //SSR relays for changing LED channel
     const static int INTERLINE = 4; //Switch between analog input and negative refence voltage to turn off LED
@@ -47,8 +47,8 @@ class pinSetup
     const static int DAC1 = A22; //Internal dac - not connected
 
   private:
-    void init(); //Initialize reference variables
-    void convertToAdc(); //Convert reference temperatures to ADC values
+    static void init(); //Initialize reference variables
+    static void convertToAdc(); //Convert reference temperatures to ADC values
    
     //ADC setup
     const static int adcAveraging = 1; //Number of times to average adc recording before returning value

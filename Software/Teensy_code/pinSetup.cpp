@@ -13,25 +13,25 @@ ADC *adc = new ADC(); // adc object;
 //NOTE: It seems that in this compiler lists longer than 4 need to be built in CPP while shorter lists need to be built in header with constexpr
 
 const static int pinSetup::NC[] = {5, 6, 7, 8, 9, 38, 39}; //Not connected pins
-float _WARN_TEMP[] = {70, 70, 70}; //Warning temperatures (°C) for the MOSFET, resisitor, and external thermistor correspondingly.  This is also the temp the board need to cool down to before reactivating after a fault
-float _FAULT_TEMP[] = {85, 85, 85}; //Fault temperature(°C) for the MOSFET, resisitor, and external thermistor correspondingly.  If the board rises above this temp it will deactivate the LED and driver until the temperature falls below the warn temperature
-float _FAN_LIMITS_TEMP[] = {30, _WARN_TEMP[0]}; //LED temp at which the PWM fan runs at minimum speed - default to just above room temp so that fan turns off when driver is inactive
-int _EXT_THERMISTOR_NOMINAL = 4700; //Value of thermistor resistor on PCB at nominal temp (normally 25°C)
-int _EXT_B_COEFFICIENT = 3545; //Beta value for the PCB thermistor
-float _EXT_TEMPERATURE_NOMINAL = 25; //Reference temperature for the nominal resistance on the thermistor on the PCB
-int WARN_ADC[3];
-int FAULT_ADC[3];
-int FAN_LIMITS_ADC[2];
+static float _WARN_TEMP[] = {70, 70, 70}; //Warning temperatures (°C) for the MOSFET, resisitor, and external thermistor correspondingly.  This is also the temp the board need to cool down to before reactivating after a fault
+static float _FAULT_TEMP[] = {85, 85, 85}; //Fault temperature(°C) for the MOSFET, resisitor, and external thermistor correspondingly.  If the board rises above this temp it will deactivate the LED and driver until the temperature falls below the warn temperature
+static float _FAN_LIMITS_TEMP[] = {30, _WARN_TEMP[0]}; //LED temp at which the PWM fan runs at minimum speed - default to just above room temp so that fan turns off when driver is inactive
+static int _EXT_THERMISTOR_NOMINAL = 4700; //Value of thermistor resistor on PCB at nominal temp (normally 25°C)
+static int _EXT_B_COEFFICIENT = 3545; //Beta value for the PCB thermistor
+static float _EXT_TEMPERATURE_NOMINAL = 25; //Reference temperature for the nominal resistance on the thermistor on the PCB
+static int WARN_ADC[3];
+static int FAULT_ADC[3];
+static int FAN_LIMITS_ADC[2];
 
 pinSetup::pinSetup()
 {
 }
 
-void pinSetup::init(){
+static void pinSetup::init(){
   convertToAdc();
 }
 
-void pinSetup::convertToAdc(){
+static void pinSetup::convertToAdc(){
   WARN_ADC[0] = tempToAdc(_WARN_TEMP[0], PCB_THERMISTOR_NOMINAL, PCB_TEMPERATURE_NOMINAL, PCB_B_COEFFICIENT);
   WARN_ADC[1] = tempToAdc(_WARN_TEMP[1], PCB_THERMISTOR_NOMINAL, PCB_TEMPERATURE_NOMINAL, PCB_B_COEFFICIENT);
   WARN_ADC[2] = tempToAdc(_WARN_TEMP[2], _EXT_THERMISTOR_NOMINAL, _EXT_TEMPERATURE_NOMINAL, _EXT_B_COEFFICIENT);
@@ -55,7 +55,7 @@ void pinSetup::setValues(float WARN_TEMP[3], float FAULT_TEMP[3], float FAN_LIMI
     convertToAdc();
 }
 
-void pinSetup::configurePins(){
+static void pinSetup::configurePins(){
     unsigned int a; //Loop counter
     analogWriteResolution(12);
     
@@ -115,26 +115,26 @@ void pinSetup::configurePins(){
     Wire.setSCL(SCL0);
 }
 
-int pinSetup::adcMax(){
+static int pinSetup::adcMax(){
   return (int) adc->adc0->getMaxValue();
 }
 
-float pinSetup::mosfetTemp(){
+static float pinSetup::mosfetTemp(){
   int adc = analogRead(MOSFET_TEMP);
   return adcToTemp(adc, PCB_THERMISTOR_NOMINAL, PCB_TEMPERATURE_NOMINAL, PCB_B_COEFFICIENT);
 }
 
-float pinSetup::resistorTemp(){
+static float pinSetup::resistorTemp(){
   int adc = analogRead(RESISTOR_TEMP);
   return adcToTemp(adc, PCB_THERMISTOR_NOMINAL, PCB_TEMPERATURE_NOMINAL, PCB_B_COEFFICIENT);
 }
 
-float pinSetup::extTemp(){
+static float pinSetup::extTemp(){
   int adc = analogRead(EXTERNAL_TEMP);
   return adcToTemp(adc, PCB_THERMISTOR_NOMINAL, PCB_TEMPERATURE_NOMINAL, PCB_B_COEFFICIENT);
 }
 
-float pinSetup::adcToTemp(int adc, int therm_nominal, float temp_nominal, int b_coefficient){
+static float pinSetup::adcToTemp(int adc, int therm_nominal, float temp_nominal, int b_coefficient){
   float steinhart;
   float raw = (float) adc;
   raw = adcMax() / raw - 1;
@@ -148,7 +148,7 @@ float pinSetup::adcToTemp(int adc, int therm_nominal, float temp_nominal, int b_
   return steinhart;
 }
 
-int pinSetup::tempToAdc(float temperature, int therm_nominal, float temp_nominal, int b_coefficient){
+static int pinSetup::tempToAdc(float temperature, int therm_nominal, float temp_nominal, int b_coefficient){
   float steinhart = temperature;
   float raw;
   steinhart += 273.15;  

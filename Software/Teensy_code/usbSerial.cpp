@@ -16,7 +16,7 @@ usbSerial::usbSerial()
 {
 }
 
-void usbSerial::init(){
+static void usbSerial::init(){
 }
 
 static void usbSerial::startSerial(){

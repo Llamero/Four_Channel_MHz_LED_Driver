@@ -10,10 +10,10 @@ class SDcard
 {
   public:
     SDcard();
-    void inititializeSD();
-    uint32_t saveToSD(char (*file_path), char *data_array, uint32_t start_index, uint32_t end_index, boolean force_write);
-    uint32_t readFromSD(char (*file_path), char *data_array, uint32_t start_index, uint32_t end_index, boolean force_read);
-    int warning_count;
+    static void inititializeSD();
+    static uint32_t saveToSD(char (*file_path), char *data_array, uint32_t start_index, uint32_t end_index, boolean force_write);
+    static uint32_t readFromSD(char (*file_path), char *data_array, uint32_t start_index, uint32_t end_index, boolean force_read);
+    static int warning_count;
     const static char seq_bin_dir[];
     const static char seq_txt_dir[];
     const static char config_txt_dir[];
@@ -21,7 +21,7 @@ class SDcard
     static char boot_text[10][20]; //Initialize array for storing boot information
     
   private:
-    void init();
+    static void init();
 };
 
 #endif
