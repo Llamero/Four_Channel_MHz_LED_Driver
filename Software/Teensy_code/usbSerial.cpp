@@ -25,16 +25,10 @@ static void usbSerial::startSerial(){
 }
 
 static void usbSerial::checkBuffer(){
-  digitalWriteFast(LED_BUILTIN, HIGH);
   usb.update();
-  delay(20);
-  digitalWriteFast(LED_BUILTIN, LOW);
-  delay(20);
 }
 
 static void usbSerial::onPacketReceived(const uint8_t* buffer, size_t size){
-  digitalWriteFast(LED_BUILTIN, HIGH);
-  
   // Route decoded packet based on prefix byte
   uint8_t prefix = buffer[0];
   if (prefix == 0){

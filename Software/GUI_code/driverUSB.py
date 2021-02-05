@@ -2,10 +2,11 @@ from collections import OrderedDict
 import re
 from cobs import cobs
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import QIODevice
 from PyQt5.QtSerialPort import QSerialPortInfo, QSerialPort
 import inspect
 from collections import OrderedDict
+import guiConfigIO as fileIO
+import tempfile
 
 # Teensy USB serial microcontroller program id data:
 VENDOR_ID = 0x16C0
@@ -123,9 +124,11 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
     def initializeRoutingDictionaries(self):
         self.out_prefix_dict = {"magicNumberCheck": 0,
-                                "getDriverConfiguration": 1}  # byte prefix identifying data packet type
-        self.command_dict = {0: self.magicNumberCheck,
-                             1: self.getDriverConfiguration}  # Mapping of prefix to function that will process the command
+                                "downloadDriverConfiguration": 1,
+                                "uploadDriverConfiguration": 2}  # byte prefix identifying data packet type
+        self.command_dict = {self.out_prefix_dict["magicNumberCheck"]: self.magicNumberCheck,
+                             self.out_prefix_dict["downloadDriverConfiguration"]: self.getDriverConfiguration,
+                             self.out_prefix_dict["uploadDriverConfiguration"]: self.uploadDriverConfiguration}  # Mapping of prefix to function that will process the command
 
     def magicNumberCheck(self, reply=None):
         if reply:
@@ -136,12 +139,22 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         else:
             self.send(MAGIC_SEND)
 
-    def getDriverConfiguration(self, reply=None):
+    def downloadDriverConfiguration(self, reply=None):
         if reply:
-            self.gui.menu_connection.addAction(reply.decode())
-
+            with tempfile.TemporaryFile(mode="w+", suffix=".txt", newline='') as stream:
+                stream.write(reply.decode())
+                fileIO.loadConfiguration(self.gui, self.gui.config_model, stream)
+################################            self.gui.menu_connection.addAction(reply.decode()) ----Use Tooltip to save COM port, so menu list can be checked if COM port already is already in list - Have as function in GUI class
         else:
             self.send()
 
+    def uploadDriverConfiguration(self, reply=None):
+        if reply:
+            pass
+        else:
+            with tempfile.TemporaryFile(mode="w+", suffix=".txt", newline='') as stream:
+                fileIO.saveConfiguration(self.gui, self.gui.config_model, stream)
+                message = stream.read()
+                self.send(message)
 
 

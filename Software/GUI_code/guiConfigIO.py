@@ -84,12 +84,6 @@ def loadConfiguration(gui, model, file=None):
                 gui.disableUsedOutputs(channel, "sync")
     checkCurrentLimits(gui)
 
-def downloadConfiguration(gui, file):
-    pass
-
-def uploadConfiguration(gui):
-    pass
-
 def checkCurrentLimits(gui):
     total_resistance = 0
     for resistor in range(1,5):
