@@ -51,8 +51,8 @@ class pinSetup
     static void convertToAdc(); //Convert reference temperatures to ADC values
    
     //ADC setup
-    const static int adcAveraging = 1; //Number of times to average adc recording before returning value
-    const static int adcResolution = 16; //Number of significant bits to return per adc recording
+    const static int adc_averaging = 1; //Number of times to average adc recording before returning value
+    const static int adc_resolution = 16; //Number of significant bits to return per adc recording
 
     //Thermistor setup
     static float _WARN_TEMP[3]; //Warning temperatures (°C) for the MOSFET, resisitor, and external thermistor correspondingly.  This is also the temp the board need to cool down to before reactivating after a fault

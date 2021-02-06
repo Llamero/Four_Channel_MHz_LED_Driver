@@ -1,65 +1,112 @@
 #include "pinSetup.h"
-#include "syncMode.h"
 #include "usbSerial.h"
+#include <EEPROM.h>
 
+struct configurationStruct{
+  char driver_name[16]; //Name of LED driver: "default name"
+  char led_names[4][16]; //Name of each LED channel
+  boolean led_active[4]; //Whether LED channel is in use: {false, false, false, false}
+  uint16_t current_limit[4]; //Current limit for each channel on DAC values: {0,0,0,0}
+  uint8_t led_channel[4]; //SSR channels used for each LED: {1,2,3,4}
+  float resistor_values[4]; //Values of current sense resistors
+  boolean resistor_active[4]; //Whether a specific resistor is used
+  uint16_t warn_temp[3]; //Warn temp for transistor, resistor, and external respectively in ADC units: {0,0,0}
+  uint16_t fault_temp[3]; //Fault temp for transistor, resistor, and external respectively in ADC units: {0,0,0}
+  uint16_t driver_fan[2]; //Driver fan min and max temperatures in ADC units: {65535, 65535}
+  uint16_t ext_fan[2]; //External fan min and max temperatures in ADC units: {65535, 65535}
+  uint8_t fan_channel; //Ext output channel used to send fan PWM signal
+  int ext_therm_resistance; //External thermistor nominal resistance at 25°C
+  int ext_therm_beta; //Beta value of external thermistor
+  uint8_t audio_volume[2]; //Status and alarm volumes for transducer: {10, 100}
+  uint16_t pushbutton_intensity; //LED intensity in PWM units
+  uint8_t pushbutton_mode; //LED illumination mode when alarm is active
+  uint32_t checksum; //Checksum to confirm that configuration is valid
+};
 
-//Serial constants
-const char DEVICE_NAME[] = "MOM Test Box";
-//const char DEVICE_NAME[] = "Just an Arduino";
-const long BAUDRATE = 12000000;  //Teensy USB is always 12 Mbit/s - https://www.pjrc.com/teensy/td_serial.html
-const uint8_t NINITIALIZE = 0; //Number of times to try connecting to GUI until instead booting using default settings
-const boolean NOSERIAL = false; //If the device boots into default configuration due to no serial, turn off serial
+struct syncStruct{ //160 bytes
+  uint8_t mode; //Type of sync - digital, analog, confocal, etc.
+  uint8_t sync_output_channel; //Channel to output sync signal
+  
+  uint8_t digital_channel; //The input channel for the sync signal
+  uint8_t digital_mode[2]; //The digital sync mode  in the LOW and HIGH trigger states respectively
+  uint8_t digital_led[2]; //The active LED channel in the LOW and HIGH trigger states respectively
+  uint16_t digital_pwm[2]; //The PWM value in the LOW and HIGH trigger states respectively
+  uint16_t digital_current[2]; //The DAC value in the LOW and HIGH trigger states respectively
+  uint32_t digital_duration[2]; //The maximum number of milliseconds to hold LED state
+  char digital_sequence[2][22]; // The file paths to the corresponding sequence files on the SD card
+  
+  uint8_t analog_channel; //The input channel for the sync signal
+  uint8_t analog_mode; //The analog sync mode
+  uint8_t analog_led; //The active LED channel
+  uint8_t analog_pwm; //ADC averages per PWM update
+  uint16_t analog_current; //ADC averages per DAC update
 
-////Serial variables - packet structure: START-LENGTH-CHECKSUM-DATA(0)-...-DATA(n)-STOP
-//const float STARTPACKET = -1/0; //Set start delimiter to -infinity
-//const float ENDPACKET = 1/0; //Set end delimiter to +infinity
-//const int IDPACKET = 1; //Identifies packet as device identification packet
-//const int STATUSPACKET = 2; //Identifies packet as temperature recordings and panel status
-//const int FAULTPACKET = 10; //Identifies packet as driver entering or exiting fault state - or if received, then commanding driver to enter fault state (i.e. fault test)
-//const int RESETPACKET = 11; //Identifies packet commanding driver to reset
-//const int DISCONNECTPACKET = 12; //Identifies packet commanding driver to reset
-//const int SETUPPACKET = 20; //Identifies packet as receiving setup configuration information
-//const int AWGPACKET = 21; //Identifies packet commanding change in AWG
-//const int INITIALTIMEOUT = int(((1000/(float) BAUDRATE)*(64*8)) + 100); //Wait the expected time needed to fill the serial buffer (64 bytes in size) plus a fixed delay of 0.1s to allow the GUI to respond
-//
-//uint32_t check_sum = 0; //value for storing the checksum of the data packet.  
-//uint8_t tx_packet[256]; //Array for storing data packets to be sent to GUI - start of packet is {0, 0}
-//uint8_t rx_buffer[256]; //Array for storing data stream from GUI or saving as wave measurement
-//uint8_t rx_index = 0; //Index for placing next received byte in the rx circular buffer
-//uint8_t rx_start = 0; //Index for start of packet in rx buffer
-//boolean initialized = false; //Whether device has received initialization intructions from GUI
-//uint8_t task_index = 0; //Index for recording current position in background task list
-//uint8_t event = 0; //Flag for whether an event happened within the interrupt that needs to be taken care of
+  boolean shutter_polarity; //Shutter polarity when scan is active
+  uint8_t confocal_channel; //The input channel for the line sync signal
+  boolean confocal_sync_mode; //Whether the line sync is digital (true) or analog (false)
+  boolean confocal_sync_polarity[2]; //Sync polarity for digital and analog sync inputs
+  uint16_t confocal_threshold; //Threshold for analog sync trigger
+  boolean confocal_scan_mode; //Whether scan is unidirectional (true) or bidrectional (false)
+  uint32_t confocal_delay[3]; //Delay in clock cycles for each sync delay
+  
+  uint8_t confocal_mode[2]; //The digital sync mode  in the image and flyback states respectively
+  uint8_t confocal_led[2]; //The active LED channel in the image and flyback states respectively
+  uint16_t confocal_pwm[2]; //The PWM value in the image and flyback states respectively
+  uint16_t confocal_current[2]; //The DAC value in the image and flyback states respectively
+  uint32_t confocal_duration[2]; //The maximum number of milliseconds to hold LED state
+  char confocal_sequence[2][22]; // The file paths to the corresponding sequence files on the SD card
 
-//Other  variables
-
-int a = 0; //Dummy int counter
-uint8_t counter = 0; //Dummy 8-bit counter
-boolean syncStatus = false; //Flag for tracking if actively triggering LED or in standby
-uint8_t toggleSwitch = 0; //FLag for tracking position of toggle switch - B00000000 = off, B00000100 = on
-volatile boolean updateStatus = false; //Flag set by interrupt to check status - volatile variable as it resides in an interrupt
-uint8_t nTry = 0; //Number of sttempts made at connecting to GUI
-uint8_t LEDstate0 = 0; //Variable for the state the LED is in before trigger (PORTB bitmask)
-uint8_t LEDstate1 = 0; //Variable for the state the LED is in after trigger (PORTB bitmask)
-uint8_t ledInt = 255; // 8 bit, need to have switch in 'Auto' position for this to work 
-boolean fault = false; //Track whether in fault to prevent recursive call of fault state
-uint8_t initialCount = 3; //Don't respond to initial status until ADCs have settled
+  uint32_t checksum; //Checksum to confirm that configuration is valid
+};
 
 //Convert between byte list and float
-typedef union
+union FLOATUNION
 {
  float float_var;
  uint8_t bytes[4];
-} FLOATUNION_t;
+};
+
+//Convert between byte list and int
+union INTUNION
+{
+ int int_var;
+ uint8_t bytes[4];
+};
+
+//Convert between byte list and int
+union BYTEUNION
+{
+ uint16_t bytes_var;
+ uint8_t bytes[2];
+};
+
+//From: https://forum.arduino.cc/index.php?topic=263107.0
+union CONFIGUNION //Convert binary buffer <-> config setup
+{
+   configurationStruct c;
+   byte config_buffer[160];
+};
+
+union SYNCUNION //Convert binary buffer <-> sync setup
+{
+   syncStruct s;
+   byte sync_buffer[164];
+};
 
 //ADC *adc = new ADC(); // adc object;
 pinSetup pin;
-syncMode sync;
 usbSerial usbSerial;
-FLOATUNION_t floatUnion; //Convert byte list <-> float
 
+FLOATUNION floatUnion; //Convert byte list <-> float
+INTUNION intUnion;
+BYTEUNION byteUnion;
+CONFIGUNION conf;
+SYNCUNION sync;
 
 void setup() {
+  conf.c.fan_channel = 10;
+  sync.s.mode = 10;
+  
   pinMode(LED_BUILTIN, OUTPUT);
   pin.configurePins();
   usbSerial.startSerial();
@@ -68,13 +115,30 @@ void setup() {
   digitalWriteFast(pin.ANALOG_SELECT, LOW);
   digitalWriteFast(pin.FAN_PWM, LOW);
   analogWrite(A21, 4095);
+  Serial.begin( 9600 );
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for Leonardo only
+  }
+  uint8_t counter;
+  for(int a=0; a<4096; a++){
+    EEPROM.get(a, counter);
+    Serial.print(a);
+    Serial.print(", ");
+    Serial.println(counter);
+  }
+  int test = sizeof(conf.c);
+  Serial.println(test);
+  test = sizeof(sync.s);
+  Serial.println(test);
+  
 }
 
 //--------------------------------------------------------------SYNCS----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Loop will act as sync router based on toggle switch position
 void loop() {
   
-  usbSerial.checkBuffer();
+  //usbSerial.checkBuffer();
+  float test = pin.resistorTemp();
 
 //  boolean state[] = {false, false, false, false, false};
 //  int a = 0;

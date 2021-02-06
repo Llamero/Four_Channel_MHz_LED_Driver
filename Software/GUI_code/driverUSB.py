@@ -127,14 +127,14 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                                 "downloadDriverConfiguration": 1,
                                 "uploadDriverConfiguration": 2}  # byte prefix identifying data packet type
         self.command_dict = {self.out_prefix_dict["magicNumberCheck"]: self.magicNumberCheck,
-                             self.out_prefix_dict["downloadDriverConfiguration"]: self.getDriverConfiguration,
+                             self.out_prefix_dict["downloadDriverConfiguration"]: self.downloadDriverConfiguration,
                              self.out_prefix_dict["uploadDriverConfiguration"]: self.uploadDriverConfiguration}  # Mapping of prefix to function that will process the command
 
     def magicNumberCheck(self, reply=None):
         if reply:
             reply = reply.decode()
             if str(reply) == MAGIC_RECEIVE:
-                self.getDriverConfiguration()
+                self.downloadDriverConfiguration()
 
         else:
             self.send(MAGIC_SEND)

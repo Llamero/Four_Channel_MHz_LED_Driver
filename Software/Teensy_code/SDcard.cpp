@@ -1,5 +1,4 @@
 #include "Arduino.h"
-#include "syncMode.h"
 #include "SDcard.h"
 #include "SD.h"
 #include "TimeLib.h"
@@ -12,15 +11,15 @@ const static char SDcard::seq_bin_dir[] = "seq_bin"; //Directory to save boot lo
 const static char SDcard::seq_txt_dir[] = "seq_txt"; //Directory to save data log files into - max length 8 char
 const static char SDcard::config_txt_dir[] = "config"; //Directory to save boot log files into - max length 8 char
 const static char SDcard::waveform_dir[] = "waveform"; //Directory to save recorded LED waveforms
-static char boot_text[10][20]; //Initialize array for storing boot information
-static int boot_index = 0; //current index in the boot log
+static char SDcard::boot_text[10][20]; //Initialize array for storing boot information
+static int SDcard::boot_index = 0; //current index in the boot log
+static int SDcard::warning_count = 0;
 
 
 Sd2Card card;
 SdVolume volume;
 SdFile root;
 File f;
-syncMode sync2;
 
 SDcard::SDcard()
 {
@@ -41,7 +40,7 @@ static void dateTime(uint16_t* date, uint16_t* time) {
   *time = FAT_TIME(hour(unix_t), minute(unix_t), second(unix_t));
 }
 
-static void SDcard::inititializeSD(){
+static boolean SDcard::inititializeSD(){
   // set date time callback function for applying RTC synced time stamps to SD card file time stamps
   SdFile::dateTimeCallback(dateTime);
 
@@ -136,6 +135,7 @@ static void SDcard::inititializeSD(){
   for(int a = 0; a<boot_index; a++){
     boot_text[a][19] = 0; //Replace all new lines with nulls for println() formatting
   }
+  return bool(warning_count);
 }
 
 //Save data to the SD card

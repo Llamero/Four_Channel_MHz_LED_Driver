@@ -57,14 +57,14 @@ void pinSetup::setValues(float WARN_TEMP[3], float FAULT_TEMP[3], float FAN_LIMI
 
 static void pinSetup::configurePins(){
     unsigned int a; //Loop counter
-    analogWriteResolution(12);
+    analogWriteResolution(16);
     
     ///// ADC0 ////
     // reference can be ADC_REFERENCE::REF_3V3, ADC_REFERENCE::REF_1V2 (not for Teensy LC) or ADC_REFERENCE::REF_EXT.
     adc->adc0->setReference(ADC_REFERENCE::REF_3V3); // change all 3.3 to 1.2 if you change the reference to 1V2
 
-    adc->adc0->setAveraging(adcAveraging); // set number of averages
-    adc->adc0->setResolution(adcResolution); // set bits of resolution
+    adc->adc0->setAveraging(adc_averaging); // set number of averages
+    adc->adc0->setResolution(adc_resolution); // set bits of resolution
 
     // it can be any of the ADC_CONVERSION_SPEED enum: VERY_LOW_SPEED, LOW_SPEED, MED_SPEED, HIGH_SPEED_16BITS, HIGH_SPEED or VERY_HIGH_SPEED
     // see the documentation for more information
@@ -76,8 +76,8 @@ static void pinSetup::configurePins(){
 
     ////// ADC1 /////
     adc->adc1->setReference(ADC_REFERENCE::REF_3V3);
-    adc->adc1->setAveraging(adcAveraging); // set number of averages
-    adc->adc1->setResolution(adcResolution); // set bits of resolution
+    adc->adc1->setAveraging(adc_averaging); // set number of averages
+    adc->adc1->setResolution(adc_resolution); // set bits of resolution
     adc->adc1->setConversionSpeed(ADC_CONVERSION_SPEED::VERY_HIGH_SPEED); // change the conversion speed
     adc->adc1->setSamplingSpeed(ADC_SAMPLING_SPEED::VERY_HIGH_SPEED); // change the sampling speed
     
@@ -134,7 +134,9 @@ static float pinSetup::extTemp(){
   return adcToTemp(adc, PCB_THERMISTOR_NOMINAL, PCB_TEMPERATURE_NOMINAL, PCB_B_COEFFICIENT);
 }
 
+//Requires 14 µs to complete calculation
 static float pinSetup::adcToTemp(int adc, int therm_nominal, float temp_nominal, int b_coefficient){
+  digitalWriteFast(OUTPUTS[0], HIGH);
   float steinhart;
   float raw = (float) adc;
   raw = adcMax() / raw - 1;
@@ -145,7 +147,9 @@ static float pinSetup::adcToTemp(int adc, int therm_nominal, float temp_nominal,
   steinhart += 1.0 / (temp_nominal + 273.15); // + (1/To)
   steinhart = 1.0 / steinhart;                 // Invert
   steinhart -= 273.15;   
+  digitalWriteFast(OUTPUTS[0], LOW);
   return steinhart;
+
 }
 
 static int pinSetup::tempToAdc(float temperature, int therm_nominal, float temp_nominal, int b_coefficient){
@@ -155,7 +159,7 @@ static int pinSetup::tempToAdc(float temperature, int therm_nominal, float temp_
   steinhart = 1.0 / steinhart;  
   steinhart -= 1.0 / (temp_nominal + 273.15); // + (1/To); 
   steinhart *= b_coefficient;
-  steinhart = exp(steinhart);; 
+  steinhart = exp(steinhart);
   raw = steinhart * therm_nominal; 
   raw = SERIES_RESISTOR/raw;
   raw = adcMax()/(raw+1); 

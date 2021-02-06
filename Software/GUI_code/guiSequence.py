@@ -164,9 +164,9 @@ def verifyCell(gui, column, row, data):
             gui.message_box.exec()
             return False
     elif column == 3:
-        if (data < 10e-6 and data != 0) or data > 3600 or data is None:
+        if (data < 1e-3 and data != 0) or data > 4294967 or data is None:
             gui.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
-                row + 1) + " is not a valid duration (0 or 0.00001-3600). Process aborted.")
+                row + 1) + " is not a valid duration (0 or 0.001-4294967). Process aborted.")
             gui.message_box.exec()
             return False
     return True
