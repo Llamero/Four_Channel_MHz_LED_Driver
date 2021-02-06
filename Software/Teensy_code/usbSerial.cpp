@@ -62,6 +62,10 @@ static void usbSerial::magicExchange(const uint8_t* buffer, size_t size){
   }
 }
 
+static int usbSerial::magicSize(){
+  return sizeof(MAGIC_RECEIVE);
+}
+
 static void usbSerial::sendConfiguration(const uint8_t* buffer, size_t size){
     
     if(size == 1){
