@@ -3,6 +3,7 @@
 #include <EEPROM.h>
 
 struct configurationStruct{
+  uint8_t prefix;///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   char driver_name[16]; //Name of LED driver: "default name"
   char led_names[4][16]; //Name of each LED channel
   boolean led_active[4]; //Whether LED channel is in use: {false, false, false, false}
@@ -20,10 +21,33 @@ struct configurationStruct{
   uint8_t audio_volume[2]; //Status and alarm volumes for transducer: {10, 100}
   uint16_t pushbutton_intensity; //LED intensity in PWM units
   uint8_t pushbutton_mode; //LED illumination mode when alarm is active
-  uint32_t checksum; //Checksum to confirm that configuration is valid
+  uint8_t checksum; //Checksum to confirm that configuration is valid
 };
 
+const struct deafaultConfigurationStruct{
+  uint8_t prefix = 2;
+  char driver_name[16] = "Unnamed driver ";
+  char led_names[4][16] = {"LED #1         ", "LED #2         ", "LED #3         ", "LED #4         "};
+  boolean led_active[4] = {false, false, false, false}; //Whether LED channel is in use: {false, false, false, false}
+  uint16_t current_limit[4] = {0,0,0,0}; //Current limit for each channel on DAC values: {0,0,0,0}
+  uint8_t led_channel[4] = {1,2,3,4}; //SSR channels used for each LED: {1,2,3,4}
+  float resistor_values[4] = {5, 10, 1000, 1000}; //Values of current sense resistors
+  boolean resistor_active[4] = {true, true, false, false}; //Whether a specific resistor is used
+  uint16_t warn_temp[3] = {14604, 14604, 14604}; //Warn at 60°C
+  uint16_t fault_temp[3] = {8891, 8891, 8891}; //Fault at 80°C
+  uint16_t driver_fan[2] = {29565, 14604}; //Fan on at 30°C, fan max at 60°C
+  uint16_t ext_fan[2] = {29565, 14604}; //Fan on at 30°C, fan max at 60°C
+  uint8_t fan_channel = 0; //Ext output channel used to send fan PWM signal
+  int ext_therm_resistance = 4700; //External thermistor nominal resistance at 25°C
+  int ext_therm_beta = 3545; //Beta value of external thermistor
+  uint8_t audio_volume[2] = {10, 100}; //Status and alarm volumes for transducer: {10, 100}
+  uint16_t pushbutton_intensity = 65535; //LED intensity in PWM units
+  uint8_t pushbutton_mode = 0; //LED illumination mode when alarm is active
+  uint8_t checksum = 103;
+} defaultConfig;
+
 struct syncStruct{ //160 bytes
+  const static uint8_t prefix = 4;///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   uint8_t mode; //Type of sync - digital, analog, confocal, etc.
   uint8_t sync_output_channel; //Channel to output sync signal
   
@@ -56,7 +80,15 @@ struct syncStruct{ //160 bytes
   uint32_t confocal_duration[2]; //The maximum number of milliseconds to hold LED state
   char confocal_sequence[2][22]; // The file paths to the corresponding sequence files on the SD card
 
-  uint32_t checksum; //Checksum to confirm that configuration is valid
+  uint8_t checksum; //Checksum to confirm that configuration is valid
+};
+
+struct statusStruct{
+  uint16_t knob; //ADC value of intensity know
+  boolean toggle; //position of mode toggle switch
+  uint16_t temp[3]; //ADC temp reading of mosfet, resistor, and external respectively
+  uint16_t fan_speed[2]; //PWM valur for internal and external fan respectively
+  uint16_t led_current; //DAC value for active LED
 };
 
 //Convert between byte list and float
@@ -84,13 +116,13 @@ union BYTEUNION
 union CONFIGUNION //Convert binary buffer <-> config setup
 {
    configurationStruct c;
-   byte config_buffer[160];
+   byte byte_buffer[160];
 };
 
 union SYNCUNION //Convert binary buffer <-> sync setup
 {
    syncStruct s;
-   byte sync_buffer[164];
+   byte byte_buffer[164];
 };
 
 //ADC *adc = new ADC(); // adc object;
@@ -104,33 +136,50 @@ CONFIGUNION conf;
 SYNCUNION sync;
 
 void setup() {
-  conf.c.fan_channel = 10;
-  sync.s.mode = 10;
-  
   pinMode(LED_BUILTIN, OUTPUT);
   pin.configurePins();
   usbSerial.startSerial();
+  Serial.begin( 9600 );
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for Leonardo only
+  }
+  loadDefaultConfig();
+  sync.s.mode = 10;
   digitalWriteFast(pin.RELAY[3], HIGH);
   digitalWriteFast(pin.INTERLINE, LOW);
   digitalWriteFast(pin.ANALOG_SELECT, LOW);
   digitalWriteFast(pin.FAN_PWM, LOW);
   analogWrite(A21, 4095);
-  Serial.begin( 9600 );
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for Leonardo only
-  }
+
   uint8_t counter;
-  for(int a=0; a<4096; a++){
-    EEPROM.get(a, counter);
-    Serial.print(a);
-    Serial.print(", ");
-    Serial.println(counter);
-  }
+//  for(int a=0; a<4096; a++){
+//    EEPROM.get(a, counter);
+//    Serial.print(a);
+//    Serial.print(", ");
+//    Serial.println(counter);
+//  }
+
   int test = sizeof(conf.c);
   Serial.println(test);
   test = sizeof(sync.s);
   Serial.println(test);
-  
+  Serial.println(conf.c.driver_name);
+  Serial.println(conf.c.led_names[2]);
+  Serial.println(conf.c.checksum);
+  Serial.println(conf.byte_buffer[157]);
+//  uint16_t temp = pin.tempToAdc(30, 4700, 25, 3545);
+//  Serial.println(temp);
+}
+
+//https://forum.arduino.cc/index.php?topic=42850.0
+void loadDefaultConfig(){
+  uint8_t sum = 0;
+  uint8_t *pPtr = (uint8_t *)&defaultConfig;
+  for(int a =0; a<sizeof(conf.byte_buffer); a++){
+    conf.byte_buffer[a] = *pPtr++;
+    sum += conf.byte_buffer[a];
+  }
+  Serial.println(sum);
 }
 
 //--------------------------------------------------------------SYNCS----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
