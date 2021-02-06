@@ -2,6 +2,7 @@
 #include "usbSerial.h"
 #include <EEPROM.h>
 
+#pragma pack(1)
 struct configurationStruct{
   uint8_t prefix;///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   char driver_name[16]; //Name of LED driver: "default name"
@@ -46,7 +47,7 @@ const struct deafaultConfigurationStruct{
   uint8_t checksum = 103;
 } defaultConfig;
 
-struct syncStruct{ //160 bytes
+struct syncStruct{ //158 bytes
   const static uint8_t prefix = 4;///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   uint8_t mode; //Type of sync - digital, analog, confocal, etc.
   uint8_t sync_output_channel; //Channel to output sync signal
@@ -116,13 +117,13 @@ union BYTEUNION
 union CONFIGUNION //Convert binary buffer <-> config setup
 {
    configurationStruct c;
-   byte byte_buffer[160];
+   byte byte_buffer[152]; //////////////////////////////NOTE THAT CHECKSUM IS AT 158 not 160/////////////////////////////////////////////////////////////
 };
 
 union SYNCUNION //Convert binary buffer <-> sync setup
 {
    syncStruct s;
-   byte byte_buffer[164];
+   byte byte_buffer[158];
 };
 
 //ADC *adc = new ADC(); // adc object;
@@ -177,8 +178,12 @@ void loadDefaultConfig(){
   uint8_t *pPtr = (uint8_t *)&defaultConfig;
   for(int a =0; a<sizeof(conf.byte_buffer); a++){
     conf.byte_buffer[a] = *pPtr++;
+    Serial.print(conf.byte_buffer[a]);
+    Serial.print(", ");
     sum += conf.byte_buffer[a];
   }
+  Serial.println();
+  Serial.println();
   Serial.println(sum);
 }
 
