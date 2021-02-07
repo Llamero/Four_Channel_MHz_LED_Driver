@@ -95,6 +95,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
                     else:
                         self.serial_buffer.append(byte)
+
             else:
                 print("Invalid single byte packet")
                 self.dropped_frame_counter += 1
@@ -115,6 +116,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def serialRouter(self):
         if self.command_queue:
             command = bytearray(self.command_queue.pop(0))
+            print(command)
             try:
                 self.command_dict[command[0]](command[1:])
                 print("Frame processed. " + str(self.dropped_frame_counter) + " dropped frames so far.")
@@ -123,19 +125,37 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.dropped_frame_counter += 1
 
     def initializeRoutingDictionaries(self):
-        self.out_prefix_dict = {"magicNumberCheck": 0,
-                                "downloadDriverConfiguration": 1,
-                                "uploadDriverConfiguration": 2}  # byte prefix identifying data packet type
-        self.command_dict = {self.out_prefix_dict["magicNumberCheck"]: self.magicNumberCheck,
+        self.out_prefix_dict = {"showDriverMessage": 0,
+                                "magicNumberCheck": 1,
+                                "downloadDriverConfiguration": 2,
+                                "uploadDriverConfiguration": 3,
+                                "downloadSyncConfiguration": 4,
+                                "uploadSyncConfiguration": 5,
+                                "downloadSeqFile": 6,
+                                "uploadSeqFile": 7}  # byte prefix identifying data packet type
+
+        self.command_dict = {self.out_prefix_dict["showDriverMessage"]: self.showDriverMessage,
+                             self.out_prefix_dict["magicNumberCheck"]: self.magicNumberCheck,
                              self.out_prefix_dict["downloadDriverConfiguration"]: self.downloadDriverConfiguration,
-                             self.out_prefix_dict["uploadDriverConfiguration"]: self.uploadDriverConfiguration}  # Mapping of prefix to function that will process the command
+                             self.out_prefix_dict["uploadDriverConfiguration"]: self.uploadDriverConfiguration,
+                             self.out_prefix_dict["downloadSyncConfiguration"]: self.downloadSyncConfiguration,
+                             self.out_prefix_dict["uploadSyncConfiguration"]: self.uploadSyncConfiguration,
+                             self.out_prefix_dict["downloadSeqFile"]: self.downloadSeqFile,
+                             self.out_prefix_dict["uploadSeqFile"]: self.uploadSeqFile}  # Mapping of prefix to function that will process the command
+
+    def showDriverMessage(self, reply=None):
+        if reply:
+            reply = reply.decode()
+            self.gui.message_box.setText(reply)
+            self.gui.message_box.exec()
+        else:
+            pass
 
     def magicNumberCheck(self, reply=None):
         if reply:
             reply = reply.decode()
             if str(reply) == MAGIC_RECEIVE:
                 self.downloadDriverConfiguration()
-
         else:
             self.send(MAGIC_SEND)
 
@@ -157,4 +177,26 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 message = stream.read()
                 self.send(message)
 
+    def downloadSyncConfiguration(self, reply=None):
+        if reply:
+            pass
+        else:
+            pass
 
+    def uploadSyncConfiguration(self, reply=None):
+        if reply:
+            pass
+        else:
+            pass
+
+    def downloadSeqFile(self, reply=None):
+        if reply:
+            pass
+        else:
+            pass
+
+    def uploadSeqFile(self, reply=None):
+        if reply:
+            pass
+        else:
+            pass

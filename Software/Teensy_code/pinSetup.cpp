@@ -13,47 +13,14 @@ ADC *adc = new ADC(); // adc object;
 //NOTE: It seems that in this compiler lists longer than 4 need to be built in CPP while shorter lists need to be built in header with constexpr
 
 const static int pinSetup::NC[] = {5, 6, 7, 8, 9, 38, 39}; //Not connected pins
-static float _WARN_TEMP[] = {70, 70, 70}; //Warning temperatures (°C) for the MOSFET, resisitor, and external thermistor correspondingly.  This is also the temp the board need to cool down to before reactivating after a fault
-static float _FAULT_TEMP[] = {85, 85, 85}; //Fault temperature(°C) for the MOSFET, resisitor, and external thermistor correspondingly.  If the board rises above this temp it will deactivate the LED and driver until the temperature falls below the warn temperature
-static float _FAN_LIMITS_TEMP[] = {30, _WARN_TEMP[0]}; //LED temp at which the PWM fan runs at minimum speed - default to just above room temp so that fan turns off when driver is inactive
-static int _EXT_THERMISTOR_NOMINAL = 4700; //Value of thermistor resistor on PCB at nominal temp (normally 25°C)
-static int _EXT_B_COEFFICIENT = 3545; //Beta value for the PCB thermistor
-static float _EXT_TEMPERATURE_NOMINAL = 25; //Reference temperature for the nominal resistance on the thermistor on the PCB
-static int WARN_ADC[3];
-static int FAULT_ADC[3];
-static int FAN_LIMITS_ADC[2];
 
 pinSetup::pinSetup()
 {
 }
 
 static void pinSetup::init(){
-  convertToAdc();
 }
 
-static void pinSetup::convertToAdc(){
-  WARN_ADC[0] = tempToAdc(_WARN_TEMP[0], PCB_THERMISTOR_NOMINAL, PCB_TEMPERATURE_NOMINAL, PCB_B_COEFFICIENT);
-  WARN_ADC[1] = tempToAdc(_WARN_TEMP[1], PCB_THERMISTOR_NOMINAL, PCB_TEMPERATURE_NOMINAL, PCB_B_COEFFICIENT);
-  WARN_ADC[2] = tempToAdc(_WARN_TEMP[2], _EXT_THERMISTOR_NOMINAL, _EXT_TEMPERATURE_NOMINAL, _EXT_B_COEFFICIENT);
-
-  FAULT_ADC[0] = tempToAdc(_WARN_TEMP[0], PCB_THERMISTOR_NOMINAL, PCB_TEMPERATURE_NOMINAL, PCB_B_COEFFICIENT);
-  FAULT_ADC[1] = tempToAdc(_WARN_TEMP[1], PCB_THERMISTOR_NOMINAL, PCB_TEMPERATURE_NOMINAL, PCB_B_COEFFICIENT);
-  FAULT_ADC[2] = tempToAdc(_WARN_TEMP[2], _EXT_THERMISTOR_NOMINAL, _EXT_TEMPERATURE_NOMINAL, _EXT_B_COEFFICIENT);
-
-  FAN_LIMITS_ADC[0] = tempToAdc(_FAN_LIMITS_TEMP[0], PCB_THERMISTOR_NOMINAL, PCB_TEMPERATURE_NOMINAL, PCB_B_COEFFICIENT);
-  FAN_LIMITS_ADC[1] = tempToAdc(_FAN_LIMITS_TEMP[1], PCB_THERMISTOR_NOMINAL, PCB_TEMPERATURE_NOMINAL, PCB_B_COEFFICIENT);
-}
-
-void pinSetup::setValues(float WARN_TEMP[3], float FAULT_TEMP[3], float FAN_LIMITS_TEMP[2], int EXT_THERMISTOR_NOMINAL, int EXT_B_COEFFICIENT, float EXT_TEMPERATURE_NOMINAL){
-    *_WARN_TEMP = *WARN_TEMP; //Warning temperatures (°C) for the MOSFET, resisitor, and external thermistor correspondingly.  This is also the temp the board need to cool down to before reactivating after a fault
-    *_FAULT_TEMP = *FAULT_TEMP; //Fault temperature(°C) for the MOSFET, resisitor, and external thermistor correspondingly.  If the board rises above this temp it will deactivate the LED and driver until the temperature falls below the warn temperature
-    *_FAN_LIMITS_TEMP = *FAN_LIMITS_TEMP; //LED temp at which the PWM fan runs at minimum speed - default to just above room temp so that fan turns off when driver is inactive
-    _EXT_THERMISTOR_NOMINAL = EXT_THERMISTOR_NOMINAL; //Value of thermistor resistor on PCB at nominal temp (normally 25°C)
-    _EXT_B_COEFFICIENT = EXT_B_COEFFICIENT; //Beta value for the PCB thermistor
-    _EXT_TEMPERATURE_NOMINAL = EXT_TEMPERATURE_NOMINAL; //Reference temperature for the nominal resistance on the thermistor on the PCB
-
-    convertToAdc();
-}
 
 static void pinSetup::configurePins(){
     unsigned int a; //Loop counter
@@ -119,23 +86,20 @@ static int pinSetup::adcMax(){
   return (int) adc->adc0->getMaxValue();
 }
 
-static float pinSetup::mosfetTemp(){
-  int adc = analogRead(MOSFET_TEMP);
-  return adcToTemp(adc, PCB_THERMISTOR_NOMINAL, PCB_TEMPERATURE_NOMINAL, PCB_B_COEFFICIENT);
+static uint16_t pinSetup::mosfetTemp(){
+  return analogRead(MOSFET_TEMP);
 }
 
-static float pinSetup::resistorTemp(){
-  int adc = analogRead(RESISTOR_TEMP);
-  return adcToTemp(adc, PCB_THERMISTOR_NOMINAL, PCB_TEMPERATURE_NOMINAL, PCB_B_COEFFICIENT);
+static uint16_t pinSetup::resistorTemp(){
+  return analogRead(RESISTOR_TEMP);
 }
 
-static float pinSetup::extTemp(){
-  int adc = analogRead(EXTERNAL_TEMP);
-  return adcToTemp(adc, PCB_THERMISTOR_NOMINAL, PCB_TEMPERATURE_NOMINAL, PCB_B_COEFFICIENT);
+static uint16_t pinSetup::extTemp(){
+  return analogRead(EXTERNAL_TEMP);
 }
 
 //Requires 14 µs to complete calculation
-static float pinSetup::adcToTemp(int adc, int therm_nominal, float temp_nominal, int b_coefficient){
+static float pinSetup::adcToTemp(int adc, int therm_nominal = PCB_THERMISTOR_NOMINAL, int b_coefficient = PCB_B_COEFFICIENT){
   digitalWriteFast(OUTPUTS[0], HIGH);
   float steinhart;
   float raw = (float) adc;
@@ -144,7 +108,7 @@ static float pinSetup::adcToTemp(int adc, int therm_nominal, float temp_nominal,
   steinhart = raw / therm_nominal;     // (R/Ro)
   steinhart = log(steinhart);                  // ln(R/Ro)
   steinhart /= b_coefficient;                   // 1/B * ln(R/Ro)
-  steinhart += 1.0 / (temp_nominal + 273.15); // + (1/To)
+  steinhart += 1.0 / (25 + 273.15); // + (1/To)
   steinhart = 1.0 / steinhart;                 // Invert
   steinhart -= 273.15;   
   digitalWriteFast(OUTPUTS[0], LOW);
@@ -152,12 +116,12 @@ static float pinSetup::adcToTemp(int adc, int therm_nominal, float temp_nominal,
 
 }
 
-static int pinSetup::tempToAdc(float temperature, int therm_nominal, float temp_nominal, int b_coefficient){
+static int pinSetup::tempToAdc(float temperature, int therm_nominal = PCB_THERMISTOR_NOMINAL, int b_coefficient = PCB_B_COEFFICIENT){
   float steinhart = temperature;
   float raw;
   steinhart += 273.15;  
   steinhart = 1.0 / steinhart;  
-  steinhart -= 1.0 / (temp_nominal + 273.15); // + (1/To); 
+  steinhart -= 1.0 / (25 + 273.15); // + (1/To); 
   steinhart *= b_coefficient;
   steinhart = exp(steinhart);
   raw = steinhart * therm_nominal; 

@@ -1,10 +1,12 @@
 #include "pinSetup.h"
-#include "usbSerial.h"
+#include "PacketSerial.h"
 #include <EEPROM.h>
+
+//////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT
 
 #pragma pack(1) //Remove alignment padding bytes in structs - https://forum.pjrc.com/threads/50536-problem-with-union-in-Teensy-3-5
 struct configurationStruct{
-  uint8_t prefix;///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  uint8_t prefix;
   char driver_name[16]; //Name of LED driver: "default name"
   char led_names[4][16]; //Name of each LED channel
   boolean led_active[4]; //Whether LED channel is in use: {false, false, false, false}
@@ -48,7 +50,7 @@ const struct deafaultConfigurationStruct{
 } defaultConfig;
 
 struct syncStruct{ //158 bytes
-  uint8_t prefix;///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  uint8_t prefix;
   uint8_t mode; //Type of sync - digital, analog, confocal, etc.
   uint8_t sync_output_channel; //Channel to output sync signal
   
@@ -85,7 +87,7 @@ struct syncStruct{ //158 bytes
 };
 
 const struct defaultSyncStruct{ //158 bytes
-  uint8_t prefix = 4;///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  uint8_t prefix = 4;
   uint8_t mode = 0; //Type of sync - digital, analog, confocal, etc.
   uint8_t sync_output_channel = 0; //Channel to output sync signal
   
@@ -129,59 +131,82 @@ struct statusStruct{
   uint16_t led_current; //DAC value for active LED
 };
 
+const struct prefixStruct{
+  uint8_t message = 0; //Send error, warning, and notification messages to be diplayed as pop-up in GUI
+  uint8_t connection = 1; //Recv magic number at connection start and confirm with magic reply
+  uint8_t send_config = 2; //Send active configuration byte file
+  uint8_t recv_config = 3; //Recv and apply new configuration byte file
+  uint8_t send_sync = 4; //Send active configuration byte file
+  uint8_t recv_sync = 5; //Recv and apply new configuration byte file
+  uint8_t send_seq = 6; //Send specified seq byte file from SD card if available
+  uint8_t recv_seq = 7; //Recv specified seq byte file and save on SD card if available
+} prefix;
+
+//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION
+
 //Convert between byte list and float
 union FLOATUNION
 {
  float float_var;
  uint8_t bytes[4];
-};
+}floatUnion;
 
 //Convert between byte list and int
 union INTUNION
 {
  int int_var;
  uint8_t bytes[4];
-};
+}intUnion;
 
 //Convert between byte list and int
 union BYTEUNION
 {
  uint16_t bytes_var;
  uint8_t bytes[2];
-};
+}uint16Union;
 
 //From: https://forum.arduino.cc/index.php?topic=263107.0
 union CONFIGUNION //Convert binary buffer <-> config setup
 {
    configurationStruct c;
-   byte byte_buffer[152]; //////////////////////////////NOTE THAT CHECKSUM IS AT 158 not 160/////////////////////////////////////////////////////////////
-};
+   byte byte_buffer[152];
+} conf;
 
 union SYNCUNION //Convert binary buffer <-> sync setup
 {
    syncStruct s;
    byte byte_buffer[163];
-};
+} sync;
 
-//ADC *adc = new ADC(); // adc object;
+union STATUSUNION //Convert binary buffer <-> sync setup
+{
+   statusStruct s;
+   byte byte_buffer[163];
+} status;
+
+//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF
+
+//https://forum.arduino.cc/index.php?topic=171069.0
+typedef void (* GenericFP)(const uint8_t*, size_t); //function pointer prototype to a function which takes an 'int' an returns 'void'
+GenericFP function_router[256]; //create an array of 'GenericFP' function pointers. Notice the '&' operator
+
+//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE
+
+char MAGIC_SEND[] = "-kvlWfsBplgasrsh3un5K"; //Magic number reply to Teensy verifying this is an LED driver 
+const static char MAGIC_RECEIVE[] = "kc1oISEIZ60AYJqH4J1P"; //Magic number received from Teensy verifying it is an LED driver "-" is for providing byte prefix in serial message
+boolean sd_available = false;
+char temp_buffer[256]; //Temporary buffer for preparing packets immediately before transmission
+int temp_size; //Size of temporary packet to transmit
+//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
-usbSerial usbSerial;
-
-FLOATUNION floatUnion; //Convert byte list <-> float
-INTUNION intUnion;
-BYTEUNION byteUnion;
-CONFIGUNION conf;
-SYNCUNION sync;
+PacketSerial_<COBS, 0, 4096> usb; //Sets Encoder, framing character, buffer size
 
 void setup() {
   int a;
   pinMode(LED_BUILTIN, OUTPUT);
   pin.configurePins();
-  usbSerial.startSerial();
-  Serial.begin( 9600 );
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for Leonardo only
-  }
+  usb.begin(115200);
+  usb.setPacketHandler(&onPacketReceived);
   initializeConfigurations();
   sync.s.mode = 10;
   digitalWriteFast(pin.RELAY[3], HIGH);
@@ -190,36 +215,44 @@ void setup() {
   digitalWriteFast(pin.FAN_PWM, LOW);
   analogWrite(A21, 0);
 
-  uint8_t counter;
-  for(a=0; a<40; a++){
-    EEPROM.get(a, counter);
-    Serial.print(a);
-    Serial.print(", ");
-    Serial.println(counter);
-  }
+//  uint8_t counter;
+//  for(a=0; a<40; a++){
+//    EEPROM.get(a, counter);
+//    Serial.print(a);
+//    Serial.print(", ");
+//    Serial.println(counter);
+//  }
 
-  int test = sizeof(conf.c);
-  Serial.println(test);
-  test = sizeof(sync.s);
-  Serial.println(test);
+//  int test = sizeof(conf.c);
+//  Serial.println(test);
+//  test = sizeof(sync.s);
+//  Serial.println(test);
 //  Serial.println(conf.c.driver_name);
 //  Serial.println(conf.c.led_names[2]);
-  Serial.println(sync.s.checksum);
-  Serial.println(sync.byte_buffer[sizeof(sync.byte_buffer)-1]);
+//  Serial.println(sync.s.checksum);
+//  Serial.println(sync.byte_buffer[sizeof(sync.byte_buffer)-1]);
 //  uint16_t temp = pin.tempToAdc(30, 4700, 25, 3545);
 //  Serial.println(temp);
 }
+void loop() {
+  usb.update();
+  digitalWriteFast(LED_BUILTIN, HIGH);
+  delay(20);
+  digitalWriteFast(LED_BUILTIN, LOW);
+  delay(20);
+}
+//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM
 
 //Check EEPROM to see if it has a saved configuration
 void initializeConfigurations(){
   int a;
   uint8_t check_sum;
-  uint16_t buffer_size = usbSerial.magicSize();
+  uint16_t buffer_size = sizeof(MAGIC_RECEIVE);
   uint16_t EEPROM_address;
 
   //See if EEPROM has magic number
   for(a=0; a<buffer_size; a++){
-    if(EEPROM.read(a) != usbSerial.MAGIC_RECEIVE[a]){
+    if(EEPROM.read(a) != MAGIC_RECEIVE[a]){
       break;
     }
   }
@@ -231,16 +264,15 @@ void initializeConfigurations(){
         check_sum += EEPROM.read(EEPROM_address--);
       }
     };   
-    
     //Verify EEPROM check sums
-    EEPROM_address = usbSerial.magicSize() + sizeof(conf.byte_buffer) + sizeof(sync.byte_buffer) - 1;
+    EEPROM_address = sizeof(MAGIC_RECEIVE) + sizeof(conf.byte_buffer) + sizeof(sync.byte_buffer) - 1;
     buffer_size = sizeof(sync.byte_buffer);
     verifyChecksum();
     if(!check_sum){
       buffer_size = sizeof(conf.byte_buffer);
       verifyChecksum();
       if(!check_sum){
-        
+        loadEEPROMtoStructs();
       }
       else loadDefaultsToEEPROM();
     }
@@ -256,15 +288,18 @@ void loadDefaultsToEEPROM(){
   uint8_t *buffer_ptr;
   uint16_t buffer_size;
   uint16_t EEPROM_address = 0;
-
+  char message[] = "-A valid driver configuration was not found on EEPROM, so default settings will be loaded.";
+  message[0] = prefix.message;
+  usb.send(message, sizeof(message));
+  
   //Lambda functions in C++11 rock! https://stackoverflow.com/questions/4324763/can-we-have-functions-inside-functions-in-c
   auto loadEEPROM = [&] (){
     while(buffer_size--){
       EEPROM.update(EEPROM_address++, *buffer_ptr++);
     }
   };
-  buffer_ptr = (uint8_t *)&usbSerial.MAGIC_RECEIVE;
-  buffer_size = usbSerial.magicSize();
+  buffer_ptr = (uint8_t *)&MAGIC_RECEIVE;
+  buffer_size = sizeof(MAGIC_RECEIVE);
   loadEEPROM();
   buffer_ptr = (uint8_t *)&defaultConfig;
   buffer_size = sizeof(conf.byte_buffer);
@@ -272,14 +307,65 @@ void loadDefaultsToEEPROM(){
   buffer_ptr = (uint8_t *)&defaultSync;
   buffer_size = sizeof(sync.byte_buffer);
   loadEEPROM();
+  loadEEPROMtoStructs();
 }
 
-//--------------------------------------------------------------SYNCS----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//Loop will act as sync router based on toggle switch position
-void loop() {
-  
-  //usbSerial.checkBuffer();
-  float test = pin.resistorTemp();
+void loadEEPROMtoStructs(){
+    uint16_t EEPROM_address = sizeof(MAGIC_RECEIVE) + sizeof(conf.byte_buffer) + sizeof(sync.byte_buffer) - 1;
+    uint16_t buffer_size = sizeof(sync.byte_buffer);
+    
+    EEPROM_address = sizeof(MAGIC_RECEIVE) + sizeof(conf.byte_buffer) + sizeof(sync.byte_buffer);
+    buffer_size = sizeof(sync.byte_buffer);
+    while(buffer_size) sync.byte_buffer[--buffer_size] = EEPROM.read(--EEPROM_address);
+    buffer_size = sizeof(conf.byte_buffer);
+    while(buffer_size) conf.byte_buffer[--buffer_size] = EEPROM.read(--EEPROM_address);
+}
+
+//////////////SERIAL//////////////SERIAL//////////////SERIAL//////////////SERIAL//////////////SERIAL//////////////SERIAL//////////////SERIAL//////////////SERIAL//////////////SERIAL//////////////SERIAL//////////////SERIAL//////////////SERIAL
+
+static void onPacketReceived(const uint8_t* buffer, size_t size){
+  // Route decoded packet based on prefix byte
+  uint8_t buffer_prefix = buffer[0];
+  if(buffer_prefix == prefix.message);
+  else if(buffer_prefix == prefix.connection) magicExchange(buffer, size);
+  else if(buffer_prefix == prefix.send_config) usb.send(conf.byte_buffer, sizeof(conf.byte_buffer));
+  else if(buffer_prefix == prefix.recv_config);
+  else if(buffer_prefix == prefix.send_sync);
+  else if(buffer_prefix == prefix.recv_sync);
+  else if(buffer_prefix == prefix.send_seq);
+  else if(buffer_prefix == prefix.recv_seq);
+  else{
+    temp_size = sprintf(temp_buffer, "-Error: USB packet had invalid prefix: %d", buffer_prefix);  
+    temp_buffer[0] = prefix.message;
+    usb.send(temp_buffer, temp_size);
+  }
+}
+
+static void magicExchange(const uint8_t* buffer, size_t size){
+  int a;
+  if(size == sizeof(MAGIC_RECEIVE)){
+    for(a=0; a<size; a++){
+      if(buffer[a+1] != MAGIC_RECEIVE[a]){
+        break;
+      }
+    }
+    if(a==size-1){
+      MAGIC_SEND[0] = prefix.connection;
+      usb.send(MAGIC_SEND, size);
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 //  boolean state[] = {false, false, false, false, false};
 //  int a = 0;
@@ -417,10 +503,7 @@ void loop() {
       digitalWriteFast(LED_BUILTIN, state[4]);
     }
   }
- */ 
-}
-
-
+ */
 /*
 
 //--------------------------------------------------------------INITIALIZE-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
