@@ -98,8 +98,20 @@ def checkCurrentLimits(gui):
         gui.config_model["LED" + str(led_number)]["Current Limit"].setMaximum(maximum_current)
         gui.config_model["LED" + str(led_number)]["Current Limit"].setToolTip("Set the current limit (in amps) for LED #1"
                                                                               " - " + str(maximum_current) + " amps maximum.")
+def bytesToConfig(byte_array, gui):
+    start_index = 0
+    index = 0
+    while int(byte_array[index]) != 0:
+        index += 1
+    gui.setValue(gui.config_model["Driver name"], byte_array[start_index:index].decode())
+
+    for led_number in range (1,5):
+        index += 1
+        start_index = index
+        while int(byte_array[index]) != 0:
+            index += 1
+        gui.setValue(gui.config_model["LED" + str(led_number)], byte_array[start_index:index].decode())
 
 
-
-
+    print(gui.config_model["LED" + str(led_number)])
 
