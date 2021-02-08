@@ -140,6 +140,7 @@ const struct prefixStruct{
   uint8_t recv_sync = 5; //Recv and apply new configuration byte file
   uint8_t send_seq = 6; //Send specified seq byte file from SD card if available
   uint8_t recv_seq = 7; //Recv specified seq byte file and save on SD card if available
+  uint8_t send_id = 8; //Send the driver ID only
 } prefix;
 
 //////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION
@@ -335,6 +336,7 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   else if(buffer_prefix == prefix.recv_sync);
   else if(buffer_prefix == prefix.send_seq);
   else if(buffer_prefix == prefix.recv_seq);
+  else if(buffer_prefix == prefix.send_id) sendDriverId();
   else{
     temp_size = sprintf(temp_buffer, "-Error: USB packet had invalid prefix: %d", buffer_prefix);  
     temp_buffer[0] = prefix.message;
@@ -357,7 +359,14 @@ static void magicExchange(const uint8_t* buffer, size_t size){
   }
 }
 
-
+static void sendDriverId(){
+  char driver_id[sizeof(conf.c.driver_name)+1];
+  for(int a=0; a<sizeof(conf.c.driver_name); a++){
+    driver_id[a+1] = conf.c.driver_name[a];
+  }
+  driver_id[0] = prefix.send_id;
+  usb.send(driver_id, sizeof(driver_id));
+}
 
 
 

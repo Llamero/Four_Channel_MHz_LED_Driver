@@ -100,7 +100,6 @@ static uint16_t pinSetup::extTemp(){
 
 //Requires 14 µs to complete calculation
 static float pinSetup::adcToTemp(int adc, int therm_nominal = PCB_THERMISTOR_NOMINAL, int b_coefficient = PCB_B_COEFFICIENT){
-  digitalWriteFast(OUTPUTS[0], HIGH);
   float steinhart;
   float raw = (float) adc;
   raw = adcMax() / raw - 1;
@@ -111,7 +110,6 @@ static float pinSetup::adcToTemp(int adc, int therm_nominal = PCB_THERMISTOR_NOM
   steinhart += 1.0 / (25 + 273.15); // + (1/To)
   steinhart = 1.0 / steinhart;                 // Invert
   steinhart -= 273.15;   
-  digitalWriteFast(OUTPUTS[0], LOW);
   return steinhart;
 
 }

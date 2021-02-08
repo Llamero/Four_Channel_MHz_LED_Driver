@@ -132,7 +132,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                                 "downloadSyncConfiguration": 4,
                                 "uploadSyncConfiguration": 5,
                                 "downloadSeqFile": 6,
-                                "uploadSeqFile": 7}  # byte prefix identifying data packet type
+                                "uploadSeqFile": 7,
+                                "downloadDriverId": 8}  # byte prefix identifying data packet type
 
         self.command_dict = {self.out_prefix_dict["showDriverMessage"]: self.showDriverMessage,
                              self.out_prefix_dict["magicNumberCheck"]: self.magicNumberCheck,
@@ -141,7 +142,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                              self.out_prefix_dict["downloadSyncConfiguration"]: self.downloadSyncConfiguration,
                              self.out_prefix_dict["uploadSyncConfiguration"]: self.uploadSyncConfiguration,
                              self.out_prefix_dict["downloadSeqFile"]: self.downloadSeqFile,
-                             self.out_prefix_dict["uploadSeqFile"]: self.uploadSeqFile}  # Mapping of prefix to function that will process the command
+                             self.out_prefix_dict["uploadSeqFile"]: self.uploadSeqFile,
+                             self.out_prefix_dict["downloadDriverId"]: self.downloadDriverId}  # Mapping of prefix to function that will process the command
 
     def showDriverMessage(self, reply=None):
         if reply:
@@ -155,7 +157,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         if reply:
             reply = reply.decode()
             if str(reply) == MAGIC_RECEIVE:
-                self.downloadDriverConfiguration()
+                self.downloadDriverId()
         else:
             self.send(MAGIC_SEND)
 
@@ -198,3 +200,12 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             pass
         else:
             pass
+
+    def downloadDriverId(self, reply=None):
+        if reply:
+            reply = reply.decode()
+            menu_item = QtWidgets.QAction(reply, self.gui)
+            menu_item.setToolTip(self.getPortInfo(self.port)["Port"]) #Add port# to tool tip to distinguish drivers with identical names
+            self.gui.menu_connection.addAction(menu_item)
+        else:
+            self.send()
