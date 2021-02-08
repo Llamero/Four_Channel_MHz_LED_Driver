@@ -121,7 +121,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.command_dict[command[0]](command[1:])
                 print("Frame processed. " + str(self.dropped_frame_counter) + " dropped frames so far.")
             except KeyError:
-                print("Invalid prefix")
+                print("Invalid prefix: " + str(command[0]))
                 self.dropped_frame_counter += 1
 
     def initializeRoutingDictionaries(self):

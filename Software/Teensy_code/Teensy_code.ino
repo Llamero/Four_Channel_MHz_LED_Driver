@@ -30,7 +30,7 @@ struct configurationStruct{
 const struct deafaultConfigurationStruct{
   uint8_t prefix = 2;
   char driver_name[16] = "Unnamed driver ";
-  char led_names[4][16] = {"LED #1         ", "LED #2         ", "LED #3         ", "LED #445       "};
+  char led_names[4][16] = {"LED #1         ", "LED #2         ", "LED #3         ", "LED #4         "};
   boolean led_active[4] = {false, false, false, false}; //Whether LED channel is in use: {false, false, false, false}
   uint16_t current_limit[4] = {0,0,0,0}; //Current limit for each channel on DAC values: {0,0,0,0}
   uint8_t led_channel[4] = {1,2,3,4}; //SSR channels used for each LED: {1,2,3,4}
@@ -202,6 +202,7 @@ pinSetup pin;
 PacketSerial_<COBS, 0, 4096> usb; //Sets Encoder, framing character, buffer size
 
 void setup() {
+  EEPROM.write(0,0);
   int a;
   pinMode(LED_BUILTIN, OUTPUT);
   pin.configurePins();
@@ -236,9 +237,9 @@ void setup() {
 }
 void loop() {
   usb.update();
-  digitalWriteFast(LED_BUILTIN, HIGH);
+//  digitalWriteFast(LED_BUILTIN, HIGH);
   delay(20);
-  digitalWriteFast(LED_BUILTIN, LOW);
+//  digitalWriteFast(LED_BUILTIN, LOW);
   delay(20);
 }
 //////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM

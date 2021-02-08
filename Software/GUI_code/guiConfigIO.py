@@ -1,9 +1,17 @@
 import math
+import struct
 import tempfile
 from PyQt5 import QtGui
 from collections import OrderedDict
 import ast
 import guiSequence as seq
+
+#Thermistor properties
+PCB_THERMISTOR_NOMINAL = 4700 #Value of thermistor on PCB at nominal temp (25°C)
+PCB_B_COEFFICIENT = 3545 #Beta value for the PCB thermistor
+EXT_THERMISTOR_NOMINAL = 4700 #Value of external thermistor at nominal temp (25°C)
+EXT_B_COEFFICIENT = 3545 #Beta value for the PCB thermistor
+SERIES_RESISTOR = 4700 #Resistor value in series with thermistor on PCB board
 
 def saveConfiguration(gui, model, file=None):
     def writeLines(prefix, dictionary):
@@ -99,6 +107,8 @@ def checkCurrentLimits(gui):
         gui.config_model["LED" + str(led_number)]["Current Limit"].setToolTip("Set the current limit (in amps) for LED #1"
                                                                               " - " + str(maximum_current) + " amps maximum.")
 def bytesToConfig(byte_array, gui):
+    global EXT_THERMISTOR_NOMINAL
+    global EXT_B_COEFFICIENT
     start_index = 0
     index = 0
     while int(byte_array[index]) != 0:
@@ -110,8 +120,96 @@ def bytesToConfig(byte_array, gui):
         start_index = index
         while int(byte_array[index]) != 0:
             index += 1
-        gui.setValue(gui.config_model["LED" + str(led_number)], byte_array[start_index:index].decode())
+        gui.setValue(gui.config_model["LED" + str(led_number)]["ID"], byte_array[start_index:index].decode())
+    index += 1
+    config_values = struct.unpack("<????HHHHBBBBffff????HHHHHHHHHHBiiBBHBB", byte_array[index:]) #Parse byte array values: https://docs.python.org/3/library/struct.html#struct-alignment
+    print(config_values)
+
+    #Calculate total resistance to be able to convert current limit values
+    total_resistance = 0
+    for resistor in range (1,5):
+        resistance = config_values[resistor + 11]
+        active = config_values[resistor + 15]
+        if active:
+            total_resistance += 1/resistance
+        gui.setValue(gui.config_model["Resistor" + str(resistor)]["Value"], resistance)
+        gui.setValue(gui.config_model["Resistor" + str(resistor)]["Active"], active)
+    total_resistance = 1 / total_resistance
+
+    for led_number in range(1, 5):
+        current_limit = config_values[led_number + 3]
+        current_limit = (3.3*(current_limit/65535))/total_resistance
+
+        gui.setValue(gui.config_model["LED" + str(led_number)]["Active"], config_values[led_number - 1])
+        gui.setValue(gui.config_model["LED" + str(led_number)]["Current Limit"], current_limit)
+        channel_id = gui.getValue(gui.config_model["LED" + str(config_values[led_number + 7])]["ID"])
+        gui.setValue(gui.config_model["Channel" + str(led_number)], channel_id)
+
+    #Get external thermistor properties to convert ADC values to temperatures
+    EXT_THERMISTOR_NOMINAL = config_values[31]  # Value of external thermistor at nominal temp (25°C)
+    EXT_B_COEFFICIENT = config_values[32]  # Beta value for the PCB thermistor
+
+    for index, source in enumerate(["Transistor", "Resistor", "External"]):
+        external = False
+        if source == "External":
+            external = True
+        gui.setValue(gui.config_model["Temperature"][source]["Warn"], adcToTemp(config_values[20], external))
+        gui.setValue(gui.config_model["Temperature"][source]["Fault"], adcToTemp(config_values[23], external))
+
+    for index, source in enumerate(["Driver", "External"]):
+        external = False
+        if source == "External":
+            external = True
+        gui.setValue(gui.config_model["Fan"][source]["Min"], adcToTemp(config_values[20], external))
+        gui.setValue(gui.config_model["Fan"][source]["Max"], adcToTemp(config_values[23], external))
+
+    channel_id = gui.config_model["Fan"]["Channel"][config_values[30]].text()
+    gui.setValue(gui.config_model["Fan"]["Channel"], channel_id)
+
+    gui.setValue(gui.config_model["Audio"]["Status"], config_values[33])
+    gui.setValue(gui.config_model["Audio"]["Alarm"], config_values[34])
+
+    gui.setValue(gui.config_model["Pushbutton"]["Intensity"], round(config_values[35]/65535*100))
+    channel_id = gui.config_model["Pushbutton"]["Alarm"][config_values[36]].text()
+    gui.setValue(gui.config_model["Pushbutton"]["Alarm"], channel_id)
 
 
-    print(gui.config_model["LED" + str(led_number)])
+
+def adcToTemp(adc, external = False):
+    if external:
+        therm_nominal = EXT_THERMISTOR_NOMINAL
+        b_coefficient = EXT_B_COEFFICIENT
+    else:
+        therm_nominal = PCB_THERMISTOR_NOMINAL
+        b_coefficient = PCB_B_COEFFICIENT
+    raw = adc
+    raw = 65535 / raw - 1
+    raw = SERIES_RESISTOR / raw
+    steinhart = raw / therm_nominal
+    steinhart = math.log(steinhart)
+    steinhart /= b_coefficient
+    steinhart += 1.0 / (25 + 273.15)
+    steinhart = 1.0 / steinhart
+    steinhart -= 273.15
+    return round(steinhart)
+
+def tempToAdc(temperature, external = False):
+    if external:
+        therm_nominal = EXT_THERMISTOR_NOMINAL
+        b_coefficient = EXT_B_COEFFICIENT
+    else:
+        therm_nominal = PCB_THERMISTOR_NOMINAL
+        b_coefficient = PCB_B_COEFFICIENT
+
+    steinhart = temperature
+    steinhart += 273.15
+    steinhart = 1.0 / steinhart
+    steinhart -= 1.0 / (25 + 273.15)
+    steinhart *= b_coefficient
+    steinhart = math.exp(steinhart)
+    raw = steinhart * therm_nominal
+    raw = SERIES_RESISTOR / raw
+    raw = 65535 / (raw + 1)
+    return round(raw)
+
 
