@@ -54,6 +54,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             for port_info in port_list:
                 if self.connectSerial(port_info["Port"]):
                     self.magicNumberCheck()
+                self.disconnectSerial()
+
 
     def getPortInfo(self, port):
         return {"Vendor": QSerialPortInfo(self.port).vendorIdentifier(),
@@ -70,13 +72,22 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                     return True
                 else:
                     print("Can't open port")
+                    self.disconnectSerial()
             else:
                 print("Can't open port")
+                self.disconnectSerial()
 
         except: #Return False if unable to establish connection to serial port
             print("Failed to connect to COM port, with QSerialPort Error #" + str(self.active_port.error()))
-            self.active_port = None
+            self.disconnectSerial()
             return False
+
+    def disconnectSerial(self):
+        if self.active_port.isOpen(): #Close serial port if it is already open
+            self.active_port.clear() #Clear buffer of any remaining data
+            self.active_port.close() #close connection
+            self.active_port = None
+
 
     @QtCore.pyqtSlot()
     def receive(self):
