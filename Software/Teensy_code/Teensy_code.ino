@@ -238,9 +238,9 @@ void setup() {
 }
 void loop() {
   usb.update();
-//  digitalWriteFast(LED_BUILTIN, HIGH);
+  digitalWriteFast(LED_BUILTIN, HIGH);
   delay(20);
-//  digitalWriteFast(LED_BUILTIN, LOW);
+  digitalWriteFast(LED_BUILTIN, LOW);
   delay(20);
 }
 //////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM

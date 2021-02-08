@@ -54,8 +54,6 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             for port_info in port_list:
                 if self.connectSerial(port_info["Port"]):
                     self.magicNumberCheck()
-                self.disconnectSerial()
-
 
     def getPortInfo(self, port):
         return {"Vendor": QSerialPortInfo(self.port).vendorIdentifier(),
@@ -73,9 +71,11 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 else:
                     print("Can't open port")
                     self.disconnectSerial()
+                    return False
             else:
                 print("Can't open port")
                 self.disconnectSerial()
+                return False
 
         except: #Return False if unable to establish connection to serial port
             print("Failed to connect to COM port, with QSerialPort Error #" + str(self.active_port.error()))
@@ -91,7 +91,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
     @QtCore.pyqtSlot()
     def receive(self):
-        if self.active_port is not None:
+        if self.active_port is not None: #Should be redundant - better safe than sorry
             temp_buffer = bytearray(self.active_port.readAll().data())
             if len(temp_buffer) > 1:
                 for i, byte in enumerate(temp_buffer):
@@ -100,6 +100,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                             self.command_queue.append(cobs.decode(bytes(self.serial_buffer)))
                             self.serial_buffer = []
                             self.serialRouter()
+                            return
                         except cobs.DecodeError:
                             print("Invalid COBS packet") #########################################################  ADD MESSAGE BOX OUTPUT?
                             self.dropped_frame_counter += 1
@@ -110,6 +111,9 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             else:
                 print("Invalid single byte packet")
                 self.dropped_frame_counter += 1
+            self.active_port.waitForReadyRead(10) #if code does not return, that means a partial packet may have been received, so wait to see if more bytes are incoming
+
+
 
     @QtCore.pyqtSlot()
     def send(self, message = None):
@@ -121,8 +125,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 message = message.to_bytes(1, "big")
             packet.extend(bytearray(message))
         self.active_port.write(cobs.encode(bytes(packet)))
-        self.active_port.write(bytes(1)) #Send NULL framing byte
-
+        self.active_port.write(bytes(1))  # Send NULL framing byte
+        self.active_port.waitForBytesWritten() #Wait for data to be sent
 
     def serialRouter(self):
         if self.command_queue:
@@ -171,6 +175,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.downloadDriverId()
         else:
             self.send(MAGIC_SEND)
+            self.active_port.waitForReadyRead(100)  # Wait for reply
+
 
     def downloadDriverConfiguration(self, reply=None):
         if reply:
@@ -178,6 +184,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 ################################            self.gui.menu_connection.addAction(reply.decode()) ----Use Tooltip to save COM port, so menu list can be checked if COM port already is already in list - Have as function in GUI class
         else:
             self.send()
+            self.active_port.waitForReadyRead(100)  # Wait for reply
 
     def uploadDriverConfiguration(self, reply=None):
         if reply:
@@ -216,7 +223,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         if reply:
             reply = reply.decode()
             menu_item = QtWidgets.QAction(reply, self.gui)
-            menu_item.setToolTip(self.getPortInfo(self.port)["Port"]) #Add port# to tool tip to distinguish drivers with identical names
+            menu_item.setToolTip(self.getPortInfo(self.active_port)["Port"]) #Add port# to tool tip to distinguish drivers with identical names
             self.gui.menu_connection.addAction(menu_item)
         else:
             self.send()
+            self.active_port.waitForReadyRead(100)  # Wait for reply
