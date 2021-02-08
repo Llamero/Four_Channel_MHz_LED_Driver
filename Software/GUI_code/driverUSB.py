@@ -161,7 +161,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
     def downloadDriverConfiguration(self, reply=None):
         if reply:
-            fileIO.bytesToConfig(reply, self.gui)
+            fileIO.bytesToConfig(reply, self.gui, self.out_prefix_dict["downloadDriverConfiguration"])
 ################################            self.gui.menu_connection.addAction(reply.decode()) ----Use Tooltip to save COM port, so menu list can be checked if COM port already is already in list - Have as function in GUI class
         else:
             self.send()

@@ -106,72 +106,79 @@ def checkCurrentLimits(gui):
         gui.config_model["LED" + str(led_number)]["Current Limit"].setMaximum(maximum_current)
         gui.config_model["LED" + str(led_number)]["Current Limit"].setToolTip("Set the current limit (in amps) for LED #1"
                                                                               " - " + str(maximum_current) + " amps maximum.")
-def bytesToConfig(byte_array, gui):
+def bytesToConfig(byte_array, gui, prefix):
     global EXT_THERMISTOR_NOMINAL
     global EXT_B_COEFFICIENT
     start_index = 0
     index = 0
-    while int(byte_array[index]) != 0:
-        index += 1
-    gui.setValue(gui.config_model["Driver name"], byte_array[start_index:index].decode())
 
-    for led_number in range (1,5):
-        index += 1
-        start_index = index
+    #Verify checksum of config file
+    checksum = (sum(byte_array) + 2) & 0xFF #https://stackoverflow.com/questions/44611057/checksum-generation-from-sum-of-bits-in-python
+    if checksum == 0:
         while int(byte_array[index]) != 0:
             index += 1
-        gui.setValue(gui.config_model["LED" + str(led_number)]["ID"], byte_array[start_index:index].decode())
-    index += 1
-    config_values = struct.unpack("<????HHHHBBBBffff????HHHHHHHHHHBiiBBHBB", byte_array[index:]) #Parse byte array values: https://docs.python.org/3/library/struct.html#struct-alignment
-    print(config_values)
+        gui.setValue(gui.config_model["Driver name"], byte_array[start_index:index].decode())
 
-    #Calculate total resistance to be able to convert current limit values
-    total_resistance = 0
-    for resistor in range (1,5):
-        resistance = config_values[resistor + 11]
-        active = config_values[resistor + 15]
-        if active:
-            total_resistance += 1/resistance
-        gui.setValue(gui.config_model["Resistor" + str(resistor)]["Value"], resistance)
-        gui.setValue(gui.config_model["Resistor" + str(resistor)]["Active"], active)
-    total_resistance = 1 / total_resistance
+        for led_number in range (1,5):
+            index += 1
+            start_index = index
+            while int(byte_array[index]) != 0:
+                index += 1
+            gui.setValue(gui.config_model["LED" + str(led_number)]["ID"], byte_array[start_index:index].decode())
+        index += 1
+        config_values = struct.unpack("<????HHHHBBBBffff????HHHHHHHHHHBiiBBHBB", byte_array[index:]) #Parse byte array values: https://docs.python.org/3/library/struct.html#struct-alignment
 
-    for led_number in range(1, 5):
-        current_limit = config_values[led_number + 3]
-        current_limit = (3.3*(current_limit/65535))/total_resistance
+        #Calculate total resistance to be able to convert current limit values
+        total_resistance = 0
+        for resistor in range (1,5):
+            resistance = config_values[resistor + 11]
+            active = config_values[resistor + 15]
+            if active:
+                total_resistance += 1/resistance
+            gui.setValue(gui.config_model["Resistor" + str(resistor)]["Value"], resistance)
+            gui.setValue(gui.config_model["Resistor" + str(resistor)]["Active"], active)
+        total_resistance = 1 / total_resistance
 
-        gui.setValue(gui.config_model["LED" + str(led_number)]["Active"], config_values[led_number - 1])
-        gui.setValue(gui.config_model["LED" + str(led_number)]["Current Limit"], current_limit)
-        channel_id = gui.getValue(gui.config_model["LED" + str(config_values[led_number + 7])]["ID"])
-        gui.setValue(gui.config_model["Channel" + str(led_number)], channel_id)
+        for led_number in range(1, 5):
+            current_limit = config_values[led_number + 3]
+            current_limit = (3.3*(current_limit/65535))/total_resistance
 
-    #Get external thermistor properties to convert ADC values to temperatures
-    EXT_THERMISTOR_NOMINAL = config_values[31]  # Value of external thermistor at nominal temp (25°C)
-    EXT_B_COEFFICIENT = config_values[32]  # Beta value for the PCB thermistor
+            gui.setValue(gui.config_model["LED" + str(led_number)]["Active"], config_values[led_number - 1])
+            gui.setValue(gui.config_model["LED" + str(led_number)]["Current Limit"], current_limit)
+            channel_id = gui.getValue(gui.config_model["LED" + str(config_values[led_number + 7])]["ID"])
+            gui.setValue(gui.config_model["Channel" + str(led_number)], channel_id)
 
-    for index, source in enumerate(["Transistor", "Resistor", "External"]):
-        external = False
-        if source == "External":
-            external = True
-        gui.setValue(gui.config_model["Temperature"][source]["Warn"], adcToTemp(config_values[20], external))
-        gui.setValue(gui.config_model["Temperature"][source]["Fault"], adcToTemp(config_values[23], external))
+        #Get external thermistor properties to convert ADC values to temperatures
+        EXT_THERMISTOR_NOMINAL = config_values[31]  # Value of external thermistor at nominal temp (25°C)
+        EXT_B_COEFFICIENT = config_values[32]  # Beta value for the PCB thermistor
 
-    for index, source in enumerate(["Driver", "External"]):
-        external = False
-        if source == "External":
-            external = True
-        gui.setValue(gui.config_model["Fan"][source]["Min"], adcToTemp(config_values[20], external))
-        gui.setValue(gui.config_model["Fan"][source]["Max"], adcToTemp(config_values[23], external))
+        for index, source in enumerate(["Transistor", "Resistor", "External"]):
+            external = False
+            if source == "External":
+                external = True
+            gui.setValue(gui.config_model["Temperature"][source]["Warn"], adcToTemp(config_values[20], external))
+            gui.setValue(gui.config_model["Temperature"][source]["Fault"], adcToTemp(config_values[23], external))
 
-    channel_id = gui.config_model["Fan"]["Channel"][config_values[30]].text()
-    gui.setValue(gui.config_model["Fan"]["Channel"], channel_id)
+        for index, source in enumerate(["Driver", "External"]):
+            external = False
+            if source == "External":
+                external = True
+            gui.setValue(gui.config_model["Fan"][source]["Min"], adcToTemp(config_values[20], external))
+            gui.setValue(gui.config_model["Fan"][source]["Max"], adcToTemp(config_values[23], external))
 
-    gui.setValue(gui.config_model["Audio"]["Status"], config_values[33])
-    gui.setValue(gui.config_model["Audio"]["Alarm"], config_values[34])
+        channel_id = gui.config_model["Fan"]["Channel"][config_values[30]].text()
+        gui.setValue(gui.config_model["Fan"]["Channel"], channel_id)
 
-    gui.setValue(gui.config_model["Pushbutton"]["Intensity"], round(config_values[35]/65535*100))
-    channel_id = gui.config_model["Pushbutton"]["Alarm"][config_values[36]].text()
-    gui.setValue(gui.config_model["Pushbutton"]["Alarm"], channel_id)
+        gui.setValue(gui.config_model["Audio"]["Status"], config_values[33])
+        gui.setValue(gui.config_model["Audio"]["Alarm"], config_values[34])
+
+        gui.setValue(gui.config_model["Pushbutton"]["Intensity"], round(config_values[35]/65535*100))
+        channel_id = gui.config_model["Pushbutton"]["Alarm"][config_values[36]].text()
+        gui.setValue(gui.config_model["Pushbutton"]["Alarm"], channel_id)
+
+    else:
+        gui.message_box.setText("Error: Driver config file had invalid checksum: " + str(checksum) + ". Upload aborted.")
+        gui.message_box.exec()
 
 
 
