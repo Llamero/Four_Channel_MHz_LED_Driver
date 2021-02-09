@@ -5,23 +5,24 @@
 #define SDcard_h
 
 #include "Arduino.h"
+#include "SDcard.h"
+#include "SD.h"
+#include "TimeLib.h"
 
 class SDcard
 {
   public:
     SDcard();
-    static boolean inititializeSD();
-    static uint32_t saveToSD(char (*file_path), char *data_array, uint32_t start_index, uint32_t end_index, boolean force_write);
-    static uint32_t readFromSD(char (*file_path), char *data_array, uint32_t start_index, uint32_t end_index, boolean force_read);
-    static int warning_count;
-    const static char seq_bin_dir[];
-    const static char seq_txt_dir[];
-    const static char config_txt_dir[];
-    const static char waveform_dir[];
-    static char boot_text[10][20]; //Initialize array for storing boot information
+    static boolean initializeSD();
+    static bool saveToSD(char *data_array, uint32_t start_index, uint32_t end_index, char (*file_name), char (*file_dir) = seq_bin_dir, boolean force_write = true);
+    static boolean readFromSD(char *data_array, uint32_t start_index, uint32_t end_index, char (*file_name), char (*file_dir) = seq_bin_dir, boolean force_write = true);
+    static char message_buffer[256]; //Temporary buffer for preparing packets immediately before transmission
+    static int message_size; //Size of temporary packet to transmit
+    const static char seq_bin_dir[]; //Directory to save boot log files into - max length 8 char
     
   private:
-    static int boot_index; //current index in the boot log
+    const static int chipSelect = BUILTIN_SDCARD;
+    static void dateTime(uint16_t* date, uint16_t* time); 
     static void init();
 };
 

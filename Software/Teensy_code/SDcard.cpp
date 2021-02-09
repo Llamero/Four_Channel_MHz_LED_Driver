@@ -3,23 +3,14 @@
 #include "SD.h"
 #include "TimeLib.h"
 
-//Setup SD card
-const static int chipSelect = BUILTIN_SDCARD;
-static boolean boot_file_saved = false; //Whether the boot log has been saved to the SD card
-
-const static char SDcard::seq_bin_dir[] = "seq_bin"; //Directory to save boot log files into - max length 8 char
-const static char SDcard::seq_txt_dir[] = "seq_txt"; //Directory to save data log files into - max length 8 char
-const static char SDcard::config_txt_dir[] = "config"; //Directory to save boot log files into - max length 8 char
-const static char SDcard::waveform_dir[] = "waveform"; //Directory to save recorded LED waveforms
-static char SDcard::boot_text[10][20]; //Initialize array for storing boot information
-static int SDcard::boot_index = 0; //current index in the boot log
-static int SDcard::warning_count = 0;
-
-
 Sd2Card card;
 SdVolume volume;
 SdFile root;
 File f;
+
+static char SDcard::message_buffer[256]; //Temporary buffer for preparing packets immediately before transmission
+static int SDcard::message_size; //Size of temporary packet to transmit
+const static char SDcard::seq_bin_dir[] = "seq_bin"; //Directory to save boot log files into - max length 8 char
 
 SDcard::SDcard()
 {
@@ -40,113 +31,50 @@ static void dateTime(uint16_t* date, uint16_t* time) {
   *time = FAT_TIME(hour(unix_t), minute(unix_t), second(unix_t));
 }
 
-static boolean SDcard::inititializeSD(){
+static boolean SDcard::initializeSD(){
+  message_size = 0;
   // set date time callback function for applying RTC synced time stamps to SD card file time stamps
   SdFile::dateTimeCallback(dateTime);
 
   //Test SD card
-  if (card.init(SPI_HALF_SPEED, chipSelect)) { //Check if SD card is present
-    strcpy(boot_text[boot_index++], "SD card found       ");
+  //////////////////////CARD MISSING///////////////////////////
+  if (!card.init(SPI_HALF_SPEED, chipSelect)) { //Check if SD card is present
+    message_size = sprintf(message_buffer, "-Warning: SD card not found. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot.");
+    return false;
   }
-  else{
-//////////////////////CARD MISSING///////////////////////////    
-    strcpy(boot_text[boot_index++], "SD card not found!  ");
-    warning_count += 1;
-  }
-  
-  if (volume.init(card)) { //Check that there is a FAT32 partition
-/////////////////VALID PARTITION TYPE/////////////////////////////////////
-    int partition = volume.fatType();
-/////////////////VOLUME SIZE/////////////////////////////////////
-    float volumesize;
-    sprintf(boot_text[boot_index++], "FAT%2d volume found  ", partition);
-    volumesize = volume.blocksPerCluster();    // clusters are collections of blocks
-    volumesize *= volume.clusterCount();       // we'll have a lot of clusters
-    volumesize /= 2;
-    if(volumesize >= 1e3){ //If volume is more than 1MB in size - report size as MB
-      volumesize /= 1000;
-      if(volumesize >= 1e3){ //If volume is more than 1GB in size - report size as GB
-        volumesize /= 1000;
-        if(volumesize >= 1e3){ //If volume is more than 1TB in size - report size as TB
-          volumesize /= 1000;
-          sprintf(boot_text[boot_index++], "Size: % 8.4fTB    ", volumesize); 
-        }
-        else sprintf(boot_text[boot_index++], "Size: % 8.4fGB    ", volumesize); 
-      }
-      else sprintf(boot_text[boot_index++], "Size: % 8.4fMB    ", volumesize); 
-    }
-    else sprintf(boot_text[boot_index++], "Size: % 8.4fkB    ", volumesize);
-  }
-  else{
-/////////////////INVALID PARTITION/////////////////////////////////////
-    strcpy(boot_text[boot_index++], "No FAT16/32 volume! ");
-    warning_count += 1;
+  /////////////////INVALID PARTITION/////////////////////////////////////
+  if (!volume.init(card)) { //Check that there is a FAT32 partition
+    message_size = sprintf(message_buffer, "-Warning: SD card is not FAT32 formatted. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot..");
+    return false;
   }
 
-/////////////////CREATE DIRECTORIES IF NECESSARY/////////////////////////////////////
+  /////////////////CREATE DIRECTORIES IF NECESSARY/////////////////////////////////////
   //Create directories for saving log files and boot info
   if(!SD.exists(seq_bin_dir)){ //Don't run begin again if it has already been run - known bug in SD.h library: https://arduino.stackexchange.com/questions/3850/sd-begin-fails-second-time
     if(!SD.begin(chipSelect)){
-      strcpy(boot_text[boot_index++], "SD initialize failed");
-      warning_count += 1;
+      message_size = sprintf(message_buffer, "-Warning: SD initialization failed. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot.");
+      return;
     }
-    int a = 4;
-    while(a--){
-      char dir[8];
-      if(a==3) char dir = seq_bin_dir;
-      else if(a==2) char dir = seq_txt_dir;
-      else if(a==1) char dir = config_txt_dir;
-      else if(a==0) char dir = waveform_dir;
-      else char dir[] = {0,0,0,0,0,0,0,0};
-  
-      if(!SD.exists(dir)){ 
-        if(!SD.mkdir(dir)){
-          strcpy(boot_text[boot_index++], "SD.mkdir() failed!  ");
-          warning_count += 1;
-        }
+    if(!SD.exists(seq_bin_dir)){ 
+      if(!SD.mkdir(seq_bin_dir)){
+        message_size = sprintf(message_buffer, "-Warning: Could not access directory on SD card. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot.");
+        return false;
       }
-   }
+    }
   }
-  
-//  //Search for the most recent log file and increment log_file_count to next file ID
-//  if(SD.exists(log_dir)){
-//    for(log_file_count = 0; log_file_count < max_log_file-1; log_file_count++){
-//      sprintf(current_log_file_path, "%s/%02d%02d%02d%c%c.csv", log_dir, year(unix_t)-2000, month(unix_t), day(unix_t), (log_file_count/26)+97, (log_file_count%26)+97);     
-//      if(!SD.exists(current_log_file_path)) break;
-//    }
-//    sprintf(current_boot_file_path, "%s/%02d%02d%02d%c%c.txt", boot_dir, year(unix_t)-2000, month(unix_t), day(unix_t), (log_file_count/26)+97, (log_file_count%26)+97); 
-//  }
- 
-  //Report number of warning encountered
-  if(warning_count){
-    sprintf(boot_text[boot_index++], "% 2d Warnings on boot!", warning_count);
-  }
-  else{
-    strcpy(boot_text[boot_index++], "Success! 0 Warnings ");
-  }
-  
-  //Save current boot log
-  for(int a = 0; a<boot_index; a++){
-    boot_text[a][19] = '\n'; //Replace all nulls with new lines for *.txt formatting
-  }
-//  if(saveToSD(current_boot_file_path, (char *) boot_text, 0, boot_index*LCD_dim_x, true) != boot_index*LCD_dim_x){
-//    strcpy(boot_text[boot_index++], "Boot save FAIL!     ");
-//  }
-  for(int a = 0; a<boot_index; a++){
-    boot_text[a][19] = 0; //Replace all new lines with nulls for println() formatting
-  }
-  return bool(warning_count);
+
+  return message_size == 0;
 }
 
 //Save data to the SD card
-static uint32_t SDcard::saveToSD(char (*file_path), char *data_array, uint32_t start_index, uint32_t end_index, boolean force_write){
+static bool SDcard::saveToSD(char *data_array, uint32_t start_index, uint32_t end_index, char (*file_name), char (*file_dir) = seq_bin_dir, boolean force_write = true){
   uint32_t log_size = end_index-start_index;
-  
+  message_size = sprintf(message_buffer, "%s/%s", file_dir, file_name);
   if(force_write || log_size >= 512){ 
     if(SD.exists(seq_bin_dir)){ //Make sure that the save directories exist before trying to save to it - without this check open() will lock without SD card  
 
       //Open file
-      f = SD.open(file_path, FILE_WRITE);
+      f = SD.open(message_buffer, FILE_WRITE);
       if(f){
         while(log_size >= 512){ //Retrieve a blocks of 512 bytes
           f.write((data_array + start_index), 512);
@@ -158,24 +86,26 @@ static uint32_t SDcard::saveToSD(char (*file_path), char *data_array, uint32_t s
           start_index += log_size;                       
         }
         f.close(); //File timestamp applied on close (save)
+        message_size = 0;
       }
     }
     else{
       //////////////ACTION TO TAKE IF SD IS NO LONGER PRESENT
+      message_size = sprintf(message_buffer, "-Warning: Could not save file to SD card. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot.");
+      return;    
     }
   }
-  return start_index;
+  return bool(!message_size);
 }
 
 //Save data to the SD card
-static uint32_t SDcard::readFromSD(char (*file_path), char *data_array, uint32_t start_index, uint32_t end_index, boolean force_read){
+static boolean SDcard::readFromSD(char *data_array, uint32_t start_index, uint32_t end_index, char (*file_name), char (*file_dir) = seq_bin_dir, boolean force_read = true){
   uint32_t log_size = end_index-start_index;
-  
+  message_size = sprintf(message_buffer, "%s/%s", file_dir, file_name);
   if(force_read || log_size >= 512){ 
     if(SD.exists(seq_bin_dir)){ //Make sure that the save directories exist before trying to save to it - without this check open() will lock without SD card  
-
       //Open file
-      f = SD.open(file_path, FILE_WRITE);
+      f = SD.open(message_buffer, FILE_READ);
       if(f){
         while(log_size >= 512){ //Retrieve a blocks of 512 bytes
           f.readBytes((data_array + start_index), 512);
@@ -187,11 +117,23 @@ static uint32_t SDcard::readFromSD(char (*file_path), char *data_array, uint32_t
           start_index += log_size;                       
         }
         f.close(); //File timestamp applied on close (save)
+        message_size = 0;
       }
     }
     else{
       //////////////ACTION TO TAKE IF SD IS NO LONGER PRESENT
+      message_size = sprintf(message_buffer, "-Warning: Could not read file on SD card. Sequence file \"%s\" was not loaded.", file_name);
+      return;
     }
   }
-  return start_index;
+  return bool(!message_size);
+}
+
+// call back for file timestamps - from: https://forum.arduino.cc/index.php?topic=348562.0
+static void SDcard::dateTime(uint16_t* date, uint16_t* time) {
+ time_t unix_t = now();
+ // return date using FAT_DATE macro to format fields
+ *date = FAT_DATE(year(unix_t), month(unix_t), day(unix_t));
+ // return time using FAT_TIME macro to format fields
+ *time = FAT_TIME(hour(unix_t), minute(unix_t), second(unix_t));
 }

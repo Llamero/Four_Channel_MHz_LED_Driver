@@ -6,6 +6,8 @@ from PyQt5.QtSerialPort import QSerialPortInfo, QSerialPort
 import inspect
 from collections import OrderedDict
 import guiConfigIO as fileIO
+import time
+import struct
 import tempfile
 
 # Teensy USB serial microcontroller program id data:
@@ -55,6 +57,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             for port_info in port_list:
                 if self.connectSerial(port_info["Port"]):
                     self.magicNumberCheck()
+                    self.uploadTime()
 
     def getPortInfo(self, port):
         return {"Vendor": QSerialPortInfo(self.port).vendorIdentifier(),
@@ -161,7 +164,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                                 "uploadSyncConfiguration": 5,
                                 "downloadSeqFile": 6,
                                 "uploadSeqFile": 7,
-                                "downloadDriverId": 8}  # byte prefix identifying data packet type
+                                "downloadDriverId": 8,
+                                "uploadTime": 9}  # byte prefix identifying data packet type
 
         self.command_dict = {self.prefix_dict["showDriverMessage"]: self.showDriverMessage,
                              self.prefix_dict["magicNumberCheck"]: self.magicNumberCheck,
@@ -171,7 +175,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                              self.prefix_dict["uploadSyncConfiguration"]: self.uploadSyncConfiguration,
                              self.prefix_dict["downloadSeqFile"]: self.downloadSeqFile,
                              self.prefix_dict["uploadSeqFile"]: self.uploadSeqFile,
-                             self.prefix_dict["downloadDriverId"]: self.downloadDriverId}  # Mapping of prefix to function that will process the command
+                             self.prefix_dict["downloadDriverId"]: self.downloadDriverId,
+                             self.prefix_dict["uploadTime"]: self.uploadTime}  # Mapping of prefix to function that will process the command
 
     def showDriverMessage(self, reply=None):
         if reply:
@@ -239,3 +244,11 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         else:
             self.send()
             self.active_port.waitForReadyRead(100)  # Wait for reply
+
+    def uploadTime(self, reply=None):
+        if reply:
+            pass
+        else:
+            time_now = round(time.mktime(time.localtime()))-time.timezone
+            time_now = bytearray(struct.pack("<L", int(time_now)))
+            self.send(time_now)

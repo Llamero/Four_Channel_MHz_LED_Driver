@@ -1,6 +1,8 @@
 #include "pinSetup.h"
 #include "PacketSerial.h"
+#include "SDcard.h"
 #include <EEPROM.h>
+#include <TimeLib.h> //Set RTC time and get time strings
 
 //////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT//////////////STRUCT
 
@@ -141,6 +143,7 @@ const struct prefixStruct{
   uint8_t send_seq = 6; //Send specified seq byte file from SD card if available
   uint8_t recv_seq = 7; //Recv specified seq byte file and save on SD card if available
   uint8_t send_id = 8; //Send the driver ID only
+  uint8_t recv_time = 9; //Receive the unix time of the GUI to sync driver RTC
 } prefix;
 
 //////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION
@@ -160,11 +163,17 @@ union INTUNION
 }intUnion;
 
 //Convert between byte list and int
-union BYTEUNION
+union BYTE16UNION
 {
  uint16_t bytes_var;
  uint8_t bytes[2];
 }uint16Union;
+
+union BYTE32UNION
+{
+ uint32_t bytes_var;
+ uint8_t bytes[4];
+}uint32Union;
 
 //From: https://forum.arduino.cc/index.php?topic=263107.0
 union CONFIGUNION //Convert binary buffer <-> config setup
@@ -195,11 +204,11 @@ GenericFP function_router[256]; //create an array of 'GenericFP' function pointe
 
 char MAGIC_SEND[] = "-kvlWfsBplgasrsh3un5K"; //Magic number reply to Teensy verifying this is an LED driver 
 const static char MAGIC_RECEIVE[] = "kc1oISEIZ60AYJqH4J1P"; //Magic number received from Teensy verifying it is an LED driver "-" is for providing byte prefix in serial message
-boolean sd_available = false;
 char temp_buffer[256]; //Temporary buffer for preparing packets immediately before transmission
 int temp_size; //Size of temporary packet to transmit
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
+SDcard sd;
 PacketSerial_<COBS, 0, 4096> usb; //Sets Encoder, framing character, buffer size
 
 void setup() {
@@ -209,32 +218,16 @@ void setup() {
   usb.begin(115200);
   usb.setPacketHandler(&onPacketReceived);
   initializeConfigurations();
-  sync.s.mode = 10;
+  if(!sd.initializeSD()){
+    digitalWriteFast(LED_BUILTIN, HIGH);
+    sd.message_buffer[0] = prefix.message;
+    usb.send(sd.message_buffer, sd.message_size);
+  }
   digitalWriteFast(pin.RELAY[3], HIGH);
   digitalWriteFast(pin.INTERLINE, LOW);
   digitalWriteFast(pin.ANALOG_SELECT, LOW);
   digitalWriteFast(pin.FAN_PWM, LOW);
   analogWrite(A21, 0);
-  conf.byte_buffer[0] = 2;
-
-//  uint8_t counter;
-//  for(a=0; a<40; a++){
-//    EEPROM.get(a, counter);
-//    Serial.print(a);
-//    Serial.print(", ");
-//    Serial.println(counter);
-//  }
-
-//  int test = sizeof(conf.c);
-//  Serial.println(test);
-//  test = sizeof(sync.s);
-//  Serial.println(test);
-//  Serial.println(conf.c.driver_name);
-//  Serial.println(conf.c.led_names[2]);
-//  Serial.println(sync.s.checksum);
-//  Serial.println(sync.byte_buffer[sizeof(sync.byte_buffer)-1]);
-//  uint16_t temp = pin.tempToAdc(30, 4700, 25, 3545);
-//  Serial.println(temp);
 }
 void loop() {
   usb.update();
@@ -337,6 +330,7 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   else if(buffer_prefix == prefix.send_seq);
   else if(buffer_prefix == prefix.recv_seq);
   else if(buffer_prefix == prefix.send_id) sendDriverId();
+  else if(buffer_prefix == prefix.recv_time) syncRtcTime(buffer, size);
   else{
     temp_size = sprintf(temp_buffer, "-Error: USB packet had invalid prefix: %d", buffer_prefix);  
     temp_buffer[0] = prefix.message;
@@ -390,7 +384,19 @@ static void recvConfig(const uint8_t* buffer, size_t size){
   }
 }
 
-
+static void syncRtcTime(const uint8_t* buffer, size_t size) {
+  unsigned long pctime;
+  const unsigned long DEFAULT_TIME = 1609459200; // Jan 1 2021
+  memcpy(uint32Union.bytes, buffer+1, size);
+  if(uint32Union.bytes_var >= DEFAULT_TIME) { // check the integer is a valid time (greater than Jan 1 2013)
+    setTime(uint32Union.bytes_var); // Sync Arduino clock to the time received on the serial port
+  }
+  else{
+    temp_size = sprintf(temp_buffer, "-Warning: Epoch time %d sync is invalid. Defaulting to January, 1 2021.", uint32Union.bytes_var);  
+    temp_buffer[0] = prefix.message;
+    usb.send(temp_buffer, temp_size);
+  }
+}
 
 
 

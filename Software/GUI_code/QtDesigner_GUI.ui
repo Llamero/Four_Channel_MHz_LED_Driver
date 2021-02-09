@@ -48,7 +48,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -454,7 +454,7 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>523</width>
+                 <width>626</width>
                  <height>628</height>
                 </rect>
                </property>
@@ -883,7 +883,7 @@
                            <string>Duration (s)</string>
                           </property>
                           <property name="toolTip">
-                           <string>The duration of each step in seconds.  1 ms minimum, 49 days maximum per step.  0 = hold intensity until end of trigger.</string>
+                           <string>The duration of each step in seconds.  10 µs minimum, 1 hour maximum per step.  0 = hold intensity until end of trigger.</string>
                           </property>
                           <property name="font">
                            <font>
@@ -1269,7 +1269,7 @@
                            <string>Duration (s)</string>
                           </property>
                           <property name="toolTip">
-                           <string>The duration of each step in seconds.  1 ms minimum, 49 days maximum per step.  0 = hold intensity until end of trigger.</string>
+                           <string>The duration of each step in seconds.  10 µs minimum, 1 hour maximum per step.  0 = hold intensity until end of trigger.</string>
                           </property>
                           <property name="font">
                            <font>
@@ -1316,8 +1316,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>553</width>
-                 <height>307</height>
+                 <width>643</width>
+                 <height>448</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1736,7 +1736,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
+                 <y>-415</y>
                  <width>626</width>
                  <height>1030</height>
                 </rect>
@@ -2607,7 +2607,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                               <string>Duration (s)</string>
                              </property>
                              <property name="toolTip">
-                              <string>The duration of each step in seconds.  1 ms minimum, 49 days maximum per step.  0 = hold intensity until end of trigger.</string>
+                              <string>The duration of each step in seconds.  10 µs minimum, 1 hour maximum per step.  0 = hold intensity until end of trigger.</string>
                              </property>
                              <property name="font">
                               <font>
@@ -2988,7 +2988,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                               <string>Duration (s)</string>
                              </property>
                              <property name="toolTip">
-                              <string>The duration of each step in seconds.  1 ms minimum, 49 days maximum per step.  0 = hold intensity until end of trigger.</string>
+                              <string>The duration of each step in seconds.  10 µs minimum, 1 hour maximum per step.  0 = hold intensity until end of trigger.</string>
                              </property>
                              <property name="font">
                               <font>
@@ -3236,7 +3236,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>0</y>
+             <y>-277</y>
              <width>644</width>
              <height>1103</height>
             </rect>
