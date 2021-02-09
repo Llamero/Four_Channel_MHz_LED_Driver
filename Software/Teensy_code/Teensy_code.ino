@@ -203,7 +203,6 @@ pinSetup pin;
 PacketSerial_<COBS, 0, 4096> usb; //Sets Encoder, framing character, buffer size
 
 void setup() {
-  EEPROM.write(0,0);
   int a;
   pinMode(LED_BUILTIN, OUTPUT);
   pin.configurePins();
@@ -216,6 +215,7 @@ void setup() {
   digitalWriteFast(pin.ANALOG_SELECT, LOW);
   digitalWriteFast(pin.FAN_PWM, LOW);
   analogWrite(A21, 0);
+  conf.byte_buffer[0] = 2;
 
 //  uint8_t counter;
 //  for(a=0; a<40; a++){
@@ -331,7 +331,7 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   if(buffer_prefix == prefix.message);
   else if(buffer_prefix == prefix.connection) magicExchange(buffer, size);
   else if(buffer_prefix == prefix.send_config) usb.send(conf.byte_buffer, sizeof(conf.byte_buffer));
-  else if(buffer_prefix == prefix.recv_config);
+  else if(buffer_prefix == prefix.recv_config) recvConfig(buffer, size);
   else if(buffer_prefix == prefix.send_sync);
   else if(buffer_prefix == prefix.recv_sync);
   else if(buffer_prefix == prefix.send_seq);
@@ -368,7 +368,27 @@ static void sendDriverId(){
   usb.send(driver_id, sizeof(driver_id));
 }
 
-
+static void recvConfig(const uint8_t* buffer, size_t size){
+  uint8_t checksum = 0;
+  temp_size = 0;
+  if(size == sizeof(conf.byte_buffer)){
+    for(int a = 0; a<size; a++) checksum += buffer[a];
+    if(!checksum){
+      memcpy(conf.byte_buffer, buffer, size);
+      conf.byte_buffer[0] = prefix.send_config; //Switch prefix to sending prefix
+      conf.byte_buffer[size-1] += (prefix.recv_config - prefix.send_config); //Fix corresponding checksum
+      for(int a = 0; a<size; a++) EEPROM.update(a + sizeof(MAGIC_RECEIVE), conf.byte_buffer[a]); //Copy configuration to EEPROM
+      temp_size = sprintf(temp_buffer, "-Configuration file was successfully uploaded.");
+    }
+    else temp_size = sprintf(temp_buffer, "-Error: Check sum is non-zero: %d", checksum); 
+  }
+  else temp_size = sprintf(temp_buffer, "-Error: Config packet is wrong size. Expected %d, got %d.", sizeof(conf.byte_buffer), size);
+    
+  if(temp_size){
+    temp_buffer[0] = prefix.message;
+    usb.send(temp_buffer, temp_size);
+  }
+}
 
 
 

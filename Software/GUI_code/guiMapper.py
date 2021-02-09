@@ -202,8 +202,11 @@ def initializeEvents(gui):
         resistorCheckBoxEvents()
         resistorValueEvents()
         fanChannelEvents()
+
         gui.configure_save_button.clicked.connect(lambda: fileIO.saveConfiguration(gui, gui.config_model))
         gui.configure_load_button.clicked.connect(lambda: fileIO.loadConfiguration(gui, gui.config_model))
+        gui.configure_download_button.clicked.connect(lambda: gui.ser.downloadDriverConfiguration())
+        gui.configure_upload_button.clicked.connect(lambda: gui.ser.uploadDriverConfiguration())
 
     def syncEvents():
         nonlocal gui

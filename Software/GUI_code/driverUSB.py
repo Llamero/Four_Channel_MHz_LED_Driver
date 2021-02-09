@@ -27,7 +27,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.active_port = QSerialPort() #Active serial connection, None if no port is currently active
         self.serial_buffer = [] #Stores incoming serial stream
         self.command_queue = [] #List of parsed and cobs decoded
-        self.out_prefix_dict = {} #byte prefix identifying data packet type
+        self.prefix_dict = {} #byte prefix identifying data packet type
         self.in_prefix_dict = {}  # byte prefix identifying data packet type
         self.command_dict = {} #Mapping of prefix to function that will process the command
         self.dropped_frame_counter = 0 #Track total number of invalid frames
@@ -117,13 +117,14 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
     @QtCore.pyqtSlot()
     def send(self, message = None):
-        packet = bytearray(self.out_prefix_dict[inspect.stack()[1].function].to_bytes(1, "big")) #Add routing prefix based on name of calling function
+        packet = bytearray(self.prefix_dict[inspect.stack()[1].function].to_bytes(1, "big")) #Add routing prefix based on name of calling function
         if message:
             if isinstance(message, str):
                 message = bytearray(message.encode())
             elif isinstance(message, int):
                 message = message.to_bytes(1, "big")
             packet.extend(bytearray(message))
+        print("Tx: " + str(packet))
         self.active_port.write(cobs.encode(bytes(packet)))
         self.active_port.write(bytes(1))  # Send NULL framing byte
         self.active_port.waitForBytesWritten() #Wait for data to be sent
@@ -131,7 +132,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def serialRouter(self):
         if self.command_queue:
             command = bytearray(self.command_queue.pop(0))
-            print(command)
+            print("Rx: " + str(command))
             try:
                 self.command_dict[command[0]](command[1:])
                 print("Frame processed. " + str(self.dropped_frame_counter) + " dropped frames so far.")
@@ -140,7 +141,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.dropped_frame_counter += 1
 
     def initializeRoutingDictionaries(self):
-        self.out_prefix_dict = {"showDriverMessage": 0,
+        self.prefix_dict = {"showDriverMessage": 0,
                                 "magicNumberCheck": 1,
                                 "downloadDriverConfiguration": 2,
                                 "uploadDriverConfiguration": 3,
@@ -150,15 +151,15 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                                 "uploadSeqFile": 7,
                                 "downloadDriverId": 8}  # byte prefix identifying data packet type
 
-        self.command_dict = {self.out_prefix_dict["showDriverMessage"]: self.showDriverMessage,
-                             self.out_prefix_dict["magicNumberCheck"]: self.magicNumberCheck,
-                             self.out_prefix_dict["downloadDriverConfiguration"]: self.downloadDriverConfiguration,
-                             self.out_prefix_dict["uploadDriverConfiguration"]: self.uploadDriverConfiguration,
-                             self.out_prefix_dict["downloadSyncConfiguration"]: self.downloadSyncConfiguration,
-                             self.out_prefix_dict["uploadSyncConfiguration"]: self.uploadSyncConfiguration,
-                             self.out_prefix_dict["downloadSeqFile"]: self.downloadSeqFile,
-                             self.out_prefix_dict["uploadSeqFile"]: self.uploadSeqFile,
-                             self.out_prefix_dict["downloadDriverId"]: self.downloadDriverId}  # Mapping of prefix to function that will process the command
+        self.command_dict = {self.prefix_dict["showDriverMessage"]: self.showDriverMessage,
+                             self.prefix_dict["magicNumberCheck"]: self.magicNumberCheck,
+                             self.prefix_dict["downloadDriverConfiguration"]: self.downloadDriverConfiguration,
+                             self.prefix_dict["uploadDriverConfiguration"]: self.uploadDriverConfiguration,
+                             self.prefix_dict["downloadSyncConfiguration"]: self.downloadSyncConfiguration,
+                             self.prefix_dict["uploadSyncConfiguration"]: self.uploadSyncConfiguration,
+                             self.prefix_dict["downloadSeqFile"]: self.downloadSeqFile,
+                             self.prefix_dict["uploadSeqFile"]: self.uploadSeqFile,
+                             self.prefix_dict["downloadDriverId"]: self.downloadDriverId}  # Mapping of prefix to function that will process the command
 
     def showDriverMessage(self, reply=None):
         if reply:
@@ -177,11 +178,9 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             self.send(MAGIC_SEND)
             self.active_port.waitForReadyRead(100)  # Wait for reply
 
-
     def downloadDriverConfiguration(self, reply=None):
         if reply:
-            fileIO.bytesToConfig(reply, self.gui, self.out_prefix_dict["downloadDriverConfiguration"])
-################################            self.gui.menu_connection.addAction(reply.decode()) ----Use Tooltip to save COM port, so menu list can be checked if COM port already is already in list - Have as function in GUI class
+            fileIO.bytesToConfig(reply, self.gui, self.prefix_dict["downloadDriverConfiguration"])
         else:
             self.send()
             self.active_port.waitForReadyRead(100)  # Wait for reply
@@ -190,10 +189,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         if reply:
             pass
         else:
-            with tempfile.TemporaryFile(mode="w+", suffix=".txt", newline='') as stream:
-                fileIO.saveConfiguration(self.gui, self.gui.config_model, stream)
-                message = stream.read()
-                self.send(message)
+            self.send(fileIO.configToBytes(self.gui, self.prefix_dict["uploadDriverConfiguration"]))
 
     def downloadSyncConfiguration(self, reply=None):
         if reply:
@@ -224,7 +220,10 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             reply = reply.decode()
             menu_item = QtWidgets.QAction(reply, self.gui)
             menu_item.setToolTip(self.getPortInfo(self.active_port)["Port"]) #Add port# to tool tip to distinguish drivers with identical names
-            self.gui.menu_connection.addAction(menu_item)
+            menu_item.setCheckable(True)
+            menu_item.setChecked(False)
+            self.gui.menu_connection.addAction(menu_item) ####################################################BUILD DICTIONARY OF MENU ITEMS IN GUI CLASS#######################################################################################
+
         else:
             self.send()
             self.active_port.waitForReadyRead(100)  # Wait for reply

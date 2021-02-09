@@ -1,0 +1,42 @@
+Driver name::This is a test
+LED1::ID::LED #111
+LED1::Active::True
+LED1::Current Limit::0.1
+LED2::ID::LED #222
+LED2::Active::True
+LED2::Current Limit::0.2
+LED3::ID::LED #333
+LED3::Active::False
+LED3::Current Limit::0.3
+LED4::ID::LED #444
+LED4::Active::True
+LED4::Current Limit::0.4
+Channel1::LED #111
+Channel2::LED #222
+Channel3::LED #222
+Channel4::LED #111
+Resistor1::Value::5.0
+Resistor1::Active::True
+Resistor2::Value::10.0
+Resistor2::Active::True
+Resistor3::Value::20.0
+Resistor3::Active::False
+Resistor4::Value::30.0
+Resistor4::Active::False
+Temperature::Transistor::Warn::11
+Temperature::Transistor::Fault::22
+Temperature::Resistor::Warn::33
+Temperature::Resistor::Fault::44
+Temperature::External::Warn::99
+Temperature::External::Fault::100
+Fan::Driver::Min::55
+Fan::Driver::Max::66
+Fan::External::Min::77
+Fan::External::Max::88
+Fan::Channel::Output #1
+Thermistor::Resistance::111
+Thermistor::Beta::222
+Audio::Status::96
+Audio::Alarm::85
+Pushbutton::Intensity::75
+Pushbutton::Alarm::Flash
