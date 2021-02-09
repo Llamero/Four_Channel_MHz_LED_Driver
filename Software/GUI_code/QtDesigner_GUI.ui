@@ -48,7 +48,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -3361,6 +3361,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  <property name="specialValueText">
                   <string/>
                  </property>
+                 <property name="keyboardTracking">
+                  <bool>false</bool>
+                 </property>
                  <property name="maximum">
                   <number>150</number>
                  </property>
@@ -3396,6 +3399,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  </property>
                  <property name="specialValueText">
                   <string/>
+                 </property>
+                 <property name="keyboardTracking">
+                  <bool>false</bool>
                  </property>
                  <property name="maximum">
                   <number>150</number>
@@ -3516,6 +3522,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  <property name="specialValueText">
                   <string/>
                  </property>
+                 <property name="keyboardTracking">
+                  <bool>false</bool>
+                 </property>
                  <property name="maximum">
                   <number>150</number>
                  </property>
@@ -3531,6 +3540,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  </property>
                  <property name="specialValueText">
                   <string/>
+                 </property>
+                 <property name="keyboardTracking">
+                  <bool>false</bool>
                  </property>
                  <property name="maximum">
                   <number>150</number>
@@ -3560,6 +3572,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  <property name="specialValueText">
                   <string/>
                  </property>
+                 <property name="keyboardTracking">
+                  <bool>false</bool>
+                 </property>
                  <property name="maximum">
                   <number>150</number>
                  </property>
@@ -3576,6 +3591,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  <property name="specialValueText">
                   <string/>
                  </property>
+                 <property name="keyboardTracking">
+                  <bool>false</bool>
+                 </property>
                  <property name="maximum">
                   <number>180</number>
                  </property>
@@ -3591,6 +3609,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  </property>
                  <property name="specialValueText">
                   <string/>
+                 </property>
+                 <property name="keyboardTracking">
+                  <bool>false</bool>
                  </property>
                  <property name="maximum">
                   <number>150</number>
@@ -3617,6 +3638,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  </property>
                  <property name="specialValueText">
                   <string/>
+                 </property>
+                 <property name="keyboardTracking">
+                  <bool>false</bool>
                  </property>
                  <property name="maximum">
                   <number>180</number>
@@ -4185,6 +4209,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  <property name="specialValueText">
                   <string/>
                  </property>
+                 <property name="keyboardTracking">
+                  <bool>true</bool>
+                 </property>
                  <property name="minimum">
                   <double>0.010000000000000</double>
                  </property>
@@ -4206,6 +4233,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  </property>
                  <property name="specialValueText">
                   <string/>
+                 </property>
+                 <property name="keyboardTracking">
+                  <bool>true</bool>
                  </property>
                  <property name="minimum">
                   <double>0.010000000000000</double>
@@ -4286,6 +4316,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  <property name="specialValueText">
                   <string/>
                  </property>
+                 <property name="keyboardTracking">
+                  <bool>false</bool>
+                 </property>
                  <property name="minimum">
                   <number>1</number>
                  </property>
@@ -4304,6 +4337,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  </property>
                  <property name="specialValueText">
                   <string/>
+                 </property>
+                 <property name="keyboardTracking">
+                  <bool>false</bool>
                  </property>
                  <property name="minimum">
                   <number>1</number>
@@ -4341,6 +4377,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                  <property name="toolTip">
                   <string>This is the temperature the external component must cool back down to before the driver turns back on after a thermal fault.</string>
                  </property>
+                 <property name="keyboardTracking">
+                  <bool>false</bool>
+                 </property>
                  <property name="maximum">
                   <number>150</number>
                  </property>
@@ -4363,6 +4402,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <widget class="QSpinBox" name="configure_temperature_external_fault_box">
                  <property name="toolTip">
                   <string>If the external device exceeds this temperature the driver will automatically turn off until it cools back down.</string>
+                 </property>
+                 <property name="keyboardTracking">
+                  <bool>false</bool>
                  </property>
                  <property name="maximum">
                   <number>150</number>
@@ -4922,27 +4964,27 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="configure_ext_fan_button_group"/>
-  <buttongroup name="configure_pushbutton_LED_button_group"/>
-  <buttongroup name="sync_confocal_line_input_button_group"/>
-  <buttongroup name="configure_ch_merge_1_button_group"/>
-  <buttongroup name="configure_ch_merge_4_button_group"/>
-  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
   <buttongroup name="sync_digital_trigger_button_group"/>
   <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
-  <buttongroup name="configure_ch_merge_2_button_group"/>
-  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
-  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
-  <buttongroup name="configure_ch_merge_3_button_group"/>
-  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
-  <buttongroup name="sync_confocal_scan_mode_button_group"/>
-  <buttongroup name="sync_output_button_group"/>
-  <buttongroup name="sync_analog_led_channel_button_group"/>
   <buttongroup name="sync_analog_input_channel_button_group"/>
-  <buttongroup name="main_intensity_button_group"/>
-  <buttongroup name="main_channel_button_group"/>
-  <buttongroup name="main_toggle_control_group"/>
   <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
+  <buttongroup name="sync_confocal_line_input_button_group"/>
+  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
+  <buttongroup name="configure_pushbutton_LED_button_group"/>
+  <buttongroup name="sync_output_button_group"/>
+  <buttongroup name="sync_confocal_scan_mode_button_group"/>
+  <buttongroup name="configure_ch_merge_1_button_group"/>
+  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
+  <buttongroup name="configure_ch_merge_2_button_group"/>
+  <buttongroup name="sync_analog_led_channel_button_group"/>
+  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
   <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
+  <buttongroup name="configure_ch_merge_3_button_group"/>
+  <buttongroup name="main_channel_button_group"/>
+  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
+  <buttongroup name="main_toggle_control_group"/>
+  <buttongroup name="configure_ext_fan_button_group"/>
+  <buttongroup name="configure_ch_merge_4_button_group"/>
+  <buttongroup name="main_intensity_button_group"/>
  </buttongroups>
 </ui>

@@ -106,6 +106,18 @@ def checkCurrentLimits(gui):
         gui.config_model["LED" + str(led_number)]["Current Limit"].setMaximum(maximum_current)
         gui.config_model["LED" + str(led_number)]["Current Limit"].setToolTip("Set the current limit (in amps) for LED #1"
                                                                               " - " + str(maximum_current) + " amps maximum.")
+
+def checkTemperatures(gui, key_list):
+    if key_list[0] == "Temperature":
+        labels = ["Warn", "Fault"]
+    else:
+        labels = ["Min", "Max"]
+
+    if key_list[2] in ["Warn", "Min"]:
+        gui.config_model[key_list[0]][key_list[1]][labels[1]].setMinimum(gui.getValue(gui.config_model[key_list[0]][key_list[1]][labels[0]]) + 1)
+    else:
+        gui.config_model[key_list[0]][key_list[1]][labels[0]].setMaximum(gui.getValue(gui.config_model[key_list[0]][key_list[1]][labels[1]]) - 1)
+
 def bytesToConfig(byte_array, gui, prefix):
     global EXT_THERMISTOR_NOMINAL
     global EXT_B_COEFFICIENT

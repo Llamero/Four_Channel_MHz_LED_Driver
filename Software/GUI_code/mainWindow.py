@@ -39,7 +39,6 @@ class Ui(QtWidgets.QMainWindow):
         guiMapper.initializeEvents(self)
         fileIO.checkCurrentLimits(self)
         plot.initializeCalibrationPlot(self)
-        print(self.getValue(self.sync_model["Digital"]["Low"]["LED"]))
         self.ser = driverUSB.usbSerial(self)
         self.show()
 

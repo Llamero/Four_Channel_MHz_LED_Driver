@@ -190,6 +190,20 @@ def initializeEvents(gui):
             for resistor_number in range(1,5):
                 gui.config_model["Resistor" + str(resistor_number)]["Value"].valueChanged.connect(lambda: fileIO.checkCurrentLimits(gui))
 
+
+        def temperatureValueEvents():
+            gui.config_model["Temperature"]["Transistor"]["Warn"].valueChanged.connect(lambda: fileIO.checkTemperatures(gui, ["Temperature", "Transistor", "Warn"]))
+            gui.config_model["Temperature"]["Transistor"]["Fault"].valueChanged.connect(lambda: fileIO.checkTemperatures(gui, ["Temperature", "Transistor", "Fault"]))
+            gui.config_model["Temperature"]["Resistor"]["Warn"].valueChanged.connect(lambda: fileIO.checkTemperatures(gui, ["Temperature", "Resistor", "Warn"]))
+            gui.config_model["Temperature"]["Resistor"]["Fault"].valueChanged.connect(lambda: fileIO.checkTemperatures(gui, ["Temperature", "Resistor", "Fault"]))
+            gui.config_model["Temperature"]["External"]["Warn"].valueChanged.connect(lambda: fileIO.checkTemperatures(gui, ["Temperature", "External", "Warn"]))
+            gui.config_model["Temperature"]["External"]["Fault"].valueChanged.connect(lambda: fileIO.checkTemperatures(gui, ["Temperature", "External", "Fault"]))
+
+            gui.config_model["Fan"]["Driver"]["Min"].valueChanged.connect(lambda: fileIO.checkTemperatures(gui, ["Fan", "Driver", "Min"]))
+            gui.config_model["Fan"]["Driver"]["Max"].valueChanged.connect(lambda: fileIO.checkTemperatures(gui, ["Fan", "Driver", "Max"]))
+            gui.config_model["Fan"]["External"]["Min"].valueChanged.connect(lambda: fileIO.checkTemperatures(gui, ["Fan", "External", "Min"]))
+            gui.config_model["Fan"]["External"]["Max"].valueChanged.connect(lambda: fileIO.checkTemperatures(gui, ["Fan", "External", "Max"]))
+
         def fanChannelEvents():
             gui.config_model["Fan"]["Channel"][0].clicked.connect(lambda: gui.disableUsedOutputs(0, "config"))
             gui.config_model["Fan"]["Channel"][1].clicked.connect(lambda: gui.disableUsedOutputs(1, "config"))
@@ -201,6 +215,7 @@ def initializeEvents(gui):
         ledNameEvents()
         resistorCheckBoxEvents()
         resistorValueEvents()
+        temperatureValueEvents()
         fanChannelEvents()
 
         gui.configure_save_button.clicked.connect(lambda: fileIO.saveConfiguration(gui, gui.config_model))

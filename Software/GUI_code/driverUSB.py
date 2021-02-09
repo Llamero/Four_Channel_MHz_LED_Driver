@@ -14,6 +14,7 @@ PRODUCT_ID = 0x0483
 SERIAL_NUMBER = "MHZ_LED"
 MAGIC_SEND = "kc1oISEIZ60AYJqH4J1P" #Magic number sent to Teensy to verify that they are an LED driver
 MAGIC_RECEIVE = "kvlWfsBplgasrsh3un5K" #Magic number received from Teensy verifying it is an LED driver
+debug = True
 
 class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverflow.com/questions/55070483/connect-to-serial-from-a-pyqt-gui
     def __init__(self, gui, parent=None):
@@ -69,16 +70,19 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                     self.active_port.clear() #Clear buffer of any remaining data
                     return True
                 else:
-                    print("Can't open port")
+                    if debug:
+                        print("Can't open port")
                     self.disconnectSerial()
                     return False
             else:
-                print("Can't open port")
+                if debug:
+                    print("Can't open port")
                 self.disconnectSerial()
                 return False
 
         except: #Return False if unable to establish connection to serial port
-            print("Failed to connect to COM port, with QSerialPort Error #" + str(self.active_port.error()))
+            if debug:
+                print("Failed to connect to COM port, with QSerialPort Error #" + str(self.active_port.error()))
             self.disconnectSerial()
             return False
 
@@ -102,14 +106,18 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                             self.serialRouter()
                             return
                         except cobs.DecodeError:
-                            print("Invalid COBS packet") #########################################################  ADD MESSAGE BOX OUTPUT?
+                            self.gui.message_box.setText("Warning: Invalid COBS frame received from driver. Check connection.")
+                            self.gui.message_box.exec()
+                            if debug:
+                                print("Invalid COBS packet") #########################################################  ADD MESSAGE BOX OUTPUT?
                             self.dropped_frame_counter += 1
 
                     else:
                         self.serial_buffer.append(byte)
 
             else:
-                print("Invalid single byte packet")
+                if debug:
+                    print("Invalid single byte packet")
                 self.dropped_frame_counter += 1
             self.active_port.waitForReadyRead(10) #if code does not return, that means a partial packet may have been received, so wait to see if more bytes are incoming
 
@@ -124,7 +132,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             elif isinstance(message, int):
                 message = message.to_bytes(1, "big")
             packet.extend(bytearray(message))
-        print("Tx: " + str(packet))
+        if debug:
+            print("Tx: " + str(packet))
         self.active_port.write(cobs.encode(bytes(packet)))
         self.active_port.write(bytes(1))  # Send NULL framing byte
         self.active_port.waitForBytesWritten() #Wait for data to be sent
@@ -132,12 +141,15 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def serialRouter(self):
         if self.command_queue:
             command = bytearray(self.command_queue.pop(0))
-            print("Rx: " + str(command))
+            if debug:
+                print("Rx: " + str(command))
             try:
                 self.command_dict[command[0]](command[1:])
-                print("Frame processed. " + str(self.dropped_frame_counter) + " dropped frames so far.")
+                if debug:
+                    print("Frame processed. " + str(self.dropped_frame_counter) + " dropped frames so far.")
             except KeyError:
-                print("Invalid prefix: " + str(command[0]))
+                if debug:
+                    print("Invalid prefix: " + str(command[0]))
                 self.dropped_frame_counter += 1
 
     def initializeRoutingDictionaries(self):
