@@ -139,7 +139,7 @@ def bytesToConfig(byte_array, gui, prefix):
             gui.setValue(gui.config_model["LED" + str(led_number)]["ID"], byte_array[start_index:index].decode())
         index += 1
         config_values = struct.unpack("<????HHHHBBBBffff????HHHHHHHHHHBiiBBHBB", byte_array[index:]) #Parse byte array values: https://docs.python.org/3/library/struct.html#struct-alignment
-        print(config_values)
+
         #Calculate total resistance to be able to convert current limit values
         total_resistance = 0
         for resistor in range (1,5):

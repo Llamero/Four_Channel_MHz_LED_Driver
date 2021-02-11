@@ -9,6 +9,7 @@ import guiConfigIO as fileIO
 import time
 import struct
 import tempfile
+import sys
 
 # Teensy USB serial microcontroller program id data:
 VENDOR_ID = 0x16C0
@@ -34,8 +35,18 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.in_prefix_dict = {}  # byte prefix identifying data packet type
         self.command_dict = {} #Mapping of prefix to function that will process the command
         self.dropped_frame_counter = 0 #Track total number of invalid frames
+        self.default_action_number = len(self.gui.menu_connection.actions()) #Get number of actions in connection menu when there are no connected drivers
+        self.default_serial_number = self.gui.configure_name_driver_serial_label2.text()
+
+        #Initialize connection menu action group
+        self.conn_menu_action_group = QtWidgets.QActionGroup(self.gui.menu_connection) #Connection menu action group to have options act like radio buttons
+        self.conn_menu_action_group.setExclusive(True)
+        self.conn_menu_action_group.triggered.connect(self.onTriggered)
+        for action in self.gui.menu_connection.actions():
+            self.conn_menu_action_group.addAction(action)
+
+        #Initialize prefix routing dicts
         self.initializeRoutingDictionaries()
-        self.getDriverPort()  # Get list of Teensy COM ports
 
     #https://forum.pjrc.com/threads/25295-Automatically-find-a-Teensy-Board-with-Python-and-PySerial
     def getDriverPort(self):
@@ -55,9 +66,17 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 port_list = self.com_list_custom
 
             for port_info in port_list:
+                print(len(port_list))
                 if self.connectSerial(port_info["Port"]):
                     self.magicNumberCheck()
                     self.uploadTime()
+                    self.disconnectSerial()
+        if len(self.gui.menu_connection.actions()) > self.default_action_number:
+            self.gui.message_box.setText("Success: " + str(len(self.gui.menu_connection.actions()) - self.default_action_number) + " LED driver(s) were found.")
+            self.gui.message_box.exec()
+        else:
+            self.gui.message_box.setText("No LED drivers were found. Make sure the following:\n1) USB cables are connected properly\n2) No other program is connected to the LED driver\n3) The LED driver software has been uploaded to the Teensy board")
+            self.gui.message_box.exec()
 
     def getPortInfo(self, port):
         return {"Vendor": QSerialPortInfo(self.port).vendorIdentifier(),
@@ -74,12 +93,12 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                     return True
                 else:
                     if debug:
-                        print("Can't open port")
+                        print("Can't open port1")
                     self.disconnectSerial()
                     return False
             else:
                 if debug:
-                    print("Can't open port")
+                    print("Can't open port2")
                 self.disconnectSerial()
                 return False
 
@@ -90,10 +109,14 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             return False
 
     def disconnectSerial(self):
-        if self.active_port.isOpen(): #Close serial port if it is already open
-            self.active_port.clear() #Clear buffer of any remaining data
-            self.active_port.close() #close connection
-            self.active_port = None
+        if self.active_port is not None:
+            if self.active_port.isOpen(): #Close serial port if it is already open
+                self.active_port.clear() #Clear buffer of any remaining data
+                self.active_port.close() #close connection
+                self.active_port = None
+
+        self.gui.menu_connection_disconnect.setChecked(True)
+        self.gui.updateSerialNumber(self.default_serial_number)
 
 
     @QtCore.pyqtSlot()
@@ -124,8 +147,6 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.dropped_frame_counter += 1
             self.active_port.waitForReadyRead(10) #if code does not return, that means a partial packet may have been received, so wait to see if more bytes are incoming
 
-
-
     @QtCore.pyqtSlot()
     def send(self, message = None):
         packet = bytearray(self.prefix_dict[inspect.stack()[1].function].to_bytes(1, "big")) #Add routing prefix based on name of calling function
@@ -136,10 +157,29 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 message = message.to_bytes(1, "big")
             packet.extend(bytearray(message))
         if debug:
-            print("Tx: " + str(packet))
+            print("Func: " + str(inspect.stack()[1].function) + ", Tx: " + str(packet))
         self.active_port.write(cobs.encode(bytes(packet)))
         self.active_port.write(bytes(1))  # Send NULL framing byte
         self.active_port.waitForBytesWritten() #Wait for data to be sent
+
+    def onTriggered(self, action):
+        if str(action.objectName()) == "menu_connection_disconnect":
+            self.disconnectSerial()
+        elif str(action.objectName()) == "menu_connection_search":
+            self.getDriverPort()
+        else:
+            port = action.toolTip()
+            serial_number = action.whatsThis()
+            if self.connectSerial(port):
+                self.downloadDriverConfiguration()
+                self.gui.updateSerialNumber(serial_number)
+
+            else:
+                self.conn_menu_action_group.removeAction(action)
+                self.gui.menu_connection.removeAction(action)
+                self.gui.message_box.setText("Error: Failed to open LED driver port.  Check USB connection and confirm no other software is connected to the driver.")
+                self.gui.message_box.exec()
+
 
     def serialRouter(self):
         if self.command_queue:
@@ -237,10 +277,15 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             reply = reply.decode()
             menu_item = QtWidgets.QAction(reply, self.gui)
             menu_item.setToolTip(self.getPortInfo(self.active_port)["Port"]) #Add port# to tool tip to distinguish drivers with identical names
+            menu_item.setWhatsThis(self.getPortInfo(self.active_port)["Serial"])  # Add port# to tool tip to distinguish drivers with identical names
             menu_item.setCheckable(True)
             menu_item.setChecked(False)
-            self.gui.menu_connection.addAction(menu_item) ####################################################BUILD DICTIONARY OF MENU ITEMS IN GUI CLASS#######################################################################################
-
+            for action in self.gui.menu_connection.actions():
+                if action.toolTip() == menu_item.toolTip():
+                    break
+            else:
+                self.gui.menu_connection.insertAction(self.gui.menu_connection_disconnect, menu_item)
+                self.conn_menu_action_group.addAction(menu_item)
         else:
             self.send()
             self.active_port.waitForReadyRead(100)  # Wait for reply

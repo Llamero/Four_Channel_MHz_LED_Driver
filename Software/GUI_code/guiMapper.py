@@ -132,12 +132,14 @@ def initializeSyncModel(gui):
 def initializeEvents(gui):
     def menuEvents():
         nonlocal gui
+#        gui.menu_connection.aboutToShow.connect(lambda: gui.ser.getDriverPort()) #Search for all available LED drivers on USB ports
 
         # Dark/light mode view
         gui.menu_view_skins_dark.triggered.connect(
             lambda: gui.toggleSkin(gui.menu_view_skins_dark, gui.menu_view_skins_light, "dark"))
         gui.menu_view_skins_light.triggered.connect(
             lambda: gui.toggleSkin(gui.menu_view_skins_light, gui.menu_view_skins_dark, "light"))
+
         gui.menu_view_lock_interface.triggered.connect(lambda: gui.lockInterface(gui.menu_view_lock_interface))
 
     def mainEvents():

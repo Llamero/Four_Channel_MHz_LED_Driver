@@ -9,7 +9,6 @@ import guiConfigIO as fileIO
 import guiPlotter as plot
 import driverUSB
 
-
 class Ui(QtWidgets.QMainWindow):
     def __init__(self, app):
         self.app = app
@@ -29,17 +28,17 @@ class Ui(QtWidgets.QMainWindow):
         self.config_model = guiMapper.initializeConfigModel(self)
         self.sync_model = guiMapper.initializeSyncModel(self)
 
-        # Hide dummy widgets
+       # Hide dummy widgets
         for channel in range(1, 5):
             for button in range(4):
                 if channel <= button:
                     self.config_model["Channel" + str(channel)][button].setVisible(False)
 
         # Assign events to widgets
+        self.ser = driverUSB.usbSerial(self)
         guiMapper.initializeEvents(self)
         fileIO.checkCurrentLimits(self)
         plot.initializeCalibrationPlot(self)
-        self.ser = driverUSB.usbSerial(self)
         self.show()
 
     def getValue(self, widget):
@@ -96,6 +95,10 @@ class Ui(QtWidgets.QMainWindow):
             return False
         else:
             return True
+    def updateSerialNumber(self, serial_number):
+        self.configure_name_driver_serial_label2.setText(serial_number)
+        self.main_driver_serial_label2.setText(serial_number)
+
 
     def toggleSkin(self, enable_widget, disable_widget, mode):
         enable_widget.setChecked(True)
