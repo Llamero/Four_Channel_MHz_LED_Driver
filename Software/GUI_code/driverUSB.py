@@ -149,6 +149,9 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
     @QtCore.pyqtSlot()
     def send(self, message = None):
+        if self.active_port is None: #If driver is disconnected, then don't try to send packet
+            return
+
         packet = bytearray(self.prefix_dict[inspect.stack()[1].function].to_bytes(1, "big")) #Add routing prefix based on name of calling function
         if message:
             if isinstance(message, str):
@@ -239,8 +242,12 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         if reply:
             fileIO.bytesToConfig(reply, self.gui, self.prefix_dict["downloadDriverConfiguration"])
         else:
-            self.send()
-            self.active_port.waitForReadyRead(100)  # Wait for reply
+            if self.active_port is None:
+                self.gui.message_box.setText("Error: LED driver is disconnected.")
+                self.gui.message_box.exec()
+            else:
+                self.send()
+                self.active_port.waitForReadyRead(100)  # Wait for reply
 
     def uploadDriverConfiguration(self, reply=None):
         if reply:
@@ -252,7 +259,11 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         if reply:
             pass
         else:
-            pass
+            if self.active_port is None:
+                pass
+            else:
+                self.send()
+                self.active_port.waitForReadyRead(100)  # Wait for reply
 
     def uploadSyncConfiguration(self, reply=None):
         if reply:
@@ -264,7 +275,12 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         if reply:
             pass
         else:
-            pass
+            if self.active_port is None:
+                self.gui.message_box.setText("Error: LED driver is disconnected.")
+                self.gui.message_box.exec()
+            else:
+                self.send()
+                self.active_port.waitForReadyRead(100)  # Wait for reply
 
     def uploadSeqFile(self, reply=None):
         if reply:

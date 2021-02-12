@@ -62,8 +62,7 @@ struct syncStruct{ //158 bytes
   uint16_t digital_pwm[2]; //The PWM value in the LOW and HIGH trigger states respectively
   uint16_t digital_current[2]; //The DAC value in the LOW and HIGH trigger states respectively
   uint32_t digital_duration[2]; //The maximum number of milliseconds to hold LED state
-  char digital_sequence[2][22]; // The file paths to the corresponding sequence files on the SD card
-  
+    
   uint8_t analog_channel; //The input channel for the sync signal
   uint8_t analog_mode; //The analog sync mode
   uint8_t analog_led; //The active LED channel
@@ -83,7 +82,6 @@ struct syncStruct{ //158 bytes
   uint16_t confocal_pwm[2]; //The PWM value in the image and flyback states respectively
   uint16_t confocal_current[2]; //The DAC value in the image and flyback states respectively
   uint32_t confocal_duration[2]; //The maximum number of milliseconds to hold LED state
-  char confocal_sequence[2][22]; // The file paths to the corresponding sequence files on the SD card
 
   uint8_t checksum; //Checksum to confirm that configuration is valid
 };
@@ -124,6 +122,13 @@ const struct defaultSyncStruct{ //158 bytes
 
   uint8_t checksum = 31; //Checksum to confirm that configuration is valid
 } defaultSync;
+
+struct sequenceStruct{
+  uint8_t led_id; //LED channel
+  uint16_t led_pwm; //LED PWM (analog out units)
+  uint16_t led_current; //LED current (DAC units)
+  uint32_t led_duration; //LED duration (microseconds)
+};
 
 struct statusStruct{
   uint16_t knob; //ADC value of intensity know
@@ -206,12 +211,14 @@ char MAGIC_SEND[] = "-kvlWfsBplgasrsh3un5K"; //Magic number reply to Teensy veri
 const static char MAGIC_RECEIVE[] = "kc1oISEIZ60AYJqH4J1P"; //Magic number received from Teensy verifying it is an LED driver "-" is for providing byte prefix in serial message
 char temp_buffer[256]; //Temporary buffer for preparing packets immediately before transmission
 int temp_size; //Size of temporary packet to transmit
+volatile sequenceStruct sequence_buffer[2][10000];
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
 SDcard sd;
 PacketSerial_<COBS, 0, 4096> usb; //Sets Encoder, framing character, buffer size
 
 void setup() {
+  sequence_buffer[0][0].led_id = 0;
   int a;
   pinMode(LED_BUILTIN, OUTPUT);
   pin.configurePins();

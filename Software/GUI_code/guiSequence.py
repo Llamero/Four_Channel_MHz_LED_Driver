@@ -4,6 +4,8 @@ from PyQt5 import QtGui
 from PyQt5.QtWidgets import QMessageBox
 import guiConfigIO as FileIO
 
+maximum_rows = 10000 # Maximum number or rows allowed
+
 def loadSequence(gui, widget, path_keys, get_path=False):  # derived from - https://stackoverflow.com/questions/12608835/writing-a-qtablewidget-to-a-csv-or-xls
     if get_path:
         path = getSequencePath(gui, path_keys)
@@ -32,12 +34,19 @@ def loadSequence(gui, widget, path_keys, get_path=False):  # derived from - http
                     widget.itemChanged.disconnect() #Speed up CSV loading by preventing widget from validating every cell as data is loaded
                     for row_data in reader:
                         row = widget.rowCount()
-                        widget.insertRow(row)
-                        for column, data in enumerate(row_data):
-                            if column < len(widget_headers):
-                                item = QtGui.QTableWidgetItem(str(data))
-                                widget.setItem(row, column, item)
-                    widget.insertRow(row+1) #Add one extra row to allow for editing
+                        if row < maximum_rows:
+                            widget.insertRow(row)
+                            for column, data in enumerate(row_data):
+                                if column < len(widget_headers):
+                                    item = QtGui.QTableWidgetItem(str(data))
+                                    widget.setItem(row, column, item)
+                        else:
+                            gui.message_box.setText("The maximum number of rows is capped at " + str(maximum_rows) + ".")
+                            gui.message_box.exec()
+                            break
+
+                    if row < maximum_rows:
+                        widget.insertRow(row+1) #Add one extra row to allow for editing
                     widget.itemChanged.connect(lambda: dynamicallyCheckTable(gui, widget, path_keys)) #Reconnect the widget cell validation
 
         except FileNotFoundError:
@@ -205,7 +214,8 @@ def dynamicallyCheckTable(gui, widget, path_keys):
         if valid_row_count > 0:
             if verifySequence(gui, stream, widget):
                 if valid_row_count >= end_row-start_row:
-                    widget.insertRow(widget.rowCount())
+                    if widget.rowCount() < maximum_rows:
+                        widget.insertRow(widget.rowCount())
 
 def getSequencePath(gui, path):
     dictionary = gui.sync_model
