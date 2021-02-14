@@ -11,7 +11,7 @@ File f;
 static char SDcard::message_buffer[256]; //Temporary buffer for preparing packets immediately before transmission
 static int SDcard::message_size; //Size of temporary packet to transmit
 const static char SDcard::seq_bin_dir[] = "seq_bin"; //Directory to save boot log files into - max length 8 char
-const static char SDcard::seq_files[][13] = {"dig_high.bin", "dig_low.bin", "con_img.bin", "con_fly.bin"};
+const static char SDcard::seq_files[][13] = {"dig_low.bin", "dig_high.bin", "con_img.bin", "con_fly.bin"};
 
 SDcard::SDcard()
 {

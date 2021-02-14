@@ -179,7 +179,10 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             if debug:
                 print("Func: " + str(inspect.stack()[1].function) + ", Tx: " + str(message))
             self.active_port.write(message)
-        self.active_port.waitForBytesWritten(200) #Wait for data to be sent
+        wait_time = 200
+        if message:
+            wait_time += round(len(message) / 10)
+        self.active_port.waitForBytesWritten(wait_time) #Wait for data to be sent
 
     def streamPacket(self):
         if len(self.stream_buffer) > 64:
@@ -296,6 +299,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         else:
             for index, ref_widget in enumerate(self.seq_table_list):
                 self.uploadSeqFile(None, ref_widget)
+                return
 
 
     def downloadSeqFile(self, reply=None):
@@ -310,19 +314,24 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.active_port.waitForReadyRead(100)  # Wait for reply
 
     def uploadSeqFile(self, reply=None, widget=None):
+        message = bytearray()
         if reply is not None:
-            message = bytearray()
+            message.extend(struct.pack("B", self.prefix_dict["uploadSeqFile"]))
             message.extend(reply)
             self.stream_buffer = seq.sequenceToBytes(self.gui, self.seq_table_list[ord(reply)])
             message.extend(struct.pack("<L", len(self.stream_buffer)))
             self.send(message, False)
+            self.active_port.waitForReadyRead(500)  # Wait for reply
         else:
-            message = bytearray()
-            for index, ref_widget in enumerate(self.seq_table_list):
-                if widget == ref_widget or widget == index: #Widget could be the calling widget object or a numerical index identifier
-                    message.extend(struct.pack("B", index))
-                    self.send(message) #Send notification for single file upload
-                    self.active_port.waitForReadyRead(500)  # Wait for reply
+            if self.active_port is None:
+                self.gui.message_box.setText("Error: LED driver is disconnected.")
+                self.gui.message_box.exec()
+            else:
+                for index, ref_widget in enumerate(self.seq_table_list):
+                    if widget == ref_widget or widget == index: #Widget could be the calling widget object or a numerical index identifier
+                        message.extend(struct.pack("B", index))
+                        self.send(message)
+                        self.active_port.waitForReadyRead(500)  # Wait for reply
 
     def downloadDriverId(self, reply=None):
         if reply is not None:

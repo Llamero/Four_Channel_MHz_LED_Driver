@@ -29,13 +29,13 @@ struct configurationStruct{
   uint8_t checksum; //Checksum to confirm that configuration is valid
 };
 
-const struct deafaultConfigurationStruct{
+const struct defaultConfigurationStruct{
   uint8_t prefix = 2;
   char driver_name[16] = "Unnamed driver ";
   char led_names[4][16] = {"LED #1         ", "LED #2         ", "LED #3         ", "LED #4         "};
   boolean led_active[4] = {false, false, false, false}; //Whether LED channel is in use: {false, false, false, false}
   uint16_t current_limit[4] = {0,0,0,0}; //Current limit for each channel on DAC values: {0,0,0,0}
-  uint8_t led_channel[4] = {1,2,3,4}; //SSR channels used for each LED: {1,2,3,4}
+  uint8_t led_channel[4] = {0,1,2,3}; //SSR channels used for each LED: {1,2,3,4}
   float resistor_values[4] = {5, 10, 1000, 1000}; //Values of current sense resistors
   boolean resistor_active[4] = {true, true, false, false}; //Whether a specific resistor is used
   uint16_t warn_temp[3] = {14604, 14604, 14604}; //Warn at 60°C
@@ -48,7 +48,7 @@ const struct deafaultConfigurationStruct{
   uint8_t audio_volume[2] = {10, 100}; //Status and alarm volumes for transducer: {10, 100}
   uint16_t pushbutton_intensity = 65535; //LED intensity in PWM units
   uint8_t pushbutton_mode = 0; //LED illumination mode when alarm is active
-  uint8_t checksum = 103;
+  uint8_t checksum = 107;
 } defaultConfig;
 
 struct syncStruct{ //158 bytes
@@ -190,13 +190,13 @@ union BYTE32UNION
 union CONFIGUNION //Convert binary buffer <-> config setup
 {
    configurationStruct c;
-   byte byte_buffer[sizeof(configurationStruct)]; //152
+   byte byte_buffer[sizeof(defaultConfigurationStruct)]; //152
 } conf;
 
 union SYNCUNION //Convert binary buffer <-> sync setup
 {
    syncStruct s;
-   byte byte_buffer[sizeof(syncStruct)]; //163
+   byte byte_buffer[sizeof(defaultSyncStruct)]; //163
 } sync;
 
 union SEQUNION //Convert binary buffer <-> sync setup
@@ -230,6 +230,7 @@ SDcard sd;
 PacketSerial_<COBS, 0, 4096> usb; //Sets Encoder, framing character, buffer size
 
 void setup() {
+  //EEPROM.write(0,0); //Force default
   sequence_buffer[0][0]= 0;
   int a;
   pinMode(LED_BUILTIN, OUTPUT);
@@ -421,9 +422,9 @@ static void syncRtcTime(const uint8_t* buffer, size_t size) {
 static void recvSeq(const uint8_t* buffer, size_t size, bool single_file){
   uint32_t recv_packet_size = 0;
   uint32_t total_packet_recv = 0;
-  Serial.setTimeout(5000); //Set timeout for waiting for packet blocks
+  Serial.setTimeout(500); //Set timeout for waiting for packet blocks
   temp_buffer[0] = prefix.recv_seq;
-  if(single_file && size == sizeof(seq_header.byte_buffer)){ //Overrwite index counter "a" with requested file index if there is one
+  if(single_file && size == 2){ //Overrwite index counter "a" with requested file index if there is one
     if(buffer[1] <= 0 && buffer[1] >= 4){
       temp_size = sprintf(temp_buffer, "-Error: Stream #%d is not a valid file identifier byte.", buffer[1]);  
       goto sendMessage;
@@ -440,7 +441,7 @@ static void recvSeq(const uint8_t* buffer, size_t size, bool single_file){
     usb.send(temp_buffer, 2); //send request for sequence file
     recv_packet_size = Serial.readBytes(seq_header.byte_buffer, sizeof(seq_header.byte_buffer));
     if(recv_packet_size < sizeof(seq_header.byte_buffer)){ //Timed out while waiting for header packet
-      temp_size = sprintf(temp_buffer, "-Error: Timed out while waiting for sequence file stream #%d header packet. Only %d bytes received of %d", recv_packet_size, sizeof(seq_header.byte_buffer));  
+      temp_size = sprintf(temp_buffer, "-Error: Timed out while waiting for sequence file stream #%d header packet. Only %d bytes received of %d", a+1, recv_packet_size, sizeof(seq_header.byte_buffer));  
       goto sendMessage;
     }
     if(seq_header.s.prefix == prefix.recv_seq){ //Verify routing prefix
@@ -456,11 +457,12 @@ static void recvSeq(const uint8_t* buffer, size_t size, bool single_file){
         recv_packet_size = 0;
         total_packet_recv = 0;
         while(seq_header.s.buffer_size-total_packet_recv > 0){ //Download packet if there is something to download
+          Serial.write(0); 
           if(seq_header.s.buffer_size-total_packet_recv >= 64){
-            recv_packet_size = Serial.readBytes(*(sequence_buffer[0]+total_packet_recv), 64); //Download the seq file stream
+            recv_packet_size = Serial.readBytes(sequence_buffer[0]+total_packet_recv, 64); //Download the seq file stream
           }
           else{
-            recv_packet_size = Serial.readBytes(*(sequence_buffer[0]+total_packet_recv), (seq_header.s.buffer_size-total_packet_recv)); //Download the seq file stream
+            recv_packet_size = Serial.readBytes(sequence_buffer[0]+total_packet_recv, (seq_header.s.buffer_size-total_packet_recv)); //Download the seq file stream
           }
           total_packet_recv += recv_packet_size;
           if(recv_packet_size == 0){
