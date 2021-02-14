@@ -123,6 +123,12 @@ const struct defaultSyncStruct{ //158 bytes
   uint8_t checksum = 31; //Checksum to confirm that configuration is valid
 } defaultSync;
 
+struct sequenceHeaderStruct{
+  uint8_t prefix;
+  uint8_t file_index;
+  uint32_t buffer_size;
+};
+
 struct sequenceStruct{
   uint8_t led_id; //LED channel
   uint16_t led_pwm; //LED PWM (analog out units)
@@ -184,19 +190,25 @@ union BYTE32UNION
 union CONFIGUNION //Convert binary buffer <-> config setup
 {
    configurationStruct c;
-   byte byte_buffer[152];
+   byte byte_buffer[sizeof(configurationStruct)]; //152
 } conf;
 
 union SYNCUNION //Convert binary buffer <-> sync setup
 {
    syncStruct s;
-   byte byte_buffer[163];
+   byte byte_buffer[sizeof(syncStruct)]; //163
 } sync;
+
+union SEQUNION //Convert binary buffer <-> sync setup
+{
+   sequenceHeaderStruct s;
+   byte byte_buffer[sizeof(sequenceHeaderStruct)]; //6
+} seq_header;
 
 union STATUSUNION //Convert binary buffer <-> sync setup
 {
    statusStruct s;
-   byte byte_buffer[163];
+   byte byte_buffer[sizeof(statusStruct)]; //163
 } status;
 
 //////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF
@@ -408,16 +420,17 @@ static void syncRtcTime(const uint8_t* buffer, size_t size) {
 
 static void recvSeq(const uint8_t* buffer, size_t size, bool single_file){
   uint32_t recv_packet_size = 0;
+  uint32_t total_packet_recv = 0;
   Serial.setTimeout(5000); //Set timeout for waiting for packet blocks
   temp_buffer[0] = prefix.recv_seq;
-  if(single_file && size == 2){ //Overrwite index counter "a" with requested file index if there is one
+  if(single_file && size == sizeof(seq_header.byte_buffer)){ //Overrwite index counter "a" with requested file index if there is one
     if(buffer[1] <= 0 && buffer[1] >= 4){
       temp_size = sprintf(temp_buffer, "-Error: Stream #%d is not a valid file identifier byte.", buffer[1]);  
       goto sendMessage;
     }
   }
   else{
-    temp_size = sprintf(temp_buffer, "-Error: Invalid request size for single stream packet: %d bytes, instead of 2.", size);  
+    temp_size = sprintf(temp_buffer, "-Error: Invalid request size for single stream packet: %d bytes, instead of %d.", size, sizeof(seq_header.byte_buffer));  
     goto sendMessage;
   }
   while(Serial.available()) Serial.read();
@@ -425,56 +438,55 @@ static void recvSeq(const uint8_t* buffer, size_t size, bool single_file){
     if(single_file) a=buffer[1]; //If a file was specified only recv that file
     temp_buffer[1] = a;
     usb.send(temp_buffer, 2); //send request for sequence file
-    recv_packet_size = Serial.readBytes(temp_buffer, 1);
-    if(!recv_packet_size){ //Timed out while waiting for prefix byte
-      temp_size = sprintf(temp_buffer, "-Error: Timed out while waiting for sequence file stream #%d prefix byte.", a+1);  
+    recv_packet_size = Serial.readBytes(seq_header.byte_buffer, sizeof(seq_header.byte_buffer));
+    if(recv_packet_size < sizeof(seq_header.byte_buffer)){ //Timed out while waiting for header packet
+      temp_size = sprintf(temp_buffer, "-Error: Timed out while waiting for sequence file stream #%d header packet. Only %d bytes received of %d", recv_packet_size, sizeof(seq_header.byte_buffer));  
       goto sendMessage;
     }
-    if(temp_buffer[0] == prefix.recv_seq){ //Verify routing prefix
-      recv_packet_size = Serial.readBytes(temp_buffer, 1);
-      if(!recv_packet_size){ //Timed out while waiting for seq file identifier byte
-        temp_size = sprintf(temp_buffer, "-Error: Timed out while waiting for sequence file stream #%d file identifier byte.", a+1);  
-        goto sendMessage;
-      }
-      if(temp_buffer[0] == a){ //Correct sequence file is streaming   
-        recv_packet_size = Serial.readBytes(uint32Union.bytes, sizeof(uint32Union.bytes)); //Retrieve size of sequence file stream
-        if(recv_packet_size < sizeof(uint32Union.bytes_var)){ //Timed out while waiting for packet size uint32_t
-          temp_size = sprintf(temp_buffer, "-Error: Timed out while waiting for sequence file stream #%d.  Only %d bytes received of %d", a+1, recv_packet_size, sizeof(uint32Union.bytes_var));
+    if(seq_header.s.prefix == prefix.recv_seq){ //Verify routing prefix
+      if(seq_header.s.file_index == a){ //Correct sequence file is streaming   
+        if(seq_header.s.buffer_size % sizeof(sequenceStruct)){ //Invalid stream length (not an integer multiple of 9 bytes)
+          temp_size = sprintf(temp_buffer, "-Error: Invalid stream length, %d is not an integer multiple of %d.", seq_header.s.buffer_size, sizeof(sequenceStruct));  
           goto sendMessage;
         }
-        else if(uint32Union.bytes_var % 9){ //Invalid stream length (not an integer multiple of 9 bytes)
-          temp_size = sprintf(temp_buffer, "-Error: Invalid stream length, %d is not an integer multiple of 9.", uint32Union.bytes_var);  
+        else if(seq_header.s.buffer_size > sizeof(sequence_buffer[0])){ //Invalid stream length - stream is longer than buffer
+          temp_size = sprintf(temp_buffer, "-Error: Invalid stream length, %d is larger than than the buffer size: %d.", seq_header.s.buffer_size, sizeof(sequence_buffer[0]));  
           goto sendMessage;
         }
-        else if(uint32Union.bytes_var > sizeof(sequence_buffer[0])){ //Invalid stream length - stream is longer than buffer
-          temp_size = sprintf(temp_buffer, "-Error: Invalid stream length, %d is larger than than the buffer size: %d.", uint32Union.bytes_var, sizeof(sequence_buffer[0]));  
-          goto sendMessage;
-        }
-        else if(uint32Union.bytes_var > 0){ //Download packet if there is something to download
-          recv_packet_size = Serial.readBytes(sequence_buffer[0], int(uint32Union.bytes_var)); //Download the seq file stream
-          temp_size = sprintf(temp_buffer, "-recv: %d", recv_packet_size); 
-            goto sendMessage;
-          if(recv_packet_size == uint32Union.bytes_var){ //If full packet was received, send it to the SD card
-            if(!sd.saveToSD(sequence_buffer[0], 0, recv_packet_size-1, sd.seq_files[a])){
-              temp_size = sprintf(temp_buffer, "%s", sd.message_buffer);  
-              goto sendMessage;
-            }
-            if(single_file) return; //If a specific file was requested then exit the loop on completion
+        recv_packet_size = 0;
+        total_packet_recv = 0;
+        while(seq_header.s.buffer_size-total_packet_recv > 0){ //Download packet if there is something to download
+          if(seq_header.s.buffer_size-total_packet_recv >= 64){
+            recv_packet_size = Serial.readBytes(*(sequence_buffer[0]+total_packet_recv), 64); //Download the seq file stream
           }
-          else{ //Packet stream timed out
-            temp_size = sprintf(temp_buffer, "-Error: Timed out while waiting for sequence file stream #%d.  Only %d bytes received of %d", a+1, recv_packet_size, uint32Union.bytes_var);  
+          else{
+            recv_packet_size = Serial.readBytes(*(sequence_buffer[0]+total_packet_recv), (seq_header.s.buffer_size-total_packet_recv)); //Download the seq file stream
+          }
+          total_packet_recv += recv_packet_size;
+          if(recv_packet_size == 0){
+            temp_size = sprintf(temp_buffer, "-Error: Timed out while waiting for sequence file stream #%d. Only %d bytes received of %d", total_packet_recv, seq_header.s.buffer_size);  
             goto sendMessage;
           }
         }
-        else return; //Return if the file is null
+        if(total_packet_recv == seq_header.s.buffer_size){ //If full packet was received, send it to the SD card
+          if(!sd.saveToSD(sequence_buffer[0], 0, seq_header.s.buffer_size-1, sd.seq_files[a])){
+            temp_size = sprintf(temp_buffer, "%s", sd.message_buffer);  
+            goto sendMessage;
+          }
+          if(single_file) return; //If a specific file was requested then exit the loop on completion
+        }
+        else{ //Packet stream timed out
+          temp_size = sprintf(temp_buffer, "-Error: Invalid for sequence file size for stream #%d.  Expected %d bytes, received %d", a+1, seq_header.s.buffer_size, total_packet_recv);  
+          goto sendMessage;
+        }
       }
       else{ //Wrong sequence file is being streamed
-        temp_size = sprintf(temp_buffer, "-Error: Received sequence file #%d, while wiating for file #%d.", temp_buffer[0]+1, a+1);  
+        temp_size = sprintf(temp_buffer, "-Error: Received sequence file #%d, while waiting for file #%d.", seq_header.s.file_index+1, a+1);  
         goto sendMessage;
       }
     }
     else{ //Invalid prefix
-      temp_size = sprintf(temp_buffer, "-Error: \"%d\" is not a valid sequence packet prefix, looking for \"%d\".", temp_buffer[0], prefix.recv_seq);
+      temp_size = sprintf(temp_buffer, "-Error: \"%d\" is not a valid sequence packet prefix, looking for \"%d\".", seq_header.s.prefix, prefix.recv_seq);
       goto sendMessage;  
     }
   }

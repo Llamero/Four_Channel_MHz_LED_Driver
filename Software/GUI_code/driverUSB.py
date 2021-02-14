@@ -43,6 +43,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.conn_menu_action_group = QtWidgets.QActionGroup(self.gui.menu_connection) #Connection menu action group to have options act like radio buttons
         self.conn_menu_action_group.setExclusive(True)
         self.conn_menu_action_group.triggered.connect(self.onTriggered)
+        self.stream_buffer = None #Buffer for storing active data streams - used to send large files
         for action in self.gui.menu_connection.actions():
             self.conn_menu_action_group.addAction(action)
 
@@ -149,31 +150,45 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                         self.serial_buffer.append(byte)
 
             else:
-                if debug:
-                    print("Invalid single byte packet")
-                self.dropped_frame_counter += 1
+                if self.stream_buffer and temp_buffer[0] == 0:
+                    self.streamPacket()
+                    return
+                else:
+                    if debug:
+                        print("Invalid single byte packet")
+                    self.dropped_frame_counter += 1
             self.active_port.waitForReadyRead(10) #if code does not return, that means a partial packet may have been received, so wait to see if more bytes are incoming
 
     @QtCore.pyqtSlot()
     def send(self, message = None, cobs_encode = True):
         if self.active_port is None: #If driver is disconnected, then don't try to send packet
             return
-
-        packet = bytearray(self.prefix_dict[inspect.stack()[1].function].to_bytes(1, "big")) #Add routing prefix based on name of calling function
-        if message:
-            if isinstance(message, str):
-                message = bytearray(message.encode())
-            elif isinstance(message, int):
-                message = message.to_bytes(1, "big")
-            packet.extend(bytearray(message))
-        if debug:
-            print("Func: " + str(inspect.stack()[1].function) + ", Tx: " + str(packet[:50]))
         if cobs_encode:
+            packet = bytearray(self.prefix_dict[inspect.stack()[1].function].to_bytes(1, "big")) #Add routing prefix based on name of calling function
+            if message:
+                if isinstance(message, str):
+                    message = bytearray(message.encode())
+                elif isinstance(message, int):
+                    message = message.to_bytes(1, "big")
+                packet.extend(bytearray(message))
+            if debug:
+                print("Func: " + str(inspect.stack()[1].function) + ", Tx: " + str(packet))
             self.active_port.write(cobs.encode(bytes(packet)))
             self.active_port.write(bytes(1))  # Send NULL framing byte
         else:
-            self.active_port.write(packet)
+            if debug:
+                print("Func: " + str(inspect.stack()[1].function) + ", Tx: " + str(message))
+            self.active_port.write(message)
         self.active_port.waitForBytesWritten(200) #Wait for data to be sent
+
+    def streamPacket(self):
+        if len(self.stream_buffer) > 64:
+            self.send(self.stream_buffer[0:64], False)
+            self.stream_buffer = self.stream_buffer[64:]
+        else:
+            self.send(self.stream_buffer, False)
+            self.stream_buffer = None
+
 
     def onTriggered(self, action):
         if str(action.objectName()) == "menu_connection_disconnect":
@@ -298,10 +313,9 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         if reply is not None:
             message = bytearray()
             message.extend(reply)
-            stream = seq.sequenceToBytes(self.gui, self.seq_table_list[ord(reply)])
-            message.extend(struct.pack("<L", len(stream)))
-            message.extend(stream)
-            self.send(message, False) #Stream message without COBS encoding
+            self.stream_buffer = seq.sequenceToBytes(self.gui, self.seq_table_list[ord(reply)])
+            message.extend(struct.pack("<L", len(self.stream_buffer)))
+            self.send(message, False)
         else:
             message = bytearray()
             for index, ref_widget in enumerate(self.seq_table_list):
