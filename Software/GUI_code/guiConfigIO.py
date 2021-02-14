@@ -102,6 +102,7 @@ def checkCurrentLimits(gui):
     maximum_current = round(maximum_current, -int(math.floor(math.log10(abs(maximum_current))))+1) #Report max current to 2 significant figures - https://stackoverflow.com/questions/3410976/how-to-round-a-number-to-significant-figures-in-python
 
     gui.configure_current_limit_box.setTitle("LED Current Limit (" + str(maximum_current) + "A Max)")
+    gui.configure_current_limit_box.setWhatsThis(str(total_resistance)) #Store total resistance in whats this so other functions can retrieve it without needing to recalculate the value
     for led_number in range(1,5):
         gui.config_model["LED" + str(led_number)]["Current Limit"].setMaximum(maximum_current)
         gui.config_model["LED" + str(led_number)]["Current Limit"].setToolTip("Set the current limit (in amps) for LED #1"

@@ -11,6 +11,7 @@ File f;
 static char SDcard::message_buffer[256]; //Temporary buffer for preparing packets immediately before transmission
 static int SDcard::message_size; //Size of temporary packet to transmit
 const static char SDcard::seq_bin_dir[] = "seq_bin"; //Directory to save boot log files into - max length 8 char
+const static char SDcard::seq_files[][13] = {"dig_high.bin", "dig_low.bin", "con_img.bin", "con_fly.bin"};
 
 SDcard::SDcard()
 {
@@ -72,7 +73,6 @@ static bool SDcard::saveToSD(char *data_array, uint32_t start_index, uint32_t en
   message_size = sprintf(message_buffer, "%s/%s", file_dir, file_name);
   if(force_write || log_size >= 512){ 
     if(SD.exists(seq_bin_dir)){ //Make sure that the save directories exist before trying to save to it - without this check open() will lock without SD card  
-
       //Open file
       f = SD.open(message_buffer, FILE_WRITE);
       if(f){
@@ -92,13 +92,12 @@ static bool SDcard::saveToSD(char *data_array, uint32_t start_index, uint32_t en
     else{
       //////////////ACTION TO TAKE IF SD IS NO LONGER PRESENT
       message_size = sprintf(message_buffer, "-Warning: Could not save file to SD card. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot.");
-      return;    
     }
   }
   return bool(!message_size);
 }
 
-//Save data to the SD card
+//Read data from the SD card
 static boolean SDcard::readFromSD(char *data_array, uint32_t start_index, uint32_t end_index, char (*file_name), char (*file_dir) = seq_bin_dir, boolean force_read = true){
   uint32_t log_size = end_index-start_index;
   message_size = sprintf(message_buffer, "%s/%s", file_dir, file_name);

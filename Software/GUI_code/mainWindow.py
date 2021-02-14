@@ -39,6 +39,7 @@ class Ui(QtWidgets.QMainWindow):
         guiMapper.initializeEvents(self)
         fileIO.checkCurrentLimits(self)
         plot.initializeCalibrationPlot(self)
+        self.ser.getDriverPort(True)
         self.show()
 
     def getValue(self, widget):
@@ -205,7 +206,8 @@ class Ui(QtWidgets.QMainWindow):
     def updateActiveLED(self, led_number):
         plot.setCalibrationScale(self)
 
-
+    def verifyCell(self, item):
+        seq.verifyCell(self, item.column(), item.row(), item.text(), item.tableWidget())
 
 
 

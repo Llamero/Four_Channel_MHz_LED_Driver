@@ -8,6 +8,7 @@ from collections import OrderedDict
 import guiConfigIO as fileIO
 import time
 import struct
+import guiSequence as seq
 import tempfile
 import sys
 
@@ -37,7 +38,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.dropped_frame_counter = 0 #Track total number of invalid frames
         self.default_action_number = len(self.gui.menu_connection.actions()) #Get number of actions in connection menu when there are no connected drivers
         self.default_serial_number = self.gui.configure_name_driver_serial_label2.text()
-
+        self.seq_table_list = [self.gui.sync_digital_low_sequence_table, self.gui.sync_digital_high_sequence_table, self.gui.sync_confocal_image_sequence_table, self.gui.sync_confocal_flyback_sequence_table] #List of sequence table widgets
         #Initialize connection menu action group
         self.conn_menu_action_group = QtWidgets.QActionGroup(self.gui.menu_connection) #Connection menu action group to have options act like radio buttons
         self.conn_menu_action_group.setExclusive(True)
@@ -49,7 +50,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.initializeRoutingDictionaries()
 
     #https://forum.pjrc.com/threads/25295-Automatically-find-a-Teensy-Board-with-Python-and-PySerial
-    def getDriverPort(self):
+    def getDriverPort(self, on_boot = False):
         for self.port in list(QSerialPortInfo.availablePorts()):
             port_info = self.getPortInfo(self.port)
             if port_info["Vendor"] == VENDOR_ID and port_info["Product"] == PRODUCT_ID: #Search for COM ports that have correct vendor and product IDs
@@ -66,17 +67,21 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 port_list = self.com_list_custom
 
             for port_info in port_list:
-                print(len(port_list))
                 if self.connectSerial(port_info["Port"]):
                     self.magicNumberCheck()
                     self.uploadTime()
                     self.disconnectSerial()
-        if len(self.gui.menu_connection.actions()) > self.default_action_number:
-            self.gui.message_box.setText("Success: " + str(len(self.gui.menu_connection.actions()) - self.default_action_number) + " LED driver(s) were found.")
-            self.gui.message_box.exec()
-        else:
-            self.gui.message_box.setText("No LED drivers were found. Make sure the following:\n1) USB cables are connected properly\n2) No other program is connected to the LED driver\n3) The LED driver software has been uploaded to the Teensy board")
-            self.gui.message_box.exec()
+        if on_boot: #On boot, automatically connect to the first driver in the menu
+            action = self.gui.menu_connection.actions()[0]
+            action.setChecked(True)
+            self.onTriggered(action)
+        else: #If check was performed through menu, inform of result
+            if len(self.gui.menu_connection.actions()) > self.default_action_number:
+                self.gui.message_box.setText("Success: " + str(len(self.gui.menu_connection.actions()) - self.default_action_number) + " LED driver(s) were found.")
+                self.gui.message_box.exec()
+            else:
+                self.gui.message_box.setText("No LED drivers were found. Make sure the following:\n1) USB cables are connected properly\n2) No other program is connected to the LED driver\n3) The LED driver software has been uploaded to the Teensy board")
+                self.gui.message_box.exec()
 
     def getPortInfo(self, port):
         return {"Vendor": QSerialPortInfo(self.port).vendorIdentifier(),
@@ -136,6 +141,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                             self.gui.message_box.exec()
                             if debug:
                                 print("Invalid COBS packet") #########################################################  ADD MESSAGE BOX OUTPUT?
+                                print(temp_buffer[:i])
+                            self.serial_buffer = []
                             self.dropped_frame_counter += 1
 
                     else:
@@ -148,7 +155,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             self.active_port.waitForReadyRead(10) #if code does not return, that means a partial packet may have been received, so wait to see if more bytes are incoming
 
     @QtCore.pyqtSlot()
-    def send(self, message = None):
+    def send(self, message = None, cobs_encode = True):
         if self.active_port is None: #If driver is disconnected, then don't try to send packet
             return
 
@@ -160,10 +167,13 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 message = message.to_bytes(1, "big")
             packet.extend(bytearray(message))
         if debug:
-            print("Func: " + str(inspect.stack()[1].function) + ", Tx: " + str(packet))
-        self.active_port.write(cobs.encode(bytes(packet)))
-        self.active_port.write(bytes(1))  # Send NULL framing byte
-        self.active_port.waitForBytesWritten() #Wait for data to be sent
+            print("Func: " + str(inspect.stack()[1].function) + ", Tx: " + str(packet[:50]))
+        if cobs_encode:
+            self.active_port.write(cobs.encode(bytes(packet)))
+            self.active_port.write(bytes(1))  # Send NULL framing byte
+        else:
+            self.active_port.write(packet)
+        self.active_port.waitForBytesWritten(200) #Wait for data to be sent
 
     def onTriggered(self, action):
         if str(action.objectName()) == "menu_connection_disconnect":
@@ -222,7 +232,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                              self.prefix_dict["uploadTime"]: self.uploadTime}  # Mapping of prefix to function that will process the command
 
     def showDriverMessage(self, reply=None):
-        if reply:
+        if reply is not None:
             reply = reply.decode()
             self.gui.message_box.setText(reply)
             self.gui.message_box.exec()
@@ -230,7 +240,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             pass
 
     def magicNumberCheck(self, reply=None):
-        if reply:
+        if reply is not None:
             reply = reply.decode()
             if str(reply) == MAGIC_RECEIVE:
                 self.downloadDriverId()
@@ -239,7 +249,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             self.active_port.waitForReadyRead(100)  # Wait for reply
 
     def downloadDriverConfiguration(self, reply=None):
-        if reply:
+        if reply is not None:
             fileIO.bytesToConfig(reply, self.gui, self.prefix_dict["downloadDriverConfiguration"])
         else:
             if self.active_port is None:
@@ -250,13 +260,13 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.active_port.waitForReadyRead(100)  # Wait for reply
 
     def uploadDriverConfiguration(self, reply=None):
-        if reply:
+        if reply is not None:
             pass
         else:
             self.send(fileIO.configToBytes(self.gui, self.prefix_dict["uploadDriverConfiguration"]))
 
     def downloadSyncConfiguration(self, reply=None):
-        if reply:
+        if reply is not None:
             pass
         else:
             if self.active_port is None:
@@ -266,13 +276,15 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.active_port.waitForReadyRead(100)  # Wait for reply
 
     def uploadSyncConfiguration(self, reply=None):
-        if reply:
+        if reply is not None:
             pass
         else:
-            pass
+            for index, ref_widget in enumerate(self.seq_table_list):
+                self.uploadSeqFile(None, ref_widget)
+
 
     def downloadSeqFile(self, reply=None):
-        if reply:
+        if reply is not None:
             pass
         else:
             if self.active_port is None:
@@ -282,14 +294,24 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.send()
                 self.active_port.waitForReadyRead(100)  # Wait for reply
 
-    def uploadSeqFile(self, reply=None):
-        if reply:
-            pass
+    def uploadSeqFile(self, reply=None, widget=None):
+        if reply is not None:
+            message = bytearray()
+            message.extend(reply)
+            stream = seq.sequenceToBytes(self.gui, self.seq_table_list[ord(reply)])
+            message.extend(struct.pack("<L", len(stream)))
+            message.extend(stream)
+            self.send(message, False) #Stream message without COBS encoding
         else:
-            pass
+            message = bytearray()
+            for index, ref_widget in enumerate(self.seq_table_list):
+                if widget == ref_widget or widget == index: #Widget could be the calling widget object or a numerical index identifier
+                    message.extend(struct.pack("B", index))
+                    self.send(message) #Send notification for single file upload
+                    self.active_port.waitForReadyRead(500)  # Wait for reply
 
     def downloadDriverId(self, reply=None):
-        if reply:
+        if reply is not None:
             reply = reply.decode()
             menu_item = QtWidgets.QAction(reply, self.gui)
             menu_item.setToolTip(self.getPortInfo(self.active_port)["Port"]) #Add port# to tool tip to distinguish drivers with identical names
@@ -307,7 +329,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             self.active_port.waitForReadyRead(100)  # Wait for reply
 
     def uploadTime(self, reply=None):
-        if reply:
+        if reply is not None:
             pass
         else:
             time_now = round(time.mktime(time.localtime()))-time.timezone

@@ -19,6 +19,7 @@ class SDcard
     static char message_buffer[256]; //Temporary buffer for preparing packets immediately before transmission
     static int message_size; //Size of temporary packet to transmit
     const static char seq_bin_dir[]; //Directory to save boot log files into - max length 8 char
+    const static char seq_files[][13]; //file names foro the four sequence files - max length 8 char name + 4 char ext
     
   private:
     const static int chipSelect = BUILTIN_SDCARD;

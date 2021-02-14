@@ -249,14 +249,10 @@ def initializeEvents(gui):
                 lambda: seq.loadSequence(gui, gui.sync_confocal_flyback_sequence_table, ["Confocal", "Flyback", "Sequence"]))
 
             # Changes to sequence table
-            gui.sync_digital_low_sequence_table.itemChanged.connect(
-                lambda: seq.dynamicallyCheckTable(gui, gui.sync_digital_low_sequence_table, ["Digital", "Low", "Sequence"]))
-            gui.sync_digital_high_sequence_table.itemChanged.connect(
-                lambda: seq.dynamicallyCheckTable(gui, gui.sync_digital_high_sequence_table, ["Digital", "High", "Sequence"]))
-            gui.sync_confocal_image_sequence_table.itemChanged.connect(
-                lambda: seq.dynamicallyCheckTable(gui, gui.sync_confocal_image_sequence_table, ["Confocal", "Image", "Sequence"]))
-            gui.sync_confocal_flyback_sequence_table.itemChanged.connect(
-                lambda: seq.dynamicallyCheckTable(gui, gui.sync_confocal_flyback_sequence_table, ["Confocal", "Flyback", "Sequence"]))
+            gui.sync_digital_low_sequence_table.itemChanged.connect(gui.verifyCell)
+            gui.sync_digital_high_sequence_table.itemChanged.connect(gui.verifyCell)
+            gui.sync_confocal_image_sequence_table.itemChanged.connect(gui.verifyCell)
+            gui.sync_confocal_flyback_sequence_table.itemChanged.connect(gui.verifyCell)
 
         def outputChannelEvents():
             gui.sync_model["Output"][0].clicked.connect(lambda: gui.disableUsedOutputs(0, "sync"))
@@ -266,8 +262,11 @@ def initializeEvents(gui):
 
         gui.sync_analog_output_tab.currentChanged.connect(lambda: gui.toggleAnalogChannel(gui.sync_analog_output_tab))
         gui.sync_confocal_scan_unidirectional_button.toggled.connect(lambda: gui.toggleScanMode())
+        gui.sync_download_button.clicked.connect(lambda: gui.ser.downloadSyncConfiguration())
+        gui.sync_upload_button.clicked.connect(lambda: gui.ser.uploadSyncConfiguration())
         gui.sync_save_button.clicked.connect(lambda: seq.findUnsavedSeqThenSave(gui, gui.sync_model))
         gui.sync_load_button.clicked.connect(lambda: fileIO.loadConfiguration(gui, gui.sync_model))
+
 
         sequenceEvents()
         outputChannelEvents()
