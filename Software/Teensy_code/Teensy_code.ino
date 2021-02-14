@@ -456,19 +456,13 @@ static void recvSeq(const uint8_t* buffer, size_t size, bool single_file){
         }
         recv_packet_size = 0;
         total_packet_recv = 0;
-        while(seq_header.s.buffer_size-total_packet_recv > 0){ //Download packet if there is something to download
-          Serial.write(0); 
-          if(seq_header.s.buffer_size-total_packet_recv >= 64){
-            recv_packet_size = Serial.readBytes(sequence_buffer[0]+total_packet_recv, 64); //Download the seq file stream
-          }
-          else{
-            recv_packet_size = Serial.readBytes(sequence_buffer[0]+total_packet_recv, (seq_header.s.buffer_size-total_packet_recv)); //Download the seq file stream
-          }
-          total_packet_recv += recv_packet_size;
-          if(recv_packet_size == 0){
-            temp_size = sprintf(temp_buffer, "-Error: Timed out while waiting for sequence file stream #%d. Only %d bytes received of %d", total_packet_recv, seq_header.s.buffer_size);  
-            goto sendMessage;
-          }
+        Serial.setTimeout(int(seq_header.s.buffer_size >> 3)+100);
+        Serial.write(0); 
+        recv_packet_size = Serial.readBytes(sequence_buffer[0], seq_header.s.buffer_size);
+        total_packet_recv += recv_packet_size;
+        if(recv_packet_size == 0){
+          temp_size = sprintf(temp_buffer, "-Error: Timed out while waiting for sequence file stream #%d. Only %d bytes received of %d", total_packet_recv, seq_header.s.buffer_size);  
+          goto sendMessage;
         }
         if(total_packet_recv == seq_header.s.buffer_size){ //If full packet was received, send it to the SD card
           if(!sd.saveToSD(sequence_buffer[0], 0, seq_header.s.buffer_size-1, sd.seq_files[a])){

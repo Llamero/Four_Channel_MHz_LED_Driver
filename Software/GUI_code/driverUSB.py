@@ -177,7 +177,9 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             self.active_port.write(bytes(1))  # Send NULL framing byte
         else:
             if debug:
-                print("Func: " + str(inspect.stack()[1].function) + ", Tx: " + str(message))
+                print("Func: " + str(inspect.stack()[1].function) + ", Tx: " + str(message[:50]))
+                if len(message) > 50:
+                    print("↑ Total tx packet length: " + str(len(message)))
             self.active_port.write(message)
         wait_time = 200
         if message:
@@ -185,13 +187,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.active_port.waitForBytesWritten(wait_time) #Wait for data to be sent
 
     def streamPacket(self):
-        if len(self.stream_buffer) > 64:
-            self.send(self.stream_buffer[0:64], False)
-            self.stream_buffer = self.stream_buffer[64:]
-        else:
-            self.send(self.stream_buffer, False)
-            self.stream_buffer = None
-
+        self.send(self.stream_buffer, False)
 
     def onTriggered(self, action):
         if str(action.objectName()) == "menu_connection_disconnect":

@@ -74,7 +74,7 @@ static bool SDcard::saveToSD(char *data_array, uint32_t start_index, uint32_t en
   if(force_write || log_size >= 512){ 
     if(SD.exists(seq_bin_dir)){ //Make sure that the save directories exist before trying to save to it - without this check open() will lock without SD card  
       //Open file
-      f = SD.open(message_buffer, FILE_WRITE);
+      f = SD.open(message_buffer, O_WRONLY | O_CREAT | O_TRUNC); //Overwrite existing file https://forum.arduino.cc/index.php?topic=357554.0
       if(f){
         while(log_size >= 512){ //Retrieve a blocks of 512 bytes
           f.write((data_array + start_index), 512);
@@ -85,14 +85,13 @@ static bool SDcard::saveToSD(char *data_array, uint32_t start_index, uint32_t en
           f.write((data_array + start_index), log_size);
           start_index += log_size;                       
         }
-        f.close(); //File timestamp applied on close (save)
-        message_size = 0;
       }
     }
     else{
-      //////////////ACTION TO TAKE IF SD IS NO LONGER PRESENT
       message_size = sprintf(message_buffer, "-Warning: Could not save file to SD card. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot.");
     }
+    f.close(); //File timestamp applied on close (save)
+    message_size = 0;
   }
   return bool(!message_size);
 }
