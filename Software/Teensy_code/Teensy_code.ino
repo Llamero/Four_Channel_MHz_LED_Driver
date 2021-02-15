@@ -423,7 +423,6 @@ static void syncRtcTime(const uint8_t* buffer, size_t size) {
 
 static void recvSeq(const uint8_t* buffer, size_t size, bool single_file){
   uint32_t recv_packet_size = 0;
-  uint32_t total_packet_recv = 0;
   Serial.setTimeout(500); //Set timeout for waiting for packet blocks
   temp_buffer[0] = prefix.recv_seq;
   if(single_file && size == 2){ //Overrwite index counter "a" with requested file index if there is one
@@ -457,18 +456,15 @@ static void recvSeq(const uint8_t* buffer, size_t size, bool single_file){
           goto sendMessage;
         }
         recv_packet_size = 0;
-        total_packet_recv = 0;
-        Serial.setTimeout(int(seq_header.s.buffer_size >> 3)+100);
-        temp_buffer[0] = prefix.recv_stream;
-        temp_buffer[1] = a;
-        usb.send(temp_buffer, 2); //send request for sequence file 
-        recv_packet_size = Serial.readBytes(sequence_buffer[0], seq_header.s.buffer_size);
-        total_packet_recv += recv_packet_size;
-        if(recv_packet_size == 0){
-          temp_size = sprintf(temp_buffer, "-Error: Timed out while waiting for sequence file stream #%d. Only %d bytes received of %d", total_packet_recv, seq_header.s.buffer_size);  
-          goto sendMessage;
+        if(seq_header.s.buffer_size > 0){ //Only request stream if there is a stream to recv
+          Serial.setTimeout(int(seq_header.s.buffer_size >> 3)+100);
+          temp_buffer[0] = prefix.recv_stream;
+          temp_buffer[1] = a;
+          usb.send(temp_buffer, 2); //send request for sequence file 
+          recv_packet_size = Serial.readBytes(sequence_buffer[0], seq_header.s.buffer_size);
         }
-        if(total_packet_recv == seq_header.s.buffer_size){ //If full packet was received, send it to the SD card
+        
+        if(recv_packet_size == seq_header.s.buffer_size){ //If full packet was received, send it to the SD card
           if(!sd.saveToSD(sequence_buffer[0], 0, seq_header.s.buffer_size-1, sd.seq_files[a])){
             temp_size = sprintf(temp_buffer, "%s", sd.message_buffer);  
             goto sendMessage;
@@ -476,7 +472,7 @@ static void recvSeq(const uint8_t* buffer, size_t size, bool single_file){
           if(single_file) return; //If a specific file was requested then exit the loop on completion
         }
         else{ //Packet stream timed out
-          temp_size = sprintf(temp_buffer, "-Error: Invalid for sequence file size for stream #%d.  Expected %d bytes, received %d", a+1, seq_header.s.buffer_size, total_packet_recv);  
+          temp_size = sprintf(temp_buffer, "-Error: Invalid for sequence file size for stream #%d.  Expected %d bytes, received %d", a+1, seq_header.s.buffer_size, recv_packet_size);  
           goto sendMessage;
         }
       }

@@ -258,7 +258,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.downloadDriverId()
         else:
             self.send(MAGIC_SEND)
-            self.active_port.waitForReadyRead(100)  # Wait for reply
+            self.active_port.waitForReadyRead(500)  # Wait for reply
 
     def downloadDriverConfiguration(self, reply=None):
         if reply is not None:

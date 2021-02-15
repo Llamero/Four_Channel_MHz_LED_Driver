@@ -69,7 +69,9 @@ static boolean SDcard::initializeSD(){
 
 //Save data to the SD card
 static bool SDcard::saveToSD(char *data_array, uint32_t start_index, uint32_t end_index, char (*file_name), char (*file_dir) = seq_bin_dir, boolean force_write = true){
-  uint32_t log_size = end_index-start_index;
+  uint32_t log_size = 0;
+  if(end_index > start_index && end_index != -1) log_size = end_index-start_index; //If buffer is not empty calcualte log size
+  
   message_size = sprintf(message_buffer, "%s/%s", file_dir, file_name);
   if(force_write || log_size >= 512){ 
     if(SD.exists(seq_bin_dir)){ //Make sure that the save directories exist before trying to save to it - without this check open() will lock without SD card  
@@ -81,17 +83,18 @@ static bool SDcard::saveToSD(char *data_array, uint32_t start_index, uint32_t en
           start_index += 512;
           log_size = end_index-start_index; //Update remaining log size
         }
-        if(force_write){ //Print remainder of data buffer if force_write is enabled
+        if(force_write && log_size > 0){ //Print remainder of data buffer if force_write is enabled
           f.write((data_array + start_index), log_size);
           start_index += log_size;                       
         }
+        
+        f.close(); //File timestamp applied on close (save)
+        message_size = 0;
       }
     }
     else{
       message_size = sprintf(message_buffer, "-Warning: Could not save file to SD card. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot.");
     }
-    f.close(); //File timestamp applied on close (save)
-    message_size = 0;
   }
   return bool(!message_size);
 }
