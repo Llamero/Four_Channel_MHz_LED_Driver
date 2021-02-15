@@ -74,7 +74,7 @@ static bool SDcard::saveToSD(char *data_array, uint32_t start_index, uint32_t en
   if(force_write || log_size >= 512){ 
     if(SD.exists(seq_bin_dir)){ //Make sure that the save directories exist before trying to save to it - without this check open() will lock without SD card  
       //Open file
-      f = SD.open(message_buffer, O_WRONLY | O_CREAT | O_TRUNC); //Overwrite existing file https://forum.arduino.cc/index.php?topic=357554.0
+      f = SD.open(message_buffer, O_WRONLY | O_CREAT | O_TRUNC); //Overwrite existing file if exists https://pubs.opengroup.org/onlinepubs/7908799/xsh/open.html
       if(f){
         while(log_size >= 512){ //Retrieve a blocks of 512 bytes
           f.write((data_array + start_index), 512);

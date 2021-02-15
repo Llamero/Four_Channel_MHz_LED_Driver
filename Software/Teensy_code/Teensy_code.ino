@@ -155,6 +155,7 @@ const struct prefixStruct{
   uint8_t recv_seq = 7; //Recv specified seq byte file and save on SD card if available
   uint8_t send_id = 8; //Send the driver ID only
   uint8_t recv_time = 9; //Receive the unix time of the GUI to sync driver RTC
+  uint8_t recv_stream = 10; //Signal the driver is ready to receive stream that is queued
 } prefix;
 
 //////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION
@@ -352,6 +353,7 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   else if(buffer_prefix == prefix.recv_seq) recvSeq(buffer, size, true); //If serial notification of upload, it will be a single file
   else if(buffer_prefix == prefix.send_id) sendDriverId();
   else if(buffer_prefix == prefix.recv_time) syncRtcTime(buffer, size);
+  else if(buffer_prefix == prefix.recv_stream);
   else{
     temp_size = sprintf(temp_buffer, "-Error: USB packet had invalid prefix: %d", buffer_prefix);  
     temp_buffer[0] = prefix.message;
@@ -457,7 +459,9 @@ static void recvSeq(const uint8_t* buffer, size_t size, bool single_file){
         recv_packet_size = 0;
         total_packet_recv = 0;
         Serial.setTimeout(int(seq_header.s.buffer_size >> 3)+100);
-        Serial.write(0); 
+        temp_buffer[0] = prefix.recv_stream;
+        temp_buffer[1] = a;
+        usb.send(temp_buffer, 2); //send request for sequence file 
         recv_packet_size = Serial.readBytes(sequence_buffer[0], seq_header.s.buffer_size);
         total_packet_recv += recv_packet_size;
         if(recv_packet_size == 0){

@@ -150,13 +150,9 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                         self.serial_buffer.append(byte)
 
             else:
-                if self.stream_buffer and temp_buffer[0] == 0:
-                    self.streamPacket()
-                    return
-                else:
-                    if debug:
-                        print("Invalid single byte packet")
-                    self.dropped_frame_counter += 1
+                if debug:
+                    print("Invalid single byte packet")
+                self.dropped_frame_counter += 1
             self.active_port.waitForReadyRead(10) #if code does not return, that means a partial packet may have been received, so wait to see if more bytes are incoming
 
     @QtCore.pyqtSlot()
@@ -186,7 +182,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             wait_time += round(len(message) / 10)
         self.active_port.waitForBytesWritten(wait_time) #Wait for data to be sent
 
-    def streamPacket(self):
+    def uploadStream(self, message):
         self.send(self.stream_buffer, False)
 
     def onTriggered(self, action):
@@ -232,7 +228,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                                 "downloadSeqFile": 6,
                                 "uploadSeqFile": 7,
                                 "downloadDriverId": 8,
-                                "uploadTime": 9}  # byte prefix identifying data packet type
+                                "uploadTime": 9,
+                                "uploadStream": 10}  # byte prefix identifying data packet type
 
         self.command_dict = {self.prefix_dict["showDriverMessage"]: self.showDriverMessage,
                              self.prefix_dict["magicNumberCheck"]: self.magicNumberCheck,
@@ -243,7 +240,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                              self.prefix_dict["downloadSeqFile"]: self.downloadSeqFile,
                              self.prefix_dict["uploadSeqFile"]: self.uploadSeqFile,
                              self.prefix_dict["downloadDriverId"]: self.downloadDriverId,
-                             self.prefix_dict["uploadTime"]: self.uploadTime}  # Mapping of prefix to function that will process the command
+                             self.prefix_dict["uploadTime"]: self.uploadTime,
+                             self.prefix_dict["uploadStream"]: self.uploadStream}  # Mapping of prefix to function that will process the command
 
     def showDriverMessage(self, reply=None):
         if reply is not None:
