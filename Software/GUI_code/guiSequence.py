@@ -257,7 +257,7 @@ def sequenceToBytes(gui, widget):
             for index, row_data in enumerate(csv.reader(stream)):
                 if index > 0: #Don't send headers to LED driver
                     converted_row[0] = int(row_data[0])
-                    converted_row[1] = round(float(row_data[1])*65535/100) #Convert percent to ADC value
+                    converted_row[1] = round((float(row_data[1])*65535)/100) #Convert percent to ADC value
                     converted_row[3] = round(float(row_data[3])*1e6) #convert seconds to microseconds
                     led_current = (float(row_data[2])/100)*gui.getValue(gui.config_model["LED" + str(converted_row[0])]["Current Limit"])
                     led_voltage = led_current*total_resistance

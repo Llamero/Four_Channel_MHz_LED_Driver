@@ -291,6 +291,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         if reply is not None:
             pass
         else:
+            message = fileIO.syncToBytes(self.gui, self.prefix_dict["uploadSyncConfiguration"])
+            return
             for index, ref_widget in enumerate(self.seq_table_list):
                 self.uploadSeqFile(None, ref_widget)
                 return

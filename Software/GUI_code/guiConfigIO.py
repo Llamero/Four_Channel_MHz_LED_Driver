@@ -12,6 +12,7 @@ PCB_B_COEFFICIENT = 3545 #Beta value for the PCB thermistor
 EXT_THERMISTOR_NOMINAL = 4700 #Value of external thermistor at nominal temp (25°C)
 EXT_B_COEFFICIENT = 3545 #Beta value for the PCB thermistor
 SERIES_RESISTOR = 4700 #Resistor value in series with thermistor on PCB board
+DEFAULT_CLOCK_SPEED = 180 #Clock speed of the Teensy in MHz - used to convert confocal delay times to clock cycles for sub-microsecond precision
 
 def saveConfiguration(gui, model, file=None):
     def writeLines(prefix, dictionary):
@@ -261,6 +262,86 @@ def configToBytes(gui, prefix):
 
     byte_array.extend(struct.pack("<????HHHHBBBBffff????HHHHHHHHHHBiiBBHB", *config_values))
 
+    checksum = (sum(byte_array) + prefix) & 0xFF  # https://stackoverflow.com/questions/44611057/checksum-generation-from-sum-of-bits-in-python
+    checksum = 256 - checksum
+    byte_array.append(checksum)
+    return byte_array
+
+def syncToBytes(gui, prefix):
+    sync_values = [None]* 38
+    byte_array = bytearray() #Initialize empty byte array
+
+    def widgetIndex(widget_list):
+        for w_index, n_widget in enumerate(widget_list):
+            if gui.getValue(n_widget):
+                return w_index
+        else:
+            gui.message_box.setText("Error: Widget index not found!")
+            return None
+
+    #Calculate total resistance for current conversions
+    total_resistance = 0.0
+    for resistor in range(1, 5):
+        if gui.getValue(gui.config_model["Resistor" + str(resistor)]["Active"]):
+            total_resistance += 1 / gui.getValue(gui.config_model["Resistor" + str(resistor)]["Value"])
+    total_resistance = 1 / total_resistance
+
+    #Digital
+    sync_values[0] = prefix
+    sync_values[1] = widgetIndex(gui.sync_model["Output"])
+    sync_values[2] = widgetIndex(gui.sync_model["Digital"]["Channel"])
+    current_limit = [0]*2
+    for index3, key3 in enumerate(["Mode", "LED", "PWM", "Current", "Duration"]):
+        for index2, key2 in enumerate(["Low", "High"]):
+            if key3 == "Mode":
+                sync_values[(2 * index3) + index2 + 3] = gui.sync_model["Digital"][key2][key3].currentIndex()
+            if key3 == "LED":
+                sync_values[(2 * index3) + index2 + 3] = widgetIndex(gui.sync_model["Digital"][key2][key3])
+                current_limit[index2] = gui.getValue(gui.config_model["LED" + str(sync_values[(2 * index3) + index2 + 3]+1)]["Current Limit"])
+            elif key3 == "PWM":
+                sync_values[(2 * index3) + index2 + 3] = round((gui.getValue(gui.sync_model["Digital"][key2][key3])/100)*65535)
+            elif key3 == "Current":
+                sync_values[(2 * index3) + index2 + 3] = round((((gui.getValue(gui.sync_model["Digital"][key2][key3])/100)*current_limit[index2] * total_resistance) / 3.3) * 65535)  # Convert current limit to ADC reading (voltage)
+            elif key3 == "Duration":
+                sync_values[(2 * index3) + index2 + 3] = round(gui.getValue(gui.sync_model["Digital"][key2][key3])*1e6)  # Convert duration to microseconds
+
+    #Analog
+    for index2, key2 in enumerate(["LED", "Channel"]):
+        sync_values[13+index2] = widgetIndex(gui.sync_model["Analog"][key2])
+        if key2 == "LED":
+            current_limit[0] = gui.getValue(gui.config_model["LED" + str(sync_values[13+index2] + 1)]["Current Limit"])
+    sync_values[15] = gui.sync_model["Analog"]["Mode"].currentIndex()
+    sync_values[16] = gui.getValue(gui.sync_model["Analog"]["PWM"])
+    sync_values[17] = gui.getValue(gui.sync_model["Analog"]["Current"])
+
+    #Confocal
+    for index2, key2 in enumerate(["Shutter", "Channel", "Line", "Digital"]):
+        if key2 == "Line":
+            sync_values[18 + index2] = gui.sync_model["Confocal"][key2].currentIndex()
+        else:
+            sync_values[18+index2] = widgetIndex(gui.sync_model["Confocal"][key2])
+    sync_values[22] = round(gui.getValue(gui.sync_model["Confocal"]["Threshold"])/3.3*65535)
+    sync_values[23] = widgetIndex(gui.sync_model["Confocal"]["Polarity"])
+    sync_values[24] = widgetIndex(gui.sync_model["Confocal"]["Delay"]["Mode"])
+    for index3 in range(1,4):
+        sync_values[24+index3] = round(gui.getValue(gui.sync_model["Confocal"]["Delay"][str(index3)])*DEFAULT_CLOCK_SPEED) #Convert the delay times to clock cycles at default Teensy speed
+    for index3, key3 in enumerate(["Mode", "LED", "PWM", "Current", "Duration"]):
+        for index2, key2 in enumerate(["Image", "Flyback"]):
+            if key3 == "Mode":
+                sync_values[(2 * index3) + index2 + 28] = gui.sync_model["Confocal"][key2][key3].currentIndex()
+            if key3 == "LED":
+                sync_values[(2 * index3) + index2 + 28] = widgetIndex(gui.sync_model["Confocal"][key2][key3])
+                current_limit[index2] = gui.getValue(gui.config_model["LED" + str(sync_values[(2 * index3) + index2 + 3]+1)]["Current Limit"])
+            elif key3 == "PWM":
+                sync_values[(2 * index3) + index2 + 28]  = round((gui.getValue(gui.sync_model["Confocal"][key2][key3]) / 100) * sync_values[24+index3]) #Convert to clock-cycles, where 100% = # of clock cycles in delay #2
+            elif key3 == "Current":
+                sync_values[(2 * index3) + index2 + 28] = round((((gui.getValue(gui.sync_model["Confocal"][key2][key3])/100)*current_limit[index2] * total_resistance) / 3.3) * 65535)  # Convert current to ADC reading (voltage) as percent of current limit
+            elif key3 == "Duration":
+                sync_values[(2 * index3) + index2 + 28] = round(gui.getValue(gui.sync_model["Confocal"][key2][key3])*1e6)
+
+    print(sync_values)
+    byte_array.extend(struct.pack("<BBBBBBBHHHHLLBBBBH?B???H?LLLBBBBHHHHLL", *sync_values))
+    print(byte_array)
     checksum = (sum(byte_array) + prefix) & 0xFF  # https://stackoverflow.com/questions/44611057/checksum-generation-from-sum-of-bits-in-python
     checksum = 256 - checksum
     byte_array.append(checksum)
