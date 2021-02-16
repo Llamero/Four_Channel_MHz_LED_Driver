@@ -71,8 +71,7 @@ static boolean SDcard::initializeSD(){
 static bool SDcard::saveToSD(char *data_array, uint32_t start_index, uint32_t end_index, char (*file_name), char (*file_dir) = seq_bin_dir, boolean force_write = true){
   uint32_t log_size = 0;
   if(end_index > start_index && end_index != -1) log_size = end_index-start_index; //If buffer is not empty calcualte log size
-  
-  message_size = sprintf(message_buffer, "%s/%s", file_dir, file_name);
+
   if(force_write || log_size >= 512){ 
     if(SD.exists(seq_bin_dir)){ //Make sure that the save directories exist before trying to save to it - without this check open() will lock without SD card  
       //Open file
@@ -91,23 +90,26 @@ static bool SDcard::saveToSD(char *data_array, uint32_t start_index, uint32_t en
         f.close(); //File timestamp applied on close (save)
         message_size = 0;
       }
+      else message_size = sprintf(message_buffer, "-Warning: Could not save file to SD card. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot.");
     }
-    else{
-      message_size = sprintf(message_buffer, "-Warning: Could not save file to SD card. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot.");
-    }
+    else message_size = sprintf(message_buffer, "-Warning: Could not find SD card. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot.");
   }
   return bool(!message_size);
 }
 
 //Read data from the SD card
 static boolean SDcard::readFromSD(char *data_array, uint32_t start_index, uint32_t end_index, char (*file_name), char (*file_dir) = seq_bin_dir, boolean force_read = true){
-  uint32_t log_size = end_index-start_index;
-  message_size = sprintf(message_buffer, "%s/%s", file_dir, file_name);
+  uint32_t log_size = 0;
+  file_size = 0;
+  if(end_index > start_index && end_index != -1) log_size = end_index-start_index; //If buffer is not empty calcualte log size
+
   if(force_read || log_size >= 512){ 
     if(SD.exists(seq_bin_dir)){ //Make sure that the save directories exist before trying to save to it - without this check open() will lock without SD card  
       //Open file
       f = SD.open(message_buffer, FILE_READ);
       if(f){
+        if(log_size == 0) log_size = f.size(); //Get the size of the file being read if one wasn't specified
+        file_size = log_size; 
         while(log_size >= 512){ //Retrieve a blocks of 512 bytes
           f.readBytes((data_array + start_index), 512);
           start_index += 512;
@@ -120,12 +122,9 @@ static boolean SDcard::readFromSD(char *data_array, uint32_t start_index, uint32
         f.close(); //File timestamp applied on close (save)
         message_size = 0;
       }
+      else message_size = sprintf(message_buffer, "-Warning: Could not read file on SD card. Sequence file \"%s\" was not loaded.", file_name);
     }
-    else{
-      //////////////ACTION TO TAKE IF SD IS NO LONGER PRESENT
-      message_size = sprintf(message_buffer, "-Warning: Could not read file on SD card. Sequence file \"%s\" was not loaded.", file_name);
-      return;
-    }
+    else message_size = sprintf(message_buffer, "-Warning: Could not find SD card. Please check SD card and restart Teensy.");
   }
   return bool(!message_size);
 }

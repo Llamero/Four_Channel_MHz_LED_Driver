@@ -62,13 +62,13 @@ struct syncStruct{ //158 bytes
   uint16_t digital_pwm[2]; //The PWM value in the LOW and HIGH trigger states respectively
   uint16_t digital_current[2]; //The DAC value in the LOW and HIGH trigger states respectively
   uint32_t digital_duration[2]; //The maximum number of milliseconds to hold LED state
-    
+  
   uint8_t analog_channel; //The input channel for the sync signal
   uint8_t analog_mode; //The analog sync mode
   uint8_t analog_led; //The active LED channel
   uint8_t analog_pwm; //ADC averages per PWM update
   uint16_t analog_current; //ADC averages per DAC update
-
+  
   boolean shutter_polarity; //Shutter polarity when scan is active
   uint8_t confocal_channel; //The input channel for the line sync signal
   boolean confocal_sync_mode; //Whether the line sync is digital (true) or analog (false)
@@ -76,13 +76,13 @@ struct syncStruct{ //158 bytes
   uint16_t confocal_threshold; //Threshold for analog sync trigger
   boolean confocal_scan_mode; //Whether scan is unidirectional (true) or bidrectional (false)
   uint32_t confocal_delay[3]; //Delay in clock cycles for each sync delay
-  
+ 
   uint8_t confocal_mode[2]; //The digital sync mode  in the image and flyback states respectively
   uint8_t confocal_led[2]; //The active LED channel in the image and flyback states respectively
-  uint16_t confocal_pwm[2]; //The PWM value in the image and flyback states respectively
+  uint32_t confocal_pwm[2]; //The PWM value in the image and flyback states respectively
   uint16_t confocal_current[2]; //The DAC value in the image and flyback states respectively
   uint32_t confocal_duration[2]; //The maximum number of milliseconds to hold LED state
-
+  
   uint8_t checksum; //Checksum to confirm that configuration is valid
 };
 
@@ -97,7 +97,6 @@ const struct defaultSyncStruct{ //158 bytes
   uint16_t digital_pwm[2] = {0,0}; //The PWM value in the LOW and HIGH trigger states respectively
   uint16_t digital_current[2] = {0,0}; //The DAC value in the LOW and HIGH trigger states respectively
   uint32_t digital_duration[2] = {0,0}; //The maximum number of milliseconds to hold LED state
-  char digital_sequence[2][22] = {"", ""}; // The file paths to the corresponding sequence files on the SD card
   
   uint8_t analog_channel = 0; //The input channel for the sync signal
   uint8_t analog_mode = 0; //The analog sync mode
@@ -118,7 +117,6 @@ const struct defaultSyncStruct{ //158 bytes
   uint32_t confocal_pwm[2] = {0,0}; //The PWM value (in clock cycles) in the image and flyback states respectively
   uint16_t confocal_current[2] = {0,0}; //The DAC value in the image and flyback states respectively
   uint32_t confocal_duration[2] = {0,0}; //The maximum number of milliseconds to hold LED state
-  char confocal_sequence[2][22] = {"", ""}; // The file paths to the corresponding sequence files on the SD card
 
   uint8_t checksum = 31; //Checksum to confirm that configuration is valid
 } defaultSync;
@@ -156,6 +154,7 @@ const struct prefixStruct{
   uint8_t send_id = 8; //Send the driver ID only
   uint8_t recv_time = 9; //Receive the unix time of the GUI to sync driver RTC
   uint8_t recv_stream = 10; //Signal the driver is ready to receive stream that is queued
+  uint8_t send_stream = 11; //If recv - signals that ready for next packet
 } prefix;
 
 //////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION
@@ -225,6 +224,9 @@ const static char MAGIC_RECEIVE[] = "kc1oISEIZ60AYJqH4J1P"; //Magic number recei
 char temp_buffer[256]; //Temporary buffer for preparing packets immediately before transmission
 int temp_size; //Size of temporary packet to transmit
 volatile byte sequence_buffer[2][11000*sizeof(sequenceStruct)];
+byte *send_stream_pointer; //Pointer to array that is currently being sent
+uint32_t send_stream_index; //Current index position of stream that is being sent
+
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
 SDcard sd;
@@ -348,12 +350,13 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   else if(buffer_prefix == prefix.send_config) usb.send(conf.byte_buffer, sizeof(conf.byte_buffer));
   else if(buffer_prefix == prefix.recv_config) recvConfig(buffer, size);
   else if(buffer_prefix == prefix.send_sync);
-  else if(buffer_prefix == prefix.recv_sync);
+  else if(buffer_prefix == prefix.recv_sync) recvSync(buffer, size);
   else if(buffer_prefix == prefix.send_seq);
   else if(buffer_prefix == prefix.recv_seq) recvSeq(buffer, size, true); //If serial notification of upload, it will be a single file
   else if(buffer_prefix == prefix.send_id) sendDriverId();
   else if(buffer_prefix == prefix.recv_time) syncRtcTime(buffer, size);
   else if(buffer_prefix == prefix.recv_stream);
+  else if(buffer_prefix == prefix.send_stream);
   else{
     temp_size = sprintf(temp_buffer, "-Error: USB packet had invalid prefix: %d", buffer_prefix);  
     temp_buffer[0] = prefix.message;
@@ -407,6 +410,29 @@ static void recvConfig(const uint8_t* buffer, size_t size){
   }
 }
 
+static void recvSync(const uint8_t* buffer, size_t size){
+  uint8_t checksum = 0;
+  temp_size = 0;
+  uint16_t expected_size = sizeof(sync.byte_buffer);// - sizeof(sync.s.digital_sequence) - sizeof(sync.s.confocal_sequence);
+  if(size == expected_size){
+    for(int a = 0; a<size; a++) checksum += buffer[a];
+    if(!checksum){
+      memcpy(sync.byte_buffer, buffer, size);
+      sync.byte_buffer[0] = prefix.send_sync; //Switch prefix to sending prefix
+      sync.byte_buffer[size-1] += (prefix.recv_sync - prefix.send_sync); //Fix corresponding checksum
+      for(int a = 0; a<size; a++) EEPROM.update(a + sizeof(MAGIC_RECEIVE) + sizeof(conf.byte_buffer), sync.byte_buffer[a]); //Copy sync to EEPROM
+      if(recvSeq(buffer, size, false)) temp_size = sprintf(temp_buffer, "-Sync and sequence files were successfully uploaded.");
+      else temp_size = sprintf(temp_buffer, "-Only sync file was successfully uploaded.");
+    }
+    else temp_size = sprintf(temp_buffer, "-Error: Check sum is non-zero: %d", checksum); 
+  }
+  else temp_size = sprintf(temp_buffer, "-Error: Sync packet is wrong size. Expected %d, got %d.", sizeof(sync.byte_buffer), size);  
+  if(temp_size){
+    temp_buffer[0] = prefix.message;
+    usb.send(temp_buffer, temp_size);
+  }
+}
+
 static void syncRtcTime(const uint8_t* buffer, size_t size) {
   unsigned long pctime;
   const unsigned long DEFAULT_TIME = 1609459200; // Jan 1 2021
@@ -421,23 +447,25 @@ static void syncRtcTime(const uint8_t* buffer, size_t size) {
   }
 }
 
-static void recvSeq(const uint8_t* buffer, size_t size, bool single_file){
+static bool recvSeq(const uint8_t* buffer, size_t size, bool single_file){
   uint32_t recv_packet_size = 0;
   Serial.setTimeout(500); //Set timeout for waiting for packet blocks
-  temp_buffer[0] = prefix.recv_seq;
-  if(single_file && size == 2){ //Overrwite index counter "a" with requested file index if there is one
-    if(buffer[1] <= 0 && buffer[1] >= 4){
-      temp_size = sprintf(temp_buffer, "-Error: Stream #%d is not a valid file identifier byte.", buffer[1]);  
+  if(single_file){
+    if(size == 2){ //Overrwite index counter "a" with requested file index if there is one
+      if(buffer[1] <= 0 && buffer[1] >= 4){
+        temp_size = sprintf(temp_buffer, "-Error: Stream #%d is not a valid file identifier byte.", buffer[1]);  
+        goto sendMessage;
+      }
+    }
+    else{
+      temp_size = sprintf(temp_buffer, "-Error: Invalid request size for single stream packet: %d bytes, instead of %d.", size, sizeof(seq_header.byte_buffer));  
       goto sendMessage;
     }
   }
-  else{
-    temp_size = sprintf(temp_buffer, "-Error: Invalid request size for single stream packet: %d bytes, instead of %d.", size, sizeof(seq_header.byte_buffer));  
-    goto sendMessage;
-  }
   while(Serial.available()) Serial.read();
-  for(int a = 0; a<3; a++){
+  for(int a = 0; a<4; a++){
     if(single_file) a=buffer[1]; //If a file was specified only recv that file
+    temp_buffer[0] = prefix.recv_seq;
     temp_buffer[1] = a;
     usb.send(temp_buffer, 2); //send request for sequence file
     recv_packet_size = Serial.readBytes(seq_header.byte_buffer, sizeof(seq_header.byte_buffer));
@@ -486,10 +514,11 @@ static void recvSeq(const uint8_t* buffer, size_t size, bool single_file){
       goto sendMessage;  
     }
   }
-  return;
+  return true;
   sendMessage:
     temp_buffer[0] = prefix.message;
     usb.send(temp_buffer, temp_size);
+    return false;
 }
 
 

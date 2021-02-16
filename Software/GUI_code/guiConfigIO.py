@@ -339,9 +339,7 @@ def syncToBytes(gui, prefix):
             elif key3 == "Duration":
                 sync_values[(2 * index3) + index2 + 28] = round(gui.getValue(gui.sync_model["Confocal"][key2][key3])*1e6)
 
-    print(sync_values)
-    byte_array.extend(struct.pack("<BBBBBBBHHHHLLBBBBH?B???H?LLLBBBBHHHHLL", *sync_values))
-    print(byte_array)
+    byte_array.extend(struct.pack("<BBBBBBBHHHHLLBBBBH?B???H?LLLBBBBLLHHLL", *sync_values))
     checksum = (sum(byte_array) + prefix) & 0xFF  # https://stackoverflow.com/questions/44611057/checksum-generation-from-sum-of-bits-in-python
     checksum = 256 - checksum
     byte_array.append(checksum)

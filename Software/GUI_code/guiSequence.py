@@ -16,7 +16,7 @@ def loadSequence(gui, widget, path_keys, get_path=False):  # derived from - http
     if not path:
         path = QtGui.QFileDialog.getOpenFileName(gui, 'Open File', '', 'CSV(*.csv)')[0] #If no path is specified, ask for valid path
 
-    if path: #If no path is specified, load file
+    if path: #If path is specified, load file
         try: #Try to open file at path
             # Count number of rows in CSV file
             with open(str(path), 'rU') as stream: #Verify that the seq table is valid
@@ -234,8 +234,7 @@ def sequenceToBytes(gui, widget):
     byte_array = bytearray()
     widget_header_obj = [widget.horizontalHeaderItem(c) for c in range(widget.columnCount())]
     widget_headers = [x.text() for x in widget_header_obj if x is not None]
-    with tempfile.TemporaryFile(mode="w+", suffix=".csv",
-                                newline='') as stream:  # "newline=''" removes extra newline from windows - https://stackoverflow.com/questions/3191528/csv-in-python-adding-an-extra-carriage-return-on-windows
+    with tempfile.TemporaryFile(mode="w+", suffix=".csv", newline='') as stream:  # "newline=''" removes extra newline from windows - https://stackoverflow.com/questions/3191528/csv-in-python-adding-an-extra-carriage-return-on-windows
         writer = csv.writer(stream)
         writer.writerow(widget_headers)
         for row in range(widget.rowCount()):
@@ -268,3 +267,16 @@ def sequenceToBytes(gui, widget):
 
         else:
             return None
+
+def bytesToSequence(byte_array, gui, widget, path_keys):
+    widget_header_obj = [widget.horizontalHeaderItem(c) for c in range(widget.columnCount())]
+    widget_headers = [x.text() for x in widget_header_obj if x is not None]
+    if len(byte_array % 9) == 0:
+        row_list = [struct.unpack("<BHHI", byte_array[i:i+9]) for i in range(0, len(byte_array), 9)] #Unpack byte_array to list of row data - https://stackoverflow.com/questions/6614891/turning-a-list-into-nested-lists-in-python
+        with tempfile.TemporaryFile(mode="w+", suffix=".csv", newline='') as stream:  # "newline=''" removes extra newline from windows - https://stackoverflow.com/questions/3191528/csv-in-python-adding-an-extra-carriage-return-on-windows
+            writer = csv.writer(stream)
+            writer.writerow(widget_headers) #Add header to temp file
+            for row_data in row_list:
+                writer.writerow(row_data) #Write rows to temp file
+
+            print(tempfile.gettempdir())

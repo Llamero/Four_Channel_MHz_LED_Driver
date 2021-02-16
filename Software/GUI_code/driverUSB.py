@@ -43,7 +43,9 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.conn_menu_action_group = QtWidgets.QActionGroup(self.gui.menu_connection) #Connection menu action group to have options act like radio buttons
         self.conn_menu_action_group.setExclusive(True)
         self.conn_menu_action_group.triggered.connect(self.onTriggered)
-        self.stream_buffer = None #Buffer for storing active data streams - used to send large files
+        self.upload_stream_buffer = [] #Buffer for storing active data upload streams - used to send large files
+        self.download_stream_buffer = [] #Buffer for storing active data download streams - used to receive large files
+        self.download_stream_active = False #Whether the download stream is active or has aborted/completed
         for action in self.gui.menu_connection.actions():
             self.conn_menu_action_group.addAction(action)
 
@@ -179,11 +181,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             self.active_port.write(message)
         wait_time = 200
         if message:
-            wait_time += round(len(message) / 10)
+            wait_time += round(len(message) / 10) #adjust the wait time according to the size of the packet to be transmitted
         self.active_port.waitForBytesWritten(wait_time) #Wait for data to be sent
-
-    def uploadStream(self, message):
-        self.send(self.stream_buffer, False)
 
     def onTriggered(self, action):
         if str(action.objectName()) == "menu_connection_disconnect":
@@ -208,7 +207,9 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         if self.command_queue:
             command = bytearray(self.command_queue.pop(0))
             if debug:
-                print("Rx: " + str(command))
+                print("Rx: " + str(command[:50]))
+                if len(command) > 50:
+                    print("↑ Total tx packet length: " + str(len(command)))
             try:
                 self.command_dict[command[0]](command[1:])
                 if debug:
@@ -229,7 +230,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                                 "uploadSeqFile": 7,
                                 "downloadDriverId": 8,
                                 "uploadTime": 9,
-                                "uploadStream": 10}  # byte prefix identifying data packet type
+                                "uploadStream": 10,
+                                "downloadStream": 11}  # byte prefix identifying data packet type
 
         self.command_dict = {self.prefix_dict["showDriverMessage"]: self.showDriverMessage,
                              self.prefix_dict["magicNumberCheck"]: self.magicNumberCheck,
@@ -241,7 +243,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                              self.prefix_dict["uploadSeqFile"]: self.uploadSeqFile,
                              self.prefix_dict["downloadDriverId"]: self.downloadDriverId,
                              self.prefix_dict["uploadTime"]: self.uploadTime,
-                             self.prefix_dict["uploadStream"]: self.uploadStream}  # Mapping of prefix to function that will process the command
+                             self.prefix_dict["uploadStream"]: self.uploadStream,
+                             self.prefix_dict["downloadStream"]: self.downloadStream}  # Mapping of prefix to function that will process the command
 
     def showDriverMessage(self, reply=None):
         if reply is not None:
@@ -249,7 +252,11 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             self.gui.message_box.setText(reply)
             self.gui.message_box.exec()
         else:
-            pass
+            if self.active_port is None:
+                self.gui.message_box.setText("Error: LED driver is disconnected.")
+                self.gui.message_box.exec()
+            else:
+                pass
 
     def magicNumberCheck(self, reply=None):
         if reply is not None:
@@ -257,8 +264,12 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             if str(reply) == MAGIC_RECEIVE:
                 self.downloadDriverId()
         else:
-            self.send(MAGIC_SEND)
-            self.active_port.waitForReadyRead(500)  # Wait for reply
+            if self.active_port is None:
+                self.gui.message_box.setText("Error: LED driver is disconnected.")
+                self.gui.message_box.exec()
+            else:
+                self.send(MAGIC_SEND)
+                self.active_port.waitForReadyRead(500)  # Wait for reply
 
     def downloadDriverConfiguration(self, reply=None):
         if reply is not None:
@@ -275,14 +286,19 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         if reply is not None:
             pass
         else:
-            self.send(fileIO.configToBytes(self.gui, self.prefix_dict["uploadDriverConfiguration"]))
+            if self.active_port is None:
+                self.gui.message_box.setText("Error: LED driver is disconnected.")
+                self.gui.message_box.exec()
+            else:
+                self.send(fileIO.configToBytes(self.gui, self.prefix_dict["uploadDriverConfiguration"]))
 
     def downloadSyncConfiguration(self, reply=None):
         if reply is not None:
             pass
         else:
             if self.active_port is None:
-                pass
+                self.gui.message_box.setText("Error: LED driver is disconnected.")
+                self.gui.message_box.exec()
             else:
                 self.send()
                 self.active_port.waitForReadyRead(100)  # Wait for reply
@@ -291,12 +307,14 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         if reply is not None:
             pass
         else:
-            message = fileIO.syncToBytes(self.gui, self.prefix_dict["uploadSyncConfiguration"])
-            return
-            for index, ref_widget in enumerate(self.seq_table_list):
-                self.uploadSeqFile(None, ref_widget)
+            if self.active_port is None:
+                self.gui.message_box.setText("Error: LED driver is disconnected.")
+                self.gui.message_box.exec()
+            else:
+                message = fileIO.syncToBytes(self.gui, self.prefix_dict["uploadSyncConfiguration"])
+                self.send(message)
+                self.active_port.waitForReadyRead(500)  # Wait for reply
                 return
-
 
     def downloadSeqFile(self, reply=None):
         if reply is not None:
@@ -314,8 +332,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         if reply is not None:
             message.extend(struct.pack("B", self.prefix_dict["uploadSeqFile"]))
             message.extend(reply)
-            self.stream_buffer = seq.sequenceToBytes(self.gui, self.seq_table_list[ord(reply)])
-            message.extend(struct.pack("<L", len(self.stream_buffer)))
+            self.upload_stream_buffer = seq.sequenceToBytes(self.gui, self.seq_table_list[ord(reply)])
+            message.extend(struct.pack("<L", len(self.upload_stream_buffer)))
             self.send(message, False)
             self.active_port.waitForReadyRead(500)  # Wait for reply
         else:
@@ -344,13 +362,62 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.gui.menu_connection.insertAction(self.gui.menu_connection_disconnect, menu_item)
                 self.conn_menu_action_group.addAction(menu_item)
         else:
-            self.send()
-            self.active_port.waitForReadyRead(100)  # Wait for reply
+            if self.active_port is None:
+                self.gui.message_box.setText("Error: LED driver is disconnected.")
+                self.gui.message_box.exec()
+            else:
+                self.send()
+                self.active_port.waitForReadyRead(100)  # Wait for reply
 
     def uploadTime(self, reply=None):
         if reply is not None:
             pass
         else:
-            time_now = round(time.mktime(time.localtime()))-time.timezone
-            time_now = bytearray(struct.pack("<L", int(time_now)))
-            self.send(time_now)
+            if self.active_port is None:
+                self.gui.message_box.setText("Error: LED driver is disconnected.")
+                self.gui.message_box.exec()
+            else:
+                time_now = round(time.mktime(time.localtime()))-time.timezone
+                time_now = bytearray(struct.pack("<L", int(time_now)))
+                self.send(time_now)
+
+    def uploadStream(self, message):
+        self.send(self.upload_stream_buffer, False)
+        self.upload_stream_buffer = []  # Clean stream buffer
+
+    def downloadStream(self, reply=None):
+        if reply:
+            if self.download_stream_active:
+                if len(reply) >= 4: #Check if index header is available
+                    index = struct.unpack("<L", reply[:4])
+                    if index == len(self.download_stream_buffer): #Make sure indeces match
+                        if len(reply) > 0: #if data received - add it to buffer
+                            self.download_stream_buffer.extend(reply[4:])
+                        return
+                    else:
+                        if self.download_stream_active:
+                            self.gui.message_box.setText("Error: Download stream expected a starting index of: " + str(len(self.download_stream_buffer)) + " and received: " + str(index) + ". Download aborted.")
+                        if debug:
+                            print("Error: Download stream expected a starting index of: " + str(len(self.download_stream_buffer)) + " and received: " + str(index) + ". Download aborted.")
+                elif len(reply) == 1: #Single byte reply is also valid to initialize and terminate stream
+                    if reply == 0: #If null byte is received - stream is complete, send stream to serial router for processing
+                        self.command_queue.append(self.download_stream_buffer)
+                        self.serialRouter()
+                        return
+                    else:
+                        self.gui.message_box.setText("Error: Invalid stream packet: " + str(self.download_stream_buffer) + " Download aborted.")
+            elif len(reply) == 1:  # Single byte reply is also valid to initialize and terminate stream
+                self.download_stream_buffer.append(reply) #Add callback prefix to start of stream buffer
+                return
+
+        else: #if no reply  - restart stream by clearing buffer
+            self.download_stream_active = False  # Abort download stream
+            self.download_stream_buffer = []  # Clear the invalid buffer
+            if debug:
+                print("Empty stream packet received.  Stream is reset")
+            return
+
+        #Show error message if didn't return
+        self.gui.message_box.exec()
+        self.download_stream_active = False  # Abort download stream
+        self.download_stream_buffer = []  # Clear the invalid buffer
