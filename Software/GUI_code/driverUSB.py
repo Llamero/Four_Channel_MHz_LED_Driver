@@ -407,6 +407,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                     else:
                         self.gui.message_box.setText("Error: Invalid stream packet: " + str(self.download_stream_buffer) + " Download aborted.")
             elif len(reply) == 1:  # Single byte reply is also valid to initialize and terminate stream
+                self.download_stream_active = True # Start stream
+                self.download_stream_buffer = [reply]  #Clear buffer and add callback prefix to start of stream buffer
                 self.download_stream_buffer.append(reply) #Add callback prefix to start of stream buffer
                 return
 
