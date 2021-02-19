@@ -223,9 +223,9 @@ char MAGIC_SEND[] = "-kvlWfsBplgasrsh3un5K"; //Magic number reply to Teensy veri
 const static char MAGIC_RECEIVE[] = "kc1oISEIZ60AYJqH4J1P"; //Magic number received from Teensy verifying it is an LED driver "-" is for providing byte prefix in serial message
 char temp_buffer[256]; //Temporary buffer for preparing packets immediately before transmission
 int temp_size; //Size of temporary packet to transmit
-volatile byte sequence_buffer[2][11000*sizeof(sequenceStruct)];
-byte *send_stream_pointer; //Pointer to array that is currently being sent
-uint32_t send_stream_index; //Current index position of stream that is being sent
+volatile byte sequence_buffer[2][10000*sizeof(sequenceStruct)];
+uint32_t send_stream_index = 0; //Current index position of stream that is being sent
+uint32_t send_stream_size = 0; //Total size of file to be streamed
 
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
@@ -351,12 +351,12 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   else if(buffer_prefix == prefix.recv_config) recvConfig(buffer, size);
   else if(buffer_prefix == prefix.send_sync);
   else if(buffer_prefix == prefix.recv_sync) recvSync(buffer, size);
-  else if(buffer_prefix == prefix.send_seq);
+  else if(buffer_prefix == prefix.send_seq) sendSeq(buffer, size);
   else if(buffer_prefix == prefix.recv_seq) recvSeq(buffer, size, true); //If serial notification of upload, it will be a single file
   else if(buffer_prefix == prefix.send_id) sendDriverId();
   else if(buffer_prefix == prefix.recv_time) syncRtcTime(buffer, size);
   else if(buffer_prefix == prefix.recv_stream);
-  else if(buffer_prefix == prefix.send_stream);
+  else if(buffer_prefix == prefix.send_stream) sendStream(buffer, size);
   else{
     temp_size = sprintf(temp_buffer, "-Error: USB packet had invalid prefix: %d", buffer_prefix);  
     temp_buffer[0] = prefix.message;
@@ -447,6 +447,39 @@ static void syncRtcTime(const uint8_t* buffer, size_t size) {
   }
 }
 
+static void sendSeq(const uint8_t* buffer, size_t size, bool single_file){
+  if(size == 2){ //Overrwite index counter "a" with requested file index if there is one
+    if(buffer[1] <= 0 && buffer[1] >= 4){
+      temp_size = sprintf(temp_buffer, "-Error: Stream #%d is not a valid file identifier byte.", buffer[1]);  
+      goto sendMessage;
+    }
+    else{
+      if(!sd.readFromSD(sequence_buffer[0], 0, 0, sd.seq_files[buffer[1]])){
+        temp_size = sprintf(temp_buffer, "%s", sd.message_buffer);  
+        goto sendMessage;
+      }
+      else{
+        //Initialize stream parameters
+        send_stream_index = 1; //Current index position of stream that is being sent
+        send_stream_size = sd.file_size+1;
+        
+        //Initialize sequence file stream to GUI with callback prefix byte - tells GUI where to route the packet to once stream is complete
+        temp_buffer[0] = prefix.send_stream;
+        temp_buffer[1] = prefix.send_seq;
+        usb.send(temp_buffer, 2);
+      }
+    }
+  }
+  else{
+    temp_size = sprintf(temp_buffer, "-Error: Expected sendSeq request of 2 bytes and got %d bytes", size);  
+    goto sendMessage;
+  }
+  sendMessage:
+    temp_buffer[0] = prefix.message;
+    usb.send(temp_buffer, temp_size);
+    return false;
+}
+
 static bool recvSeq(const uint8_t* buffer, size_t size, bool single_file){
   uint32_t recv_packet_size = 0;
   Serial.setTimeout(500); //Set timeout for waiting for packet blocks
@@ -521,7 +554,33 @@ static bool recvSeq(const uint8_t* buffer, size_t size, bool single_file){
     return false;
 }
 
-
+static bool sendStream(const uint8_t* buffer, size_t size){
+  elapsedMillis timer;
+  uint16_t packet_size = send_stream_size-send_stream_index-1 //Calculate size of remaining data to be streamed
+  if(packet_size > 3800) packet_size = 3800; //Cap size of each streaming packet - limited by size of COBS buffer minus COBS padding
+  
+  if(size > 1){
+    temp_size = sprintf(temp_buffer, "-Error: Expected sendStream request of 1 byte and got %d bytes.", size);
+    temp_buffer[0] = prefix.message;
+    usb.send(temp_buffer, temp_size);
+  }
+  else{
+    sequence_buffer[1][0] = prefix.send_stream;
+    if(packet_size){
+      uint32Union.bytes_var = send_stream_index;
+      memcpy(sequence_buffer[1]+1, uint32Union.bytes, sizeof(uint32Union.bytes)); //Add start index header
+      memcpy(sequence_buffer[1]+5, sequence_buffer[0] + send_stream_index-1, packet_size);
+      usb.send(sequence_buffer[1], packet_size+5);
+      send_stream_index += packet_size
+      timer = 0;
+      while(timer < 500 && !Serial.available()) delay(10); //Hold for GUI to reply requesting next packet
+    }
+    else{ //If end of buffer is reached, send end of stream signal
+      sequence_buffer[1][1] = 0;
+      usb.send(sequence_buffer[1], 2);
+    }
+  }
+}
 
 //  boolean state[] = {false, false, false, false, false};
 //  int a = 0;

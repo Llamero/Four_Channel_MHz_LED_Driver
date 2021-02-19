@@ -316,7 +316,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.active_port.waitForReadyRead(500)  # Wait for reply
                 return
 
-    def downloadSeqFile(self, reply=None):
+    def downloadSeqFile(self, reply=None, widget=None):
+        message = bytearray()
         if reply is not None:
             pass
         else:
@@ -324,8 +325,11 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.gui.message_box.setText("Error: LED driver is disconnected.")
                 self.gui.message_box.exec()
             else:
-                self.send()
-                self.active_port.waitForReadyRead(100)  # Wait for reply
+                for index, ref_widget in enumerate(self.seq_table_list):
+                    if widget == ref_widget or widget == index: #Widget could be the calling widget object or a numerical index identifier
+                        message.extend(struct.pack("B", index))
+                        self.send(message)
+                        self.active_port.waitForReadyRead(500)  # Wait for reply
 
     def uploadSeqFile(self, reply=None, widget=None):
         message = bytearray()
@@ -400,15 +404,15 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                         if debug:
                             print("Error: Download stream expected a starting index of: " + str(len(self.download_stream_buffer)) + " and received: " + str(index) + ". Download aborted.")
                 elif len(reply) == 1: #Single byte reply is also valid to initialize and terminate stream
-                    if reply == 0: #If null byte is received - stream is complete, send stream to serial router for processing
+                    if reply[0] == 0: #If null byte is received - stream is complete, send stream to serial router for processing
                         self.command_queue.append(self.download_stream_buffer)
                         self.serialRouter()
                         return
                     else:
-                        self.gui.message_box.setText("Error: Invalid stream packet: " + str(self.download_stream_buffer) + " Download aborted.")
+                        self.gui.message_box.setText("Error: Invalid stream packet: " + str(self.download_stream_buffer) + ". Download aborted.")
             elif len(reply) == 1:  # Single byte reply is also valid to initialize and terminate stream
                 self.download_stream_active = True # Start stream
-                self.download_stream_buffer = [reply]  #Clear buffer and add callback prefix to start of stream buffer
+                self.download_stream_buffer = [reply[0]]  #Clear buffer and add callback prefix to start of stream buffer
                 self.download_stream_buffer.append(reply) #Add callback prefix to start of stream buffer
                 return
 
