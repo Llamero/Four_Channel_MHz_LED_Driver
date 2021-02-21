@@ -16,6 +16,7 @@ def loadSequence(gui, widget, path_keys, get_path=False):  # derived from - http
     if not path:
         path = QtGui.QFileDialog.getOpenFileName(gui, 'Open File', '', 'CSV(*.csv)')[0] #If no path is specified, ask for valid path
 
+    gui.waitCursor(True)
     if path: #If path is specified, load file
         try: #Try to open file at path
             # Count number of rows in CSV file
@@ -42,6 +43,7 @@ def loadSequence(gui, widget, path_keys, get_path=False):  # derived from - http
                                     item = QtGui.QTableWidgetItem(str(data))
                                     widget.setItem(row, column, item)
                         else:
+                            gui.waitCursor(False)
                             gui.message_box.setText("The maximum number of rows is capped at " + str(maximum_rows) + ".")
                             gui.message_box.exec()
                             break
@@ -58,6 +60,7 @@ def loadSequence(gui, widget, path_keys, get_path=False):  # derived from - http
 
         else:
             setSequencePath(gui, path_keys, str(path))
+    gui.waitCursor(False)
 
 def saveSequence(gui, widget, path_keys, get_path=None):  # derived from - https://stackoverflow.com/questions/12608835/writing-a-qtablewidget-to-a-csv-or-xls
     if get_path:
@@ -67,6 +70,7 @@ def saveSequence(gui, widget, path_keys, get_path=None):  # derived from - https
     if not path: #If no path is specified, ask for valid path
         path = QtGui.QFileDialog.getSaveFileName(gui, 'Save File', '', 'CSV(*.csv)')[0]
 
+    gui.waitCursor(True)
     if path: #If path is valid, save
         widget_header_obj = [widget.horizontalHeaderItem(c) for c in range(widget.columnCount())]
         widget_headers = [x.text() for x in widget_header_obj if x is not None]
@@ -94,6 +98,7 @@ def saveSequence(gui, widget, path_keys, get_path=None):  # derived from - https
                             file_writer.writerow(row_data)
 
                 except FileNotFoundError:
+                    gui.waitCursor(False)
                     gui.message_box.setText(str(path) + " is not a valid path. Please find the sequence file manually.")
                     gui.message_box.exec()
                     setSequencePath(gui, path_keys, None)  # Clear invalid path from model
@@ -101,6 +106,7 @@ def saveSequence(gui, widget, path_keys, get_path=None):  # derived from - https
 
                 else:
                     setSequencePath(gui, path_keys, str(path))
+    gui.waitCursor(False)
 
 def findUnsavedSeqThenSave(gui, model):
     seq_list = [["Digital", "Low"], ["Digital", "High"], ["Confocal", "Image"], ["Confocal", "Flyback"]]

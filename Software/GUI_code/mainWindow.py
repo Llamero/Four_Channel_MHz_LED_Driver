@@ -209,5 +209,9 @@ class Ui(QtWidgets.QMainWindow):
     def verifyCell(self, item):
         seq.verifyCell(self, item.column(), item.row(), item.text(), item.tableWidget())
 
-
+    def waitCursor(self, override_cursor = True): #https://stackoverflow.com/questions/8218900/how-can-i-change-the-cursor-shape-with-pyqt
+        if override_cursor:
+            QtWidgets.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        else:
+            QtWidgets.QApplication.restoreOverrideCursor()
 

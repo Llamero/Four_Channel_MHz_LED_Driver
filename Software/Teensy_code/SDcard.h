@@ -17,8 +17,8 @@ class SDcard
     static bool saveToSD(char *data_array, uint32_t start_index, uint32_t end_index, char (*file_name), char (*file_dir) = seq_bin_dir, boolean force_write = true);
     static boolean readFromSD(char *data_array, uint32_t start_index, uint32_t end_index, char (*file_name), char (*file_dir) = seq_bin_dir, boolean force_write = true);
     static char message_buffer[256]; //Temporary buffer for preparing packets immediately before transmission
-    static int message_size; //Size of temporary packet to transmit
-    static uint32_t file_size; //Size of file that is being read
+    static size_t message_size; //Size of temporary packet to transmit
+    static size_t file_size; //Size of file that is being read
     const static char seq_bin_dir[]; //Directory to save boot log files into - max length 8 char
     const static char seq_files[][13]; //file names foro the four sequence files - max length 8 char name + 4 char ext
     
