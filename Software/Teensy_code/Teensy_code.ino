@@ -349,7 +349,7 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   else if(buffer_prefix == prefix.connection) magicExchange(buffer, size);
   else if(buffer_prefix == prefix.send_config) usb.send(conf.byte_buffer, sizeof(conf.byte_buffer));
   else if(buffer_prefix == prefix.recv_config) recvConfig(buffer, size);
-  else if(buffer_prefix == prefix.send_sync);
+  else if(buffer_prefix == prefix.send_sync) usb.send(sync.byte_buffer, sizeof(sync.byte_buffer));
   else if(buffer_prefix == prefix.recv_sync) recvSync(buffer, size);
   else if(buffer_prefix == prefix.send_seq) sendSeq(buffer, size);
   else if(buffer_prefix == prefix.recv_seq) recvSeq(buffer, size, true); //If serial notification of upload, it will be a single file

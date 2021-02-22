@@ -216,7 +216,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         while self.command_queue: #Process all commands in the queue
             command = bytearray(self.command_queue.pop(0))
             if debug:
-                print("Rx: " + str(command[:50]))
+                print("Rx: " + str(command[:100]))
                 if len(command) > 50:
                     print("↑ Total tx packet length: " + str(len(command)))
             try:
