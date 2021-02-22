@@ -131,7 +131,7 @@ def bytesToConfig(byte_array, gui, prefix):
     if checksum == 0:
         while int(byte_array[index]) != 0:
             index += 1
-        gui.setValue(gui.config_model["Driver name"], byte_array[start_index:index].decode())
+        gui.setValue(gui.config_model["Driver name"], byte_array[start_index:index].decode().rstrip())
 
         for led_number in range (1,5):
             index += 1

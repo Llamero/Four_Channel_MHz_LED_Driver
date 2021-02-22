@@ -72,22 +72,24 @@ static boolean SDcard::initializeSD(){
 static bool SDcard::saveToSD(char *data_array, uint32_t start_index, uint32_t end_index, char (*file_name), char (*file_dir) = seq_bin_dir, boolean force_write = true){
   file_size = 0;
   if(end_index > start_index && end_index != -1) file_size = end_index-start_index; //If buffer is not empty calcualte log size
-
+  sprintf(message_buffer, "%s/%s", file_dir, file_name); //Path to file to save
+   
   if(force_write || file_size >= 512){ 
-    if(SD.exists(seq_bin_dir)){ //Make sure that the save directories exist before trying to save to it - without this check open() will lock without SD card  
+    if(SD.exists(file_dir)){ //Make sure that the save directories exist before trying to save to it - without this check open() will lock without SD card  
       //Open file
       f = SD.open(message_buffer, O_WRONLY | O_CREAT | O_TRUNC); //Overwrite existing file if exists https://pubs.opengroup.org/onlinepubs/7908799/xsh/open.html
       if(f){
-        while(file_size >= 512){ //Retrieve a blocks of 512 bytes
-          f.write((data_array + start_index), 512);
-          start_index += 512;
-          file_size = end_index-start_index; //Update remaining log size
+        if(file_size){ //Write file if there is data to write
+          while(file_size >= 512){ //Retrieve a blocks of 512 bytes
+            f.write((data_array + start_index), 512);
+            start_index += 512;
+            file_size = end_index-start_index; //Update remaining log size
+          }
+          if(force_write){ //Print remainder of data buffer if force_write is enabled
+            f.write((data_array + start_index), file_size);
+            start_index += file_size;                       
+          }
         }
-        if(force_write && file_size > 0){ //Print remainder of data buffer if force_write is enabled
-          f.write((data_array + start_index), file_size);
-          start_index += file_size;                       
-        }
-        
         f.close(); //File timestamp applied on close (save)
         message_size = 0;
       }
@@ -102,7 +104,8 @@ static bool SDcard::saveToSD(char *data_array, uint32_t start_index, uint32_t en
 static boolean SDcard::readFromSD(char *data_array, uint32_t start_index, uint32_t end_index, char (*file_name), char (*file_dir) = seq_bin_dir, boolean force_read = true){
   file_size = 0;
   if(end_index > start_index && end_index != -1) file_size = end_index-start_index; //If buffer is not empty calcualte log size
-
+  sprintf(message_buffer, "%s/%s", file_dir, file_name); //Path to file to save
+  
   if(force_read || file_size >= 512){ 
     if(SD.exists(seq_bin_dir)){ //Make sure that the save directories exist before trying to save to it - without this check open() will lock without SD card  
       //Open file

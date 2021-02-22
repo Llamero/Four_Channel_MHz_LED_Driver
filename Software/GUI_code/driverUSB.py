@@ -176,7 +176,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             self.active_port.write(bytes(1))  # Send NULL framing byte
         else:
             if debug:
-                print("Func: " + str(inspect.stack()[1].function) + ", Tx: " + str(message[:50]))
+                print("Func: " + str(inspect.stack()[2].function) + ", Tx: " + str(message[:50]))
                 if len(message) > 50:
                     print("↑ Total tx packet length: " + str(len(message)))
             bytes_written = self.active_port.write(message)
@@ -224,6 +224,10 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                     if command[0] not in [self.expected_callback, self.prefix_dict["showDriverMessage"]]:
                         self.gui.message_box.setText("Warning: Waiting for reply to \"" + str(self.command_dict[self.expected_callback].__name__) + "\" and received a packet for \"" + str(self.command_dict[command[0]].__name__) + "\" instead.")
                         self.gui.message_box.exec()
+                        if debug:
+                            print("Warning: Waiting for reply to \"" + str(self.command_dict[self.expected_callback].__name__) + "\" and received a packet for \"" + str(self.command_dict[command[0]].__name__) + "\" instead.")
+                    else: #Clear callback if prefix is valid
+                        self.expected_callback = None
                 self.command_dict[command[0]](command[1:])
                 if debug:
                     print("Frame processed. " + str(self.dropped_frame_counter) + " dropped frames so far.")
@@ -279,7 +283,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
     def downloadDriverId(self, reply=None):
         if reply is not None:
-            reply = reply.decode()
+            reply = reply.decode().rstrip()
             menu_item = QtWidgets.QAction(reply, self.gui)
             menu_item.setToolTip(self.getPortInfo(self.active_port)["Port"])  # Add port# to tool tip to distinguish drivers with identical names
             menu_item.setWhatsThis(self.getPortInfo(self.active_port)["Serial"])  # Add port# to tool tip to distinguish drivers with identical names
@@ -359,7 +363,11 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             message.extend(reply)
             self.upload_stream_buffer = seq.sequenceToBytes(self.gui, self.seq_table_list[ord(reply)])
             message.extend(struct.pack("<L", len(self.upload_stream_buffer)))
-            self.sendWithReply(self.prefix_dict["uploadStream"], message)
+            if len(self.upload_stream_buffer) > 0: #If there is a file to stream, expect reply to start stream
+                self.sendWithReply(self.prefix_dict["uploadStream"], message, False)
+            else: #If no file is to be streamed, expect reply requesting next file
+                self.sendWithReply(self.prefix_dict["uploadSeqFile"], message, False)
+
         else:
             if self.portConnected():
                 for index, ref_widget in enumerate(self.seq_table_list):
@@ -393,6 +401,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
 
     def sendWithoutReply(self, message=None, cobs_encode=True, wait_time=500):
+        self.expected_callback = None
         self.send(message, cobs_encode)
         self.active_port.waitForReadyRead(wait_time)
+
 

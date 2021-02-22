@@ -538,7 +538,7 @@ static bool recvSeq(const uint8_t* buffer, size_t size, bool single_file){
         }
         
         if(recv_packet_size == seq_header.s.buffer_size){ //If full packet was received, send it to the SD card
-          if(!sd.saveToSD(sequence_buffer[0], 0, seq_header.s.buffer_size-1, sd.seq_files[a])){
+          if(!sd.saveToSD(sequence_buffer[0], 0, seq_header.s.buffer_size, sd.seq_files[a])){
             temp_size = sprintf(temp_buffer, "%s", sd.message_buffer);  
             goto sendMessage;
           }
