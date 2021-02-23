@@ -226,6 +226,7 @@ int temp_size; //Size of temporary packet to transmit
 byte sequence_buffer[2][10000*sizeof(sequenceStruct)+10]; //Add buffer padding for prefix info on transmission
 uint32_t send_stream_index = 0; //Current index position of stream that is being sent
 uint32_t send_stream_size = 0; //Total size of file to be streamed
+const static uint16_t DEFUALT_TIMEOUT = 500; //Default timeout for serial communication in ms
 
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
@@ -469,7 +470,7 @@ static void sendSeq(const uint8_t* buffer, size_t size){
         usb.send(temp_buffer, sizeof(prefix.send_seq) + sizeof(uint32Union.bytes));
       }
     }
-    Serial.setTimeout(5000); //Set timeout for waiting for packet blocks
+    Serial.setTimeout(DEFUALT_TIMEOUT); //Set timeout for waiting for packet blocks
     temp_size = Serial.readBytes(temp_buffer, 3); //Wait for reply from GUI indicating ready for stream to be sent
     if(temp_size < 3){
       temp_size = sprintf(temp_buffer, "-Error: Driver timed out waiting for GUI to reply ready for stream, %d bytes received of 3.", temp_size);  
@@ -498,7 +499,7 @@ static void sendSeq(const uint8_t* buffer, size_t size){
 
 static bool recvSeq(const uint8_t* buffer, size_t size, bool single_file){
   uint32_t recv_packet_size = 0;
-  Serial.setTimeout(5000); //Set timeout for waiting for packet blocks
+  Serial.setTimeout(DEFUALT_TIMEOUT); //Set timeout for waiting for packet blocks
   if(single_file){
     if(size == 2){ //Overrwite index counter "a" with requested file index if there is one
       if(buffer[1] <= 0 && buffer[1] >= sd.N_SEQ_FILES){
@@ -517,6 +518,7 @@ static bool recvSeq(const uint8_t* buffer, size_t size, bool single_file){
     temp_buffer[0] = prefix.recv_seq;
     temp_buffer[1] = a;
     usb.send(temp_buffer, 2); //send request for sequence file
+    Serial.setTimeout(DEFUALT_TIMEOUT);
     recv_packet_size = Serial.readBytes(seq_header.byte_buffer, sizeof(seq_header.byte_buffer));
     if(recv_packet_size < sizeof(seq_header.byte_buffer)){ //Timed out while waiting for header packet
       temp_size = sprintf(temp_buffer, "-Error: Timed out while waiting for sequence file stream #%d header packet. Only %d bytes received of %d", a+1, recv_packet_size, sizeof(seq_header.byte_buffer));  
@@ -534,7 +536,7 @@ static bool recvSeq(const uint8_t* buffer, size_t size, bool single_file){
         }
         recv_packet_size = 0;
         if(seq_header.s.buffer_size > 0){ //Only request stream if there is a stream to recv
-          Serial.setTimeout(int(seq_header.s.buffer_size >> 3)+100);
+          Serial.setTimeout(int(seq_header.s.buffer_size >> 3)+DEFUALT_TIMEOUT);
           temp_buffer[0] = prefix.recv_stream;
           temp_buffer[1] = a;
           usb.send(temp_buffer, 2); //send request for sequence file 
