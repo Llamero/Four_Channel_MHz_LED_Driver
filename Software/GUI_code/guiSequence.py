@@ -325,5 +325,5 @@ def bytesToSequence(byte_array, gui, widget):
 
 def showMessage(gui, text):
     gui.stopSplash()
-    showMessage(gui, text)
+    gui.message_box.setText(text)
     gui.message_box.exec()
