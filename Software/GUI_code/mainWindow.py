@@ -14,8 +14,11 @@ class Ui(QtWidgets.QMainWindow):
     def __init__(self, app):
         self.app = app
         super(Ui, self).__init__()
-
-        self.splash = QtWidgets.QSplashScreen(QtGui.QPixmap(os.path.join(os.path.dirname(__file__), "Four Channel MHz LED Driver.png")))
+        self.splash_dict = {"main": os.path.join(os.path.dirname(__file__), "Four Channel MHz LED Driver-main.png"),
+                            "upload": os.path.join(os.path.dirname(__file__), "Four Channel MHz LED Driver-upload.png"),
+                            "download": os.path.join(os.path.dirname(__file__), "Four Channel MHz LED Driver-download.png")}
+        self.startup = True #Flag that program is in startup
+        self.splash = QtWidgets.QSplashScreen(QtGui.QPixmap(self.splash_dict["main"]))
         self.splash.setFont(QFont('Arial', 15))
         self.splash.show()
         self.splash.showMessage("Loading program...", alignment=QtCore.Qt.AlignBottom, color=QtCore.Qt.white)
@@ -48,7 +51,9 @@ class Ui(QtWidgets.QMainWindow):
         plot.initializeCalibrationPlot(self)
         self.splash.showMessage("Searching for connected drivers...", alignment=QtCore.Qt.AlignBottom, color=QtCore.Qt.white)
         self.ser.getDriverPort(True)
-        self.splash.finish(self)
+        if self.splash.isVisible():
+            self.splash.finish(self)
+        self.startup = False #Set flag to exiting startup
         self.show()
 
     def getValue(self, widget):
@@ -224,3 +229,20 @@ class Ui(QtWidgets.QMainWindow):
         else:
             QtWidgets.QApplication.restoreOverrideCursor()
 
+    def startSplash(self, image):
+        if self.startup:
+            self.splash.showMessage("Downloading LED driver configuration...", alignment=QtCore.Qt.AlignBottom, color=QtCore.Qt.white)
+        else:
+            if self.splash.isVisible(): #Close the current splash screen if one is active
+                self.splash.close()
+            self.splash = QtWidgets.QSplashScreen(QtGui.QPixmap(self.splash_dict[image]))
+            self.splash.setFont(QFont('Arial', 10))
+            self.splash.show()
+
+    def stopSplash(self):
+        if self.splash.isVisible():
+            self.splash.close()
+
+    def splashText(self, text):
+        if self.splash.isVisible() and not self.startup:
+            self.splash.showMessage(text, alignment=QtCore.Qt.AlignBottom, color=QtCore.Qt.white)

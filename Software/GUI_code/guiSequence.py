@@ -49,8 +49,7 @@ def loadSequence(gui, widget, get_path=False):  # derived from - https://stackov
                                     widget.setItem(row, column, item)
                         else:
                             gui.waitCursor(False)
-                            gui.message_box.setText("The maximum number of rows is capped at " + str(maximum_rows) + ".")
-                            gui.message_box.exec()
+                            showMessage(gui, "The maximum number of rows is capped at " + str(maximum_rows) + ".")
                             break
 
                     if row < maximum_rows-1:
@@ -61,8 +60,7 @@ def loadSequence(gui, widget, get_path=False):  # derived from - https://stackov
                     widget.itemChanged.connect(verifyCell)
 
         except FileNotFoundError:
-            gui.message_box.setText("\"" + str(path) + "\" is not a valid path. Please find the sequence file manually.")
-            gui.message_box.exec()
+            showMessage(gui, "\"" + str(path) + "\" is not a valid path. Please find the sequence file manually.")
             setSequencePath(gui, widget, None) #Clear invalid path from model
             loadSequence(gui, widget)
 
@@ -107,8 +105,7 @@ def saveSequence(gui, widget, get_path=None):  # derived from - https://stackove
 
                 except FileNotFoundError:
                     gui.waitCursor(False)
-                    gui.message_box.setText(str(path) + " is not a valid path. Please find the sequence file manually.")
-                    gui.message_box.exec()
+                    showMessage(gui, str(path) + " is not a valid path. Please find the sequence file manually.")
                     setSequencePath(gui, widget, None)  # Clear invalid path from model
                     saveSequence(gui, widget, None)
 
@@ -120,8 +117,7 @@ def findUnsavedSeqThenSave(gui, model):
     seq_list = [["Digital", "Low"], ["Digital", "High"], ["Confocal", "Image"], ["Confocal", "Flyback"]]
     for dictionary in seq_list:
         if model[dictionary[0]][dictionary[1]]["Sequence"] is None:
-            gui.message_box.setText("Sequence table \"" + dictionary[0] + "::" + dictionary[1] + "\" has not yet been saved. Please save sequence files first if you want them included with the configuration.")
-            gui.message_box.exec()
+            showMessage(gui, "Sequence table \"" + dictionary[0] + "::" + dictionary[1] + "\" has not yet been saved. Please save sequence files first if you want them included with the configuration.")
     FileIO.saveConfiguration(gui, model)
 
 
@@ -140,19 +136,17 @@ def verifySequence(gui, stream, widget):
     if csv_headers is not None and row_count > 1 and len(csv_headers) >= len(widget_headers):
         for column, data in enumerate(widget_headers):
             if csv_headers[column] != data and column < 4:
-                gui.message_box.setText(
+                showMessage(gui, 
                     "Error: CSV header \"" + data + "\" does not match table header \"" + widget_headers[
                         column] + "\". Process aborted.")
-                gui.message_box.exec()
                 return False
 
     # Verify data
     for row, row_data in enumerate(reader):
         if len(widget_headers) > len(row_data):
-            gui.message_box.setText(
+            showMessage(gui, 
                 "Error: Row #" + str(row + 1) + " has only " + str(len(row_data)) + " cells. At least " + str(
                     len(widget_headers)) + " cells are required.  Import aborted.")
-            gui.message_box.exec()
             return False
         for column, data in enumerate(row_data):
             if column < len(widget_headers):
@@ -181,33 +175,29 @@ def verifyCell(gui, column=None, row=None, data=None, widget=None):
         data = float(data)
         if column == 0:
             if data not in [1, 2, 3, 4]:
-                gui.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
+                showMessage(gui, "Error: \"" + str(data) + "\" at row #" + str(
                     row + 1) + " is not a valid LED integer (1-4). Process aborted.")
-                gui.message_box.exec()
                 if item:
                     item.setText("")
                 return False
         elif column in [1, 2]:
             if data < 0 or data > 100 or data is None:
-                gui.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
+                showMessage(gui, "Error: \"" + str(data) + "\" at row #" + str(
                     row + 1) + " is not a valid percentage (0-100). Process aborted.")
-                gui.message_box.exec()
                 if item:
                     item.setText("")
                 return False
         elif column == 3:
             if (data < 1e-5 and data != 0) or data > 4294 or data is None:
-                gui.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
+                showMessage(gui, "Error: \"" + str(data) + "\" at row #" + str(
                     row + 1) + " is not a valid duration (0 or 1e-5 - 4294 seconds). Process aborted.")
-                gui.message_box.exec()
                 if item:
                     item.setText("")
                 return False
     except:
         if data != "" or not item: #If cell is not empty then report that entry is invalid
-            gui.message_box.setText(
+            showMessage(gui, 
                 "Error: \"" + str(data) + "\" at row #" + str(row + 1) + " column #" + str(column + 1) + " is not a number. Process aborted.")
-            gui.message_box.exec()
             item.setText("")
         return False
     return True
@@ -331,5 +321,9 @@ def bytesToSequence(byte_array, gui, widget):
         os.remove(stream.name) #Close and remove tempfile when done
 
     else:
-        gui.message_box.setText("Error: Downloaded sequence stream length % 9 = " + str(len(byte_array)%9) + ". It should be = 0. Sequence stream not loaded")
-        gui.message_box.exec()
+        showMessage(gui, "Error: Downloaded sequence stream length % 9 = " + str(len(byte_array)%9) + ". It should be = 0. Sequence stream not loaded")
+
+def showMessage(gui, text):
+    gui.stopSplash()
+    showMessage(gui, text)
+    gui.message_box.exec()

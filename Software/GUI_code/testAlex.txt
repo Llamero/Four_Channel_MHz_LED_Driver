@@ -1,0 +1,42 @@
+Driver name::Yolo
+LED1::ID::green          
+LED1::Active::True
+LED1::Current Limit::0.01
+LED2::ID::Blue           
+LED2::Active::True
+LED2::Current Limit::0.02
+LED3::ID::Green          
+LED3::Active::False
+LED3::Current Limit::0.41
+LED4::ID::Red            
+LED4::Active::False
+LED4::Current Limit::0.41
+Channel1::green          
+Channel2::Blue           
+Channel3::Green          
+Channel4::Red            
+Resistor1::Value::5.0
+Resistor1::Active::True
+Resistor2::Value::10.0
+Resistor2::Active::True
+Resistor3::Value::1000.0
+Resistor3::Active::False
+Resistor4::Value::1000.0
+Resistor4::Active::False
+Temperature::Transistor::Warn::7
+Temperature::Transistor::Fault::8
+Temperature::Resistor::Warn::9
+Temperature::Resistor::Fault::10
+Temperature::External::Warn::12
+Temperature::External::Fault::13
+Fan::Driver::Min::11
+Fan::Driver::Max::12
+Fan::External::Min::12
+Fan::External::Max::13
+Fan::Channel::None
+Thermistor::Resistance::15
+Thermistor::Beta::16
+Audio::Status::0
+Audio::Alarm::10
+Pushbutton::Intensity::20
+Pushbutton::Alarm::Disable

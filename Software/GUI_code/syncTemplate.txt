@@ -1,0 +1,42 @@
+Mode::Digital
+Digital::Channel::Channel #1
+Digital::Low::Mode::LED Off
+Digital::Low::LED::Current LED
+Digital::Low::PWM::0.10000000000000009
+Digital::Low::Current::2.098
+Digital::Low::Duration::3.1
+Digital::Low::Sequence::C:\Users\Ben\AppData\Local\Temp\tmp9y1ori2m.csv
+Digital::High::Mode::Constant Value
+Digital::High::LED::Blue           
+Digital::High::PWM::50.0
+Digital::High::Current::100.0
+Digital::High::Duration::0.0
+Digital::High::Sequence::C:\Users\Ben\AppData\Local\Temp\tmp_p3m8bty.csv
+Analog::LED::Current LED
+Analog::Channel::Channel #4
+Analog::Mode::Buffered - PWM
+Analog::PWM::11
+Analog::Current::21
+Confocal::Shutter::LOW
+Confocal::Channel::Channel #3
+Confocal::Line::Analog - Mirror Voltage
+Confocal::Digital::HIGH
+Confocal::Threshold::0.01
+Confocal::Polarity::Below Threshold
+Confocal::Delay::Mode::Bidirectional
+Confocal::Delay::1::2.4
+Confocal::Delay::2::3.4
+Confocal::Delay::3::4.4
+Confocal::Image::Mode::Sequence
+Confocal::Image::LED::Current LED
+Confocal::Image::PWM::5.392
+Confocal::Image::Current::6.378
+Confocal::Image::Duration::7.4
+Confocal::Image::Sequence::C:\Users\Ben\AppData\Local\Temp\tmpnegynozo.csv
+Confocal::Flyback::Mode::Sequence
+Confocal::Flyback::LED::Current LED
+Confocal::Flyback::PWM::8.333
+Confocal::Flyback::Current::11.414
+Confocal::Flyback::Duration::10.4
+Confocal::Flyback::Sequence::C:\Users\Ben\AppData\Local\Temp\tmpr8o7soaw.csv
+Output::Output #3

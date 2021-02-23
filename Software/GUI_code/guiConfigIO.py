@@ -55,8 +55,7 @@ def loadConfiguration(gui, model, file=None):
                     key_path.append(key)
                     dictionary = dictionary[key]
                 except (KeyError, TypeError):
-                    gui.message_box.setText("Error: \"" + key +"\" is not a valid key in \"" + line + "\". Load aborted at this step.")
-                    gui.message_box.exec()
+                    showMessage(gui, "Error: \"" + key +"\" is not a valid key in \"" + line + "\". Load aborted at this step.")
                     return
             else:
                 entry = gui.getValue(dictionary)
@@ -68,8 +67,7 @@ def loadConfiguration(gui, model, file=None):
                     except ValueError:
                         value = ast.literal_eval("\'" + key+ "\'") #Fix literal_eval ValueError - https://stackoverflow.com/questions/14611352/malformed-string-valueerror-ast-literal-eval-with-string-representation-of-tup
                     except SyntaxError:
-                        gui.message_box.setText("Error: \"" + line + "\" could not be parsed. Load aborted at this step.")
-                        gui.message_box.exec()
+                        showMessage(gui, "Error: \"" + line + "\" could not be parsed. Load aborted at this step.")
                         return
                 if key_path[-1] == "Sequence": #Process sequence file loads separately
                     widget = eval("gui.sync_" + key_path[0].lower() + "_" + key_path[1].lower() + "_sequence_table") #Assign to proper widget table
@@ -77,15 +75,13 @@ def loadConfiguration(gui, model, file=None):
                     if value != "None":
                         seq.loadSequence(gui, widget, True) #Load sequence file to table
                 elif not gui.setValue(dictionary, value):
-                    gui.message_box.setText("Error: \"" + key +"\" is not a valid value in \"" + line + "\". Load aborted at this step.")
-                    gui.message_box.exec()
+                    showMessage(gui, "Error: \"" + key +"\" is not a valid value in \"" + line + "\". Load aborted at this step.")
                     return
 
     #Check if external fan and sync out are on the same channel and disable used channels
     for channel in range(1,4):
         if gui.getValue(gui.config_model["Fan"]["Channel"][channel]) and gui.getValue(gui.sync_model["Output"][channel]):
-            gui.message_box.setText("Warning: The external fan output and sync output are both using output #" + str(channel) + ". Change one of these channels for the driver to function properly.")
-            gui.message_box.exec()
+            showMessage(gui, "Warning: The external fan output and sync output are both using output #" + str(channel) + ". Change one of these channels for the driver to function properly.")
         else:
             if gui.getValue(gui.config_model["Fan"]["Channel"][channel]):
                 gui.disableUsedOutputs(channel, "config")
@@ -194,8 +190,7 @@ def bytesToConfig(byte_array, gui, prefix):
         gui.setValue(gui.config_model["Pushbutton"]["Alarm"], channel_id)
 
     else:
-        gui.message_box.setText("Error: Driver config file had invalid checksum: " + str(checksum) + ". Upload aborted.")
-        gui.message_box.exec()
+        showMessage(gui, "Error: Driver config file had invalid checksum: " + str(checksum) + ". Upload aborted.")
 
 def bytesToSync(byte_array, gui, prefix):
     sync_values = [None]* 38
@@ -204,8 +199,7 @@ def bytesToSync(byte_array, gui, prefix):
             widget_string = widgets[sync_values[index]].text()
             gui.setValue(widgets, widget_string)
         except:
-            gui.message_box.setText("Error: Widget index not found!")
-            gui.message_box.exec()
+            showMessage(gui, "Error: Widget index not found!")
             return None
 
     checksum = (sum(byte_array) + prefix) & 0xFF  # https://stackoverflow.com/questions/44611057/checksum-generation-from-sum-of-bits-in-python
@@ -269,8 +263,7 @@ def bytesToSync(byte_array, gui, prefix):
         return True
 
     else:
-        gui.message_box.setText("Error: Driver config file had invalid checksum: " + str(checksum) + ". Upload aborted.")
-        gui.message_box.exec()
+        showMessage(gui, "Error: Driver config file had invalid checksum: " + str(checksum) + ". Upload aborted.")
         return False
 
 def configToBytes(gui, prefix):
@@ -353,8 +346,7 @@ def syncToBytes(gui, prefix):
             if gui.getValue(n_widget):
                 return w_index
         else:
-            gui.message_box.setText("Error: Widget index not found!")
-            gui.message_box.exec()
+            showMessage(gui, "Error: Widget index not found!")
             return None
 
     #Calculate total resistance for current conversions
@@ -454,4 +446,8 @@ def tempToAdc(temperature, external = False):
     raw = 65535 / (raw + 1)
     return round(raw)
 
+def showMessage(gui, text):
+    gui.stopSplash()
+    showMessage(gui, text)
+    gui.message_box.exec()
 

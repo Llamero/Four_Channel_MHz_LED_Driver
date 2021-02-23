@@ -83,11 +83,9 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             self.onTriggered(action)
         else: #If check was performed through menu, inform of result
             if len(self.gui.menu_connection.actions()) > self.default_action_number:
-                self.gui.message_box.setText("Success: " + str(len(self.gui.menu_connection.actions()) - self.default_action_number) + " LED driver(s) were found.")
-                self.gui.message_box.exec()
+                self.showMessage("Success: " + str(len(self.gui.menu_connection.actions()) - self.default_action_number) + " LED driver(s) were found.")
             else:
-                self.gui.message_box.setText("No LED drivers were found. Make sure the following:\n1) USB cables are connected properly\n2) No other program is connected to the LED driver\n3) The LED driver software has been uploaded to the Teensy board")
-                self.gui.message_box.exec()
+                self.showMessage("No LED drivers were found. Make sure the following:\n1) USB cables are connected properly\n2) No other program is connected to the LED driver\n3) The LED driver software has been uploaded to the Teensy board")
 
     def getPortInfo(self, port):
         return {"Vendor": QSerialPortInfo(self.port).vendorIdentifier(),
@@ -138,8 +136,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 #            print("Temp buffer: " + str(temp_buffer))
             if self.download_stream_size and self.stream_download_timeout: #If stream is expected and it has timed out, clear the serial buffer before proceeding
                 if time.time() > self.stream_download_timeout:  # Check to make sure that stream has not yet timed out
-                    self.gui.message_box.setText("Error: Stream download timed out with " + str(len(self.serial_buffer)) + " of " + str(self.download_stream_size) + " bytes received. Stream aborted.")
-                    self.gui.message_box.exec()
+                    self.showMessage("Error: Stream download timed out with " + str(len(self.serial_buffer)) + " of " + str(self.download_stream_size) + " bytes received. Stream aborted.")
                     self.serial_buffer = []
                     self.download_stream_size = None  # Clear download stream flag
                     self.stream_download_timeout = None #Clear timeout timer
@@ -166,8 +163,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                         self.serialRouter()
 
                     except cobs.DecodeError:
-                        self.gui.message_box.setText("Warning: Invalid COBS frame received from driver. Check connection.")
-                        self.gui.message_box.exec()
+                        self.showMessage("Warning: Invalid COBS frame received from driver. Check connection.")
                         if debug:
                             print("Invalid COBS packet")
                             print(temp_buffer[:i])
@@ -190,19 +186,20 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 elif isinstance(message, int):
                     message = message.to_bytes(1, "big")
                 packet.extend(bytearray(message))
+            self.gui.splashText("Func: " + str(inspect.stack()[2].function) + ", Tx: " + str(packet))
             if debug:
                 print("Func: " + str(inspect.stack()[2].function) + ", Tx: " + str(packet))
             self.active_port.write(cobs.encode(bytes(packet)))
             self.active_port.write(bytes(1))  # Send NULL framing byte
         else:
+            self.gui.splashText("Func: " + str(inspect.stack()[2].function) + ", Tx: " + str(message))
             if debug:
-                print("Func: " + str(inspect.stack()[2].function) + ", Tx: " + str(message[:50]))
-                if len(message) > 50:
+                print("Func: " + str(inspect.stack()[2].function) + ", Tx: " + str(message[:100]))
+                if len(message) > 100:
                     print("↑ Total tx packet length: " + str(len(message)))
             bytes_written = self.active_port.write(message)
             if bytes_written != len(message):
-                self.gui.message_box.setText("Error: Only " + str(bytes_written) + " of " + str(len(message)) + " were sent to LED driver.  Please check connection.")
-                self.gui.message_box.exec()
+                self.showMessage("Error: Only " + str(bytes_written) + " of " + str(len(message)) + " were sent to LED driver.  Please check connection.")
 
         wait_time = 200
         if message:
@@ -210,8 +207,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         if self.active_port.waitForBytesWritten(wait_time): #Wait for data to be sent
             pass
         else:
-            self.gui.message_box.setText("Error: Message buffer failed to be sent to driver, please check driver connection.")
-            self.gui.message_box.exec()
+            self.showMessage("Error: Message buffer failed to be sent to driver, please check driver connection.")
 
     def onTriggered(self, action):
         if str(action.objectName()) == "menu_connection_disconnect":
@@ -231,13 +227,12 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             else:
                 self.conn_menu_action_group.removeAction(action)
                 self.gui.menu_connection.removeAction(action)
-                self.gui.message_box.setText("Error: Failed to open LED driver port.  Check USB connection and confirm no other software is connected to the driver.")
-                self.gui.message_box.exec()
-
+                self.showMessage("Error: Failed to open LED driver port.  Check USB connection and confirm no other software is connected to the driver.")
 
     def serialRouter(self):
         while self.command_queue: #Process all commands in the queue
             command = bytearray(self.command_queue.pop(0))
+            self.gui.splashText("Rx: " + str(command))
             if debug:
                 print("Rx: " + str(command[:100]))
                 if len(command) > 50:
@@ -245,8 +240,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             try:
                 if self.expected_callback:
                     if command[0] not in [self.expected_callback, self.prefix_dict["showDriverMessage"]]:
-                        self.gui.message_box.setText("Warning: Waiting for reply to \"" + str(self.command_dict[self.expected_callback].__name__) + "\" and received a packet for \"" + str(self.command_dict[command[0]].__name__) + "\" instead.")
-                        self.gui.message_box.exec()
+                        self.showMessage("Warning: Waiting for reply to \"" + str(self.command_dict[self.expected_callback].__name__) + "\" and received a packet for \"" + str(self.command_dict[command[0]].__name__) + "\" instead.")
                         if debug:
                             print("Warning: Waiting for reply to \"" + str(self.command_dict[self.expected_callback].__name__) + "\" and received a packet for \"" + str(self.command_dict[command[0]].__name__) + "\" instead.")
                     else: #Clear callback if prefix is valid
@@ -289,8 +283,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def showDriverMessage(self, reply=None):
         if reply is not None:
             reply = reply.decode()
-            self.gui.message_box.setText(reply)
-            self.gui.message_box.exec()
+            self.showMessage(reply)
         else:
             if self.portConnected():
                 pass
@@ -350,10 +343,10 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             if fileIO.bytesToSync(reply, self.gui, self.prefix_dict["downloadSyncConfiguration"]):
                 self.downloadSeqFile()
             else:
-                self.gui.message_box.setText("Error: Invalid Sync configuration packet was received.")
-                self.gui.message_box.exec()
+                self.showMessage("Error: Invalid Sync configuration packet was received.")
         else:
             if self.portConnected():
+                self.gui.startSplash("download")
                 self.sendWithReply(self.prefix_dict["downloadSyncConfiguration"])
 
     def uploadSyncConfiguration(self, reply=None):
@@ -361,6 +354,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             pass
         else:
             if self.portConnected():
+                self.gui.startSplash("upload")
                 message = fileIO.syncToBytes(self.gui, self.prefix_dict["uploadSyncConfiguration"])
                 self.sendWithReply(self.prefix_dict["uploadSeqFile"], message)
 
@@ -379,17 +373,16 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
                     else:
                         self.download_all_seq = False  #If end of sequence file list is reached, clear download all flag
+                        self.gui.splash.close()
                         if not self.initializing_connection:
-                            self.gui.message_box.setText("Sync and sequence files were successfully uploaded.")
-                            self.gui.message_box.exec()
+                            self.showMessage("Sync and sequence files were successfully uploaded.")
 
             elif len(reply) == 4: #If stream is not active, reply is stream initialization showing length of stream to be received
                 self.download_stream_size = struct.unpack("<L", reply)[0]
                 self.stream_download_timeout = time.time() + 0.5 + self.download_stream_size / 10000
                 self.sendWithReply(self.prefix_dict["downloadSeqFile"]) #Reply that ready for stream start
             else:
-                self.gui.message_box.setText("Error: Invalid downloadSeq packet received.")
-                self.gui.message_box.exec()
+                self.showMessage("Error: Invalid downloadSeq packet received.")
 
         else:
             if self.portConnected():
@@ -432,8 +425,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
     def portConnected(self):
         if self.active_port is None:
-            self.gui.message_box.setText("Error: LED driver is disconnected.")
-            self.gui.message_box.exec()
+            self.showMessage("Error: LED driver is disconnected.")
             return False  ###################################################################################ADD CODE TO SET MENU TO DISCONNECT AND REMOVE THIS DRIVER FROM MENU LIST#################################################################
         return True
 
@@ -448,4 +440,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.send(message, cobs_encode)
         self.active_port.waitForReadyRead(wait_time)
 
-
+    def showMessage(self, text):
+        self.gui.stopSplash()
+        self.gui.message_box.setText(text)
+        self.gui.message_box.exec()
