@@ -115,7 +115,10 @@ static boolean SDcard::readFromSD(char *data_array, uint32_t start_index, uint32
       //Open file
       f = SD.open(message_buffer, O_RDONLY);
       if(f){
-        if(file_size == 0) file_size = f.size(); //Get the size of the file being read if one wasn't specified
+        if(file_size == 0){
+          file_size = f.size(); //Get the size of the file being read if one wasn't specified
+          end_index = file_size;
+        }
         while(file_size >= 512){ //Retrieve a blocks of 512 bytes
           f.readBytes((data_array + start_index), 512);
           start_index += 512;
@@ -125,6 +128,7 @@ static boolean SDcard::readFromSD(char *data_array, uint32_t start_index, uint32
           f.readBytes((data_array + start_index), file_size);
           start_index += file_size;                       
         }
+        file_size = end_index;
         f.close(); //File timestamp applied on close (save)
         message_size = 0;
       }

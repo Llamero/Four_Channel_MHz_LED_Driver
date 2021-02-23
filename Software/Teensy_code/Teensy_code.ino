@@ -449,7 +449,7 @@ static void syncRtcTime(const uint8_t* buffer, size_t size) {
 
 static void sendSeq(const uint8_t* buffer, size_t size){
   uint8_t file_id; //Index of sequence file requested
-  
+
   if(size == 2){ //Load file to stream buffer if command requesting file is sent from GUI
     if(buffer[1] <= 0 && buffer[1] >= sd.N_SEQ_FILES){
       temp_size = sprintf(temp_buffer, "-Error: Stream #%d is not a valid file identifier byte.", buffer[1]);  
@@ -469,7 +469,7 @@ static void sendSeq(const uint8_t* buffer, size_t size){
         usb.send(temp_buffer, sizeof(prefix.send_seq) + sizeof(uint32Union.bytes));
       }
     }
-    Serial.setTimeout(500); //Set timeout for waiting for packet blocks
+    Serial.setTimeout(5000); //Set timeout for waiting for packet blocks
     temp_size = Serial.readBytes(temp_buffer, 3); //Wait for reply from GUI indicating ready for stream to be sent
     if(temp_size < 3){
       temp_size = sprintf(temp_buffer, "-Error: Driver timed out waiting for GUI to reply ready for stream, %d bytes received of 3.", temp_size);  
@@ -498,7 +498,7 @@ static void sendSeq(const uint8_t* buffer, size_t size){
 
 static bool recvSeq(const uint8_t* buffer, size_t size, bool single_file){
   uint32_t recv_packet_size = 0;
-  Serial.setTimeout(500); //Set timeout for waiting for packet blocks
+  Serial.setTimeout(5000); //Set timeout for waiting for packet blocks
   if(single_file){
     if(size == 2){ //Overrwite index counter "a" with requested file index if there is one
       if(buffer[1] <= 0 && buffer[1] >= sd.N_SEQ_FILES){
