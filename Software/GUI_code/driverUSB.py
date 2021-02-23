@@ -46,6 +46,9 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.upload_stream_buffer = [] #Buffer for storing active data upload streams - used to send large files
         self.download_stream_size = None #Expected size of download stream to be received - including prefix byte
         self.expected_callback = None #Expected callback function - used when GUI expects a reply from the driver to verify data is received in order
+        self.download_all_seq = False #Whether just one sequence file, or all sequence files are to be downloaded
+        self.stream_download_timeout = 0 #Unix time to wait for complete non-COBS stream packet before timing out and clearing the stream flag
+        self.initializing_connection = False #Flag to suppress unnecessary notifications if connection is being initialized
         for action in self.gui.menu_connection.actions():
             self.conn_menu_action_group.addAction(action)
 
@@ -132,12 +135,29 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def receive(self):
         if self.active_port is not None:  # Should be redundant - better safe than sorry
             temp_buffer = bytearray(self.active_port.readAll().data())
+#            print("Temp buffer: " + str(temp_buffer))
+            if self.download_stream_size and self.stream_download_timeout: #If stream is expected and it has timed out, clear the serial buffer before proceeding
+                if time.time() > self.stream_download_timeout:  # Check to make sure that stream has not yet timed out
+                    self.gui.message_box.setText("Error: Stream download timed out with " + str(len(self.serial_buffer)) + " of " + str(self.download_stream_size) + " bytes received. Stream aborted.")
+                    self.gui.message_box.exec()
+                    self.serial_buffer = []
+                    self.download_stream_size = None  # Clear download stream flag
+                    self.stream_download_timeout = None #Clear timeout timer
+
             for i, byte in enumerate(temp_buffer):
-                if self.download_stream_size and self.download_stream_size == len(self.serial_buffer): #If streaming is active and full length stream is received, send it to the command queue
+                if self.download_stream_size: #Check if non-COBS encoded data stream is expected
+                    self.serial_buffer.append(byte)
+                    if self.download_stream_size == len(self.serial_buffer): #If streaming is active and full length stream is received, send it to the command queue
                         self.command_queue.append(self.serial_buffer)
                         self.serial_buffer = []
                         self.serialRouter()
                         self.download_stream_size = None #Clear download stream flag
+                        self.stream_download_timeout = None  # Clear timeout timer
+
+                    if self.serial_buffer:
+                        if self.serial_buffer[0] == 1: #If a message packet is being received in place of the stream - clear stream flag so message can be processed
+                            self.download_stream_size = None  # Clear download stream flag
+                            self.stream_download_timeout = None  # Clear timeout timer
 
                 elif byte == 0:
                     try:
@@ -202,8 +222,11 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             port = action.toolTip()
             serial_number = action.whatsThis()
             if self.connectSerial(port):
+                self.initializing_connection = True
                 self.downloadDriverConfiguration()
                 self.gui.updateSerialNumber(serial_number)
+                self.downloadSyncConfiguration()
+                self.initializing_connection = False
 
             else:
                 self.conn_menu_action_group.removeAction(action)
@@ -324,7 +347,11 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
     def downloadSyncConfiguration(self, reply=None):
         if reply is not None:
-            fileIO.bytesToSync(reply, self.gui, self.prefix_dict["downloadSyncConfiguration"])
+            if fileIO.bytesToSync(reply, self.gui, self.prefix_dict["downloadSyncConfiguration"]):
+                self.downloadSeqFile()
+            else:
+                self.gui.message_box.setText("Error: Invalid Sync configuration packet was received.")
+                self.gui.message_box.exec()
         else:
             if self.portConnected():
                 self.sendWithReply(self.prefix_dict["downloadSyncConfiguration"])
@@ -341,20 +368,40 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         message = bytearray()
         if reply is not None:
             if self.download_stream_size: #If stream is active, process streamed sequence file data
-                pass
-            elif len(reply == 4): #If stream is not active, reply is stream initialization showing ID and length of stream to be received
-                self.download_stream_size = struct.unpack("<L", reply)
-                self.downloadStream()
+                self.download_stream_size = None
+                self.stream_download_timeout = None
+                if self.download_all_seq: #If all sequence are to be downloaded, request next sequence file for download
+                    seq_id = reply.pop(0) #Retrieve sequence file ID from list
+                    seq.bytesToSequence(reply, self.gui, self.seq_table_list[seq_id])
+                    if seq_id < seq.n_sequence_files-1:
+                        message.extend(struct.pack("B", seq_id+1))
+                        self.sendWithReply(self.prefix_dict["downloadSeqFile"], message)
+
+                    else:
+                        self.download_all_seq = False  #If end of sequence file list is reached, clear download all flag
+                        if not self.initializing_connection:
+                            self.gui.message_box.setText("Sync and sequence files were successfully uploaded.")
+                            self.gui.message_box.exec()
+
+            elif len(reply) == 4: #If stream is not active, reply is stream initialization showing length of stream to be received
+                self.download_stream_size = struct.unpack("<L", reply)[0]
+                self.stream_download_timeout = time.time() + 0.5 + self.download_stream_size / 10000
+                self.sendWithReply(self.prefix_dict["downloadSeqFile"]) #Reply that ready for stream start
             else:
                 self.gui.message_box.setText("Error: Invalid downloadSeq packet received.")
                 self.gui.message_box.exec()
 
         else:
             if self.portConnected():
-                for index, ref_widget in enumerate(self.seq_table_list):
-                    if widget == ref_widget or widget == index: #Widget could be the calling widget object or a numerical index identifier
-                        message.extend(struct.pack("B", index))
-                        self.sendWithReply(self.prefix_dict["downloadSeqFile"], message)
+                if widget:
+                    for index, ref_widget in enumerate(self.seq_table_list):
+                        if widget == ref_widget or widget == index: #Widget could be the calling widget object or a numerical index identifier
+                            message.extend(struct.pack("B", index))
+                            self.sendWithReply(self.prefix_dict["downloadSeqFile"], message)
+                else: #If no widget was specified, download the first sequence file
+                    message.extend(struct.pack("B", 0))
+                    self.download_all_seq = True #Flag that all sequence files are to be downloaded
+                    self.sendWithReply(self.prefix_dict["downloadSeqFile"], message)
 
     def uploadSeqFile(self, reply=None, widget=None):
         message = bytearray()
@@ -380,12 +427,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             self.sendWithoutReply(self.upload_stream_buffer, False)
             self.upload_stream_buffer = []  # Clean stream buffer
 
-    def downloadStream(self, reply=None):
-        if reply is not None:
-            pass
-        else: #Send request for GUI to start stream
-            if self.portConnected():
-                self.sendWithReply()
+    def downloadStream(self, message):
+        pass
 
     def portConnected(self):
         if self.active_port is None:

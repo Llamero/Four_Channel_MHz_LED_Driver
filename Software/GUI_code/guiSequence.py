@@ -1,19 +1,23 @@
 import csv
+import math
 import tempfile
-from PyQt5 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 import guiConfigIO as FileIO
 import struct
+from collections import OrderedDict
+import os
 
 maximum_rows = 10000 # Maximum number or rows allowed
 row_subsample = maximum_rows  #Only load the last segment of the table for very large tables to prevent lag
+n_sequence_files = 4 #Total number of sequence tables in Sync configuration
 
-def loadSequence(gui, widget, path_keys, get_path=False):  # derived from - https://stackoverflow.com/questions/12608835/writing-a-qtablewidget-to-a-csv-or-xls
+def loadSequence(gui, widget, get_path=False):  # derived from - https://stackoverflow.com/questions/12608835/writing-a-qtablewidget-to-a-csv-or-xls
     if get_path:
-        path = getSequencePath(gui, path_keys)
+        path = getSequencePath(gui, widget)
     else:
         path = None
-    if not path:
+    if path is None:
         path = QtGui.QFileDialog.getOpenFileName(gui, 'Open File', '', 'CSV(*.csv)')[0] #If no path is specified, ask for valid path
 
     gui.waitCursor(True)
@@ -34,6 +38,7 @@ def loadSequence(gui, widget, path_keys, get_path=False):  # derived from - http
                     # Clear table
                     widget.setRowCount(0)
                     widget.itemChanged.disconnect() #Speed up CSV loading by preventing widget from validating every cell as data is loaded
+                    row = widget.rowCount() #Initialize row index with value for when empty file is loaded
                     for row_data in reader:
                         row = widget.rowCount()
                         if row < maximum_rows:
@@ -50,21 +55,23 @@ def loadSequence(gui, widget, path_keys, get_path=False):  # derived from - http
 
                     if row < maximum_rows:
                         widget.insertRow(row+1) #Add one extra row to allow for editing
-                    widget.itemChanged.connect(lambda: verifyCell(gui, widget.item.column(), widget.item.row(), widget.item.text()))
+                    if widget.rowCount() < 4:
+                        widget.setRowCount(4) #Ensure there are at least 4 rows
+                    widget.itemChanged.connect(verifyCell)
 
         except FileNotFoundError:
             gui.message_box.setText("\"" + str(path) + "\" is not a valid path. Please find the sequence file manually.")
             gui.message_box.exec()
-            setSequencePath(gui, path_keys, None) #Clear invalid path from model
-            loadSequence(gui, widget, path_keys)
+            setSequencePath(gui, widget, None) #Clear invalid path from model
+            loadSequence(gui, widget)
 
         else:
-            setSequencePath(gui, path_keys, str(path))
+            setSequencePath(gui, widget, str(path))
     gui.waitCursor(False)
 
-def saveSequence(gui, widget, path_keys, get_path=None):  # derived from - https://stackoverflow.com/questions/12608835/writing-a-qtablewidget-to-a-csv-or-xls
+def saveSequence(gui, widget, get_path=None):  # derived from - https://stackoverflow.com/questions/12608835/writing-a-qtablewidget-to-a-csv-or-xls
     if get_path:
-        path = getSequencePath(gui, path_keys)
+        path = getSequencePath(gui, widget)
     else:
         path = None
     if not path: #If no path is specified, ask for valid path
@@ -101,11 +108,11 @@ def saveSequence(gui, widget, path_keys, get_path=None):  # derived from - https
                     gui.waitCursor(False)
                     gui.message_box.setText(str(path) + " is not a valid path. Please find the sequence file manually.")
                     gui.message_box.exec()
-                    setSequencePath(gui, path_keys, None)  # Clear invalid path from model
+                    setSequencePath(gui, widget, None)  # Clear invalid path from model
                     saveSequence(gui, widget, None)
 
                 else:
-                    setSequencePath(gui, path_keys, str(path))
+                    setSequencePath(gui, widget, str(path))
     gui.waitCursor(False)
 
 def findUnsavedSeqThenSave(gui, model):
@@ -153,42 +160,58 @@ def verifySequence(gui, stream, widget):
 
     return widget_headers
 
-def verifyCell(gui, column, row, data, widget=None):
-    if widget:
-        widget_name = widget.objectName().split("_")
-        path_keys = [widget_name[1].capitalize(), widget_name[2].capitalize(), widget_name[3].capitalize()]
-        dynamicallyCheckTable(gui, widget, path_keys, row+1, column)
+def verifyCell(gui, column=None, row=None, data=None, widget=None):
+    item = None
+    if isinstance(gui, QtWidgets.QTableWidgetItem):
+        item = gui
+        column = item.column()
+        row = item.row()
+        data = item.text()
 
-    else:
-        try:
-            data = float(data)
-        except:
-            gui.message_box.setText(
-                "Error: \"" + str(data) + "\" at row #" + str(row + 1) + " column #" + str(column + 1) + " is not a number. Process aborted.")
-            gui.message_box.exec()
-            return False
+        #Find GUI parent class as root of widget
+        parent = gui.tableWidget()
+        child = None
+        while parent is not None:
+            child = parent
+            parent = parent.parent()
+        gui = child
 
+    try:
+        data = float(data)
         if column == 0:
             if data not in [1, 2, 3, 4]:
                 gui.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
                     row + 1) + " is not a valid LED integer (1-4). Process aborted.")
                 gui.message_box.exec()
+                if item:
+                    item.setText("")
                 return False
         elif column in [1, 2]:
             if data < 0 or data > 100 or data is None:
                 gui.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
                     row + 1) + " is not a valid percentage (0-100). Process aborted.")
                 gui.message_box.exec()
+                if item:
+                    item.setText("")
                 return False
         elif column == 3:
             if (data < 1e-5 and data != 0) or data > 4294 or data is None:
                 gui.message_box.setText("Error: \"" + str(data) + "\" at row #" + str(
                     row + 1) + " is not a valid duration (0 or 1e-5 - 4294 seconds). Process aborted.")
                 gui.message_box.exec()
+                if item:
+                    item.setText("")
                 return False
-        return True
+    except:
+        if data != "" or not item: #If cell is not empty then report that entry is invalid
+            gui.message_box.setText(
+                "Error: \"" + str(data) + "\" at row #" + str(row + 1) + " column #" + str(column + 1) + " is not a number. Process aborted.")
+            gui.message_box.exec()
+            item.setText("")
+        return False
+    return True
 
-def dynamicallyCheckTable(gui, widget, path_keys, end_row, end_column):
+def dynamicallyCheckTable(gui, widget, end_row, end_column):
     widget_header_obj = [widget.horizontalHeaderItem(c) for c in range(widget.columnCount())]
     widget_headers = [x.text() for x in widget_header_obj if x is not None]
 
@@ -210,7 +233,7 @@ def dynamicallyCheckTable(gui, widget, path_keys, end_row, end_column):
                         row_data[column] = None
                         break
                     if row == end_row-1 and column == end_column:
-                        setSequencePath(gui, path_keys, None)  # Flag the sequence table is changed but not yet saved
+                        setSequencePath(gui, widget, None)  # Flag the sequence table is changed but not yet saved
                         break
 
             if None not in row_data:
@@ -223,14 +246,20 @@ def dynamicallyCheckTable(gui, widget, path_keys, end_row, end_column):
                     if widget.rowCount() < maximum_rows:
                         widget.insertRow(widget.rowCount())
 
-def getSequencePath(gui, path):
+def getSequencePath(gui, widget):
+    path = widget.objectName().split("_")
+    path = [x.capitalize() for x in path[1:4]]
     dictionary = gui.sync_model
     for key in path:
         dictionary = dictionary[key]
     return dictionary
 
-def setSequencePath(gui, path, value):
-    dictionary = getSequencePath(gui, path[:-1])
+def setSequencePath(gui, widget, value):
+    path = widget.objectName().split("_")
+    path = [x.capitalize() for x in path[1:4]]
+    dictionary = gui.sync_model
+    for key in path[:-1]:
+        dictionary = dictionary[key]
     dictionary[path[-1]] = value
 
 def bytesToSequence(gui, byte_array, widget):
@@ -274,15 +303,32 @@ def sequenceToBytes(gui, widget):
         else:
             return None
 
-def bytesToSequence(byte_array, gui, widget, path_keys):
-    widget_header_obj = [widget.horizontalHeaderItem(c) for c in range(widget.columnCount())]
+def bytesToSequence(byte_array, gui, widget):
+    def sigFigLimit(x, n):
+        return round(x, -int(math.floor(math.log10(abs(x)))) + (n - 1))
+    widget_header_obj = [widget.horizontalHeaderItem(c) for c in range(widget.columnCount())] #Get headers from table
     widget_headers = [x.text() for x in widget_header_obj if x is not None]
-    if len(byte_array % 9) == 0:
+    if len(byte_array)%9 == 0:
         row_list = [struct.unpack("<BHHI", byte_array[i:i+9]) for i in range(0, len(byte_array), 9)] #Unpack byte_array to list of row data - https://stackoverflow.com/questions/6614891/turning-a-list-into-nested-lists-in-python
-        with tempfile.TemporaryFile(mode="w+", suffix=".csv", newline='') as stream:  # "newline=''" removes extra newline from windows - https://stackoverflow.com/questions/3191528/csv-in-python-adding-an-extra-carriage-return-on-windows
+        with tempfile.NamedTemporaryFile(mode="w+", suffix=".csv", newline='', delete=False) as stream:  #NOTE: On windows a tempfile cannot be read from another source while open, so don't use "with" to open: https://stackoverflow.com/questions/23212435/permission-denied-to-write-to-my-temporary-file
             writer = csv.writer(stream)
             writer.writerow(widget_headers) #Add header to temp file
+            converted_row = [None] * 4
+            total_resistance = float(gui.configure_current_limit_box.whatsThis())
             for row_data in row_list:
-                writer.writerow(row_data) #Write rows to temp file
+                converted_row[0] = int(row_data[0])
+                converted_row[1] = (float(row_data[1]) / 65535) * 100  # Convert ADC to percent value
+                converted_row[3] = float(row_data[3]) / 1e6  # convert microseconds to seconds
+                led_voltage = (float(row_data[2]) / 65535) * 3.3
+                led_current = led_voltage / total_resistance
+                converted_row[2] = (led_current / gui.getValue(gui.config_model["LED" + str(converted_row[0])]["Current Limit"])) * 100
+                converted_row[1:] = [sigFigLimit(x, 3) for x in converted_row[1:]]
+                writer.writerow(converted_row) #Write rows to temp file
+            setSequencePath(gui, widget, stream.name) #Save temp file path to sync model
 
-            print(tempfile.gettempdir())
+        loadSequence(gui, widget, True) #Load temp file to widget
+        os.remove(stream.name) #Close and remove tempfile when done
+
+    else:
+        gui.message_box.setText("Error: Downloaded sequence stream length % 9 = " + str(len(byte_array)%9) + ". It should be = 0. Sequence stream not loaded")
+        gui.message_box.exec()

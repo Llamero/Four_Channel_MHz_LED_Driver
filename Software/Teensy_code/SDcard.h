@@ -21,6 +21,7 @@ class SDcard
     static size_t file_size; //Size of file that is being read
     const static char seq_bin_dir[]; //Directory to save boot log files into - max length 8 char
     const static char seq_files[][13]; //file names foro the four sequence files - max length 8 char name + 4 char ext
+    const static uint8_t N_SEQ_FILES = 4;
     
   private:
     const static int chipSelect = BUILTIN_SDCARD;

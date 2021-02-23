@@ -2,6 +2,7 @@ from PyQt5 import QtGui, QtCore, QtWidgets, uic
 from PyQt5.QtGui import QFont
 import qdarkstyle  # This awesome style sheet was made by Colin Duquesnoy and Daniel Cosmo Pizetta - https://github.com/ColinDuquesnoy/QDarkStyleSheet
 from collections import OrderedDict
+import os
 import pyqtgraph as pg
 import guiMapper
 import guiSequence as seq
@@ -14,6 +15,11 @@ class Ui(QtWidgets.QMainWindow):
         self.app = app
         super(Ui, self).__init__()
 
+        self.splash = QtWidgets.QSplashScreen(QtGui.QPixmap(os.path.join(os.path.dirname(__file__), "Four Channel MHz LED Driver.png")))
+        self.splash.setFont(QFont('Arial', 15))
+        self.splash.show()
+        self.splash.showMessage("Loading program...", alignment=QtCore.Qt.AlignBottom, color=QtCore.Qt.white)
+
         # Set look and feel
         uic.loadUi('QtDesigner_GUI.ui', self)
         self.app.setStyleSheet("")
@@ -25,6 +31,7 @@ class Ui(QtWidgets.QMainWindow):
         self.message_box.setIcon(QtWidgets.QMessageBox.Warning)
 
         # Map gui widgets to ordered dictionaries
+        self.splash.showMessage("Initializing models...", alignment=QtCore.Qt.AlignBottom, color=QtCore.Qt.white)
         self.config_model = guiMapper.initializeConfigModel(self)
         self.sync_model = guiMapper.initializeSyncModel(self)
 
@@ -39,7 +46,9 @@ class Ui(QtWidgets.QMainWindow):
         guiMapper.initializeEvents(self)
         fileIO.checkCurrentLimits(self)
         plot.initializeCalibrationPlot(self)
+        self.splash.showMessage("Searching for connected drivers...", alignment=QtCore.Qt.AlignBottom, color=QtCore.Qt.white)
         self.ser.getDriverPort(True)
+        self.splash.finish(self)
         self.show()
 
     def getValue(self, widget):

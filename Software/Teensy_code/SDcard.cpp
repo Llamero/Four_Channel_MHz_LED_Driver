@@ -16,12 +16,9 @@ const static char SDcard::seq_files[][13] = {"dig_low.bin", "dig_high.bin", "con
 
 SDcard::SDcard()
 {
-//  float a = sync2.MIRROR_PERIOD;
-  
 }
 
 static void SDcard::init(){
-  
 }
 
 // call back for file timestamps - from: https://forum.arduino.cc/index.php?topic=348562.0
@@ -64,7 +61,14 @@ static boolean SDcard::initializeSD(){
       }
     }
   }
-
+  /////////////////CREATE EMPTY SEQ FILES IF NECESSARY///////////////////////////
+  for(int a = 0; a<N_SEQ_FILES; a++){
+    sprintf(message_buffer, "%s/%s", seq_bin_dir, seq_files[a]); //Path to file
+    if(!SD.exists(message_buffer)){ //If file doesn't exist, create an empty file
+      f = SD.open(message_buffer, O_WRONLY | O_CREAT | O_TRUNC);
+      f.close();
+    }
+  }
   return message_size == 0;
 }
 
@@ -109,7 +113,7 @@ static boolean SDcard::readFromSD(char *data_array, uint32_t start_index, uint32
   if(force_read || file_size >= 512){ 
     if(SD.exists(seq_bin_dir)){ //Make sure that the save directories exist before trying to save to it - without this check open() will lock without SD card  
       //Open file
-      f = SD.open(message_buffer, FILE_READ);
+      f = SD.open(message_buffer, O_RDONLY);
       if(f){
         if(file_size == 0) file_size = f.size(); //Get the size of the file being read if one wasn't specified
         while(file_size >= 512){ //Retrieve a blocks of 512 bytes

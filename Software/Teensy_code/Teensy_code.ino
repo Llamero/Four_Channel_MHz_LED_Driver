@@ -448,34 +448,37 @@ static void syncRtcTime(const uint8_t* buffer, size_t size) {
 }
 
 static void sendSeq(const uint8_t* buffer, size_t size){
+  uint8_t file_id; //Index of sequence file requested
+  
   if(size == 2){ //Load file to stream buffer if command requesting file is sent from GUI
-    if(buffer[1] <= 0 && buffer[1] >= 4){
+    if(buffer[1] <= 0 && buffer[1] >= sd.N_SEQ_FILES){
       temp_size = sprintf(temp_buffer, "-Error: Stream #%d is not a valid file identifier byte.", buffer[1]);  
       goto sendMessage;
     }
     else{
-      sequence_buffer[0][0] = prefix.send_seq; //Send sequence prefix for callback routing of streamed packet
-      sequence_buffer[0][1] = buffer[1]; //Send ID of sequence file being streamed
+      file_id = buffer[1];
       if(!sd.readFromSD(sequence_buffer[0]+2, 0, 0, sd.seq_files[buffer[1]])){ //Offset 
         temp_size = sprintf(temp_buffer, "%s", sd.message_buffer);  
         goto sendMessage;
       }
       else{   
         //Initialize sequence file stream to GUI with callback prefix byte - tells GUI where to route the packet to once stream is complete
-        temp_buffer[0] = prefix.send_stream;
+        temp_buffer[0] = prefix.send_seq;
         uint32Union.bytes_var = sd.file_size+2; //+2 byte for the callback routing byte and file ID prefix byte at the start of the packet
         memcpy(temp_buffer+1, uint32Union.bytes, sizeof(uint32Union.bytes));
-        usb.send(temp_buffer, sizeof(prefix.send_stream) + sizeof(uint32Union.bytes));
+        usb.send(temp_buffer, sizeof(prefix.send_seq) + sizeof(uint32Union.bytes));
       }
     }
     Serial.setTimeout(500); //Set timeout for waiting for packet blocks
-    temp_size = Serial.readBytesUntil(0, temp_buffer, 3); //Wait for reply from GUI indicating ready for stream to be sent
+    temp_size = Serial.readBytes(temp_buffer, 3); //Wait for reply from GUI indicating ready for stream to be sent
     if(temp_size < 3){
       temp_size = sprintf(temp_buffer, "-Error: Driver timed out waiting for GUI to reply ready for stream, %d bytes received of 3.", temp_size);  
       goto sendMessage;
     }
-    else if(temp_buffer[0] == 2 && temp_buffer[1] == prefix.send_stream && temp_buffer[2] == 0){ //If valid "ready for stream" requenst is received then send data stream
-      Serial.write(sequence_buffer[0], sd.file_size+2); //Stream sequence file 
+    else if(temp_buffer[0] == 2 && temp_buffer[1] == prefix.send_seq && temp_buffer[2] == 0){ //If valid "ready for stream" requenst is received then send data stream
+      sequence_buffer[0][0] = prefix.send_seq; //Send sequence prefix for callback routing of streamed packet
+      sequence_buffer[0][1] = file_id; //Send ID of sequence file being streamed
+      Serial.write(sequence_buffer[0], uint32Union.bytes_var); //Stream sequence file 
     }
     else{
       temp_size = sprintf(temp_buffer, "-Error: Invalid \"ready for stream\" packet received from GUI. Expected [2, %d, 0] and got [%d, %d, %d].", prefix.send_stream, temp_buffer[0], temp_buffer[1], temp_buffer[2]);  
@@ -486,6 +489,7 @@ static void sendSeq(const uint8_t* buffer, size_t size){
     temp_size = sprintf(temp_buffer, "-Error: Expected sendSeq request of 2 bytes and got %d bytes", size);  
     goto sendMessage;
   }
+  return;
   sendMessage:
     temp_buffer[0] = prefix.message;
     usb.send(temp_buffer, temp_size);
@@ -497,7 +501,7 @@ static bool recvSeq(const uint8_t* buffer, size_t size, bool single_file){
   Serial.setTimeout(500); //Set timeout for waiting for packet blocks
   if(single_file){
     if(size == 2){ //Overrwite index counter "a" with requested file index if there is one
-      if(buffer[1] <= 0 && buffer[1] >= 4){
+      if(buffer[1] <= 0 && buffer[1] >= sd.N_SEQ_FILES){
         temp_size = sprintf(temp_buffer, "-Error: Stream #%d is not a valid file identifier byte.", buffer[1]);  
         goto sendMessage;
       }
@@ -508,7 +512,7 @@ static bool recvSeq(const uint8_t* buffer, size_t size, bool single_file){
     }
   }
   while(Serial.available()) Serial.read(); //Clear serial buffer
-  for(int a = 0; a<4; a++){
+  for(int a = 0; a<sd.N_SEQ_FILES; a++){
     if(single_file) a=buffer[1]; //If a file was specified only recv that file
     temp_buffer[0] = prefix.recv_seq;
     temp_buffer[1] = a;

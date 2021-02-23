@@ -72,10 +72,10 @@ def loadConfiguration(gui, model, file=None):
                         gui.message_box.exec()
                         return
                 if key_path[-1] == "Sequence": #Process sequence file loads separately
-                    seq.setSequencePath(gui, key_path, value) #Save path to dictionary
                     widget = eval("gui.sync_" + key_path[0].lower() + "_" + key_path[1].lower() + "_sequence_table") #Assign to proper widget table
+                    seq.setSequencePath(gui, widget, value)  # Save path to dictionary
                     if value != "None":
-                        seq.loadSequence(gui, widget, key_path, True) #Load sequence file to table
+                        seq.loadSequence(gui, widget, True) #Load sequence file to table
                 elif not gui.setValue(dictionary, value):
                     gui.message_box.setText("Error: \"" + key +"\" is not a valid value in \"" + line + "\". Load aborted at this step.")
                     gui.message_box.exec()
@@ -152,6 +152,7 @@ def bytesToConfig(byte_array, gui, prefix):
             gui.setValue(gui.config_model["Resistor" + str(resistor)]["Value"], resistance)
             gui.setValue(gui.config_model["Resistor" + str(resistor)]["Active"], active)
         total_resistance = 1 / total_resistance
+        checkCurrentLimits(gui) #Set new current limits in GUI
 
         for led_number in range(1, 5):
             current_limit = config_values[led_number + 3]
@@ -198,7 +199,6 @@ def bytesToConfig(byte_array, gui, prefix):
 
 def bytesToSync(byte_array, gui, prefix):
     sync_values = [None]* 38
-    print(len(byte_array))
     def setWidget(widgets, index):
         try:
             widget_string = widgets[sync_values[index]].text()
@@ -213,11 +213,7 @@ def bytesToSync(byte_array, gui, prefix):
         sync_values = struct.unpack("<BBBBBBBHHHHLLBBBBH?B???H?LLLBBBBLLHHLLB", byte_array)
 
         #Calculate total resistance for current conversions
-        total_resistance = 0.0
-        for resistor in range(1, 5):
-            if gui.getValue(gui.config_model["Resistor" + str(resistor)]["Active"]):
-                total_resistance += 1 / gui.getValue(gui.config_model["Resistor" + str(resistor)]["Value"])
-        total_resistance = 1 / total_resistance
+        total_resistance = float(gui.configure_current_limit_box.whatsThis())
 
         #Digital
         gui.sync_model["Mode"].setCurrentIndex(sync_values[0])
@@ -270,10 +266,12 @@ def bytesToSync(byte_array, gui, prefix):
                     gui.setValue(gui.sync_model["Confocal"][key2][key3], (((sync_values[(2 * index3) + index2 + 28]/65535)*3.3/total_resistance)/current_limit[index2])*100)
                 elif key3 == "Duration":
                     gui.setValue(gui.sync_model["Confocal"][key2][key3], sync_values[(2 * index3) + index2 + 28]/1e6)
+        return True
 
     else:
         gui.message_box.setText("Error: Driver config file had invalid checksum: " + str(checksum) + ". Upload aborted.")
         gui.message_box.exec()
+        return False
 
 def configToBytes(gui, prefix):
     global EXT_THERMISTOR_NOMINAL
@@ -360,11 +358,7 @@ def syncToBytes(gui, prefix):
             return None
 
     #Calculate total resistance for current conversions
-    total_resistance = 0.0
-    for resistor in range(1, 5):
-        if gui.getValue(gui.config_model["Resistor" + str(resistor)]["Active"]):
-            total_resistance += 1 / gui.getValue(gui.config_model["Resistor" + str(resistor)]["Value"])
-    total_resistance = 1 / total_resistance
+    total_resistance = float(gui.configure_current_limit_box.whatsThis())
 
     #Digital
     sync_values[0] = gui.sync_model["Mode"].currentIndex()
