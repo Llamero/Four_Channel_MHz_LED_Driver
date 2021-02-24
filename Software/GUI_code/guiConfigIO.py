@@ -134,7 +134,7 @@ def bytesToConfig(byte_array, gui, prefix):
             start_index = index
             while int(byte_array[index]) != 0:
                 index += 1
-            gui.setValue(gui.config_model["LED" + str(led_number)]["ID"], byte_array[start_index:index].decode())
+            gui.setValue(gui.config_model["LED" + str(led_number)]["ID"], byte_array[start_index:index].decode().rstrip())
         index += 1
         config_values = struct.unpack("<????HHHHBBBBffff????HHHHHHHHHHBiiBBHBB", byte_array[index:]) #Parse byte array values: https://docs.python.org/3/library/struct.html#struct-alignment
 

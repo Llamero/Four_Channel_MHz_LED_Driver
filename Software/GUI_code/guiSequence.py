@@ -198,7 +198,8 @@ def verifyCell(gui, column=None, row=None, data=None, widget=None):
         if data != "" or not item: #If cell is not empty then report that entry is invalid
             showMessage(gui, 
                 "Error: \"" + str(data) + "\" at row #" + str(row + 1) + " column #" + str(column + 1) + " is not a number. Process aborted.")
-            item.setText("")
+            if item:
+                item.setText("")
         return False
     return True
 
@@ -319,11 +320,14 @@ def bytesToSequence(byte_array, gui, widget):
 
         loadSequence(gui, widget, True) #Load temp file to widget
         os.remove(stream.name) #Close and remove tempfile when done
+        setSequencePath(gui, widget, None)
+
 
     else:
         showMessage(gui, "Error: Downloaded sequence stream length % 9 = " + str(len(byte_array)%9) + ". It should be = 0. Sequence stream not loaded")
 
 def showMessage(gui, text):
+    gui.waitCursor(False)
     gui.stopSplash()
     gui.message_box.setText(text)
     gui.message_box.exec()
