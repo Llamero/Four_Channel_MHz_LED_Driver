@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>496</width>
-    <height>481</height>
+    <width>561</width>
+    <height>865</height>
    </rect>
   </property>
   <property name="font">
@@ -19,31 +19,39 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" alignment="Qt::AlignTop">
-    <widget class="QTabWidget" name="tabWidget">
+   <item row="0" column="0">
+    <widget class="QTabWidget" name="main_tab">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="text_tab">
       <attribute name="title">
        <string>Text</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_7" rowstretch="0,0,0,10">
-       <item row="1" column="0" alignment="Qt::AlignTop">
-        <widget class="QGroupBox" name="groupBox_7">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-           <underline>false</underline>
-          </font>
+      <layout class="QGridLayout" name="gridLayout_7" rowstretch="0,0,0,0">
+       <item row="3" column="0" alignment="Qt::AlignTop">
+        <widget class="QFrame" name="frame">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
          </property>
-         <property name="title">
-          <string>LED</string>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
          </property>
-         <layout class="QGridLayout" name="gridLayout_10">
-          <item row="1" column="2">
-           <widget class="QLabel" name="label_10">
+         <layout class="QGridLayout" name="gridLayout_12">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item row="3" column="0">
+           <widget class="QGroupBox" name="text_sync_box">
             <property name="font">
              <font>
               <weight>50</weight>
@@ -51,71 +59,43 @@
               <underline>false</underline>
              </font>
             </property>
-            <property name="text">
-             <string>PWM: NC</string>
+            <property name="title">
+             <string>Sync</string>
             </property>
+            <layout class="QGridLayout" name="gridLayout_11">
+             <item row="0" column="0">
+              <widget class="QLabel" name="text_mode_label">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>Mode: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="text_input_label">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>Input: </string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QLabel" name="label_9">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-              <underline>false</underline>
-             </font>
-            </property>
-            <property name="text">
-             <string>Current: NC</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QLabel" name="label_15">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-              <underline>false</underline>
-             </font>
-            </property>
-            <property name="text">
-             <string>Channel #:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="label_16">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-              <underline>false</underline>
-             </font>
-            </property>
-            <property name="text">
-             <string>Channel Name:</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="2" column="0" alignment="Qt::AlignTop">
-        <widget class="QGroupBox" name="groupBox_6">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-           <underline>false</underline>
-          </font>
-         </property>
-         <property name="title">
-          <string>Temperature</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_8">
           <item row="0" column="0">
-           <widget class="QLabel" name="label">
+           <widget class="QGroupBox" name="text_led_box">
             <property name="font">
              <font>
               <weight>50</weight>
@@ -123,78 +103,71 @@
               <underline>false</underline>
              </font>
             </property>
-            <property name="text">
-             <string>Transistor: NC</string>
+            <property name="title">
+             <string>LED</string>
             </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_3">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-              <underline>false</underline>
-             </font>
-            </property>
-            <property name="text">
-             <string>Resistor: NC</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="label_4">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-              <underline>false</underline>
-             </font>
-            </property>
-            <property name="text">
-             <string>External: NC</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLabel" name="label_5">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-              <underline>false</underline>
-             </font>
-            </property>
-            <property name="text">
-             <string>Driver Fan Speed: NC</string>
-            </property>
+            <layout class="QGridLayout" name="gridLayout_10">
+             <item row="1" column="2">
+              <widget class="QLabel" name="text_pwm_label">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>PWM: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="text_current_label">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>Current: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QLabel" name="text_channel_label">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>Channel:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="text_channel_name_label">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>Channel Name:</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="label_19">
-            <property name="text">
-             <string>External Fan Speed: NC</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="3" column="0" alignment="Qt::AlignTop">
-        <widget class="QGroupBox" name="groupBox_8">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-           <underline>false</underline>
-          </font>
-         </property>
-         <property name="title">
-          <string>Sync</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_11">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_17">
+           <widget class="QGroupBox" name="text_temperature_box">
             <property name="font">
              <font>
               <weight>50</weight>
@@ -202,45 +175,78 @@
               <underline>false</underline>
              </font>
             </property>
-            <property name="text">
-             <string>Mode: NC</string>
+            <property name="title">
+             <string>Temperature</string>
             </property>
+            <layout class="QGridLayout" name="gridLayout_8">
+             <item row="0" column="0">
+              <widget class="QLabel" name="text_transistor_label">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>Transistor: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="text_driver_fan_label">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>Driver Fan: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="text_resistor_label">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>Resistor: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="text_external_label">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>External: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="text_external_fan_label">
+               <property name="text">
+                <string>External Fan: </string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="label_18">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-              <underline>false</underline>
-             </font>
-            </property>
-            <property name="text">
-             <string>Analog Input: NC</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="0" column="0" alignment="Qt::AlignTop">
-        <widget class="QGroupBox" name="groupBox_5">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <italic>false</italic>
-           <bold>false</bold>
-           <underline>false</underline>
-           <strikeout>false</strikeout>
-          </font>
-         </property>
-         <property name="title">
-          <string>Connection</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_9">
           <item row="1" column="0">
-           <widget class="QLabel" name="label_7">
+           <widget class="QGroupBox" name="text_connection_box">
             <property name="font">
              <font>
               <weight>50</weight>
@@ -250,41 +256,66 @@
               <strikeout>false</strikeout>
              </font>
             </property>
-            <property name="text">
-             <string>Serial #: NC</string>
+            <property name="title">
+             <string>Connection</string>
             </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLabel" name="label_8">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
-              <underline>false</underline>
-              <strikeout>false</strikeout>
-             </font>
-            </property>
-            <property name="text">
-             <string>COM port: NC</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0" colspan="2">
-           <widget class="QLabel" name="label_6">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
-              <underline>false</underline>
-              <strikeout>false</strikeout>
-             </font>
-            </property>
-            <property name="text">
-             <string>Name: NC</string>
-            </property>
+            <layout class="QGridLayout" name="gridLayout_9">
+             <item row="0" column="1">
+              <widget class="QLabel" name="text_serial_label">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <italic>false</italic>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                 <strikeout>false</strikeout>
+                </font>
+               </property>
+               <property name="text">
+                <string>Serial: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="text_name_label">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <italic>false</italic>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                 <strikeout>false</strikeout>
+                </font>
+               </property>
+               <property name="text">
+                <string>Name: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="text_com_port_label">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <italic>false</italic>
+                 <bold>false</bold>
+                 <underline>false</underline>
+                 <strikeout>false</strikeout>
+                </font>
+               </property>
+               <property name="text">
+                <string>COM Port: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="text_control_label">
+               <property name="text">
+                <string>Control:</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>
@@ -298,59 +329,66 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0,0,0,0,25,25,40,10">
        <item row="6" column="0">
-        <widget class="QGroupBox" name="groupBox_3">
+        <widget class="QGroupBox" name="graph_temperature_external_box">
          <property name="title">
           <string>Temperature: External</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_4">
           <item row="0" column="0">
-           <widget class="PlotWidget" name="graphicsView_2"/>
+           <widget class="PlotWidget" name="graph_temperature_external"/>
           </item>
          </layout>
         </widget>
        </item>
        <item row="5" column="0">
-        <widget class="QGroupBox" name="groupBox_2">
+        <widget class="QGroupBox" name="graph_temperature_internal_box">
          <property name="title">
           <string>Temperature: LED Driver</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="0" column="0">
-           <widget class="PlotWidget" name="graphicsView"/>
+           <widget class="PlotWidget" name="graph_temperature_internal"/>
           </item>
          </layout>
         </widget>
        </item>
        <item row="7" column="0">
-        <widget class="QGroupBox" name="groupBox">
+        <widget class="QGroupBox" name="graph_current_box">
          <property name="title">
-          <string>LED Current: Live</string>
+          <string>LED Current:</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_5">
           <item row="0" column="0">
-           <widget class="PlotWidget" name="graphicsView_3"/>
+           <widget class="PlotWidget" name="graph_current"/>
           </item>
          </layout>
         </widget>
        </item>
        <item row="8" column="0">
-        <widget class="QGroupBox" name="groupBox_4">
+        <widget class="QGroupBox" name="graph_update_box">
          <property name="title">
           <string>Update Speed</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_6" columnstretch="20,20,20,0,0,0">
           <item row="0" column="5">
-           <widget class="QLabel" name="label_2">
+           <widget class="QLabel" name="graph_custom_update_label">
             <property name="text">
              <string>Hz</string>
             </property>
            </widget>
           </item>
           <item row="0" column="4">
-           <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+           <widget class="QDoubleSpinBox" name="graph_custom_update_spinbox">
+            <property name="minimum">
+             <double>0.010000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>10.000000000000000</double>
+            </property>
+           </widget>
           </item>
           <item row="0" column="2">
-           <widget class="QRadioButton" name="radioButton_3">
+           <widget class="QRadioButton" name="graph_slow_update_button">
             <property name="text">
              <string>0.2 Hz</string>
             </property>
@@ -360,7 +398,7 @@
            </widget>
           </item>
           <item row="0" column="0">
-           <widget class="QRadioButton" name="radioButton">
+           <widget class="QRadioButton" name="graph_fast_update_button">
             <property name="text">
              <string>5 Hz</string>
             </property>
@@ -370,7 +408,7 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QRadioButton" name="radioButton_2">
+           <widget class="QRadioButton" name="graph_normal_update_button">
             <property name="text">
              <string>1 Hz</string>
             </property>
@@ -383,7 +421,7 @@
            </widget>
           </item>
           <item row="0" column="3">
-           <widget class="QRadioButton" name="radioButton_4">
+           <widget class="QRadioButton" name="graph_custom_update_button">
             <property name="text">
              <string>Custom:</string>
             </property>

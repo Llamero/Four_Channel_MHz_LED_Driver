@@ -135,11 +135,13 @@ struct sequenceStruct{
 };
 
 struct statusStruct{
-  uint16_t knob; //ADC value of intensity know
-  boolean toggle; //position of mode toggle switch
+  uint8_t led_channel; //Active LED channel
+  uint16_t led_pwm; //PWM value for internal and external fan respectively
+  uint16_t led_current; //DAC value for active LED
+  uint8_t mode; //0=Sync, 1=PWM, 2=Current, 3=Off
+  boolean driver_control; //True = driver controls itself, False = GUI controls driver
   uint16_t temp[3]; //ADC temp reading of mosfet, resistor, and external respectively
   uint16_t fan_speed[2]; //PWM valur for internal and external fan respectively
-  uint16_t led_current; //DAC value for active LED
 };
 
 const struct prefixStruct{
@@ -155,6 +157,7 @@ const struct prefixStruct{
   uint8_t recv_time = 9; //Receive the unix time of the GUI to sync driver RTC
   uint8_t recv_stream = 10; //Signal the driver is ready to receive stream that is queued
   uint8_t send_stream = 11; //If recv - signals that ready for next packet
+  uint8_t status_update = 12; //Status update packet for driver or GUI
 } prefix;
 
 //////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION
@@ -190,25 +193,25 @@ union BYTE32UNION
 union CONFIGUNION //Convert binary buffer <-> config setup
 {
    configurationStruct c;
-   byte byte_buffer[sizeof(defaultConfigurationStruct)]; //152
+   byte byte_buffer[sizeof(defaultConfigurationStruct)];
 } conf;
 
 union SYNCUNION //Convert binary buffer <-> sync setup
 {
    syncStruct s;
-   byte byte_buffer[sizeof(defaultSyncStruct)]; //163
+   byte byte_buffer[sizeof(defaultSyncStruct)];
 } sync;
 
 union SEQUNION //Convert binary buffer <-> sync setup
 {
    sequenceHeaderStruct s;
-   byte byte_buffer[sizeof(sequenceHeaderStruct)]; //6
+   byte byte_buffer[sizeof(sequenceHeaderStruct)];
 } seq_header;
 
 union STATUSUNION //Convert binary buffer <-> sync setup
 {
    statusStruct s;
-   byte byte_buffer[sizeof(statusStruct)]; //163
+   byte byte_buffer[sizeof(statusStruct)];
 } status;
 
 //////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF
@@ -227,6 +230,7 @@ byte sequence_buffer[2][10000*sizeof(sequenceStruct)+10]; //Add buffer padding f
 uint32_t send_stream_index = 0; //Current index position of stream that is being sent
 uint32_t send_stream_size = 0; //Total size of file to be streamed
 const static uint16_t DEFUALT_TIMEOUT = 500; //Default timeout for serial communication in ms
+uint8_t status_index = 0; //Index counter for incrementally updating and transmitting status
 
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
@@ -358,6 +362,7 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   else if(buffer_prefix == prefix.recv_time) syncRtcTime(buffer, size);
   else if(buffer_prefix == prefix.recv_stream);
   else if(buffer_prefix == prefix.send_stream);
+  else if(buffer_prefix == prefix.status_update) updateStatus(buffer, size);
   else{
     temp_size = sprintf(temp_buffer, "-Error: USB packet had invalid prefix: %d", buffer_prefix);  
     temp_buffer[0] = prefix.message;
@@ -572,7 +577,22 @@ static bool recvSeq(const uint8_t* buffer, size_t size, bool single_file){
     return false;
 }
 
-
+static void updateStatus(const uint8_t* buffer, size_t size){
+  STATUSUNION recv_status;
+  if(size == sizeof(recv_status.byte_buffer)){
+    memcpy(recv_status.byte_buffer, buffer, size);
+    if(recv_status.s.led_channel < 4){
+      if(recv_status.s.mode < 4){
+        memcpy(status.byte_buffer, recv_status.byte_buffer, size);
+      }
+    }
+  }
+  return;
+  sendMessage:
+    temp_buffer[0] = prefix.message;
+    usb.send(temp_buffer, temp_size);
+    return;
+}
 //  boolean state[] = {false, false, false, false, false};
 //  int a = 0;
 //  float mos_temp;

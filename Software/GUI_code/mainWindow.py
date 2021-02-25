@@ -9,6 +9,7 @@ import guiSequence as seq
 import guiConfigIO as fileIO
 import guiPlotter as plot
 import driverUSB
+import statusWindow
 
 class Ui(QtWidgets.QMainWindow):
     def __init__(self, app):
@@ -22,13 +23,13 @@ class Ui(QtWidgets.QMainWindow):
         self.splash.setFont(QFont('Arial', 15))
         self.splash.show()
         self.splash.showMessage("Loading program...", alignment=QtCore.Qt.AlignBottom, color=QtCore.Qt.white)
-
+        self.status = statusWindow.statusWindow(self.app, self)
+        self.status.show()
         # Set look and feel
         uic.loadUi('QtDesigner_GUI.ui', self)
         self.app.setStyleSheet("")
         self.app.setFont(QFont("MS Shell Dlg 2", 12))
-        self.l = pg.GraphicsLayout(border='g')
-        self.calibration_plot_window.setContentsMargins(100., 100., 100., 100.)
+
         #Initialize message box
         self.message_box = QtWidgets.QMessageBox() # https://pythonbasics.org/pyqt-qmessagebox/
         self.message_box.setIcon(QtWidgets.QMessageBox.Warning)

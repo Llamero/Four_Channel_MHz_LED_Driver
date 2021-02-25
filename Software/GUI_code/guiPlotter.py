@@ -73,7 +73,7 @@ def updatePlot(gui, timeline):
         else:
             y_de[x] = 0
     y_de.rotate(interval*10)
-    gui.calibration_plot_window.plot(x_de, y_de, pen=pg.mkPen('g', width=1), clear=True)
+    gui.calibration_plot_window.plot(x_de, y_de, pen=pg.mkPen('g', width=1), connect = "finite",  clear=True)
     gui.calibration_plot_window.plot(x_line, y_line, pen=pg.mkPen('m', width=1))
 
 

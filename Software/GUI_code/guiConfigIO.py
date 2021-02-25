@@ -447,6 +447,7 @@ def tempToAdc(temperature, external = False):
     return round(raw)
 
 def showMessage(gui, text):
+    gui.waitCursor(False)
     gui.stopSplash()
     showMessage(gui, text)
     gui.message_box.exec()

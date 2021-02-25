@@ -441,6 +441,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.active_port.waitForReadyRead(wait_time)
 
     def showMessage(self, text):
+        self.gui.waitCursor(False)
         self.gui.stopSplash()
         self.gui.message_box.setText(text)
         self.gui.message_box.exec()

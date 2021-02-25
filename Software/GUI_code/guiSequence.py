@@ -190,7 +190,7 @@ def verifyCell(gui, column=None, row=None, data=None, widget=None):
         elif column == 3:
             if (data < 1e-5 and data != 0) or data > 4294 or data is None:
                 showMessage(gui, "Error: \"" + str(data) + "\" at row #" + str(
-                    row + 1) + " is not a valid duration (0 or 1e-5 - 4294 seconds). Process aborted.")
+                    row + 1) + " is not a valid duration: 0 (hold) or 10 µs to 4294 seconds. Process aborted.")
                 if item:
                     item.setText("")
                 return False
