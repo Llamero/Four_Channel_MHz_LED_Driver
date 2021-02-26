@@ -1,4 +1,5 @@
 import math
+import struct
 
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 from PyQt5.QtGui import QFont
@@ -12,6 +13,7 @@ import guiConfigIO as fileIO
 import guiPlotter as plot
 import driverUSB
 import time
+import copy
 
 N_MEASUREMENTS = 50 #Number of measurements per plot
 MIN_TEMP_RANGE = 6 #Number of degrees at maximum zoom on the temperature plot
@@ -31,22 +33,26 @@ class statusWindow(QtWidgets.QDialog):
         self.x_axis_offset = 0 #Current x-axis offset to use for rastering the plots in time
 
         #Initialize widget dictionaries
-        self.dynamic_dict = OrderedDict([("Channel", None),
-                                                     ("PWM", None),
-                                                     ("Current", None),
-                                                     ("Mode", None),
-                                                     ("Control", None),
-                                                     ("Transistor", None),
-                                                     ("Resistor", None),
-                                                     ("External", None),
-                                                     ("Driver Fan", None),
-                                                     ("External Fan", None)])
+        self.dynamic_dict = OrderedDict([("Channel", 0),
+                                                     ("PWM", 0),
+                                                     ("Current", 0),
+                                                     ("Mode", 0),
+                                                     ("Control", 0),
+                                                     ("Transistor", 0),
+                                                     ("Resistor", 0),
+                                                     ("External", 0),
+                                                     ("Driver Fan", 0),
+                                                     ("External Fan", 0)])
 
-        self.static_dict = OrderedDict([("Name", None),
-                                        ("COM Port", None),
-                                        ("Serial", None),
-                                        ("Control", None),
-                                        ("Input", None)])
+
+        self.static_dict = OrderedDict([("Name", 0),
+                                        ("COM Port", 0),
+                                        ("Serial", 0),
+                                        ("Control", 0),
+                                        ("Input", 0)])
+
+        self.status_dict = OrderedDict(list(self.static_dict.items()) + list(self.dynamic_dict.items()) + [("Count", 0)])
+        print(self.status_dict)
 
         self.plots = OrderedDict([("Internal", self.graph_temperature_internal),
                                       ("External", self.graph_temperature_external),
@@ -69,9 +75,10 @@ class statusWindow(QtWidgets.QDialog):
                        "font-style": str(default_font.family())}
 
         if key == "Current":
-            status_plot.setLabel('left', "LED Current ", "A", **label_style)
+            status_plot.setLabel('left', "(% Current * % PWM)", **label_style)
         else:
             status_plot.setLabel('left', "", "°C", **label_style)
+            status_plot.setYRange(21 - MIN_TEMP_RANGE / 2, 21 + MIN_TEMP_RANGE / 2, padding=0)
         status_plot.setLabel('bottom', "", **label_style)
 
         # Use invisible axes to add margins to plot
@@ -108,26 +115,70 @@ class statusWindow(QtWidgets.QDialog):
 
     def startAnimation(self):
         self.timeline.setFrameRange(0, 100)
-        self.timeline.frameChanged.connect(lambda: self.updatePlots())
+        self.timeline.frameChanged.connect(lambda: self.updateStatusWindow())
         self.timeline.start()
 
     def stopAnimation(self):
         self.timeline.stop()
 
-    def updatePlots(self):
+    def updateStatus(self, reply):
+        status_list = struct.unpack("<BHHB?HHHHH", reply)
+        count = self.status_dict["Count"]
+        for index, key in enumerate(self.dynamic_dict):
+            if key in ["Channel", "Mode", "Control"] or count == 0:
+                self.status_dict[key] = status_list[index]
+            else: #Calculate running average of measured values per update
+                self.status_dict[key] += status_list[index]
+
+        self.status_dict["Count"] += 1
+
+    def updateStatusWindow(self):
+        def updateLabel(unit = ""):
+            nonlocal self
+            widget = key.lower()
+            widget = eval("self.text_" + widget.replace(" ", "_") + "_label")
+            widget.setText(key + ": " + str(value) + unit)
+
+        round_to_n = lambda x, n: x if x == 0 else round(x, -int(math.floor(math.log10(abs(x)))) + (n - 1)) #Roudn to sig fig - https://stackoverflow.com/questions/3410976/how-to-round-a-number-to-significant-figures-in-python
+        count = self.status_dict["Count"]
+        if count > 0: #Update values if at least one new update was received
+            for key, value in self.status_dict.items():
+                unit = ""
+                if key == "Channel":
+                    value += 1
+                    updateLabel()
+                    key = "Channel Name"
+                    value = self.gui.getValue(self.gui.config_model["LED" + str(value)]["ID"])
+                elif key in ["Transistor", "Resistor", "External"]:
+                    self.status_dict[key] = fileIO.adcToTemp(value/count)
+                    if self.status_dict[key] > -100:
+                        value = round_to_n(self.status_dict[key], 3)
+                        unit = " °C"
+                    else:
+                        value = "Not Connected"
+                elif key in ["Driver Fan", "External Fan", "Current", "PWM"]:
+                    self.status_dict[key] = ((value / count)/65535)*100
+                    value = round_to_n(self.status_dict[key], 3)
+                    unit = " %"
+                if key != "Count":
+                    updateLabel(unit)
+            self.status_dict["Count"] = 0 #Reset the averaging counter
+
+        #Update plots
+        show_plot = self.isVisible() and self.gui.getValue(self.main_tab) == "Graph"
         self.x_axis_offset += 1
         for key, status_plot in self.plots.items():
             if self.x_axis_offset == N_MEASUREMENTS:
                 self.x_axis_offset = 0
             x_values = list(range(self.x_axis_offset, self.x_axis_offset + N_MEASUREMENTS))
-            if self.isVisible():
+            if show_plot:
                 status_plot.setXRange(self.x_axis_offset, N_MEASUREMENTS+self.x_axis_offset, padding=0)
 
             if key == "Internal":
                 for key2, y_value in self.y_values[key].items():
-                    self.y_values[key][key2][0] = 10*math.sin(time.time()/3)+20
+                    self.y_values[key][key2][0] = self.status_dict[key2]
                     self.y_values[key][key2].rotate(-1)
-                    if self.isVisible():
+                    if show_plot:
                         y_list = list(self.y_values[key][key2])
                         list_max = max(y for y in y_list if y > -273.15) #Exclude None: https://stackoverflow.com/questions/2295461/list-minimum-in-python-with-none
                         list_min = min(y for y in y_list if y > -273.15)
@@ -146,23 +197,26 @@ class statusWindow(QtWidgets.QDialog):
                         status_plot.plot(x_values, y_list, pen=pg.mkPen(color, width=1), clear=clear_plot)
 
             elif key == "External":
-                self.y_values[key][0] = 1
+                self.y_values[key][0] = self.status_dict[key]
                 self.y_values[key].rotate(-1)
-                if self.isVisible():
+                if show_plot:
                     y_list = list(self.y_values[key])
-                    list_max = max(y for y in y_list if y > -273.15)  # Exclude None: https://stackoverflow.com/questions/2295461/list-minimum-in-python-with-none
-                    list_min = min(y for y in y_list if y > -273.15)
-                    y_mean = (list_max + list_min) / 2
-                    y_range = list_max - list_min
-                    if y_range < MIN_TEMP_RANGE * PLOT_PADDING:
-                        y_range = MIN_TEMP_RANGE * PLOT_PADDING
-                    status_plot.setYRange(y_mean - y_range / 2, y_mean + y_range / 2, padding=0)
+                    try:
+                        list_max = max(y for y in y_list if y > -273.15)  # Exclude None: https://stackoverflow.com/questions/2295461/list-minimum-in-python-with-none
+                        list_min = min(y for y in y_list if y > -273.15)
+                        y_mean = (list_max + list_min) / 2
+                        y_range = list_max - list_min
+                        if y_range < MIN_TEMP_RANGE * PLOT_PADDING:
+                            y_range = MIN_TEMP_RANGE * PLOT_PADDING
+                        status_plot.setYRange(y_mean - y_range / 2, y_mean + y_range / 2, padding=0)
+                    except ValueError:
+                        pass
                     status_plot.plot(x_values, y_list, pen=pg.mkPen('g', width=1), connect="finite", clear=True)
 
             else:
-                self.y_values[key][0] = 1
+                self.y_values[key][0] = (self.status_dict[key]*self.status_dict["PWM"])/100
                 self.y_values[key].rotate(-1)
-                if self.isVisible():
+                if show_plot:
                     y_list = list(self.y_values[key])
                     status_plot.setYRange(0, max(y_list)*PLOT_PADDING, padding=0)
                     status_plot.plot(x_values, y_list, pen=pg.mkPen('g', width=1), connect="finite", clear=True)

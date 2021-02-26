@@ -239,7 +239,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                     print("↑ Total tx packet length: " + str(len(command)))
             try:
                 if self.expected_callback:
-                    if command[0] not in [self.expected_callback, self.prefix_dict["showDriverMessage"]]:
+                    if command[0] not in [self.expected_callback, self.prefix_dict["showDriverMessage"], self.prefix_dict["updateStatus"]]:
                         self.showMessage("Warning: Waiting for reply to \"" + str(self.command_dict[self.expected_callback].__name__) + "\" and received a packet for \"" + str(self.command_dict[command[0]].__name__) + "\" instead.")
                         if debug:
                             print("Warning: Waiting for reply to \"" + str(self.command_dict[self.expected_callback].__name__) + "\" and received a packet for \"" + str(self.command_dict[command[0]].__name__) + "\" instead.")
@@ -255,17 +255,18 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
     def initializeRoutingDictionaries(self):
         self.prefix_dict = {"showDriverMessage": 0,
-                                "magicNumberCheck": 1,
-                                "downloadDriverConfiguration": 2,
-                                "uploadDriverConfiguration": 3,
-                                "downloadSyncConfiguration": 4,
-                                "uploadSyncConfiguration": 5,
-                                "downloadSeqFile": 6,
-                                "uploadSeqFile": 7,
-                                "downloadDriverId": 8,
-                                "uploadTime": 9,
-                                "uploadStream": 10,
-                                "downloadStream": 11}  # byte prefix identifying data packet type
+                            "magicNumberCheck": 1,
+                            "downloadDriverConfiguration": 2,
+                            "uploadDriverConfiguration": 3,
+                            "downloadSyncConfiguration": 4,
+                            "uploadSyncConfiguration": 5,
+                            "downloadSeqFile": 6,
+                            "uploadSeqFile": 7,
+                            "downloadDriverId": 8,
+                            "uploadTime": 9,
+                            "uploadStream": 10,
+                            "downloadStream": 11,
+                            "updateStatus": 12}  # byte prefix identifying data packet type
 
         self.command_dict = {self.prefix_dict["showDriverMessage"]: self.showDriverMessage,
                              self.prefix_dict["magicNumberCheck"]: self.magicNumberCheck,
@@ -278,7 +279,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                              self.prefix_dict["downloadDriverId"]: self.downloadDriverId,
                              self.prefix_dict["uploadTime"]: self.uploadTime,
                              self.prefix_dict["uploadStream"]: self.uploadStream,
-                             self.prefix_dict["downloadStream"]: self.downloadStream}  # Mapping of prefix to function that will process the command
+                             self.prefix_dict["downloadStream"]: self.downloadStream,
+                             self.prefix_dict["updateStatus"]: self.updateStatus}  # Mapping of prefix to function that will process the command
 
     def showDriverMessage(self, reply=None):
         if reply is not None:
@@ -422,6 +424,12 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
     def downloadStream(self, message):
         pass
+
+    def updateStatus(self, reply=None):
+        if reply:
+            if len(reply) == 17:
+                self.gui.status.updateStatus(reply)
+
 
     def portConnected(self):
         if self.active_port is None:

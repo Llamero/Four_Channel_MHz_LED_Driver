@@ -260,6 +260,22 @@ void setup() {
 }
 void loop() {
   usb.update();
+  status.s.led_channel = 0;
+  status.s.led_pwm = analogRead(pin.POT);
+  status.s.led_current = analogRead(pin.POT);
+  status.s.mode = digitalReadFast(pin.TOGGLE);
+  status.s.driver_control = 0;
+  analogRead(pin.MOSFET_TEMP);
+  status.s.temp[0] = analogRead(pin.MOSFET_TEMP);
+  analogRead(pin.RESISTOR_TEMP);
+  status.s.temp[1] = analogRead(pin.RESISTOR_TEMP);
+  analogRead(pin.EXTERNAL_TEMP);
+  status.s.temp[2] = analogRead(pin.EXTERNAL_TEMP);
+  status.s.fan_speed[0] = 0;
+  status.s.fan_speed[1] = 0;
+  temp_buffer[0] = prefix.status_update;
+  memcpy(temp_buffer+1, status.byte_buffer, sizeof(status.byte_buffer));
+  usb.send(temp_buffer, sizeof(status.byte_buffer)+1);
   digitalWriteFast(LED_BUILTIN, HIGH);
   delay(20);
   digitalWriteFast(LED_BUILTIN, LOW);

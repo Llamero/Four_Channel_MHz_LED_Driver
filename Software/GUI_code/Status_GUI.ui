@@ -355,7 +355,7 @@
        <item row="7" column="0">
         <widget class="QGroupBox" name="graph_current_box">
          <property name="title">
-          <string>LED Current:</string>
+          <string>LED Intensity:</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_5">
           <item row="0" column="0">

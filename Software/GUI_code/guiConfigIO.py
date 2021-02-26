@@ -416,6 +416,8 @@ def adcToTemp(adc, external = False):
     else:
         therm_nominal = PCB_THERMISTOR_NOMINAL
         b_coefficient = PCB_B_COEFFICIENT
+    if adc > 65500: #If ADC value is arbitrarily high then thermistor is disconnected, so return arbitrarily low value
+        return -1000
     raw = adc
     raw = 65535 / raw - 1
     raw = SERIES_RESISTOR / raw
@@ -425,7 +427,7 @@ def adcToTemp(adc, external = False):
     steinhart += 1.0 / (25 + 273.15)
     steinhart = 1.0 / steinhart
     steinhart -= 273.15
-    return round(steinhart)
+    return steinhart
 
 def tempToAdc(temperature, external = False):
     if external:
