@@ -129,6 +129,19 @@ def initializeSyncModel(gui):
 
     return sync_model
 
+def initializeMainModel(gui):
+    main_model = OrderedDict()
+    main_model["Name"] = gui.main_driver_name_label2
+    main_model["Serial"] = gui.main_driver_serial_label2
+    main_model["Channel"] = [gui.main_channel_LED1_button,
+                             gui.main_channel_LED2_button,
+                             gui.main_channel_LED3_button,
+                             gui.main_channel_LED4_button]
+    main_model["Intensity"] = gui.main_intensity_dial
+    main_model["Mode"] = [gui.main_toggle_slider, gui.main_intensity_PWM_button, gui.main_intensity_current_button, gui.main_intensity_off_button]
+    main_model["Control"] = [gui.main_control_software_button, gui.main_control_physical_button]
+    return main_model
+
 def initializeEvents(gui):
     def menuEvents():
         nonlocal gui

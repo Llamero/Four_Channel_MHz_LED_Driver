@@ -104,10 +104,10 @@ const struct defaultSyncStruct{ //158 bytes
   uint8_t analog_pwm = 1; //ADC averages per PWM update
   uint16_t analog_current = 1; //ADC averages per DAC update
 
-  boolean shutter_polarity = 1; //Shutter polarity when scan is active
+  boolean shutter_polarity = true; //Shutter polarity when scan is active
   uint8_t confocal_channel = 0; //The input channel for the line sync signal
   boolean confocal_sync_mode = false; //Whether the line sync is digital (false) or analog (true)
-  boolean confocal_sync_polarity[2] = {1,1}; //Sync polarity for digital and analog sync inputs
+  boolean confocal_sync_polarity[2] = {true, true}; //Sync polarity for digital and analog sync inputs
   uint16_t confocal_threshold = 2000; //Threshold for analog sync trigger
   boolean confocal_scan_mode = true; //Whether scan is unidirectional (false) or bidrectional (true)
   uint32_t confocal_delay[3] = {0,180,0}; //Delay in clock cycles for each sync delay

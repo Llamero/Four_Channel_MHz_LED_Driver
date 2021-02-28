@@ -1,5 +1,6 @@
 import math
 import struct
+import sys
 
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 from PyQt5.QtGui import QFont
@@ -48,10 +49,9 @@ class statusWindow(QtWidgets.QDialog):
         self.static_dict = OrderedDict([("Name", 0),
                                         ("COM Port", 0),
                                         ("Serial", 0),
-                                        ("Control", 0),
-                                        ("Input", 0)])
+                                        ("Control", 0)])
 
-        self.status_dict = OrderedDict(list(self.static_dict.items()) + list(self.dynamic_dict.items()) + [("Count", 0)])
+        self.status_dict = OrderedDict(list(self.dynamic_dict.items()) + list(self.static_dict.items()) + [("Count", 0)])
         print(self.status_dict)
 
         self.plots = OrderedDict([("Internal", self.graph_temperature_internal),
@@ -122,6 +122,7 @@ class statusWindow(QtWidgets.QDialog):
         self.timeline.stop()
 
     def updateStatus(self, reply):
+        status_change = False
         status_list = struct.unpack("<BHHB?HHHHH", reply)
         count = self.status_dict["Count"]
         for index, key in enumerate(self.dynamic_dict):
@@ -129,16 +130,14 @@ class statusWindow(QtWidgets.QDialog):
                 self.status_dict[key] = status_list[index]
             else: #Calculate running average of measured values per update
                 self.status_dict[key] += status_list[index]
-
+            if self.dynamic_dict[key] != status_list[index]:
+                self.dynamic_dict[key] = status_list[index]
+                status_change = True
+        if status_change:
+            self.gui.updateMain(self.dynamic_dict)
         self.status_dict["Count"] += 1
 
     def updateStatusWindow(self):
-        def updateLabel(unit = ""):
-            nonlocal self
-            widget = key.lower()
-            widget = eval("self.text_" + widget.replace(" ", "_") + "_label")
-            widget.setText(key + ": " + str(value) + unit)
-
         round_to_n = lambda x, n: x if x == 0 else round(x, -int(math.floor(math.log10(abs(x)))) + (n - 1)) #Roudn to sig fig - https://stackoverflow.com/questions/3410976/how-to-round-a-number-to-significant-figures-in-python
         count = self.status_dict["Count"]
         if count > 0: #Update values if at least one new update was received
@@ -146,7 +145,7 @@ class statusWindow(QtWidgets.QDialog):
                 unit = ""
                 if key == "Channel":
                     value += 1
-                    updateLabel()
+                    self.updateLabel(key, value)
                     key = "Channel Name"
                     value = self.gui.getValue(self.gui.config_model["LED" + str(value)]["ID"])
                 elif key in ["Transistor", "Resistor", "External"]:
@@ -160,8 +159,11 @@ class statusWindow(QtWidgets.QDialog):
                     self.status_dict[key] = ((value / count)/65535)*100
                     value = round_to_n(self.status_dict[key], 3)
                     unit = " %"
-                if key != "Count":
-                    updateLabel(unit)
+                elif key == "Control":
+                    value = self.gui.main_model["Control"][int(value)].text()
+
+                if key not in ["Count", "Mode"]:
+                    self.updateLabel(key, value, unit)
             self.status_dict["Count"] = 0 #Reset the averaging counter
 
         #Update plots
@@ -220,6 +222,14 @@ class statusWindow(QtWidgets.QDialog):
                     y_list = list(self.y_values[key])
                     status_plot.setYRange(0, max(y_list)*PLOT_PADDING, padding=0)
                     status_plot.plot(x_values, y_list, pen=pg.mkPen('g', width=1), connect="finite", clear=True)
+
+    def updateLabel(self, key, value, unit = ""):
+        widget = key.lower()
+        widget = eval("self.text_" + widget.replace(" ", "_") + "_label")
+        widget.setText(key + ": " + str(value) + unit)
+
+    def updateSync(self):
+        self.text_sync_label.setText("Mode: " + self.gui.getValue(self.gui.sync_toolbox))
 
 
 

@@ -22,7 +22,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="main_tab">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="text_tab">
       <attribute name="title">
@@ -64,7 +64,7 @@
             </property>
             <layout class="QGridLayout" name="gridLayout_11">
              <item row="0" column="0">
-              <widget class="QLabel" name="text_mode_label">
+              <widget class="QLabel" name="text_sync_label">
                <property name="font">
                 <font>
                  <weight>50</weight>
@@ -74,20 +74,6 @@
                </property>
                <property name="text">
                 <string>Mode: </string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLabel" name="text_input_label">
-               <property name="font">
-                <font>
-                 <weight>50</weight>
-                 <bold>false</bold>
-                 <underline>false</underline>
-                </font>
-               </property>
-               <property name="text">
-                <string>Input: </string>
                </property>
               </widget>
              </item>

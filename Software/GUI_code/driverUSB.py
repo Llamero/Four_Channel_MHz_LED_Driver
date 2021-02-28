@@ -101,6 +101,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 if self.active_port.open(QtCore.QIODevice.ReadWrite): #Open serial connection
                     self.active_port.readyRead.connect(self.receive)
                     self.active_port.clear() #Clear buffer of any remaining data
+                    self.gui.status.status_dict["COM Port"] = self.getPortInfo(self.active_port)["Port"]
                     return True
                 else:
                     if debug:
@@ -128,6 +129,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
         self.gui.menu_connection_disconnect.setChecked(True)
         self.gui.updateSerialNumber(self.default_serial_number)
+        self.gui.status.status_dict["COM Port"] = "Disconnect"
 
 
     @QtCore.pyqtSlot()
@@ -347,6 +349,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def downloadSyncConfiguration(self, reply=None):
         if reply is not None:
             if fileIO.bytesToSync(reply, self.gui, self.prefix_dict["downloadSyncConfiguration"]):
+                self.gui.status.updateSync()
                 self.downloadSeqFile()
             else:
                 self.showMessage("Error: Invalid Sync configuration packet was received.")
@@ -363,6 +366,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.gui.startSplash("upload")
                 message = fileIO.syncToBytes(self.gui, self.prefix_dict["uploadSyncConfiguration"])
                 self.sendWithReply(self.prefix_dict["uploadSeqFile"], message)
+                self.gui.status.updateSync()
 
     def downloadSeqFile(self, reply=None, widget=None):
         message = bytearray()

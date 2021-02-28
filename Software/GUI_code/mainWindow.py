@@ -38,6 +38,7 @@ class Ui(QtWidgets.QMainWindow):
         self.splash.showMessage("Initializing models...", alignment=QtCore.Qt.AlignBottom, color=QtCore.Qt.white)
         self.config_model = guiMapper.initializeConfigModel(self)
         self.sync_model = guiMapper.initializeSyncModel(self)
+        self.main_model = guiMapper.initializeMainModel(self)
 
        # Hide dummy widgets
         for channel in range(1, 5):
@@ -114,7 +115,21 @@ class Ui(QtWidgets.QMainWindow):
             return True
     def updateSerialNumber(self, serial_number):
         self.configure_name_driver_serial_label2.setText(serial_number)
-        self.main_driver_serial_label2.setText(serial_number)
+        self.main_model["Serial"].setText(serial_number)
+        self.status.status_dict["Serial"] = serial_number
+
+    def updateMain(self, status_dict):
+        self.main_model["Channel"][status_dict["Channel"]].setChecked(True)
+        self.main_model["Control"][int(status_dict["Control"])].setChecked(True)
+        status_dict["Mode"] = 1
+        if status_dict["Mode"]:
+            self.main_model["Mode"][0] = 0
+            self.main_model["Mode"][status_dict["Mode"]].setChecked(True)
+            status_list = list(status_dict.items())
+            self.setValue(self.main_model["Intensity"], (status_list[status_dict["Mode"]%2][1]/65535)*self.main_model["Intensity"].maximum())
+        else:
+            self.main_model["Mode"][0] = 1
+
 
 
     def toggleSkin(self, enable_widget, disable_widget, mode):
@@ -130,7 +145,9 @@ class Ui(QtWidgets.QMainWindow):
 
     def changeDriverName(self, widget):
         name = self.getValue(widget)
-        self.main_driver_name_label2.setText(str(name))
+        self.main_model["Name"].setText(str(name))
+        self.status.status_dict["Name"] = name
+
 
     def toggleLedActive(self, led_number):
         led_state = self.getValue(self.config_model["LED" + str(led_number)]["Active"])
