@@ -49,6 +49,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.download_all_seq = False #Whether just one sequence file, or all sequence files are to be downloaded
         self.stream_download_timeout = 0 #Unix time to wait for complete non-COBS stream packet before timing out and clearing the stream flag
         self.initializing_connection = False #Flag to suppress unnecessary notifications if connection is being initialized
+        self.stop_receive = False #Blocks receive thread when a packet is being processed
         for action in self.gui.menu_connection.actions():
             self.conn_menu_action_group.addAction(action)
 
@@ -131,48 +132,52 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
     @QtCore.pyqtSlot()
     def receive(self):
-        if self.active_port is not None:  # Should be redundant - better safe than sorry
-            temp_buffer = bytearray(self.active_port.readAll().data())
-#            print("Temp buffer: " + str(temp_buffer))
-            if self.download_stream_size and self.stream_download_timeout: #If stream is expected and it has timed out, clear the serial buffer before proceeding
-                if time.time() > self.stream_download_timeout:  # Check to make sure that stream has not yet timed out
-                    self.showMessage("Error: Stream download timed out with " + str(len(self.serial_buffer)) + " of " + str(self.download_stream_size) + " bytes received. Stream aborted.")
-                    self.serial_buffer = []
-                    self.download_stream_size = None  # Clear download stream flag
-                    self.stream_download_timeout = None #Clear timeout timer
-
-            for i, byte in enumerate(temp_buffer):
-                if self.download_stream_size: #Check if non-COBS encoded data stream is expected
-                    self.serial_buffer.append(byte)
-                    if self.download_stream_size == len(self.serial_buffer): #If streaming is active and full length stream is received, send it to the command queue
-                        self.command_queue.append(self.serial_buffer)
+        if self.stop_receive: #If processing a stream - do not process incoming packets
+            pass
+        else:
+            if self.active_port is not None:  # Should be redundant - better safe than sorry
+                temp_buffer = bytearray(self.active_port.readAll().data())
+    #            print("Temp buffer: " + str(temp_buffer))
+                if self.download_stream_size and self.stream_download_timeout: #If stream is expected and it has timed out, clear the serial buffer before proceeding
+                    if time.time() > self.stream_download_timeout:  # Check to make sure that stream has not yet timed out
+                        self.showMessage("Error: Stream download timed out with " + str(len(self.serial_buffer)) + " of " + str(self.download_stream_size) + " bytes received. Stream aborted.")
                         self.serial_buffer = []
-                        self.serialRouter()
-                        self.download_stream_size = None #Clear download stream flag
-                        self.stream_download_timeout = None  # Clear timeout timer
+                        self.download_stream_size = None  # Clear download stream flag
+                        self.stream_download_timeout = None #Clear timeout timer
 
-                    if self.serial_buffer:
-                        if self.serial_buffer[0] == 1: #If a message packet is being received in place of the stream - clear stream flag so message can be processed
-                            self.download_stream_size = None  # Clear download stream flag
-                            self.stream_download_timeout = None  # Clear timeout timer
+                for i, byte in enumerate(temp_buffer):
+                    if self.download_stream_size: #Check if non-COBS encoded data stream is expected
+                        self.serial_buffer.append(byte)
+                        if self.download_stream_size == len(self.serial_buffer): #If streaming is active and full length stream is received, send it to the command queue
+                            self.stop_receive = True
+                            self.command_queue.append(self.serial_buffer)
+                            self.serial_buffer = []
+                            self.serialRouter()
+                            self.stop_receive = False
 
-                elif byte == 0:
-                    try:
-                        self.command_queue.append(cobs.decode(bytes(self.serial_buffer)))
-                        self.serial_buffer = []
-                        self.serialRouter()
+                        elif self.serial_buffer:
+                            if self.serial_buffer[0] == 1: #If a message packet is being received in place of the stream - clear stream flag so message can be processed
+                                self.download_stream_size = None  # Clear download stream flag
+                                self.stream_download_timeout = None  # Clear timeout timer
 
-                    except cobs.DecodeError:
-                        self.showMessage("Warning: Invalid COBS frame received from driver. Check connection.")
-                        if debug:
-                            print("Invalid COBS packet")
-                            print(temp_buffer[:i])
-                        self.serial_buffer = []
-                        self.dropped_frame_counter += 1
+                    elif byte == 0:
+                        try:
+                            self.command_queue.append(cobs.decode(bytes(self.serial_buffer)))
+                            self.serial_buffer = []
+                            self.serialRouter()
 
-                else:
-                    self.serial_buffer.append(byte)
-        return True
+                        except cobs.DecodeError:
+                            #self.showMessage("Warning: Invalid COBS frame received from driver. Check connection.")
+                            if debug:
+                                print("Invalid COBS packet")
+                                print(temp_buffer[:i])
+                                print(self.serial_buffer)
+                            self.serial_buffer = []
+                            self.dropped_frame_counter += 1
+
+                    else:
+                        self.serial_buffer.append(byte)
+            return True
 
     @QtCore.pyqtSlot()
     def send(self, message = None, cobs_encode = True):
@@ -222,7 +227,6 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.downloadDriverConfiguration()
                 self.gui.updateSerialNumber(serial_number)
                 self.downloadSyncConfiguration()
-                self.initializing_connection = False
 
             else:
                 self.conn_menu_action_group.removeAction(action)
@@ -376,7 +380,9 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                     else:
                         self.download_all_seq = False  #If end of sequence file list is reached, clear download all flag
                         self.gui.splash.close()
-                        if not self.initializing_connection:
+                        if self.initializing_connection:
+                            self.initializing_connection = False
+                        else:
                             self.showMessage("Sync and sequence files were successfully uploaded.")
 
             elif len(reply) == 4: #If stream is not active, reply is stream initialization showing length of stream to be received

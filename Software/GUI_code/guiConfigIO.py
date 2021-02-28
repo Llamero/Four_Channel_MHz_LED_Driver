@@ -1,5 +1,6 @@
 import math
 import struct
+import sys
 import tempfile
 from PyQt5 import QtGui
 from collections import OrderedDict
@@ -136,7 +137,7 @@ def bytesToConfig(byte_array, gui, prefix):
                 index += 1
             gui.setValue(gui.config_model["LED" + str(led_number)]["ID"], byte_array[start_index:index].decode().rstrip())
         index += 1
-        config_values = struct.unpack("<????HHHHBBBBffff????HHHHHHHHHHBiiBBHBB", byte_array[index:]) #Parse byte array values: https://docs.python.org/3/library/struct.html#struct-alignment
+        config_values = struct.unpack("<????HHHHBBBBffff????HHHHHHHHHHBiiBB?BB", byte_array[index:]) #Parse byte array values: https://docs.python.org/3/library/struct.html#struct-alignment
 
         #Calculate total resistance to be able to convert current limit values
         total_resistance = 0
@@ -184,8 +185,7 @@ def bytesToConfig(byte_array, gui, prefix):
 
         gui.setValue(gui.config_model["Audio"]["Status"], config_values[33])
         gui.setValue(gui.config_model["Audio"]["Alarm"], config_values[34])
-
-        gui.setValue(gui.config_model["Pushbutton"]["Intensity"], round(config_values[35]/65535*100))
+        gui.config_model["Pushbutton"]["Indication"][int(config_values[35])].setChecked(True)
         channel_id = gui.config_model["Pushbutton"]["Alarm"][config_values[36]].text()
         gui.setValue(gui.config_model["Pushbutton"]["Alarm"], channel_id)
 
@@ -199,12 +199,15 @@ def bytesToSync(byte_array, gui, prefix):
             widget_string = widgets[sync_values[index]].text()
             gui.setValue(widgets, widget_string)
         except:
-            showMessage(gui, "Error: Widget index not found!")
+            showMessage(gui, "Error: Widget index not found for " + str(widgets))
+            print(str(widgets[0].objectName())  + " " + str(index) + " " + str(sync_values[index]))
+            sys.exit()
             return None
 
     checksum = (sum(byte_array) + prefix) & 0xFF  # https://stackoverflow.com/questions/44611057/checksum-generation-from-sum-of-bits-in-python
     if checksum == 0:
         sync_values = struct.unpack("<BBBBBBBHHHHLLBBBBH?B???H?LLLBBBBLLHHLLB", byte_array)
+        print(sync_values)
 
         #Calculate total resistance for current conversions
         total_resistance = float(gui.configure_current_limit_box.whatsThis())
@@ -237,13 +240,12 @@ def bytesToSync(byte_array, gui, prefix):
         gui.setValue(gui.sync_model["Analog"]["Current"], sync_values[17])
 
         #Confocal
-        for index2, key2 in enumerate(["Shutter", "Channel", "Line", "Digital"]):
+        for index2, key2 in enumerate(["Shutter", "Channel", "Line", "Digital", "Polarity"]):
             if key2 == "Line":
                 gui.sync_model["Confocal"][key2].setCurrentIndex(sync_values[18 + index2])
             else:
                 setWidget(gui.sync_model["Confocal"][key2], 18+index2)
-        gui.setValue(gui.sync_model["Confocal"]["Threshold"], sync_values[22]/65535*3.3)
-        setWidget(gui.sync_model["Confocal"]["Polarity"], 23)
+        gui.setValue(gui.sync_model["Confocal"]["Threshold"], sync_values[23]/65535*3.3)
         setWidget(gui.sync_model["Confocal"]["Delay"]["Mode"], 24)
         for index3 in range(1,4):
             gui.setValue(gui.sync_model["Confocal"]["Delay"][str(index3)], sync_values[24+index3]/DEFAULT_CLOCK_SPEED)
@@ -323,14 +325,14 @@ def configToBytes(gui, prefix):
 
     config_values[33] = gui.getValue(gui.config_model["Audio"]["Status"])
     config_values[34] = gui.getValue(gui.config_model["Audio"]["Alarm"])
+    config_values[35] = gui.config_model["Pushbutton"]["Indication"][1].isChecked()
 
-    config_values[35] = round(gui.getValue(gui.config_model["Pushbutton"]["Intensity"])/100*65535)
     for index, widget in enumerate(gui.config_model["Pushbutton"]["Alarm"]):
         if gui.getValue(widget):
             config_values[36] = index
             break
 
-    byte_array.extend(struct.pack("<????HHHHBBBBffff????HHHHHHHHHHBiiBBHB", *config_values))
+    byte_array.extend(struct.pack("<????HHHHBBBBffff????HHHHHHHHHHBiiBB?B", *config_values))
 
     checksum = (sum(byte_array) + prefix) & 0xFF  # https://stackoverflow.com/questions/44611057/checksum-generation-from-sum-of-bits-in-python
     checksum = 256 - checksum
@@ -379,13 +381,12 @@ def syncToBytes(gui, prefix):
     sync_values[17] = gui.getValue(gui.sync_model["Analog"]["Current"])
 
     #Confocal
-    for index2, key2 in enumerate(["Shutter", "Channel", "Line", "Digital"]):
+    for index2, key2 in enumerate(["Shutter", "Channel", "Line", "Digital", "Polarity"]):
         if key2 == "Line":
             sync_values[18 + index2] = gui.sync_model["Confocal"][key2].currentIndex()
         else:
             sync_values[18+index2] = widgetIndex(gui.sync_model["Confocal"][key2])
-    sync_values[22] = round(gui.getValue(gui.sync_model["Confocal"]["Threshold"])/3.3*65535)
-    sync_values[23] = widgetIndex(gui.sync_model["Confocal"]["Polarity"])
+    sync_values[23] = round(gui.getValue(gui.sync_model["Confocal"]["Threshold"])/3.3*65535)
     sync_values[24] = widgetIndex(gui.sync_model["Confocal"]["Delay"]["Mode"])
     for index3 in range(1,4):
         sync_values[24+index3] = round(gui.getValue(gui.sync_model["Confocal"]["Delay"][str(index3)])*DEFAULT_CLOCK_SPEED) #Convert the delay times to clock cycles at default Teensy speed
@@ -451,6 +452,6 @@ def tempToAdc(temperature, external = False):
 def showMessage(gui, text):
     gui.waitCursor(False)
     gui.stopSplash()
-    showMessage(gui, text)
+    gui.message_box.setText(text)
     gui.message_box.exec()
 

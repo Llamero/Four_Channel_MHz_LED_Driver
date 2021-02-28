@@ -24,7 +24,7 @@ struct configurationStruct{
   int ext_therm_resistance; //External thermistor nominal resistance at 25°C
   int ext_therm_beta; //Beta value of external thermistor
   uint8_t audio_volume[2]; //Status and alarm volumes for transducer: {10, 100}
-  uint16_t pushbutton_intensity; //LED intensity in PWM units
+  bool pushbutton_intensity; //LED intensity - on/off
   uint8_t pushbutton_mode; //LED illumination mode when alarm is active
   uint8_t checksum; //Checksum to confirm that configuration is valid
 };
@@ -46,9 +46,9 @@ const struct defaultConfigurationStruct{
   int ext_therm_resistance = 4700; //External thermistor nominal resistance at 25°C
   int ext_therm_beta = 3545; //Beta value of external thermistor
   uint8_t audio_volume[2] = {10, 100}; //Status and alarm volumes for transducer: {10, 100}
-  uint16_t pushbutton_intensity = 65535; //LED intensity in PWM units
+  bool pushbutton_intensity = true; //LED intensity - on/off
   uint8_t pushbutton_mode = 0; //LED illumination mode when alarm is active
-  uint8_t checksum = 107;
+  uint8_t checksum = 104;
 } defaultConfig;
 
 struct syncStruct{ //158 bytes
@@ -110,7 +110,7 @@ const struct defaultSyncStruct{ //158 bytes
   boolean confocal_sync_polarity[2] = {1,1}; //Sync polarity for digital and analog sync inputs
   uint16_t confocal_threshold = 2000; //Threshold for analog sync trigger
   boolean confocal_scan_mode = true; //Whether scan is unidirectional (false) or bidrectional (true)
-  uint32_t confocal_delay[3] = {0,0,0}; //Delay in clock cycles for each sync delay
+  uint32_t confocal_delay[3] = {0,180,0}; //Delay in clock cycles for each sync delay
   
   uint8_t confocal_mode[2] = {0,0}; //The digital sync mode  in the image and flyback states respectively
   uint8_t confocal_led[2] = {0,0}; //The active LED channel in the image and flyback states respectively
@@ -118,7 +118,7 @@ const struct defaultSyncStruct{ //158 bytes
   uint16_t confocal_current[2] = {0,0}; //The DAC value in the image and flyback states respectively
   uint32_t confocal_duration[2] = {0,0}; //The maximum number of milliseconds to hold LED state
 
-  uint8_t checksum = 31; //Checksum to confirm that configuration is valid
+  uint8_t checksum = 107; //Checksum to confirm that configuration is valid
 } defaultSync;
 
 struct sequenceHeaderStruct{
@@ -238,7 +238,7 @@ SDcard sd;
 PacketSerial_<COBS, 0, 4096> usb; //Sets Encoder, framing character, buffer size
 
 void setup() {
-  //EEPROM.write(0,0); //Force default
+  EEPROM.write(0,0); //Force default
   sequence_buffer[0][0]= 0;
   int a;
   pinMode(LED_BUILTIN, OUTPUT);
@@ -261,9 +261,9 @@ void setup() {
 void loop() {
   usb.update();
   status.s.led_channel = 0;
-  status.s.led_pwm = analogRead(pin.POT);
-  status.s.led_current = analogRead(pin.POT);
-  status.s.mode = digitalReadFast(pin.TOGGLE);
+  status.s.led_pwm = 65535-analogRead(pin.POT);
+  status.s.led_current = 65535-analogRead(pin.POT);
+  status.s.mode = !digitalReadFast(pin.TOGGLE);
   status.s.driver_control = 0;
   analogRead(pin.MOSFET_TEMP);
   status.s.temp[0] = analogRead(pin.MOSFET_TEMP);
@@ -276,6 +276,12 @@ void loop() {
   temp_buffer[0] = prefix.status_update;
   memcpy(temp_buffer+1, status.byte_buffer, sizeof(status.byte_buffer));
   usb.send(temp_buffer, sizeof(status.byte_buffer)+1);
+  if(status.s.mode){
+    analogWrite(pin.FAN_PWM, status.s.led_pwm);
+  }
+  else{
+    analogWrite(pin.FAN_PWM, 0);
+  }
   digitalWriteFast(LED_BUILTIN, HIGH);
   delay(20);
   digitalWriteFast(LED_BUILTIN, LOW);

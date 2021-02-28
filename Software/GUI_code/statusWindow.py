@@ -29,7 +29,7 @@ class statusWindow(QtWidgets.QDialog):
         uic.loadUi('Status_GUI.ui', self)
         self.app.setStyleSheet("")
         self.app.setFont(QFont("MS Shell Dlg 2", 12))
-        self.timeline = guiMapper.TimeLine(loopCount=0, interval=100) #Animation object for animating plots
+        self.timeline = guiMapper.TimeLine(loopCount=0, interval=1000) #Animation object for animating plots
         self.x_axis_offset = 0 #Current x-axis offset to use for rastering the plots in time
 
         #Initialize widget dictionaries

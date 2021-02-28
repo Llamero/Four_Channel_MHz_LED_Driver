@@ -69,10 +69,11 @@ class Ui(QtWidgets.QMainWindow):
         elif isinstance(widget, QtWidgets.QToolBox):
             return widget.itemText(widget.currentIndex())
         elif isinstance(widget, list):
-            if isinstance(widget[0], QtWidgets.QRadioButton):
+            if isinstance(widget[0], QtWidgets.QRadioButton) or isinstance(widget[0], QtWidgets.QPushButton):
                 for element in widget:
                     if element.isChecked():
                         return element.text()
+
         elif isinstance(widget, QtWidgets.QTabWidget):
             return widget.tabText(widget.currentIndex())
         elif isinstance(widget, QtWidgets.QTableWidget):
@@ -95,7 +96,7 @@ class Ui(QtWidgets.QMainWindow):
                     if str(value) == widget.itemText(index):
                         widget.setCurrentIndex(index)
             elif isinstance(widget, list):
-                if isinstance(widget[0], QtWidgets.QRadioButton):
+                if isinstance(widget[0], QtWidgets.QRadioButton) or isinstance(widget[0], QtWidgets.QPushButton):
                     for element in widget:
                         if element.text() == str(value):
                             element.setChecked(True)

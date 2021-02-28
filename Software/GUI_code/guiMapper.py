@@ -52,7 +52,7 @@ def initializeConfigModel(gui):
         [("Status", gui.configure_audio_status_slider), ("Alarm", gui.configure_audio_alarm_slider)])
 
     # Pushbuttons
-    config_model["Pushbutton"] = OrderedDict([("Intensity", gui.configure_pushbutton_intensity_slider),
+    config_model["Pushbutton"] = OrderedDict([("Indication", [gui.configure_pushbutton_intensity_off_button, gui.configure_pushbutton_intensity_on_button]),
                                                    ("Alarm", [gui.configure_pushbutton_alarm_flash_button,
                                                               gui.configure_pushbutton_alarm_chase_button,
                                                               gui.configure_pushbutton_alarm_pulse_button,
