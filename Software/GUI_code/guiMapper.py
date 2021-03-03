@@ -172,6 +172,8 @@ def initializeEvents(gui):
         gui.main_channel_LED3_button.clicked.connect(lambda: gui.updateActiveLED(3))
         gui.main_channel_LED4_button.clicked.connect(lambda: gui.updateActiveLED(4))
 
+        #Disable manual control widgets when in sync mode
+        gui.main_toggle_slider.valueChanged.connect(gui.syncDisableMain)
 
     def configureEvents():
         nonlocal gui

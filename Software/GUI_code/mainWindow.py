@@ -120,24 +120,32 @@ class Ui(QtWidgets.QMainWindow):
         self.status.status_dict["Serial"] = serial_number
 
     def updateMain(self, status_dict):
-        self.main_model["Channel"][status_dict["Channel"]].setChecked(True)
-        self.main_model["Control"][int(status_dict["Control"])].setChecked(True)
-        status_dict["Mode"] = 1
-        if status_dict["Mode"]:
-            self.main_model["Mode"][0] = 0
-            self.main_model["Mode"][status_dict["Mode"]].setChecked(True)
-            status_list = list(status_dict.items())
+        if self.getValue(self.main_model["Control"]) == "LED Driver": #If the LED driver is the input source, update GUI with driver status
+            self.main_model["Channel"][status_dict["Channel"]].setChecked(True)
+            self.main_model["Control"][int(status_dict["Control"])].setChecked(True)
+            if status_dict["Mode"] > 0:
+                self.setValue(self.main_model["Mode"][0], 0) #Set slider to Manual
+                self.main_model["Mode"][status_dict["Mode"]].setChecked(True) #Check the appropriate manual mode radio button
+                status_list = list(status_dict.items())
 
-            try:
-                self.setValue(self.main_model["Intensity"], (status_list[status_dict["Mode"]%2][1]/self.getAdcCurrentLimit(status_dict["Channel"]))*self.main_model["Intensity"].maximum())
-            except (OverflowError, ZeroDivisionError): #This can happen when initializing connection - so default intensity to 0
-                self.setValue(self.main_model["Intensity"], 0)
+                try:
+                    self.setValue(self.main_model["Intensity"], (status_list[status_dict["Mode"]%2][1]/self.getAdcCurrentLimit(status_dict["Channel"]))*self.main_model["Intensity"].maximum())
+                except (OverflowError, ZeroDivisionError): #This can happen when initializing connection - so default intensity to 0
+                    self.setValue(self.main_model["Intensity"], 0)
 
+            else:
+                self.setValue(self.main_model["Mode"][0], 1) #Set slider to Sync
 
-        else:
-            self.main_model["Mode"][0] = 1
+    def syncDisableMain(self, sync_active): #Disable manual control widgets if the sync is active
+        self.main_model["Intensity"].setEnabled(not sync_active)
+        self.main_intensity_spinbox.setReadOnly(sync_active)
+        self.main_model["Mode"][3].setEnabled(not sync_active)
+        for widget in self.main_model["Channel"]:
+            widget.setEnabled(not sync_active)
 
-
+        if not sync_active:
+            software_control = self.getValue(self.main_model["Control"]) == "Software"
+            self.toggleSoftwareControl(software_control)
 
     def toggleSkin(self, enable_widget, disable_widget, mode):
         enable_widget.setChecked(True)
@@ -166,7 +174,7 @@ class Ui(QtWidgets.QMainWindow):
         widget_list.append(self.sync_model["Analog"]["LED"][led_number])
         widget_list.append(self.sync_model["Confocal"]["Image"]["LED"][led_number])
         widget_list.append(self.sync_model["Confocal"]["Flyback"]["LED"][led_number])
-        widget_list.append(eval("self.main_channel_LED" + str(led_number) + "_button"))
+        widget_list.append(self.main_model["Channel"][led_number-1])
         for widget in widget_list:
             widget.setEnabled(led_state)
 
@@ -177,7 +185,7 @@ class Ui(QtWidgets.QMainWindow):
 
     def changeLedName(self, led_number, widget):
         name = self.getValue(widget)
-        widget_list = [eval("self.main_channel_LED" + str(led_number) + "_button"),
+        widget_list = [self.main_model["Channel"][led_number-1],
                        self.sync_model["Digital"]["Low"]["LED"][led_number],
                        self.sync_model["Digital"]["High"]["LED"][led_number],
                        self.sync_model["Analog"]["LED"][led_number],
@@ -234,8 +242,8 @@ class Ui(QtWidgets.QMainWindow):
                 button.setEnabled(True)
 
     def toggleSoftwareControl(self, software_enable):
-        self.main_intensity_dial.setEnabled(software_enable)
-        self.main_toggle_slider.setEnabled(software_enable)
+        self.main_model["Intensity"].setEnabled(software_enable)
+        self.main_model["Mode"][0].setEnabled(software_enable)
         self.main_intensity_spinbox.setReadOnly(not software_enable)
 
 
