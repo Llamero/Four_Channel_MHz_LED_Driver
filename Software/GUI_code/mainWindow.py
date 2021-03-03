@@ -10,6 +10,7 @@ import guiConfigIO as fileIO
 import guiPlotter as plot
 import driverUSB
 import statusWindow
+import sys
 
 class Ui(QtWidgets.QMainWindow):
     def __init__(self, app):
@@ -126,7 +127,13 @@ class Ui(QtWidgets.QMainWindow):
             self.main_model["Mode"][0] = 0
             self.main_model["Mode"][status_dict["Mode"]].setChecked(True)
             status_list = list(status_dict.items())
-            self.setValue(self.main_model["Intensity"], (status_list[status_dict["Mode"]%2][1]/65535)*self.main_model["Intensity"].maximum())
+
+            try:
+                self.setValue(self.main_model["Intensity"], (status_list[status_dict["Mode"]%2][1]/self.getAdcCurrentLimit(status_dict["Channel"]))*self.main_model["Intensity"].maximum())
+            except (OverflowError, ZeroDivisionError): #This can happen when initializing connection - so default intensity to 0
+                self.setValue(self.main_model["Intensity"], 0)
+
+
         else:
             self.main_model["Mode"][0] = 1
 
@@ -265,3 +272,13 @@ class Ui(QtWidgets.QMainWindow):
     def splashText(self, text):
         if self.splash.isVisible() and not self.startup:
             self.splash.showMessage(text, alignment=QtCore.Qt.AlignBottom, color=QtCore.Qt.white)
+
+    def setAdcCurrentLimit(self, value_list):
+        for led_number, value in enumerate(value_list):
+            self.config_model["LED" + str(led_number+1)]["Current Limit"].setWhatsThis(str(value))
+
+    def getAdcCurrentLimit(self, led_number):
+        try:
+            return int(self.config_model["LED" + str(led_number+1)]["Current Limit"].whatsThis())
+        except ValueError:
+            return 0.01

@@ -35,16 +35,16 @@ class statusWindow(QtWidgets.QDialog):
 
         #Initialize widget dictionaries
         self.dynamic_dict = OrderedDict([("Channel", 0),
-                                                     ("PWM", 0),
-                                                     ("Current", 0),
-                                                     ("Mode", 0),
-                                                     ("Control", 0),
-                                                     ("Transistor", 0),
-                                                     ("Resistor", 0),
-                                                     ("External", 0),
-                                                     ("Driver Fan", 0),
-                                                     ("External Fan", 0)])
-
+                                         ("PWM", 0),
+                                         ("Current", 0),
+                                         ("Mode", 0),
+                                         ("State", 0),
+                                         ("Control", 0),
+                                         ("Transistor", 0),
+                                         ("Resistor", 0),
+                                         ("External", 0),
+                                         ("Driver Fan", 0),
+                                         ("External Fan", 0)])
 
         self.static_dict = OrderedDict([("Name", 0),
                                         ("COM Port", 0),
@@ -52,15 +52,16 @@ class statusWindow(QtWidgets.QDialog):
                                         ("Control", 0)])
 
         self.status_dict = OrderedDict(list(self.dynamic_dict.items()) + list(self.static_dict.items()) + [("Count", 0)])
-        print(self.status_dict)
 
-        self.plots = OrderedDict([("Internal", self.graph_temperature_internal),
-                                      ("External", self.graph_temperature_external),
-                                      ("Current", self.graph_current)])
+        self.plots = OrderedDict([("PWM", self.graph_intensity_pwm), ("Current", self.graph_intensity_current),
+                                  ("Transistor", self.graph_temperature_transistor), ("Resistor", self.graph_temperature_resistor), ("External", self.graph_temperature_external)])
 
-        self.y_values = OrderedDict([("Internal", OrderedDict([("Transistor", deque([-1000]*N_MEASUREMENTS)), ("Resistor", deque([-1000]*N_MEASUREMENTS))])),
-                                      ("External", deque([-1000]*N_MEASUREMENTS)),
-                                      ("Current", deque([0]*N_MEASUREMENTS))])
+        self.y_values = OrderedDict([("PWM", deque([0]*N_MEASUREMENTS)), ("Current", deque([0]*N_MEASUREMENTS)),
+                                  ("Transistor", deque([-1000]*N_MEASUREMENTS)), ("Resistor", deque([-1000]*N_MEASUREMENTS)), ("External", deque([-1000]*N_MEASUREMENTS))])
+
+        self.state_dict = OrderedDict([("Digital", ["LOW", "HIGH"]), ("Analog", ["Active", "Active"]), ("Confocal", ["Standby", "Scanning"]),
+                                       ("Serial", ["Active", "Active"]), ("Custom", ["Active", "Active"])])
+
         for key, value in self.plots.items():
             self.initializePlot(value, key)
         self.startAnimation()
@@ -74,8 +75,10 @@ class statusWindow(QtWidgets.QDialog):
         label_style = {"color": "#999", "font-size": str(default_font.pointSize()) + "pt",
                        "font-style": str(default_font.family())}
 
-        if key == "Current":
-            status_plot.setLabel('left', "(% Current * % PWM)", **label_style)
+        if key == "PWM":
+            status_plot.setLabel('left', "(% Duty Cycle)", **label_style)
+        elif key == "Current":
+            status_plot.setLabel('left', "(% LED Current Limit)", **label_style)
         else:
             status_plot.setLabel('left', "", "°C", **label_style)
             status_plot.setYRange(21 - MIN_TEMP_RANGE / 2, 21 + MIN_TEMP_RANGE / 2, padding=0)
@@ -123,10 +126,10 @@ class statusWindow(QtWidgets.QDialog):
 
     def updateStatus(self, reply):
         status_change = False
-        status_list = struct.unpack("<BHHB?HHHHH", reply)
+        status_list = struct.unpack("<BHHB??HHHHH", reply)
         count = self.status_dict["Count"]
         for index, key in enumerate(self.dynamic_dict):
-            if key in ["Channel", "Mode", "Control"] or count == 0:
+            if key in ["Channel", "Mode", "Control", "State"] or count == 0:
                 self.status_dict[key] = status_list[index]
             else: #Calculate running average of measured values per update
                 self.status_dict[key] += status_list[index]
@@ -155,19 +158,42 @@ class statusWindow(QtWidgets.QDialog):
                         unit = " °C"
                     else:
                         value = "Not Connected"
-                elif key in ["Driver Fan", "External Fan", "Current", "PWM"]:
+                elif key in ["Driver Fan", "External Fan", "PWM"]:
                     self.status_dict[key] = ((value / count)/65535)*100
+                    value = round_to_n(self.status_dict[key], 3)
+                    unit = " %"
+                elif key == "Current":
+                    self.status_dict[key] = ((value / count) / self.gui.getAdcCurrentLimit(self.status_dict["Channel"])) * 100
                     value = round_to_n(self.status_dict[key], 3)
                     unit = " %"
                 elif key == "Control":
                     value = self.gui.main_model["Control"][int(value)].text()
+                elif key == "Mode":
+                    if self.status_dict[key] == 0:
+                        value = "Sync - " + self.gui.sync_model["Mode"].whatsThis()
+                    elif self.status_dict[key] == 1:
+                        value = "PWM"
+                    elif self.status_dict[key] == 2:
+                        value = "Current"
+                    else:
+                        value = "Off"
+                elif key == "State":
+                    try:
+                        if self.status_dict["Mode"] == 0:
+                            value = self.state_dict[self.gui.sync_model["Mode"].whatsThis()][self.status_dict[key]]
+                        elif self.status_dict["Mode"] < 3:
+                            value = "Manual"
+                        else:
+                            value = "Off"
+                    except KeyError:
+                        value = "Loading..."
 
-                if key not in ["Count", "Mode"]:
+                if key not in ["Count"]:
                     self.updateLabel(key, value, unit)
             self.status_dict["Count"] = 0 #Reset the averaging counter
 
         #Update plots
-        show_plot = self.isVisible() and self.gui.getValue(self.main_tab) == "Graph"
+        show_plot = self.isVisible() and self.gui.getValue(self.main_tab) in ["Intensity Plots", "Temperature Plots"]
         self.x_axis_offset += 1
         for key, status_plot in self.plots.items():
             if self.x_axis_offset == N_MEASUREMENTS:
@@ -176,29 +202,7 @@ class statusWindow(QtWidgets.QDialog):
             if show_plot:
                 status_plot.setXRange(self.x_axis_offset, N_MEASUREMENTS+self.x_axis_offset, padding=0)
 
-            if key == "Internal":
-                for key2, y_value in self.y_values[key].items():
-                    self.y_values[key][key2][0] = self.status_dict[key2]
-                    self.y_values[key][key2].rotate(-1)
-                    if show_plot:
-                        y_list = list(self.y_values[key][key2])
-                        list_max = max(y for y in y_list if y > -273.15) #Exclude None: https://stackoverflow.com/questions/2295461/list-minimum-in-python-with-none
-                        list_min = min(y for y in y_list if y > -273.15)
-                        y_mean = (list_max + list_min) / 2
-                        y_range = list_max - list_min
-                        if y_range < MIN_TEMP_RANGE*PLOT_PADDING:
-                            y_range = MIN_TEMP_RANGE*PLOT_PADDING
-                        status_plot.setYRange(y_mean - y_range/2, y_mean + y_range/2, padding=0)
-
-                        if key2 == "Transistor":
-                            color = 'g'
-                            clear_plot = True
-                        else:
-                            color = 'm'
-                            clear_plot = False
-                        status_plot.plot(x_values, y_list, pen=pg.mkPen(color, width=1), clear=clear_plot)
-
-            elif key == "External":
+            if key in ["Transistor", "Resistor", "External"]:
                 self.y_values[key][0] = self.status_dict[key]
                 self.y_values[key].rotate(-1)
                 if show_plot:
@@ -216,7 +220,7 @@ class statusWindow(QtWidgets.QDialog):
                     status_plot.plot(x_values, y_list, pen=pg.mkPen('g', width=1), connect="finite", clear=True)
 
             else:
-                self.y_values[key][0] = (self.status_dict[key]*self.status_dict["PWM"])/100
+                self.y_values[key][0] = self.status_dict[key]
                 self.y_values[key].rotate(-1)
                 if show_plot:
                     y_list = list(self.y_values[key])
@@ -227,9 +231,6 @@ class statusWindow(QtWidgets.QDialog):
         widget = key.lower()
         widget = eval("self.text_" + widget.replace(" ", "_") + "_label")
         widget.setText(key + ": " + str(value) + unit)
-
-    def updateSync(self):
-        self.text_sync_label.setText("Mode: " + self.gui.getValue(self.gui.sync_toolbox))
 
 
 

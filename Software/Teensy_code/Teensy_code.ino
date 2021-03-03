@@ -34,7 +34,7 @@ const struct defaultConfigurationStruct{
   char driver_name[16] = "Unnamed driver ";
   char led_names[4][16] = {"LED #1         ", "LED #2         ", "LED #3         ", "LED #4         "};
   boolean led_active[4] = {false, false, false, false}; //Whether LED channel is in use: {false, false, false, false}
-  uint16_t current_limit[4] = {0,0,0,0}; //Current limit for each channel on DAC values: {0,0,0,0}
+  uint16_t current_limit[4] = {100,100,100,100}; //Current limit for each channel on DAC values: {0,0,0,0}
   uint8_t led_channel[4] = {0,1,2,3}; //SSR channels used for each LED: {1,2,3,4}
   float resistor_values[4] = {5, 10, 1000, 1000}; //Values of current sense resistors
   boolean resistor_active[4] = {true, true, false, false}; //Whether a specific resistor is used
@@ -48,7 +48,7 @@ const struct defaultConfigurationStruct{
   uint8_t audio_volume[2] = {10, 100}; //Status and alarm volumes for transducer: {10, 100}
   bool pushbutton_intensity = true; //LED intensity - on/off
   uint8_t pushbutton_mode = 0; //LED illumination mode when alarm is active
-  uint8_t checksum = 104;
+  uint8_t checksum = 216;
 } defaultConfig;
 
 struct syncStruct{ //158 bytes
@@ -139,9 +139,10 @@ struct statusStruct{
   uint16_t led_pwm; //PWM value for internal and external fan respectively
   uint16_t led_current; //DAC value for active LED
   uint8_t mode; //0=Sync, 1=PWM, 2=Current, 3=Off
+  boolean state; //0=Standby (confocal), LOW (digital), etc. 1 = Scanning (confocal), HIGH (digital), etc.
   boolean driver_control; //True = driver controls itself, False = GUI controls driver
   uint16_t temp[3]; //ADC temp reading of mosfet, resistor, and external respectively
-  uint16_t fan_speed[2]; //PWM valur for internal and external fan respectively
+  uint16_t fan_speed[2]; //PWM value for internal and external fan respectively
 };
 
 const struct prefixStruct{
@@ -238,7 +239,7 @@ SDcard sd;
 PacketSerial_<COBS, 0, 4096> usb; //Sets Encoder, framing character, buffer size
 
 void setup() {
-  EEPROM.write(0,0); //Force default
+  EEPROM.write(0, 0);
   sequence_buffer[0][0]= 0;
   int a;
   pinMode(LED_BUILTIN, OUTPUT);

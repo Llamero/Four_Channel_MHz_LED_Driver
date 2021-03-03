@@ -349,7 +349,6 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def downloadSyncConfiguration(self, reply=None):
         if reply is not None:
             if fileIO.bytesToSync(reply, self.gui, self.prefix_dict["downloadSyncConfiguration"]):
-                self.gui.status.updateSync()
                 self.downloadSeqFile()
             else:
                 self.showMessage("Error: Invalid Sync configuration packet was received.")
@@ -366,7 +365,6 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.gui.startSplash("upload")
                 message = fileIO.syncToBytes(self.gui, self.prefix_dict["uploadSyncConfiguration"])
                 self.sendWithReply(self.prefix_dict["uploadSeqFile"], message)
-                self.gui.status.updateSync()
 
     def downloadSeqFile(self, reply=None, widget=None):
         message = bytearray()
@@ -437,8 +435,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
     def updateStatus(self, reply=None):
         if reply:
-            if len(reply) == 17:
-                self.gui.status.updateStatus(reply)
+            self.gui.status.updateStatus(reply)
 
 
     def portConnected(self):

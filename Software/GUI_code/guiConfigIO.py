@@ -189,6 +189,8 @@ def bytesToConfig(byte_array, gui, prefix):
         channel_id = gui.config_model["Pushbutton"]["Alarm"][config_values[36]].text()
         gui.setValue(gui.config_model["Pushbutton"]["Alarm"], channel_id)
 
+        gui.setAdcCurrentLimit(config_values[4:8])  # Save current limit ADC values in current limit "what's this"
+
     else:
         showMessage(gui, "Error: Driver config file had invalid checksum: " + str(checksum) + ". Upload aborted.")
 
@@ -214,6 +216,7 @@ def bytesToSync(byte_array, gui, prefix):
 
         #Digital
         gui.sync_model["Mode"].setCurrentIndex(sync_values[0])
+        gui.sync_model["Mode"].setWhatsThis(gui.getValue(gui.sync_model["Mode"])) #Store driver mode name in whats this
         setWidget(gui.sync_model["Output"], 1)
         setWidget(gui.sync_model["Digital"]["Channel"], 2)
 
@@ -337,6 +340,9 @@ def configToBytes(gui, prefix):
     checksum = (sum(byte_array) + prefix) & 0xFF  # https://stackoverflow.com/questions/44611057/checksum-generation-from-sum-of-bits-in-python
     checksum = 256 - checksum
     byte_array.append(checksum)
+
+    gui.setAdcCurrentLimit(config_values[4:8]) #Save current limit ADC values in current limit "what's this"
+
     return byte_array
 
 def syncToBytes(gui, prefix):
@@ -356,6 +362,7 @@ def syncToBytes(gui, prefix):
 
     #Digital
     sync_values[0] = gui.sync_model["Mode"].currentIndex()
+    gui.sync_model["Mode"].setWhatsThis(gui.getValue(gui.sync_model["Mode"]))  # Store driver mode name in whats this
     sync_values[1] = widgetIndex(gui.sync_model["Output"])
     sync_values[2] = widgetIndex(gui.sync_model["Digital"]["Channel"])
     current_limit = [0]*2
