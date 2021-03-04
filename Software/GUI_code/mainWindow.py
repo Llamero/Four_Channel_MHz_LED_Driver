@@ -232,7 +232,7 @@ class Ui(QtWidgets.QMainWindow):
 
             if value != out_value:
                 self.setValue(widget_out, value)
-                if self.main_model["Control"] == 0:
+                if self.getValue(self.main_model["Control"][0]):
                     self.ser.updateStatus()
 
     def toggleAnalogChannel(self, widget):

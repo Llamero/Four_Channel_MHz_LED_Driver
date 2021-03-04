@@ -189,10 +189,11 @@ class statusWindow(QtWidgets.QDialog):
                     value = self.gui.getValue(self.gui.config_model["LED" + str(value)]["ID"])
                 elif key in ["Transistor", "Resistor", "External"]:
                     self.status_dict[key] = fileIO.adcToTemp(value/count)
-                    if self.status_dict[key] > -100:
+                    if self.status_dict[key] > -30:
                         value = round_to_n(self.status_dict[key], 3)
                         unit = " °C"
                     else:
+                        self.status_dict[key] = -1000
                         value = "Not Connected"
                 elif key in ["Driver Fan", "External Fan", "PWM"]:
                     self.status_dict[key] = ((value / count)/65535)*100
