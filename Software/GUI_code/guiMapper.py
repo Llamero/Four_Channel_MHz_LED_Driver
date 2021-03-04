@@ -161,6 +161,8 @@ def initializeEvents(gui):
         #Connect dial and spinbox values - https://www.youtube.com/watch?v=BSP9sB0JoaE
         gui.main_intensity_dial.valueChanged.connect(
             lambda: gui.syncDialAndSpinbox(gui.main_intensity_dial, gui.main_intensity_spinbox))
+        gui.main_intensity_dial.sliderReleased.connect(
+            lambda: gui.syncDialAndSpinbox(gui.main_intensity_dial, gui.main_intensity_spinbox, True)) #Force update on mouse release
         gui.main_intensity_spinbox.valueChanged.connect(
             lambda: gui.syncDialAndSpinbox(gui.main_intensity_spinbox, gui.main_intensity_dial))
 

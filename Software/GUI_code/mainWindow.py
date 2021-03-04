@@ -11,6 +11,9 @@ import guiPlotter as plot
 import driverUSB
 import statusWindow
 import sys
+from timeit import default_timer as timer
+
+DIAL_UPDATE_RATE = 0.1 #Time in ms between updates from dial when in manual control - prevents dial from locking GUI with continuous updates when dial is swept
 
 class Ui(QtWidgets.QMainWindow):
     def __init__(self, app):
@@ -40,6 +43,7 @@ class Ui(QtWidgets.QMainWindow):
         self.config_model = guiMapper.initializeConfigModel(self)
         self.sync_model = guiMapper.initializeSyncModel(self)
         self.main_model = guiMapper.initializeMainModel(self)
+        self.intensity_delay_timer = timer() #Timer for delaying updates from intensity dial
 
        # Hide dummy widgets
         for channel in range(1, 5):
@@ -207,17 +211,20 @@ class Ui(QtWidgets.QMainWindow):
             self.sync_confocal_delay3_label1.setToolTip("Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).")
             self.sync_confocal_delay3_box.setToolTip("Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).")
 
-    def syncDialAndSpinbox(self, widget_in, widget_out):
-        if isinstance(widget_in, QtWidgets.QDial):
-            value = float(self.getValue(widget_in)) * 100.0 / float(widget_in.maximum())
-            out_value = self.getValue(widget_out)
-        else:
-            value = round(self.getValue(widget_in) * widget_out.maximum() / 100)
-            out_value = self.getValue(widget_out)
+    def syncDialAndSpinbox(self, widget_in, widget_out, force = False):
+        time = timer()
+        if self.intensity_delay_timer < time or force:
+            self.intensity_delay_timer = time + DIAL_UPDATE_RATE
+            if isinstance(widget_in, QtWidgets.QDial):
+                value = float(self.getValue(widget_in)) * 100.0 / float(widget_in.maximum())
+                out_value = self.getValue(widget_out)
+            else:
+                value = round(self.getValue(widget_in) * widget_out.maximum() / 100)
+                out_value = self.getValue(widget_out)
 
-        if value != out_value:
-            self.setValue(widget_out, value)
-            self.ser.updateStatus()
+            if value != out_value:
+                self.setValue(widget_out, value)
+                self.ser.updateStatus()
 
     def toggleAnalogChannel(self, widget):
         name = self.getValue(widget)

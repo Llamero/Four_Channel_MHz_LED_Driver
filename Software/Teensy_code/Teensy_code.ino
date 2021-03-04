@@ -262,9 +262,11 @@ void setup() {
 
 void loop() {
   usb.update();
-//  status.s.led_channel = 0;
-//  status.s.led_pwm = 65535-analogRead(pin.POT);
-//  status.s.led_current = 65535-analogRead(pin.POT);
+  if(status.s.driver_control){
+    status.s.led_channel = 0;
+    status.s.led_pwm = 65535-analogRead(pin.POT);
+    status.s.led_current = 65535-analogRead(pin.POT);
+  }
 //  status.s.mode = !digitalReadFast(pin.TOGGLE);
 //  status.s.driver_control = 0;
 //  analogRead(pin.MOSFET_TEMP);
