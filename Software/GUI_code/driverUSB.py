@@ -9,8 +9,10 @@ import guiConfigIO as fileIO
 import time
 import struct
 import guiSequence as seq
+import guiMapper
 import tempfile
 import sys
+from timeit import default_timer as timer
 
 # Teensy USB serial microcontroller program id data:
 VENDOR_ID = 0x16C0
@@ -18,7 +20,9 @@ PRODUCT_ID = 0x0483
 SERIAL_NUMBER = "MHZ_LED"
 MAGIC_SEND = "kc1oISEIZ60AYJqH4J1P" #Magic number sent to Teensy to verify that they are an LED driver
 MAGIC_RECEIVE = "kvlWfsBplgasrsh3un5K" #Magic number received from Teensy verifying it is an LED driver
-debug = False
+HEARTBEAT_INTERVAL = 5 #Send a heartbeat signal every 5 seconds after the last packet was transmitted
+debug = True
+
 
 class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverflow.com/questions/55070483/connect-to-serial-from-a-pyqt-gui
     def __init__(self, gui, parent=None):
@@ -50,6 +54,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.stream_download_timeout = 0 #Unix time to wait for complete non-COBS stream packet before timing out and clearing the stream flag
         self.initializing_connection = False #Flag to suppress unnecessary notifications if connection is being initialized
         self.stop_receive = False #Blocks receive thread when a packet is being processed
+        self.heartbeat_timer = timer() #Timer to track if a heartbeat signal needs to be sent
         for action in self.gui.menu_connection.actions():
             self.conn_menu_action_group.addAction(action)
 
@@ -131,7 +136,6 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.gui.updateSerialNumber(self.default_serial_number)
         self.gui.status.status_dict["COM Port"] = "Disconnect"
 
-
     @QtCore.pyqtSlot()
     def receive(self):
         if self.stop_receive: #If processing a stream - do not process incoming packets
@@ -183,6 +187,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
     @QtCore.pyqtSlot()
     def send(self, message = None, cobs_encode = True):
+        self.heartbeat_timer = timer()  # Reset heartbeat timer
         if self.active_port is None: #If driver is disconnected, then don't try to send packet
             return
         if cobs_encode:
@@ -227,9 +232,9 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             if self.connectSerial(port):
                 self.initializing_connection = True
                 self.downloadDriverConfiguration()
+                self.updateStatus()
                 self.gui.updateSerialNumber(serial_number)
                 self.downloadSyncConfiguration()
-                self.updateStatus()
 
             else:
                 self.conn_menu_action_group.removeAction(action)
@@ -295,7 +300,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             self.showMessage(reply)
         else:
             if self.portConnected():
-                pass
+                self.sendWithoutReply(None, True, 0) #Send empty heartbeat packet
 
     def magicNumberCheck(self, reply=None):
         if reply is not None:
@@ -437,6 +442,9 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def updateStatus(self, reply=None):
         if reply:
             self.gui.status.updateStatus(reply)
+            if (timer() - self.heartbeat_timer) > HEARTBEAT_INTERVAL:
+                self.showDriverMessage()  # Send heartbeat packet in reply
+                self.heartbeat_timer = timer()
         else:
             if self.portConnected():
                 gui_status = self.gui.status.sendStatus()

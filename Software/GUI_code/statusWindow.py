@@ -19,7 +19,7 @@ import copy
 N_MEASUREMENTS = 50 #Number of measurements per plot
 MIN_TEMP_RANGE = 6 #Number of degrees at maximum zoom on the temperature plot
 PLOT_PADDING = 1.1 #Factor of dark space above and below plot line so that plot line doesn't touch top of widget
-debug = True
+debug = False
 
 class statusWindow(QtWidgets.QDialog):
     def __init__(self, app, main_window):
@@ -30,7 +30,7 @@ class statusWindow(QtWidgets.QDialog):
         uic.loadUi('Status_GUI.ui', self)
         self.app.setStyleSheet("")
         self.app.setFont(QFont("MS Shell Dlg 2", 12))
-        self.timeline = guiMapper.TimeLine(loopCount=0, interval=100) #Animation object for animating plots
+        self.plot_timeline = guiMapper.TimeLine(loopCount=0, interval=100) #Animation object for animating plots
         self.x_axis_offset = 0 #Current x-axis offset to use for rastering the plots in time
 
         #Initialize widget dictionaries
@@ -117,12 +117,12 @@ class statusWindow(QtWidgets.QDialog):
         y = [current, current]
 
     def startAnimation(self):
-        self.timeline.setFrameRange(0, 100)
-        self.timeline.frameChanged.connect(lambda: self.updateStatusWindow())
-        self.timeline.start()
+        self.plot_timeline.setFrameRange(0, 100)
+        self.plot_timeline.frameChanged.connect(lambda: self.updateStatusWindow())
+        self.plot_timeline.start()
 
     def stopAnimation(self):
-        self.timeline.stop()
+        self.plot_timeline.stop()
 
     def sendStatus(self):
         def widgetIndex(widget_list):

@@ -232,6 +232,8 @@ uint32_t send_stream_index = 0; //Current index position of stream that is being
 uint32_t send_stream_size = 0; //Total size of file to be streamed
 const static uint16_t DEFUALT_TIMEOUT = 500; //Default timeout for serial communication in ms
 uint8_t status_index = 0; //Index counter for incrementally updating and transmitting status
+elapsedMillis heartbeat; //Heartbeat timer to confirm that GUI is still connected
+const static uint32_t HEARTBEAT_TIMEOUT = 10000; //Driver will assume connection has closed if heartbeat not received within this time
 
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
@@ -262,34 +264,36 @@ void setup() {
 
 void loop() {
   usb.update();
-  if(status.s.driver_control){
-    status.s.led_channel = 0;
-    status.s.led_pwm = 65535-analogRead(pin.POT);
-    status.s.led_current = 65535-analogRead(pin.POT);
+  if(heartbeat < HEARTBEAT_TIMEOUT){
+    if(status.s.driver_control){
+      status.s.led_channel = 0;
+      status.s.led_pwm = 65535-analogRead(pin.POT);
+      status.s.led_current = 65535-analogRead(pin.POT);
+      status.s.mode = digitalReadFast(pin.TOGGLE);
+    }
+    analogRead(pin.MOSFET_TEMP);
+    status.s.temp[0] = analogRead(pin.MOSFET_TEMP);
+    analogRead(pin.RESISTOR_TEMP);
+    status.s.temp[1] = analogRead(pin.RESISTOR_TEMP);
+    analogRead(pin.EXTERNAL_TEMP);
+    status.s.temp[2] = analogRead(pin.EXTERNAL_TEMP);
+    status.s.fan_speed[0] = 0;
+    status.s.fan_speed[1] = 0;
+    
+    temp_buffer[0] = prefix.status_update;
+    memcpy(temp_buffer+1, status.byte_buffer, sizeof(status.byte_buffer));
+    usb.send(temp_buffer, sizeof(status.byte_buffer)+1); 
+    if(status.s.mode){
+      analogWrite(pin.FAN_PWM, status.s.led_pwm);
+    }
+    else{
+      analogWrite(pin.FAN_PWM, 0);
+    }
+    digitalWriteFast(LED_BUILTIN, HIGH);
+    delay(20);
+    digitalWriteFast(LED_BUILTIN, LOW);
+    delay(20);
   }
-//  status.s.mode = !digitalReadFast(pin.TOGGLE);
-//  status.s.driver_control = 0;
-//  analogRead(pin.MOSFET_TEMP);
-//  status.s.temp[0] = analogRead(pin.MOSFET_TEMP);
-//  analogRead(pin.RESISTOR_TEMP);
-//  status.s.temp[1] = analogRead(pin.RESISTOR_TEMP);
-//  analogRead(pin.EXTERNAL_TEMP);
-//  status.s.temp[2] = analogRead(pin.EXTERNAL_TEMP);
-//  status.s.fan_speed[0] = 0;
-//  status.s.fan_speed[1] = 0;
-  temp_buffer[0] = prefix.status_update;
-  memcpy(temp_buffer+1, status.byte_buffer, sizeof(status.byte_buffer));
-  usb.send(temp_buffer, sizeof(status.byte_buffer)+1);
-  if(status.s.mode){
-    analogWrite(pin.FAN_PWM, status.s.led_pwm);
-  }
-  else{
-    analogWrite(pin.FAN_PWM, 0);
-  }
-  digitalWriteFast(LED_BUILTIN, HIGH);
-  delay(20);
-  digitalWriteFast(LED_BUILTIN, LOW);
-  delay(20);
 }
 //////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM
 
@@ -375,8 +379,9 @@ void loadEEPROMtoStructs(){
 
 static void onPacketReceived(const uint8_t* buffer, size_t size){
   // Route decoded packet based on prefix byte
+  heartbeat = 0; //Reset heartbeat timer as a serial packet has been received
   uint8_t buffer_prefix = buffer[0];
-  if(buffer_prefix == prefix.message);
+  if(buffer_prefix == prefix.message); 
   else if(buffer_prefix == prefix.connection) magicExchange(buffer, size);
   else if(buffer_prefix == prefix.send_config) usb.send(conf.byte_buffer, sizeof(conf.byte_buffer));
   else if(buffer_prefix == prefix.recv_config) recvConfig(buffer, size);
@@ -612,8 +617,8 @@ static void updateStatus(const uint8_t* buffer, size_t size){
 //    goto sendMessage;
     status.s.led_channel = recv_status.s.led_channel;
     status.s.driver_control = recv_status.s.driver_control;
-    status.s.mode = recv_status.s.mode;
     if(!status.s.driver_control){
+      status.s.mode = recv_status.s.mode;
       status.s.led_pwm = recv_status.s.led_pwm;
       status.s.led_current = recv_status.s.led_current;
     }
