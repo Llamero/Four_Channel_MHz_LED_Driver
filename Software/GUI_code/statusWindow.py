@@ -19,7 +19,7 @@ import copy
 N_MEASUREMENTS = 50 #Number of measurements per plot
 MIN_TEMP_RANGE = 6 #Number of degrees at maximum zoom on the temperature plot
 PLOT_PADDING = 1.1 #Factor of dark space above and below plot line so that plot line doesn't touch top of widget
-
+debug = True
 
 class statusWindow(QtWidgets.QDialog):
     def __init__(self, app, main_window):
@@ -124,7 +124,7 @@ class statusWindow(QtWidgets.QDialog):
     def stopAnimation(self):
         self.timeline.stop()
 
-    def getStatus(self):
+    def sendStatus(self):
         def widgetIndex(widget_list):
             nonlocal self
             for w_index, n_widget in enumerate(widget_list):
@@ -137,26 +137,32 @@ class statusWindow(QtWidgets.QDialog):
         status_list = [0]*11
         mode = widgetIndex(self.gui.main_model["Mode"])
         dial_max = self.gui.main_model["Intensity"].maximum()
+        channel = widgetIndex(self.gui.main_model["Channel"])
         if mode == 2:
             pwm = 65535
-            current = round((self.gui.getValue(self.gui.main_model["Intensity"]) / dial_max) * self.gui.getAdcCurrentLimit(status_list[0]))
+            current = round((self.gui.getValue(self.gui.main_model["Intensity"]) / dial_max) * self.gui.getAdcCurrentLimit(channel))
+        elif mode == 3:
+            current = 0
+            pwm = 0
         else:
             pwm = round((self.gui.getValue(self.gui.main_model["Intensity"]) / dial_max) * 65535)
-            current = self.gui.getAdcCurrentLimit(status_list[0])
+            current = self.gui.getAdcCurrentLimit(channel)
 
         #Send only GUI states - set all driver specific values to 0 since they are just padding
-        status_list[0] = widgetIndex(self.gui.main_model["Channel"])
+        status_list[0] = channel
         status_list[1] = pwm
         status_list[2] = current
         status_list[3] = mode
         status_list[5] = widgetIndex(self.gui.main_model["Control"])
-        print("Send: " + str(status_list))
+        if debug:
+            print("Send: " + str(status_list))
         return status_list
 
     def updateStatus(self, reply):
         status_change = False
         status_list = struct.unpack("<BHHB??HHHHH", reply)
-        print("Recv: " + str(status_list))
+        if debug:
+            print("Recv: " + str(status_list))
         count = self.status_dict["Count"]
         for index, key in enumerate(self.dynamic_dict):
             if key in ["Channel", "Mode", "Control", "State"] or count == 0:

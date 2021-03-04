@@ -439,7 +439,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             self.gui.status.updateStatus(reply)
         else:
             if self.portConnected():
-                gui_status = self.gui.status.getStatus()
+                gui_status = self.gui.status.sendStatus()
                 gui_status = struct.pack("<BHHB??HHHHH", *gui_status)
                 self.sendWithoutReply(gui_status, True, 0)
 

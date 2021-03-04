@@ -141,11 +141,19 @@ class Ui(QtWidgets.QMainWindow):
     def syncDisableMain(self, sync_active): #Disable manual control widgets if the sync is active
         self.main_model["Intensity"].setEnabled(not sync_active)
         self.main_intensity_spinbox.setReadOnly(sync_active)
-        self.main_model["Mode"][3].setEnabled(not sync_active)
+        for widget in self.main_model["Mode"][1:4]:
+            widget.setEnabled(not sync_active)
+
+        if sync_active:
+            for led_widget in self.main_model["Channel"]:
+                led_widget.setEnabled(False)
 
         if not sync_active:
             software_control = self.getValue(self.main_model["Control"]) == "Software"
             self.toggleSoftwareControl(software_control)
+            for led_number in range(1,5):
+                self.toggleLedActive(led_number)
+
 
         self.ser.updateStatus()
 
@@ -224,7 +232,8 @@ class Ui(QtWidgets.QMainWindow):
 
             if value != out_value:
                 self.setValue(widget_out, value)
-                self.ser.updateStatus()
+                if self.main_model["Control"] == 0:
+                    self.ser.updateStatus()
 
     def toggleAnalogChannel(self, widget):
         name = self.getValue(widget)

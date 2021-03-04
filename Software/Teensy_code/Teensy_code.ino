@@ -612,10 +612,10 @@ static void updateStatus(const uint8_t* buffer, size_t size){
 //    goto sendMessage;
     status.s.led_channel = recv_status.s.led_channel;
     status.s.driver_control = recv_status.s.driver_control;
+    status.s.mode = recv_status.s.mode;
     if(!status.s.driver_control){
       status.s.led_pwm = recv_status.s.led_pwm;
       status.s.led_current = recv_status.s.led_current;
-      status.s.mode = recv_status.s.mode;
     }
   }
   return;
