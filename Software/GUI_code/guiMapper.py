@@ -167,10 +167,18 @@ def initializeEvents(gui):
         gui.main_control_software_button.toggled.connect(lambda: gui.toggleSoftwareControl(gui.getValue(gui.main_control_software_button)))
 
         #Update configure plot current limits when active LED is changed
-        gui.main_channel_LED1_button.clicked.connect(lambda: gui.updateActiveLED(1))
-        gui.main_channel_LED2_button.clicked.connect(lambda: gui.updateActiveLED(2))
-        gui.main_channel_LED3_button.clicked.connect(lambda: gui.updateActiveLED(3))
-        gui.main_channel_LED4_button.clicked.connect(lambda: gui.updateActiveLED(4))
+        gui.main_channel_LED1_button.clicked.connect(lambda: gui.ser.updateStatus())
+        gui.main_channel_LED2_button.clicked.connect(lambda: gui.ser.updateStatus())
+        gui.main_channel_LED3_button.clicked.connect(lambda: gui.ser.updateStatus())
+        gui.main_channel_LED4_button.clicked.connect(lambda: gui.ser.updateStatus())
+
+        #Update status if mode or control change
+        gui.main_intensity_PWM_button.clicked.connect(lambda: gui.ser.updateStatus())
+        gui.main_intensity_current_button.clicked.connect(lambda: gui.ser.updateStatus())
+        gui.main_intensity_off_button.clicked.connect(lambda: gui.ser.updateStatus())
+
+        gui.main_control_physical_button.clicked.connect(lambda: gui.ser.updateStatus())
+        gui.main_control_software_button.clicked.connect(lambda: gui.ser.updateStatus())
 
         #Disable manual control widgets when in sync mode
         gui.main_toggle_slider.valueChanged.connect(gui.syncDisableMain)

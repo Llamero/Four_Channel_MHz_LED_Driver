@@ -239,7 +239,7 @@ SDcard sd;
 PacketSerial_<COBS, 0, 4096> usb; //Sets Encoder, framing character, buffer size
 
 void setup() {
-  EEPROM.write(0, 0);
+//  EEPROM.write(0, 0);
   sequence_buffer[0][0]= 0;
   int a;
   pinMode(LED_BUILTIN, OUTPUT);
@@ -259,21 +259,22 @@ void setup() {
   digitalWriteFast(pin.FAN_PWM, LOW);
   analogWrite(A21, 0);
 }
+
 void loop() {
   usb.update();
-  status.s.led_channel = 0;
-  status.s.led_pwm = 65535-analogRead(pin.POT);
-  status.s.led_current = 65535-analogRead(pin.POT);
-  status.s.mode = !digitalReadFast(pin.TOGGLE);
-  status.s.driver_control = 0;
-  analogRead(pin.MOSFET_TEMP);
-  status.s.temp[0] = analogRead(pin.MOSFET_TEMP);
-  analogRead(pin.RESISTOR_TEMP);
-  status.s.temp[1] = analogRead(pin.RESISTOR_TEMP);
-  analogRead(pin.EXTERNAL_TEMP);
-  status.s.temp[2] = analogRead(pin.EXTERNAL_TEMP);
-  status.s.fan_speed[0] = 0;
-  status.s.fan_speed[1] = 0;
+//  status.s.led_channel = 0;
+//  status.s.led_pwm = 65535-analogRead(pin.POT);
+//  status.s.led_current = 65535-analogRead(pin.POT);
+//  status.s.mode = !digitalReadFast(pin.TOGGLE);
+//  status.s.driver_control = 0;
+//  analogRead(pin.MOSFET_TEMP);
+//  status.s.temp[0] = analogRead(pin.MOSFET_TEMP);
+//  analogRead(pin.RESISTOR_TEMP);
+//  status.s.temp[1] = analogRead(pin.RESISTOR_TEMP);
+//  analogRead(pin.EXTERNAL_TEMP);
+//  status.s.temp[2] = analogRead(pin.EXTERNAL_TEMP);
+//  status.s.fan_speed[0] = 0;
+//  status.s.fan_speed[1] = 0;
   temp_buffer[0] = prefix.status_update;
   memcpy(temp_buffer+1, status.byte_buffer, sizeof(status.byte_buffer));
   usb.send(temp_buffer, sizeof(status.byte_buffer)+1);
@@ -602,12 +603,17 @@ static bool recvSeq(const uint8_t* buffer, size_t size, bool single_file){
 
 static void updateStatus(const uint8_t* buffer, size_t size){
   STATUSUNION recv_status;
-  if(size == sizeof(recv_status.byte_buffer)){
-    memcpy(recv_status.byte_buffer, buffer, size);
-    if(recv_status.s.led_channel < 4){
-      if(recv_status.s.mode < 4){
-        memcpy(status.byte_buffer, recv_status.byte_buffer, size);
-      }
+  if(size == sizeof(recv_status.byte_buffer)+1){
+    memcpy(recv_status.byte_buffer, buffer+1, size-1);
+//    temp_size = sprintf(temp_buffer, "-%d %d %d %d %d %d %d %d %d %d %d", recv_status.s.led_channel, recv_status.s.led_pwm, recv_status.s.led_current, recv_status.s.mode, 
+//    recv_status.s.state, recv_status.s.driver_control, recv_status.s.temp[0], recv_status.s.temp[1], recv_status.s.temp[2], recv_status.s.fan_speed[0], recv_status.s.fan_speed[1]);
+//    goto sendMessage;
+    status.s.led_channel = recv_status.s.led_channel;
+    status.s.driver_control = recv_status.s.driver_control;
+    if(!status.s.driver_control){
+      status.s.led_pwm = recv_status.s.led_pwm;
+      status.s.led_current = recv_status.s.led_current;
+      status.s.mode = recv_status.s.mode;
     }
   }
   return;
@@ -616,6 +622,7 @@ static void updateStatus(const uint8_t* buffer, size_t size){
     usb.send(temp_buffer, temp_size);
     return;
 }
+
 //  boolean state[] = {false, false, false, false, false};
 //  int a = 0;
 //  float mos_temp;

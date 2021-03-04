@@ -18,7 +18,7 @@ PRODUCT_ID = 0x0483
 SERIAL_NUMBER = "MHZ_LED"
 MAGIC_SEND = "kc1oISEIZ60AYJqH4J1P" #Magic number sent to Teensy to verify that they are an LED driver
 MAGIC_RECEIVE = "kvlWfsBplgasrsh3un5K" #Magic number received from Teensy verifying it is an LED driver
-debug = True
+debug = False
 
 class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverflow.com/questions/55070483/connect-to-serial-from-a-pyqt-gui
     def __init__(self, gui, parent=None):
@@ -229,6 +229,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.downloadDriverConfiguration()
                 self.gui.updateSerialNumber(serial_number)
                 self.downloadSyncConfiguration()
+                self.updateStatus()
 
             else:
                 self.conn_menu_action_group.removeAction(action)
@@ -436,7 +437,11 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def updateStatus(self, reply=None):
         if reply:
             self.gui.status.updateStatus(reply)
-
+        else:
+            if self.portConnected():
+                gui_status = self.gui.status.getStatus()
+                gui_status = struct.pack("<BHHB??HHHHH", *gui_status)
+                self.sendWithoutReply(gui_status)
 
     def portConnected(self):
         if self.active_port is None:

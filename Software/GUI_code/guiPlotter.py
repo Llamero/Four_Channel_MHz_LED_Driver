@@ -38,7 +38,6 @@ def activeCurrent(gui):
     else:
         return None
 
-
 def setCalibrationScale(gui):
     current = activeCurrent(gui)
     gui.calibration_plot_window.setYRange(0, current * 1.2, padding=0)

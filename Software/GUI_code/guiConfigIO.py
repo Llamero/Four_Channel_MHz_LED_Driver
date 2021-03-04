@@ -418,23 +418,26 @@ def syncToBytes(gui, prefix):
     return byte_array
 
 def adcToTemp(adc, external = False):
-    if external:
-        therm_nominal = EXT_THERMISTOR_NOMINAL
-        b_coefficient = EXT_B_COEFFICIENT
-    else:
-        therm_nominal = PCB_THERMISTOR_NOMINAL
-        b_coefficient = PCB_B_COEFFICIENT
-    if adc > 65500: #If ADC value is arbitrarily high then thermistor is disconnected, so return arbitrarily low value
-        return -1000
-    raw = adc
-    raw = 65535 / raw - 1
-    raw = SERIES_RESISTOR / raw
-    steinhart = raw / therm_nominal
-    steinhart = math.log(steinhart)
-    steinhart /= b_coefficient
-    steinhart += 1.0 / (25 + 273.15)
-    steinhart = 1.0 / steinhart
-    steinhart -= 273.15
+    try:
+        if external:
+            therm_nominal = EXT_THERMISTOR_NOMINAL
+            b_coefficient = EXT_B_COEFFICIENT
+        else:
+            therm_nominal = PCB_THERMISTOR_NOMINAL
+            b_coefficient = PCB_B_COEFFICIENT
+        if adc > 65500: #If ADC value is arbitrarily high then thermistor is disconnected, so return arbitrarily low value
+            return -1000
+        raw = adc
+        raw = 65535 / raw - 1
+        raw = SERIES_RESISTOR / raw
+        steinhart = raw / therm_nominal
+        steinhart = math.log(steinhart)
+        steinhart /= b_coefficient
+        steinhart += 1.0 / (25 + 273.15)
+        steinhart = 1.0 / steinhart
+        steinhart -= 273.15
+    except ZeroDivisionError:
+        return -1000 #Return impossible temp if invalid ADC value is received
     return steinhart
 
 def tempToAdc(temperature, external = False):

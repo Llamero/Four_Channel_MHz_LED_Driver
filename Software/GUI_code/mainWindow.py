@@ -122,10 +122,8 @@ class Ui(QtWidgets.QMainWindow):
     def updateMain(self, status_dict):
         if self.getValue(self.main_model["Control"]) == "LED Driver": #If the LED driver is the input source, update GUI with driver status
             self.main_model["Channel"][status_dict["Channel"]].setChecked(True)
-            self.main_model["Control"][int(status_dict["Control"])].setChecked(True)
             if status_dict["Mode"] > 0:
                 self.setValue(self.main_model["Mode"][0], 0) #Set slider to Manual
-                self.main_model["Mode"][status_dict["Mode"]].setChecked(True) #Check the appropriate manual mode radio button
                 status_list = list(status_dict.items())
 
                 try:
@@ -140,12 +138,12 @@ class Ui(QtWidgets.QMainWindow):
         self.main_model["Intensity"].setEnabled(not sync_active)
         self.main_intensity_spinbox.setReadOnly(sync_active)
         self.main_model["Mode"][3].setEnabled(not sync_active)
-        for widget in self.main_model["Channel"]:
-            widget.setEnabled(not sync_active)
 
         if not sync_active:
             software_control = self.getValue(self.main_model["Control"]) == "Software"
             self.toggleSoftwareControl(software_control)
+
+        self.ser.updateStatus()
 
     def toggleSkin(self, enable_widget, disable_widget, mode):
         enable_widget.setChecked(True)
@@ -219,6 +217,7 @@ class Ui(QtWidgets.QMainWindow):
 
         if value != out_value:
             self.setValue(widget_out, value)
+            self.ser.updateStatus()
 
     def toggleAnalogChannel(self, widget):
         name = self.getValue(widget)
@@ -246,13 +245,9 @@ class Ui(QtWidgets.QMainWindow):
         self.main_model["Mode"][0].setEnabled(software_enable)
         self.main_intensity_spinbox.setReadOnly(not software_enable)
 
-
     def lockInterface(self, widget):
         self.gui_master_tab.setCurrentIndex(0) #Jump to main page before locking interface
         self.gui_master_tab.setEnabled(not widget.isChecked())
-
-    def updateActiveLED(self, led_number):
-        plot.setCalibrationScale(self)
 
     def verifyCell(self, item):
         seq.verifyCell(self, item.column(), item.row(), item.text(), item.tableWidget())

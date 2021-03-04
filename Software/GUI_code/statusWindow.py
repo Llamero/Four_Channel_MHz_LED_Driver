@@ -30,7 +30,7 @@ class statusWindow(QtWidgets.QDialog):
         uic.loadUi('Status_GUI.ui', self)
         self.app.setStyleSheet("")
         self.app.setFont(QFont("MS Shell Dlg 2", 12))
-        self.timeline = guiMapper.TimeLine(loopCount=0, interval=1000) #Animation object for animating plots
+        self.timeline = guiMapper.TimeLine(loopCount=0, interval=100) #Animation object for animating plots
         self.x_axis_offset = 0 #Current x-axis offset to use for rastering the plots in time
 
         #Initialize widget dictionaries
@@ -124,9 +124,39 @@ class statusWindow(QtWidgets.QDialog):
     def stopAnimation(self):
         self.timeline.stop()
 
+    def getStatus(self):
+        def widgetIndex(widget_list):
+            nonlocal self
+            for w_index, n_widget in enumerate(widget_list):
+                if self.gui.getValue(n_widget):
+                    return w_index
+            else:
+                self.gui.showMessage("Error: Widget index not found!")
+                return None
+
+        status_list = [0]*11
+        mode = widgetIndex(self.gui.main_model["Mode"])
+        dial_max = self.gui.main_model["Intensity"].maximum()
+        if mode == 2:
+            pwm = 65535
+            current = round((self.gui.getValue(self.gui.main_model["Intensity"]) / dial_max) * self.gui.getAdcCurrentLimit(status_list[0]))
+        else:
+            pwm = round((self.gui.getValue(self.gui.main_model["Intensity"]) / dial_max) * 65535)
+            current = self.gui.getAdcCurrentLimit(status_list[0])
+
+        #Send only GUI states - set all driver specific values to 0 since they are just padding
+        status_list[0] = widgetIndex(self.gui.main_model["Channel"])
+        status_list[1] = pwm
+        status_list[2] = current
+        status_list[3] = mode
+        status_list[5] = widgetIndex(self.gui.main_model["Control"])
+        print("Send: " + str(status_list))
+        return status_list
+
     def updateStatus(self, reply):
         status_change = False
         status_list = struct.unpack("<BHHB??HHHHH", reply)
+        print("Recv: " + str(status_list))
         count = self.status_dict["Count"]
         for index, key in enumerate(self.dynamic_dict):
             if key in ["Channel", "Mode", "Control", "State"] or count == 0:
@@ -171,18 +201,18 @@ class statusWindow(QtWidgets.QDialog):
                 elif key == "Mode":
                     if self.status_dict[key] == 0:
                         value = "Sync - " + self.gui.sync_model["Mode"].whatsThis()
-                    elif self.status_dict[key] == 1:
-                        value = "PWM"
-                    elif self.status_dict[key] == 2:
-                        value = "Current"
+                    elif self.status_dict[key] in [1, 2]:
+                        value = "Manual"
                     else:
                         value = "Off"
                 elif key == "State":
                     try:
                         if self.status_dict["Mode"] == 0:
                             value = self.state_dict[self.gui.sync_model["Mode"].whatsThis()][self.status_dict[key]]
-                        elif self.status_dict["Mode"] < 3:
-                            value = "Manual"
+                        elif self.status_dict["Mode"] == 1:
+                            value = "PWM"
+                        elif self.status_dict["Mode"] == 2:
+                            value = "Current"
                         else:
                             value = "Off"
                     except KeyError:
@@ -231,6 +261,12 @@ class statusWindow(QtWidgets.QDialog):
         widget = key.lower()
         widget = eval("self.text_" + widget.replace(" ", "_") + "_label")
         widget.setText(key + ": " + str(value) + unit)
+
+    def showMessage(self, text):
+        self.gui.waitCursor(False)
+        self.gui.stopSplash()
+        self.gui.message_box.setText(text)
+        self.gui.message_box.exec()
 
 
 
