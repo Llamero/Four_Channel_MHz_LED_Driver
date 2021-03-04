@@ -13,7 +13,7 @@ import statusWindow
 import sys
 from timeit import default_timer as timer
 
-DIAL_UPDATE_RATE = 0.1 #Time in ms between updates from dial when in manual control - prevents dial from locking GUI with continuous updates when dial is swept
+DIAL_UPDATE_RATE = 0.05 #Time in ms between updates from dial when in manual control - prevents dial from locking GUI with continuous updates when dial is swept
 
 class Ui(QtWidgets.QMainWindow):
     def __init__(self, app):
