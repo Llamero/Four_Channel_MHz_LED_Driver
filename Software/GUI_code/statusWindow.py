@@ -37,6 +37,7 @@ class statusWindow(QtWidgets.QDialog):
 
         self.status_dict = copy.deepcopy(self.gui.status_dict)
         self.status_dict["Count"] = 0 #Add count element to dictionary
+        self.gui.status_signal.connect(self.status_signal.emit)  # Connect mainWindow status signal to dialog status signal
         self.status_signal.connect(self.updateStatus) #Update status when new status signal is received
         self.plots = OrderedDict([("PWM", self.graph_intensity_pwm), ("Current", self.graph_intensity_current),
                                   ("Transistor", self.graph_temperature_transistor), ("Resistor", self.graph_temperature_resistor), ("External", self.graph_temperature_external)])

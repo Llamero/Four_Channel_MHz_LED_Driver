@@ -67,14 +67,7 @@ class Ui(QtWidgets.QMainWindow):
                                                            ("COM Port", 0),
                                                            ("Serial", 0),
                                                            ("Control", 0)])
-
-        #Start status window
-        self.status1 = statusWindow.statusWindow(self.app, self)
-        self.status_signal.connect(self.status1.status_signal.emit) #Connect mainWindow status signal to dialog status signal
-        self.status1.show()
-        self.status2 = statusWindow.statusWindow(self.app, self)
-        self.status_signal.connect(self.status2.status_signal.emit) #Connect mainWindow status signal to dialog status signal
-        self.status2.show()
+        self.status_window_list = []
 
        # Hide dummy widgets
         for channel in range(1, 5):
@@ -149,6 +142,11 @@ class Ui(QtWidgets.QMainWindow):
             return False
         else:
             return True
+
+    def createStatusWindow(self):
+        self.status_window_list.append(statusWindow.statusWindow(self.app, self))
+        self.status_window_list[len(self.status_window_list)-1].show()
+
     def updateSerialNumber(self, serial_number):
         self.configure_name_driver_serial_label2.setText(serial_number)
         self.main_model["Serial"].setText(serial_number)

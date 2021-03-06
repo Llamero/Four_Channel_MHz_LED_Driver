@@ -146,6 +146,7 @@ def initializeEvents(gui):
     def menuEvents():
         nonlocal gui
 #        gui.menu_connection.aboutToShow.connect(lambda: gui.ser.getDriverPort()) #Search for all available LED drivers on USB ports
+        gui.menu_view_windows_status.triggered.connect(gui.createStatusWindow)
 
         # Dark/light mode view
         gui.menu_view_skins_dark.triggered.connect(
