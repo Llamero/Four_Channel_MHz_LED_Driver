@@ -22,6 +22,8 @@ PLOT_PADDING = 1.1 #Factor of dark space above and below plot line so that plot 
 debug = False
 
 class statusWindow(QtWidgets.QDialog):
+    status_signal = QtCore.pyqtSignal(object)  # Need to initialize outside of init() https://stackoverflow.com/questions/2970312/pyqt4-qtcore-pyqtsignal-object-has-no-attribute-connect
+
     def __init__(self, app, main_window):
         self.app = app
         self.gui = main_window
@@ -34,7 +36,7 @@ class statusWindow(QtWidgets.QDialog):
         self.x_axis_offset = 0 #Current x-axis offset to use for rastering the plots in time
 
         self.status_dict = copy.deepcopy(self.gui.status_dict)
-        self.status_signal = QtCore.pyqtSignal() #Signal received when new status packet is received
+        self.status_dict["Count"] = 0 #Add count element to dictionary
         self.status_signal.connect(self.updateStatus) #Update status when new status signal is received
         self.plots = OrderedDict([("PWM", self.graph_intensity_pwm), ("Current", self.graph_intensity_current),
                                   ("Transistor", self.graph_temperature_transistor), ("Resistor", self.graph_temperature_resistor), ("External", self.graph_temperature_external)])
@@ -107,24 +109,15 @@ class statusWindow(QtWidgets.QDialog):
     def stopAnimation(self):
         self.plot_timeline.stop()
 
-
-
-    def updateStatus(self, reply):
-        status_change = False
-        status_list = struct.unpack("<BHHB??HHHHH", reply)
+    def updateStatus(self, status):
         if debug:
-            print("Recv: " + str(status_list))
+            print("Recv: " + str(status))
         count = self.status_dict["Count"]
-        for index, key in enumerate(self.dynamic_dict):
+        for index, key in enumerate(status):
             if key in ["Channel", "Mode", "Control", "State"] or count == 0:
-                self.status_dict[key] = status_list[index]
+                self.status_dict[key] = status[key]
             else: #Calculate running average of measured values per update
-                self.status_dict[key] += status_list[index]
-            if self.dynamic_dict[key] != status_list[index]:
-                self.dynamic_dict[key] = status_list[index]
-                status_change = True
-        if status_change:
-            self.gui.updateMain(self.dynamic_dict)
+                self.status_dict[key] += status[key]
         self.status_dict["Count"] += 1
 
     def updateStatusWindow(self):

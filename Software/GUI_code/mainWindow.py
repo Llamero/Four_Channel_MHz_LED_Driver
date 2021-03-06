@@ -69,9 +69,12 @@ class Ui(QtWidgets.QMainWindow):
                                                            ("Control", 0)])
 
         #Start status window
-        # self.status = statusWindow.statusWindow(self.app, self)
-        # self.status_signal.connect(self.status.status_signal.emit) #Connect mainWindow status signal to dialog status signal
-        # self.status.show()
+        self.status1 = statusWindow.statusWindow(self.app, self)
+        self.status_signal.connect(self.status1.status_signal.emit) #Connect mainWindow status signal to dialog status signal
+        self.status1.show()
+        self.status2 = statusWindow.statusWindow(self.app, self)
+        self.status_signal.connect(self.status2.status_signal.emit) #Connect mainWindow status signal to dialog status signal
+        self.status2.show()
 
        # Hide dummy widgets
         for channel in range(1, 5):

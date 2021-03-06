@@ -179,8 +179,7 @@ def initializeEvents(gui):
         gui.main_intensity_current_button.clicked.connect(lambda: gui.ser.updateStatus())
         gui.main_intensity_off_button.clicked.connect(lambda: gui.ser.updateStatus())
 
-        gui.main_control_physical_button.clicked.connect(lambda: gui.ser.updateStatus())
-        gui.main_control_software_button.clicked.connect(lambda: gui.ser.updateStatus())
+        gui.main_control_software_button.toggled.connect(lambda: gui.ser.updateStatus())
 
         #Disable manual control widgets when in sync mode
         gui.main_toggle_slider.valueChanged.connect(gui.syncDisableMain)
