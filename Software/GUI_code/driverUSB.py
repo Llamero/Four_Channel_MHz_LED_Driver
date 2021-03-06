@@ -100,13 +100,13 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 "Port": QSerialPortInfo(self.port).systemLocation()}
 
     def connectSerial(self, port):
-        try:
+        #try:
             self.active_port = QSerialPort(port, baudRate=QSerialPort.Baud9600, readyRead=self.receive)
             if not self.active_port.isOpen(): #Close serial port if it is already open
                 if self.active_port.open(QtCore.QIODevice.ReadWrite): #Open serial connection
                     self.active_port.readyRead.connect(self.receive)
                     self.active_port.clear() #Clear buffer of any remaining data
-                    self.gui.status.status_dict["COM Port"] = self.getPortInfo(self.active_port)["Port"]
+                    self.gui.status_dict["COM Port"] = self.getPortInfo(self.active_port)["Port"]
                     return True
                 else:
                     if debug:
@@ -119,7 +119,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.disconnectSerial()
                 return False
 
-        except: #Return False if unable to establish connection to serial port
+        #except: #Return False if unable to establish connection to serial port
             if debug:
                 print("Failed to connect to COM port, with QSerialPort Error #" + str(self.active_port.error()))
             self.disconnectSerial()
@@ -134,7 +134,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
         self.gui.menu_connection_disconnect.setChecked(True)
         self.gui.updateSerialNumber(self.default_serial_number)
-        self.gui.status.status_dict["COM Port"] = "Disconnect"
+        self.gui.status_dict["COM Port"] = "Disconnect"
 
     @QtCore.pyqtSlot()
     def receive(self):
@@ -441,15 +441,57 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
     def updateStatus(self, reply=None):
         if reply:
-            self.gui.status.updateStatus(reply)
+            #parse status
+            status_change = False
+            status_list = struct.unpack("<BHHB??HHHHH", reply)
+            for index, key in enumerate(self.gui.status_dynamic_dict):
+                self.gui.status_dynamic_dict[key] = status_list[index]
+                if self.gui.status_dynamic_dict[key] != self.gui.status_dict[key]: #Update master dictionary if a value has changed
+                    self.gui.status_dict[key] = self.gui.status_dynamic_dict[key]
+                    status_change = True
+
+            #If status has changed, emit status change signal with the new status dictionary
+            if status_change:
+                self.gui.status_signal.emit(self.gui.status_dynamic_dict)
+
+            # Send heartbeat packet in reply
             if (timer() - self.heartbeat_timer) > HEARTBEAT_INTERVAL:
-                self.showDriverMessage()  # Send heartbeat packet in reply
+                self.showDriverMessage()
                 self.heartbeat_timer = timer()
         else:
             if self.portConnected():
-                gui_status = self.gui.status.sendStatus()
-                gui_status = struct.pack("<BHHB??HHHHH", *gui_status)
-                self.sendWithoutReply(gui_status, True, 0)
+                def widgetIndex(widget_list):
+                    nonlocal self
+                    for w_index, n_widget in enumerate(widget_list):
+                        if self.gui.getValue(n_widget):
+                            return w_index
+                    else:
+                        self.gui.showMessage("Error: Widget index not found!")
+                        return None
+
+                status_list = [0] * 11
+                mode = widgetIndex(self.gui.main_model["Mode"])
+                dial_max = self.gui.main_model["Intensity"].maximum()
+                channel = widgetIndex(self.gui.main_model["Channel"])
+                if mode == 2:
+                    pwm = 65535
+                    current = round((self.gui.getValue(
+                        self.gui.main_model["Intensity"]) / dial_max) * self.gui.getAdcCurrentLimit(channel))
+                elif mode == 3:
+                    current = 0
+                    pwm = 0
+                else:
+                    pwm = round((self.gui.getValue(self.gui.main_model["Intensity"]) / dial_max) * 65535)
+                    current = self.gui.getAdcCurrentLimit(channel)
+
+                # Send only GUI states - set all driver specific values to 0 since they are just padding
+                status_list[0] = channel
+                status_list[1] = pwm
+                status_list[2] = current
+                status_list[3] = mode
+                status_list[5] = widgetIndex(self.gui.main_model["Control"])
+                status_list = struct.pack("<BHHB??HHHHH", *status_list)
+                self.sendWithoutReply(status_list, True, 0)
 
     def portConnected(self):
         if self.active_port is None:

@@ -159,6 +159,7 @@ const struct prefixStruct{
   uint8_t recv_stream = 10; //Signal the driver is ready to receive stream that is queued
   uint8_t send_stream = 11; //If recv - signals that ready for next packet
   uint8_t status_update = 12; //Status update packet for driver or GUI
+  uint8_t long_off = 148; //Prefix sent when computer has been off for a while
 } prefix;
 
 //////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION//////////////UNION
@@ -394,6 +395,7 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   else if(buffer_prefix == prefix.recv_stream);
   else if(buffer_prefix == prefix.send_stream);
   else if(buffer_prefix == prefix.status_update) updateStatus(buffer, size);
+  else if(buffer_prefix == prefix.long_off);
   else{
     temp_size = sprintf(temp_buffer, "-Error: USB packet had invalid prefix: %d", buffer_prefix);  
     temp_buffer[0] = prefix.message;

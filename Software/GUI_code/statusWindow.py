@@ -33,26 +33,9 @@ class statusWindow(QtWidgets.QDialog):
         self.plot_timeline = guiMapper.TimeLine(loopCount=0, interval=100) #Animation object for animating plots
         self.x_axis_offset = 0 #Current x-axis offset to use for rastering the plots in time
 
-        #Initialize widget dictionaries
-        self.dynamic_dict = OrderedDict([("Channel", 0),
-                                         ("PWM", 0),
-                                         ("Current", 0),
-                                         ("Mode", 0),
-                                         ("State", 0),
-                                         ("Control", 0),
-                                         ("Transistor", 0),
-                                         ("Resistor", 0),
-                                         ("External", 0),
-                                         ("Driver Fan", 0),
-                                         ("External Fan", 0)])
-
-        self.static_dict = OrderedDict([("Name", 0),
-                                        ("COM Port", 0),
-                                        ("Serial", 0),
-                                        ("Control", 0)])
-
-        self.status_dict = OrderedDict(list(self.dynamic_dict.items()) + list(self.static_dict.items()) + [("Count", 0)])
-
+        self.status_dict = copy.deepcopy(self.gui.status_dict)
+        self.status_signal = QtCore.pyqtSignal() #Signal received when new status packet is received
+        self.status_signal.connect(self.updateStatus) #Update status when new status signal is received
         self.plots = OrderedDict([("PWM", self.graph_intensity_pwm), ("Current", self.graph_intensity_current),
                                   ("Transistor", self.graph_temperature_transistor), ("Resistor", self.graph_temperature_resistor), ("External", self.graph_temperature_external)])
 
@@ -124,39 +107,7 @@ class statusWindow(QtWidgets.QDialog):
     def stopAnimation(self):
         self.plot_timeline.stop()
 
-    def sendStatus(self):
-        def widgetIndex(widget_list):
-            nonlocal self
-            for w_index, n_widget in enumerate(widget_list):
-                if self.gui.getValue(n_widget):
-                    return w_index
-            else:
-                self.gui.showMessage("Error: Widget index not found!")
-                return None
 
-        status_list = [0]*11
-        mode = widgetIndex(self.gui.main_model["Mode"])
-        dial_max = self.gui.main_model["Intensity"].maximum()
-        channel = widgetIndex(self.gui.main_model["Channel"])
-        if mode == 2:
-            pwm = 65535
-            current = round((self.gui.getValue(self.gui.main_model["Intensity"]) / dial_max) * self.gui.getAdcCurrentLimit(channel))
-        elif mode == 3:
-            current = 0
-            pwm = 0
-        else:
-            pwm = round((self.gui.getValue(self.gui.main_model["Intensity"]) / dial_max) * 65535)
-            current = self.gui.getAdcCurrentLimit(channel)
-
-        #Send only GUI states - set all driver specific values to 0 since they are just padding
-        status_list[0] = channel
-        status_list[1] = pwm
-        status_list[2] = current
-        status_list[3] = mode
-        status_list[5] = widgetIndex(self.gui.main_model["Control"])
-        if debug:
-            print("Send: " + str(status_list))
-        return status_list
 
     def updateStatus(self, reply):
         status_change = False

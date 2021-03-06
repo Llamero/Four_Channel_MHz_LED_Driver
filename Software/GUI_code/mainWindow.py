@@ -16,9 +16,13 @@ from timeit import default_timer as timer
 DIAL_UPDATE_RATE = 0.05 #Time in ms between updates from dial when in manual control - prevents dial from locking GUI with continuous updates when dial is swept
 
 class Ui(QtWidgets.QMainWindow):
+    status_signal = QtCore.pyqtSignal(object) #Need to initialize outside of init() https://stackoverflow.com/questions/2970312/pyqt4-qtcore-pyqtsignal-object-has-no-attribute-connect
+
     def __init__(self, app):
         self.app = app
         super(Ui, self).__init__()
+
+        #Initialize splash screen to show on load
         self.splash_dict = {"main": os.path.join(os.path.dirname(__file__), "Four Channel MHz LED Driver-main.png"),
                             "upload": os.path.join(os.path.dirname(__file__), "Four Channel MHz LED Driver-upload.png"),
                             "download": os.path.join(os.path.dirname(__file__), "Four Channel MHz LED Driver-download.png")}
@@ -27,8 +31,7 @@ class Ui(QtWidgets.QMainWindow):
         self.splash.setFont(QFont('Arial', 15))
         self.splash.show()
         self.splash.showMessage("Loading program...", alignment=QtCore.Qt.AlignBottom, color=QtCore.Qt.white)
-        self.status = statusWindow.statusWindow(self.app, self)
-        self.status.show()
+
         # Set look and feel
         uic.loadUi('QtDesigner_GUI.ui', self)
         self.app.setStyleSheet("")
@@ -38,12 +41,37 @@ class Ui(QtWidgets.QMainWindow):
         self.message_box = QtWidgets.QMessageBox() # https://pythonbasics.org/pyqt-qmessagebox/
         self.message_box.setIcon(QtWidgets.QMessageBox.Warning)
 
+        #Initialize signal that is emitted when a new status packet is received
+        self.status_signal.connect(self.updateMain)
+
         # Map gui widgets to ordered dictionaries
         self.splash.showMessage("Initializing models...", alignment=QtCore.Qt.AlignBottom, color=QtCore.Qt.white)
         self.config_model = guiMapper.initializeConfigModel(self)
         self.sync_model = guiMapper.initializeSyncModel(self)
         self.main_model = guiMapper.initializeMainModel(self)
         self.intensity_delay_timer = timer() #Timer for delaying updates from intensity dial
+
+        # Initialize status dictionaries
+        self.status_dynamic_dict = OrderedDict([("Channel", 0),
+                                    ("PWM", 0),
+                                    ("Current", 0),
+                                    ("Mode", 0),
+                                    ("State", 0),
+                                    ("Control", 0),
+                                    ("Transistor", 0),
+                                    ("Resistor", 0),
+                                    ("External", 0),
+                                    ("Driver Fan", 0),
+                                    ("External Fan", 0)])
+        self.status_dict = OrderedDict(list(self.status_dynamic_dict.items()) + [("Name", 0),
+                                                           ("COM Port", 0),
+                                                           ("Serial", 0),
+                                                           ("Control", 0)])
+
+        #Start status window
+        # self.status = statusWindow.statusWindow(self.app, self)
+        # self.status_signal.connect(self.status.status_signal.emit) #Connect mainWindow status signal to dialog status signal
+        # self.status.show()
 
        # Hide dummy widgets
         for channel in range(1, 5):
@@ -121,7 +149,7 @@ class Ui(QtWidgets.QMainWindow):
     def updateSerialNumber(self, serial_number):
         self.configure_name_driver_serial_label2.setText(serial_number)
         self.main_model["Serial"].setText(serial_number)
-        self.status.status_dict["Serial"] = serial_number
+        self.status_dict["Serial"] = serial_number
 
     def updateMain(self, status_dict):
         if self.getValue(self.main_model["Control"]) == "LED Driver": #If the LED driver is the input source, update GUI with driver status
@@ -171,7 +199,7 @@ class Ui(QtWidgets.QMainWindow):
     def changeDriverName(self, widget):
         name = self.getValue(widget)
         self.main_model["Name"].setText(str(name))
-        self.status.status_dict["Name"] = name
+        self.status_dict["Name"] = name
 
 
     def toggleLedActive(self, led_number):
