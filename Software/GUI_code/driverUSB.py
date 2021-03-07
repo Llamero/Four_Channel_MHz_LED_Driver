@@ -13,6 +13,7 @@ import guiMapper
 import tempfile
 import sys
 from timeit import default_timer as timer
+import calibrationPlot
 
 # Teensy USB serial microcontroller program id data:
 VENDOR_ID = 0x16C0
@@ -128,6 +129,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def disconnectSerial(self):
         if self.active_port is not None:
             if self.active_port.isOpen(): #Close serial port if it is already open
+                self.sendWithoutReply()  #Infrom the LED driver of disconnect
                 self.active_port.clear() #Clear buffer of any remaining data
                 self.active_port.close() #close connection
                 self.active_port = None
@@ -278,7 +280,9 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                             "uploadTime": 9,
                             "uploadStream": 10,
                             "downloadStream": 11,
-                            "updateStatus": 12}  # byte prefix identifying data packet type
+                            "updateStatus": 12,
+                            "driverCalibration": 13,
+                            "disconnectSerial": 14}  # byte prefix identifying data packet type
 
         self.command_dict = {self.prefix_dict["showDriverMessage"]: self.showDriverMessage,
                              self.prefix_dict["magicNumberCheck"]: self.magicNumberCheck,
@@ -292,7 +296,9 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                              self.prefix_dict["uploadTime"]: self.uploadTime,
                              self.prefix_dict["uploadStream"]: self.uploadStream,
                              self.prefix_dict["downloadStream"]: self.downloadStream,
-                             self.prefix_dict["updateStatus"]: self.updateStatus}  # Mapping of prefix to function that will process the command
+                             self.prefix_dict["updateStatus"]: self.updateStatus,
+                             self.prefix_dict["driverCalibration"]: self.driverCalibration,
+                             self.prefix_dict["disconnectSerial"]: self.disconnectSerial}  # Mapping of prefix to function that will process the command
 
     def showDriverMessage(self, reply=None):
         if reply is not None:
@@ -492,6 +498,15 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 status_list[5] = widgetIndex(self.gui.main_model["Control"])
                 status_list = struct.pack("<BHHB??HHHHH", *status_list)
                 self.sendWithoutReply(status_list, True, 0)
+
+    def driverCalibration(self, reply=None):
+        if reply:
+            packet_format = "<%dH" % (len(reply) / 2)
+            calibrationPlot.updatePlot(self.gui, list(struct.unpack(packet_format, reply)))
+
+        else:
+            if self.portConnected():
+                self.sendWithoutReply(None, True, 0) #Send request for calibration packet
 
     def portConnected(self):
         if self.active_port is None:

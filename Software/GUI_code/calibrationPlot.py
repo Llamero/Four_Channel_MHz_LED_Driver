@@ -41,9 +41,6 @@ def activeCurrent(gui):
 def setCalibrationScale(gui):
     current = activeCurrent(gui)
     gui.calibration_plot_window.setYRange(0, current * 1.2, padding=0)
-    xlim = gui.calibration_plot_window.getViewBox().state["targetRange"][0][1]
-    x = [0, xlim]
-    y = [current, current]
 
 def startAnimation(gui, timeline):
     timeline.setFrameRange(0, 144)

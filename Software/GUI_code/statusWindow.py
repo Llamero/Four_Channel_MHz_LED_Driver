@@ -12,7 +12,7 @@ import pyqtgraph as pg
 import guiMapper
 import guiSequence as seq
 import guiConfigIO as fileIO
-import guiPlotter as plot
+import calibrationPlot as plot
 import driverUSB
 import time
 import copy
@@ -126,7 +126,6 @@ class statusWindow(QtWidgets.QDialog):
     @QtCore.pyqtSlot()
     def changeSpeed(self):
         source_widget = self.sender()
-        print(source_widget)
         if not (isinstance(source_widget, QtWidgets.QDoubleSpinBox) or  isinstance(source_widget, QtWidgets.QRadioButton)): #If the GUI has just been initialized, find currently selected radiobutton
             for button in self.speed_model.values():
                 if button.isChecked():
@@ -144,10 +143,8 @@ class statusWindow(QtWidgets.QDialog):
                 rx = re.compile(numeric_const_pattern, re.VERBOSE)
                 hertz = float(rx.findall(source_widget.text())[0])
 
-        print(hertz)
         period = 1/hertz
         self.plot_timeline.setInterval(period*1000)
-
 
     def updateStatus(self, status):
         if debug:

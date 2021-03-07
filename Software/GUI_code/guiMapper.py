@@ -1,7 +1,7 @@
 from collections import OrderedDict
 import guiSequence as seq
 import guiConfigIO as fileIO
-import guiPlotter as plot
+import calibrationPlot as plot
 from PyQt5 import QtGui, QtCore
 
 def initializeConfigModel(gui):

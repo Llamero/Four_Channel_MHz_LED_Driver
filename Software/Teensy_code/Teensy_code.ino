@@ -159,6 +159,8 @@ const struct prefixStruct{
   uint8_t recv_stream = 10; //Signal the driver is ready to receive stream that is queued
   uint8_t send_stream = 11; //If recv - signals that ready for next packet
   uint8_t status_update = 12; //Status update packet for driver or GUI
+  uint8_t calibration = 13; //Send a plot of LED square wave test output for calibrating op-amp compensation trimpots
+  uint8_t gui_disconnect = 14; //GUI is disconnecting form LED driver
   uint8_t long_off = 148; //Prefix sent when computer has been off for a while
 } prefix;
 
@@ -235,11 +237,12 @@ const static uint16_t DEFUALT_TIMEOUT = 500; //Default timeout for serial commun
 uint8_t status_index = 0; //Index counter for incrementally updating and transmitting status
 elapsedMillis heartbeat; //Heartbeat timer to confirm that GUI is still connected
 const static uint32_t HEARTBEAT_TIMEOUT = 10000; //Driver will assume connection has closed if heartbeat not received within this time
+const static uint32_t COBS_BUFFER_SIZE = 4096; //Size of the COBS buffer
 
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
 SDcard sd;
-PacketSerial_<COBS, 0, 4096> usb; //Sets Encoder, framing character, buffer size
+PacketSerial_<COBS, 0, COBS_BUFFER_SIZE> usb; //Sets Encoder, framing character, buffer size
 
 void setup() {
 //  EEPROM.write(0, 0);
@@ -395,6 +398,8 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   else if(buffer_prefix == prefix.recv_stream);
   else if(buffer_prefix == prefix.send_stream);
   else if(buffer_prefix == prefix.status_update) updateStatus(buffer, size);
+  else if(buffer_prefix == prefix.calibration);
+  else if(buffer_prefix == prefix.gui_disconnect) heartbeat = HEARTBEAT_TIMEOUT+1; //Force driver timeout on disconnect
   else if(buffer_prefix == prefix.long_off);
   else{
     temp_size = sprintf(temp_buffer, "-Error: USB packet had invalid prefix: %d", buffer_prefix);  

@@ -209,7 +209,6 @@ def bytesToSync(byte_array, gui, prefix):
     checksum = (sum(byte_array) + prefix) & 0xFF  # https://stackoverflow.com/questions/44611057/checksum-generation-from-sum-of-bits-in-python
     if checksum == 0:
         sync_values = struct.unpack("<BBBBBBBHHHHLLBBBBH?B???H?LLLBBBBLLHHLLB", byte_array)
-        print(sync_values)
 
         #Calculate total resistance for current conversions
         total_resistance = float(gui.configure_current_limit_box.whatsThis())

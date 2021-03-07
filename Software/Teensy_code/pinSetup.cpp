@@ -14,6 +14,12 @@ ADC *adc = new ADC(); // adc object;
 
 const static int pinSetup::NC[] = {5, 6, 7, 8, 9, 38, 39}; //Not connected pins
 
+//constexpr static uint32_t initial_average_value = 2048;
+//constexpr static uint32_t buffer_size = 1600;
+//DMAMEM static volatile uint16_t __attribute__((aligned(32))) dma_adc2_buff1[buffer_size];
+////AnalogBufferDMA abdma2(dma_adc2_buff1, buffer_size, dma_adc2_buff2, buffer_size);
+//AnalogBufferDMA abdma2(dma_adc2_buff1, buffer_size);
+
 pinSetup::pinSetup()
 {
 }

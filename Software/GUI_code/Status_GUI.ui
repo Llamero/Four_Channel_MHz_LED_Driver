@@ -116,7 +116,7 @@
                 </font>
                </property>
                <property name="toolTip">
-                <string>The percent PWM modulation of theLED (0% = always off, 100% = always on)</string>
+                <string>The percent PWM modulation of the LED (0% = always off, 100% = always on)</string>
                </property>
                <property name="text">
                 <string>PWM: </string>
@@ -384,6 +384,9 @@
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="0">
         <widget class="QGroupBox" name="graph_intensity_pwm_box">
+         <property name="toolTip">
+          <string>Plot of driver LED PWM as a % of total PWM (0% = always off, 100% = always on)</string>
+         </property>
          <property name="title">
           <string>LED Intensity: PWM</string>
          </property>
@@ -403,7 +406,7 @@
           <item row="0" column="0">
            <widget class="PlotWidget" name="graph_intensity_pwm">
             <property name="toolTip">
-             <string>Plot of driver temperature. Transistor = Green, Resistor = Magenta</string>
+             <string>Plot of driver LED PWM as a % of total PWM (0% = always off, 100% = always on)</string>
             </property>
            </widget>
           </item>
@@ -412,6 +415,9 @@
        </item>
        <item row="1" column="0">
         <widget class="QGroupBox" name="graph_intensity_current_box">
+         <property name="toolTip">
+          <string>Plot of current output of the LED as a percent of the current limit for the LED.</string>
+         </property>
          <property name="title">
           <string>LED Intensity: Current</string>
          </property>
@@ -426,7 +432,11 @@
            <number>9</number>
           </property>
           <item row="0" column="0">
-           <widget class="PlotWidget" name="graph_intensity_current"/>
+           <widget class="PlotWidget" name="graph_intensity_current">
+            <property name="toolTip">
+             <string>Plot of current output of the LED as a percent of the current limit for the LED.</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -440,6 +450,9 @@
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="1" column="0">
         <widget class="QGroupBox" name="temperature_resistor_box">
+         <property name="toolTip">
+          <string>Plot of temperature of the current sense resistors.</string>
+         </property>
          <property name="title">
           <string>Temperature: Driver Resistor</string>
          </property>
@@ -447,7 +460,7 @@
           <item row="0" column="0">
            <widget class="PlotWidget" name="graph_temperature_resistor">
             <property name="toolTip">
-             <string>Plot of external thermistor temperature.  Line not shown if thermistor is not connected.</string>
+             <string>Plot of temperature of the current sense resistors.</string>
             </property>
            </widget>
           </item>
@@ -456,6 +469,9 @@
        </item>
        <item row="2" column="0">
         <widget class="QGroupBox" name="temperature_external_box">
+         <property name="toolTip">
+          <string>Plot of temperature of external thermistor.</string>
+         </property>
          <property name="title">
           <string>Temperature: External Thermistor</string>
          </property>
@@ -463,7 +479,7 @@
           <item row="0" column="0">
            <widget class="PlotWidget" name="graph_temperature_external">
             <property name="toolTip">
-             <string>Plot of driver temperature. Transistor = Green, Resistor = Magenta</string>
+             <string>Plot of temperature of external thermistor.</string>
             </property>
            </widget>
           </item>
@@ -472,6 +488,9 @@
        </item>
        <item row="0" column="0">
         <widget class="QGroupBox" name="temperature_transistor_box">
+         <property name="toolTip">
+          <string>Plot of temperature of transistor used to regulate the LED current.</string>
+         </property>
          <property name="title">
           <string>Temperature: Driver Transistor</string>
          </property>
@@ -479,7 +498,7 @@
           <item row="0" column="0">
            <widget class="PlotWidget" name="graph_temperature_transistor">
             <property name="toolTip">
-             <string>Plot of driver temperature. Transistor = Green, Resistor = Magenta</string>
+             <string>Plot of temperature of transistor used to regulate the LED current.</string>
             </property>
            </widget>
           </item>

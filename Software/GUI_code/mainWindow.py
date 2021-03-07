@@ -7,7 +7,7 @@ import pyqtgraph as pg
 import guiMapper
 import guiSequence as seq
 import guiConfigIO as fileIO
-import guiPlotter as plot
+import calibrationPlot as plot
 import driverUSB
 import statusWindow
 import sys
