@@ -1,4 +1,5 @@
 import math
+import re
 import struct
 import sys
 
@@ -47,10 +48,11 @@ class statusWindow(QtWidgets.QDialog):
 
         self.state_dict = OrderedDict([("Digital", ["LOW", "HIGH"]), ("Analog", ["Active", "Active"]), ("Confocal", ["Standby", "Scanning"]),
                                        ("Serial", ["Active", "Active"]), ("Custom", ["Active", "Active"])])
-
+        self.speed_model, self.custom_spinbox = self.initializeSpeedModel()
         for key, value in self.plots.items():
             self.initializePlot(value, key)
         self.startAnimation()
+        self.changeSpeed() #initialize update speed to default value
 
     def initializePlot(self, status_plot, key):
         # Set look and feel
@@ -85,6 +87,17 @@ class statusWindow(QtWidgets.QDialog):
         status_plot.getAxis('bottom').setGrid(150)
         status_plot.getAxis('left').setGrid(150)
 
+    def initializeSpeedModel(self):
+        speed_model = OrderedDict()
+        for speed in ["fast", "normal", "slow", "custom"]:
+            speed_model[speed] = eval("self.graph_" + speed + "_update_button")
+            speed_model[speed].clicked.connect(self.changeSpeed)
+
+        custom_spinbox = self.graph_custom_update_spinbox
+        custom_spinbox.valueChanged.connect(self.changeSpeed)
+
+        return speed_model, custom_spinbox
+
     def activeCurrent(self):
         # Get current limit of active LED
         for led_number in range(1, 5):
@@ -109,6 +122,32 @@ class statusWindow(QtWidgets.QDialog):
 
     def stopAnimation(self):
         self.plot_timeline.stop()
+
+    @QtCore.pyqtSlot()
+    def changeSpeed(self):
+        source_widget = self.sender()
+        print(source_widget)
+        if not (isinstance(source_widget, QtWidgets.QDoubleSpinBox) or  isinstance(source_widget, QtWidgets.QRadioButton)): #If the GUI has just been initialized, find currently selected radiobutton
+            for button in self.speed_model.values():
+                if button.isChecked():
+                    source_widget = button
+
+        # If trigger was spinbox and "custom" radiobutton is checked, update speed from spinbox
+        if isinstance(source_widget, QtWidgets.QDoubleSpinBox) and self.speed_model["custom"].isChecked():
+            hertz = self.gui.getValue(self.custom_spinbox)
+
+        elif isinstance(source_widget, QtWidgets.QRadioButton):
+            if "custom" in str(source_widget.objectName()): #get speed from spinbox if custom radiobutton is checked
+                hertz = self.gui.getValue(self.custom_spinbox)
+            else: #Get the speed listed in the button text
+                numeric_const_pattern = '[-+]? (?: (?: \d* \. \d+ ) | (?: \d+ \.? ) )(?: [Ee] [+-]? \d+ ) ?' #https://stackoverflow.com/questions/4703390/how-to-extract-a-floating-number-from-a-string
+                rx = re.compile(numeric_const_pattern, re.VERBOSE)
+                hertz = float(rx.findall(source_widget.text())[0])
+
+        print(hertz)
+        period = 1/hertz
+        self.plot_timeline.setInterval(period*1000)
+
 
     def updateStatus(self, status):
         if debug:

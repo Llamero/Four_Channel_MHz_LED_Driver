@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>473</width>
-    <height>787</height>
+    <width>442</width>
+    <height>497</height>
    </rect>
   </property>
   <property name="font">
@@ -28,19 +28,7 @@
       <attribute name="title">
        <string>Text</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_7">
-       <property name="leftMargin">
-        <number>9</number>
-       </property>
-       <property name="topMargin">
-        <number>9</number>
-       </property>
-       <property name="rightMargin">
-        <number>9</number>
-       </property>
-       <property name="bottomMargin">
-        <number>9</number>
-       </property>
+      <layout class="QGridLayout" name="gridLayout_6">
        <item row="0" column="0">
         <widget class="QFrame" name="frame">
          <property name="frameShape">
@@ -371,81 +359,6 @@
          </layout>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QGroupBox" name="graph_update_box_0">
-         <property name="toolTip">
-          <string>Set the refresh rate of the status window.  Slower refresh rates will have greater precision.</string>
-         </property>
-         <property name="title">
-          <string>Update Speed</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_17" columnstretch="20,20,20,0,0,0">
-          <item row="0" column="5">
-           <widget class="QLabel" name="graph_custom_update_label_0">
-            <property name="text">
-             <string>Hz</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="4">
-           <widget class="QDoubleSpinBox" name="graph_custom_update_spinbox_0">
-            <property name="toolTip">
-             <string>Set the custom status window update rate (0.01 to 10 Hz)</string>
-            </property>
-            <property name="minimum">
-             <double>0.010000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>10.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QRadioButton" name="graph_slow_update_button_0">
-            <property name="toolTip">
-             <string>Update the status window at 0.2 Hz</string>
-            </property>
-            <property name="text">
-             <string>0.2 Hz</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QRadioButton" name="graph_fast_update_button_0">
-            <property name="toolTip">
-             <string>Update the status window at 5 Hz</string>
-            </property>
-            <property name="text">
-             <string>5 Hz</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QRadioButton" name="graph_normal_update_button_0">
-            <property name="toolTip">
-             <string>Update the status window at 1 Hz</string>
-            </property>
-            <property name="text">
-             <string>1 Hz</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="3">
-           <widget class="QRadioButton" name="graph_custom_update_button_0">
-            <property name="toolTip">
-             <string>Update the status window at a custom rate (0.01 - 10 Hz)</string>
-            </property>
-            <property name="text">
-             <string>Custom:</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
        <item row="1" column="0">
         <spacer name="verticalSpacer">
          <property name="orientation">
@@ -518,81 +431,6 @@
          </layout>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QGroupBox" name="graph_update_box_1">
-         <property name="toolTip">
-          <string>Set the refresh rate of the status window.  Slower refresh rates will have greater precision.</string>
-         </property>
-         <property name="title">
-          <string>Update Speed</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_18" columnstretch="20,20,20,0,0,0">
-          <item row="0" column="5">
-           <widget class="QLabel" name="graph_custom_update_label_1">
-            <property name="text">
-             <string>Hz</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="4">
-           <widget class="QDoubleSpinBox" name="graph_custom_update_spinbox_1">
-            <property name="toolTip">
-             <string>Set the custom status window update rate (0.01 to 10 Hz)</string>
-            </property>
-            <property name="minimum">
-             <double>0.010000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>10.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QRadioButton" name="graph_slow_update_button_1">
-            <property name="toolTip">
-             <string>Update the status window at 0.2 Hz</string>
-            </property>
-            <property name="text">
-             <string>0.2 Hz</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QRadioButton" name="graph_fast_update_button_1">
-            <property name="toolTip">
-             <string>Update the status window at 5 Hz</string>
-            </property>
-            <property name="text">
-             <string>5 Hz</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QRadioButton" name="graph_normal_update_button_1">
-            <property name="toolTip">
-             <string>Update the status window at 1 Hz</string>
-            </property>
-            <property name="text">
-             <string>1 Hz</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="3">
-           <widget class="QRadioButton" name="graph_custom_update_button_1">
-            <property name="toolTip">
-             <string>Update the status window at a custom rate (0.01 - 10 Hz)</string>
-            </property>
-            <property name="text">
-             <string>Custom:</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="temperature_tab">
@@ -600,22 +438,6 @@
        <string>Temperature Plots</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
-        <widget class="QGroupBox" name="temperature_transistor_box">
-         <property name="title">
-          <string>Temperature: Driver Transistor</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_13">
-          <item row="0" column="0">
-           <widget class="PlotWidget" name="graph_temperature_transistor">
-            <property name="toolTip">
-             <string>Plot of driver temperature. Transistor = Green, Resistor = Magenta</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
        <item row="1" column="0">
         <widget class="QGroupBox" name="temperature_resistor_box">
          <property name="title">
@@ -648,75 +470,16 @@
          </layout>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QGroupBox" name="graph_update_box_2">
-         <property name="toolTip">
-          <string>Set the refresh rate of the status window.  Slower refresh rates will have greater precision.</string>
-         </property>
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="temperature_transistor_box">
          <property name="title">
-          <string>Update Speed</string>
+          <string>Temperature: Driver Transistor</string>
          </property>
-         <layout class="QGridLayout" name="gridLayout_19" columnstretch="20,20,20,0,0,0">
-          <item row="0" column="5">
-           <widget class="QLabel" name="graph_custom_update_label_2">
-            <property name="text">
-             <string>Hz</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="4">
-           <widget class="QDoubleSpinBox" name="graph_custom_update_spinbox_2">
-            <property name="toolTip">
-             <string>Set the custom status window update rate (0.01 to 10 Hz)</string>
-            </property>
-            <property name="minimum">
-             <double>0.010000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>10.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QRadioButton" name="graph_slow_update_button_2">
-            <property name="toolTip">
-             <string>Update the status window at 0.2 Hz</string>
-            </property>
-            <property name="text">
-             <string>0.2 Hz</string>
-            </property>
-           </widget>
-          </item>
+         <layout class="QGridLayout" name="gridLayout_13">
           <item row="0" column="0">
-           <widget class="QRadioButton" name="graph_fast_update_button_2">
+           <widget class="PlotWidget" name="graph_temperature_transistor">
             <property name="toolTip">
-             <string>Update the status window at 5 Hz</string>
-            </property>
-            <property name="text">
-             <string>5 Hz</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QRadioButton" name="graph_normal_update_button_2">
-            <property name="toolTip">
-             <string>Update the status window at 1 Hz</string>
-            </property>
-            <property name="text">
-             <string>1 Hz</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="3">
-           <widget class="QRadioButton" name="graph_custom_update_button_2">
-            <property name="toolTip">
-             <string>Update the status window at a custom rate (0.01 - 10 Hz)</string>
-            </property>
-            <property name="text">
-             <string>Custom:</string>
+             <string>Plot of driver temperature. Transistor = Green, Resistor = Magenta</string>
             </property>
            </widget>
           </item>
@@ -725,6 +488,84 @@
        </item>
       </layout>
      </widget>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="graph_update_box_0">
+     <property name="toolTip">
+      <string>Set the refresh rate of the status window.  Slower refresh rates will have greater precision.</string>
+     </property>
+     <property name="title">
+      <string>Update Speed</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_17" columnstretch="20,20,20,0,0,0">
+      <item row="0" column="5">
+       <widget class="QLabel" name="graph_custom_update_label">
+        <property name="text">
+         <string>Hz</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QDoubleSpinBox" name="graph_custom_update_spinbox">
+        <property name="toolTip">
+         <string>Set the custom status window update rate (0.01 to 10 Hz)</string>
+        </property>
+        <property name="minimum">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>20.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>20.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QRadioButton" name="graph_slow_update_button">
+        <property name="toolTip">
+         <string>Update the status window at 0.2 Hz</string>
+        </property>
+        <property name="text">
+         <string>0.2 Hz</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QRadioButton" name="graph_fast_update_button">
+        <property name="toolTip">
+         <string>Update the status window at 5 Hz</string>
+        </property>
+        <property name="text">
+         <string>5 Hz</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QRadioButton" name="graph_normal_update_button">
+        <property name="toolTip">
+         <string>Update the status window at 1 Hz</string>
+        </property>
+        <property name="text">
+         <string>1 Hz</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QRadioButton" name="graph_custom_update_button">
+        <property name="toolTip">
+         <string>Update the status window at a custom rate (0.01 - 10 Hz)</string>
+        </property>
+        <property name="text">
+         <string>Custom:</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
@@ -738,7 +579,4 @@
  </customwidgets>
  <resources/>
  <connections/>
- <buttongroups>
-  <buttongroup name="update_speed_button_group"/>
- </buttongroups>
 </ui>
