@@ -192,8 +192,18 @@ class Ui(QtWidgets.QMainWindow):
         if mode == "dark":
             self.app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
 
+            #Hide title bar in dark mode
+            # self.setWindowFlags(QtCore.Qt.CustomizeWindowHint)
+            # self.hide()
+            # self.show()
+
         else:
             self.app.setStyleSheet("")
+
+            #Restore title bar in light mode
+            # self.setWindowFlags(QtCore.Qt.Widget)
+            # self.hide()
+            # self.show()
 
         self.app.setFont(QFont("MS Shell Dlg 2", 12))
 

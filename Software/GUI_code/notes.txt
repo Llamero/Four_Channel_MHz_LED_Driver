@@ -1,0 +1,42 @@
+while(true) digitalWrite(LED_BUILTIN, HIGH);
+
+
+
+
+Restore sequence_buffer[0] and sequence_buffer[1] after stream receive and send events
+Populate status struct on driver initialization
+
+
+Channel, Mode, Control
+
+Replace "Dialog" with "Status"
+
+Add limit lines to plots
+
+Make config and sync lockable by menu (locked by default)
+
+Send disconnect signal on GUI close
+
+
+Fix prefix issue when connecting after long time disconnected
+
+Check heartbeat timeout as part of status checks 
+
+Perform status checks based on available amount of time
+
+Add mirrorperiod as parameter for confocal sync, so driver knows how long it has before it
+needs to start chekcing for the next trigger event
+
+WHen LED driver is in control - dial = mode
+
+Relock configure on upload
+
+Remove port from list if connection no longer works
+
+Use ADC to monitor LED current when on external analog
+
+Make sure that calibration plot line is on top of expected current line 
+
+Add seq tables to sync - custom
+
+Add option to disable updates to sync Serial
