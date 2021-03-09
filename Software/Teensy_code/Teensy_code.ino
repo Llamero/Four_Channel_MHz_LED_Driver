@@ -226,9 +226,10 @@ GenericFP function_router[256]; //create an array of 'GenericFP' function pointe
 
 //////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE
 
+const static uint32_t COBS_BUFFER_SIZE = 4096; //Size of the COBS buffer
 char MAGIC_SEND[] = "-kvlWfsBplgasrsh3un5K"; //Magic number reply to Teensy verifying this is an LED driver 
 const static char MAGIC_RECEIVE[] = "kc1oISEIZ60AYJqH4J1P"; //Magic number received from Teensy verifying it is an LED driver "-" is for providing byte prefix in serial message
-char temp_buffer[256]; //Temporary buffer for preparing packets immediately before transmission
+char temp_buffer[COBS_BUFFER_SIZE]; //Temporary buffer for preparing packets immediately before transmission
 int temp_size; //Size of temporary packet to transmit
 byte sequence_buffer[2][10000*sizeof(sequenceStruct)+10]; //Add buffer padding for prefix info on transmission
 uint32_t send_stream_index = 0; //Current index position of stream that is being sent
@@ -237,7 +238,7 @@ const static uint16_t DEFUALT_TIMEOUT = 500; //Default timeout for serial commun
 uint8_t status_index = 0; //Index counter for incrementally updating and transmitting status
 elapsedMillis heartbeat; //Heartbeat timer to confirm that GUI is still connected
 const static uint32_t HEARTBEAT_TIMEOUT = 10000; //Driver will assume connection has closed if heartbeat not received within this time
-const static uint32_t COBS_BUFFER_SIZE = 4096; //Size of the COBS buffer
+
 
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
@@ -398,7 +399,7 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   else if(buffer_prefix == prefix.recv_stream);
   else if(buffer_prefix == prefix.send_stream);
   else if(buffer_prefix == prefix.status_update) updateStatus(buffer, size);
-  else if(buffer_prefix == prefix.calibration);
+  else if(buffer_prefix == prefix.calibration) driverCalibration(buffer, size);
   else if(buffer_prefix == prefix.gui_disconnect) heartbeat = HEARTBEAT_TIMEOUT+1; //Force driver timeout on disconnect
   else if(buffer_prefix == prefix.long_off);
   else{
@@ -635,6 +636,15 @@ static void updateStatus(const uint8_t* buffer, size_t size){
     temp_buffer[0] = prefix.message;
     usb.send(temp_buffer, temp_size);
     return;
+}
+
+static void driverCalibration(const uint8_t* buffer, size_t size){
+  BYTE16UNION calibration_current;
+  memcpy(calibration_current.bytes, buffer + 1, 2);
+  temp_size = pin.captureWave(calibration_current.bytes_var, temp_buffer+1);
+  temp_buffer[0] = prefix.calibration;
+  usb.send(temp_buffer, temp_size+1);
+  //usb.send(cobs_buffer, cobs_size);
 }
 
 //  boolean state[] = {false, false, false, false, false};

@@ -5,6 +5,7 @@
 #define pinSetup_h
 
 #include "Arduino.h"
+#include "AnalogBufferDMA.h"
 
 //NOTE: It seems that in this compiler lists longer than 4 need to be built in CPP while shorter lists need to be built in header with constexpr
 
@@ -19,6 +20,8 @@ class pinSetup
     static uint16_t extTemp(); //Returns the current temperature of the external thermistor in °C
     static float adcToTemp(int adc, int therm_nominal, int b_coefficient); //Convert raw ADC value to temperature in °C
     static int tempToAdc(float temperature, int therm_nominal, int b_coefficient); //Convert temperature in °C to equivalent ADC value
+
+    static uint16_t captureWave(uint16_t test_dac_value, uint8_t *cobs_buffer);
     
     constexpr static int RELAY[4] = {0, 1, 2, 3}; //SSR relays for changing LED channel
     const static int INTERLINE = 4; //Switch between analog input and negative refence voltage to turn off LED
@@ -56,6 +59,8 @@ class pinSetup
     const static int SERIES_RESISTOR = 4700; //Value of series resistor to the thermistor on the PCB
     const static int PCB_THERMISTOR_NOMINAL = 4700; //Value of thermistor resistor on PCB at nominal temp (25°C)
     const static int PCB_B_COEFFICIENT = 3545; //Beta value for the PCB thermistor
+
+    static uint16_t buffer_size; //Variable for storing the size of the calibration stream packet to be sent back to GUI
 };
    
 #endif

@@ -4,6 +4,11 @@ import pyqtgraph as pg
 import numpy as np
 from collections import deque
 
+x_data = [x/1.1 for x in range(1600)]
+n_samples = round(1000*1.1) #Number of ADC samples to include in plot
+offset = 1 #Number of samples to offset from start to let ADC stabilize
+x_line = [0, n_samples / 1.1]
+
 def initializeCalibrationPlot(gui):
     plot = gui.calibration_plot_window
 
@@ -25,7 +30,7 @@ def initializeCalibrationPlot(gui):
     plot.getAxis('right').setTextPen('k', width=2)
 
     #Set
-    plot.setXRange(0, 1440, padding=0)
+    plot.setXRange(0, n_samples/1.1, padding=0)
     setCalibrationScale(gui)
     plot.getAxis('bottom').setTickSpacing(200, 200)
 
@@ -44,7 +49,8 @@ def setCalibrationScale(gui):
 
 def startAnimation(gui, timeline):
     timeline.setFrameRange(0, 144)
-    timeline.frameChanged.connect(lambda: updatePlot(gui, timeline))
+    setCalibrationScale(gui)
+    timeline.frameChanged.connect(lambda: gui.ser.driverCalibration())
     timeline.start()
     gui.calibration_run_button.clicked.disconnect()
     gui.calibration_run_button.setText("Stop")
@@ -55,22 +61,11 @@ def stopAnimation(gui, timeline):
     gui.calibration_run_button.setText("Run")
     gui.calibration_run_button.clicked.connect(lambda: startAnimation(gui, timeline))
 
-def updatePlot(gui, timeline):
-    interval = timeline.frameCount()
+def updatePlot(gui, y_data):
     current = activeCurrent(gui)
-    x_line = [0, 1440]
     y_line = [current, current]
-    x_de = [x for x in range(1440)]
-    y_de = deque([None]*1440)
-    for x in x_de:
-        period = 200
-        if x%period < period/2:
-            y_de[x] = 0.5
-        else:
-            y_de[x] = 0
-    y_de.rotate(interval*10)
-    gui.calibration_plot_window.plot(x_de, y_de, pen=pg.mkPen('g', width=1), connect = "finite",  clear=True)
-    gui.calibration_plot_window.plot(x_line, y_line, pen=pg.mkPen('m', width=1))
+    gui.calibration_plot_window.plot(x_line, y_line, pen=pg.mkPen('m', width=1), clear=True)
+    gui.calibration_plot_window.plot(x_data[:n_samples], y_data[offset:n_samples+offset], pen=pg.mkPen('g', width=1), connect = "finite")
 
 
 

@@ -7,3 +7,4 @@ if __name__ == "__main__":
     window = mainWindow.Ui(app)
     app.exec_()
     window.ser.disconnectSerial() #Cleanly disconnect serial on close
+    sys.exit()

@@ -7,18 +7,16 @@
 #include "ADC.h"
 #include "ADC_util.h"
 #include "Wire.h"
+#include "AnalogBufferDMA.h"
 
 ADC *adc = new ADC(); // adc object;
 
 //NOTE: It seems that in this compiler lists longer than 4 need to be built in CPP while shorter lists need to be built in header with constexpr
 
 const static int pinSetup::NC[] = {5, 6, 7, 8, 9, 38, 39}; //Not connected pins
+DMAMEM static volatile uint16_t __attribute__((aligned(32))) dma_adc2_buff1[1600];
+AnalogBufferDMA abdma2(dma_adc2_buff1, 1600);
 
-//constexpr static uint32_t initial_average_value = 2048;
-//constexpr static uint32_t buffer_size = 1600;
-//DMAMEM static volatile uint16_t __attribute__((aligned(32))) dma_adc2_buff1[buffer_size];
-////AnalogBufferDMA abdma2(dma_adc2_buff1, buffer_size, dma_adc2_buff2, buffer_size);
-//AnalogBufferDMA abdma2(dma_adc2_buff1, buffer_size);
 
 pinSetup::pinSetup()
 {
@@ -132,4 +130,33 @@ static int pinSetup::tempToAdc(float temperature, int therm_nominal = PCB_THERMI
   raw = SERIES_RESISTOR/raw;
   raw = adcMax()/(raw+1); 
   return (int) round(raw);
+}
+
+static uint16_t pinSetup::captureWave(uint16_t test_dac_value, uint8_t *cobs_buffer) {
+  pinMode(ISENSE, INPUT);
+  digitalWriteFast(INTERLINE, LOW);
+  digitalWriteFast(ANALOG_SELECT, LOW);
+  analogWrite(DAC0, test_dac_value);
+  delayMicroseconds(100);
+  abdma2.init(adc, ADC_0);
+  abdma2.stopOnCompletion(true);
+  adc->adc0->startContinuous(ISENSE);
+  noInterrupts();
+  abdma2.clearInterrupt();
+  delayMicroseconds(100);
+  digitalWriteFast(INTERLINE, HIGH);
+  delayMicroseconds(300);
+  digitalWriteFast(INTERLINE, LOW);
+  delayMicroseconds(200);
+  digitalWriteFast(INTERLINE, HIGH);
+  delayMicroseconds(300);
+  digitalWriteFast(INTERLINE, LOW);
+  interrupts();
+  while (!abdma2.interrupted());
+  digitalWriteFast(INTERLINE, LOW);
+  if ((uint32_t)cobs_buffer >= 0x20200000u)  arm_dcache_delete((void*)cobs_buffer, sizeof(dma_adc2_buff1));
+  uint16_t cobs_size = (&abdma2)->bufferCountLastISRFilled()*2;
+  memcpy(cobs_buffer, (&abdma2)->bufferLastISRFilled(), cobs_size);
+  abdma2.clearCompletion();
+  return cobs_size;
 }

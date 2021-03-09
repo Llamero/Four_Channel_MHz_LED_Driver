@@ -502,11 +502,22 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def driverCalibration(self, reply=None):
         if reply:
             packet_format = "<%dH" % (len(reply) / 2)
-            calibrationPlot.updatePlot(self.gui, list(struct.unpack(packet_format, reply)))
+            for index, widget in enumerate(self.gui.main_model["Channel"]):  # Find active LED channel
+                if widget.isChecked():
+                    adc_current_limit = int(self.gui.config_model["LED" + str(index + 1)]["Current Limit"].whatsThis())
+                    current_limit = self.gui.getValue(self.gui.config_model["LED" + str(index + 1)]["Current Limit"])
+            reply = list(struct.unpack(packet_format, reply))
+            data = [(x/adc_current_limit)*current_limit for x in reply]
+            calibrationPlot.updatePlot(self.gui, data)
 
         else:
             if self.portConnected():
-                self.sendWithoutReply(None, True, 0) #Send request for calibration packet
+                percent_current = self.gui.getValue(self.gui.calibration_current_box)
+                for index, widget in enumerate(self.gui.main_model["Channel"]): #Find active LED channel
+                    if widget.isChecked():
+                        current_limit = int(self.gui.config_model["LED" + str(index+1)]["Current Limit"].whatsThis())
+                message = struct.pack("<H", round(percent_current * current_limit / 100))
+                self.sendWithoutReply(message, True, 10) #Send request for calibration packet
 
     def portConnected(self):
         if self.active_port is None:
