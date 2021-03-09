@@ -175,6 +175,11 @@ def initializeEvents(gui):
         gui.main_channel_LED3_button.clicked.connect(lambda: gui.ser.updateStatus())
         gui.main_channel_LED4_button.clicked.connect(lambda: gui.ser.updateStatus())
 
+        gui.main_channel_LED1_button.clicked.connect(lambda: plot.setCalibrationScale(gui))
+        gui.main_channel_LED2_button.clicked.connect(lambda: plot.setCalibrationScale(gui))
+        gui.main_channel_LED3_button.clicked.connect(lambda: plot.setCalibrationScale(gui))
+        gui.main_channel_LED4_button.clicked.connect(lambda: plot.setCalibrationScale(gui))
+
         #Update status if mode or control change
         gui.main_intensity_PWM_button.clicked.connect(lambda: gui.ser.updateStatus())
         gui.main_intensity_current_button.clicked.connect(lambda: gui.ser.updateStatus())

@@ -504,7 +504,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             packet_format = "<%dH" % (len(reply) / 2)
             for index, widget in enumerate(self.gui.main_model["Channel"]):  # Find active LED channel
                 if widget.isChecked():
-                    adc_current_limit = int(self.gui.config_model["LED" + str(index + 1)]["Current Limit"].whatsThis())
+                    adc_current_limit = float(self.gui.config_model["LED" + str(index + 1)]["Current Limit"].whatsThis())
                     current_limit = self.gui.getValue(self.gui.config_model["LED" + str(index + 1)]["Current Limit"])
             reply = list(struct.unpack(packet_format, reply))
             data = [(x/adc_current_limit)*current_limit for x in reply]

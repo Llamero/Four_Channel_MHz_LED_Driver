@@ -6,7 +6,7 @@ from collections import deque
 
 x_data = [x/1.1 for x in range(1600)]
 n_samples = round(1000*1.1) #Number of ADC samples to include in plot
-offset = 1 #Number of samples to offset from start to let ADC stabilize
+offset = 5 #Number of samples to offset from start to let ADC stabilize
 x_line = [0, n_samples / 1.1]
 
 def initializeCalibrationPlot(gui):
@@ -48,6 +48,7 @@ def setCalibrationScale(gui):
     gui.calibration_plot_window.setYRange(0, current * 1.2, padding=0)
 
 def startAnimation(gui, timeline):
+    lockTabWidget(gui, True)
     timeline.setFrameRange(0, 144)
     setCalibrationScale(gui)
     timeline.frameChanged.connect(lambda: gui.ser.driverCalibration())
@@ -57,6 +58,7 @@ def startAnimation(gui, timeline):
     gui.calibration_run_button.clicked.connect(lambda: stopAnimation(gui, timeline))
 
 def stopAnimation(gui, timeline):
+    lockTabWidget(gui, False)
     timeline.stop()
     gui.calibration_run_button.setText("Run")
     gui.calibration_run_button.clicked.connect(lambda: startAnimation(gui, timeline))
@@ -67,7 +69,14 @@ def updatePlot(gui, y_data):
     gui.calibration_plot_window.plot(x_line, y_line, pen=pg.mkPen('m', width=1), clear=True)
     gui.calibration_plot_window.plot(x_data[:n_samples], y_data[offset:n_samples+offset], pen=pg.mkPen('g', width=1), connect = "finite")
 
-
+def lockTabWidget(gui, lock):
+    for tab_index in range(gui.gui_master_tab.count()):
+        tab_name = gui.gui_master_tab.tabText(tab_index)
+        tab_enable = not lock
+        if tab_name != "Calibration":
+            gui.gui_master_tab.setTabEnabled(tab_index, tab_enable)
+        else:
+            gui.gui_master_tab.setTabEnabled(tab_index, True)
 
 
     # self.graphicsView.setObjectName("graphicsView")
