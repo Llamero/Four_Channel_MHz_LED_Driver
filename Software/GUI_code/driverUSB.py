@@ -501,6 +501,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
     def driverCalibration(self, reply=None):
         if reply:
+            current_limit = 0
+            adc_current_limit = 1
             packet_format = "<%dH" % (len(reply) / 2)
             for index, widget in enumerate(self.gui.main_model["Channel"]):  # Find active LED channel
                 if widget.isChecked():
@@ -512,6 +514,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
         else:
             if self.portConnected():
+                current_limit = 0
                 percent_current = self.gui.getValue(self.gui.calibration_current_box)
                 for index, widget in enumerate(self.gui.main_model["Channel"]): #Find active LED channel
                     if widget.isChecked():

@@ -210,7 +210,7 @@
           <property name="title">
            <string>Intensity</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_4" columnstretch="10,10,10,0">
+          <layout class="QGridLayout" name="gridLayout_4" columnstretch="9,10,10,0">
            <item row="0" column="0" colspan="3">
             <widget class="QDial" name="main_intensity_dial">
              <property name="enabled">
@@ -415,7 +415,7 @@
         <item row="2" column="5">
          <widget class="QPushButton" name="sync_load_button">
           <property name="toolTip">
-           <string>Load a sync configuration text file (*.lsc)</string>
+           <string>Load a sync configuration text file (*.txt)</string>
           </property>
           <property name="text">
            <string>Load Settings</string>
@@ -439,8 +439,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>431</width>
-             <height>385</height>
+             <width>927</width>
+             <height>760</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -456,8 +456,8 @@
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
-                 <width>523</width>
+                 <y>-51</y>
+                 <width>892</width>
                  <height>628</height>
                 </rect>
                </property>
@@ -899,7 +899,7 @@
                        <item row="1" column="0">
                         <widget class="QPushButton" name="sync_digital_trigger_low_sequence_load_button">
                          <property name="toolTip">
-                          <string>Load LED intensity sequence file (*.lsq)</string>
+                          <string>Load LED intensity sequence file (*.csv)</string>
                          </property>
                          <property name="text">
                           <string>Load Sequence File</string>
@@ -909,7 +909,7 @@
                        <item row="1" column="1">
                         <widget class="QPushButton" name="sync_digital_trigger_low_sequence_save_button">
                          <property name="toolTip">
-                          <string>Save LED intensity sequence file (*.lsq)</string>
+                          <string>Save LED intensity sequence file (*.csv)</string>
                          </property>
                          <property name="text">
                           <string>Save Sequence File</string>
@@ -1200,7 +1200,7 @@
                        <item row="1" column="1">
                         <widget class="QPushButton" name="sync_digital_trigger_high_sequence_save_button">
                          <property name="toolTip">
-                          <string>Save LED intensity sequence file (*.lsq)</string>
+                          <string>Save LED intensity sequence file (*.csv)</string>
                          </property>
                          <property name="text">
                           <string>Save Sequence File</string>
@@ -1285,7 +1285,7 @@
                        <item row="1" column="0">
                         <widget class="QPushButton" name="sync_digital_trigger_high_sequence_load_button">
                          <property name="toolTip">
-                          <string>Load LED intensity sequence file (*.lsq)</string>
+                          <string>Load LED intensity sequence file (*.csv)</string>
                          </property>
                          <property name="text">
                           <string>Load Sequence File</string>
@@ -1739,9 +1739,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
-                 <width>525</width>
-                 <height>1030</height>
+                 <y>-451</y>
+                 <width>892</width>
+                 <height>1080</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -2086,7 +2086,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                       <item row="3" column="1">
                        <widget class="QDoubleSpinBox" name="sync_confocal_delay3_box">
                         <property name="toolTip">
-                         <string>Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).</string>
+                         <string>Set the time between the forward scan LED event window and the reverse scan LED event window.</string>
                         </property>
                         <property name="alignment">
                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2099,17 +2099,17 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                       <item row="3" column="0">
                        <widget class="QLabel" name="sync_confocal_delay3_label1">
                         <property name="toolTip">
-                         <string>Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).</string>
+                         <string>Set the time between the forward scan LED event window and the reverse scan LED event window.</string>
                         </property>
                         <property name="text">
-                         <string>3) Bidirectional: time between windows:</string>
+                         <string>3) Bidirectional: Time between LED events:</string>
                         </property>
                        </widget>
                       </item>
                       <item row="1" column="1">
                        <widget class="QDoubleSpinBox" name="sync_confocal_delay1_box">
                         <property name="toolTip">
-                         <string>Set the time between the line sync trigger and the edge of the FOV/start of flyback.</string>
+                         <string>Set the time between the line sync trigger and the edge of the FOV/flyback.</string>
                         </property>
                         <property name="alignment">
                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2122,17 +2122,17 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                       <item row="2" column="0">
                        <widget class="QLabel" name="sync_confocal_delay2_label1">
                         <property name="toolTip">
-                         <string>Set the time between the start of flyback and when the scan re-enters the FOV.</string>
+                         <string>The maximum duration of the LED active state.  LED remains off between active windows.</string>
                         </property>
                         <property name="text">
-                         <string>2) Duration of flyback window:</string>
+                         <string>2) Duration of LED event:</string>
                         </property>
                        </widget>
                       </item>
                       <item row="2" column="2">
                        <widget class="QLabel" name="sync_confocal_delay2_label2">
                         <property name="toolTip">
-                         <string>Set the time between the start of flyback and when the scan re-enters the FOV.</string>
+                         <string>The maximum duration of the LED active state.  LED remains off between active windows.</string>
                         </property>
                         <property name="text">
                          <string>µs</string>
@@ -2142,7 +2142,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                       <item row="2" column="1">
                        <widget class="QDoubleSpinBox" name="sync_confocal_delay2_box">
                         <property name="toolTip">
-                         <string>Set the time between the start of flyback and when the scan re-enters the FOV.</string>
+                         <string>The maximum duration of the LED active state.  LED remains off between active windows.</string>
                         </property>
                         <property name="alignment">
                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2158,7 +2158,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                       <item row="3" column="2">
                        <widget class="QLabel" name="sync_confocal_delay3_label2">
                         <property name="toolTip">
-                         <string>Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).</string>
+                         <string>Set the time between the forward scan LED event window and the reverse scan LED event window.</string>
                         </property>
                         <property name="text">
                          <string>µs</string>
@@ -2168,7 +2168,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                       <item row="1" column="2">
                        <widget class="QLabel" name="sync_confocal_delay1_label2">
                         <property name="toolTip">
-                         <string>Set the time between the line sync trigger and the edge of the FOV/start of flyback.</string>
+                         <string>Set the time between the line sync trigger and the edge of the FOV/flyback.</string>
                         </property>
                         <property name="text">
                          <string>µs</string>
@@ -2244,10 +2244,10 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                       <item row="1" column="0">
                        <widget class="QLabel" name="sync_confocal_delay1_label1">
                         <property name="toolTip">
-                         <string>Set the time between the line sync trigger and the edge of the FOV/start of flyback.</string>
+                         <string>Set the time between the line sync trigger and the edge of the FOV/flyback.</string>
                         </property>
                         <property name="text">
-                         <string>1) From trigger to flyback window:</string>
+                         <string>1) Delay from trigger to LED event:</string>
                         </property>
                        </widget>
                       </item>
@@ -2257,19 +2257,19 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                    <item row="3" column="0">
                     <widget class="QGroupBox" name="sync_confocal_image_box">
                      <property name="toolTip">
-                      <string>Configure LED intensity when the laser is inside the image FOV</string>
+                      <string>Configure LED intensity during confocal imaging.</string>
                      </property>
                      <property name="statusTip">
                       <string/>
                      </property>
                      <property name="title">
-                      <string>Event: Image Scan</string>
+                      <string>Event: Scanning (Shutter Open)</string>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_50">
                       <item row="0" column="0" alignment="Qt::AlignTop">
                        <widget class="QTabWidget" name="sync_confocal_image_tab">
                         <property name="toolTip">
-                         <string>Select event type for when the laser is inside the image FOV</string>
+                         <string>Select event type for when LED is active during a confocal scan.</string>
                         </property>
                         <property name="currentIndex">
                          <number>2</number>
@@ -2285,7 +2285,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                           <item row="0" column="0">
                            <widget class="QLabel" name="sync_confocal_image_off_label">
                             <property name="toolTip">
-                             <string>Turn LED off when the laser is inside the image FOV</string>
+                             <string>Turn LED off when the scan is active.</string>
                             </property>
                             <property name="text">
                              <string>Turn active LED off</string>
@@ -2305,7 +2305,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                           <item row="0" column="0" alignment="Qt::AlignTop">
                            <widget class="QGroupBox" name="sync_confocal_image_constant_LED_box">
                             <property name="toolTip">
-                             <string>Select the active LED channel when the laser is inside the image FOV</string>
+                             <string>Select the active LED channel when the scan is active.</string>
                             </property>
                             <property name="title">
                              <string>LED Channel</string>
@@ -2314,7 +2314,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <item row="0" column="2">
                               <widget class="QRadioButton" name="sync_confocal_image_constant_LED3_button">
                                <property name="toolTip">
-                                <string>Set LED #3 active when the laser is inside the image FOV</string>
+                                <string>Set LED #3 active when the scan is active.</string>
                                </property>
                                <property name="text">
                                 <string>LED #3</string>
@@ -2327,7 +2327,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <item row="0" column="0">
                               <widget class="QRadioButton" name="sync_confocal_image_constant_LED1_button">
                                <property name="toolTip">
-                                <string>Set LED #1 active when the laser is inside the image FOV</string>
+                                <string>Set LED #1 active when the scan is active.</string>
                                </property>
                                <property name="text">
                                 <string>LED #1</string>
@@ -2340,7 +2340,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <item row="0" column="1">
                               <widget class="QRadioButton" name="sync_confocal_image_constant_LED2_button">
                                <property name="toolTip">
-                                <string>Set LED #2 active when the laser is inside the image FOV</string>
+                                <string>Set LED #2 active when the scan is active.</string>
                                </property>
                                <property name="text">
                                 <string>LED #2</string>
@@ -2353,7 +2353,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <item row="0" column="4">
                               <widget class="QRadioButton" name="sync_confocal_image_constant_LED0_button">
                                <property name="toolTip">
-                                <string>Do not change active LED when the laser is inside the image FOV</string>
+                                <string>Do not change active LED when the scan is active.</string>
                                </property>
                                <property name="text">
                                 <string>Current LED</string>
@@ -2369,7 +2369,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <item row="0" column="3">
                               <widget class="QRadioButton" name="sync_confocal_image_constant_LED4_button">
                                <property name="toolTip">
-                                <string>Set LED #4 active when the laser is inside the image FOV</string>
+                                <string>Set LED #4 active when the scan is active.</string>
                                </property>
                                <property name="text">
                                 <string>LED #4</string>
@@ -2397,7 +2397,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <item row="1" column="2">
                               <widget class="QLabel" name="sync_confocal_image_constant_config_current_label2">
                                <property name="toolTip">
-                                <string>Set the LED current when the laser is inside the image FOV</string>
+                                <string>Set the LED current when the scan is active.</string>
                                </property>
                                <property name="text">
                                 <string>%</string>
@@ -2407,7 +2407,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <item row="0" column="1">
                               <widget class="QDoubleSpinBox" name="sync_confocal_image_constant_config_PWM_box">
                                <property name="toolTip">
-                                <string>Set the LED PWM when the laser is inside the image FOV</string>
+                                <string>Set the LED PWM when the scan is active.</string>
                                </property>
                                <property name="alignment">
                                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2423,7 +2423,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <item row="0" column="2">
                               <widget class="QLabel" name="sync_confocal_image_constant_config_PWM_label2">
                                <property name="toolTip">
-                                <string>Set the LED PWM when the laser is inside the image FOV</string>
+                                <string>Set the LED PWM when the scan is active.</string>
                                </property>
                                <property name="text">
                                 <string>%</string>
@@ -2433,7 +2433,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <item row="2" column="0">
                               <widget class="QLabel" name="sync_confocal_image_constant_config_duration_label1">
                                <property name="toolTip">
-                                <string>NOTE: 0 seconds = LED stays on when the laser is inside the image FOV until end of scan</string>
+                                <string>NOTE: 0 seconds = LED stays on when the scan is active.</string>
                                </property>
                                <property name="text">
                                 <string>Duration:</string>
@@ -2443,7 +2443,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <item row="2" column="1">
                               <widget class="QDoubleSpinBox" name="sync_confocal_image_constant_config_duration_box">
                                <property name="toolTip">
-                                <string>NOTE: 0 seconds = LED stays on when the laser is inside the image FOV until end of scan</string>
+                                <string>NOTE: 0 seconds = LED stays on when the scan is active.</string>
                                </property>
                                <property name="alignment">
                                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2465,7 +2465,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <item row="1" column="1">
                               <widget class="QDoubleSpinBox" name="sync_confocal_image_constant_config_current_box">
                                <property name="toolTip">
-                                <string>Set the LED current when the laser is inside the image FOV</string>
+                                <string>Set the LED current when the scan is active.</string>
                                </property>
                                <property name="alignment">
                                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2481,7 +2481,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <item row="0" column="0">
                               <widget class="QLabel" name="sync_confocal_image_constant_config_PWM_label1">
                                <property name="toolTip">
-                                <string>Set the LED PWM when the laser is inside the image FOV</string>
+                                <string>Set the LED PWM when the scan is active.</string>
                                </property>
                                <property name="text">
                                 <string>LED PWM:</string>
@@ -2498,7 +2498,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                                 </font>
                                </property>
                                <property name="toolTip">
-                                <string>NOTE: 0 seconds = LED stays on when the laser is inside the image FOV until end of scan</string>
+                                <string>NOTE: 0 seconds = LED stays on when the scan is active.</string>
                                </property>
                                <property name="text">
                                 <string>sec</string>
@@ -2508,7 +2508,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <item row="1" column="0">
                               <widget class="QLabel" name="sync_confocal_image_constant_config_current_label1">
                                <property name="toolTip">
-                                <string>Set the LED current when the laser is inside the image FOV</string>
+                                <string>Set the LED current when the scan is active.</string>
                                </property>
                                <property name="text">
                                 <string>LED Current:</string>
@@ -2531,7 +2531,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                           <item row="1" column="1">
                            <widget class="QPushButton" name="sync_confocal_image_sequence_save_button">
                             <property name="toolTip">
-                             <string>Save LED intensity sequence file (*.lsq)</string>
+                             <string>Save LED intensity sequence file (*.csv)</string>
                             </property>
                             <property name="text">
                              <string>Save Sequence File</string>
@@ -2541,7 +2541,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                           <item row="1" column="0">
                            <widget class="QPushButton" name="sync_confocal_image_sequence_load_button">
                             <property name="toolTip">
-                             <string>Load LED intensity sequence file (*.lsq)</string>
+                             <string>Load LED intensity sequence file (*.csv)</string>
                             </property>
                             <property name="text">
                              <string>Load Sequence File</string>
@@ -2658,22 +2658,22 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                    <item row="4" column="0">
                     <widget class="QGroupBox" name="sync_confocal_flyback_box">
                      <property name="toolTip">
-                      <string>Configure LED intensity when the laser is outside the image FOV (flyback)</string>
+                      <string>Configure LED intensity during confocal standby (scanning is inactive).</string>
                      </property>
                      <property name="statusTip">
                       <string/>
                      </property>
                      <property name="title">
-                      <string>Event: Mirror Flyback</string>
+                      <string>Event: Standby (Shutter Closed)</string>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_52">
                       <item row="0" column="0" alignment="Qt::AlignTop">
                        <widget class="QTabWidget" name="sync_confocal_flyback_tab">
                         <property name="toolTip">
-                         <string>Select event type for when the laser is outside the image FOV (flyback)</string>
+                         <string>Select event type for when LED is active during standby.</string>
                         </property>
                         <property name="currentIndex">
-                         <number>2</number>
+                         <number>3</number>
                         </property>
                         <widget class="QWidget" name="sync_confocal_flyback_off_tab">
                          <property name="toolTip">
@@ -2686,7 +2686,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                           <item row="0" column="0">
                            <widget class="QLabel" name="sync_confocal_flyback_off_label">
                             <property name="toolTip">
-                             <string>Turn LED off when the laser is outside the image FOV (flyback)</string>
+                             <string>Turn LED off during standby.</string>
                             </property>
                             <property name="text">
                              <string>Turn active LED off</string>
@@ -2706,7 +2706,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                           <item row="0" column="0" alignment="Qt::AlignTop">
                            <widget class="QGroupBox" name="sync_confocal_flyback_constant_LED_box">
                             <property name="toolTip">
-                             <string>Select the active LED channel when the laser is outside the image FOV (flyback)</string>
+                             <string>Select the active LED channel  during standby.</string>
                             </property>
                             <property name="title">
                              <string>LED Channel</string>
@@ -2715,7 +2715,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <item row="0" column="2">
                               <widget class="QRadioButton" name="sync_confocal_flyback_constant_LED3_button">
                                <property name="toolTip">
-                                <string>Set LED #3 active when the laser is outside the image FOV (flyback)</string>
+                                <string>Set LED #3 active during standby.</string>
                                </property>
                                <property name="text">
                                 <string>LED #3</string>
@@ -2728,7 +2728,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <item row="0" column="0">
                               <widget class="QRadioButton" name="sync_confocal_flyback_constant_LED1_button">
                                <property name="toolTip">
-                                <string>Set LED #1 active when the laser is outside the image FOV (flyback)</string>
+                                <string>Set LED #1 active during standby.</string>
                                </property>
                                <property name="text">
                                 <string>LED #1</string>
@@ -2741,7 +2741,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <item row="0" column="1">
                               <widget class="QRadioButton" name="sync_confocal_flyback_constant_LED2_button">
                                <property name="toolTip">
-                                <string>Set LED #2 active when the laser is outside the image FOV (flyback)</string>
+                                <string>Set LED #2 active during standby.</string>
                                </property>
                                <property name="text">
                                 <string>LED #2</string>
@@ -2754,7 +2754,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <item row="0" column="4">
                               <widget class="QRadioButton" name="sync_confocal_flyback_constant_LED0_button">
                                <property name="toolTip">
-                                <string>Do not change active LED when the laser is outside the image FOV (flyback)</string>
+                                <string>Do not change active LED during standby.</string>
                                </property>
                                <property name="text">
                                 <string>Current LED</string>
@@ -2770,7 +2770,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <item row="0" column="3">
                               <widget class="QRadioButton" name="sync_confocal_flyback_constant_LED4_button">
                                <property name="toolTip">
-                                <string>Set LED #4 active when the laser is outside the image FOV (flyback)</string>
+                                <string>Set LED #4 active during standby.</string>
                                </property>
                                <property name="text">
                                 <string>LED #4</string>
@@ -2798,7 +2798,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <item row="1" column="2">
                               <widget class="QLabel" name="sync_confocal_flyback_constant_config_current_label2">
                                <property name="toolTip">
-                                <string>Set the LED current when the laser is outside the image FOV (flyback)</string>
+                                <string>Set the LED current during standby.</string>
                                </property>
                                <property name="text">
                                 <string>%</string>
@@ -2808,7 +2808,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <item row="0" column="1">
                               <widget class="QDoubleSpinBox" name="sync_confocal_flyback_constant_config_PWM_box">
                                <property name="toolTip">
-                                <string>Set the LED PWM when the laser is outside the image FOV (flyback)</string>
+                                <string>Set the LED PWM during standby.</string>
                                </property>
                                <property name="alignment">
                                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2824,7 +2824,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <item row="0" column="2">
                               <widget class="QLabel" name="sync_confocal_flyback_constant_config_PWM_label2">
                                <property name="toolTip">
-                                <string>Set the LED PWM when the laser is outside the image FOV (flyback)</string>
+                                <string>Set the LED PWM during standby.</string>
                                </property>
                                <property name="text">
                                 <string>%</string>
@@ -2834,7 +2834,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <item row="2" column="0">
                               <widget class="QLabel" name="sync_confocal_flyback_constant_config_duration_label1">
                                <property name="toolTip">
-                                <string>NOTE: 0 seconds = LED stays on during flyback until end of scan</string>
+                                <string>NOTE: 0 seconds = LED stays on during standby.</string>
                                </property>
                                <property name="text">
                                 <string>Duration:</string>
@@ -2844,7 +2844,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <item row="2" column="1">
                               <widget class="QDoubleSpinBox" name="sync_confocal_flyback_constant_config_duration_box">
                                <property name="toolTip">
-                                <string>NOTE: 0 seconds = LED stays on during flyback until end of scan</string>
+                                <string>NOTE: 0 seconds = LED stays on during standby.</string>
                                </property>
                                <property name="alignment">
                                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2866,7 +2866,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <item row="1" column="1">
                               <widget class="QDoubleSpinBox" name="sync_confocal_flyback_constant_config_current_box">
                                <property name="toolTip">
-                                <string>Set the LED current when the laser is outside the image FOV (flyback)</string>
+                                <string>Set the LED current during standby.</string>
                                </property>
                                <property name="alignment">
                                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2882,7 +2882,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <item row="0" column="0">
                               <widget class="QLabel" name="sync_confocal_flyback_constant_config_PWM_label1">
                                <property name="toolTip">
-                                <string>Set the LED duration when the laser is outside the image FOV (flyback)</string>
+                                <string>Set the LED duration during standby.</string>
                                </property>
                                <property name="text">
                                 <string>LED PWM:</string>
@@ -2899,7 +2899,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                                 </font>
                                </property>
                                <property name="toolTip">
-                                <string>NOTE: 0 seconds = LED stays on during flyback until end of scan</string>
+                                <string>NOTE: 0 seconds = LED stays on during during standby.</string>
                                </property>
                                <property name="text">
                                 <string>sec</string>
@@ -2909,7 +2909,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              <item row="1" column="0">
                               <widget class="QLabel" name="sync_confocal_flyback_constant_config_current_label1">
                                <property name="toolTip">
-                                <string>Set the LED current when the laser is outside the image FOV (flyback)</string>
+                                <string>Set the LED current during standby.</string>
                                </property>
                                <property name="text">
                                 <string>LED Current:</string>
@@ -3007,7 +3007,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                           <item row="1" column="0">
                            <widget class="QPushButton" name="sync_confocal_flyback_sequence_load_button">
                             <property name="toolTip">
-                             <string>Load LED intensity sequence file (*.lsq)</string>
+                             <string>Load LED intensity sequence file (*.csv)</string>
                             </property>
                             <property name="text">
                              <string>Load Sequence File</string>
@@ -3017,7 +3017,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                           <item row="1" column="1">
                            <widget class="QPushButton" name="sync_confocal_flyback_sequence_save_button">
                             <property name="toolTip">
-                             <string>Save LED intensity sequence file (*.lsq)</string>
+                             <string>Save LED intensity sequence file (*.csv)</string>
                             </property>
                             <property name="text">
                              <string>Save Sequence File</string>
@@ -3126,7 +3126,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
         <item row="2" column="4">
          <widget class="QPushButton" name="sync_save_button">
           <property name="toolTip">
-           <string>Save sync configuration as a text file (*.lsc)</string>
+           <string>Save sync configuration as a text file (*.txt)</string>
           </property>
           <property name="text">
            <string>Save Settings</string>
@@ -3243,7 +3243,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>611</width>
+             <width>910</width>
              <height>1105</height>
             </rect>
            </property>
@@ -4707,7 +4707,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
         <item row="1" column="4">
          <widget class="QPushButton" name="configure_load_button">
           <property name="toolTip">
-           <string>Load a LED driver configuration text file (*.lcf)</string>
+           <string>Load a LED driver configuration text file (*.txt)</string>
           </property>
           <property name="text">
            <string>Load Configuration</string>
@@ -4724,7 +4724,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
         <item row="1" column="3">
          <widget class="QPushButton" name="configure_save_button">
           <property name="toolTip">
-           <string>Save LED driver configuration as a text file (*.lcf)</string>
+           <string>Save LED driver configuration as a text file (*.txt)</string>
           </property>
           <property name="text">
            <string>Save Configuration</string>
@@ -5022,28 +5022,28 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
-  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
-  <buttongroup name="main_toggle_control_group"/>
-  <buttongroup name="configure_pushbutton_LED_button_group"/>
-  <buttongroup name="configure_indication_group"/>
-  <buttongroup name="configure_ch_merge_1_button_group"/>
-  <buttongroup name="main_channel_button_group"/>
   <buttongroup name="sync_analog_led_channel_button_group"/>
-  <buttongroup name="sync_output_button_group"/>
-  <buttongroup name="sync_analog_input_channel_button_group"/>
-  <buttongroup name="sync_digital_trigger_button_group"/>
-  <buttongroup name="configure_ch_merge_2_button_group"/>
-  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
-  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
+  <buttongroup name="configure_ch_merge_3_button_group"/>
   <buttongroup name="sync_confocal_scan_mode_button_group"/>
+  <buttongroup name="main_toggle_control_group"/>
   <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
+  <buttongroup name="configure_pushbutton_LED_button_group"/>
+  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
   <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
   <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
+  <buttongroup name="main_channel_button_group"/>
   <buttongroup name="configure_ext_fan_button_group"/>
-  <buttongroup name="main_intensity_button_group"/>
-  <buttongroup name="configure_ch_merge_4_button_group"/>
-  <buttongroup name="configure_ch_merge_3_button_group"/>
+  <buttongroup name="configure_ch_merge_1_button_group"/>
   <buttongroup name="sync_confocal_line_input_button_group"/>
+  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
+  <buttongroup name="configure_indication_group"/>
+  <buttongroup name="sync_analog_input_channel_button_group"/>
+  <buttongroup name="configure_ch_merge_2_button_group"/>
+  <buttongroup name="configure_ch_merge_4_button_group"/>
+  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
+  <buttongroup name="sync_digital_trigger_button_group"/>
+  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
+  <buttongroup name="main_intensity_button_group"/>
+  <buttongroup name="sync_output_button_group"/>
  </buttongroups>
 </ui>

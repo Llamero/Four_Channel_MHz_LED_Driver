@@ -146,6 +146,9 @@ class Ui(QtWidgets.QMainWindow):
     def createStatusWindow(self):
         self.status_window_list.append(statusWindow.statusWindow(self.app, self))
         self.status_window_list[len(self.status_window_list)-1].show()
+        if self.menu_view_skins_dark.isChecked(): #Reset dark skin if in dark mode since skin is reverted when window is opened.
+            self.app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+            self.app.setFont(QFont("MS Shell Dlg 2", 12))
 
     def updateSerialNumber(self, serial_number):
         self.configure_name_driver_serial_label2.setText(serial_number)
@@ -250,13 +253,16 @@ class Ui(QtWidgets.QMainWindow):
     def toggleScanMode(self):
         scan_mode = self.getValue(self.sync_model["Confocal"]["Delay"]["Mode"])
         if scan_mode == "Unidirectional":
-            self.sync_confocal_delay3_label1.setText("3) From flyback to line trigger reset:")
-            self.sync_confocal_delay3_label1.setToolTip("Set the additional time required for line sync trigger to reset after the flyback window.")
-            self.sync_confocal_delay3_box.setToolTip("Set the additional time required for line sync trigger to reset after the flyback window.")
+            self.sync_confocal_delay3_label1.setText("3) Time from LED event to trigger reset:")
+            self.sync_confocal_delay3_label1.setToolTip("Set the additional time required for line sync trigger to reset after the LED event.")
+            self.sync_confocal_delay3_box.setToolTip("Set the additional time required for line sync trigger to reset after the LED event.")
+            self.sync_confocal_delay3_label2.setToolTip("Set the additional time required for line sync trigger to reset after the LED event.")
         else:
-            self.sync_confocal_delay3_label1.setText("3) Bidirectional: time between windows:")
-            self.sync_confocal_delay3_label1.setToolTip("Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).")
-            self.sync_confocal_delay3_box.setToolTip("Set the time required for the scan to traverse the FOV (i.e. the end of one flyback to the start of another).")
+            self.sync_confocal_delay3_label1.setText("3) Bidirectional: Time between LED events:")
+            self.sync_confocal_delay3_label1.setToolTip("Set the time between the forward scan LED event window and the reverse scan LED event window.")
+            self.sync_confocal_delay3_box.setToolTip("Set the time between the forward scan LED event window and the reverse scan LED event window.")
+            self.sync_confocal_delay3_label2.setToolTip("Set the time between the forward scan LED event window and the reverse scan LED event window.")
+
 
     def syncDialAndSpinbox(self, widget_in, widget_out, force = False):
         time = timer()
@@ -298,6 +304,7 @@ class Ui(QtWidgets.QMainWindow):
     def toggleSoftwareControl(self, software_enable):
         self.main_model["Intensity"].setEnabled(software_enable)
         self.main_model["Mode"][0].setEnabled(software_enable)
+        self.main_model["Mode"][3].setEnabled(software_enable)
         self.main_intensity_spinbox.setReadOnly(not software_enable)
 
     def lockInterface(self, widget):
