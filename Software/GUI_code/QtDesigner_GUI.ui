@@ -439,8 +439,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>927</width>
-             <height>760</height>
+             <width>431</width>
+             <height>385</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -456,8 +456,8 @@
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-51</y>
-                 <width>892</width>
+                 <y>0</y>
+                 <width>523</width>
                  <height>628</height>
                 </rect>
                </property>
@@ -1739,9 +1739,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-451</y>
-                 <width>892</width>
-                 <height>1080</height>
+                 <y>-311</y>
+                 <width>525</width>
+                 <height>1095</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3243,7 +3243,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>910</width>
+             <width>611</width>
              <height>1105</height>
             </rect>
            </property>
@@ -5022,28 +5022,28 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="sync_analog_led_channel_button_group"/>
-  <buttongroup name="configure_ch_merge_3_button_group"/>
-  <buttongroup name="sync_confocal_scan_mode_button_group"/>
-  <buttongroup name="main_toggle_control_group"/>
-  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
-  <buttongroup name="configure_pushbutton_LED_button_group"/>
-  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
-  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
-  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
-  <buttongroup name="main_channel_button_group"/>
-  <buttongroup name="configure_ext_fan_button_group"/>
-  <buttongroup name="configure_ch_merge_1_button_group"/>
-  <buttongroup name="sync_confocal_line_input_button_group"/>
-  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
-  <buttongroup name="configure_indication_group"/>
-  <buttongroup name="sync_analog_input_channel_button_group"/>
   <buttongroup name="configure_ch_merge_2_button_group"/>
-  <buttongroup name="configure_ch_merge_4_button_group"/>
+  <buttongroup name="configure_ch_merge_3_button_group"/>
+  <buttongroup name="configure_indication_group"/>
+  <buttongroup name="sync_confocal_scan_mode_button_group"/>
+  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
   <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
-  <buttongroup name="sync_digital_trigger_button_group"/>
-  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
+  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
   <buttongroup name="main_intensity_button_group"/>
+  <buttongroup name="configure_ch_merge_4_button_group"/>
+  <buttongroup name="configure_pushbutton_LED_button_group"/>
+  <buttongroup name="main_toggle_control_group"/>
+  <buttongroup name="sync_analog_led_channel_button_group"/>
+  <buttongroup name="sync_digital_trigger_button_group"/>
   <buttongroup name="sync_output_button_group"/>
+  <buttongroup name="sync_confocal_line_input_button_group"/>
+  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
+  <buttongroup name="main_channel_button_group"/>
+  <buttongroup name="sync_analog_input_channel_button_group"/>
+  <buttongroup name="configure_ch_merge_1_button_group"/>
+  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
+  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
+  <buttongroup name="configure_ext_fan_button_group"/>
+  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
  </buttongroups>
 </ui>

@@ -17,24 +17,21 @@ import driverUSB
 import time
 import copy
 
-N_MEASUREMENTS = 50 #Number of measurements per plot
+
 MIN_TEMP_RANGE = 6 #Number of degrees at maximum zoom on the temperature plot
 PLOT_PADDING = 1.1 #Factor of dark space above and below plot line so that plot line doesn't touch top of widget
 debug = False
 
-class statusWindow(QtWidgets.QDialog):
+class syncPlotWindow(QtWidgets.QDialog):
     status_signal = QtCore.pyqtSignal(object)  # Need to initialize outside of init() https://stackoverflow.com/questions/2970312/pyqt4-qtcore-pyqtsignal-object-has-no-attribute-connect
 
     def __init__(self, app, main_window):
         self.app = app
         self.gui = main_window
-        super(statusWindow, self).__init__()
+        super(syncPlotWindow, self).__init__()
         # Set look and feel
-        uic.loadUi('Status_GUI.ui', self)
-        if self.gui.menu_view_skins_dark.isChecked(): #Set dark skin if in dark mode since skin is reverted when window is opened.
-            self.app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
-        else:
-            self.app.setStyleSheet("")
+        uic.loadUi('Sync_Plot_GUI.ui', self)
+        self.app.setStyleSheet("")
         self.app.setFont(QFont("MS Shell Dlg 2", 12))
         self.plot_timeline = guiMapper.TimeLine(loopCount=0, interval=100) #Animation object for animating plots
         self.x_axis_offset = 0 #Current x-axis offset to use for rastering the plots in time

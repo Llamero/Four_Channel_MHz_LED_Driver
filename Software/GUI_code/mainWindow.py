@@ -12,6 +12,7 @@ import driverUSB
 import statusWindow
 import sys
 from timeit import default_timer as timer
+import pickle
 
 DIAL_UPDATE_RATE = 0.05 #Time in ms between updates from dial when in manual control - prevents dial from locking GUI with continuous updates when dial is swept
 
@@ -34,8 +35,8 @@ class Ui(QtWidgets.QMainWindow):
 
         # Set look and feel
         uic.loadUi('QtDesigner_GUI.ui', self)
-        self.app.setStyleSheet("")
-        self.app.setFont(QFont("MS Shell Dlg 2", 12))
+        self.gui_state_file = 'gui_state.obj'
+        self.initializeLookAndFeel()
 
         #Initialize message box
         self.message_box = QtWidgets.QMessageBox() # https://pythonbasics.org/pyqt-qmessagebox/
@@ -86,6 +87,18 @@ class Ui(QtWidgets.QMainWindow):
             self.splash.finish(self)
         self.startup = False #Set flag to exiting startup
         self.show()
+
+    def initializeLookAndFeel(self):
+        try:
+            with open(self.gui_state_file, "rb") as file:
+                gui_skin_mode = pickle.load(file)
+            print(gui_skin_mode)
+            if gui_skin_mode == "dark":
+                self.toggleSkin(self.menu_view_skins_dark, self.menu_view_skins_light, "dark")
+            else:
+                raise EOFError
+        except EOFError: #Default to light skin if no made has been saved yet
+            self.toggleSkin(self.menu_view_skins_light, self.menu_view_skins_dark, "light")
 
     def getValue(self, widget):
         if isinstance(widget, QtWidgets.QLineEdit):
@@ -146,9 +159,6 @@ class Ui(QtWidgets.QMainWindow):
     def createStatusWindow(self):
         self.status_window_list.append(statusWindow.statusWindow(self.app, self))
         self.status_window_list[len(self.status_window_list)-1].show()
-        if self.menu_view_skins_dark.isChecked(): #Reset dark skin if in dark mode since skin is reverted when window is opened.
-            self.app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
-            self.app.setFont(QFont("MS Shell Dlg 2", 12))
 
     def updateSerialNumber(self, serial_number):
         self.configure_name_driver_serial_label2.setText(serial_number)
@@ -195,20 +205,12 @@ class Ui(QtWidgets.QMainWindow):
         if mode == "dark":
             self.app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
 
-            #Hide title bar in dark mode
-            # self.setWindowFlags(QtCore.Qt.CustomizeWindowHint)
-            # self.hide()
-            # self.show()
-
         else:
             self.app.setStyleSheet("")
-
-            #Restore title bar in light mode
-            # self.setWindowFlags(QtCore.Qt.Widget)
-            # self.hide()
-            # self.show()
-
+        with open(self.gui_state_file, "wb") as file:
+            pickle.dump(mode, file)
         self.app.setFont(QFont("MS Shell Dlg 2", 12))
+
 
     def changeDriverName(self, widget):
         name = self.getValue(widget)

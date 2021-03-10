@@ -22,18 +22,18 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="main_tab">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
-     <widget class="QWidget" name="intensity_tab">
+     <widget class="QWidget" name="state_1_tab">
       <property name="contextMenuPolicy">
        <enum>Qt::CustomContextMenu</enum>
       </property>
       <attribute name="title">
-       <string>Intensity Plots</string>
+       <string>State 1</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="0">
-        <widget class="QGroupBox" name="graph_intensity_pwm_box">
+        <widget class="QGroupBox" name="graph_intensity_pwm_box0">
          <property name="toolTip">
           <string>Plot of driver LED PWM as a % of total PWM (0% = always off, 100% = always on)</string>
          </property>
@@ -54,7 +54,7 @@
            <number>9</number>
           </property>
           <item row="0" column="0">
-           <widget class="PlotWidget" name="graph_intensity_pwm">
+           <widget class="PlotWidget" name="graph_intensity_pwm0">
             <property name="toolTip">
              <string>Plot of driver LED PWM as a % of total PWM (0% = always off, 100% = always on)</string>
             </property>
@@ -64,7 +64,7 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QGroupBox" name="graph_intensity_current_box">
+        <widget class="QGroupBox" name="graph_intensity_current_box0">
          <property name="toolTip">
           <string>Plot of current output of the LED as a percent of the current limit for the LED.</string>
          </property>
@@ -82,7 +82,7 @@
            <number>9</number>
           </property>
           <item row="0" column="0">
-           <widget class="PlotWidget" name="graph_intensity_current">
+           <widget class="PlotWidget" name="graph_intensity_current0">
             <property name="toolTip">
              <string>Plot of current output of the LED as a percent of the current limit for the LED.</string>
             </property>
@@ -93,10 +93,71 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="state_2_tab">
       <attribute name="title">
-       <string>Page</string>
+       <string>State 2</string>
       </attribute>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="graph_intensity_pwm_box1">
+         <property name="toolTip">
+          <string>Plot of driver LED PWM as a % of total PWM (0% = always off, 100% = always on)</string>
+         </property>
+         <property name="title">
+          <string>LED Intensity: PWM</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_9">
+          <property name="leftMargin">
+           <number>9</number>
+          </property>
+          <property name="topMargin">
+           <number>9</number>
+          </property>
+          <property name="rightMargin">
+           <number>9</number>
+          </property>
+          <property name="bottomMargin">
+           <number>9</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="PlotWidget" name="graph_intensity_pwm1">
+            <property name="toolTip">
+             <string>Plot of driver LED PWM as a % of total PWM (0% = always off, 100% = always on)</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="graph_intensity_current_box1">
+         <property name="toolTip">
+          <string>Plot of current output of the LED as a percent of the current limit for the LED.</string>
+         </property>
+         <property name="title">
+          <string>LED Intensity: Current</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_8">
+          <property name="leftMargin">
+           <number>9</number>
+          </property>
+          <property name="rightMargin">
+           <number>9</number>
+          </property>
+          <property name="bottomMargin">
+           <number>9</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="PlotWidget" name="graph_intensity_current1">
+            <property name="toolTip">
+             <string>Plot of current output of the LED as a percent of the current limit for the LED.</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>

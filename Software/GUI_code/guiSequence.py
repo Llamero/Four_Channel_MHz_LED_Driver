@@ -53,7 +53,6 @@ def loadSequence(gui, widget, get_path=False):  # derived from - https://stackov
                             break
 
                     if row < maximum_rows-1:
-                        print(row)
                         widget.insertRow(row+1) #Add one extra row to allow for editing
                     if widget.rowCount() < 4:
                         widget.setRowCount(4) #Ensure there are at least 4 rows
