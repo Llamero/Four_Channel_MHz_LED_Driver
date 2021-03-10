@@ -190,6 +190,8 @@ def bytesToConfig(byte_array, gui, prefix):
         gui.setValue(gui.config_model["Pushbutton"]["Alarm"], channel_id)
 
         gui.setAdcCurrentLimit(config_values[4:8])  # Save current limit ADC values in current limit "what's this"
+        if not gui.ser.initializing_connection:
+            showMessage(gui, "Configuration file was successfully downloaded.")
 
     else:
         showMessage(gui, "Error: Driver config file had invalid checksum: " + str(checksum) + ". Upload aborted.")

@@ -325,6 +325,9 @@ def bytesToSequence(byte_array, gui, widget):
     else:
         showMessage(gui, "Error: Downloaded sequence stream length % 9 = " + str(len(byte_array)%9) + ". It should be = 0. Sequence stream not loaded")
 
+def updateDictionary():
+    print("UPDATE DICT")
+
 def showMessage(gui, text):
     gui.waitCursor(False)
     gui.stopSplash()

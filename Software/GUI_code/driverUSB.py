@@ -303,6 +303,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def showDriverMessage(self, reply=None):
         if reply is not None:
             reply = reply.decode()
+            if reply == "Sync and sequence files were successfully uploaded.": #Update sequence dictionary if upload was successful
+                seq.updateDictionary()
             self.showMessage(reply)
         else:
             if self.portConnected():
@@ -397,6 +399,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                         if self.initializing_connection:
                             self.initializing_connection = False
                         else:
+                            seq.updateDictionary()
                             self.showMessage("Sync and sequence files were successfully uploaded.")
 
             elif len(reply) == 4: #If stream is not active, reply is stream initialization showing length of stream to be received
