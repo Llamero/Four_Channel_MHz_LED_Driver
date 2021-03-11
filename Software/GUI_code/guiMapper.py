@@ -129,6 +129,24 @@ def initializeSyncModel(gui):
 
     return sync_model
 
+def initializeSeqList(gui):
+    seq_table_list = [gui.sync_digital_low_sequence_table,
+                      gui.sync_digital_high_sequence_table,
+                      gui.sync_confocal_image_sequence_table,
+                      gui.sync_confocal_flyback_sequence_table]  # List of sequence table widgets
+    return seq_table_list
+
+def initializeSeqDictionary(gui):
+    seq_dict = OrderedDict()
+    seq_table_list = initializeSeqList(gui)
+    for widget in seq_table_list:
+        widget_header_obj = [widget.horizontalHeaderItem(c) for c in range(widget.columnCount())]  # Get headers from table
+        widget_headers = [x.text() for x in widget_header_obj if x is not None]
+        seq_dict[widget] = OrderedDict()
+        for header in widget_headers:
+            seq_dict[widget][header] = []
+    return seq_dict
+
 def initializeMainModel(gui):
     main_model = OrderedDict()
     main_model["Name"] = gui.main_driver_name_label2

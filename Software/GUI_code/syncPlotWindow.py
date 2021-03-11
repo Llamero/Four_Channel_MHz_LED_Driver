@@ -20,37 +20,49 @@ import copy
 
 MIN_TEMP_RANGE = 6 #Number of degrees at maximum zoom on the temperature plot
 PLOT_PADDING = 1.1 #Factor of dark space above and below plot line so that plot line doesn't touch top of widget
+SLEW_TIME = 1e-6 #Time for LED to switch between intensities
 debug = False
 
 class syncPlotWindow(QtWidgets.QDialog):
+    sync_update_signal = QtCore.pyqtSignal(object)  # Need to initialize outside of init() https://stackoverflow.com/questions/2970312/pyqt4-qtcore-pyqtsignal-object-has-no-attribute-connect
     status_signal = QtCore.pyqtSignal(object)  # Need to initialize outside of init() https://stackoverflow.com/questions/2970312/pyqt4-qtcore-pyqtsignal-object-has-no-attribute-connect
-
     def __init__(self, app, main_window):
         self.app = app
         self.gui = main_window
         super(syncPlotWindow, self).__init__()
         # Set look and feel
         uic.loadUi('Sync_Plot_GUI.ui', self)
-        if self.gui.menu_view_skins_dark.isChecked(): #Set dark skin if in dark mode since skin is reverted when window is opened.
+        #Connect signals
+        self.gui.sync_update_signal.connect(self.sync_update_signal.emit)
+        self.sync_update_signal.connect(self.updateWindow)  # Update status when new status signal is received
+        self.gui.status_signal.connect(self.status_signal.emit)  # Connect mainWindow status signal to dialog status signal
+        self.status_signal.connect(self.updateStatus) #Update status when new status signal is received
+        # Set dark skin if in dark mode since skin is reverted when window is opened.
+        if self.gui.menu_view_skins_dark.isChecked():
             self.app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
         else:
             self.app.setStyleSheet("")
         self.app.setFont(QFont("MS Shell Dlg 2", 12))
+        self.y_ref = [OrderedDict([("PWM", []), ("Current", []), ("LED", [])]),
+                         OrderedDict([("PWM", []), ("Current", []), ("LED", [])])] #Y values of reference sequence line
+        self.x_ref = [[], []] #X values of reference sequence line
 
         self.status_dict = copy.deepcopy(self.gui.status_dict)
-        self.gui.status_signal.connect(self.status_signal.emit)  # Connect mainWindow status signal to dialog status signal
-        self.status_signal.connect(self.updateStatus) #Update status when new status signal is received
-        self.plots = [OrderedDict([("PWM", self.graph_intensity_pwm), ("Current", self.graph_intensity_current)]),
-                      OrderedDict([("PWM", self.graph_intensity_pwm), ("Current", self.graph_intensity_current)])]
+        self.seq_list = guiMapper.initializeSeqList(self.gui)
+        self.seq_dict = self.gui.seq_dict
+        self.plots = [OrderedDict([("PWM", self.graph_intensity_pwm0), ("Current", self.graph_intensity_current0), ("Channel", self.graph_channel0)]),
+                      OrderedDict([("PWM", self.graph_intensity_pwm1), ("Current", self.graph_intensity_current1), ("Channel", self.graph_channel1)])]
 
-        self.y_values = [OrderedDict([("PWM", []), ("Current", [])]),
-                         OrderedDict([("PWM", []), ("Current", [])])]
+        self.y_values = copy.deepcopy(self.y_ref)
+        self.x_values = copy.deepcopy(self.x_ref)  # X values of reference sequence line
+
 
         self.state_dict = OrderedDict([("Digital", ["LOW", "HIGH"]), ("Analog", ["Active", "Active"]), ("Confocal", ["Standby", "Scanning"]),
                                        ("Serial", ["Active", "Active"]), ("Custom", ["Active", "Active"])])
         for plot_dict in self.plots:
             for key, value in plot_dict.items():
                 self.initializePlot(value, key)
+        self.updateWindow()
 
     def initializePlot(self, status_plot, key):
         # Set look and feel
@@ -63,36 +75,106 @@ class syncPlotWindow(QtWidgets.QDialog):
 
         if key == "PWM":
             status_plot.setLabel('left', "(% Duty Cycle)", **label_style)
-        else:
+        elif key == "Current":
             status_plot.setLabel('left', "(% LED Current Limit)", **label_style)
-
-        status_plot.setLabel('bottom', "", **label_style)
+        else:
+            status_plot.setLabel('left', "(LED Channel #)", **label_style)
+            status_plot.setYRange(0, 4, padding=0)
+            status_plot.getAxis('left').setTickSpacing(1, 1)
 
         # Use invisible axes to add margins to plot
         status_plot.showAxis("top")
         status_plot.getAxis('top').setPen('k', width=2)
         status_plot.getAxis('top').setTextPen('k', width=2)
         status_plot.showAxis("right")
-        status_plot.getAxis('right').setPen('k', width=2)
-        status_plot.getAxis('right').setTextPen('k', width=2)
+        status_plot.getAxis('right').setStyle(showValues=False)
+
+        #Set default axis labels
+        status_plot.setLabel('bottom', "Time", "s", **label_style)
+        status_plot.setLabel('right', "Hold", **label_style)
 
         # Set
-        status_plot.setXRange(0, N_MEASUREMENTS, padding=0)
-        status_plot.getAxis('bottom').setTickSpacing(N_MEASUREMENTS/10, N_MEASUREMENTS/10)
-        status_plot.getAxis('bottom').setStyle(showValues = False)
         status_plot.getAxis('bottom').setGrid(150)
         status_plot.getAxis('left').setGrid(150)
 
-    def initializeSpeedModel(self):
-        speed_model = OrderedDict()
-        for speed in ["fast", "normal", "slow", "custom"]:
-            speed_model[speed] = eval("self.graph_" + speed + "_update_button")
-            speed_model[speed].clicked.connect(self.changeSpeed)
+    def updateWindow(self):
+        def widgetIndex(widget_list):
+            for w_index, n_widget in enumerate(widget_list):
+                if self.gui.getValue(n_widget):
+                    return w_index
+            else:
+                self.showMessage(self.gui, "Error: Widget index not found!")
+                return None
 
-        custom_spinbox = self.graph_custom_update_spinbox
-        custom_spinbox.valueChanged.connect(self.changeSpeed)
+        sync_model = self.gui.sync_model
 
-        return speed_model, custom_spinbox
+        #Get the active sync mode
+        mode = sync_model["Mode"].whatsThis()
+        print(mode)
+        self.main_tab.setTabText(0, mode + ": " + self.gui.state_dict[mode][0])
+        self.main_tab.setTabText(1, mode + ": " + self.gui.state_dict[mode][1])
+
+        if mode == "Digital":
+            for index, trigger in enumerate(["Low", "High"]):
+                self.main_tab.setTabEnabled(index, True)
+                if sync_model["Digital"][trigger]["Mode"].whatsThis() == "LED Off":
+                    self.x_ref[index] = [0]  # Set duration to hold
+                    for key in self.y_ref[index]:
+                        self.y_ref[index][key] = [0] # Set all intensities to 0, and channel is not changed (0)
+                elif sync_model["Digital"][trigger]["Mode"].whatsThis() == "Constant Value":
+                    duration = self.gui.getValue(sync_model["Digital"][trigger]["Duration"])
+                    if duration == 0:
+                        self.x_ref[index] = [0]
+                    else:
+                        self.x_ref[index] = [0, duration, duration + SLEW_TIME]
+                    for key in self.y_ref[index]:
+                        if isinstance(sync_model["Digital"][trigger][key], list):
+                            self.y_ref[index][key] = [widgetIndex(sync_model["Digital"][trigger][key])]
+                        else:
+                            self.y_ref[index][key] = [self.gui.getValue(sync_model["Digital"][trigger][key])]
+                            if duration > 0:
+                                self.y_ref[index][key].extend([self.gui.getValue(sync_model["Digital"][trigger][key]), 0]) #Extend to hold at off to intensity profile if intensity is pulsed for a fixed duration
+                else:
+                    seq_widget = self.seq_list[index]
+                    n_rows = len(self.seq_dict[seq_widget]["LED #"])
+                    elapsed_time = 0
+                    if n_rows == 0: #If there isn't a sequence specified, default to holding the LED off
+                        self.x_ref[index] = [0]  # Set duration to hold
+                        for key in self.y_ref[index]:
+                            self.y_ref[index][key] = [0]  # Set all intensities to 0, and channel is not changed (0)
+                    else:
+                        for key in self.y_ref[index]:
+                            self.y_ref[index][key] = []  # Clear all lists
+                        self.x_ref[index] = []
+
+                        #If a hold isn't specified at the end of the sequence add a hold at off
+                        if self.seq_dict[seq_widget]["Duration (s)"][n_rows-1] != 0:
+                            for key in self.seq_dict[seq_widget]:
+                                self.seq_dict[seq_widget][key].append(0)
+                            n_rows += 1
+
+                        for row in range(n_rows):
+                            duration = self.seq_dict[seq_widget]["Duration (s)"][row]
+                            self.x_ref[index].append(elapsed_time+SLEW_TIME)
+                            list_length = 1 #If hold is reached, only add one more time point
+                            if duration > 0: #If hold is not reached add two time points as sequence is a step function
+                                self.x_ref[index].append(elapsed_time+duration)
+                                list_length = 2
+                            self.y_ref[index]["LED"].extend([self.seq_dict[seq_widget]["LED #"][row]]*list_length)
+                            self.y_ref[index]["PWM"].extend([self.seq_dict[seq_widget]["LED PWM (%)"][row]]*list_length)
+                            self.y_ref[index]["Current"].extend([self.seq_dict[seq_widget]["LED current (%)"][row]]*list_length)
+                            elapsed_time += duration
+                            if duration == 0:
+                                break
+                        else:
+                            self.showMessage("ERROR: Something went very wrong - a hold was not reached at the end of a sequence and this should be impossible.")
+            print(self.x_ref)
+            print(self.y_ref)
+        else:
+            print("Not implemented")
+
+    def updateStatus(self):
+        pass
 
     def activeCurrent(self):
         # Get current limit of active LED

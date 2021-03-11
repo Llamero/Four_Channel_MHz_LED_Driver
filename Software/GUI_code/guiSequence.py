@@ -279,6 +279,8 @@ def sequenceToBytes(gui, widget):
             stream.seek(0)
             converted_row=[None]*4
             total_resistance = float(gui.configure_current_limit_box.whatsThis())
+            for key, value in gui.seq_dict[widget].items(): #Clear seq dict entry
+                gui.seq_dict[widget][key] = []
             for index, row_data in enumerate(csv.reader(stream)):
                 if index > 0: #Don't send headers to LED driver
                     converted_row[0] = int(row_data[0])
@@ -288,6 +290,10 @@ def sequenceToBytes(gui, widget):
                     led_voltage = led_current*total_resistance
                     converted_row[2] = round((led_voltage/3.3)*65535)
                     byte_array.extend(struct.pack("<BHHI", *converted_row))
+
+                    # Save data to sequence dictionary
+                    for header_index, header in enumerate(widget_headers):
+                        gui.seq_dict[widget][header].append(row_data[header_index])
 
             return byte_array
 
@@ -306,6 +312,8 @@ def bytesToSequence(byte_array, gui, widget):
             writer.writerow(widget_headers) #Add header to temp file
             converted_row = [None] * 4
             total_resistance = float(gui.configure_current_limit_box.whatsThis())
+            for key, value in gui.seq_dict[widget].items(): #Clear seq dict entry
+                gui.seq_dict[widget][key] = []
             for row_data in row_list:
                 converted_row[0] = int(row_data[0])
                 converted_row[1] = (float(row_data[1]) / 65535) * 100  # Convert ADC to percent value
@@ -315,6 +323,10 @@ def bytesToSequence(byte_array, gui, widget):
                 converted_row[2] = (led_current / gui.getValue(gui.config_model["LED" + str(converted_row[0])]["Current Limit"])) * 100
                 converted_row[1:] = [sigFigLimit(x, 3) for x in converted_row[1:]]
                 writer.writerow(converted_row) #Write rows to temp file
+
+                #Save data to sequence dictionary
+                for index, header in enumerate(widget_headers):
+                    gui.seq_dict[widget][header].append(converted_row[index])
             setSequencePath(gui, widget, stream.name) #Save temp file path to sync model
 
         loadSequence(gui, widget, True) #Load temp file to widget
@@ -324,9 +336,6 @@ def bytesToSequence(byte_array, gui, widget):
 
     else:
         showMessage(gui, "Error: Downloaded sequence stream length % 9 = " + str(len(byte_array)%9) + ". It should be = 0. Sequence stream not loaded")
-
-def updateDictionary():
-    print("UPDATE DICT")
 
 def showMessage(gui, text):
     gui.waitCursor(False)

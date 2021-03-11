@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1045</width>
-    <height>784</height>
+    <width>1063</width>
+    <height>1058</height>
    </rect>
   </property>
   <property name="font">
@@ -22,7 +22,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="main_tab">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="state_1_tab">
       <property name="contextMenuPolicy">
@@ -31,7 +31,7 @@
       <attribute name="title">
        <string>State 1</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_4">
+      <layout class="QGridLayout" name="gridLayout_4" rowstretch="10,10,6">
        <item row="0" column="0">
         <widget class="QGroupBox" name="graph_intensity_pwm_box0">
          <property name="toolTip">
@@ -91,13 +91,41 @@
          </layout>
         </widget>
        </item>
+       <item row="2" column="0">
+        <widget class="QGroupBox" name="graph_channel_box0">
+         <property name="toolTip">
+          <string>Plot of the LED channel vs time.</string>
+         </property>
+         <property name="title">
+          <string>LED Channel</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_11">
+          <property name="leftMargin">
+           <number>9</number>
+          </property>
+          <property name="rightMargin">
+           <number>9</number>
+          </property>
+          <property name="bottomMargin">
+           <number>9</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="PlotWidget" name="graph_channel0">
+            <property name="toolTip">
+             <string>Plot of the LED channel vs time.</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="state_2_tab">
       <attribute name="title">
        <string>State 2</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_2">
+      <layout class="QGridLayout" name="gridLayout_2" rowstretch="10,10,6">
        <item row="0" column="0">
         <widget class="QGroupBox" name="graph_intensity_pwm_box1">
          <property name="toolTip">
@@ -151,6 +179,34 @@
            <widget class="PlotWidget" name="graph_intensity_current1">
             <property name="toolTip">
              <string>Plot of current output of the LED as a percent of the current limit for the LED.</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QGroupBox" name="graph_channel_box1">
+         <property name="toolTip">
+          <string>Plot of the LED channel vs time.</string>
+         </property>
+         <property name="title">
+          <string>LED Channel</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_10">
+          <property name="leftMargin">
+           <number>9</number>
+          </property>
+          <property name="rightMargin">
+           <number>9</number>
+          </property>
+          <property name="bottomMargin">
+           <number>9</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="PlotWidget" name="graph_channel1">
+            <property name="toolTip">
+             <string>Plot of the LED channel vs time.</string>
             </property>
            </widget>
           </item>

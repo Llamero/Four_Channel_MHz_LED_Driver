@@ -49,8 +49,7 @@ class statusWindow(QtWidgets.QDialog):
         self.y_values = OrderedDict([("PWM", deque([0]*N_MEASUREMENTS)), ("Current", deque([0]*N_MEASUREMENTS)),
                                   ("Transistor", deque([-1000]*N_MEASUREMENTS)), ("Resistor", deque([-1000]*N_MEASUREMENTS)), ("External", deque([-1000]*N_MEASUREMENTS))])
 
-        self.state_dict = OrderedDict([("Digital", ["LOW", "HIGH"]), ("Analog", ["Active", "Active"]), ("Confocal", ["Standby", "Scanning"]),
-                                       ("Serial", ["Active", "Active"]), ("Custom", ["Active", "Active"])])
+        self.state_dict = self.gui.state_dict
         self.speed_model, self.custom_spinbox = self.initializeSpeedModel()
         for key, value in self.plots.items():
             self.initializePlot(value, key)

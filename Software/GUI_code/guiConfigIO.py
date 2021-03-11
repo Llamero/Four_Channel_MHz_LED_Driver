@@ -1,3 +1,4 @@
+import copy
 import math
 import struct
 import sys
@@ -266,6 +267,8 @@ def bytesToSync(byte_array, gui, prefix):
                     gui.setValue(gui.sync_model["Confocal"][key2][key3], (((sync_values[(2 * index3) + index2 + 28]/65535)*3.3/total_resistance)/current_limit[index2])*100)
                 elif key3 == "Duration":
                     gui.setValue(gui.sync_model["Confocal"][key2][key3], sync_values[(2 * index3) + index2 + 28]/1e6)
+
+        updateModelWhatsThis(gui, gui.sync_model)
         return True
 
     else:
@@ -347,6 +350,8 @@ def configToBytes(gui, prefix):
     return byte_array
 
 def syncToBytes(gui, prefix):
+    updateModelWhatsThis(gui, gui.sync_model)
+
     sync_values = [None]* 38
     byte_array = bytearray() #Initialize empty byte array
 
@@ -412,11 +417,29 @@ def syncToBytes(gui, prefix):
             elif key3 == "Duration":
                 sync_values[(2 * index3) + index2 + 28] = round(gui.getValue(gui.sync_model["Confocal"][key2][key3])*1e6)
 
+
     byte_array.extend(struct.pack("<BBBBBBBHHHHLLBBBBH?B???H?LLLBBBBLLHHLL", *sync_values))
     checksum = (sum(byte_array) + prefix) & 0xFF  # https://stackoverflow.com/questions/44611057/checksum-generation-from-sum-of-bits-in-python
     checksum = 256 - checksum
     byte_array.append(checksum)
     return byte_array
+
+def updateModelWhatsThis(gui, dictionary):
+    for key, value in dictionary.items():
+        print(key)
+        if isinstance(value, OrderedDict):
+            updateModelWhatsThis(gui, value)
+        elif isinstance(value, list):
+            for widget in value:
+                if isinstance(value, str):
+                    break
+                else:
+                    widget.setWhatsThis(str(gui.getValue(value)))
+        else:
+            if not isinstance(value, (str, type(None))):
+                value.setWhatsThis(str(gui.getValue(value)))
+
+    gui.sync_update_signal.emit(None)  # Flag that the active sync state has changed
 
 def adcToTemp(adc, external = False):
     try:

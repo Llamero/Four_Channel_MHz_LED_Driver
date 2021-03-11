@@ -25,6 +25,7 @@ HEARTBEAT_INTERVAL = 5 #Send a heartbeat signal every 5 seconds after the last p
 debug = False
 
 
+
 class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverflow.com/questions/55070483/connect-to-serial-from-a-pyqt-gui
     def __init__(self, gui, parent=None):
         super(usbSerial, self).__init__(parent)
@@ -43,7 +44,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.dropped_frame_counter = 0 #Track total number of invalid frames
         self.default_action_number = len(self.gui.menu_connection.actions()) #Get number of actions in connection menu when there are no connected drivers
         self.default_serial_number = self.gui.configure_name_driver_serial_label2.text()
-        self.seq_table_list = [self.gui.sync_digital_low_sequence_table, self.gui.sync_digital_high_sequence_table, self.gui.sync_confocal_image_sequence_table, self.gui.sync_confocal_flyback_sequence_table] #List of sequence table widgets
+        self.seq_table_list = guiMapper.initializeSeqList(self.gui)
         #Initialize connection menu action group
         self.conn_menu_action_group = QtWidgets.QActionGroup(self.gui.menu_connection) #Connection menu action group to have options act like radio buttons
         self.conn_menu_action_group.setExclusive(True)
@@ -303,8 +304,6 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def showDriverMessage(self, reply=None):
         if reply is not None:
             reply = reply.decode()
-            if reply == "Sync and sequence files were successfully uploaded.": #Update sequence dictionary if upload was successful
-                seq.updateDictionary()
             self.showMessage(reply)
         else:
             if self.portConnected():
@@ -399,7 +398,6 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                         if self.initializing_connection:
                             self.initializing_connection = False
                         else:
-                            seq.updateDictionary()
                             self.showMessage("Sync and sequence files were successfully uploaded.")
 
             elif len(reply) == 4: #If stream is not active, reply is stream initialization showing length of stream to be received

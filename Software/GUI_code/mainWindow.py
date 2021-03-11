@@ -13,11 +13,13 @@ import statusWindow
 import sys
 from timeit import default_timer as timer
 import pickle
+import syncPlotWindow
 
 DIAL_UPDATE_RATE = 0.05 #Time in ms between updates from dial when in manual control - prevents dial from locking GUI with continuous updates when dial is swept
 
 class Ui(QtWidgets.QMainWindow):
     status_signal = QtCore.pyqtSignal(object) #Need to initialize outside of init() https://stackoverflow.com/questions/2970312/pyqt4-qtcore-pyqtsignal-object-has-no-attribute-connect
+    sync_update_signal = QtCore.pyqtSignal(object)  # Need to initialize outside of init() https://stackoverflow.com/questions/2970312/pyqt4-qtcore-pyqtsignal-object-has-no-attribute-connect
 
     def __init__(self, app):
         self.app = app
@@ -69,8 +71,15 @@ class Ui(QtWidgets.QMainWindow):
                                                            ("Serial", 0),
                                                            ("Control", 0)])
         self.status_window_list = []
+        self.state_dict = OrderedDict(
+            [("Digital", ["LOW", "HIGH"]), ("Analog", ["Active", "Active"]), ("Confocal", ["Standby", "Scanning"]),
+             ("Serial", ["Active", "Active"]), ("Custom", ["Active", "Active"])])
 
-       # Hide dummy widgets
+        #Initialize seq dict and sync list for sync plot
+        self.seq_dict = guiMapper.initializeSeqDictionary(self)
+        self.sync_window_list = []
+
+        # Hide dummy widgets
         for channel in range(1, 5):
             for button in range(4):
                 if channel <= button:
@@ -88,11 +97,13 @@ class Ui(QtWidgets.QMainWindow):
         self.startup = False #Set flag to exiting startup
         self.show()
 
+        self.sync_window_list.append(syncPlotWindow.syncPlotWindow(self.app, self))
+        self.sync_window_list[0].show()
+
     def initializeLookAndFeel(self):
         try:
             with open(self.gui_state_file, "rb") as file:
                 gui_skin_mode = pickle.load(file)
-            print(gui_skin_mode)
             if gui_skin_mode == "dark":
                 self.toggleSkin(self.menu_view_skins_dark, self.menu_view_skins_light, "dark")
             else:
