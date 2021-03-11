@@ -426,7 +426,6 @@ def syncToBytes(gui, prefix):
 
 def updateModelWhatsThis(gui, dictionary):
     for key, value in dictionary.items():
-        print(key)
         if isinstance(value, OrderedDict):
             updateModelWhatsThis(gui, value)
         elif isinstance(value, list):
@@ -438,8 +437,6 @@ def updateModelWhatsThis(gui, dictionary):
         else:
             if not isinstance(value, (str, type(None))):
                 value.setWhatsThis(str(gui.getValue(value)))
-
-    gui.sync_update_signal.emit(None)  # Flag that the active sync state has changed
 
 def adcToTemp(adc, external = False):
     try:

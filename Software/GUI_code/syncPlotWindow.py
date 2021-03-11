@@ -50,8 +50,8 @@ class syncPlotWindow(QtWidgets.QDialog):
         self.status_dict = copy.deepcopy(self.gui.status_dict)
         self.seq_list = guiMapper.initializeSeqList(self.gui)
         self.seq_dict = self.gui.seq_dict
-        self.plots = [OrderedDict([("PWM", self.graph_intensity_pwm0), ("Current", self.graph_intensity_current0), ("Channel", self.graph_channel0)]),
-                      OrderedDict([("PWM", self.graph_intensity_pwm1), ("Current", self.graph_intensity_current1), ("Channel", self.graph_channel1)])]
+        self.plots = [OrderedDict([("PWM", self.graph_intensity_pwm0), ("Current", self.graph_intensity_current0), ("LED", self.graph_channel0)]),
+                      OrderedDict([("PWM", self.graph_intensity_pwm1), ("Current", self.graph_intensity_current1), ("LED", self.graph_channel1)])]
 
         self.y_values = copy.deepcopy(self.y_ref)
         self.x_values = copy.deepcopy(self.x_ref)  # X values of reference sequence line
@@ -79,7 +79,7 @@ class syncPlotWindow(QtWidgets.QDialog):
             status_plot.setLabel('left', "(% LED Current Limit)", **label_style)
         else:
             status_plot.setLabel('left', "(LED Channel #)", **label_style)
-            status_plot.setYRange(0, 4, padding=0)
+            status_plot.setYRange(0, 4.2, padding=0)
             status_plot.getAxis('left').setTickSpacing(1, 1)
 
         # Use invisible axes to add margins to plot
@@ -93,7 +93,7 @@ class syncPlotWindow(QtWidgets.QDialog):
         status_plot.setLabel('bottom', "Time", "s", **label_style)
         status_plot.setLabel('right', "Hold", **label_style)
 
-        # Set
+        # Set grid
         status_plot.getAxis('bottom').setGrid(150)
         status_plot.getAxis('left').setGrid(150)
 
@@ -130,6 +130,8 @@ class syncPlotWindow(QtWidgets.QDialog):
                     for key in self.y_ref[index]:
                         if isinstance(sync_model["Digital"][trigger][key], list):
                             self.y_ref[index][key] = [widgetIndex(sync_model["Digital"][trigger][key])]
+                            if duration > 0:
+                                self.y_ref[index][key].extend([widgetIndex(sync_model["Digital"][trigger][key]), 0]) #Extend to hold at off to intensity profile if intensity is pulsed for a fixed duration
                         else:
                             self.y_ref[index][key] = [self.gui.getValue(sync_model["Digital"][trigger][key])]
                             if duration > 0:
@@ -154,15 +156,15 @@ class syncPlotWindow(QtWidgets.QDialog):
                             n_rows += 1
 
                         for row in range(n_rows):
-                            duration = self.seq_dict[seq_widget]["Duration (s)"][row]
+                            duration = float(self.seq_dict[seq_widget]["Duration (s)"][row])
                             self.x_ref[index].append(elapsed_time+SLEW_TIME)
                             list_length = 1 #If hold is reached, only add one more time point
                             if duration > 0: #If hold is not reached add two time points as sequence is a step function
                                 self.x_ref[index].append(elapsed_time+duration)
                                 list_length = 2
-                            self.y_ref[index]["LED"].extend([self.seq_dict[seq_widget]["LED #"][row]]*list_length)
-                            self.y_ref[index]["PWM"].extend([self.seq_dict[seq_widget]["LED PWM (%)"][row]]*list_length)
-                            self.y_ref[index]["Current"].extend([self.seq_dict[seq_widget]["LED current (%)"][row]]*list_length)
+                            self.y_ref[index]["LED"].extend([float(self.seq_dict[seq_widget]["LED #"][row])]*list_length)
+                            self.y_ref[index]["PWM"].extend([float(self.seq_dict[seq_widget]["LED PWM (%)"][row])]*list_length)
+                            self.y_ref[index]["Current"].extend([float(self.seq_dict[seq_widget]["LED current (%)"][row])]*list_length)
                             elapsed_time += duration
                             if duration == 0:
                                 break
@@ -172,6 +174,17 @@ class syncPlotWindow(QtWidgets.QDialog):
             print(self.y_ref)
         else:
             print("Not implemented")
+
+        #Update hold labels:
+        self.hold_label0.setText("Hold at end: PWM = " + str(self.y_ref[0]["PWM"][-1]) + "%, Current = " + str(self.y_ref[0]["Current"][-1]) + "%, Channel = " + str(self.y_ref[0]["LED"][-1]) + ".  Elapsed hold time: 00:00:00")
+        self.hold_label1.setText("Hold at end: PWM = " + str(self.y_ref[1]["PWM"][-1]) + "%, Current = " + str(self.y_ref[1]["Current"][-1]) + "%, Channel = " + str(self.y_ref[1]["LED"][-1]) + ".  Elapsed hold time: 00:00:00")
+
+        #Plot reference lines
+        for index in range(2):
+            if self.main_tab.isTabEnabled(index):
+                for key, seq_plot in self.plots[index].items():
+                    seq_plot.plot(self.x_ref[index], self.y_ref[index][key], pen=pg.mkPen('m', width=1), clear=True)
+
 
     def updateStatus(self):
         pass

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1063</width>
-    <height>1058</height>
+    <width>1066</width>
+    <height>854</height>
    </rect>
   </property>
   <property name="font">
@@ -22,7 +22,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="main_tab">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="state_1_tab">
       <property name="contextMenuPolicy">
@@ -31,7 +31,7 @@
       <attribute name="title">
        <string>State 1</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_4" rowstretch="10,10,6">
+      <layout class="QGridLayout" name="gridLayout_4" rowstretch="10,10,6,0">
        <item row="0" column="0">
         <widget class="QGroupBox" name="graph_intensity_pwm_box0">
          <property name="toolTip">
@@ -57,34 +57,6 @@
            <widget class="PlotWidget" name="graph_intensity_pwm0">
             <property name="toolTip">
              <string>Plot of driver LED PWM as a % of total PWM (0% = always off, 100% = always on)</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QGroupBox" name="graph_intensity_current_box0">
-         <property name="toolTip">
-          <string>Plot of current output of the LED as a percent of the current limit for the LED.</string>
-         </property>
-         <property name="title">
-          <string>LED Intensity: Current</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_5">
-          <property name="leftMargin">
-           <number>9</number>
-          </property>
-          <property name="rightMargin">
-           <number>9</number>
-          </property>
-          <property name="bottomMargin">
-           <number>9</number>
-          </property>
-          <item row="0" column="0">
-           <widget class="PlotWidget" name="graph_intensity_current0">
-            <property name="toolTip">
-             <string>Plot of current output of the LED as a percent of the current limit for the LED.</string>
             </property>
            </widget>
           </item>
@@ -119,26 +91,16 @@
          </layout>
         </widget>
        </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="state_2_tab">
-      <attribute name="title">
-       <string>State 2</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_2" rowstretch="10,10,6">
-       <item row="0" column="0">
-        <widget class="QGroupBox" name="graph_intensity_pwm_box1">
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="graph_intensity_current_box0">
          <property name="toolTip">
-          <string>Plot of driver LED PWM as a % of total PWM (0% = always off, 100% = always on)</string>
+          <string>Plot of current output of the LED as a percent of the current limit for the LED.</string>
          </property>
          <property name="title">
-          <string>LED Intensity: PWM</string>
+          <string>LED Intensity: Current</string>
          </property>
-         <layout class="QGridLayout" name="gridLayout_9">
+         <layout class="QGridLayout" name="gridLayout_5">
           <property name="leftMargin">
-           <number>9</number>
-          </property>
-          <property name="topMargin">
            <number>9</number>
           </property>
           <property name="rightMargin">
@@ -148,15 +110,29 @@
            <number>9</number>
           </property>
           <item row="0" column="0">
-           <widget class="PlotWidget" name="graph_intensity_pwm1">
+           <widget class="PlotWidget" name="graph_intensity_current0">
             <property name="toolTip">
-             <string>Plot of driver LED PWM as a % of total PWM (0% = always off, 100% = always on)</string>
+             <string>Plot of current output of the LED as a percent of the current limit for the LED.</string>
             </property>
            </widget>
           </item>
          </layout>
         </widget>
        </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="hold_label0">
+         <property name="text">
+          <string>Hold at end: PWM = 0%, Current = 0%, Channel = 0.   Elapsed hold time: 00:00:00</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="state_2_tab">
+      <attribute name="title">
+       <string>State 2</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_2" rowstretch="10,10,6,0">
        <item row="1" column="0">
         <widget class="QGroupBox" name="graph_intensity_current_box1">
          <property name="toolTip">
@@ -211,6 +187,44 @@
            </widget>
           </item>
          </layout>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="graph_intensity_pwm_box1">
+         <property name="toolTip">
+          <string>Plot of driver LED PWM as a % of total PWM (0% = always off, 100% = always on)</string>
+         </property>
+         <property name="title">
+          <string>LED Intensity: PWM</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_9">
+          <property name="leftMargin">
+           <number>9</number>
+          </property>
+          <property name="topMargin">
+           <number>9</number>
+          </property>
+          <property name="rightMargin">
+           <number>9</number>
+          </property>
+          <property name="bottomMargin">
+           <number>9</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="PlotWidget" name="graph_intensity_pwm1">
+            <property name="toolTip">
+             <string>Plot of driver LED PWM as a % of total PWM (0% = always off, 100% = always on)</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="hold_label1">
+         <property name="text">
+          <string>Hold at end: PWM = 0%, Current = 0%, Channel = 0.   Elapsed hold time: 00:00:00</string>
+         </property>
         </widget>
        </item>
       </layout>

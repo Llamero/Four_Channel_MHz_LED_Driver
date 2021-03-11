@@ -302,7 +302,11 @@ def sequenceToBytes(gui, widget):
 
 def bytesToSequence(byte_array, gui, widget):
     def sigFigLimit(x, n):
-        return round(x, -int(math.floor(math.log10(abs(x)))) + (n - 1))
+        if x != 0:
+            return round(x, -int(math.floor(math.log10(abs(x)))) + (n - 1))
+        else:
+            return 0
+
     widget_header_obj = [widget.horizontalHeaderItem(c) for c in range(widget.columnCount())] #Get headers from table
     widget_headers = [x.text() for x in widget_header_obj if x is not None]
     if len(byte_array)%9 == 0:

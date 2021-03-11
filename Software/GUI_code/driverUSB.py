@@ -113,13 +113,9 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 else:
                     if debug:
                         print("Can't open port1")
-                    self.disconnectSerial()
-                    return False
             else:
                 if debug:
                     print("Can't open port2")
-                self.disconnectSerial()
-                return False
 
         #except: #Return False if unable to establish connection to serial port
             if debug:
@@ -304,6 +300,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def showDriverMessage(self, reply=None):
         if reply is not None:
             reply = reply.decode()
+            if reply == "Sync and sequence files were successfully uploaded.":
+                self.gui.sync_update_signal.emit(None)  # Flag that the active sync state has changed
             self.showMessage(reply)
         else:
             if self.portConnected():
@@ -398,6 +396,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                         if self.initializing_connection:
                             self.initializing_connection = False
                         else:
+                            self.gui.sync_update_signal.emit(None)  # Flag that the active sync state has changed
                             self.showMessage("Sync and sequence files were successfully uploaded.")
 
             elif len(reply) == 4: #If stream is not active, reply is stream initialization showing length of stream to be received
