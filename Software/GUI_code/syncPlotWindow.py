@@ -185,27 +185,27 @@ class syncPlotWindow(QtWidgets.QDialog):
         elif mode == "Confocal":
             for index, trigger in enumerate(["Standby", "Scanning"]):
                 self.main_tab.setTabEnabled(index, True)
-                if sync_model["Digital"][trigger]["Mode"].whatsThis() == "LED Off":
+                if sync_model["Confocal"][trigger]["Mode"].whatsThis() == "LED Off":
                     self.x_ref[index] = [0]  # Set duration to hold
                     for key in self.y_ref[index]:
                         self.y_ref[index][key] = [0] # Set all intensities to 0, and channel is not changed (0)
-                elif sync_model["Digital"][trigger]["Mode"].whatsThis() == "Constant Value":
-                    duration = self.gui.getValue(sync_model["Digital"][trigger]["Duration"])
+                elif sync_model["Confocal"][trigger]["Mode"].whatsThis() == "Constant Value":
+                    duration = self.gui.getValue(sync_model["Confocal"][trigger]["Duration"])
                     if duration == 0:
                         self.x_ref[index] = [0]
                     else:
                         self.x_ref[index] = [0, duration, duration + SLEW_TIME]
                     for key in self.y_ref[index]:
-                        if isinstance(sync_model["Digital"][trigger][key], list):
-                            self.y_ref[index][key] = [widgetIndex(sync_model["Digital"][trigger][key])]
+                        if isinstance(sync_model["Confocal"][trigger][key], list):
+                            self.y_ref[index][key] = [widgetIndex(sync_model["Confocal"][trigger][key])]
                             if duration > 0:
-                                self.y_ref[index][key].extend([widgetIndex(sync_model["Digital"][trigger][key]), 0]) #Extend to hold at off to intensity profile if intensity is pulsed for a fixed duration
+                                self.y_ref[index][key].extend([widgetIndex(sync_model["Confocal"][trigger][key]), 0]) #Extend to hold at off to intensity profile if intensity is pulsed for a fixed duration
                         else:
-                            self.y_ref[index][key] = [self.gui.getValue(sync_model["Digital"][trigger][key])]
+                            self.y_ref[index][key] = [self.gui.getValue(sync_model["Confocal"][trigger][key])]
                             if duration > 0:
-                                self.y_ref[index][key].extend([self.gui.getValue(sync_model["Digital"][trigger][key]), 0]) #Extend to hold at off to intensity profile if intensity is pulsed for a fixed duration
+                                self.y_ref[index][key].extend([self.gui.getValue(sync_model["Confocal"][trigger][key]), 0]) #Extend to hold at off to intensity profile if intensity is pulsed for a fixed duration
                 else:
-                    seq_widget = self.seq_list[index]
+                    seq_widget = self.seq_list[index+2]
                     n_rows = len(self.seq_dict[seq_widget]["LED #"])
                     elapsed_time = 0
                     if n_rows == 0: #If there isn't a sequence specified, default to holding the LED off
