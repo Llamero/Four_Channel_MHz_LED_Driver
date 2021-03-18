@@ -97,9 +97,6 @@ class Ui(QtWidgets.QMainWindow):
         self.startup = False #Set flag to exiting startup
         self.show()
 
-        self.sync_window_list.append(syncPlotWindow.syncPlotWindow(self.app, self))
-        self.sync_window_list[0].show()
-
     def initializeLookAndFeel(self):
         try:
             with open(self.gui_state_file, "rb") as file:
@@ -169,7 +166,11 @@ class Ui(QtWidgets.QMainWindow):
 
     def createStatusWindow(self):
         self.status_window_list.append(statusWindow.statusWindow(self.app, self))
-        self.status_window_list[len(self.status_window_list)-1].show()
+        self.status_window_list[-1].show()
+
+    def createSyncPlotWindow(self):
+        self.sync_window_list.append(syncPlotWindow.syncPlotWindow(self.app, self))
+        self.sync_window_list[-1].show()
 
     def updateSerialNumber(self, serial_number):
         self.configure_name_driver_serial_label2.setText(serial_number)
@@ -237,8 +238,8 @@ class Ui(QtWidgets.QMainWindow):
         widget_list.append(self.sync_model["Digital"]["High"]["LED"][led_number])
         widget_list.append(self.sync_model["Digital"]["Low"]["LED"][led_number])
         widget_list.append(self.sync_model["Analog"]["LED"][led_number])
-        widget_list.append(self.sync_model["Confocal"]["Image"]["LED"][led_number])
-        widget_list.append(self.sync_model["Confocal"]["Flyback"]["LED"][led_number])
+        widget_list.append(self.sync_model["Confocal"]["Standby"]["LED"][led_number])
+        widget_list.append(self.sync_model["Confocal"]["Scanning"]["LED"][led_number])
         widget_list.append(self.main_model["Channel"][led_number-1])
         for widget in widget_list:
             widget.setEnabled(led_state)
@@ -254,8 +255,8 @@ class Ui(QtWidgets.QMainWindow):
                        self.sync_model["Digital"]["Low"]["LED"][led_number],
                        self.sync_model["Digital"]["High"]["LED"][led_number],
                        self.sync_model["Analog"]["LED"][led_number],
-                       self.sync_model["Confocal"]["Image"]["LED"][led_number],
-                       self.sync_model["Confocal"]["Flyback"]["LED"][led_number],
+                       self.sync_model["Confocal"]["Standby"]["LED"][led_number],
+                       self.sync_model["Confocal"]["Scanning"]["LED"][led_number],
                        eval("self.configure_current_limit_LED" + str(led_number) + "_label")]
         for channel in range(1,5):
             widget_list.append(self.config_model["Channel" + str(channel)][led_number-1])

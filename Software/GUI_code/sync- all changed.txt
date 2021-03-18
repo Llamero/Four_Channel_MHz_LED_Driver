@@ -1,18 +1,18 @@
 Mode::Confocal
 Digital::Channel::Channel #3
 Digital::Low::Mode::Sequence
-Digital::Low::LED::LED #1
+Digital::Low::LED::Current LED
 Digital::Low::PWM::1.1
-Digital::Low::Current::2.1
+Digital::Low::Current::2.101
 Digital::Low::Duration::3.1
-Digital::Low::Sequence::C:/Users/Ben/Documents/GitHub/Four_Channel_MHz_LED_Driver/Software/GUI_code/test.csv
+Digital::Low::Sequence::None
 Digital::High::Mode::Sequence
-Digital::High::LED::LED #2
-Digital::High::PWM::1.2
+Digital::High::LED::Current LED
+Digital::High::PWM::1.199
 Digital::High::Current::2.2
 Digital::High::Duration::3.2
-Digital::High::Sequence::C:/Users/Ben/Documents/GitHub/Four_Channel_MHz_LED_Driver/Software/GUI_code/test2.csv
-Analog::LED::LED #3
+Digital::High::Sequence::None
+Analog::LED::Blue
 Analog::Channel::Channel #4
 Analog::Mode::Buffered - PWM
 Analog::PWM::11
@@ -27,16 +27,16 @@ Confocal::Delay::Mode::Bidirectional
 Confocal::Delay::1::2.4
 Confocal::Delay::2::3.4
 Confocal::Delay::3::4.4
-Confocal::Image::Mode::Sequence
-Confocal::Image::LED::LED #2
-Confocal::Image::PWM::5.4
-Confocal::Image::Current::6.4
-Confocal::Image::Duration::7.4
-Confocal::Image::Sequence::C:/Users/Ben/Documents/GitHub/Four_Channel_MHz_LED_Driver/Software/GUI_code/test3.csv
-Confocal::Flyback::Mode::Sequence
-Confocal::Flyback::LED::LED #3
-Confocal::Flyback::PWM::8.4
-Confocal::Flyback::Current::11.4
-Confocal::Flyback::Duration::10.4
-Confocal::Flyback::Sequence::C:/Users/Ben/Documents/GitHub/Four_Channel_MHz_LED_Driver/Software/GUI_code/test4.csv
+Confocal::Standby::Mode::LED Off
+Confocal::Standby::LED::Current LED
+Confocal::Standby::PWM::5.392
+Confocal::Standby::Current::6.4
+Confocal::Standby::Duration::7.4
+Confocal::Standby::Sequence::None
+Confocal::Scanning::Mode::Constant Value
+Confocal::Scanning::LED::Current LED
+Confocal::Scanning::PWM::8.333
+Confocal::Scanning::Current::11.401
+Confocal::Scanning::Duration::10.4
+Confocal::Scanning::Sequence::None
 Output::Output #3

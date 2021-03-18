@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1066</width>
-    <height>854</height>
+    <width>648</width>
+    <height>605</height>
    </rect>
   </property>
   <property name="font">
@@ -22,7 +22,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="main_tab">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="state_1_tab">
       <property name="contextMenuPolicy">

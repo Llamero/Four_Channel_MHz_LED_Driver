@@ -255,7 +255,7 @@ def bytesToSync(byte_array, gui, prefix):
         for index3 in range(1,4):
             gui.setValue(gui.sync_model["Confocal"]["Delay"][str(index3)], sync_values[24+index3]/DEFAULT_CLOCK_SPEED)
         for index3, key3 in enumerate(["Mode", "LED", "PWM", "Current", "Duration"]):
-            for index2, key2 in enumerate(["Image", "Flyback"]):
+            for index2, key2 in enumerate(["Standby", "Scanning"]):
                 if key3 == "Mode":
                     gui.sync_model["Confocal"][key2][key3].setCurrentIndex(sync_values[(2 * index3) + index2 + 28])
                 if key3 == "LED":
@@ -404,7 +404,7 @@ def syncToBytes(gui, prefix):
     for index3 in range(1,4):
         sync_values[24+index3] = round(gui.getValue(gui.sync_model["Confocal"]["Delay"][str(index3)])*DEFAULT_CLOCK_SPEED) #Convert the delay times to clock cycles at default Teensy speed
     for index3, key3 in enumerate(["Mode", "LED", "PWM", "Current", "Duration"]):
-        for index2, key2 in enumerate(["Image", "Flyback"]):
+        for index2, key2 in enumerate(["Standby", "Scanning"]):
             if key3 == "Mode":
                 sync_values[(2 * index3) + index2 + 28] = gui.sync_model["Confocal"][key2][key3].currentIndex()
             if key3 == "LED":

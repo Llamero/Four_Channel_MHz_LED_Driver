@@ -107,7 +107,7 @@ def initializeSyncModel(gui):
         sync_model["Confocal"]["Delay"]["Mode"] = [gui.sync_confocal_scan_unidirectional_button, gui.sync_confocal_scan_bidirectional_button]
         for delay in range(1,4):
             sync_model["Confocal"]["Delay"][str(delay)] = eval("gui.sync_confocal_delay" + str(delay) + "_box")
-        for event in ["Image", "Flyback"]:
+        for event in ["Standby", "Scanning"]:
             sync_model["Confocal"][event] = OrderedDict()
             sync_model["Confocal"][event]["Mode"] = eval("gui.sync_confocal_" + event.lower() + "_tab")
             sync_model["Confocal"][event]["LED"] = []
@@ -132,8 +132,8 @@ def initializeSyncModel(gui):
 def initializeSeqList(gui):
     seq_table_list = [gui.sync_digital_low_sequence_table,
                       gui.sync_digital_high_sequence_table,
-                      gui.sync_confocal_image_sequence_table,
-                      gui.sync_confocal_flyback_sequence_table]  # List of sequence table widgets
+                      gui.sync_confocal_scanning_sequence_table,
+                      gui.sync_confocal_standby_sequence_table]  # List of sequence table widgets
     return seq_table_list
 
 def initializeSeqDictionary(gui):
@@ -165,6 +165,8 @@ def initializeEvents(gui):
         nonlocal gui
 #        gui.menu_connection.aboutToShow.connect(lambda: gui.ser.getDriverPort()) #Search for all available LED drivers on USB ports
         gui.menu_view_windows_status.triggered.connect(gui.createStatusWindow)
+        gui.menu_view_windows_sync_plot.triggered.connect(gui.createSyncPlotWindow)
+
 
         # Dark/light mode view
         gui.menu_view_skins_dark.triggered.connect(
@@ -287,20 +289,20 @@ def initializeEvents(gui):
                 lambda: seq.saveSequence(gui, gui.sync_digital_high_sequence_table))
             gui.sync_digital_trigger_high_sequence_load_button.clicked.connect(
                 lambda: seq.loadSequence(gui, gui.sync_digital_high_sequence_table))
-            gui.sync_confocal_image_sequence_save_button.clicked.connect(
-                lambda: seq.saveSequence(gui, gui.sync_confocal_image_sequence_table))
-            gui.sync_confocal_image_sequence_load_button.clicked.connect(
-                lambda: seq.loadSequence(gui, gui.sync_confocal_image_sequence_table))
-            gui.sync_confocal_flyback_sequence_save_button.clicked.connect(
-                lambda: seq.saveSequence(gui, gui.sync_confocal_flyback_sequence_table))
-            gui.sync_confocal_flyback_sequence_load_button.clicked.connect(
-                lambda: seq.loadSequence(gui, gui.sync_confocal_flyback_sequence_table))
+            gui.sync_confocal_scanning_sequence_save_button.clicked.connect(
+                lambda: seq.saveSequence(gui, gui.sync_confocal_scanning_sequence_table))
+            gui.sync_confocal_scanning_sequence_load_button.clicked.connect(
+                lambda: seq.loadSequence(gui, gui.sync_confocal_scanning_sequence_table))
+            gui.sync_confocal_standby_sequence_save_button.clicked.connect(
+                lambda: seq.saveSequence(gui, gui.sync_confocal_standby_sequence_table))
+            gui.sync_confocal_standby_sequence_load_button.clicked.connect(
+                lambda: seq.loadSequence(gui, gui.sync_confocal_standby_sequence_table))
 
             # Changes to sequence table
             gui.sync_digital_low_sequence_table.itemChanged.connect(gui.verifyCell)
             gui.sync_digital_high_sequence_table.itemChanged.connect(gui.verifyCell)
-            gui.sync_confocal_image_sequence_table.itemChanged.connect(gui.verifyCell)
-            gui.sync_confocal_flyback_sequence_table.itemChanged.connect(gui.verifyCell)
+            gui.sync_confocal_scanning_sequence_table.itemChanged.connect(gui.verifyCell)
+            gui.sync_confocal_standby_sequence_table.itemChanged.connect(gui.verifyCell)
 
         def outputChannelEvents():
             gui.sync_model["Output"][0].clicked.connect(lambda: gui.disableUsedOutputs(0, "sync"))

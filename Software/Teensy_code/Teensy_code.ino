@@ -288,12 +288,6 @@ void loop() {
     temp_buffer[0] = prefix.status_update;
     memcpy(temp_buffer+1, status.byte_buffer, sizeof(status.byte_buffer));
     usb.send(temp_buffer, sizeof(status.byte_buffer)+1); 
-    if(status.s.mode){
-      analogWrite(pin.FAN_PWM, status.s.led_pwm);
-    }
-    else{
-      analogWrite(pin.FAN_PWM, 0);
-    }
     digitalWriteFast(LED_BUILTIN, HIGH);
     delay(20);
     digitalWriteFast(LED_BUILTIN, LOW);

@@ -113,7 +113,7 @@ def saveSequence(gui, widget, get_path=None):  # derived from - https://stackove
     gui.waitCursor(False)
 
 def findUnsavedSeqThenSave(gui, model):
-    seq_list = [["Digital", "Low"], ["Digital", "High"], ["Confocal", "Image"], ["Confocal", "Flyback"]]
+    seq_list = [["Digital", "Low"], ["Digital", "High"], ["Confocal", "Standby"], ["Confocal", "Scanning"]]
     for dictionary in seq_list:
         if model[dictionary[0]][dictionary[1]]["Sequence"] is None:
             showMessage(gui, "Sequence table \"" + dictionary[0] + "::" + dictionary[1] + "\" has not yet been saved. Please save sequence files first if you want them included with the configuration.")

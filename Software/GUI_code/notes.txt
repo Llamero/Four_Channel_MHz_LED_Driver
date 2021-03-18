@@ -36,9 +36,6 @@ Switch label to green when in hold to match plot text behavior
 
 Only show vertical cursor line when plot starts
 
-Add leading point showing intensity before plot, and add hold point at end
-WHen reaches hold say "Holding at: " on right hand side until hold cleared
 
-Compress timeline plot until driver reaches hold value
 
-When sync is uploaded or downloaded save mode text for tabs, and seq tables to status dictionary
+

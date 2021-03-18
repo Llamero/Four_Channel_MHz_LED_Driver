@@ -162,7 +162,7 @@ class syncPlotWindow(QtWidgets.QDialog):
                             if duration > 0: #If hold is not reached add two time points as sequence is a step function
                                 self.x_ref[index].append(elapsed_time+duration)
                                 list_length = 2
-                            self.y_ref[index]["LED"].extend([float(self.seq_dict[seq_widget]["LED #"][row])]*list_length)
+                            self.y_ref[index]["LED"].extend([int(self.seq_dict[seq_widget]["LED #"][row])]*list_length)
                             self.y_ref[index]["PWM"].extend([float(self.seq_dict[seq_widget]["LED PWM (%)"][row])]*list_length)
                             self.y_ref[index]["Current"].extend([float(self.seq_dict[seq_widget]["LED current (%)"][row])]*list_length)
                             elapsed_time += duration
@@ -170,8 +170,75 @@ class syncPlotWindow(QtWidgets.QDialog):
                                 break
                         else:
                             self.showMessage("ERROR: Something went very wrong - a hold was not reached at the end of a sequence and this should be impossible.")
-            print(self.x_ref)
-            print(self.y_ref)
+
+        elif mode == "Analog":
+            #Disable second tab as there is only one analog state
+            self.main_tab.setTabEnabled(0, True)
+            self.main_tab.setTabEnabled(1, False)
+
+            #Initialize plots to 0
+            for index in range(2):
+                self.x_ref[index] = [0]
+                for key in self.y_ref[index]:
+                    self.y_ref[index][key] = [0]
+
+        elif mode == "Confocal":
+            for index, trigger in enumerate(["Standby", "Scanning"]):
+                self.main_tab.setTabEnabled(index, True)
+                if sync_model["Digital"][trigger]["Mode"].whatsThis() == "LED Off":
+                    self.x_ref[index] = [0]  # Set duration to hold
+                    for key in self.y_ref[index]:
+                        self.y_ref[index][key] = [0] # Set all intensities to 0, and channel is not changed (0)
+                elif sync_model["Digital"][trigger]["Mode"].whatsThis() == "Constant Value":
+                    duration = self.gui.getValue(sync_model["Digital"][trigger]["Duration"])
+                    if duration == 0:
+                        self.x_ref[index] = [0]
+                    else:
+                        self.x_ref[index] = [0, duration, duration + SLEW_TIME]
+                    for key in self.y_ref[index]:
+                        if isinstance(sync_model["Digital"][trigger][key], list):
+                            self.y_ref[index][key] = [widgetIndex(sync_model["Digital"][trigger][key])]
+                            if duration > 0:
+                                self.y_ref[index][key].extend([widgetIndex(sync_model["Digital"][trigger][key]), 0]) #Extend to hold at off to intensity profile if intensity is pulsed for a fixed duration
+                        else:
+                            self.y_ref[index][key] = [self.gui.getValue(sync_model["Digital"][trigger][key])]
+                            if duration > 0:
+                                self.y_ref[index][key].extend([self.gui.getValue(sync_model["Digital"][trigger][key]), 0]) #Extend to hold at off to intensity profile if intensity is pulsed for a fixed duration
+                else:
+                    seq_widget = self.seq_list[index]
+                    n_rows = len(self.seq_dict[seq_widget]["LED #"])
+                    elapsed_time = 0
+                    if n_rows == 0: #If there isn't a sequence specified, default to holding the LED off
+                        self.x_ref[index] = [0]  # Set duration to hold
+                        for key in self.y_ref[index]:
+                            self.y_ref[index][key] = [0]  # Set all intensities to 0, and channel is not changed (0)
+                    else:
+                        for key in self.y_ref[index]:
+                            self.y_ref[index][key] = []  # Clear all lists
+                        self.x_ref[index] = []
+
+                        #If a hold isn't specified at the end of the sequence add a hold at off
+                        if self.seq_dict[seq_widget]["Duration (s)"][n_rows-1] != 0:
+                            for key in self.seq_dict[seq_widget]:
+                                self.seq_dict[seq_widget][key].append(0)
+                            n_rows += 1
+
+                        for row in range(n_rows):
+                            duration = float(self.seq_dict[seq_widget]["Duration (s)"][row])
+                            self.x_ref[index].append(elapsed_time+SLEW_TIME)
+                            list_length = 1 #If hold is reached, only add one more time point
+                            if duration > 0: #If hold is not reached add two time points as sequence is a step function
+                                self.x_ref[index].append(elapsed_time+duration)
+                                list_length = 2
+                            self.y_ref[index]["LED"].extend([int(self.seq_dict[seq_widget]["LED #"][row])]*list_length)
+                            self.y_ref[index]["PWM"].extend([float(self.seq_dict[seq_widget]["LED PWM (%)"][row])]*list_length)
+                            self.y_ref[index]["Current"].extend([float(self.seq_dict[seq_widget]["LED current (%)"][row])]*list_length)
+                            elapsed_time += duration
+                            if duration == 0:
+                                break
+                        else:
+                            self.showMessage("ERROR: Something went very wrong - a hold was not reached at the end of a sequence and this should be impossible.")
+
         else:
             print("Not implemented")
 
