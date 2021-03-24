@@ -29,6 +29,8 @@ class statusWindow(QtWidgets.QDialog):
         self.app = app
         self.gui = main_window
         super(statusWindow, self).__init__()
+        self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+
         # Set look and feel
         uic.loadUi('Status_GUI.ui', self)
         if self.gui.menu_view_skins_dark.isChecked(): #Set dark skin if in dark mode since skin is reverted when window is opened.
@@ -36,13 +38,17 @@ class statusWindow(QtWidgets.QDialog):
         else:
             self.app.setStyleSheet("")
         self.app.setFont(QFont("MS Shell Dlg 2", 12))
-        self.plot_timeline = guiMapper.TimeLine(loopCount=0, interval=100) #Animation object for animating plots
         self.x_axis_offset = 0 #Current x-axis offset to use for rastering the plots in time
 
+        #Set signals
+        self.status_emit = self.status_signal.emit #Initialize instance of function so it can be explicitly disconnected later
+        self.gui.status_signal.connect(self.status_emit)  #Connect mainWindow status signal to dialog status signal
+        self.status_signal.connect(self.updateStatus) #Update status when new status signal is received
+        self.plot_timeline = guiMapper.TimeLine(loopCount=0, interval=100) #Animation object for animating plots
+
+        #Initialize plot data
         self.status_dict = copy.deepcopy(self.gui.status_dict)
         self.status_dict["Count"] = 0 #Add count element to dictionary
-        self.gui.status_signal.connect(self.status_signal.emit)  # Connect mainWindow status signal to dialog status signal
-        self.status_signal.connect(self.updateStatus) #Update status when new status signal is received
         self.plots = OrderedDict([("PWM", self.graph_intensity_pwm), ("Current", self.graph_intensity_current),
                                   ("Transistor", self.graph_temperature_transistor), ("Resistor", self.graph_temperature_resistor), ("External", self.graph_temperature_external)])
 
@@ -246,6 +252,18 @@ class statusWindow(QtWidgets.QDialog):
                     y_list = list(self.y_values[key])
                     status_plot.setYRange(0, max(y_list)*PLOT_PADDING, padding=0)
                     status_plot.plot(x_values, y_list, pen=pg.mkPen('g', width=1), connect="finite", clear=True)
+
+    def closeEvent(self, event):
+        self.stopAnimation()
+
+        #Disconnect class instance from MainWindow signals
+        self.gui.status_signal.disconnect(self.status_emit)
+
+        #Disconnect internal signals
+        self.status_signal.disconnect()  # Connect mainWindow status signal to dialog status signal
+
+        #Explicity delete timeline
+        self.plot_timeline.deleteLater()
 
     def updateLabel(self, key, value, unit = ""):
         widget = key.lower()
