@@ -165,12 +165,25 @@ class Ui(QtWidgets.QMainWindow):
             return True
 
     def createStatusWindow(self):
-        self.status_window_list.append(statusWindow.statusWindow(self.app, self))
-        self.status_window_list[-1].show()
+        #See if there is a closed instance to overwrite.  If not, create a new instance
+        for index, instance in enumerate(self.status_window_list):
+            if instance.windowClosed():
+                self.status_window_list[index] = statusWindow.statusWindow(self.app, self)
+                self.status_window_list[index].show()
+                break
+        else:
+            self.status_window_list.append(statusWindow.statusWindow(self.app, self))
+            self.status_window_list[-1].show()
 
     def createSyncPlotWindow(self):
-        self.sync_window_list.append(syncPlotWindow.syncPlotWindow(self.app, self))
-        self.sync_window_list[-1].show()
+        for index, instance in enumerate(self.sync_window_list):
+            if instance.windowClosed():
+                self.sync_window_list[index] = syncPlotWindow.syncPlotWindow(self.app, self)
+                self.sync_window_list[index].show()
+                break
+        else:
+            self.sync_window_list.append(syncPlotWindow.syncPlotWindow(self.app, self))
+            self.sync_window_list[-1].show()
 
     def updateSerialNumber(self, serial_number):
         self.configure_name_driver_serial_label2.setText(serial_number)

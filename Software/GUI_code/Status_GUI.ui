@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>442</width>
-    <height>497</height>
+    <width>412</width>
+    <height>525</height>
    </rect>
   </property>
   <property name="font">
@@ -16,7 +16,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Status</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -54,6 +54,7 @@
            <widget class="QGroupBox" name="text_sync_box">
             <property name="font">
              <font>
+              <pointsize>12</pointsize>
               <weight>50</weight>
               <bold>false</bold>
               <underline>false</underline>
@@ -67,6 +68,7 @@
               <widget class="QLabel" name="text_mode_label">
                <property name="font">
                 <font>
+                 <pointsize>12</pointsize>
                  <weight>50</weight>
                  <bold>false</bold>
                  <underline>false</underline>
@@ -97,6 +99,7 @@
            <widget class="QGroupBox" name="text_led_box">
             <property name="font">
              <font>
+              <pointsize>12</pointsize>
               <weight>50</weight>
               <bold>false</bold>
               <underline>false</underline>
@@ -110,6 +113,7 @@
               <widget class="QLabel" name="text_pwm_label">
                <property name="font">
                 <font>
+                 <pointsize>12</pointsize>
                  <weight>50</weight>
                  <bold>false</bold>
                  <underline>false</underline>
@@ -127,6 +131,7 @@
               <widget class="QLabel" name="text_current_label">
                <property name="font">
                 <font>
+                 <pointsize>12</pointsize>
                  <weight>50</weight>
                  <bold>false</bold>
                  <underline>false</underline>
@@ -144,6 +149,7 @@
               <widget class="QLabel" name="text_channel_label">
                <property name="font">
                 <font>
+                 <pointsize>12</pointsize>
                  <weight>50</weight>
                  <bold>false</bold>
                  <underline>false</underline>
@@ -161,6 +167,7 @@
               <widget class="QLabel" name="text_channel_name_label">
                <property name="font">
                 <font>
+                 <pointsize>12</pointsize>
                  <weight>50</weight>
                  <bold>false</bold>
                  <underline>false</underline>
@@ -181,6 +188,7 @@
            <widget class="QGroupBox" name="text_temperature_box">
             <property name="font">
              <font>
+              <pointsize>12</pointsize>
               <weight>50</weight>
               <bold>false</bold>
               <underline>false</underline>
@@ -194,6 +202,7 @@
               <widget class="QLabel" name="text_transistor_label">
                <property name="font">
                 <font>
+                 <pointsize>12</pointsize>
                  <weight>50</weight>
                  <bold>false</bold>
                  <underline>false</underline>
@@ -211,6 +220,7 @@
               <widget class="QLabel" name="text_driver_fan_label">
                <property name="font">
                 <font>
+                 <pointsize>12</pointsize>
                  <weight>50</weight>
                  <bold>false</bold>
                  <underline>false</underline>
@@ -228,6 +238,7 @@
               <widget class="QLabel" name="text_resistor_label">
                <property name="font">
                 <font>
+                 <pointsize>12</pointsize>
                  <weight>50</weight>
                  <bold>false</bold>
                  <underline>false</underline>
@@ -245,6 +256,7 @@
               <widget class="QLabel" name="text_external_label">
                <property name="font">
                 <font>
+                 <pointsize>12</pointsize>
                  <weight>50</weight>
                  <bold>false</bold>
                  <underline>false</underline>
@@ -275,6 +287,7 @@
            <widget class="QGroupBox" name="text_connection_box">
             <property name="font">
              <font>
+              <pointsize>12</pointsize>
               <weight>50</weight>
               <italic>false</italic>
               <bold>false</bold>
@@ -290,6 +303,7 @@
               <widget class="QLabel" name="text_serial_label">
                <property name="font">
                 <font>
+                 <pointsize>12</pointsize>
                  <weight>50</weight>
                  <italic>false</italic>
                  <bold>false</bold>
@@ -309,6 +323,7 @@
               <widget class="QLabel" name="text_name_label">
                <property name="font">
                 <font>
+                 <pointsize>12</pointsize>
                  <weight>50</weight>
                  <italic>false</italic>
                  <bold>false</bold>
@@ -328,6 +343,7 @@
               <widget class="QLabel" name="text_com_port_label">
                <property name="font">
                 <font>
+                 <pointsize>12</pointsize>
                  <weight>50</weight>
                  <italic>false</italic>
                  <bold>false</bold>

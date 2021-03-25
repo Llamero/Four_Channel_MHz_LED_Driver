@@ -22,7 +22,7 @@ MIN_TEMP_RANGE = 6 #Number of degrees at maximum zoom on the temperature plot
 PLOT_PADDING = 1.1 #Factor of dark space above and below plot line so that plot line doesn't touch top of widget
 debug = False
 
-class statusWindow(QtWidgets.QDialog):
+class statusWindow(QtWidgets.QWidget):
     status_signal = QtCore.pyqtSignal(object)  # Need to initialize outside of init() https://stackoverflow.com/questions/2970312/pyqt4-qtcore-pyqtsignal-object-has-no-attribute-connect
 
     def __init__(self, app, main_window):
@@ -30,6 +30,7 @@ class statusWindow(QtWidgets.QDialog):
         self.gui = main_window
         super(statusWindow, self).__init__()
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.window_closed = False
 
         # Set look and feel
         uic.loadUi('Status_GUI.ui', self)
@@ -253,6 +254,11 @@ class statusWindow(QtWidgets.QDialog):
                     status_plot.setYRange(0, max(y_list)*PLOT_PADDING, padding=0)
                     status_plot.plot(x_values, y_list, pen=pg.mkPen('g', width=1), connect="finite", clear=True)
 
+    def updateLabel(self, key, value, unit = ""):
+        widget = key.lower()
+        widget = eval("self.text_" + widget.replace(" ", "_") + "_label")
+        widget.setText(key + ": " + str(value) + unit)
+
     def closeEvent(self, event):
         self.stopAnimation()
 
@@ -264,11 +270,11 @@ class statusWindow(QtWidgets.QDialog):
 
         #Explicity delete timeline
         self.plot_timeline.deleteLater()
+        # Change window closed flag
+        self.window_closed = True
 
-    def updateLabel(self, key, value, unit = ""):
-        widget = key.lower()
-        widget = eval("self.text_" + widget.replace(" ", "_") + "_label")
-        widget.setText(key + ": " + str(value) + unit)
+    def windowClosed(self):
+        return self.window_closed
 
     def showMessage(self, text):
         self.gui.waitCursor(False)

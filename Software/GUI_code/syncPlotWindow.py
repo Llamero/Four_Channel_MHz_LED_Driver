@@ -21,7 +21,7 @@ import datetime
 
 PLOT_PADDING = 1.1 #Factor of dark space above and below plot line so that plot line doesn't touch top of widget
 SLEW_TIME = 1e-6 #Time for LED to switch between intensities
-N_SAMPLES = 100 #When plots exceed 2x this length, they will be binned back to this length
+N_SAMPLES = 1000 #When plots exceed 2x this length, they will be binned back to this length
 STARTING_PLOT_RATE = 50 #Time between plot updates at start of plot
 debug = True
 
@@ -34,9 +34,10 @@ class syncPlotWindow(QtWidgets.QWidget):
         self.gui = main_window
         super(syncPlotWindow, self).__init__()
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.window_closed = False
 
         # Set look and feel
-        uic.loadUi('Sync_Plot_GUI-widget.ui', self)
+        uic.loadUi('Sync_Plot_GUI.ui', self)
 
         #Connect signals
         self.status_emit = self.status_signal.emit #Function instance saved so it can later be disconnected explicitly
@@ -300,20 +301,12 @@ class syncPlotWindow(QtWidgets.QWidget):
                     seq_plot.plot(self.x_ref[index], self.y_ref[index][key], pen=pg.mkPen('m', width=1), clear=True)
 
     def binPlots(self):
-        def binList(array):
-            nonlocal array_length
-            binned_array = [0] * math.floor(array_length/ 2)
-            for index3, index2 in enumerate(list(range(0, 2 * len(binned_array), 2))):
-                binned_array[index3] = (array[index2] + array[index2 + 1]) / 2
-            return binned_array
-
-
         index = self.status_dict["State"]
         array_length = len(self.x_values[index])
         if array_length >= N_SAMPLES*2:
             for key in self.y_values[index]:
-                self.y_values[index][key] = binList(self.y_values[index][key])
-            self.x_values[index] = binList(self.x_values[index])
+                self.y_values[index][key] = self.y_values[index][key][::2]
+            self.x_values[index] = self.x_values[index][::2]
 
             #Halve the plotting rate to match new bin widths
             self.plot_interval *= 2
@@ -341,9 +334,11 @@ class syncPlotWindow(QtWidgets.QWidget):
         if (status["Mode"] == 0 and self.status_dict["Mode"] != 0) or status["State"] != self.status_dict["State"]: #If there was a change to sync active or sync state change: switch tab, reset plots, and reset animation
             self.main_tab.setCurrentIndex(status["State"]) #Switch to tab for active state
             self.stopAnimation()
+            self.status_signal.disconnect()  #Stop status updates - the prevents extraneous updates being saved while plots are reset
             self.resetHold()
             self.clearPlot(status["State"])  # Clear the plot arrays for the active state
             self.status_dict["Count"] = 0
+            self.status_signal.connect(self.updateStatus)  # Update status when new status signal is received
             self.startAnimation()
 
         elif status["Mode"] != 0 and self.status_dict["Mode"] == 0: #If there was a change to sync inactive, stop plotting
@@ -437,6 +432,12 @@ class syncPlotWindow(QtWidgets.QWidget):
 
         #Explicity delete timeline
         self.plot_timeline.deleteLater()
+
+        #Change window closed flag
+        self.window_closed = True
+
+    def windowClosed(self):
+        return self.window_closed
 
     def showMessage(self, text):
         self.gui.waitCursor(False)
