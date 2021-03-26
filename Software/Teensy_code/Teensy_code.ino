@@ -272,6 +272,7 @@ void loop() {
   if(heartbeat < HEARTBEAT_TIMEOUT){
     if(status.s.driver_control){
       status.s.led_channel = 0;
+      analogRead(pin.POT);
       status.s.led_pwm = 65535-analogRead(pin.POT);
       status.s.led_current = 65535-analogRead(pin.POT);
       status.s.mode = digitalReadFast(pin.TOGGLE);

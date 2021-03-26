@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>711</width>
-    <height>1261</height>
+    <width>475</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -48,7 +48,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -3243,8 +3243,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>611</width>
-             <height>1105</height>
+             <width>667</width>
+             <height>1114</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_16">
@@ -4843,7 +4843,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>711</width>
+     <width>475</width>
      <height>24</height>
     </rect>
    </property>
@@ -4885,9 +4885,20 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
      <addaction name="menu_view_windows_status"/>
      <addaction name="menu_view_windows_sync_plot"/>
     </widget>
+    <widget class="QMenu" name="menu_view_lock">
+     <property name="toolTip">
+      <string>Toggle locks on the user interface to prevent accidental changes.</string>
+     </property>
+     <property name="title">
+      <string>Unlock/Lock</string>
+     </property>
+     <addaction name="menu_view_lock_gui"/>
+     <addaction name="menu_view_lock_sync"/>
+     <addaction name="menu_view_lock_config"/>
+    </widget>
     <addaction name="menu_view_windows"/>
     <addaction name="menu_view_skins"/>
-    <addaction name="menu_view_lock_interface"/>
+    <addaction name="menu_view_lock"/>
    </widget>
    <addaction name="menu_connection"/>
    <addaction name="menu_view"/>
@@ -4978,20 +4989,45 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <string>Sync plot</string>
    </property>
   </action>
-  <action name="menu_view_lock_interface">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Lock Interface</string>
-   </property>
-  </action>
   <action name="menu_connection_search">
    <property name="text">
     <string>Search for LED driver</string>
    </property>
    <property name="toolTip">
     <string>Search for all LED drivers with open connections to the computer.</string>
+   </property>
+  </action>
+  <action name="menu_view_lock_gui">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Lock GUI</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggle GUI lock</string>
+   </property>
+  </action>
+  <action name="menu_view_lock_sync">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Lock Sync</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggle configuration tab lock</string>
+   </property>
+  </action>
+  <action name="menu_view_lock_config">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Lock Config</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggle configuration tab lock</string>
    </property>
   </action>
  </widget>
@@ -5022,28 +5058,28 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
-  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
-  <buttongroup name="main_intensity_button_group"/>
-  <buttongroup name="configure_ch_merge_3_button_group"/>
-  <buttongroup name="configure_pushbutton_LED_button_group"/>
-  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
-  <buttongroup name="configure_ch_merge_4_button_group"/>
-  <buttongroup name="configure_ch_merge_1_button_group"/>
-  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
-  <buttongroup name="sync_confocal_scan_mode_button_group"/>
-  <buttongroup name="configure_ext_fan_button_group"/>
-  <buttongroup name="sync_analog_led_channel_button_group"/>
-  <buttongroup name="sync_confocal_line_input_button_group"/>
-  <buttongroup name="sync_analog_input_channel_button_group"/>
-  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
-  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
-  <buttongroup name="main_toggle_control_group"/>
   <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
-  <buttongroup name="sync_digital_trigger_button_group"/>
+  <buttongroup name="configure_ext_fan_button_group"/>
+  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
+  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
   <buttongroup name="configure_indication_group"/>
+  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
+  <buttongroup name="configure_ch_merge_3_button_group"/>
+  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
   <buttongroup name="main_channel_button_group"/>
-  <buttongroup name="sync_output_button_group"/>
   <buttongroup name="configure_ch_merge_2_button_group"/>
+  <buttongroup name="configure_ch_merge_4_button_group"/>
+  <buttongroup name="sync_confocal_scan_mode_button_group"/>
+  <buttongroup name="sync_confocal_line_input_button_group"/>
+  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
+  <buttongroup name="configure_ch_merge_1_button_group"/>
+  <buttongroup name="sync_digital_trigger_button_group"/>
+  <buttongroup name="main_toggle_control_group"/>
+  <buttongroup name="sync_output_button_group"/>
+  <buttongroup name="sync_analog_input_channel_button_group"/>
+  <buttongroup name="sync_analog_led_channel_button_group"/>
+  <buttongroup name="configure_pushbutton_LED_button_group"/>
+  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
+  <buttongroup name="main_intensity_button_group"/>
  </buttongroups>
 </ui>

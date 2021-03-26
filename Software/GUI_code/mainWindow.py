@@ -38,7 +38,7 @@ class Ui(QtWidgets.QMainWindow):
         # Set look and feel
         uic.loadUi('QtDesigner_GUI.ui', self)
         self.gui_state_file = 'gui_state.obj'
-        self.initializeLookAndFeel()
+        self.gui_state_dict = OrderedDict([("skin", "light"), ("lock", OrderedDict([("sync", False), ("config", False), ("gui", False)]))])
 
         #Initialize message box
         self.message_box = QtWidgets.QMessageBox() # https://pythonbasics.org/pyqt-qmessagebox/
@@ -95,18 +95,36 @@ class Ui(QtWidgets.QMainWindow):
         if self.splash.isVisible():
             self.splash.finish(self)
         self.startup = False #Set flag to exiting startup
+
+        #Restore look and feel to previous session state
+        self.initializeLookAndFeel()
         self.show()
 
     def initializeLookAndFeel(self):
+        def checkDict(d_ref, d_test):
+            for k, v in d_ref.items():
+                if isinstance(v, OrderedDict):
+                    if isinstance(d_test, OrderedDict):
+                        checkDict(v, d_test[k])
+                    else:
+                        return d_ref
+                else:
+                    if type(v) != type(d_test[k]):
+                        return d_ref
+            else:
+                return d_test
+
         try:
             with open(self.gui_state_file, "rb") as file:
-                gui_skin_mode = pickle.load(file)
-            if gui_skin_mode == "dark":
-                self.toggleSkin(self.menu_view_skins_dark, self.menu_view_skins_light, "dark")
-            else:
-                raise EOFError
+                self.gui_state_dict = checkDict(self.gui_state_dict, pickle.load(file)) #Make sure file is valid
+
         except EOFError: #Default to light skin if no made has been saved yet
-            self.toggleSkin(self.menu_view_skins_light, self.menu_view_skins_dark, "light")
+            pass #Use default dictionary
+        print(self.gui_state_dict["skin"])
+        self.toggleSkin(self.gui_state_dict["skin"])
+        for key in self.gui_state_dict["lock"]:
+            self.lockInterface(key, True)
+
 
     def getValue(self, widget):
         if isinstance(widget, QtWidgets.QLineEdit):
@@ -224,18 +242,49 @@ class Ui(QtWidgets.QMainWindow):
 
         self.ser.updateStatus()
 
-    def toggleSkin(self, enable_widget, disable_widget, mode):
-        enable_widget.setChecked(True)
-        disable_widget.setChecked(False)
+    def toggleSkin(self, mode):
+        dark_active = False
         if mode == "dark":
             self.app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
-
+            dark_active = True
         else:
             self.app.setStyleSheet("")
-        with open(self.gui_state_file, "wb") as file:
-            pickle.dump(mode, file)
         self.app.setFont(QFont("MS Shell Dlg 2", 12))
 
+        #Toggle menu check marks
+        self.menu_view_skins_dark.setChecked(dark_active)
+        self.menu_view_skins_light.setChecked(not dark_active)
+
+        #Save new GUI state
+        self.gui_state_dict["skin"] = mode
+        with open(self.gui_state_file, "wb") as file:
+            pickle.dump(self.gui_state_dict, file)
+
+    def lockInterface(self, key, force_toggle = False):
+        menu_widget = eval("self.menu_view_lock_" + key)
+        if key == "gui":
+            widget_list = [self.gui_master_tab]
+            index = 0
+        elif key == "sync":
+            widget_list = [self.sync_scroll_area, self.sync_output_box]
+            index = 1
+        else:
+            widget_list = [self.configure_scroll_area]
+            index = 2
+
+        #Override check mark to stored state
+        if force_toggle:
+            menu_widget.setChecked(self.gui_state_dict["lock"][key])
+
+        #Toggle enabled widgets
+        self.gui_master_tab.setCurrentIndex(index)  # Jump to main page before locking interface
+        for widget in widget_list:
+            widget.setEnabled(not menu_widget.isChecked())
+        self.gui_state_dict["lock"][key] = menu_widget.isChecked()
+
+        # Save new GUI state
+        with open(self.gui_state_file, "wb") as file:
+            pickle.dump(self.gui_state_dict, file, protocol=pickle.HIGHEST_PROTOCOL)
 
     def changeDriverName(self, widget):
         name = self.getValue(widget)
@@ -333,10 +382,6 @@ class Ui(QtWidgets.QMainWindow):
         self.main_model["Mode"][0].setEnabled(software_enable)
         self.main_model["Mode"][3].setEnabled(software_enable)
         self.main_intensity_spinbox.setReadOnly(not software_enable)
-
-    def lockInterface(self, widget):
-        self.gui_master_tab.setCurrentIndex(0) #Jump to main page before locking interface
-        self.gui_master_tab.setEnabled(not widget.isChecked())
 
     def verifyCell(self, item):
         seq.verifyCell(self, item.column(), item.row(), item.text(), item.tableWidget())

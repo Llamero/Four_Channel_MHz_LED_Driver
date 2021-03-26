@@ -62,8 +62,7 @@ class syncPlotWindow(QtWidgets.QWidget):
         self.y_values = copy.deepcopy(self.y_ref)
         self.x_values = copy.deepcopy(self.x_ref)  # X values of reference sequence line
         self.status_dict = copy.deepcopy(self.gui.status_dict)
-        self.status_dict["Count"] = 0 #Add count element to dictionary
-        self.status_dict["Time"] = 0  # Add time element to dictionary
+        self.resetStatus()
         self.seq_list = guiMapper.initializeSeqList(self.gui)
         self.seq_dict = self.gui.seq_dict
         self.mode = None #Save active sync mode string
@@ -288,8 +287,8 @@ class syncPlotWindow(QtWidgets.QWidget):
             print("Not implemented")
 
         #Update hold labels:
-        self.hold_label[0].setText("Hold at end: PWM = " + str(self.y_ref[0]["PWM"][-1]) + "%, Current = " + str(self.y_ref[0]["Current"][-1]) + "%, Channel = " + str(self.y_ref[0]["Channel"][-1]) + ".  Elapsed hold time: 00:00:00")
-        self.hold_label[1].setText("Hold at end: PWM = " + str(self.y_ref[1]["PWM"][-1]) + "%, Current = " + str(self.y_ref[1]["Current"][-1]) + "%, Channel = " + str(self.y_ref[1]["Channel"][-1]) + ".  Elapsed hold time: 00:00:00")
+        self.resetHoldLabel(0)
+        self.resetHoldLabel(1)
         self.resetHold()
         if debug:
             print("Hold status initialized: " + str(self.hold_status))
@@ -336,10 +335,11 @@ class syncPlotWindow(QtWidgets.QWidget):
             self.stopAnimation()
             self.status_signal.disconnect()  #Stop status updates - the prevents extraneous updates being saved while plots are reset
             self.resetHold()
+            self.resetHoldLabel(status["State"])  # Clear the plot arrays for the active state
             self.clearPlot(status["State"])  # Clear the plot arrays for the active state
-            self.status_dict["Count"] = 0
-            self.status_signal.connect(self.updateStatus)  # Update status when new status signal is received
+            self.resetStatus()
             self.startAnimation()
+            self.status_signal.connect(self.updateStatus)  # Update status when new status signal is received
 
         elif status["Mode"] != 0 and self.status_dict["Mode"] == 0: #If there was a change to sync inactive, stop plotting
             self.stopAnimation()
@@ -375,6 +375,9 @@ class syncPlotWindow(QtWidgets.QWidget):
         for key in self.y_values[index]:
             self.y_values[index][key] = []
         self.x_values[index] = []
+    def resetStatus(self):
+        self.status_dict["Count"] = 0  # Add count element to dictionary
+        self.status_dict["Time"] = 0  # Add time element to dictionary
 
     def resetHold(self):
         for index in range(2):
@@ -382,6 +385,9 @@ class syncPlotWindow(QtWidgets.QWidget):
                 self.hold_status[index] = None
             else:
                 self.hold_status[index] = False
+
+    def resetHoldLabel(self, index):
+        self.hold_label[index].setText("Hold at end: PWM = " + str(self.y_ref[index]["PWM"][-1]) + "%, Current = " + str(self.y_ref[index]["Current"][-1]) + "%, Channel = " + str(self.y_ref[index]["Channel"][-1]) + ".  Elapsed hold time: 00:00:00")
 
     def updateSyncPlot(self):
         show_plot = self.isVisible()
@@ -409,10 +415,10 @@ class syncPlotWindow(QtWidgets.QWidget):
 
             else: #If timer has reached hold, update hold label instead
                 round_to_n = lambda x, n: x if x == 0 else round(x, -int(math.floor(math.log10(abs(x)))) + (n - 1))  # Round to sig fig - https://stackoverflow.com/questions/3410976/how-to-round-a-number-to-significant-figures-in-python
-                hold_seconds = round(self.status_dict["Time"]/count)
+                hold_seconds = round((self.status_dict["Time"]/count)-self.hold_start_time)
                 for key, status_plot in self.plots[state].items():
                     self.y_values[state][key].append(self.status_dict[key]/count)
-                self.hold_label[0].setText("Hold at end: PWM = " + str(round_to_n(self.status_dict["PWM"], 3)) +
+                self.hold_label[state].setText("Hold at end: PWM = " + str(round_to_n(self.status_dict["PWM"], 3)) +
                                            "%, Current = " + str(round_to_n(self.status_dict["Current"], 3)) +
                                            "%, Channel = " + str(round(self.status_dict["Channel"])) +
                                            ".  Elapsed hold time: " + str(datetime.timedelta(seconds = hold_seconds)))
