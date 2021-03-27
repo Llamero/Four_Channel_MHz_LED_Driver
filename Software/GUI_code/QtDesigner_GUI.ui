@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>475</width>
-    <height>600</height>
+    <width>615</width>
+    <height>1216</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -48,7 +48,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -439,8 +439,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>667</width>
-             <height>1046</height>
+             <width>571</width>
+             <height>1001</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -1740,8 +1740,8 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>632</width>
-                 <height>1080</height>
+                 <width>536</width>
+                 <height>1169</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1772,73 +1772,6 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                    <property name="bottomMargin">
                     <number>0</number>
                    </property>
-                   <item row="0" column="0">
-                    <widget class="QGroupBox" name="sync_confocal_shutter_box">
-                     <property name="toolTip">
-                      <string>The shutter output voltage is used to determine the start and stop of a scan.</string>
-                     </property>
-                     <property name="title">
-                      <string>Shutter Sync</string>
-                     </property>
-                     <layout class="QGridLayout" name="gridLayout_63" columnstretch="0,0,20,0">
-                      <item row="0" column="0" colspan="4">
-                       <widget class="QLabel" name="sync_confocal_shutter_label">
-                        <property name="toolTip">
-                         <string>The shutter input channel is fixed to channel #1</string>
-                        </property>
-                        <property name="text">
-                         <string>NOTE: Connect the shutter sync input to channel #1.</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="0">
-                       <widget class="QLabel" name="sync_confocal_shutter_polarity_label">
-                        <property name="minimumSize">
-                         <size>
-                          <width>0</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="toolTip">
-                         <string>The polarity of the shutter output voltage when the shutter is open.</string>
-                        </property>
-                        <property name="text">
-                         <string>Shutter open trigger polarity:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="1">
-                       <widget class="QRadioButton" name="sync_confocal_shutter_low_button">
-                        <property name="toolTip">
-                         <string>Shutter output voltage goes LOW (&lt;1.0V) when shutter is open</string>
-                        </property>
-                        <property name="text">
-                         <string>LOW</string>
-                        </property>
-                        <attribute name="buttonGroup">
-                         <string notr="true">sync_confocal_shutter_polarity_button_group</string>
-                        </attribute>
-                       </widget>
-                      </item>
-                      <item row="1" column="2" colspan="2">
-                       <widget class="QRadioButton" name="sync_confocal_shutter_high_button">
-                        <property name="toolTip">
-                         <string>Shutter output voltage goes HIGH (&gt;2.5V) when shutter is open</string>
-                        </property>
-                        <property name="text">
-                         <string>HIGH</string>
-                        </property>
-                        <property name="checked">
-                         <bool>true</bool>
-                        </property>
-                        <attribute name="buttonGroup">
-                         <string notr="true">sync_confocal_shutter_polarity_button_group</string>
-                        </attribute>
-                       </widget>
-                      </item>
-                     </layout>
-                    </widget>
-                   </item>
                    <item row="1" column="0">
                     <widget class="QGroupBox" name="sync_confocal_line_box">
                      <property name="toolTip">
@@ -1924,7 +1857,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                         </layout>
                        </widget>
                       </item>
-                      <item row="1" column="0">
+                      <item row="2" column="0">
                        <widget class="QTabWidget" name="sync_confocal_line_tab">
                         <property name="currentIndex">
                          <number>1</number>
@@ -1986,16 +1919,6 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                           <string>Analog - Mirror Voltage</string>
                          </attribute>
                          <layout class="QGridLayout" name="gridLayout_66" columnstretch="0,0,0">
-                          <item row="1" column="0">
-                           <widget class="QLabel" name="sync_confocal_line_analog_polarity_label">
-                            <property name="toolTip">
-                             <string>Set the polarity of the driver sync.</string>
-                            </property>
-                            <property name="text">
-                             <string>Trigger polarity:</string>
-                            </property>
-                           </widget>
-                          </item>
                           <item row="0" column="0">
                            <widget class="QLabel" name="sync_confocal_line_analog_threshold_label1">
                             <property name="toolTip">
@@ -2035,6 +1958,26 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                             </attribute>
                            </widget>
                           </item>
+                          <item row="0" column="2">
+                           <widget class="QLabel" name="sync_confocal_line_analog_threshold_label2">
+                            <property name="toolTip">
+                             <string>The voltage threshold that the driver will sync to.</string>
+                            </property>
+                            <property name="text">
+                             <string>V</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="0">
+                           <widget class="QLabel" name="sync_confocal_line_analog_polarity_label">
+                            <property name="toolTip">
+                             <string>Set the polarity of the driver sync.</string>
+                            </property>
+                            <property name="text">
+                             <string>Trigger polarity:</string>
+                            </property>
+                           </widget>
+                          </item>
                           <item row="0" column="1">
                            <widget class="QDoubleSpinBox" name="sync_confocal_line_analog_threshold_box">
                             <property name="toolTip">
@@ -2057,198 +2000,159 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="2">
-                           <widget class="QLabel" name="sync_confocal_line_analog_threshold_label2">
-                            <property name="toolTip">
-                             <string>The voltage threshold that the driver will sync to.</string>
-                            </property>
-                            <property name="text">
-                             <string>V</string>
-                            </property>
-                           </widget>
-                          </item>
                          </layout>
                         </widget>
                        </widget>
                       </item>
-                     </layout>
-                    </widget>
-                   </item>
-                   <item row="2" column="0">
-                    <widget class="QGroupBox" name="sync_confocal_delay_box">
-                     <property name="toolTip">
-                      <string>Configure the delays relative to the sync trigger to align the LED output with the edges of the FOV.</string>
-                     </property>
-                     <property name="title">
-                      <string>Delays</string>
-                     </property>
-                     <layout class="QGridLayout" name="gridLayout_37">
-                      <item row="3" column="1">
-                       <widget class="QDoubleSpinBox" name="sync_confocal_delay3_box">
-                        <property name="toolTip">
-                         <string>Set the time between the forward scan LED event window and the reverse scan LED event window.</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                        <property name="maximum">
-                         <double>23860929.000000000000000</double>
-                        </property>
-                       </widget>
-                      </item>
                       <item row="3" column="0">
-                       <widget class="QLabel" name="sync_confocal_delay3_label1">
+                       <widget class="QGroupBox" name="sync_confocal_scan_box">
                         <property name="toolTip">
-                         <string>Set the time between the forward scan LED event window and the reverse scan LED event window.</string>
+                         <string>Set the scanning mirror parameters</string>
                         </property>
-                        <property name="text">
-                         <string>3) Bidirectional: Time between LED events:</string>
+                        <property name="title">
+                         <string>Scan Settings</string>
                         </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="1">
-                       <widget class="QDoubleSpinBox" name="sync_confocal_delay1_box">
-                        <property name="toolTip">
-                         <string>Set the time between the line sync trigger and the edge of the FOV/flyback.</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                        <property name="maximum">
-                         <double>23860929.000000000000000</double>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="0">
-                       <widget class="QLabel" name="sync_confocal_delay2_label1">
-                        <property name="toolTip">
-                         <string>The maximum duration of the LED active state.  LED remains off between active windows.</string>
-                        </property>
-                        <property name="text">
-                         <string>2) Duration of LED event:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="2">
-                       <widget class="QLabel" name="sync_confocal_delay2_label2">
-                        <property name="toolTip">
-                         <string>The maximum duration of the LED active state.  LED remains off between active windows.</string>
-                        </property>
-                        <property name="text">
-                         <string>µs</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="1">
-                       <widget class="QDoubleSpinBox" name="sync_confocal_delay2_box">
-                        <property name="toolTip">
-                         <string>The maximum duration of the LED active state.  LED remains off between active windows.</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                        <property name="minimum">
-                         <double>0.010000000000000</double>
-                        </property>
-                        <property name="maximum">
-                         <double>23860929.000000000000000</double>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="3" column="2">
-                       <widget class="QLabel" name="sync_confocal_delay3_label2">
-                        <property name="toolTip">
-                         <string>Set the time between the forward scan LED event window and the reverse scan LED event window.</string>
-                        </property>
-                        <property name="text">
-                         <string>µs</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="2">
-                       <widget class="QLabel" name="sync_confocal_delay1_label2">
-                        <property name="toolTip">
-                         <string>Set the time between the line sync trigger and the edge of the FOV/flyback.</string>
-                        </property>
-                        <property name="text">
-                         <string>µs</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="0" colspan="3">
-                       <widget class="QFrame" name="sync_confocal_scan_mode_frame">
-                        <property name="toolTip">
-                         <string>Set whether the confocal microscope will be doing a unidirectional or bidirectional scan.</string>
-                        </property>
-                        <property name="frameShape">
-                         <enum>QFrame::StyledPanel</enum>
-                        </property>
-                        <property name="frameShadow">
-                         <enum>QFrame::Raised</enum>
-                        </property>
-                        <layout class="QGridLayout" name="gridLayout_29" rowstretch="0,0,0" columnstretch="0,0,0">
+                        <layout class="QGridLayout" name="gridLayout_54">
                          <property name="leftMargin">
-                          <number>0</number>
-                         </property>
-                         <property name="topMargin">
                           <number>0</number>
                          </property>
                          <property name="rightMargin">
                           <number>0</number>
                          </property>
-                         <property name="bottomMargin">
-                          <number>0</number>
-                         </property>
-                         <item row="2" column="1">
-                          <widget class="QRadioButton" name="sync_confocal_scan_unidirectional_button">
+                         <item row="0" column="0">
+                          <widget class="QFrame" name="sync_confocal_scan_mode_frame">
                            <property name="toolTip">
-                            <string>The confocal microscope is scanning in unidirectional mode (one scan line per mirror cycle)</string>
+                            <string>Set whether the confocal microscope will be doing a unidirectional or bidirectional scan.</string>
                            </property>
-                           <property name="text">
-                            <string>Unidirectional</string>
+                           <property name="frameShape">
+                            <enum>QFrame::StyledPanel</enum>
                            </property>
-                           <attribute name="buttonGroup">
-                            <string notr="true">sync_confocal_scan_mode_button_group</string>
-                           </attribute>
+                           <property name="frameShadow">
+                            <enum>QFrame::Raised</enum>
+                           </property>
+                           <layout class="QGridLayout" name="gridLayout_29" rowstretch="0,0,0" columnstretch="0,0,0">
+                            <property name="leftMargin">
+                             <number>9</number>
+                            </property>
+                            <property name="topMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="rightMargin">
+                             <number>9</number>
+                            </property>
+                            <property name="bottomMargin">
+                             <number>0</number>
+                            </property>
+                            <item row="2" column="1">
+                             <widget class="QRadioButton" name="sync_confocal_scan_unidirectional_button">
+                              <property name="toolTip">
+                               <string>The confocal microscope is scanning in unidirectional mode (one scan line per mirror cycle)</string>
+                              </property>
+                              <property name="text">
+                               <string>Unidirectional</string>
+                              </property>
+                              <attribute name="buttonGroup">
+                               <string notr="true">sync_confocal_scan_mode_button_group</string>
+                              </attribute>
+                             </widget>
+                            </item>
+                            <item row="2" column="0">
+                             <widget class="QLabel" name="sync_confocal_scan_mode_label">
+                              <property name="toolTip">
+                               <string>Set the scan mode the confocal microscope is using</string>
+                              </property>
+                              <property name="text">
+                               <string>Scan mode:</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="2" column="2">
+                             <widget class="QRadioButton" name="sync_confocal_scan_bidirectional_button">
+                              <property name="toolTip">
+                               <string>The confocal microscope is scanning in bidirectional mode (two scan lines per mirror cycle)</string>
+                              </property>
+                              <property name="text">
+                               <string>Bidirectional</string>
+                              </property>
+                              <property name="checked">
+                               <bool>true</bool>
+                              </property>
+                              <attribute name="buttonGroup">
+                               <string notr="true">sync_confocal_scan_mode_button_group</string>
+                              </attribute>
+                             </widget>
+                            </item>
+                           </layout>
                           </widget>
                          </item>
-                         <item row="2" column="0">
-                          <widget class="QLabel" name="sync_confocal_scan_mode_label">
-                           <property name="toolTip">
-                            <string>Set the scan mode the confocal microscope is using</string>
+                         <item row="1" column="0">
+                          <widget class="QFrame" name="sync_confocal_scan_period_frame">
+                           <property name="frameShape">
+                            <enum>QFrame::StyledPanel</enum>
                            </property>
-                           <property name="text">
-                            <string>Scan mode:</string>
+                           <property name="frameShadow">
+                            <enum>QFrame::Raised</enum>
                            </property>
-                          </widget>
-                         </item>
-                         <item row="2" column="2">
-                          <widget class="QRadioButton" name="sync_confocal_scan_bidirectional_button">
-                           <property name="toolTip">
-                            <string>The confocal microscope is scanning in bidirectional mode (two scan lines per mirror cycle)</string>
-                           </property>
-                           <property name="text">
-                            <string>Bidirectional</string>
-                           </property>
-                           <property name="checked">
-                            <bool>true</bool>
-                           </property>
-                           <attribute name="buttonGroup">
-                            <string notr="true">sync_confocal_scan_mode_button_group</string>
-                           </attribute>
+                           <layout class="QGridLayout" name="gridLayout_55" columnstretch="10,10,2,10">
+                            <property name="topMargin">
+                             <number>0</number>
+                            </property>
+                            <property name="bottomMargin">
+                             <number>0</number>
+                            </property>
+                            <item row="1" column="2">
+                             <widget class="QLabel" name="sync_confocal_scan_period_label2">
+                              <property name="toolTip">
+                               <string>Set the mirror period - the time it takes for the scanning mirror to complete a full cycle.</string>
+                              </property>
+                              <property name="text">
+                               <string>µs</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="sync_confocal_scan_period_label1">
+                              <property name="toolTip">
+                               <string>Set the mirror period - the time it takes for the scanning mirror to complete a full cycle.</string>
+                              </property>
+                              <property name="text">
+                               <string>Mirror Period:</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="1">
+                             <widget class="QDoubleSpinBox" name="sync_confocal_scan_period_box">
+                              <property name="toolTip">
+                               <string>Set the mirror period - the time it takes for the scanning mirror to complete a full cycle.</string>
+                              </property>
+                              <property name="minimum">
+                               <double>1.000000000000000</double>
+                              </property>
+                              <property name="maximum">
+                               <double>23860929.000000000000000</double>
+                              </property>
+                              <property name="singleStep">
+                               <double>1.000000000000000</double>
+                              </property>
+                              <property name="value">
+                               <double>1000.000000000000000</double>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="3">
+                             <widget class="QPushButton" name="sync_confocal_scan_period_button">
+                              <property name="toolTip">
+                               <string>Measure the mirror period.  The microscope needs to be actively scanning to perform a measurement.  The measurement will timeout in 1s if the scan is not active.</string>
+                              </property>
+                              <property name="text">
+                               <string>Measure</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
                           </widget>
                          </item>
                         </layout>
-                       </widget>
-                      </item>
-                      <item row="1" column="0">
-                       <widget class="QLabel" name="sync_confocal_delay1_label1">
-                        <property name="toolTip">
-                         <string>Set the time between the line sync trigger and the edge of the FOV/flyback.</string>
-                        </property>
-                        <property name="text">
-                         <string>1) Delay from trigger to LED event:</string>
-                        </property>
                        </widget>
                       </item>
                      </layout>
@@ -2272,7 +2176,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                          <string>Select event type for when LED is active during a confocal scan.</string>
                         </property>
                         <property name="currentIndex">
-                         <number>2</number>
+                         <number>0</number>
                         </property>
                         <widget class="QWidget" name="sync_confocal_scanning_off_tab">
                          <property name="toolTip">
@@ -2650,6 +2554,190 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                           </item>
                          </layout>
                         </widget>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QGroupBox" name="sync_confocal_shutter_box">
+                     <property name="toolTip">
+                      <string>The shutter output voltage is used to determine the start and stop of a scan.</string>
+                     </property>
+                     <property name="title">
+                      <string>Shutter Sync</string>
+                     </property>
+                     <layout class="QGridLayout" name="gridLayout_63" columnstretch="0,0,20,0">
+                      <item row="0" column="0" colspan="4">
+                       <widget class="QLabel" name="sync_confocal_shutter_label">
+                        <property name="toolTip">
+                         <string>The shutter input channel is fixed to channel #1</string>
+                        </property>
+                        <property name="text">
+                         <string>NOTE: Connect the shutter sync input to channel #1.</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="0">
+                       <widget class="QLabel" name="sync_confocal_shutter_polarity_label">
+                        <property name="minimumSize">
+                         <size>
+                          <width>0</width>
+                          <height>0</height>
+                         </size>
+                        </property>
+                        <property name="toolTip">
+                         <string>The polarity of the shutter output voltage when the shutter is open.</string>
+                        </property>
+                        <property name="text">
+                         <string>Shutter open trigger polarity:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="1">
+                       <widget class="QRadioButton" name="sync_confocal_shutter_low_button">
+                        <property name="toolTip">
+                         <string>Shutter output voltage goes LOW (&lt;1.0V) when shutter is open</string>
+                        </property>
+                        <property name="text">
+                         <string>LOW</string>
+                        </property>
+                        <attribute name="buttonGroup">
+                         <string notr="true">sync_confocal_shutter_polarity_button_group</string>
+                        </attribute>
+                       </widget>
+                      </item>
+                      <item row="1" column="2" colspan="2">
+                       <widget class="QRadioButton" name="sync_confocal_shutter_high_button">
+                        <property name="toolTip">
+                         <string>Shutter output voltage goes HIGH (&gt;2.5V) when shutter is open</string>
+                        </property>
+                        <property name="text">
+                         <string>HIGH</string>
+                        </property>
+                        <property name="checked">
+                         <bool>true</bool>
+                        </property>
+                        <attribute name="buttonGroup">
+                         <string notr="true">sync_confocal_shutter_polarity_button_group</string>
+                        </attribute>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QGroupBox" name="sync_confocal_delay_box">
+                     <property name="toolTip">
+                      <string>Configure the delays relative to the sync trigger to align the LED output with the edges of the FOV.</string>
+                     </property>
+                     <property name="title">
+                      <string>Delays</string>
+                     </property>
+                     <layout class="QGridLayout" name="gridLayout_37">
+                      <item row="1" column="0">
+                       <widget class="QLabel" name="sync_confocal_delay1_label1">
+                        <property name="toolTip">
+                         <string>Set the time between the line sync trigger and the edge of the FOV/flyback.</string>
+                        </property>
+                        <property name="text">
+                         <string>1) Delay from trigger to LED event:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="3" column="2">
+                       <widget class="QLabel" name="sync_confocal_delay3_label2">
+                        <property name="toolTip">
+                         <string>Set the time between the forward scan LED event window and the reverse scan LED event window.</string>
+                        </property>
+                        <property name="text">
+                         <string>µs</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="3" column="0">
+                       <widget class="QLabel" name="sync_confocal_delay3_label1">
+                        <property name="toolTip">
+                         <string>Set the time between the forward scan LED event window and the reverse scan LED event window.</string>
+                        </property>
+                        <property name="text">
+                         <string>3) Bidirectional: Time between LED events:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="0">
+                       <widget class="QLabel" name="sync_confocal_delay2_label1">
+                        <property name="toolTip">
+                         <string>The maximum duration of the LED active state.  LED remains off between active windows.</string>
+                        </property>
+                        <property name="text">
+                         <string>2) Maximum duration of LED event:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="1">
+                       <widget class="QDoubleSpinBox" name="sync_confocal_delay2_box">
+                        <property name="toolTip">
+                         <string>The maximum duration of the LED active state.  LED remains off between active windows.</string>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                        </property>
+                        <property name="minimum">
+                         <double>0.010000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>23860929.000000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>200.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="1">
+                       <widget class="QDoubleSpinBox" name="sync_confocal_delay1_box">
+                        <property name="toolTip">
+                         <string>Set the time between the line sync trigger and the edge of the FOV/flyback.</string>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                        </property>
+                        <property name="maximum">
+                         <double>23860929.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="2">
+                       <widget class="QLabel" name="sync_confocal_delay1_label2">
+                        <property name="toolTip">
+                         <string>Set the time between the line sync trigger and the edge of the FOV/flyback.</string>
+                        </property>
+                        <property name="text">
+                         <string>µs</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="3" column="1">
+                       <widget class="QDoubleSpinBox" name="sync_confocal_delay3_box">
+                        <property name="toolTip">
+                         <string>Set the time between the forward scan LED event window and the reverse scan LED event window.</string>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                        </property>
+                        <property name="maximum">
+                         <double>23860929.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="2">
+                       <widget class="QLabel" name="sync_confocal_delay2_label2">
+                        <property name="toolTip">
+                         <string>The maximum duration of the LED active state.  LED remains off between active windows.</string>
+                        </property>
+                        <property name="text">
+                         <string>µs</string>
+                        </property>
                        </widget>
                       </item>
                      </layout>
@@ -3243,8 +3331,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>667</width>
-             <height>1114</height>
+             <width>611</width>
+             <height>1105</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_16">
@@ -4843,7 +4931,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>475</width>
+     <width>615</width>
      <height>24</height>
     </rect>
    </property>
@@ -5058,28 +5146,28 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
-  <buttongroup name="configure_ext_fan_button_group"/>
-  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
-  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
+  <buttongroup name="sync_confocal_scan_mode_button_group"/>
+  <buttongroup name="sync_digital_trigger_button_group"/>
+  <buttongroup name="configure_pushbutton_LED_button_group"/>
   <buttongroup name="configure_indication_group"/>
+  <buttongroup name="main_intensity_button_group"/>
   <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
+  <buttongroup name="configure_ch_merge_2_button_group"/>
+  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
+  <buttongroup name="main_channel_button_group"/>
+  <buttongroup name="configure_ext_fan_button_group"/>
+  <buttongroup name="sync_confocal_line_input_button_group"/>
+  <buttongroup name="configure_ch_merge_4_button_group"/>
+  <buttongroup name="main_toggle_control_group"/>
+  <buttongroup name="sync_analog_input_channel_button_group"/>
+  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
+  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
+  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
+  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
+  <buttongroup name="sync_analog_led_channel_button_group"/>
   <buttongroup name="configure_ch_merge_3_button_group"/>
   <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
-  <buttongroup name="main_channel_button_group"/>
-  <buttongroup name="configure_ch_merge_2_button_group"/>
-  <buttongroup name="configure_ch_merge_4_button_group"/>
-  <buttongroup name="sync_confocal_scan_mode_button_group"/>
-  <buttongroup name="sync_confocal_line_input_button_group"/>
-  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
   <buttongroup name="configure_ch_merge_1_button_group"/>
-  <buttongroup name="sync_digital_trigger_button_group"/>
-  <buttongroup name="main_toggle_control_group"/>
   <buttongroup name="sync_output_button_group"/>
-  <buttongroup name="sync_analog_input_channel_button_group"/>
-  <buttongroup name="sync_analog_led_channel_button_group"/>
-  <buttongroup name="configure_pushbutton_LED_button_group"/>
-  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
-  <buttongroup name="main_intensity_button_group"/>
  </buttongroups>
 </ui>

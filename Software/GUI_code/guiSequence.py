@@ -194,7 +194,7 @@ def verifyCell(gui, column=None, row=None, data=None, widget=None):
                     item.setText("")
                 return False
     except:
-        if data != "" or not item: #If cell is not empty then report that entry is invalid
+        if data != "" or not item: #If cell is not empty and table called the error (i.e. not on load) then report that entry as invalid
             showMessage(gui, 
                 "Error: \"" + str(data) + "\" at row #" + str(row + 1) + " column #" + str(column + 1) + " is not a number. Process aborted.")
             if item:
@@ -252,9 +252,6 @@ def setSequencePath(gui, widget, value):
     for key in path[:-1]:
         dictionary = dictionary[key]
     dictionary[path[-1]] = value
-
-def bytesToSequence(gui, byte_array, widget):
-    pass
 
 def sequenceToBytes(gui, widget):
     byte_array = bytearray()

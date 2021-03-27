@@ -25,16 +25,18 @@ Remove port from list if connection no longer works
 
 Use ADC to monitor LED current when on external analog
 
-Add seq tables to sync - custom
-
 Add option to disable updates to sync Serial
 
-Sync plot:
-Switch plot to label if it is a constant value - with duration of hold - "inactive" when not holding
+If current limit is changed also update sync
 
-Switch label to green when in hold to match plot text behavior
+Warn user if seq percent exceeds 100% but allow it?
 
-Only show vertical cursor line when plot starts
+
+
+
+
+
+
 
 
 

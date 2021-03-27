@@ -75,6 +75,7 @@ struct syncStruct{ //158 bytes
   boolean confocal_sync_polarity[2]; //Sync polarity for digital and analog sync inputs
   uint16_t confocal_threshold; //Threshold for analog sync trigger
   boolean confocal_scan_mode; //Whether scan is unidirectional (true) or bidrectional (false)
+  uint32_t confocal_mirror_period; //Time in µs for the scanning mirror to complete one cycle
   uint32_t confocal_delay[3]; //Delay in clock cycles for each sync delay
  
   uint8_t confocal_mode[2]; //The digital sync mode  in the image and flyback states respectively
@@ -110,7 +111,8 @@ const struct defaultSyncStruct{ //158 bytes
   boolean confocal_sync_polarity[2] = {true, true}; //Sync polarity for digital and analog sync inputs
   uint16_t confocal_threshold = 2000; //Threshold for analog sync trigger
   boolean confocal_scan_mode = true; //Whether scan is unidirectional (false) or bidrectional (true)
-  uint32_t confocal_delay[3] = {0,180,0}; //Delay in clock cycles for each sync delay
+  uint32_t confocal_mirror_period = 180000; //Time in µs for the scanning mirror to complete one cycle
+  uint32_t confocal_delay[3] = {0,36000,0}; //Delay in clock cycles for each sync delay
   
   uint8_t confocal_mode[2] = {0,0}; //The digital sync mode  in the image and flyback states respectively
   uint8_t confocal_led[2] = {0,0}; //The active LED channel in the image and flyback states respectively
@@ -118,7 +120,7 @@ const struct defaultSyncStruct{ //158 bytes
   uint16_t confocal_current[2] = {0,0}; //The DAC value in the image and flyback states respectively
   uint32_t confocal_duration[2] = {0,0}; //The maximum number of milliseconds to hold LED state
 
-  uint8_t checksum = 107; //Checksum to confirm that configuration is valid
+  uint8_t checksum = 18; //Checksum to confirm that configuration is valid
 } defaultSync;
 
 struct sequenceHeaderStruct{
@@ -161,6 +163,7 @@ const struct prefixStruct{
   uint8_t status_update = 12; //Status update packet for driver or GUI
   uint8_t calibration = 13; //Send a plot of LED square wave test output for calibrating op-amp compensation trimpots
   uint8_t gui_disconnect = 14; //GUI is disconnecting form LED driver
+  uint8_t measure_period = 15; //Measure the mirror period 
   uint8_t long_off = 148; //Prefix sent when computer has been off for a while
 } prefix;
 
@@ -227,8 +230,8 @@ GenericFP function_router[256]; //create an array of 'GenericFP' function pointe
 //////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE
 
 const static uint32_t COBS_BUFFER_SIZE = 4096; //Size of the COBS buffer
-char MAGIC_SEND[] = "-kvlWfsBplgasrsh3un5K"; //Magic number reply to Teensy verifying this is an LED driver 
-const static char MAGIC_RECEIVE[] = "kc1oISEIZ60AYJqH4J1P"; //Magic number received from Teensy verifying it is an LED driver "-" is for providing byte prefix in serial message
+char MAGIC_SEND[] = "-kvlWfsBplgasrsh3un5K"; //Magic number reply from Teensy verifying it is an LED driver "-" is for providing byte prefix in serial message
+const static char MAGIC_RECEIVE[] = "kc1oISEIZ60AYJqH4J1P"; //Magic number received from GUI to verify this is an LED driver
 char temp_buffer[COBS_BUFFER_SIZE]; //Temporary buffer for preparing packets immediately before transmission
 int temp_size; //Size of temporary packet to transmit
 byte sequence_buffer[2][10000*sizeof(sequenceStruct)+10]; //Add buffer padding for prefix info on transmission
@@ -239,6 +242,8 @@ uint8_t status_index = 0; //Index counter for incrementally updating and transmi
 elapsedMillis heartbeat; //Heartbeat timer to confirm that GUI is still connected
 const static uint32_t HEARTBEAT_TIMEOUT = 10000; //Driver will assume connection has closed if heartbeat not received within this time
 
+uint32_t cpu_cycles = 0; //Track the number of CPU cycles for sub-microseconds timing precision
+const static uint32_t cycle_offset = 7; //Number of cycles needed to check cycles ellapsed
 
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
@@ -246,7 +251,11 @@ SDcard sd;
 PacketSerial_<COBS, 0, COBS_BUFFER_SIZE> usb; //Sets Encoder, framing character, buffer size
 
 void setup() {
-//  EEPROM.write(0, 0);
+  //Count cpu cycles for submircrosecond delay precision - https://forum.pjrc.com/threads/28407-Teensyduino-access-to-counting-cpu-cycles?p=71036&viewfull=1#post71036
+  ARM_DEMCR |= ARM_DEMCR_TRCENA;
+  ARM_DWT_CTRL |= ARM_DWT_CTRL_CYCCNTENA;
+  cpu_cycles = ARM_DWT_CYCCNT;
+  
   sequence_buffer[0][0]= 0;
   int a;
   pinMode(LED_BUILTIN, OUTPUT);
@@ -265,9 +274,25 @@ void setup() {
   digitalWriteFast(pin.ANALOG_SELECT, LOW);
   digitalWriteFast(pin.FAN_PWM, LOW);
   analogWrite(A21, 0);
+  pinMode(pin.SDA0, OUTPUT);
+  
 }
+elapsedMillis t = 0;
+uint32_t d = 10;
 
 void loop() {
+  noInterrupts();
+  cpu_cycles = ARM_DWT_CYCCNT;
+  digitalWriteFast(pin.SDA0, HIGH);
+  while(ARM_DWT_CYCCNT-cpu_cycles < d-cycle_offset);
+  digitalWriteFast(pin.SDA0, LOW);
+  interrupts();
+  if (t > 100){
+    t=0;
+    d++;
+    if(d >= 30) d = 24;
+  }
+ 
   usb.update();
   if(heartbeat < HEARTBEAT_TIMEOUT){
     if(status.s.driver_control){

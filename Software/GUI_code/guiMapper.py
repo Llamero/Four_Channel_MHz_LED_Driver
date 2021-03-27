@@ -105,6 +105,7 @@ def initializeSyncModel(gui):
         sync_model["Confocal"]["Polarity"] = [gui.sync_confocal_line_analog_polarity_above_button, gui.sync_confocal_line_analog_polarity_below_button]
         sync_model["Confocal"]["Delay"] = OrderedDict()
         sync_model["Confocal"]["Delay"]["Mode"] = [gui.sync_confocal_scan_unidirectional_button, gui.sync_confocal_scan_bidirectional_button]
+        sync_model["Confocal"]["Period"] = gui.sync_confocal_scan_period_box
         for delay in range(1,4):
             sync_model["Confocal"]["Delay"][str(delay)] = eval("gui.sync_confocal_delay" + str(delay) + "_box")
         for event in ["Standby", "Scanning"]:
