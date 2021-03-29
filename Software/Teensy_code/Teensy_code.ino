@@ -75,7 +75,7 @@ struct syncStruct{ //158 bytes
   boolean confocal_sync_polarity[2]; //Sync polarity for digital and analog sync inputs
   uint16_t confocal_threshold; //Threshold for analog sync trigger
   boolean confocal_scan_mode; //Whether scan is unidirectional (true) or bidrectional (false)
-  uint32_t confocal_mirror_period; //Time in µs for the scanning mirror to complete one cycle
+  uint32_t confocal_mirror_period; //Time in clock cycles for the scanning mirror to complete one cycle
   uint32_t confocal_delay[3]; //Delay in clock cycles for each sync delay
  
   uint8_t confocal_mode[2]; //The digital sync mode  in the image and flyback states respectively

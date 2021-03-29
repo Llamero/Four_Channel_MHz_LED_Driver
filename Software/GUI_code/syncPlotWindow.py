@@ -218,14 +218,18 @@ class syncPlotWindow(QtWidgets.QWidget):
                     else:
                         self.x_ref[index] = [0, duration, duration + SLEW_TIME]
                     for key in self.y_ref[index]:
-                        if isinstance(sync_model["Confocal"][trigger][key], list):
-                            self.y_ref[index][key] = [widgetIndex(sync_model["Confocal"][trigger][key])]
-                            if duration > 0:
-                                self.y_ref[index][key].extend([widgetIndex(sync_model["Confocal"][trigger][key]), 0]) #Extend to hold at off to intensity profile if intensity is pulsed for a fixed duration
+                        if key == "Channel":
+                            key2 = "LED"
                         else:
-                            self.y_ref[index][key] = [self.gui.getValue(sync_model["Confocal"][trigger][key])]
+                            key2 = key
+                        if isinstance(sync_model["Confocal"][trigger][key2], list):
+                            self.y_ref[index][key] = [widgetIndex(sync_model["Confocal"][trigger][key2])]
                             if duration > 0:
-                                self.y_ref[index][key].extend([self.gui.getValue(sync_model["Confocal"][trigger][key]), 0]) #Extend to hold at off to intensity profile if intensity is pulsed for a fixed duration
+                                self.y_ref[index][key].extend([widgetIndex(sync_model["Confocal"][trigger][key2]), 0]) #Extend to hold at off to intensity profile if intensity is pulsed for a fixed duration
+                        else:
+                            self.y_ref[index][key] = [self.gui.getValue(sync_model["Confocal"][trigger][key2])]
+                            if duration > 0:
+                                self.y_ref[index][key].extend([self.gui.getValue(sync_model["Confocal"][trigger][key2]), 0]) #Extend to hold at off to intensity profile if intensity is pulsed for a fixed duration
                 else:
                     seq_widget = self.seq_list[index+2]
                     n_rows = len(self.seq_dict[seq_widget]["LED #"])

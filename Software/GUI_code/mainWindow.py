@@ -26,9 +26,9 @@ class Ui(QtWidgets.QMainWindow):
         super(Ui, self).__init__()
 
         #Initialize splash screen to show on load
-        self.splash_dict = {"main": os.path.join(os.path.dirname(__file__), "Four Channel MHz LED Driver-main.png"),
-                            "upload": os.path.join(os.path.dirname(__file__), "Four Channel MHz LED Driver-upload.png"),
-                            "download": os.path.join(os.path.dirname(__file__), "Four Channel MHz LED Driver-download.png")}
+        self.splash_dict = {"main": self.resourcePath("Four Channel MHz LED Driver-main.png"),
+                            "upload": self.resourcePath("Four Channel MHz LED Driver-upload.png"),
+                            "download": self.resourcePath("Four Channel MHz LED Driver-download.png")}
         self.startup = True #Flag that program is in startup
         self.splash = QtWidgets.QSplashScreen(QtGui.QPixmap(self.splash_dict["main"]))
         self.splash.setFont(QFont('Arial', 15))
@@ -36,8 +36,8 @@ class Ui(QtWidgets.QMainWindow):
         self.splash.showMessage("Loading program...", alignment=QtCore.Qt.AlignBottom, color=QtCore.Qt.white)
 
         # Set look and feel
-        uic.loadUi('QtDesigner_GUI.ui', self)
-        self.gui_state_file = 'gui_state.obj'
+        uic.loadUi(self.resourcePath('QtDesigner_GUI.ui'), self)
+        self.gui_state_file = self.resourcePath('gui_state.obj')
         self.gui_state_dict = OrderedDict([("skin", "light"), ("lock", OrderedDict([("sync", False), ("config", False), ("gui", False)]))])
 
         #Initialize message box
@@ -118,9 +118,8 @@ class Ui(QtWidgets.QMainWindow):
             with open(self.gui_state_file, "rb") as file:
                 self.gui_state_dict = checkDict(self.gui_state_dict, pickle.load(file)) #Make sure file is valid
 
-        except EOFError: #Default to light skin if no made has been saved yet
+        except (EOFError, FileNotFoundError) as e: #Default to light skin if no made has been saved yet
             pass #Use default dictionary
-        print(self.gui_state_dict["skin"])
         self.toggleSkin(self.gui_state_dict["skin"])
         for key in self.gui_state_dict["lock"]:
             self.lockInterface(key, True)
@@ -419,3 +418,14 @@ class Ui(QtWidgets.QMainWindow):
             return int(self.config_model["LED" + str(led_number+1)]["Current Limit"].whatsThis())
         except ValueError:
             return 0.01
+
+    # Define function to import external files when using PyInstaller.
+    def resourcePath(self, relative_path):
+        #Get absolute path to resource, works for dev and for PyInstaller
+        try:
+            # PyInstaller creates a temp folder and stores path in _MEIPASS
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+
+        return os.path.join(base_path, relative_path)
