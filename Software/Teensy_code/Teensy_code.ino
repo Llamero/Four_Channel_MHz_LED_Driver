@@ -147,6 +147,17 @@ struct statusStruct{
   uint16_t fan_speed[2]; //PWM value for internal and external fan respectively
 };
 
+struct defaultStatusStruct{
+  uint8_t led_channel=0; //Active LED channel
+  uint16_t led_pwm=0; //PWM value for internal and external fan respectively
+  uint16_t led_current=0; //DAC value for active LED
+  uint8_t mode=0; //0=Sync, 1=PWM, 2=Current, 3=Off
+  boolean state=0; //0=Standby (confocal), LOW (digital), etc. 1 = Scanning (confocal), HIGH (digital), etc.
+  boolean driver_control=0; //True = driver controls itself, False = GUI controls driver
+  uint16_t temp[3] = {0,0,0}; //ADC temp reading of mosfet, resistor, and external respectively
+  uint16_t fan_speed[2] = {0,0}; //PWM value for internal and external fan respectively
+} defaultStatus;
+
 const struct prefixStruct{
   uint8_t message = 0; //Send error, warning, and notification messages to be diplayed as pop-up in GUI
   uint8_t connection = 1; //Recv magic number at connection start and confirm with magic reply
@@ -218,8 +229,8 @@ union SEQUNION //Convert binary buffer <-> sync setup
 union STATUSUNION //Convert binary buffer <-> sync setup
 {
    statusStruct s;
-   byte byte_buffer[sizeof(statusStruct)];
-} status;
+   byte byte_buffer[sizeof(defaultStatusStruct)];
+} current_status;
 
 //////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF//////////////TYPEDEF
 
@@ -239,25 +250,27 @@ uint32_t send_stream_index = 0; //Current index position of stream that is being
 uint32_t send_stream_size = 0; //Total size of file to be streamed
 const static uint16_t DEFUALT_TIMEOUT = 500; //Default timeout for serial communication in ms
 uint8_t status_index = 0; //Index counter for incrementally updating and transmitting status
+uint32_t status_duration = 180000; //Time (in number of clock cycles) available to check status per interrupt
 elapsedMillis heartbeat; //Heartbeat timer to confirm that GUI is still connected
 const static uint32_t HEARTBEAT_TIMEOUT = 10000; //Driver will assume connection has closed if heartbeat not received within this time
-
 uint32_t cpu_cycles = 0; //Track the number of CPU cycles for sub-microseconds timing precision
 const static uint32_t cycle_offset = 7; //Number of cycles needed to check cycles ellapsed
-
+volatile uint8_t external_fan_pin = 0;
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
 SDcard sd;
 PacketSerial_<COBS, 0, COBS_BUFFER_SIZE> usb; //Sets Encoder, framing character, buffer size
+IntervalTimer myTimer; //Interrupt timer for checking status of LED driver
 
 void setup() {
+  EEPROM.update(0,0);
+  for(size_t a=0; a<sizeof(current_status.byte_buffer); a++) *(current_status.byte_buffer+a)=0; //Initialize status buffer to a known state of all 0
+  
   //Count cpu cycles for submircrosecond delay precision - https://forum.pjrc.com/threads/28407-Teensyduino-access-to-counting-cpu-cycles?p=71036&viewfull=1#post71036
   ARM_DEMCR |= ARM_DEMCR_TRCENA;
   ARM_DWT_CTRL |= ARM_DWT_CTRL_CYCCNTENA;
   cpu_cycles = ARM_DWT_CYCCNT;
-  
   sequence_buffer[0][0]= 0;
-  int a;
   pinMode(LED_BUILTIN, OUTPUT);
   pin.configurePins();
   Serial.begin(9600); //Needed for non-COBS streaming, such as large sequence files
@@ -267,59 +280,138 @@ void setup() {
   if(!sd.initializeSD()){
     digitalWriteFast(LED_BUILTIN, HIGH);
     sd.message_buffer[0] = prefix.message;
-    usb.send(sd.message_buffer, sd.message_size);
+    usb.send((const unsigned char*) sd.message_buffer, sd.message_size);
   }
   digitalWriteFast(pin.RELAY[3], HIGH);
   digitalWriteFast(pin.INTERLINE, LOW);
   digitalWriteFast(pin.ANALOG_SELECT, LOW);
   digitalWriteFast(pin.FAN_PWM, LOW);
   analogWrite(A21, 0);
-  pinMode(pin.SDA0, OUTPUT);
   
+  myTimer.begin(checkStatus, 1000);  //By default, cehck driver status every 1 ms
+  conf.c.fan_channel = 1; //////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 elapsedMillis t = 0;
 uint32_t d = 10;
 
 void loop() {
-  noInterrupts();
-  cpu_cycles = ARM_DWT_CYCCNT;
-  digitalWriteFast(pin.SDA0, HIGH);
-  while(ARM_DWT_CYCCNT-cpu_cycles < d-cycle_offset);
-  digitalWriteFast(pin.SDA0, LOW);
   interrupts();
-  if (t > 100){
-    t=0;
-    d++;
-    if(d >= 30) d = 24;
-  }
- 
-  usb.update();
-  if(heartbeat < HEARTBEAT_TIMEOUT){
-    if(status.s.driver_control){
-      status.s.led_channel = 0;
-      analogRead(pin.POT);
-      status.s.led_pwm = 65535-analogRead(pin.POT);
-      status.s.led_current = 65535-analogRead(pin.POT);
-      status.s.mode = digitalReadFast(pin.TOGGLE);
-    }
-    analogRead(pin.MOSFET_TEMP);
-    status.s.temp[0] = analogRead(pin.MOSFET_TEMP);
-    analogRead(pin.RESISTOR_TEMP);
-    status.s.temp[1] = analogRead(pin.RESISTOR_TEMP);
-    analogRead(pin.EXTERNAL_TEMP);
-    status.s.temp[2] = analogRead(pin.EXTERNAL_TEMP);
-    status.s.fan_speed[0] = 0;
-    status.s.fan_speed[1] = 0;
-    
-    temp_buffer[0] = prefix.status_update;
-    memcpy(temp_buffer+1, status.byte_buffer, sizeof(status.byte_buffer));
-    usb.send(temp_buffer, sizeof(status.byte_buffer)+1); 
+//  noInterrupts();
+//  cpu_cycles = ARM_DWT_CYCCNT;
+//  digitalWriteFast(pin.SDA0, HIGH);
+//  while(ARM_DWT_CYCCNT-cpu_cycles < d-cycle_offset);
+//  digitalWriteFast(pin.SDA0, LOW);
+//  interrupts();
+//  if (t > 100){
+//    t=0;
+//    d++;
+//    if(d >= 30) d = 24;
+//  }
+
+//  digitalWriteFast(pin.SDA0, HIGH); 
+//  usb.update();
+//  digitalWriteFast(pin.SDA0, LOW);
+//  if(heartbeat < HEARTBEAT_TIMEOUT){
+//    if(current_status.s.driver_control){
+//      current_status.s.led_channel = 0;
+//      analogRead(pin.POT);
+//      current_status.s.led_pwm = 65535-analogRead(pin.POT);
+//      current_status.s.led_current = 65535-analogRead(pin.POT);
+//      current_status.s.mode = digitalReadFast(pin.TOGGLE);
+//    }
+//    analogRead(pin.MOSFET_TEMP);
+//    current_status.s.temp[0] = analogRead(pin.MOSFET_TEMP);
+//    analogRead(pin.RESISTOR_TEMP);
+//    current_status.s.temp[1] = analogRead(pin.RESISTOR_TEMP);
+//    analogRead(pin.EXTERNAL_TEMP);
+//    current_status.s.temp[2] = analogRead(pin.EXTERNAL_TEMP);
+//    current_status.s.fan_speed[0] = 0;
+//    current_status.s.fan_speed[1] = 0;
+//    
+//    temp_buffer[0] = prefix.status_update;
+//    memcpy(temp_buffer+1, current_status.byte_buffer, sizeof(current_status.byte_buffer));
+//    usb.send((const unsigned char*) temp_buffer, sizeof(current_status.byte_buffer)+1); 
     digitalWriteFast(LED_BUILTIN, HIGH);
     delay(20);
     digitalWriteFast(LED_BUILTIN, LOW);
     delay(20);
+//  }
+}
+
+void checkStatus(){
+  cpu_cycles = ARM_DWT_CYCCNT; //Start timer - this is important for timing out status check during confocal syncs
+  interrupts(); //Activate interrupts to allow serial to be monitored and sent
+  switch(status_index){
+    case 0: //Check driver temperatures
+      status_index++;
+      analogRead(pin.MOSFET_TEMP);
+      current_status.s.temp[0] = analogRead(pin.MOSFET_TEMP);
+      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+    case 1:
+      status_index++;
+      analogRead(pin.RESISTOR_TEMP);
+      current_status.s.temp[1] = analogRead(pin.RESISTOR_TEMP);
+      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+    case 2:
+      status_index++;
+      analogRead(pin.EXTERNAL_TEMP);
+      current_status.s.temp[2] += 256;
+      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+    case 3: //Check if any of the temperatures is past the fault temperature
+      status_index++;
+      thermalFault();
+      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+    case 4: //Update internal fan speed
+      status_index++;
+      if(current_status.s.temp[0] < current_status.s.temp[1]) setFan(current_status.s.temp[0], 0); //Update fan based on highest internal temperature (lowest ADC value)
+      else setFan(current_status.s.temp[1], 0);
+      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+    case 5: //Update external fan speed
+        status_index++;
+        setFan(current_status.s.temp[2], 1); //Update fan based on highest internal temperature (lowest ADC value
+        if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+    default:
+      usb.update();
+      status_index = 0; //Reset status index if no cases match
+      break;
+  }
+  //if(sync.s.mode==2) noInterrupts(); //Disable interrupts if in confocal mode, as the scan mirror is used as the interrupt clock
+}
+
+void setFan(uint16_t temp, uint8_t fan_index){
+  uint8_t out_pin;
+  float temp_min;
+  uint16_t temp_max;
+  float delta_temp;
+  if(fan_index){
+    if(conf.c.fan_channel){
+      out_pin = pin.OUTPUTS[conf.c.fan_channel-1];
+      temp_min = conf.c.ext_fan[0];
+      temp_max = conf.c.ext_fan[1];
+      delta_temp =  conf.c.ext_fan[0] - conf.c.ext_fan[1];
+    }
+    else return;
+  }
+  else{
+    out_pin = pin.FAN_PWM;
+    temp_min = conf.c.driver_fan[0];
+    temp_max = conf.c.driver_fan[1];
+    delta_temp =  conf.c.driver_fan[0] - conf.c.driver_fan[1];
+  }
+  if(temp >= temp_min) digitalWriteFast(out_pin, LOW); //If temp is below min fan temp, turn fan off
+  else if(temp <= temp_max) digitalWriteFast(out_pin, HIGH); //If temp is above max fan temp, run fan at full speed
+  else{
+    uint16_t fan_pwm =  round(((temp_min - (float) temp)/delta_temp)*65535.0);
+    analogWrite(out_pin, fan_pwm);
   }
 }
+
+void thermalFault(){
+  for(int a=0; a<3; a++){
+    if(current_status.s.temp[a] <= conf.c.fault_temp[a]); 
+  }
+}
+
 //////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM//////////////EEPROM
 
 //Check EEPROM to see if it has a saved configuration
@@ -362,14 +454,12 @@ void initializeConfigurations(){
 
 //https://forum.arduino.cc/index.php?topic=42850.0
 void loadDefaultsToEEPROM(){
-  int a;
-  uint8_t sum = 0;
   uint8_t *buffer_ptr;
   uint16_t buffer_size;
   uint16_t EEPROM_address = 0;
   char message[] = "-A valid driver configuration was not found on EEPROM, so default settings will be loaded.";
   message[0] = prefix.message;
-  usb.send(message, sizeof(message));
+  usb.send((const unsigned char*) message, sizeof(message));
   
   //Lambda functions in C++11 rock! https://stackoverflow.com/questions/4324763/can-we-have-functions-inside-functions-in-c
   auto loadEEPROM = [&] (){
@@ -408,9 +498,9 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   uint8_t buffer_prefix = buffer[0];
   if(buffer_prefix == prefix.message); 
   else if(buffer_prefix == prefix.connection) magicExchange(buffer, size);
-  else if(buffer_prefix == prefix.send_config) usb.send(conf.byte_buffer, sizeof(conf.byte_buffer));
+  else if(buffer_prefix == prefix.send_config) usb.send((const unsigned char*) conf.byte_buffer, sizeof(conf.byte_buffer));
   else if(buffer_prefix == prefix.recv_config) recvConfig(buffer, size);
-  else if(buffer_prefix == prefix.send_sync) usb.send(sync.byte_buffer, sizeof(sync.byte_buffer));
+  else if(buffer_prefix == prefix.send_sync) usb.send((const unsigned char*) sync.byte_buffer, sizeof(sync.byte_buffer));
   else if(buffer_prefix == prefix.recv_sync) recvSync(buffer, size);
   else if(buffer_prefix == prefix.send_seq) sendSeq(buffer, size);
   else if(buffer_prefix == prefix.recv_seq) recvSeq(buffer, size, true); //If serial notification of upload, it will be a single file
@@ -425,12 +515,12 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   else{
     temp_size = sprintf(temp_buffer, "-Error: USB packet had invalid prefix: %d", buffer_prefix);  
     temp_buffer[0] = prefix.message;
-    usb.send(temp_buffer, temp_size);
+    usb.send((const unsigned char*) temp_buffer, temp_size);
   }
 }
 
 static void magicExchange(const uint8_t* buffer, size_t size){
-  int a;
+  uint32_t a;
   if(size == sizeof(MAGIC_RECEIVE)){
     for(a=0; a<size; a++){
       if(buffer[a+1] != MAGIC_RECEIVE[a]){
@@ -439,30 +529,30 @@ static void magicExchange(const uint8_t* buffer, size_t size){
     }
     if(a==size-1){
       MAGIC_SEND[0] = prefix.connection;
-      usb.send(MAGIC_SEND, size);
+      usb.send((const unsigned char*) MAGIC_SEND, size);
     }
   }
 }
 
 static void sendDriverId(){
   char driver_id[sizeof(conf.c.driver_name)+1];
-  for(int a=0; a<sizeof(conf.c.driver_name); a++){
+  for(uint32_t a=0; a<sizeof(conf.c.driver_name); a++){
     driver_id[a+1] = conf.c.driver_name[a];
   }
   driver_id[0] = prefix.send_id;
-  usb.send(driver_id, sizeof(driver_id));
+  usb.send((const unsigned char*) driver_id, sizeof(driver_id));
 }
 
 static void recvConfig(const uint8_t* buffer, size_t size){
   uint8_t checksum = 0;
   temp_size = 0;
   if(size == sizeof(conf.byte_buffer)){
-    for(int a = 0; a<size; a++) checksum += buffer[a];
+    for(int a = 0; a<(int) size; a++) checksum += buffer[a];
     if(!checksum){
       memcpy(conf.byte_buffer, buffer, size);
       conf.byte_buffer[0] = prefix.send_config; //Switch prefix to sending prefix
       conf.byte_buffer[size-1] += (prefix.recv_config - prefix.send_config); //Fix corresponding checksum
-      for(int a = 0; a<size; a++) EEPROM.update(a + sizeof(MAGIC_RECEIVE), conf.byte_buffer[a]); //Copy configuration to EEPROM
+      for(int a = 0; a<(int) size; a++) EEPROM.update(a + sizeof(MAGIC_RECEIVE), conf.byte_buffer[a]); //Copy configuration to EEPROM
       temp_size = sprintf(temp_buffer, "-Configuration file was successfully uploaded.");
     }
     else temp_size = sprintf(temp_buffer, "-Error: Check sum is non-zero: %d", checksum); 
@@ -471,7 +561,7 @@ static void recvConfig(const uint8_t* buffer, size_t size){
     
   if(temp_size){
     temp_buffer[0] = prefix.message;
-    usb.send(temp_buffer, temp_size);
+    usb.send((const unsigned char*) temp_buffer, temp_size);
   }
 }
 
@@ -480,12 +570,12 @@ static void recvSync(const uint8_t* buffer, size_t size){
   temp_size = 0;
   uint16_t expected_size = sizeof(sync.byte_buffer);// - sizeof(sync.s.digital_sequence) - sizeof(sync.s.confocal_sequence);
   if(size == expected_size){
-    for(int a = 0; a<size; a++) checksum += buffer[a];
+    for(int a = 0; a<(int) size; a++) checksum += buffer[a];
     if(!checksum){
       memcpy(sync.byte_buffer, buffer, size);
       sync.byte_buffer[0] = prefix.send_sync; //Switch prefix to sending prefix
       sync.byte_buffer[size-1] += (prefix.recv_sync - prefix.send_sync); //Fix corresponding checksum
-      for(int a = 0; a<size; a++) EEPROM.update(a + sizeof(MAGIC_RECEIVE) + sizeof(conf.byte_buffer), sync.byte_buffer[a]); //Copy sync to EEPROM
+      for(int a = 0; a<(int) size; a++) EEPROM.update(a + sizeof(MAGIC_RECEIVE) + sizeof(conf.byte_buffer), sync.byte_buffer[a]); //Copy sync to EEPROM
       if(recvSeq(buffer, size, false)) temp_size = sprintf(temp_buffer, "-Sync and sequence files were successfully uploaded.");
       else temp_size = sprintf(temp_buffer, "-Only sync file was successfully uploaded.");
     }
@@ -494,21 +584,20 @@ static void recvSync(const uint8_t* buffer, size_t size){
   else temp_size = sprintf(temp_buffer, "-Error: Sync packet is wrong size. Expected %d, got %d.", sizeof(sync.byte_buffer), size);  
   if(temp_size){
     temp_buffer[0] = prefix.message;
-    usb.send(temp_buffer, temp_size);
+    usb.send((const unsigned char*) temp_buffer, temp_size);
   }
 }
 
 static void syncRtcTime(const uint8_t* buffer, size_t size) {
-  unsigned long pctime;
   const unsigned long DEFAULT_TIME = 1609459200; // Jan 1 2021
   memcpy(uint32Union.bytes, buffer+1, size);
   if(uint32Union.bytes_var >= DEFAULT_TIME) { // check the integer is a valid time (greater than Jan 1 2013)
     setTime(uint32Union.bytes_var); // Sync Arduino clock to the time received on the serial port
   }
   else{
-    temp_size = sprintf(temp_buffer, "-Warning: Epoch time %d sync is invalid. Defaulting to January, 1 2021.", uint32Union.bytes_var);  
+    temp_size = sprintf(temp_buffer, "-Warning: Epoch time %lu sync is invalid. Defaulting to January, 1 2021.", uint32Union.bytes_var);  
     temp_buffer[0] = prefix.message;
-    usb.send(temp_buffer, temp_size);
+    usb.send((const unsigned char*) temp_buffer, temp_size);
   }
 }
 
@@ -522,7 +611,7 @@ static void sendSeq(const uint8_t* buffer, size_t size){
     }
     else{
       file_id = buffer[1];
-      if(!sd.readFromSD(sequence_buffer[0]+2, 0, 0, sd.seq_files[buffer[1]])){ //Offset 
+      if(!sd.readFromSD((char*) sequence_buffer[0]+2, 0, 0, sd.seq_files[buffer[1]])){ //Offset 
         temp_size = sprintf(temp_buffer, "%s", sd.message_buffer);  
         goto sendMessage;
       }
@@ -531,7 +620,7 @@ static void sendSeq(const uint8_t* buffer, size_t size){
         temp_buffer[0] = prefix.send_seq;
         uint32Union.bytes_var = sd.file_size+2; //+2 byte for the callback routing byte and file ID prefix byte at the start of the packet
         memcpy(temp_buffer+1, uint32Union.bytes, sizeof(uint32Union.bytes));
-        usb.send(temp_buffer, sizeof(prefix.send_seq) + sizeof(uint32Union.bytes));
+        usb.send((const unsigned char*) temp_buffer, sizeof(prefix.send_seq) + sizeof(uint32Union.bytes));
       }
     }
     Serial.setTimeout(DEFUALT_TIMEOUT); //Set timeout for waiting for packet blocks
@@ -557,8 +646,8 @@ static void sendSeq(const uint8_t* buffer, size_t size){
   return;
   sendMessage:
     temp_buffer[0] = prefix.message;
-    usb.send(temp_buffer, temp_size);
-    return false;
+    usb.send((const unsigned char*) temp_buffer, temp_size);
+    return;
 }
 
 static bool recvSeq(const uint8_t* buffer, size_t size, bool single_file){
@@ -581,21 +670,21 @@ static bool recvSeq(const uint8_t* buffer, size_t size, bool single_file){
     if(single_file) a=buffer[1]; //If a file was specified only recv that file
     temp_buffer[0] = prefix.recv_seq;
     temp_buffer[1] = a;
-    usb.send(temp_buffer, 2); //send request for sequence file
+    usb.send((const unsigned char*) temp_buffer, 2); //send request for sequence file
     Serial.setTimeout(DEFUALT_TIMEOUT);
-    recv_packet_size = Serial.readBytes(seq_header.byte_buffer, sizeof(seq_header.byte_buffer));
+    recv_packet_size = Serial.readBytes((char*) seq_header.byte_buffer, sizeof(seq_header.byte_buffer));
     if(recv_packet_size < sizeof(seq_header.byte_buffer)){ //Timed out while waiting for header packet
-      temp_size = sprintf(temp_buffer, "-Error: Timed out while waiting for sequence file stream #%d header packet. Only %d bytes received of %d", a+1, recv_packet_size, sizeof(seq_header.byte_buffer));  
+      temp_size = sprintf(temp_buffer, "-Error: Timed out while waiting for sequence file stream #%d header packet. Only %lu bytes received of %d", a+1, recv_packet_size, sizeof(seq_header.byte_buffer));  
       goto sendMessage;
     }
     if(seq_header.s.prefix == prefix.recv_seq){ //Verify routing prefix
       if(seq_header.s.file_index == a){ //Correct sequence file is streaming   
         if(seq_header.s.buffer_size % sizeof(sequenceStruct)){ //Invalid stream length (not an integer multiple of 9 bytes)
-          temp_size = sprintf(temp_buffer, "-Error: Invalid stream length, %d is not an integer multiple of %d.", seq_header.s.buffer_size, sizeof(sequenceStruct));  
+          temp_size = sprintf(temp_buffer, "-Error: Invalid stream length, %lu is not an integer multiple of %d.", seq_header.s.buffer_size, sizeof(sequenceStruct));  
           goto sendMessage;
         }
         else if(seq_header.s.buffer_size > sizeof(sequence_buffer[0])){ //Invalid stream length - stream is longer than buffer
-          temp_size = sprintf(temp_buffer, "-Error: Invalid stream length, %d is larger than than the buffer size: %d.", seq_header.s.buffer_size, sizeof(sequence_buffer[0]));  
+          temp_size = sprintf(temp_buffer, "-Error: Invalid stream length, %lu is larger than than the buffer size: %d.", seq_header.s.buffer_size, sizeof(sequence_buffer[0]));  
           goto sendMessage;
         }
         recv_packet_size = 0;
@@ -603,19 +692,19 @@ static bool recvSeq(const uint8_t* buffer, size_t size, bool single_file){
           Serial.setTimeout(int(seq_header.s.buffer_size >> 3)+DEFUALT_TIMEOUT);
           temp_buffer[0] = prefix.recv_stream;
           temp_buffer[1] = a;
-          usb.send(temp_buffer, 2); //send request for sequence file 
-          recv_packet_size = Serial.readBytes(sequence_buffer[0], seq_header.s.buffer_size);
+          usb.send((const unsigned char*) temp_buffer, 2); //send request for sequence file 
+          recv_packet_size = Serial.readBytes((char*) sequence_buffer[0], seq_header.s.buffer_size);
         }
         
         if(recv_packet_size == seq_header.s.buffer_size){ //If full packet was received, send it to the SD card
-          if(!sd.saveToSD(sequence_buffer[0], 0, seq_header.s.buffer_size, sd.seq_files[a])){
+          if(!sd.saveToSD((char*) sequence_buffer[0], 0, seq_header.s.buffer_size, sd.seq_files[a])){
             temp_size = sprintf(temp_buffer, "%s", sd.message_buffer);  
             goto sendMessage;
           }
-          if(single_file) return; //If a specific file was requested then exit the loop on completion
+          if(single_file) return true; //If a specific file was requested then exit the loop on completion
         }
         else{ //Packet stream timed out
-          temp_size = sprintf(temp_buffer, "-Error: Invalid for sequence file size for stream #%d.  Expected %d bytes, received %d", a+1, seq_header.s.buffer_size, recv_packet_size);  
+          temp_size = sprintf(temp_buffer, "-Error: Invalid for sequence file size for stream #%d.  Expected %lu bytes, received %lu", a+1, seq_header.s.buffer_size, recv_packet_size);  
           goto sendMessage;
         }
       }
@@ -632,7 +721,7 @@ static bool recvSeq(const uint8_t* buffer, size_t size, bool single_file){
   return true;
   sendMessage:
     temp_buffer[0] = prefix.message;
-    usb.send(temp_buffer, temp_size);
+    usb.send((const unsigned char*) temp_buffer, temp_size);
     return false;
 }
 
@@ -643,28 +732,28 @@ static void updateStatus(const uint8_t* buffer, size_t size){
 //    temp_size = sprintf(temp_buffer, "-%d %d %d %d %d %d %d %d %d %d %d", recv_status.s.led_channel, recv_status.s.led_pwm, recv_status.s.led_current, recv_status.s.mode, 
 //    recv_status.s.state, recv_status.s.driver_control, recv_status.s.temp[0], recv_status.s.temp[1], recv_status.s.temp[2], recv_status.s.fan_speed[0], recv_status.s.fan_speed[1]);
 //    goto sendMessage;
-    status.s.led_channel = recv_status.s.led_channel;
-    status.s.driver_control = recv_status.s.driver_control;
-    if(!status.s.driver_control){
-      status.s.mode = recv_status.s.mode;
-      status.s.led_pwm = recv_status.s.led_pwm;
-      status.s.led_current = recv_status.s.led_current;
+    current_status.s.led_channel = recv_status.s.led_channel;
+    current_status.s.driver_control = recv_status.s.driver_control;
+    if(!current_status.s.driver_control){
+      current_status.s.mode = recv_status.s.mode;
+      current_status.s.led_pwm = recv_status.s.led_pwm;
+      current_status.s.led_current = recv_status.s.led_current;
     }
   }
   return;
-  sendMessage:
-    temp_buffer[0] = prefix.message;
-    usb.send(temp_buffer, temp_size);
-    return;
+//  sendMessage:
+//    temp_buffer[0] = prefix.message;
+//    usb.send((const unsigned char*) temp_buffer, temp_size);
+//    return;
 }
 
 static void driverCalibration(const uint8_t* buffer, size_t size){
   BYTE16UNION calibration_current;
   memcpy(calibration_current.bytes, buffer + 1, 2);
-  temp_size = pin.captureWave(calibration_current.bytes_var, temp_buffer+1);
+  temp_size = pin.captureWave(calibration_current.bytes_var, (uint8_t*) (temp_buffer+1));
   temp_buffer[0] = prefix.calibration;
-  usb.send(temp_buffer, temp_size+1);
-  //usb.send(cobs_buffer, cobs_size);
+  usb.send((const unsigned char*) temp_buffer, (size_t) (temp_size+1));
+  //usb.send((const unsigned char*) cobs_buffer, cobs_size);
 }
 
 //  boolean state[] = {false, false, false, false, false};

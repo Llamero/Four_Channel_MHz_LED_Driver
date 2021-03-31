@@ -13,7 +13,8 @@ ADC *adc = new ADC(); // adc object;
 
 //NOTE: It seems that in this compiler lists longer than 4 need to be built in CPP while shorter lists need to be built in header with constexpr
 
-const static int pinSetup::NC[] = {5, 6, 7, 8, 9, 38, 39}; //Not connected pins
+const int pinSetup::NC[] = {5, 6, 7, 8, 9, 38, 39}; //Not connected pins
+const int pinSetup::OUTPUTS[] = {22, 21, 20};
 DMAMEM static volatile uint16_t __attribute__((aligned(32))) dma_adc2_buff1[1600];
 AnalogBufferDMA abdma2(dma_adc2_buff1, 1600);
 
@@ -22,11 +23,11 @@ pinSetup::pinSetup()
 {
 }
 
-static void pinSetup::init(){
+void pinSetup::init(){
 }
 
 
-static void pinSetup::configurePins(){
+void pinSetup::configurePins(){
     unsigned int a; //Loop counter
     analogWriteResolution(16);
     
@@ -61,6 +62,7 @@ static void pinSetup::configurePins(){
     for(a=0; a<sizeof(RELAY)/sizeof(RELAY[0]); a++) digitalWriteFast(RELAY[a], LOW);
     pinMode(INTERLINE, OUTPUT);
     digitalWriteFast(INTERLINE, LOW);
+    analogWriteFrequency(INTERLINE, LED_FREQ); //Set output PWM freq to optimal CPU fan freq, also sets analog_select PWM freq (on same timer): https://www.pjrc.com/teensy/td_pulse.html
     pinMode(ANALOG_SELECT, OUTPUT);
     digitalWriteFast(ANALOG_SELECT, LOW);
     pinMode(LED_BUILTIN, OUTPUT);
@@ -69,6 +71,7 @@ static void pinSetup::configurePins(){
     for(a=0; a<sizeof(ALARM)/sizeof(ALARM[0]); a++) digitalWriteFast(ALARM[a], LOW);
     for(a=0; a<sizeof(OUTPUTS)/sizeof(OUTPUTS[0]); a++) pinMode(OUTPUTS[a], OUTPUT);
     for(a=0; a<sizeof(OUTPUTS)/sizeof(OUTPUTS[0]); a++) digitalWriteFast(OUTPUTS[a], LOW);
+    analogWriteFrequency(OUTPUTS[0], FAN_FREQ); //Set output PWM freq to optimal CPU fan freq, also sets analog_select PWM freq (on same timer): https://www.pjrc.com/teensy/td_pulse.html
     pinMode(FAN_PWM, OUTPUT);
     digitalWriteFast(FAN_PWM, LOW);
     for(a=0; a<sizeof(LED)/sizeof(LED[0]); a++) pinMode(LED[a], OUTPUT);
@@ -86,24 +89,24 @@ static void pinSetup::configurePins(){
     Wire.setSCL(SCL0);
 }
 
-static int pinSetup::adcMax(){
+int pinSetup::adcMax(){
   return (int) adc->adc0->getMaxValue();
 }
 
-static uint16_t pinSetup::mosfetTemp(){
+uint16_t pinSetup::mosfetTemp(){
   return analogRead(MOSFET_TEMP);
 }
 
-static uint16_t pinSetup::resistorTemp(){
+uint16_t pinSetup::resistorTemp(){
   return analogRead(RESISTOR_TEMP);
 }
 
-static uint16_t pinSetup::extTemp(){
+uint16_t pinSetup::extTemp(){
   return analogRead(EXTERNAL_TEMP);
 }
 
 //Requires 14 µs to complete calculation
-static float pinSetup::adcToTemp(int adc, int therm_nominal = PCB_THERMISTOR_NOMINAL, int b_coefficient = PCB_B_COEFFICIENT){
+float pinSetup::adcToTemp(int adc, int therm_nominal = PCB_THERMISTOR_NOMINAL, int b_coefficient = PCB_B_COEFFICIENT){
   float steinhart;
   float raw = (float) adc;
   raw = adcMax() / raw - 1;
@@ -118,7 +121,7 @@ static float pinSetup::adcToTemp(int adc, int therm_nominal = PCB_THERMISTOR_NOM
 
 }
 
-static int pinSetup::tempToAdc(float temperature, int therm_nominal = PCB_THERMISTOR_NOMINAL, int b_coefficient = PCB_B_COEFFICIENT){
+int pinSetup::tempToAdc(float temperature, int therm_nominal = PCB_THERMISTOR_NOMINAL, int b_coefficient = PCB_B_COEFFICIENT){
   float steinhart = temperature;
   float raw;
   steinhart += 273.15;  
@@ -132,7 +135,7 @@ static int pinSetup::tempToAdc(float temperature, int therm_nominal = PCB_THERMI
   return (int) round(raw);
 }
 
-static uint16_t pinSetup::captureWave(uint16_t test_dac_value, uint8_t *cobs_buffer) {
+uint16_t pinSetup::captureWave(uint16_t test_dac_value, uint8_t *cobs_buffer) {
   pinMode(ISENSE, INPUT);
   digitalWriteFast(INTERLINE, LOW);
   digitalWriteFast(ANALOG_SELECT, LOW);
@@ -156,7 +159,7 @@ static uint16_t pinSetup::captureWave(uint16_t test_dac_value, uint8_t *cobs_buf
   digitalWriteFast(INTERLINE, LOW);
   if ((uint32_t)cobs_buffer >= 0x20200000u)  arm_dcache_delete((void*)cobs_buffer, sizeof(dma_adc2_buff1));
   uint16_t cobs_size = (&abdma2)->bufferCountLastISRFilled()*2;
-  memcpy(cobs_buffer, (&abdma2)->bufferLastISRFilled(), cobs_size);
+  memcpy(cobs_buffer, (const void*) ((&abdma2)->bufferLastISRFilled()), cobs_size);
   abdma2.clearCompletion();
   return cobs_size;
 }

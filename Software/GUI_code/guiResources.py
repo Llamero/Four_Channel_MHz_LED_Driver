@@ -6,6 +6,8 @@
 #
 # WARNING! All changes made in this file will be lost!
 
+#https://stackoverflow.com/questions/37888581/pyinstaller-ui-files-filenotfounderror-errno-2-no-such-file-or-directory/37920111#37920111
+
 from PyQt5 import QtCore
 
 qt_resource_data = b"\

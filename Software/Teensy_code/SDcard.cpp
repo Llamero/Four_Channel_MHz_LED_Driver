@@ -8,17 +8,17 @@ SdVolume volume;
 SdFile root;
 File f;
 
-static char SDcard::message_buffer[256]; //Temporary buffer for preparing packets immediately before transmission
-static size_t SDcard::message_size; //Size of temporary packet to transmit
-static size_t SDcard::file_size; //Size of file on SD card
-const static char SDcard::seq_bin_dir[] = "seq_bin"; //Directory to save boot log files into - max length 8 char
-const static char SDcard::seq_files[][13] = {"dig_low.bin", "dig_high.bin", "con_img.bin", "con_fly.bin"};
+char SDcard::message_buffer[256]; //Temporary buffer for preparing packets immediately before transmission
+size_t SDcard::message_size; //Size of temporary packet to transmit
+size_t SDcard::file_size; //Size of file on SD card
+const char SDcard::seq_bin_dir[] = "seq_bin"; //Directory to save boot log files into - max length 8 char
+const char SDcard::seq_files[][13] = {"dig_low.bin", "dig_high.bin", "con_img.bin", "con_fly.bin"};
 
 SDcard::SDcard()
 {
 }
 
-static void SDcard::init(){
+void SDcard::init(){
 }
 
 // call back for file timestamps - from: https://forum.arduino.cc/index.php?topic=348562.0
@@ -30,7 +30,7 @@ static void dateTime(uint16_t* date, uint16_t* time) {
   *time = FAT_TIME(hour(unix_t), minute(unix_t), second(unix_t));
 }
 
-static boolean SDcard::initializeSD(){
+boolean SDcard::initializeSD(){
   message_size = 0;
   // set date time callback function for applying RTC synced time stamps to SD card file time stamps
   SdFile::dateTimeCallback(dateTime);
@@ -52,7 +52,7 @@ static boolean SDcard::initializeSD(){
   if(!SD.exists(seq_bin_dir)){ //Don't run begin again if it has already been run - known bug in SD.h library: https://arduino.stackexchange.com/questions/3850/sd-begin-fails-second-time
     if(!SD.begin(chipSelect)){
       message_size = sprintf(message_buffer, "-Warning: SD initialization failed. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot.");
-      return;
+      return false;
     }
     if(!SD.exists(seq_bin_dir)){ 
       if(!SD.mkdir(seq_bin_dir)){
@@ -73,9 +73,9 @@ static boolean SDcard::initializeSD(){
 }
 
 //Save data to the SD card
-static bool SDcard::saveToSD(char *data_array, uint32_t start_index, uint32_t end_index, char (*file_name), char (*file_dir) = seq_bin_dir, boolean force_write = true){
+bool SDcard::saveToSD(char *data_array, uint32_t start_index, uint32_t end_index, const char (*file_name), const char (*file_dir), boolean force_write){
   file_size = 0;
-  if(end_index > start_index && end_index != -1) file_size = end_index-start_index; //If buffer is not empty calcualte log size
+  if(end_index > start_index && end_index != (uint32_t) -1) file_size = end_index-start_index; //If buffer is not empty calcualte log size
   sprintf(message_buffer, "%s/%s", file_dir, file_name); //Path to file to save
    
   if(force_write || file_size >= 512){ 
@@ -105,9 +105,9 @@ static bool SDcard::saveToSD(char *data_array, uint32_t start_index, uint32_t en
 }
 
 //Read data from the SD card
-static boolean SDcard::readFromSD(char *data_array, uint32_t start_index, uint32_t end_index, char (*file_name), char (*file_dir) = seq_bin_dir, boolean force_read = true){
+boolean SDcard::readFromSD(char *data_array, uint32_t start_index, uint32_t end_index, const char (*file_name), const char (*file_dir), boolean force_read){
   file_size = 0;
-  if(end_index > start_index && end_index != -1) file_size = end_index-start_index; //If buffer is not empty calcualte log size
+  if(end_index > start_index && end_index != (uint32_t) -1) file_size = end_index-start_index; //If buffer is not empty calcualte log size
   sprintf(message_buffer, "%s/%s", file_dir, file_name); //Path to file to save
   
   if(force_read || file_size >= 512){ 
@@ -140,7 +140,7 @@ static boolean SDcard::readFromSD(char *data_array, uint32_t start_index, uint32
 }
 
 // call back for file timestamps - from: https://forum.arduino.cc/index.php?topic=348562.0
-static void SDcard::dateTime(uint16_t* date, uint16_t* time) {
+void SDcard::dateTime(uint16_t* date, uint16_t* time) {
  time_t unix_t = now();
  // return date using FAT_DATE macro to format fields
  *date = FAT_DATE(year(unix_t), month(unix_t), day(unix_t));

@@ -20,7 +20,6 @@ class pinSetup
     static uint16_t extTemp(); //Returns the current temperature of the external thermistor in °C
     static float adcToTemp(int adc, int therm_nominal, int b_coefficient); //Convert raw ADC value to temperature in °C
     static int tempToAdc(float temperature, int therm_nominal, int b_coefficient); //Convert temperature in °C to equivalent ADC value
-
     static uint16_t captureWave(uint16_t test_dac_value, uint8_t *cobs_buffer);
     
     constexpr static int RELAY[4] = {0, 1, 2, 3}; //SSR relays for changing LED channel
@@ -37,7 +36,7 @@ class pinSetup
     const static int ISENSE = 17; //Analog input to measure current sense voltage
     const static int SDA0 = 18; //I2C SDA pin for optional peripheral comunication
     const static int SCL0 = 19; //I2C SCL pin for optional peripheral comunication
-    constexpr static int OUTPUTS[3] = {22, 21, 20}; //5V output pins for external triggering/PWM
+    const static int OUTPUTS[]; //5V output pins for external triggering/PWM
     const static int FAN_PWM = 23; //5V PWM to control internal fan speed
     
     constexpr static int PUSHBUTTON[4] = {27, 25, 26, 30}; //Four pushbutton inputs 
@@ -56,6 +55,9 @@ class pinSetup
     const static int adc_averaging = 1; //Number of times to average adc recording before returning value
     const static int adc_resolution = 16; //Number of significant bits to return per adc recording
 
+    const static int LED_FREQ = 25000; //LED driver PWM freq - default to 25kHz to have optimal dynamic range while staying outside the auditory range
+    const static int FAN_FREQ = 25000; //5V output PWM frequency (in Hz) - 25kHz is optimal for driving CPU fans
+    
     const static int SERIES_RESISTOR = 4700; //Value of series resistor to the thermistor on the PCB
     const static int PCB_THERMISTOR_NOMINAL = 4700; //Value of thermistor resistor on PCB at nominal temp (25°C)
     const static int PCB_B_COEFFICIENT = 3545; //Beta value for the PCB thermistor

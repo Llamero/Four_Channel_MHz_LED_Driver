@@ -419,7 +419,7 @@ class Ui(QtWidgets.QMainWindow):
         except ValueError:
             return 0.01
 
-    # Define function to import external files when using PyInstaller.
+    # Define function to import external files when using PyInstaller - https://stackoverflow.com/questions/37888581/pyinstaller-ui-files-filenotfounderror-errno-2-no-such-file-or-directory/37920111#37920111
     def resourcePath(self, relative_path):
         #Get absolute path to resource, works for dev and for PyInstaller
         try:
