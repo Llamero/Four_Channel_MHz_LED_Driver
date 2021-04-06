@@ -22,7 +22,7 @@ void SDcard::init(){
 }
 
 // call back for file timestamps - from: https://forum.arduino.cc/index.php?topic=348562.0
-static void dateTime(uint16_t* date, uint16_t* time) {
+void dateTime(uint16_t* date, uint16_t* time) {
   time_t unix_t = now();
   // return date using FAT_DATE macro to format fields
   *date = FAT_DATE(year(unix_t), month(unix_t), day(unix_t));

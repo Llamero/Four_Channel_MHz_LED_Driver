@@ -178,8 +178,8 @@ def bytesToConfig(byte_array, gui, prefix):
             external = False
             if source == "External":
                 external = True
-            gui.setValue(gui.config_model["Fan"][source]["Min"], adcToTemp(config_values[26 + index], external))
-            gui.setValue(gui.config_model["Fan"][source]["Max"], adcToTemp(config_values[28 + index], external))
+            gui.setValue(gui.config_model["Fan"][source]["Min"], adcToTemp(config_values[26 + 2*index], external))
+            gui.setValue(gui.config_model["Fan"][source]["Max"], adcToTemp(config_values[27 + 2*index], external))
 
         channel_id = gui.config_model["Fan"]["Channel"][config_values[30]].text()
         gui.setValue(gui.config_model["Fan"]["Channel"], channel_id)
@@ -323,8 +323,8 @@ def configToBytes(gui, prefix):
         external = False
         if source == "External":
             external = True
-        config_values[26 + index] = tempToAdc(gui.getValue(gui.config_model["Fan"][source]["Min"]), external)
-        config_values[28 + index] = tempToAdc(gui.getValue(gui.config_model["Fan"][source]["Max"]), external)
+        config_values[26 + 2*index] = tempToAdc(gui.getValue(gui.config_model["Fan"][source]["Min"]), external)
+        config_values[27 + 2*index] = tempToAdc(gui.getValue(gui.config_model["Fan"][source]["Max"]), external)
 
     for index, widget in enumerate(gui.config_model["Fan"]["Channel"]):
         if gui.getValue(widget):

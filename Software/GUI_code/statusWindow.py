@@ -178,7 +178,10 @@ class statusWindow(QtWidgets.QWidget):
                     key = "Channel Name"
                     value = self.gui.getValue(self.gui.config_model["LED" + str(value)]["ID"])
                 elif key in ["Transistor", "Resistor", "External"]:
-                    self.status_dict[key] = fileIO.adcToTemp(value/count)
+                    if key == "External":
+                        self.status_dict[key] = fileIO.adcToTemp(value/count, True) #Use external thermistor coefficients
+                    else:
+                        self.status_dict[key] = fileIO.adcToTemp(value / count, False) #Use internal thermistor coefficients
                     if self.status_dict[key] > -30:
                         value = round_to_n(self.status_dict[key], 3)
                         unit = " °C"

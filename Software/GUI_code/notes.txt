@@ -31,6 +31,8 @@ If current limit is changed also update sync
 
 Warn user if seq percent exceeds 100% but allow it?
 
+Reset driver (especially pins) on successful sync or configu upload
+
 
 
 

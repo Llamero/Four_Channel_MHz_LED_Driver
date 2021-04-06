@@ -34,7 +34,7 @@ const struct defaultConfigurationStruct{
   char driver_name[16] = "Unnamed driver ";
   char led_names[4][16] = {"LED #1         ", "LED #2         ", "LED #3         ", "LED #4         "};
   boolean led_active[4] = {false, false, false, false}; //Whether LED channel is in use: {false, false, false, false}
-  uint16_t current_limit[4] = {100,100,100,100}; //Current limit for each channel on DAC values: {0,0,0,0}
+  uint16_t current_limit[4] = {65535,65535,65535,65535}; //Current limit for each channel on DAC values: {0,0,0,0}
   uint8_t led_channel[4] = {0,1,2,3}; //SSR channels used for each LED: {1,2,3,4}
   float resistor_values[4] = {5, 10, 1000, 1000}; //Values of current sense resistors
   boolean resistor_active[4] = {true, true, false, false}; //Whether a specific resistor is used
@@ -48,7 +48,7 @@ const struct defaultConfigurationStruct{
   uint8_t audio_volume[2] = {10, 100}; //Status and alarm volumes for transducer: {10, 100}
   bool pushbutton_intensity = true; //LED intensity - on/off
   uint8_t pushbutton_mode = 0; //LED illumination mode when alarm is active
-  uint8_t checksum = 216;
+  uint8_t checksum = 112;
 } defaultConfig;
 
 struct syncStruct{ //158 bytes
@@ -260,10 +260,9 @@ volatile uint8_t external_fan_pin = 0;
 pinSetup pin;
 SDcard sd;
 PacketSerial_<COBS, 0, COBS_BUFFER_SIZE> usb; //Sets Encoder, framing character, buffer size
-IntervalTimer myTimer; //Interrupt timer for checking status of LED driver
 
 void setup() {
-  EEPROM.update(0,0);
+//  EEPROM.update(0,0);
   for(size_t a=0; a<sizeof(current_status.byte_buffer); a++) *(current_status.byte_buffer+a)=0; //Initialize status buffer to a known state of all 0
   
   //Count cpu cycles for submircrosecond delay precision - https://forum.pjrc.com/threads/28407-Teensyduino-access-to-counting-cpu-cycles?p=71036&viewfull=1#post71036
@@ -272,7 +271,6 @@ void setup() {
   cpu_cycles = ARM_DWT_CYCCNT;
   sequence_buffer[0][0]= 0;
   pinMode(LED_BUILTIN, OUTPUT);
-  pin.configurePins();
   Serial.begin(9600); //Needed for non-COBS streaming, such as large sequence files
   usb.begin(115200);
   usb.setPacketHandler(&onPacketReceived);
@@ -287,9 +285,6 @@ void setup() {
   digitalWriteFast(pin.ANALOG_SELECT, LOW);
   digitalWriteFast(pin.FAN_PWM, LOW);
   analogWrite(A21, 0);
-  
-  myTimer.begin(checkStatus, 1000);  //By default, cehck driver status every 1 ms
-  conf.c.fan_channel = 1; //////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 elapsedMillis t = 0;
 uint32_t d = 10;
@@ -330,7 +325,8 @@ void loop() {
 //    
 //    temp_buffer[0] = prefix.status_update;
 //    memcpy(temp_buffer+1, current_status.byte_buffer, sizeof(current_status.byte_buffer));
-//    usb.send((const unsigned char*) temp_buffer, sizeof(current_status.byte_buffer)+1); 
+//    usb.send((const unsigned char*) temp_buffer, sizeof(current_status.byte_buffer)+1);
+    checkStatus(); 
     digitalWriteFast(LED_BUILTIN, HIGH);
     delay(20);
     digitalWriteFast(LED_BUILTIN, LOW);
@@ -355,7 +351,8 @@ void checkStatus(){
     case 2:
       status_index++;
       analogRead(pin.EXTERNAL_TEMP);
-      current_status.s.temp[2] += 256;
+      analogRead(pin.POT);
+      current_status.s.temp[2] = analogRead(pin.POT);
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
     case 3: //Check if any of the temperatures is past the fault temperature
       status_index++;
@@ -370,6 +367,12 @@ void checkStatus(){
         status_index++;
         setFan(current_status.s.temp[2], 1); //Update fan based on highest internal temperature (lowest ADC value
         if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+    case 6: //Send current status to led driver
+      status_index++;
+      temp_buffer[0] = prefix.status_update;
+      memcpy(temp_buffer+1, current_status.byte_buffer, sizeof(current_status.byte_buffer));
+      usb.send((const unsigned char*) temp_buffer, sizeof(current_status.byte_buffer)+1);
+      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
     default:
       usb.update();
       status_index = 0; //Reset status index if no cases match
@@ -398,17 +401,33 @@ void setFan(uint16_t temp, uint8_t fan_index){
     temp_max = conf.c.driver_fan[1];
     delta_temp =  conf.c.driver_fan[0] - conf.c.driver_fan[1];
   }
-  if(temp >= temp_min) digitalWriteFast(out_pin, LOW); //If temp is below min fan temp, turn fan off
-  else if(temp <= temp_max) digitalWriteFast(out_pin, HIGH); //If temp is above max fan temp, run fan at full speed
+  
+  if(temp >= temp_min){
+    pinMode(out_pin, OUTPUT);
+    digitalWriteFast(out_pin, LOW); //If temp is below min fan temp, turn fan off
+    current_status.s.fan_speed[fan_index] = 0;
+  }
+  else if(temp <= temp_max){
+    pinMode(out_pin, OUTPUT);
+    digitalWriteFast(out_pin, HIGH); //If temp is above max fan temp, run fan at full speed
+    current_status.s.fan_speed[fan_index] = 65535;
+  }
   else{
-    uint16_t fan_pwm =  round(((temp_min - (float) temp)/delta_temp)*65535.0);
-    analogWrite(out_pin, fan_pwm);
+    current_status.s.fan_speed[fan_index] =  round(((temp_min - (float) temp)/delta_temp)*65535.0);
+    analogWrite(out_pin, current_status.s.fan_speed[fan_index]);
   }
 }
 
 void thermalFault(){
   for(int a=0; a<3; a++){
-    if(current_status.s.temp[a] <= conf.c.fault_temp[a]); 
+    if(current_status.s.temp[a] <= conf.c.fault_temp[a]){
+      //Turn off LED circuit completely
+      digitalWriteFast(pin.INTERLINE, LOW); //Apply negative voltage input to op-amp
+      digitalWriteFast(pin.ANALOG_SELECT, LOW); //Disconnect external analog input
+      for(size_t b=0; b<sizeof(pin.RELAY)/sizeof(pin.RELAY[0]); b++) digitalWriteFast(pin.RELAY[b], LOW); //Open all relays
+      
+    }
+     
   }
 }
 
@@ -421,6 +440,9 @@ void initializeConfigurations(){
   uint16_t buffer_size = sizeof(MAGIC_RECEIVE);
   uint16_t EEPROM_address;
 
+  //Set pin configurations
+  pin.configurePins();
+  
   //See if EEPROM has magic number
   for(a=0; a<buffer_size; a++){
     if(EEPROM.read(a) != MAGIC_RECEIVE[a]){
@@ -554,6 +576,7 @@ static void recvConfig(const uint8_t* buffer, size_t size){
       conf.byte_buffer[size-1] += (prefix.recv_config - prefix.send_config); //Fix corresponding checksum
       for(int a = 0; a<(int) size; a++) EEPROM.update(a + sizeof(MAGIC_RECEIVE), conf.byte_buffer[a]); //Copy configuration to EEPROM
       temp_size = sprintf(temp_buffer, "-Configuration file was successfully uploaded.");
+      initializeConfigurations(); //Re-run the setup routine to update driver state 
     }
     else temp_size = sprintf(temp_buffer, "-Error: Check sum is non-zero: %d", checksum); 
   }
@@ -576,8 +599,14 @@ static void recvSync(const uint8_t* buffer, size_t size){
       sync.byte_buffer[0] = prefix.send_sync; //Switch prefix to sending prefix
       sync.byte_buffer[size-1] += (prefix.recv_sync - prefix.send_sync); //Fix corresponding checksum
       for(int a = 0; a<(int) size; a++) EEPROM.update(a + sizeof(MAGIC_RECEIVE) + sizeof(conf.byte_buffer), sync.byte_buffer[a]); //Copy sync to EEPROM
-      if(recvSeq(buffer, size, false)) temp_size = sprintf(temp_buffer, "-Sync and sequence files were successfully uploaded.");
-      else temp_size = sprintf(temp_buffer, "-Only sync file was successfully uploaded.");
+      if(recvSeq(buffer, size, false)){
+        temp_size = sprintf(temp_buffer, "-Sync and sequence files were successfully uploaded.");
+        initializeConfigurations(); //Re-run the setup routine to update driver state
+      }
+      else{
+        temp_size = sprintf(temp_buffer, "-Only sync file was successfully uploaded.");
+        initializeConfigurations(); //Re-run the setup routine to update driver state
+      }
     }
     else temp_size = sprintf(temp_buffer, "-Error: Check sum is non-zero: %d", checksum); 
   }
