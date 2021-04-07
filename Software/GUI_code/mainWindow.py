@@ -15,8 +15,7 @@ from timeit import default_timer as timer
 import pickle
 import syncPlotWindow
 
-DIAL_UPDATE_RATE = 0.05 #Time in ms between updates from dial when in manual control - prevents dial from locking GUI with continuous updates when dial is swept
-
+DIAL_UPDATE_RATE = 0.05 #Time in s between updates from dial when in manual control - prevents dial from locking GUI with continuous updates when dial is swept
 class Ui(QtWidgets.QMainWindow):
     status_signal = QtCore.pyqtSignal(object) #Need to initialize outside of init() https://stackoverflow.com/questions/2970312/pyqt4-qtcore-pyqtsignal-object-has-no-attribute-connect
     sync_update_signal = QtCore.pyqtSignal(object)  # Need to initialize outside of init() https://stackoverflow.com/questions/2970312/pyqt4-qtcore-pyqtsignal-object-has-no-attribute-connect

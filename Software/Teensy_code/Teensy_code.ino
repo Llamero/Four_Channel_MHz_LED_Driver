@@ -251,11 +251,14 @@ uint32_t send_stream_size = 0; //Total size of file to be streamed
 const static uint16_t DEFUALT_TIMEOUT = 500; //Default timeout for serial communication in ms
 uint8_t status_index = 0; //Index counter for incrementally updating and transmitting status
 uint32_t status_duration = 180000; //Time (in number of clock cycles) available to check status per interrupt
+const uint8_t status_update_interval = 5; //The minimum time (in ms) between serial updates - prevents over-streaming of serial data and constantly accelerating fan
+const uint32_t status_step_duration =  18000; //Minimum time needed (in clock cycles) to complete one status check
+elapsedMillis status_update_timer; //Status timer to track when to transmit the next update
 elapsedMillis heartbeat; //Heartbeat timer to confirm that GUI is still connected
 const static uint32_t HEARTBEAT_TIMEOUT = 10000; //Driver will assume connection has closed if heartbeat not received within this time
 uint32_t cpu_cycles = 0; //Track the number of CPU cycles for sub-microseconds timing precision
 const static uint32_t cycle_offset = 7; //Number of cycles needed to check cycles ellapsed
-volatile uint8_t external_fan_pin = 0;
+boolean transmit_updates = false; //Whether to send updates over serial - used to block updates during critical communication
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
 SDcard sd;
@@ -284,61 +287,20 @@ void setup() {
   digitalWriteFast(pin.INTERLINE, LOW);
   digitalWriteFast(pin.ANALOG_SELECT, LOW);
   digitalWriteFast(pin.FAN_PWM, LOW);
-  analogWrite(A21, 0);
+  analogWrite(pin.DAC0, 0);
 }
 elapsedMillis t = 0;
 uint32_t d = 10;
 
 void loop() {
-  interrupts();
-//  noInterrupts();
-//  cpu_cycles = ARM_DWT_CYCCNT;
-//  digitalWriteFast(pin.SDA0, HIGH);
-//  while(ARM_DWT_CYCCNT-cpu_cycles < d-cycle_offset);
-//  digitalWriteFast(pin.SDA0, LOW);
-//  interrupts();
-//  if (t > 100){
-//    t=0;
-//    d++;
-//    if(d >= 30) d = 24;
-//  }
-
-//  digitalWriteFast(pin.SDA0, HIGH); 
-//  usb.update();
-//  digitalWriteFast(pin.SDA0, LOW);
-//  if(heartbeat < HEARTBEAT_TIMEOUT){
-//    if(current_status.s.driver_control){
-//      current_status.s.led_channel = 0;
-//      analogRead(pin.POT);
-//      current_status.s.led_pwm = 65535-analogRead(pin.POT);
-//      current_status.s.led_current = 65535-analogRead(pin.POT);
-//      current_status.s.mode = digitalReadFast(pin.TOGGLE);
-//    }
-//    analogRead(pin.MOSFET_TEMP);
-//    current_status.s.temp[0] = analogRead(pin.MOSFET_TEMP);
-//    analogRead(pin.RESISTOR_TEMP);
-//    current_status.s.temp[1] = analogRead(pin.RESISTOR_TEMP);
-//    analogRead(pin.EXTERNAL_TEMP);
-//    current_status.s.temp[2] = analogRead(pin.EXTERNAL_TEMP);
-//    current_status.s.fan_speed[0] = 0;
-//    current_status.s.fan_speed[1] = 0;
-//    
-//    temp_buffer[0] = prefix.status_update;
-//    memcpy(temp_buffer+1, current_status.byte_buffer, sizeof(current_status.byte_buffer));
-//    usb.send((const unsigned char*) temp_buffer, sizeof(current_status.byte_buffer)+1);
-    checkStatus(); 
-    digitalWriteFast(LED_BUILTIN, HIGH);
-    delay(20);
-    digitalWriteFast(LED_BUILTIN, LOW);
-    delay(20);
-//  }
+  checkStatus();
 }
 
 void checkStatus(){
   cpu_cycles = ARM_DWT_CYCCNT; //Start timer - this is important for timing out status check during confocal syncs
   interrupts(); //Activate interrupts to allow serial to be monitored and sent
   switch(status_index){
-    case 0: //Check driver temperatures
+    case 0: //Check driver temperatures - 3.68 µs
       status_index++;
       analogRead(pin.MOSFET_TEMP);
       current_status.s.temp[0] = analogRead(pin.MOSFET_TEMP);
@@ -351,33 +313,53 @@ void checkStatus(){
     case 2:
       status_index++;
       analogRead(pin.EXTERNAL_TEMP);
-      analogRead(pin.POT);
-      current_status.s.temp[2] = analogRead(pin.POT);
+      current_status.s.temp[2] = analogRead(pin.EXTERNAL_TEMP);
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
-    case 3: //Check if any of the temperatures is past the fault temperature
+    case 3: //Check if any of the temperatures is past the fault temperature - 0.59 µs
       status_index++;
       thermalFault();
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
-    case 4: //Update internal fan speed
+    case 4: //Update internal fan speed - 0.85 µs
       status_index++;
       if(current_status.s.temp[0] < current_status.s.temp[1]) setFan(current_status.s.temp[0], 0); //Update fan based on highest internal temperature (lowest ADC value)
       else setFan(current_status.s.temp[1], 0);
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
-    case 5: //Update external fan speed
-        status_index++;
-        setFan(current_status.s.temp[2], 1); //Update fan based on highest internal temperature (lowest ADC value
-        if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
-    case 6: //Send current status to led driver
+    case 5: //Update external fan speed - 0.85 µs
       status_index++;
-      temp_buffer[0] = prefix.status_update;
-      memcpy(temp_buffer+1, current_status.byte_buffer, sizeof(current_status.byte_buffer));
-      usb.send((const unsigned char*) temp_buffer, sizeof(current_status.byte_buffer)+1);
+      setFan(current_status.s.temp[2], 1); //Update external fan
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
-    default:
+    case 6: //Send current status to led driver - 4.76 µs
+      status_index++;
+      if(status_update_timer >= status_update_interval){ //Status timer to track when to transmit the next update
+        status_update_timer = 0; //Reset the status update timer
+        if(heartbeat >= HEARTBEAT_TIMEOUT) transmit_updates = false; //Timeout update transmissions if serial is no longer received
+        if(transmit_updates){ //If connection is active, send status update
+          digitalWriteFast(pin.OUTPUTS[2], HIGH);
+          temp_buffer[0] = prefix.status_update;
+          memcpy(temp_buffer+1, current_status.byte_buffer, sizeof(current_status.byte_buffer));
+          temp_buffer[1] = transmit_updates;
+          usb.send((const unsigned char*) temp_buffer, sizeof(current_status.byte_buffer)+1);
+        }
+      }
+      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+    case 7: //Check pot value
+      status_index++;
+      if(current_status.s.mode == 1 || current_status.s.mode == 2){
+        analogRead(pin.POT);
+        if(current_status.s.mode == 1) current_status.s.led_pwm = 65535-analogRead(pin.POT);
+        else current_status.s.led_current = 65535-analogRead(pin.POT);
+      }
+      else if(current_status.s.mode == 3){
+        current_status.s.led_pwm = 0;
+        current_status.s.led_current = 0;
+      }
+      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+    default: //Check if a serial packet has been received - 0.37 µs
       usb.update();
       status_index = 0; //Reset status index if no cases match
       break;
   }
+  digitalWriteFast(pin.OUTPUTS[2], LOW);
   //if(sync.s.mode==2) noInterrupts(); //Disable interrupts if in confocal mode, as the scan mirror is used as the interrupt clock
 }
 
@@ -424,10 +406,8 @@ void thermalFault(){
       //Turn off LED circuit completely
       digitalWriteFast(pin.INTERLINE, LOW); //Apply negative voltage input to op-amp
       digitalWriteFast(pin.ANALOG_SELECT, LOW); //Disconnect external analog input
-      for(size_t b=0; b<sizeof(pin.RELAY)/sizeof(pin.RELAY[0]); b++) digitalWriteFast(pin.RELAY[b], LOW); //Open all relays
-      
-    }
-     
+      for(size_t b=0; b<sizeof(pin.RELAY)/sizeof(pin.RELAY[0]); b++) digitalWriteFast(pin.RELAY[b], LOW); //Open all relays   
+    }  
   }
 }
 
@@ -518,7 +498,7 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   // Route decoded packet based on prefix byte
   heartbeat = 0; //Reset heartbeat timer as a serial packet has been received
   uint8_t buffer_prefix = buffer[0];
-  if(buffer_prefix == prefix.message); 
+  if(buffer_prefix == prefix.message) transmit_updates = true; //Start/continue sending status packets; 
   else if(buffer_prefix == prefix.connection) magicExchange(buffer, size);
   else if(buffer_prefix == prefix.send_config) usb.send((const unsigned char*) conf.byte_buffer, sizeof(conf.byte_buffer));
   else if(buffer_prefix == prefix.recv_config) recvConfig(buffer, size);
@@ -532,7 +512,7 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   else if(buffer_prefix == prefix.send_stream);
   else if(buffer_prefix == prefix.status_update) updateStatus(buffer, size);
   else if(buffer_prefix == prefix.calibration) driverCalibration(buffer, size);
-  else if(buffer_prefix == prefix.gui_disconnect) heartbeat = HEARTBEAT_TIMEOUT+1; //Force driver timeout on disconnect
+  else if(buffer_prefix == prefix.gui_disconnect) transmit_updates = false; //Stop sending status packets
   else if(buffer_prefix == prefix.long_off);
   else{
     temp_size = sprintf(temp_buffer, "-Error: USB packet had invalid prefix: %d", buffer_prefix);  
@@ -571,7 +551,7 @@ static void recvConfig(const uint8_t* buffer, size_t size){
   if(size == sizeof(conf.byte_buffer)){
     for(int a = 0; a<(int) size; a++) checksum += buffer[a];
     if(!checksum){
-      memcpy(conf.byte_buffer, buffer, size);
+      memcpy(conf.byte_buffer, buffer, sizeof(conf.byte_buffer));
       conf.byte_buffer[0] = prefix.send_config; //Switch prefix to sending prefix
       conf.byte_buffer[size-1] += (prefix.recv_config - prefix.send_config); //Fix corresponding checksum
       for(int a = 0; a<(int) size; a++) EEPROM.update(a + sizeof(MAGIC_RECEIVE), conf.byte_buffer[a]); //Copy configuration to EEPROM
@@ -595,7 +575,7 @@ static void recvSync(const uint8_t* buffer, size_t size){
   if(size == expected_size){
     for(int a = 0; a<(int) size; a++) checksum += buffer[a];
     if(!checksum){
-      memcpy(sync.byte_buffer, buffer, size);
+      memcpy(sync.byte_buffer, buffer, sizeof(sync.byte_buffer));
       sync.byte_buffer[0] = prefix.send_sync; //Switch prefix to sending prefix
       sync.byte_buffer[size-1] += (prefix.recv_sync - prefix.send_sync); //Fix corresponding checksum
       for(int a = 0; a<(int) size; a++) EEPROM.update(a + sizeof(MAGIC_RECEIVE) + sizeof(conf.byte_buffer), sync.byte_buffer[a]); //Copy sync to EEPROM
@@ -619,7 +599,8 @@ static void recvSync(const uint8_t* buffer, size_t size){
 
 static void syncRtcTime(const uint8_t* buffer, size_t size) {
   const unsigned long DEFAULT_TIME = 1609459200; // Jan 1 2021
-  memcpy(uint32Union.bytes, buffer+1, size);
+  memcpy(uint32Union.bytes, buffer+1, sizeof(uint32Union.bytes));
+  while(transmit_updates) digitalWriteFast(pin.LED[0], HIGH);
   if(uint32Union.bytes_var >= DEFAULT_TIME) { // check the integer is a valid time (greater than Jan 1 2013)
     setTime(uint32Union.bytes_var); // Sync Arduino clock to the time received on the serial port
   }
@@ -628,6 +609,7 @@ static void syncRtcTime(const uint8_t* buffer, size_t size) {
     temp_buffer[0] = prefix.message;
     usb.send((const unsigned char*) temp_buffer, temp_size);
   }
+//  transmit_updates = false; /////////////////////////////////////////////////Bug fix - this evaluates as true even when false up to this point
 }
 
 static void sendSeq(const uint8_t* buffer, size_t size){
@@ -757,7 +739,7 @@ static bool recvSeq(const uint8_t* buffer, size_t size, bool single_file){
 static void updateStatus(const uint8_t* buffer, size_t size){
   STATUSUNION recv_status;
   if(size == sizeof(recv_status.byte_buffer)+1){
-    memcpy(recv_status.byte_buffer, buffer+1, size-1);
+    memcpy(recv_status.byte_buffer, buffer+1, sizeof(recv_status.byte_buffer));
 //    temp_size = sprintf(temp_buffer, "-%d %d %d %d %d %d %d %d %d %d %d", recv_status.s.led_channel, recv_status.s.led_pwm, recv_status.s.led_current, recv_status.s.mode, 
 //    recv_status.s.state, recv_status.s.driver_control, recv_status.s.temp[0], recv_status.s.temp[1], recv_status.s.temp[2], recv_status.s.fan_speed[0], recv_status.s.fan_speed[1]);
 //    goto sendMessage;
@@ -778,7 +760,7 @@ static void updateStatus(const uint8_t* buffer, size_t size){
 
 static void driverCalibration(const uint8_t* buffer, size_t size){
   BYTE16UNION calibration_current;
-  memcpy(calibration_current.bytes, buffer + 1, 2);
+  memcpy(calibration_current.bytes, buffer + 1, sizeof(calibration_current.bytes));
   temp_size = pin.captureWave(calibration_current.bytes_var, (uint8_t*) (temp_buffer+1));
   temp_buffer[0] = prefix.calibration;
   usb.send((const unsigned char*) temp_buffer, (size_t) (temp_size+1));

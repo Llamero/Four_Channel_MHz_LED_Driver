@@ -22,8 +22,8 @@ SERIAL_NUMBER = "MHZ_LED"
 MAGIC_SEND = "kc1oISEIZ60AYJqH4J1P" #Magic number sent to Teensy to verify that they are an LED driver
 MAGIC_RECEIVE = "kvlWfsBplgasrsh3un5K" #Magic number received from Teensy verifying it is an LED driver
 HEARTBEAT_INTERVAL = 5 #Send a heartbeat signal every 5 seconds after the last packet was transmitted
-debug = False
-
+debug = True #Show all serial debug messages excluding status updates
+debug_status = True #Also show status messages
 
 
 class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverflow.com/questions/55070483/connect-to-serial-from-a-pyqt-gui
@@ -245,9 +245,10 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             command = bytearray(self.command_queue.pop(0))
             self.gui.splashText("Rx: " + str(command))
             if debug:
-                print("Rx: " + str(command[:100]))
-                if len(command) > 50:
-                    print("↑ Total tx packet length: " + str(len(command)))
+                if command[0] != self.prefix_dict["updateStatus"] or debug_status:
+                    print("Rx: " + self.command_dict[command[0]].__name__ + " " +str(command[:100]))
+                    if len(command) > 50:
+                        print("↑ Total tx packet length: " + str(len(command)))
             try:
                 if self.expected_callback:
                     if command[0] not in [self.expected_callback, self.prefix_dict["showDriverMessage"], self.prefix_dict["updateStatus"]]:
@@ -258,7 +259,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                         self.expected_callback = None
                 self.command_dict[command[0]](command[1:])
                 if debug:
-                    print("Frame processed. " + str(self.dropped_frame_counter) + " dropped frames so far.")
+                    if command[0] != self.prefix_dict["updateStatus"] or debug_status:
+                        print("Frame processed. " + str(self.dropped_frame_counter) + " dropped frames so far.")
             except KeyError:
                 if debug:
                     print("Invalid prefix: " + str(command[0]))
@@ -392,6 +394,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
 
                     else:
                         self.download_all_seq = False  #If end of sequence file list is reached, clear download all flag
+                        self.showDriverMessage()  # Start status update stream
                         self.gui.splash.close()
                         if self.initializing_connection:
                             self.initializing_connection = False
