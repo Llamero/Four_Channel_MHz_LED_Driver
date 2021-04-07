@@ -28,7 +28,7 @@ class pinSetup
     const static int ANALOG_SELECT = 10; //Switches between internal and external analog input
     const static int ALARM[2]; //Audible alarm
     const static int TOGGLE = 12; //Toggle switch input
-    const static uint16_t DEBOUNCE = 100; //ms to wait for switch to stop bouncing
+    const static uint16_t DEBOUNCE = 200; //ms to wait for switch to stop bouncing
     
     const static int RESISTOR_TEMP = 14; //NTC thermistor monitoring current sense resistor temp
     const static int MOSFET_TEMP = 15; //NTC thermistor monitoring current regulator MOSFET temp

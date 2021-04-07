@@ -212,7 +212,7 @@ class Ui(QtWidgets.QMainWindow):
             if status_dict["Mode"] > 0:
                 self.setValue(self.main_model["Mode"][0], 0) #Set slider to Manual
                 status_list = list(status_dict.items())
-
+                self.main_model["Mode"][status_dict["Mode"]].setChecked(True)
                 try:
                     if status_dict["Mode"] in [1,2]: #Check if knob is for PWM or current
                         intensity = status_list[status_dict["Mode"]][1]
@@ -238,8 +238,9 @@ class Ui(QtWidgets.QMainWindow):
         if not sync_active:
             software_control = self.getValue(self.main_model["Control"]) == "Software"
             self.toggleSoftwareControl(software_control)
-            for led_number in range(1,5):
-                self.toggleLedActive(led_number)
+            if not self.status_dict["control"]: #Restore LED channel widgets if software control
+                for led_number in range(1,5):
+                    self.toggleLedActive(led_number)
 
 
         self.ser.updateStatus()
@@ -381,9 +382,19 @@ class Ui(QtWidgets.QMainWindow):
 
     def toggleSoftwareControl(self, software_enable):
         self.main_model["Intensity"].setEnabled(software_enable)
-        self.main_model["Mode"][0].setEnabled(software_enable)
-        self.main_model["Mode"][3].setEnabled(software_enable)
+        for widget in self.main_model["Mode"]:
+            widget.setEnabled(software_enable)
+        if self.status_dict["Mode"] != 0 and software_enable: #Enable channel widgets if software control and in manual mode
+            for led_number in range(1, 5):
+                self.toggleLedActive(led_number)
+        else:
+            for led_widget in self.main_model["Channel"]:
+                led_widget.setEnabled(False)
+        for widget in self.main_model["Channel"]:
+            widget.setEnabled(software_enable)
         self.main_intensity_spinbox.setReadOnly(not software_enable)
+        if not software_enable:
+            self.main_model["Mode"][1].setChecked(True) #Force to PWM for safety when driver is in manual mode
 
     def verifyCell(self, item):
         seq.verifyCell(self, item.column(), item.row(), item.text(), item.tableWidget())

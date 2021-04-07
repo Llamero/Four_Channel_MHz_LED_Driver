@@ -259,6 +259,8 @@ const static uint32_t HEARTBEAT_TIMEOUT = 10000; //Driver will assume connection
 uint32_t cpu_cycles = 0; //Track the number of CPU cycles for sub-microseconds timing precision
 const static uint32_t cycle_offset = 7; //Number of cycles needed to check cycles ellapsed
 boolean transmit_updates = false; //Whether to send updates over serial - used to block updates during critical communication
+uint8_t manual_mode = 1; //Store value of manual mode when status goes to sync (mode = 0)
+
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
 SDcard sd;
@@ -328,7 +330,61 @@ void checkStatus(){
       status_index++;
       setFan(current_status.s.temp[2], 1); //Update external fan
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
-    case 6: //Send current status to led driver - 4.76 µs
+    case 6: //Check toggle switch
+      status_index++;
+      if(current_status.s.driver_control){ //Only check toggle if driver control
+        if(digitalReadFast(pin.TOGGLE)) current_status.s.mode = manual_mode;
+        else current_status.s.mode = 0;
+      }
+      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+    case 7: //Check pot value
+      status_index++;
+      if(current_status.s.driver_control){ //Only check pot if driver control
+        if(current_status.s.mode == 1){
+          analogRead(pin.POT);
+          current_status.s.led_pwm = 65535-analogRead(pin.POT);
+          current_status.s.led_current = 65535;
+        }
+        else if(current_status.s.mode == 3){
+          current_status.s.led_pwm = 0;
+          current_status.s.led_current = 0;
+        }
+      }
+      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+    case 8: //Check pushbuttons and update LEDs
+      status_index++;
+      if(current_status.s.mode && current_status.s.driver_control){ //If in manual mode and driver control, check for button presses
+        for(int a=0; a<4; a++){
+          if(digitalReadFast(pin.PUSHBUTTON[a])){
+            delay(pin.DEBOUNCE);
+            if(conf.c.led_active[a]){ //confirm that channel can be selected 
+              for(int b=0; b<4; b++){ //Toggle relays
+                if(conf.c.led_channel[b] == a) digitalWriteFast(pin.RELAY[b], HIGH);
+                else digitalWriteFast(pin.RELAY[b], LOW);
+              }
+              if(current_status.s.led_channel == a && manual_mode == 1){
+                current_status.s.mode = 3; //If button was toggled off, enter LED off mode as no channel is active
+                current_status.s.led_pwm = 0;
+                current_status.s.led_current = 0;
+                manual_mode = 3;
+              }
+              else{
+                current_status.s.led_channel = a; //Update channel status
+                manual_mode = 1; 
+              }
+            }
+            while(digitalReadFast(pin.PUSHBUTTON[a])) delay(10); //Wait for button release
+            delay(pin.DEBOUNCE);
+            break; //Only process one pushbutton if several are pressed        
+          }
+        }
+      }
+      for(int a=0; a<4; a++){ //Update indicator LEDs
+        if(current_status.s.led_channel == a && current_status.s.mode < 3) digitalWriteFast(pin.LED[a], HIGH);
+        else digitalWriteFast(pin.LED[a], LOW);
+      }
+      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+    case 9: //Send current status to led driver - 4.76 µs
       status_index++;
       if(status_update_timer >= status_update_interval){ //Status timer to track when to transmit the next update
         status_update_timer = 0; //Reset the status update timer
@@ -337,28 +393,7 @@ void checkStatus(){
           digitalWriteFast(pin.OUTPUTS[2], HIGH);
           temp_buffer[0] = prefix.status_update;
           memcpy(temp_buffer+1, current_status.byte_buffer, sizeof(current_status.byte_buffer));
-          temp_buffer[1] = transmit_updates;
           usb.send((const unsigned char*) temp_buffer, sizeof(current_status.byte_buffer)+1);
-        }
-      }
-      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
-    case 7: //Check pot value
-      status_index++;
-      if(current_status.s.driver_control){
-        if(current_status.s.mode == 1 || current_status.s.mode == 2){
-          analogRead(pin.POT);
-          if(current_status.s.mode == 1){
-            current_status.s.led_pwm = 65535-analogRead(pin.POT);
-            current_status.s.led_current = 65535;
-          }
-          else{
-            current_status.s.led_pwm = 65535;
-            current_status.s.led_current = 65535-analogRead(pin.POT);
-          }
-        }
-        else if(current_status.s.mode == 3){
-          current_status.s.led_pwm = 0;
-          current_status.s.led_current = 0;
         }
       }
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
@@ -751,18 +786,16 @@ static void updateStatus(const uint8_t* buffer, size_t size){
     current_status.s.led_channel = recv_status.s.led_channel;
     current_status.s.driver_control = recv_status.s.driver_control;
     
-    if(current_status.s.driver_control){
-      if(recv_status.s.mode) current_status.s.mode = recv_status.s.mode; //If mode is not sync (0), update mode
-      for(int a=0; a<4; a++){
-        if(current_status.s.mode == a) digitalWriteFast(pin.LED[a], HIGH);
-        else digitalWriteFast(pin.LED[a], LOW);
-      }
-    }
-    else{
+    if(!current_status.s.driver_control){
       current_status.s.mode = recv_status.s.mode;
       current_status.s.led_pwm = recv_status.s.led_pwm;
       current_status.s.led_current = recv_status.s.led_current;
     }
+  }
+  else{
+    temp_size = sprintf(temp_buffer, "-Error: LED  driver received and invalid status packet.  Expected %d bytes abd received %d bytes.", size, sizeof(recv_status.byte_buffer)+1);
+    temp_buffer[0] = prefix.message;
+    usb.send((const unsigned char*) temp_buffer, temp_size);
   }
 }
 
