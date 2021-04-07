@@ -214,7 +214,11 @@ class Ui(QtWidgets.QMainWindow):
                 status_list = list(status_dict.items())
 
                 try:
-                    self.setValue(self.main_model["Intensity"], (status_list[status_dict["Mode"]%2][1]/self.getAdcCurrentLimit(status_dict["Channel"]))*self.main_model["Intensity"].maximum())
+                    if status_dict["Mode"] in [1,2]: #Check if knob is for PWM or current
+                        intensity = status_list[status_dict["Mode"]][1]
+                    else:
+                        intensity = 0
+                    self.setValue(self.main_model["Intensity"], (intensity/self.getAdcCurrentLimit(status_dict["Channel"]))*self.main_model["Intensity"].maximum())
                 except (OverflowError, ZeroDivisionError): #This can happen when initializing connection - so default intensity to 0
                     self.setValue(self.main_model["Intensity"], 0)
 

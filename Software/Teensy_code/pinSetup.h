@@ -22,11 +22,11 @@ class pinSetup
     static int tempToAdc(float temperature, int therm_nominal, int b_coefficient); //Convert temperature in °C to equivalent ADC value
     static uint16_t captureWave(uint16_t test_dac_value, uint8_t *cobs_buffer);
     
-    constexpr static int RELAY[4] = {0, 1, 2, 3}; //SSR relays for changing LED channel
+    const static int RELAY[4]; //SSR relays for changing LED channel
     const static int INTERLINE = 4; //Switch between analog input and negative refence voltage to turn off LED
     const static int NC[]; //Not connected pins
     const static int ANALOG_SELECT = 10; //Switches between internal and external analog input
-    constexpr static int ALARM[2] = {11, 32}; //Audible alarm
+    const static int ALARM[2]; //Audible alarm
     const static int TOGGLE = 12; //Toggle switch input
     const static uint16_t DEBOUNCE = 100; //ms to wait for switch to stop bouncing
     
@@ -39,11 +39,11 @@ class pinSetup
     const static int OUTPUTS[]; //5V output pins for external triggering/PWM
     const static int FAN_PWM = 23; //5V PWM to control internal fan speed
     
-    constexpr static int PUSHBUTTON[4] = {27, 25, 26, 30}; //Four pushbutton inputs 
-    constexpr static int LED[4] = {29, 24, 28, 31}; //Indicator LEDs on pushbuttons
+    const static int PUSHBUTTON[4]; //Four pushbutton inputs 
+    const static int LED[4]; //Indicator LEDs on pushbuttons
     
     const static int POT = 33; //Input voltage from potentiometer
-    constexpr static int INPUTS[4] = {37, 36, 35, 34}; //4-channel analog/digital inputs
+    const static int INPUTS[4]; //4-channel analog/digital inputs
     const static int DAC0 = A21; //Internal dac to generate internal analog input voltage
     const static int DAC1 = A22; //Internal dac - not connected
 

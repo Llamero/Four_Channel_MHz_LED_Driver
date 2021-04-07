@@ -344,14 +344,22 @@ void checkStatus(){
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
     case 7: //Check pot value
       status_index++;
-      if(current_status.s.mode == 1 || current_status.s.mode == 2){
-        analogRead(pin.POT);
-        if(current_status.s.mode == 1) current_status.s.led_pwm = 65535-analogRead(pin.POT);
-        else current_status.s.led_current = 65535-analogRead(pin.POT);
-      }
-      else if(current_status.s.mode == 3){
-        current_status.s.led_pwm = 0;
-        current_status.s.led_current = 0;
+      if(current_status.s.driver_control){
+        if(current_status.s.mode == 1 || current_status.s.mode == 2){
+          analogRead(pin.POT);
+          if(current_status.s.mode == 1){
+            current_status.s.led_pwm = 65535-analogRead(pin.POT);
+            current_status.s.led_current = 65535;
+          }
+          else{
+            current_status.s.led_pwm = 65535;
+            current_status.s.led_current = 65535-analogRead(pin.POT);
+          }
+        }
+        else if(current_status.s.mode == 3){
+          current_status.s.led_pwm = 0;
+          current_status.s.led_current = 0;
+        }
       }
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
     default: //Check if a serial packet has been received - 0.37 µs
@@ -740,22 +748,22 @@ static void updateStatus(const uint8_t* buffer, size_t size){
   STATUSUNION recv_status;
   if(size == sizeof(recv_status.byte_buffer)+1){
     memcpy(recv_status.byte_buffer, buffer+1, sizeof(recv_status.byte_buffer));
-//    temp_size = sprintf(temp_buffer, "-%d %d %d %d %d %d %d %d %d %d %d", recv_status.s.led_channel, recv_status.s.led_pwm, recv_status.s.led_current, recv_status.s.mode, 
-//    recv_status.s.state, recv_status.s.driver_control, recv_status.s.temp[0], recv_status.s.temp[1], recv_status.s.temp[2], recv_status.s.fan_speed[0], recv_status.s.fan_speed[1]);
-//    goto sendMessage;
     current_status.s.led_channel = recv_status.s.led_channel;
     current_status.s.driver_control = recv_status.s.driver_control;
-    if(!current_status.s.driver_control){
+    
+    if(current_status.s.driver_control){
+      if(recv_status.s.mode) current_status.s.mode = recv_status.s.mode; //If mode is not sync (0), update mode
+      for(int a=0; a<4; a++){
+        if(current_status.s.mode == a) digitalWriteFast(pin.LED[a], HIGH);
+        else digitalWriteFast(pin.LED[a], LOW);
+      }
+    }
+    else{
       current_status.s.mode = recv_status.s.mode;
       current_status.s.led_pwm = recv_status.s.led_pwm;
       current_status.s.led_current = recv_status.s.led_current;
     }
   }
-  return;
-//  sendMessage:
-//    temp_buffer[0] = prefix.message;
-//    usb.send((const unsigned char*) temp_buffer, temp_size);
-//    return;
 }
 
 static void driverCalibration(const uint8_t* buffer, size_t size){
