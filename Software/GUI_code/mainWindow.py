@@ -238,7 +238,7 @@ class Ui(QtWidgets.QMainWindow):
         if not sync_active:
             software_control = self.getValue(self.main_model["Control"]) == "Software"
             self.toggleSoftwareControl(software_control)
-            if not self.status_dict["control"]: #Restore LED channel widgets if software control
+            if not self.status_dict["Control"]: #Restore LED channel widgets if software control
                 for led_number in range(1,5):
                     self.toggleLedActive(led_number)
 
