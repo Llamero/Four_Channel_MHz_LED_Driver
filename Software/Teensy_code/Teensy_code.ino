@@ -258,7 +258,7 @@ elapsedMillis heartbeat; //Heartbeat timer to confirm that GUI is still connecte
 const static uint32_t HEARTBEAT_TIMEOUT = 10000; //Driver will assume connection has closed if heartbeat not received within this time
 uint32_t cpu_cycles = 0; //Track the number of CPU cycles for sub-microseconds timing precision
 const static uint32_t cycle_offset = 7; //Number of cycles needed to check cycles ellapsed
-boolean transmit_updates = false; //Whether to send updates over serial - used to block updates during critical communication
+boolean serial_connection_active = false; //Whether to send updates over serial - used to block updates during critical communication
 uint8_t manual_mode = 1; //Store value of manual mode when status goes to sync (mode = 0)
 boolean fault_active = false; //Whether the led driver is currently in a fault state (such as over-heated).
 
@@ -287,7 +287,7 @@ void setup() {
     usb.send((const unsigned char*) sd.message_buffer, sd.message_size);
   }
   digitalWriteFast(pin.RELAY[3], HIGH);
-  digitalWriteFast(pin.INTERLINE, HIGH);
+  digitalWriteFast(pin.INTERLINE, LOW);
   digitalWriteFast(pin.ANALOG_SELECT, LOW);
   digitalWriteFast(pin.FAN_PWM, LOW);
   analogWrite(pin.DAC0, 65535);
@@ -391,13 +391,14 @@ void checkStatus(){
       status_index++;
       if(status_update_timer >= status_update_interval){ //Status timer to track when to transmit the next update
         status_update_timer = 0; //Reset the status update timer
-        if(heartbeat >= HEARTBEAT_TIMEOUT) transmit_updates = false; //Timeout update transmissions if serial is no longer received
-        if(transmit_updates){ //If connection is active, send status update
+        if(heartbeat >= HEARTBEAT_TIMEOUT) serial_connection_active = false; //Timeout update transmissions if serial is no longer received
+        if(serial_connection_active){ //If connection is active, send status update
           temp_buffer[0] = prefix.status_update;
           memcpy(temp_buffer+1, current_status.byte_buffer, sizeof(current_status.byte_buffer));
           usb.send((const unsigned char*) temp_buffer, sizeof(current_status.byte_buffer)+1);
         }
       }
+      if(!serial_connection_active) current_status.s.driver_control = true;
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
     default: //Check if a serial packet has been received - 0.37 µs
       digitalWriteFast(pin.OUTPUTS[2], HIGH);
@@ -603,7 +604,7 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   // Route decoded packet based on prefix byte
   heartbeat = 0; //Reset heartbeat timer as a serial packet has been received
   uint8_t buffer_prefix = buffer[0];
-  if(buffer_prefix == prefix.message) transmit_updates = true; //Start/continue sending status packets; 
+  if(buffer_prefix == prefix.message) serial_connection_active = true; //Start/continue sending status packets; 
   else if(buffer_prefix == prefix.connection) magicExchange(buffer, size);
   else if(buffer_prefix == prefix.send_config) usb.send((const unsigned char*) conf.byte_buffer, sizeof(conf.byte_buffer));
   else if(buffer_prefix == prefix.recv_config) recvConfig(buffer, size);
@@ -617,7 +618,7 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   else if(buffer_prefix == prefix.send_stream);
   else if(buffer_prefix == prefix.status_update) updateStatus(buffer, size);
   else if(buffer_prefix == prefix.calibration) driverCalibration(buffer, size);
-  else if(buffer_prefix == prefix.gui_disconnect) transmit_updates = false; //Stop sending status packets
+  else if(buffer_prefix == prefix.gui_disconnect) serial_connection_active = false; //Stop sending status packets
   else if(buffer_prefix == prefix.long_off);
   else{
     temp_size = sprintf(temp_buffer, "-Error: USB packet had invalid prefix: %d", buffer_prefix);  
@@ -705,7 +706,6 @@ static void recvSync(const uint8_t* buffer, size_t size){
 static void syncRtcTime(const uint8_t* buffer, size_t size) {
   const unsigned long DEFAULT_TIME = 1609459200; // Jan 1 2021
   memcpy(uint32Union.bytes, buffer+1, sizeof(uint32Union.bytes));
-  while(transmit_updates) digitalWriteFast(pin.LED[0], HIGH);
   if(uint32Union.bytes_var >= DEFAULT_TIME) { // check the integer is a valid time (greater than Jan 1 2013)
     setTime(uint32Union.bytes_var); // Sync Arduino clock to the time received on the serial port
   }
@@ -714,7 +714,6 @@ static void syncRtcTime(const uint8_t* buffer, size_t size) {
     temp_buffer[0] = prefix.message;
     usb.send((const unsigned char*) temp_buffer, temp_size);
   }
-//  transmit_updates = false; /////////////////////////////////////////////////Bug fix - this evaluates as true even when false up to this point
 }
 
 static void sendSeq(const uint8_t* buffer, size_t size){
