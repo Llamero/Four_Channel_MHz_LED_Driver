@@ -260,6 +260,7 @@ uint32_t cpu_cycles = 0; //Track the number of CPU cycles for sub-microseconds t
 const static uint32_t cycle_offset = 7; //Number of cycles needed to check cycles ellapsed
 boolean transmit_updates = false; //Whether to send updates over serial - used to block updates during critical communication
 uint8_t manual_mode = 1; //Store value of manual mode when status goes to sync (mode = 0)
+boolean fault_active = false; //Whether the led driver is currently in a fault state (such as over-heated).
 
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
@@ -286,10 +287,10 @@ void setup() {
     usb.send((const unsigned char*) sd.message_buffer, sd.message_size);
   }
   digitalWriteFast(pin.RELAY[3], HIGH);
-  digitalWriteFast(pin.INTERLINE, LOW);
+  digitalWriteFast(pin.INTERLINE, HIGH);
   digitalWriteFast(pin.ANALOG_SELECT, LOW);
   digitalWriteFast(pin.FAN_PWM, LOW);
-  analogWrite(pin.DAC0, 0);
+  analogWrite(pin.DAC0, 65535);
 }
 elapsedMillis t = 0;
 uint32_t d = 10;
@@ -319,7 +320,7 @@ void checkStatus(){
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
     case 3: //Check if any of the temperatures is past the fault temperature - 0.59 µs
       status_index++;
-      thermalFault();
+      if(!fault_active) thermalFault();
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
     case 4: //Update internal fan speed - 0.85 µs
       status_index++;
@@ -330,16 +331,16 @@ void checkStatus(){
       status_index++;
       setFan(current_status.s.temp[2], 1); //Update external fan
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
-    case 6: //Check toggle switch
+    case 6: //Check toggle switch - 0.28 µs
       status_index++;
-      if(current_status.s.driver_control){ //Only check toggle if driver control
+      if(current_status.s.driver_control && !fault_active){ //Only check toggle if driver control
         if(digitalReadFast(pin.TOGGLE)) current_status.s.mode = manual_mode;
         else current_status.s.mode = 0;
       }
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
-    case 7: //Check pot value
+    case 7: //Check pot value - 3.74 µs
       status_index++;
-      if(current_status.s.driver_control){ //Only check pot if driver control
+      if(current_status.s.driver_control && !fault_active){ //Only check pot if driver control
         if(current_status.s.mode == 1){
           analogRead(pin.POT);
           current_status.s.led_pwm = 65535-analogRead(pin.POT);
@@ -351,37 +352,39 @@ void checkStatus(){
         }
       }
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
-    case 8: //Check pushbuttons and update LEDs
+    case 8: //Check pushbuttons and update LEDs - 1.05 µs
       status_index++;
-      if(current_status.s.mode && current_status.s.driver_control){ //If in manual mode and driver control, check for button presses
-        for(int a=0; a<4; a++){
-          if(digitalReadFast(pin.PUSHBUTTON[a])){
-            delay(pin.DEBOUNCE);
-            if(conf.c.led_active[a]){ //confirm that channel can be selected 
-              for(int b=0; b<4; b++){ //Toggle relays
-                if(conf.c.led_channel[b] == a) digitalWriteFast(pin.RELAY[b], HIGH);
-                else digitalWriteFast(pin.RELAY[b], LOW);
+      if(!fault_active){
+        if(current_status.s.mode && current_status.s.driver_control){ //If in manual mode and driver control, check for button presses
+          for(int a=0; a<4; a++){
+            if(digitalReadFast(pin.PUSHBUTTON[a])){
+              delay(pin.DEBOUNCE);
+              if(conf.c.led_active[a]){ //confirm that channel can be selected 
+                for(int b=0; b<4; b++){ //Toggle relays
+                  if(conf.c.led_channel[b] == a) digitalWriteFast(pin.RELAY[b], HIGH);
+                  else digitalWriteFast(pin.RELAY[b], LOW);
+                }
+                if(current_status.s.led_channel == a && manual_mode == 1){
+                  current_status.s.mode = 3; //If button was toggled off, enter LED off mode as no channel is active
+                  current_status.s.led_pwm = 0;
+                  current_status.s.led_current = 0;
+                  manual_mode = 3;
+                }
+                else{
+                  current_status.s.led_channel = a; //Update channel status
+                  manual_mode = 1; 
+                }
               }
-              if(current_status.s.led_channel == a && manual_mode == 1){
-                current_status.s.mode = 3; //If button was toggled off, enter LED off mode as no channel is active
-                current_status.s.led_pwm = 0;
-                current_status.s.led_current = 0;
-                manual_mode = 3;
-              }
-              else{
-                current_status.s.led_channel = a; //Update channel status
-                manual_mode = 1; 
-              }
+              while(digitalReadFast(pin.PUSHBUTTON[a])) delay(10); //Wait for button release
+              delay(pin.DEBOUNCE);
+              break; //Only process one pushbutton if several are pressed        
             }
-            while(digitalReadFast(pin.PUSHBUTTON[a])) delay(10); //Wait for button release
-            delay(pin.DEBOUNCE);
-            break; //Only process one pushbutton if several are pressed        
           }
         }
-      }
-      for(int a=0; a<4; a++){ //Update indicator LEDs
-        if(current_status.s.led_channel == a && current_status.s.mode < 3) digitalWriteFast(pin.LED[a], HIGH);
-        else digitalWriteFast(pin.LED[a], LOW);
+        for(int a=0; a<4; a++){ //Update indicator LEDs
+          if(current_status.s.led_channel == a && current_status.s.mode < 3 && conf.c.pushbutton_intensity) digitalWriteFast(pin.LED[a], HIGH);
+          else digitalWriteFast(pin.LED[a], LOW);
+        }
       }
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
     case 9: //Send current status to led driver - 4.76 µs
@@ -390,7 +393,6 @@ void checkStatus(){
         status_update_timer = 0; //Reset the status update timer
         if(heartbeat >= HEARTBEAT_TIMEOUT) transmit_updates = false; //Timeout update transmissions if serial is no longer received
         if(transmit_updates){ //If connection is active, send status update
-          digitalWriteFast(pin.OUTPUTS[2], HIGH);
           temp_buffer[0] = prefix.status_update;
           memcpy(temp_buffer+1, current_status.byte_buffer, sizeof(current_status.byte_buffer));
           usb.send((const unsigned char*) temp_buffer, sizeof(current_status.byte_buffer)+1);
@@ -398,6 +400,7 @@ void checkStatus(){
       }
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
     default: //Check if a serial packet has been received - 0.37 µs
+      digitalWriteFast(pin.OUTPUTS[2], HIGH);
       usb.update();
       status_index = 0; //Reset status index if no cases match
       break;
@@ -444,13 +447,72 @@ void setFan(uint16_t temp, uint8_t fan_index){
 }
 
 void thermalFault(){
-  for(int a=0; a<3; a++){
-    if(current_status.s.temp[a] <= conf.c.fault_temp[a]){
-      //Turn off LED circuit completely
-      digitalWriteFast(pin.INTERLINE, LOW); //Apply negative voltage input to op-amp
-      digitalWriteFast(pin.ANALOG_SELECT, LOW); //Disconnect external analog input
-      for(size_t b=0; b<sizeof(pin.RELAY)/sizeof(pin.RELAY[0]); b++) digitalWriteFast(pin.RELAY[b], LOW); //Open all relays   
-    }  
+  if(!fault_active){ //If fault is not active, check if any temp is above the fault temperature
+    for(int a=0; a<3; a++){
+      if(current_status.s.temp[a] <= conf.c.fault_temp[a]){
+        fault_active = true;
+        break;   
+      }  
+    }
+  }
+  if(fault_active){
+    status_duration = 0; //Check only one status per cycle
+    elapsedMicros audio;
+    elapsedMillis pulse;
+    uint8_t led_index=0;
+    STATUSUNION stored_status;
+    memcpy(stored_status.byte_buffer, current_status.byte_buffer, sizeof(stored_status.byte_buffer)); //Save current status to restore state after fault.
+
+    //Turn off LED circuit completely
+    pinMode(pin.INTERLINE, OUTPUT); //Disconnect interline pin from PWM mux
+    digitalWriteFast(pin.INTERLINE, LOW); //Apply negative voltage input to op-amp
+    analogWrite(pin.DAC0, 0); //Set analog input to 0
+    for(size_t b=0; b<sizeof(pin.RELAY)/sizeof(pin.RELAY[0]); b++) digitalWriteFast(pin.RELAY[b], LOW); //Open all relays
+
+    //Send fault warning to GUI
+    temp_size = sprintf(temp_buffer, "-Warning: Fault temperature has been exceeded.  The driver will turn off LED until below warning temperature.");
+    temp_buffer[0] = prefix.message;
+    usb.send((const unsigned char*) temp_buffer, temp_size);
+
+    //Update status
+    current_status.s.led_pwm = 0;
+    current_status.s.led_current = 0;
+    current_status.s.mode = 3;
+    current_status.s.driver_control = true;
+
+    while(fault_active){
+      while(pulse < 512){ //Play tone for 0.5 seconds
+        if(audio <= conf.c.audio_volume[1]){
+          digitalWriteFast(pin.ALARM[0], HIGH);
+          digitalWriteFast(pin.ALARM[1], LOW);
+        }
+        else if(audio <= 256){
+          digitalWriteFast(pin.ALARM[0], LOW);
+          digitalWriteFast(pin.ALARM[1], HIGH);
+          if(audio < 250) checkStatus(); //Check status if there is sufficient time
+        }
+        else audio = 0; //Reset audio cycle timer
+      }
+      while(pulse < 1024){
+        checkStatus();
+      }
+      pulse = 0; 
+      fault_active = false; //If all temps are below warn temp, clear the fault
+      for(int a=0; a<3; a++) if(current_status.s.temp[a] <= conf.c.warn_temp[a]) fault_active = true; //If any temp is above warn temp, maintain fault      
+    }
+    digitalWriteFast(pin.RELAY[current_status.s.led_channel], HIGH); //Close corresponding relay
+    delay(10); //Wait for SSR to fully close (needs 2 ms max)
+
+    //Restore driver to previous state
+    current_status.s.led_pwm = stored_status.s.led_pwm;
+    current_status.s.led_current = stored_status.s.led_current;
+    current_status.s.mode = stored_status.s.mode;
+    current_status.s.driver_control = stored_status.s.driver_control;
+    
+    pinMode(pin.INTERLINE, OUTPUT); //Disconnect interline pin from PWM mux
+    if(stored_status.s.led_pwm == 0 || (sync.s.mode == 2 && stored_status.s.mode == 0)) digitalWriteFast(pin.INTERLINE, LOW); //Set to digital low if no PWM or in confocal sync mode (which doesn't use PWM)
+    else analogWrite(pin.INTERLINE, stored_status.s.led_pwm); //Restore PWM on LED
+    analogWrite(pin.DAC0, stored_status.s.led_current); //Set analog input to 0
   }
 }
 
@@ -785,7 +847,7 @@ static void updateStatus(const uint8_t* buffer, size_t size){
     memcpy(recv_status.byte_buffer, buffer+1, sizeof(recv_status.byte_buffer));
     current_status.s.led_channel = recv_status.s.led_channel;
     current_status.s.driver_control = recv_status.s.driver_control;
-    
+    if(current_status.s.mode) manual_mode = recv_status.s.mode; //Set manual mode to recv'd mode if not in sync
     if(!current_status.s.driver_control){
       current_status.s.mode = recv_status.s.mode;
       current_status.s.led_pwm = recv_status.s.led_pwm;

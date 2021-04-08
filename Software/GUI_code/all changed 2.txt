@@ -10,7 +10,7 @@ LED3::Active::True
 LED3::Current Limit::0.55
 LED4::ID::Red
 LED4::Active::True
-LED4::Current Limit::0.55
+LED4::Current Limit::0.01
 Channel1::UV
 Channel2::Blue
 Channel3::Green
@@ -23,20 +23,20 @@ Resistor3::Value::1000.0
 Resistor3::Active::False
 Resistor4::Value::1000.0
 Resistor4::Active::False
-Temperature::Transistor::Warn::6
-Temperature::Transistor::Fault::7
-Temperature::Resistor::Warn::6
-Temperature::Resistor::Fault::10
-Temperature::External::Warn::11
-Temperature::External::Fault::12
-Fan::Driver::Min::30
+Temperature::Transistor::Warn::29
+Temperature::Transistor::Fault::39
+Temperature::Resistor::Warn::29
+Temperature::Resistor::Fault::39
+Temperature::External::Warn::30
+Temperature::External::Fault::40
+Fan::Driver::Min::28
 Fan::Driver::Max::60
-Fan::External::Min::40
-Fan::External::Max::70
+Fan::External::Min::39
+Fan::External::Max::69
 Fan::Channel::None
 Thermistor::Resistance::4700
 Thermistor::Beta::3575
 Audio::Status::0
-Audio::Alarm::10
+Audio::Alarm::4
 Pushbutton::Indication::On
-Pushbutton::Alarm::Solid
+Pushbutton::Alarm::Disable
