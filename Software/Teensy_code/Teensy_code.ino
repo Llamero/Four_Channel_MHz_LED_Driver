@@ -262,6 +262,8 @@ boolean serial_connection_active = false; //Whether to send updates over serial 
 uint8_t manual_mode = 1; //Store value of manual mode when status goes to sync (mode = 0)
 boolean fault_active = false; //Whether the led driver is currently in a fault state (such as over-heated).
 STATUSUNION stored_status; //Temporarily store operating status when status is over-ridden, such as during a thermal fault
+elapsedMicros audio; //Timer controlling audio volume and frequency
+elapsedMillis pulse; //Timer controlling tone pule interval
 
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
@@ -489,8 +491,6 @@ void thermalFault(){
   }
   if(fault_active){
     status_duration = 0; //Check only one status per cycle
-    elapsedMicros audio;
-    elapsedMillis pulse;
     uint8_t led_index=0;
     memcpy(stored_status.byte_buffer, current_status.byte_buffer, sizeof(stored_status.byte_buffer)); //Save current status to restore state after fault.
 
@@ -508,7 +508,8 @@ void thermalFault(){
     //Update status
     ledOff();
     current_status.s.driver_control = true;
-
+    audio = 0;
+    pulse = 0;
     while(fault_active){
       for(int led=0; led<4; led++){
         if(conf.c.pushbutton_mode == 1 || conf.c.pushbutton_mode == 3 || (conf.c.pushbutton_mode == 2 && led == led_index)) digitalWriteFast(pin.LED[led], HIGH);
@@ -547,12 +548,29 @@ void thermalFault(){
     current_status.s.led_current = stored_status.s.led_current;
     current_status.s.mode = stored_status.s.mode;
     current_status.s.driver_control = stored_status.s.driver_control;
-    if(current_status.s.driver_control) manual_mode = current_status.s.mode;
+    if(current_status.s.driver_control) manual_mode = current_status.s.mode; //Update manual mode if driver control
     
     pinMode(pin.INTERLINE, OUTPUT); //Disconnect interline pin from PWM mux
     if(stored_status.s.led_pwm == 0 || (sync.s.mode == 2 && stored_status.s.mode == 0)) digitalWriteFast(pin.INTERLINE, LOW); //Set to digital low if no PWM or in confocal sync mode (which doesn't use PWM)
     else analogWrite(pin.INTERLINE, stored_status.s.led_pwm); //Restore PWM on LED
     analogWrite(pin.DAC0, stored_status.s.led_current); //Set analog input to 0
+  }
+}
+
+void playTone(){
+  audio = 0;
+  pulse = 0;
+  while(pulse < 100){ //Play tone for 0.2 seconds
+    if(audio <= conf.c.audio_volume[0]){
+      digitalWriteFast(pin.ALARM[0], HIGH);
+      digitalWriteFast(pin.ALARM[1], LOW);
+    }
+    else if(audio <= 256){
+      digitalWriteFast(pin.ALARM[0], LOW);
+      digitalWriteFast(pin.ALARM[1], HIGH);
+      if(audio < 250) checkStatus(); //Check status if there is sufficient time
+    }
+    else audio = 0; //Reset audio cycle timer
   }
 }
 
@@ -597,6 +615,7 @@ void initializeConfigurations(){
     else loadDefaultsToEEPROM();
   }
   else loadDefaultsToEEPROM();
+  playTone();
 }
 
 //https://forum.arduino.cc/index.php?topic=42850.0
@@ -700,8 +719,8 @@ static void recvConfig(const uint8_t* buffer, size_t size){
       conf.byte_buffer[0] = prefix.send_config; //Switch prefix to sending prefix
       conf.byte_buffer[size-1] += (prefix.recv_config - prefix.send_config); //Fix corresponding checksum
       for(int a = 0; a<(int) size; a++) EEPROM.update(a + sizeof(MAGIC_RECEIVE), conf.byte_buffer[a]); //Copy configuration to EEPROM
+      initializeConfigurations(); //Re-run the setup routine to update driver state
       temp_size = sprintf(temp_buffer, "-Configuration file was successfully uploaded.");
-      initializeConfigurations(); //Re-run the setup routine to update driver state 
     }
     else temp_size = sprintf(temp_buffer, "-Error: Check sum is non-zero: %d", checksum); 
   }
@@ -725,12 +744,12 @@ static void recvSync(const uint8_t* buffer, size_t size){
       sync.byte_buffer[size-1] += (prefix.recv_sync - prefix.send_sync); //Fix corresponding checksum
       for(int a = 0; a<(int) size; a++) EEPROM.update(a + sizeof(MAGIC_RECEIVE) + sizeof(conf.byte_buffer), sync.byte_buffer[a]); //Copy sync to EEPROM
       if(recvSeq(buffer, size, false)){
-        temp_size = sprintf(temp_buffer, "-Sync and sequence files were successfully uploaded.");
         initializeConfigurations(); //Re-run the setup routine to update driver state
+        temp_size = sprintf(temp_buffer, "-Sync and sequence files were successfully uploaded.");
       }
       else{
-        temp_size = sprintf(temp_buffer, "-Only sync file was successfully uploaded.");
         initializeConfigurations(); //Re-run the setup routine to update driver state
+        temp_size = sprintf(temp_buffer, "-Only sync file was successfully uploaded.");
       }
     }
     else temp_size = sprintf(temp_buffer, "-Error: Check sum is non-zero: %d", checksum); 
