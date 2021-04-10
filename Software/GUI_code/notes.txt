@@ -35,8 +35,6 @@ Reset driver (especially pins) on successful sync or configu upload
 
 Add restore defualts option
 
-Automatically switch to manual mode if serial disconnects
-
 Tone on initialize
 
 

@@ -53,10 +53,10 @@ def initializeConfigModel(gui):
 
     # Pushbuttons
     config_model["Pushbutton"] = OrderedDict([("Indication", [gui.configure_pushbutton_intensity_off_button, gui.configure_pushbutton_intensity_on_button]),
-                                                   ("Alarm", [gui.configure_pushbutton_alarm_flash_button,
+                                                   ("Alarm", [gui.configure_pushbutton_alarm_disable_button,
+                                                              gui.configure_pushbutton_alarm_flash_button,
                                                               gui.configure_pushbutton_alarm_chase_button,
-                                                              gui.configure_pushbutton_alarm_solid_button,
-                                                              gui.configure_pushbutton_alarm_disable_button])])
+                                                              gui.configure_pushbutton_alarm_solid_button])])
 
     return config_model
 

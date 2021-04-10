@@ -261,6 +261,7 @@ const static uint32_t cycle_offset = 7; //Number of cycles needed to check cycle
 boolean serial_connection_active = false; //Whether to send updates over serial - used to block updates during critical communication
 uint8_t manual_mode = 1; //Store value of manual mode when status goes to sync (mode = 0)
 boolean fault_active = false; //Whether the led driver is currently in a fault state (such as over-heated).
+STATUSUNION stored_status; //Temporarily store operating status when status is over-ridden, such as during a thermal fault
 
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
@@ -347,9 +348,9 @@ void checkStatus(){
           current_status.s.led_current = 65535;
         }
         else if(current_status.s.mode == 3){
-          current_status.s.led_pwm = 0;
-          current_status.s.led_current = 0;
+          ledOff();
         }
+        updateIntensity(); //Update the LED intensity with the new values
       }
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
     case 8: //Check pushbuttons and update LEDs - 1.05 µs
@@ -360,14 +361,8 @@ void checkStatus(){
             if(digitalReadFast(pin.PUSHBUTTON[a])){
               delay(pin.DEBOUNCE);
               if(conf.c.led_active[a]){ //confirm that channel can be selected 
-                for(int b=0; b<4; b++){ //Toggle relays
-                  if(conf.c.led_channel[b] == a) digitalWriteFast(pin.RELAY[b], HIGH);
-                  else digitalWriteFast(pin.RELAY[b], LOW);
-                }
                 if(current_status.s.led_channel == a && manual_mode == 1){
-                  current_status.s.mode = 3; //If button was toggled off, enter LED off mode as no channel is active
-                  current_status.s.led_pwm = 0;
-                  current_status.s.led_current = 0;
+                  ledOff();
                   manual_mode = 3;
                 }
                 else{
@@ -377,6 +372,7 @@ void checkStatus(){
               }
               while(digitalReadFast(pin.PUSHBUTTON[a])) delay(10); //Wait for button release
               delay(pin.DEBOUNCE);
+              updateIntensity(); //Update the LED intensity with the new values
               break; //Only process one pushbutton if several are pressed        
             }
           }
@@ -391,7 +387,12 @@ void checkStatus(){
       status_index++;
       if(status_update_timer >= status_update_interval){ //Status timer to track when to transmit the next update
         status_update_timer = 0; //Reset the status update timer
-        if(heartbeat >= HEARTBEAT_TIMEOUT) serial_connection_active = false; //Timeout update transmissions if serial is no longer received
+        if(heartbeat >= HEARTBEAT_TIMEOUT && serial_connection_active){ //Default to LED off if connection is lost
+          ledOff();
+          updateIntensity();
+          manual_mode = 3;
+          serial_connection_active = false; //Timeout update transmissions if serial is no longer received
+        }
         if(serial_connection_active){ //If connection is active, send status update
           temp_buffer[0] = prefix.status_update;
           memcpy(temp_buffer+1, current_status.byte_buffer, sizeof(current_status.byte_buffer));
@@ -408,6 +409,36 @@ void checkStatus(){
   }
   digitalWriteFast(pin.OUTPUTS[2], LOW);
   //if(sync.s.mode==2) noInterrupts(); //Disable interrupts if in confocal mode, as the scan mirror is used as the interrupt clock
+}
+
+void ledOff(){
+  current_status.s.led_pwm = 0;
+  current_status.s.led_current = 0;
+  manual_mode = 3;
+}
+
+void updateIntensity(){
+  digitalWriteFast(pin.OUTPUTS[0], HIGH);
+  if(conf.c.led_active[current_status.s.led_channel]){ //Check if the channel is active
+    for(int a=0; a<4; a++){ //Toggle relays
+      if(conf.c.led_channel[a] == current_status.s.led_channel) digitalWriteFast(pin.RELAY[a], HIGH);
+      else digitalWriteFast(pin.RELAY[a], LOW);
+    }
+    analogWrite(pin.DAC0, current_status.s.led_current);
+    if(!(sync.s.mode == 2 && !current_status.s.mode)){ //If in confocal mode, do not apply PWM to interline pin
+      if(!(sync.s.mode == 1 && sync.s.analog_mode && !current_status.s.mode)){ //If analog mode without PWM, do not apply PWM to interline pin
+        analogWrite(pin.INTERLINE, current_status.s.led_pwm);
+      }
+      else pinMode(pin.INTERLINE, OUTPUT); //Otherwise, ensure pin is disconnected from PWM bus
+    }
+    else pinMode(pin.INTERLINE, OUTPUT); //Otherwise, ensure pin is disconnected from PWM bus
+    digitalWriteFast(pin.OUTPUTS[0], LOW);
+  }
+  else{ //If LED channel is inactive, set output to 0 to not stress op-amp inputs
+    analogWrite(pin.DAC0, 0);
+    pinMode(pin.INTERLINE, OUTPUT);
+    digitalWriteFast(pin.INTERLINE, LOW);
+  }
 }
 
 void setFan(uint16_t temp, uint8_t fan_index){
@@ -461,7 +492,6 @@ void thermalFault(){
     elapsedMicros audio;
     elapsedMillis pulse;
     uint8_t led_index=0;
-    STATUSUNION stored_status;
     memcpy(stored_status.byte_buffer, current_status.byte_buffer, sizeof(stored_status.byte_buffer)); //Save current status to restore state after fault.
 
     //Turn off LED circuit completely
@@ -476,12 +506,15 @@ void thermalFault(){
     usb.send((const unsigned char*) temp_buffer, temp_size);
 
     //Update status
-    current_status.s.led_pwm = 0;
-    current_status.s.led_current = 0;
-    current_status.s.mode = 3;
+    ledOff();
     current_status.s.driver_control = true;
 
     while(fault_active){
+      for(int led=0; led<4; led++){
+        if(conf.c.pushbutton_mode == 1 || conf.c.pushbutton_mode == 3 || (conf.c.pushbutton_mode == 2 && led == led_index)) digitalWriteFast(pin.LED[led], HIGH);
+        else digitalWriteFast(pin.LED[led], LOW);
+      }
+      if(++led_index >= 4) led_index = 0;
       while(pulse < 512){ //Play tone for 0.5 seconds
         if(audio <= conf.c.audio_volume[1]){
           digitalWriteFast(pin.ALARM[0], HIGH);
@@ -494,6 +527,11 @@ void thermalFault(){
         }
         else audio = 0; //Reset audio cycle timer
       }
+      for(int led=0; led<4; led++){
+        if(conf.c.pushbutton_mode == 3 || (conf.c.pushbutton_mode == 2 && led == led_index)) digitalWriteFast(pin.LED[led], HIGH);
+        else digitalWriteFast(pin.LED[led], LOW);
+      }
+      if(++led_index >= 4) led_index = 0;
       while(pulse < 1024){
         checkStatus();
       }
@@ -618,7 +656,7 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   else if(buffer_prefix == prefix.send_stream);
   else if(buffer_prefix == prefix.status_update) updateStatus(buffer, size);
   else if(buffer_prefix == prefix.calibration) driverCalibration(buffer, size);
-  else if(buffer_prefix == prefix.gui_disconnect) serial_connection_active = false; //Stop sending status packets
+  else if(buffer_prefix == prefix.gui_disconnect) disconnectSerial();
   else if(buffer_prefix == prefix.long_off);
   else{
     temp_size = sprintf(temp_buffer, "-Error: USB packet had invalid prefix: %d", buffer_prefix);  
@@ -852,6 +890,8 @@ static void updateStatus(const uint8_t* buffer, size_t size){
       current_status.s.led_pwm = recv_status.s.led_pwm;
       current_status.s.led_current = recv_status.s.led_current;
     }
+    memcpy(stored_status.byte_buffer, current_status.byte_buffer, sizeof(stored_status.byte_buffer)); //Update the stored status
+    updateIntensity();
   }
   else{
     temp_size = sprintf(temp_buffer, "-Error: LED  driver received and invalid status packet.  Expected %d bytes abd received %d bytes.", size, sizeof(recv_status.byte_buffer)+1);
@@ -867,6 +907,13 @@ static void driverCalibration(const uint8_t* buffer, size_t size){
   temp_buffer[0] = prefix.calibration;
   usb.send((const unsigned char*) temp_buffer, (size_t) (temp_size+1));
   //usb.send((const unsigned char*) cobs_buffer, cobs_size);
+}
+
+void disconnectSerial(){
+  serial_connection_active = false; //Stop sending status packets
+  ledOff(); //Set LED off on disconnect
+  updateIntensity();
+  manual_mode = 3;
 }
 
 //  boolean state[] = {false, false, false, false, false};
