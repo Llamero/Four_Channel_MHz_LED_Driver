@@ -397,6 +397,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                         self.showDriverMessage()  # Start status update stream
                         self.gui.splash.close()
                         if self.initializing_connection:
+                            self.updateStatus() #Send GUI status to driver on successful connection
                             self.initializing_connection = False
                         else:
                             self.gui.sync_update_signal.emit(None)  # Flag that the active sync state has changed

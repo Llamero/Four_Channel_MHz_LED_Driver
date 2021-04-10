@@ -37,7 +37,10 @@ Add restore defualts option
 
 Tone on initialize
 
+Bugs:
+After thermal fault driver control resets to LED off (wrong), while software control resets to last value (correct)
 
+On GUI load driver maintains manual value while showing GUI value at 0 - GUI should inform driver of new values on load 
 
 
 

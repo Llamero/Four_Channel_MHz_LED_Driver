@@ -547,6 +547,7 @@ void thermalFault(){
     current_status.s.led_current = stored_status.s.led_current;
     current_status.s.mode = stored_status.s.mode;
     current_status.s.driver_control = stored_status.s.driver_control;
+    if(current_status.s.driver_control) manual_mode = current_status.s.mode;
     
     pinMode(pin.INTERLINE, OUTPUT); //Disconnect interline pin from PWM mux
     if(stored_status.s.led_pwm == 0 || (sync.s.mode == 2 && stored_status.s.mode == 0)) digitalWriteFast(pin.INTERLINE, LOW); //Set to digital low if no PWM or in confocal sync mode (which doesn't use PWM)
