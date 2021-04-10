@@ -171,15 +171,15 @@ def bytesToConfig(byte_array, gui, prefix):
             external = False
             if source == "External":
                 external = True
-            gui.setValue(gui.config_model["Temperature"][source]["Warn"], adcToTemp(config_values[20 + index], external))
-            gui.setValue(gui.config_model["Temperature"][source]["Fault"], adcToTemp(config_values[23 + index], external))
+            gui.setValue(gui.config_model["Temperature"][source]["Warn"], round(adcToTemp(config_values[20 + index]), external))
+            gui.setValue(gui.config_model["Temperature"][source]["Fault"], round(adcToTemp(config_values[23 + index]), external))
 
         for index, source in enumerate(["Driver", "External"]):
             external = False
             if source == "External":
                 external = True
-            gui.setValue(gui.config_model["Fan"][source]["Min"], adcToTemp(config_values[26 + 2*index], external))
-            gui.setValue(gui.config_model["Fan"][source]["Max"], adcToTemp(config_values[27 + 2*index], external))
+            gui.setValue(gui.config_model["Fan"][source]["Min"], round(adcToTemp(config_values[26 + 2*index]), external))
+            gui.setValue(gui.config_model["Fan"][source]["Max"], round(adcToTemp(config_values[27 + 2*index]), external))
 
         channel_id = gui.config_model["Fan"]["Channel"][config_values[30]].text()
         gui.setValue(gui.config_model["Fan"]["Channel"], channel_id)
