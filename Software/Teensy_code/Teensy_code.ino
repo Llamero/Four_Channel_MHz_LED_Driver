@@ -541,7 +541,7 @@ void playAlarmTone(){
   }
   if(++led_index >= 4) led_index = 0;
   while(pulse < 512){ //Play tone for 0.5 seconds
-    if(audio <= conf.c.audio_volume[1]){
+    if(audio < conf.c.audio_volume[1]){
       digitalWriteFast(pin.ALARM[0], HIGH);
       digitalWriteFast(pin.ALARM[1], LOW);
     }
@@ -566,7 +566,7 @@ void playStatusTone(){
   audio = 0;
   pulse = 0;
   while(pulse < 100){ //Play tone for 0.2 seconds
-    if(audio <= conf.c.audio_volume[0]){
+    if(audio < conf.c.audio_volume[0]){
       digitalWriteFast(pin.ALARM[0], HIGH);
       digitalWriteFast(pin.ALARM[1], LOW);
     }

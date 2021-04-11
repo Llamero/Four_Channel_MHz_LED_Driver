@@ -538,7 +538,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def testCurrent(self):
         pass
 
-    def testVolume(self, reply=None, id=None):
+    def testVolume(self, reply=None, indication_id=None):
         def widgetIndex(widget_list):
             nonlocal self
             for w_index, n_widget in enumerate(widget_list):
@@ -551,14 +551,14 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         if reply:
             pass
         else:
-            if self.portConnected() and id is not None:
-                if id == 0:
+            if self.portConnected() and indication_id is not None:
+                if indication_id == 0:
                     volume = self.gui.getValue(self.gui.config_model["Audio"]["Status"])
                     mode = 0
                 else:
                     volume = self.gui.getValue(self.gui.config_model["Audio"]["Alarm"])
                     mode = widgetIndex(self.gui.config_model["Pushbutton"]["Alarm"])
-                message = struct.pack("<BBB", *[id, volume, mode])
+                message = struct.pack("<BBB", *[indication_id, volume, mode])
                 self.sendWithoutReply(message, True, 10)  # Sent volume test command
 
     def portConnected(self):
