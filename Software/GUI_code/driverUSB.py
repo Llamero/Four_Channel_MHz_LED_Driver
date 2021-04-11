@@ -267,7 +267,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.dropped_frame_counter += 1
 
     def initializeRoutingDictionaries(self):
-        self.prefix_dict = {"showDriverMessage": 0,
+        self.prefix_dict = {"showDriverMessage": 0, # byte prefix identifying data packet type
                             "magicNumberCheck": 1,
                             "downloadDriverConfiguration": 2,
                             "uploadDriverConfiguration": 3,
@@ -281,9 +281,12 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                             "downloadStream": 11,
                             "updateStatus": 12,
                             "driverCalibration": 13,
-                            "disconnectSerial": 14}  # byte prefix identifying data packet type
+                            "disconnectSerial": 14,
+                            "measurePeriod": 15,
+                            "testCurrent": 16,
+                            "testVolume": 17}
 
-        self.command_dict = {self.prefix_dict["showDriverMessage"]: self.showDriverMessage,
+        self.command_dict = {self.prefix_dict["showDriverMessage"]: self.showDriverMessage, # Mapping of prefix to function that will process the command
                              self.prefix_dict["magicNumberCheck"]: self.magicNumberCheck,
                              self.prefix_dict["downloadDriverConfiguration"]: self.downloadDriverConfiguration,
                              self.prefix_dict["uploadDriverConfiguration"]: self.uploadDriverConfiguration,
@@ -297,7 +300,10 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                              self.prefix_dict["downloadStream"]: self.downloadStream,
                              self.prefix_dict["updateStatus"]: self.updateStatus,
                              self.prefix_dict["driverCalibration"]: self.driverCalibration,
-                             self.prefix_dict["disconnectSerial"]: self.disconnectSerial}  # Mapping of prefix to function that will process the command
+                             self.prefix_dict["disconnectSerial"]: self.disconnectSerial,
+                             self.prefix_dict["measurePeriod"]: self.measurePeriod,
+                             self.prefix_dict["testCurrent"]: self.testCurrent,
+                             self.prefix_dict["testVolume"]: self.testVolume}
 
     def showDriverMessage(self, reply=None):
         if reply is not None:
@@ -525,6 +531,35 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                         current_limit = int(self.gui.config_model["LED" + str(index+1)]["Current Limit"].whatsThis())
                 message = struct.pack("<H", round(percent_current * current_limit / 100))
                 self.sendWithoutReply(message, True, 10) #Send request for calibration packet
+
+    def measurePeriod(self):
+        pass
+
+    def testCurrent(self):
+        pass
+
+    def testVolume(self, reply=None, id=None):
+        def widgetIndex(widget_list):
+            nonlocal self
+            for w_index, n_widget in enumerate(widget_list):
+                if self.gui.getValue(n_widget):
+                    return w_index
+            else:
+                self.gui.showMessage("Error: Widget index not found!")
+                return None
+
+        if reply:
+            pass
+        else:
+            if self.portConnected() and id is not None:
+                if id == 0:
+                    volume = self.gui.getValue(self.gui.config_model["Audio"]["Status"])
+                    mode = 0
+                else:
+                    volume = self.gui.getValue(self.gui.config_model["Audio"]["Alarm"])
+                    mode = widgetIndex(self.gui.config_model["Pushbutton"]["Alarm"])
+                message = struct.pack("<BBB", *[id, volume, mode])
+                self.sendWithoutReply(message, True, 10)  # Sent volume test command
 
     def portConnected(self):
         if self.active_port is None:

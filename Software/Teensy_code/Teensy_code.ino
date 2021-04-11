@@ -174,7 +174,9 @@ const struct prefixStruct{
   uint8_t status_update = 12; //Status update packet for driver or GUI
   uint8_t calibration = 13; //Send a plot of LED square wave test output for calibrating op-amp compensation trimpots
   uint8_t gui_disconnect = 14; //GUI is disconnecting form LED driver
-  uint8_t measure_period = 15; //Measure the mirror period 
+  uint8_t measure_period = 15; //Measure the mirror period - return as 
+  uint8_t test_current = 16; //Measure the output for each channel - return as 4x uint16_t - disable channels with output below 51633 (0.7 V diff) to protect opamp.
+  uint8_t test_volume = 17; //Test status or indicator volume
   uint8_t long_off = 148; //Prefix sent when computer has been off for a while
 } prefix;
 
@@ -252,7 +254,7 @@ const static uint16_t DEFUALT_TIMEOUT = 500; //Default timeout for serial commun
 uint8_t status_index = 0; //Index counter for incrementally updating and transmitting status
 uint32_t status_duration = 180000; //Time (in number of clock cycles) available to check status per interrupt
 const uint8_t status_update_interval = 5; //The minimum time (in ms) between serial updates - prevents over-streaming of serial data and constantly accelerating fan
-const uint32_t status_step_duration =  18000; //Minimum time needed (in clock cycles) to complete one status check
+const uint32_t status_step_duration =  1800; //Minimum time needed (in clock cycles) to complete one status check
 elapsedMillis status_update_timer; //Status timer to track when to transmit the next update
 elapsedMillis heartbeat; //Heartbeat timer to confirm that GUI is still connected
 const static uint32_t HEARTBEAT_TIMEOUT = 10000; //Driver will assume connection has closed if heartbeat not received within this time
@@ -491,7 +493,6 @@ void thermalFault(){
   }
   if(fault_active){
     status_duration = 0; //Check only one status per cycle
-    uint8_t led_index=0;
     memcpy(stored_status.byte_buffer, current_status.byte_buffer, sizeof(stored_status.byte_buffer)); //Save current status to restore state after fault.
 
     //Turn off LED circuit completely
@@ -508,35 +509,8 @@ void thermalFault(){
     //Update status
     ledOff();
     current_status.s.driver_control = true;
-    audio = 0;
-    pulse = 0;
     while(fault_active){
-      for(int led=0; led<4; led++){
-        if(conf.c.pushbutton_mode == 1 || conf.c.pushbutton_mode == 3 || (conf.c.pushbutton_mode == 2 && led == led_index)) digitalWriteFast(pin.LED[led], HIGH);
-        else digitalWriteFast(pin.LED[led], LOW);
-      }
-      if(++led_index >= 4) led_index = 0;
-      while(pulse < 512){ //Play tone for 0.5 seconds
-        if(audio <= conf.c.audio_volume[1]){
-          digitalWriteFast(pin.ALARM[0], HIGH);
-          digitalWriteFast(pin.ALARM[1], LOW);
-        }
-        else if(audio <= 256){
-          digitalWriteFast(pin.ALARM[0], LOW);
-          digitalWriteFast(pin.ALARM[1], HIGH);
-          if(audio < 250) checkStatus(); //Check status if there is sufficient time
-        }
-        else audio = 0; //Reset audio cycle timer
-      }
-      for(int led=0; led<4; led++){
-        if(conf.c.pushbutton_mode == 3 || (conf.c.pushbutton_mode == 2 && led == led_index)) digitalWriteFast(pin.LED[led], HIGH);
-        else digitalWriteFast(pin.LED[led], LOW);
-      }
-      if(++led_index >= 4) led_index = 0;
-      while(pulse < 1024){
-        checkStatus();
-      }
-      pulse = 0; 
+      playAlarmTone();
       fault_active = false; //If all temps are below warn temp, clear the fault
       for(int a=0; a<3; a++) if(current_status.s.temp[a] <= conf.c.warn_temp[a]) fault_active = true; //If any temp is above warn temp, maintain fault      
     }
@@ -557,7 +531,38 @@ void thermalFault(){
   }
 }
 
-void playTone(){
+void playAlarmTone(){
+  static uint8_t led_index = 0;
+  audio = 0;
+  pulse = 0;
+  for(int led=0; led<4; led++){
+    if(conf.c.pushbutton_mode == 1 || conf.c.pushbutton_mode == 3 || (conf.c.pushbutton_mode == 2 && led == led_index)) digitalWriteFast(pin.LED[led], HIGH);
+    else digitalWriteFast(pin.LED[led], LOW);
+  }
+  if(++led_index >= 4) led_index = 0;
+  while(pulse < 512){ //Play tone for 0.5 seconds
+    if(audio <= conf.c.audio_volume[1]){
+      digitalWriteFast(pin.ALARM[0], HIGH);
+      digitalWriteFast(pin.ALARM[1], LOW);
+    }
+    else if(audio <= 256){
+      digitalWriteFast(pin.ALARM[0], LOW);
+      digitalWriteFast(pin.ALARM[1], HIGH);
+      if(audio < 250) checkStatus(); //Check status if there is sufficient time
+    }
+    else audio = 0; //Reset audio cycle timer
+  }
+  for(int led=0; led<4; led++){
+    if(conf.c.pushbutton_mode == 3 || (conf.c.pushbutton_mode == 2 && led == led_index)) digitalWriteFast(pin.LED[led], HIGH);
+    else digitalWriteFast(pin.LED[led], LOW);
+  }
+  if(++led_index >= 4) led_index = 0;
+  while(pulse < 1024){
+    checkStatus();
+  }
+}
+
+void playStatusTone(){
   audio = 0;
   pulse = 0;
   while(pulse < 100){ //Play tone for 0.2 seconds
@@ -615,7 +620,7 @@ void initializeConfigurations(){
     else loadDefaultsToEEPROM();
   }
   else loadDefaultsToEEPROM();
-  playTone();
+  playStatusTone();
 }
 
 //https://forum.arduino.cc/index.php?topic=42850.0
@@ -677,6 +682,9 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   else if(buffer_prefix == prefix.status_update) updateStatus(buffer, size);
   else if(buffer_prefix == prefix.calibration) driverCalibration(buffer, size);
   else if(buffer_prefix == prefix.gui_disconnect) disconnectSerial();
+  else if(buffer_prefix == prefix.measure_period) measurePeriod();
+  else if(buffer_prefix == prefix.test_current) testCurrent();
+  else if(buffer_prefix == prefix.test_volume) testVolume(buffer, size);
   else if(buffer_prefix == prefix.long_off);
   else{
     temp_size = sprintf(temp_buffer, "-Error: USB packet had invalid prefix: %d", buffer_prefix);  
@@ -934,6 +942,35 @@ void disconnectSerial(){
   ledOff(); //Set LED off on disconnect
   updateIntensity();
   manual_mode = 3;
+}
+
+void measurePeriod(){
+  ;
+}
+void testCurrent(){
+  ;
+}
+void testVolume(const uint8_t* buffer, size_t size){
+  uint8_t stored_volume;
+  uint8_t stored_mode;
+
+  stored_volume = conf.c.audio_volume[(bool) buffer[1]]; //Temporarily update volume to test volume
+  conf.c.audio_volume[(bool) buffer[1]] = buffer[2];
+  stored_mode = conf.c.pushbutton_mode; //Temporarily update led mode to test mode
+  conf.c.pushbutton_mode = buffer[3];
+   
+  if(buffer[1] == 0){
+    playStatusTone();
+  }
+  else{
+    fault_active=true;
+    playAlarmTone();
+    playAlarmTone();
+    fault_active=false;
+
+  }
+  conf.c.audio_volume[(bool) buffer[1]] = stored_volume; //Restore volume and mode
+  conf.c.pushbutton_mode = stored_mode;
 }
 
 //  boolean state[] = {false, false, false, false, false};
