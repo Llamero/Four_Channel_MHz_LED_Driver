@@ -101,7 +101,7 @@ def initializeSyncModel(gui):
         sync_model["Confocal"]["Line"] = gui.sync_confocal_line_tab
         sync_model["Confocal"]["Digital"] = [gui.sync_confocal_line_digital_low_button, gui.sync_confocal_line_digital_high_button]
         sync_model["Confocal"]["Threshold"] = gui.sync_confocal_line_analog_threshold_box
-        sync_model["Confocal"]["Polarity"] = [gui.sync_confocal_line_analog_polarity_above_button, gui.sync_confocal_line_analog_polarity_below_button]
+        sync_model["Confocal"]["Polarity"] = [gui.sync_confocal_line_analog_polarity_below_button, gui.sync_confocal_line_analog_polarity_above_button]
         sync_model["Confocal"]["Delay"] = OrderedDict()
         sync_model["Confocal"]["Delay"]["Mode"] = [gui.sync_confocal_scan_unidirectional_button, gui.sync_confocal_scan_bidirectional_button]
         sync_model["Confocal"]["Period"] = gui.sync_confocal_scan_period_box
@@ -317,6 +317,8 @@ def initializeEvents(gui):
 
         gui.sync_analog_output_tab.currentChanged.connect(lambda: gui.toggleAnalogChannel(gui.sync_analog_output_tab))
         gui.sync_confocal_scan_unidirectional_button.toggled.connect(lambda: gui.toggleScanMode())
+        gui.sync_confocal_scan_period_button.clicked.connect(lambda: gui.ser.measurePeriod())
+
         gui.sync_download_button.clicked.connect(lambda: gui.ser.downloadSyncConfiguration())
         gui.sync_upload_button.clicked.connect(lambda: gui.ser.uploadSyncConfiguration())
         gui.sync_save_button.clicked.connect(lambda: seq.findUnsavedSeqThenSave(gui, gui.sync_model))

@@ -406,12 +406,12 @@ void checkStatus(){
       if(!serial_connection_active) current_status.s.driver_control = true;
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
     default: //Check if a serial packet has been received - 0.37 µs
-      digitalWriteFast(pin.OUTPUTS[2], HIGH);
       usb.update();
       status_index = 0; //Reset status index if no cases match
       break;
   }
-  digitalWriteFast(pin.OUTPUTS[2], LOW);
+//  digitalWriteFast(pin.OUTPUTS[2], HIGH);
+//  digitalWriteFast(pin.OUTPUTS[2], LOW);
   //if(sync.s.mode==2) noInterrupts(); //Disable interrupts if in confocal mode, as the scan mirror is used as the interrupt clock
 }
 
@@ -422,7 +422,6 @@ void ledOff(){
 }
 
 void updateIntensity(){
-  digitalWriteFast(pin.OUTPUTS[0], HIGH);
   if(conf.c.led_active[current_status.s.led_channel]){ //Check if the channel is active
     for(int a=0; a<4; a++){ //Toggle relays
       if(conf.c.led_channel[a] == current_status.s.led_channel) digitalWriteFast(pin.RELAY[a], HIGH);
@@ -436,7 +435,6 @@ void updateIntensity(){
       else pinMode(pin.INTERLINE, OUTPUT); //Otherwise, ensure pin is disconnected from PWM bus
     }
     else pinMode(pin.INTERLINE, OUTPUT); //Otherwise, ensure pin is disconnected from PWM bus
-    digitalWriteFast(pin.OUTPUTS[0], LOW);
   }
   else{ //If LED channel is inactive, set output to 0 to not stress op-amp inputs
     analogWrite(pin.DAC0, 0);
@@ -682,7 +680,7 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   else if(buffer_prefix == prefix.status_update) updateStatus(buffer, size);
   else if(buffer_prefix == prefix.calibration) driverCalibration(buffer, size);
   else if(buffer_prefix == prefix.gui_disconnect) disconnectSerial();
-  else if(buffer_prefix == prefix.measure_period) measurePeriod();
+  else if(buffer_prefix == prefix.measure_period) measurePeriod(buffer, size);
   else if(buffer_prefix == prefix.test_current) testCurrent();
   else if(buffer_prefix == prefix.test_volume) testVolume(buffer, size);
   else if(buffer_prefix == prefix.long_off);
@@ -922,7 +920,7 @@ static void updateStatus(const uint8_t* buffer, size_t size){
     updateIntensity();
   }
   else{
-    temp_size = sprintf(temp_buffer, "-Error: LED  driver received and invalid status packet.  Expected %d bytes abd received %d bytes.", size, sizeof(recv_status.byte_buffer)+1);
+    temp_size = sprintf(temp_buffer, "-Error: LED  driver received and invalid status packet.  Expected %d bytes and received %d bytes.", size, sizeof(recv_status.byte_buffer)+1);
     temp_buffer[0] = prefix.message;
     usb.send((const unsigned char*) temp_buffer, temp_size);
   }
@@ -944,11 +942,114 @@ void disconnectSerial(){
   manual_mode = 3;
 }
 
-void measurePeriod(){
-  ;
+void measurePeriod(const uint8_t* buffer, size_t size){
+  SYNCUNION temp_sync;
+  float delta_cycles; //Number of cycles between triggers
+  float sum_of_squares = 0; //Used to calcualte variance - https://www.thoughtco.com/sum-of-squares-formula-shortcut-3126266
+  float sum_cycles = 0; //Used to calcualte variance - https://www.thoughtco.com/sum-of-squares-formula-shortcut-3126266
+  uint32_t prev_cycles; //Number of cycles at previous trigger
+  float mean;
+  float stdev;
+  int a; //loop counter
+  elapsedMillis timeout;
+  elapsedMillis measure_duration;
+  elapsedMicros debounce;
+  float n_measurements=0;
+  uint16_t start_timeout = 10000; //Time in ms to wait for scan to start
+  uint16_t record_timeout = 1000; //Time in ms to wait between line triggers during scan
+
+  //Lambda functions in C++11 rock! https://stackoverflow.com/questions/4324763/can-we-have-functions-inside-functions-in-c
+  auto saveCounts = [&] (){
+    if(pin.OUTPUTS[temp_sync.s.sync_output_channel]) digitalWriteFast(pin.OUTPUTS[temp_sync.s.sync_output_channel]-1, HIGH);
+    checkStatus();
+    if(a > 0){
+      delta_cycles = cpu_cycles - prev_cycles; //Calcualte number of elapsed cycles
+      sum_of_squares += delta_cycles * delta_cycles; //add to sum of squares
+      sum_cycles += delta_cycles; //Used for stdev and mean
+      n_measurements += 1;
+    }
+    prev_cycles = cpu_cycles;
+    if(pin.OUTPUTS[temp_sync.s.sync_output_channel]) digitalWriteFast(pin.OUTPUTS[temp_sync.s.sync_output_channel]-1, LOW);
+  };
+  digitalWriteFast(pin.OUTPUTS[0], LOW); ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  analogWriteFrequency(pin.OUTPUTS[1], 1000);
+  analogWrite(pin.OUTPUTS[1], 30000); ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  if(size == sizeof(temp_sync.byte_buffer)){
+    digitalWriteFast(pin.OUTPUTS[0], HIGH); ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    memcpy(temp_sync.byte_buffer, buffer, sizeof(temp_sync.byte_buffer)); //Temporarily store copy of sync
+    pinMode(pin.INPUTS[0], INPUT);
+    pinMode(pin.INPUTS[temp_sync.s.confocal_channel], INPUT);
+    if(digitalReadFast(pin.INPUTS[0]) != temp_sync.s.shutter_polarity){
+      temp_size = sprintf(temp_buffer, "-Please start scanning to measure mirror period.");
+      temp_buffer[0] = prefix.message;
+      usb.send((const unsigned char*) temp_buffer, temp_size);
+    }
+    while(digitalReadFast(pin.INPUTS[0]) != temp_sync.s.shutter_polarity && timeout < start_timeout);// checkStatus(); //Wait 10 seconds for scan to start ///////////////////////////////////////Check status interferes with function!!!!!!!
+    if(timeout >= start_timeout){ 
+      temp_size = sprintf(temp_buffer, "-Error: Measurement timed out waiting for trigger from shutter.");    
+      temp_buffer[0] = prefix.message;
+      usb.send((const unsigned char*) temp_buffer, temp_size);
+      return;
+    }
+    else{
+      temp_size = sprintf(temp_buffer, "-Measuring mirror period, please wait....");
+      temp_buffer[0] = prefix.message;
+      usb.send((const unsigned char*) temp_buffer, temp_size);
+    }
+    timeout = 0;
+    analogRead(pin.INPUTS[temp_sync.s.confocal_channel]); //Clear ADC before reocording
+    measure_duration = 0;
+
+    for(a=-1; measure_duration < record_timeout; a++){ //Measure period for 1 second
+      if(temp_sync.s.confocal_sync_mode){ //If analog sync
+        while(analogRead(pin.INPUTS[temp_sync.s.confocal_channel]) < temp_sync.s.confocal_threshold && timeout < record_timeout); //Wait for input to rise above threshold
+        cpu_cycles = ARM_DWT_CYCCNT;
+        if(a >= 0 && temp_sync.s.confocal_sync_polarity[1]) saveCounts(); //If rising trigger then save time point
+        while(analogRead(pin.INPUTS[temp_sync.s.confocal_channel]) > temp_sync.s.confocal_threshold && timeout < record_timeout); //Wait for input to rise above threshold
+        cpu_cycles = ARM_DWT_CYCCNT;
+        digitalWriteFast(pin.OUTPUTS[temp_sync.s.sync_output_channel], LOW);
+        if(a >= 0 && !temp_sync.s.confocal_sync_polarity[1]) saveCounts(); //If falling trigger then save time point 
+      }
+      else{ //If digital sync
+        while(digitalReadFast(pin.INPUTS[temp_sync.s.confocal_channel]) !=  temp_sync.s.confocal_sync_polarity[0] && timeout < record_timeout); //Wait for trigger to match desired polarity
+        cpu_cycles = ARM_DWT_CYCCNT;
+        saveCounts();
+        debounce = 0;
+        while(debounce < 10) checkStatus();
+        while(digitalReadFast(pin.INPUTS[temp_sync.s.confocal_channel]) ==  temp_sync.s.confocal_sync_polarity[0] && timeout < record_timeout); //Wait for trigger to reset
+        debounce = 0;
+        while(debounce < 10) checkStatus();
+      }
+      if(timeout >= record_timeout){ //If timed out, send error message.
+        temp_size = sprintf(temp_buffer, "-Error: Measurement timed out waiting for line sync trigger.");    
+        temp_buffer[0] = prefix.message;
+        usb.send((const unsigned char*) temp_buffer, temp_size);
+        return;
+      }
+      else{
+        timeout = 0; //reset timeout timer
+      }
+    }
+    mean = (sum_cycles/n_measurements)/180.0;
+    stdev = (sum_cycles*sum_cycles);
+    stdev /= n_measurements;
+    stdev = abs(sum_of_squares-stdev);
+    stdev /= n_measurements;
+    stdev = sqrt(stdev);
+    stdev /= 180.0;
+    temp_size = sprintf(temp_buffer, "-Measurement Successful. Measured period is %.2f µs ± %.2f µs.", mean, stdev);
+    temp_buffer[0] = prefix.message;
+    usb.send((const unsigned char*) temp_buffer, temp_size);
+  }
+  else{
+    temp_size = sprintf(temp_buffer, "-Error: LED  driver received and invalid measure period packet.  Expected %d bytes and received %d bytes.", size, sizeof(temp_sync.byte_buffer));
+    temp_buffer[0] = prefix.message;
+    usb.send((const unsigned char*) temp_buffer, temp_size);
+    return;
+  }
 }
 void testCurrent(){
-  ;
+  
 }
 void testVolume(const uint8_t* buffer, size_t size){
   uint8_t stored_volume;

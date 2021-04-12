@@ -533,7 +533,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.sendWithoutReply(message, True, 10) #Send request for calibration packet
 
     def measurePeriod(self):
-        pass
+        message = fileIO.syncToBytes(self.gui, self.prefix_dict["measurePeriod"])
+        self.sendWithoutReply(message, True, 100)  #Send temporary sync to be used to measure period
 
     def testCurrent(self):
         pass

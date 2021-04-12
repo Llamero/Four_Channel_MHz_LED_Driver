@@ -350,8 +350,9 @@ def configToBytes(gui, prefix):
 
     return byte_array
 
-def syncToBytes(gui, prefix):
-    updateModelWhatsThis(gui, gui.sync_model)
+def syncToBytes(gui, prefix, update_model=True):
+    if update_model:
+        updateModelWhatsThis(gui, gui.sync_model)
 
     sync_values = [None]* 39
     byte_array = bytearray() #Initialize empty byte array
@@ -369,7 +370,6 @@ def syncToBytes(gui, prefix):
 
     #Digital
     sync_values[0] = gui.sync_model["Mode"].currentIndex()
-    gui.sync_model["Mode"].setWhatsThis(gui.getValue(gui.sync_model["Mode"]))  # Store driver mode name in whats this
     sync_values[1] = widgetIndex(gui.sync_model["Output"])
     sync_values[2] = widgetIndex(gui.sync_model["Digital"]["Channel"])
     current_limit = [0]*2
