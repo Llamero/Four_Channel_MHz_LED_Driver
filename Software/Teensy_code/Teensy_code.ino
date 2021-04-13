@@ -266,6 +266,7 @@ boolean fault_active = false; //Whether the led driver is currently in a fault s
 STATUSUNION stored_status; //Temporarily store operating status when status is over-ridden, such as during a thermal fault
 elapsedMicros audio; //Timer controlling audio volume and frequency
 elapsedMillis pulse; //Timer controlling tone pule interval
+boolean external_analog = false; //Whether to use the DAC or external analog input
 
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
@@ -302,6 +303,37 @@ uint32_t d = 10;
 
 void loop() {
   checkStatus();
+  
+  if(temp_sync.s.confocal_sync_mode){ //If analog sync
+    while(analogRead(pin.INPUTS[temp_sync.s.confocal_channel]) < temp_sync.s.confocal_threshold && timeout < record_timeout); //Wait for input to rise above threshold
+    cpu_cycles = ARM_DWT_CYCCNT;
+    if(a >= 0 && temp_sync.s.confocal_sync_polarity[1]) saveCounts(); //If rising trigger then save time point
+    while(analogRead(pin.INPUTS[temp_sync.s.confocal_channel]) > temp_sync.s.confocal_threshold && timeout < record_timeout); //Wait for input to rise above threshold
+    cpu_cycles = ARM_DWT_CYCCNT;
+    if(a >= 0 && !temp_sync.s.confocal_sync_polarity[1]) saveCounts(); //If falling trigger then save time point 
+  }
+  else{ //If digital sync
+    while(digitalReadFast(pin.INPUTS[temp_sync.s.confocal_channel]) !=  temp_sync.s.confocal_sync_polarity[0] && timeout < record_timeout); //Wait for trigger to match desired polarity
+    cpu_cycles = ARM_DWT_CYCCNT;
+    saveCounts();
+    debounce = 0;
+    while(debounce < 10) checkStatus();
+    while(digitalReadFast(pin.INPUTS[temp_sync.s.confocal_channel]) ==  temp_sync.s.confocal_sync_polarity[0] && timeout < record_timeout); //Wait for trigger to reset
+    debounce = 0;
+    while(debounce < 10) checkStatus();
+  }
+  if(timeout >= record_timeout){ //If timed out, send error message.
+    temp_size = sprintf(temp_buffer, "-Error: Measurement timed out waiting for line sync trigger.");    
+    temp_buffer[0] = prefix.message;
+    usb.send((const unsigned char*) temp_buffer, temp_size);
+    return;
+  }
+  else{
+    timeout = 0; //reset timeout timer
+  }
+
+
+  
 }
 
 void checkStatus(){
@@ -349,7 +381,7 @@ void checkStatus(){
         if(current_status.s.mode == 1){
           analogRead(pin.POT);
           current_status.s.led_pwm = 65535-analogRead(pin.POT);
-          current_status.s.led_current = 65535;
+          current_status.s.led_current = conf.c.current_limit[current_status.s.led_channel]; //Set current to LED current limit
         }
         else if(current_status.s.mode == 3){
           ledOff();
@@ -405,6 +437,19 @@ void checkStatus(){
       }
       if(!serial_connection_active) current_status.s.driver_control = true;
       if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+    case 10: //Set ananlog_select pin based on driver configuration
+      status_index++;
+      if(current_status.s.mode){ //If in manual mode, use internal analog
+        external_analog = false;
+        digitalWriteFast(pin.ANALOG_SELECT, LOW); //Set external analog input
+      }
+      else{ //If in sync mode
+        if((sync.s.mode == 0 && sync.s.digital_mode[current_status.s.state] == 3) || (sync.s.mode == 2 && sync.s.confocal_mode[current_status.s.state] == 3) || (sync.s.mode == 1 && sync.s.analog_mode == 2)){ //If state requires ext. analog
+          external_analog = true;
+          digitalWriteFast(pin.ANALOG_SELECT, HIGH); //Set external analog input
+        }
+      }
+      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
     default: //Check if a serial packet has been received - 0.37 µs
       usb.update();
       status_index = 0; //Reset status index if no cases match
@@ -419,6 +464,7 @@ void ledOff(){
   current_status.s.led_pwm = 0;
   current_status.s.led_current = 0;
   manual_mode = 3;
+  external_analog = false; //Set input to internal analog
 }
 
 void updateIntensity(){
@@ -427,14 +473,21 @@ void updateIntensity(){
       if(conf.c.led_channel[a] == current_status.s.led_channel) digitalWriteFast(pin.RELAY[a], HIGH);
       else digitalWriteFast(pin.RELAY[a], LOW);
     }
-    analogWrite(pin.DAC0, current_status.s.led_current);
-    if(!(sync.s.mode == 2 && !current_status.s.mode)){ //If in confocal mode, do not apply PWM to interline pin
-      if(!(sync.s.mode == 1 && sync.s.analog_mode && !current_status.s.mode)){ //If analog mode without PWM, do not apply PWM to interline pin
-        analogWrite(pin.INTERLINE, current_status.s.led_pwm);
+    digitalWriteFast(pin.ANALOG_SELECT, external_analog); //Set external analog input
+    if(external_analog){
+      pinMode(pin.INTERLINE, OUTPUT); //ensure pin is disconnected from PWM bus
+      analogWrite(pin.DAC0, 0);
+    }
+    else{
+      analogWrite(pin.DAC0, current_status.s.led_current);
+      if(!(sync.s.mode == 2 && !current_status.s.mode)){ //If in confocal mode, do not apply PWM to interline pin
+        if(!(sync.s.mode == 1 && sync.s.analog_mode && !current_status.s.mode)){ //If analog mode without PWM, do not apply PWM to interline pin
+          analogWrite(pin.INTERLINE, current_status.s.led_pwm);
+        }
+        else pinMode(pin.INTERLINE, OUTPUT); //Otherwise, ensure pin is disconnected from PWM bus
       }
       else pinMode(pin.INTERLINE, OUTPUT); //Otherwise, ensure pin is disconnected from PWM bus
     }
-    else pinMode(pin.INTERLINE, OUTPUT); //Otherwise, ensure pin is disconnected from PWM bus
   }
   else{ //If LED channel is inactive, set output to 0 to not stress op-amp inputs
     analogWrite(pin.DAC0, 0);
@@ -974,6 +1027,7 @@ void measurePeriod(const uint8_t* buffer, size_t size){
     noInterrupts();
   };
   if(size == sizeof(temp_sync.byte_buffer)){
+    status_duration = 0; //Check only one status per cycle
     memcpy(temp_sync.byte_buffer, buffer, sizeof(temp_sync.byte_buffer)); //Temporarily store copy of sync
     pinMode(pin.INPUTS[temp_sync.s.confocal_channel], INPUT); 
     temp_size = sprintf(temp_buffer, "-Measuring mirror period, please wait....");
@@ -1032,9 +1086,40 @@ void measurePeriod(const uint8_t* buffer, size_t size){
     return;
   }
 }
+
 void testCurrent(){
+  STATUS_UNION stored_status;
+  float current_array[4]; //Array to store current measurements
+  bool enable_array[4]; //Array to store whether LED channel can be enabled
+  uint32_t current_measurement; //Store current measurements
+  uint16_t n_samples = 256; //Number of samples to take of each LED current 
+  memcpy(stored_status.byte_buffer, current_status.byte_buffer, sizeof(stored_status.byte_buffer)); //Save current status
+  status_duration = 0; //Check only one status per cycle
+  digitalWriteFast(pin.INTERLINE, LOW);
+  digitalWriteFast(pin.ANALOG_SELECT, LOW);
+  pinMode(ISENSE, INPUT);
+  for(int a=0; a<n_samples; a++){
+    current_status.led_channel = a; //Set channel
+    current_status.led_current = conf.c.current_limit[a]; //Set to current limit
+    current_status.led_pwm = 65535; //Set PWM to max
+    current_status.mode = 1; //Assume manual mode to override sync related intensities
+    updateIntensity();
+    delay(10); //Wait for current and SSRs to settle
+    analogRead(pin.ISENSE); //Clear adc
+    current_measurement = 0;
+    for(int b=0; b<nsamples; b++) current_measurement += analogRead(pin.ISENSE);
+    digitalWriteFast(pin.INTERLINE, LOW);
+    current_array[a] = (float) current_measurement / (float) n_samples; //Divide by n_samples to get average current
+    if(current_array[a] + (0.7/3.3)*65535 < conf.c.current_limit[a] || current_array[a] - (0.7/3.3)*65535 > conf.c.current_limit[a]) enable_array[a] = false; //Disable channel if Isense voltage is outside DAC voltage +/- 0.7V to prevent damage to op-amp
+    else enable_array[a] = true;
+    current_array[a] /= (float) conf.c.current_limit[a] * 0.01; //Convert current to percentage of current limit
+  }
   
+  memcpy(current_status.byte_buffer, stored_status.byte_buffer, sizeof(stored_status.byte_buffer)); //Restore status
+  digitalWriteFast(pin.ANALOG_SELECT, external_analog); //Restore analog input selection
+  updateIntensity(); //Restore led intensity
 }
+
 void testVolume(const uint8_t* buffer, size_t size){
   uint8_t stored_volume;
   uint8_t stored_mode;

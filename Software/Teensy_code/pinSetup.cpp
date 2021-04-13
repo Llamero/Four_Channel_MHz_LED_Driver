@@ -61,6 +61,7 @@ void pinSetup::configurePins(){
     ////// INPUT /////
     pinMode(TOGGLE, INPUT_PULLUP);
     for(a=0; a<sizeof(PUSHBUTTON)/sizeof(PUSHBUTTON[0]); a++) pinMode(PUSHBUTTON[a], INPUT_PULLUP);
+    pinMode(ISENSE, INPUT);
 
     ////// OUTPUT /////
     for(a=0; a<sizeof(RELAY)/sizeof(RELAY[0]); a++) pinMode(RELAY[a], OUTPUT);
