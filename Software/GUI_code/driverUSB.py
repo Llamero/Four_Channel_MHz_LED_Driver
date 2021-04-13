@@ -532,9 +532,15 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 message = struct.pack("<H", round(percent_current * current_limit / 100))
                 self.sendWithoutReply(message, True, 10) #Send request for calibration packet
 
-    def measurePeriod(self):
-        message = fileIO.syncToBytes(self.gui, self.prefix_dict["measurePeriod"])
-        self.sendWithoutReply(message, True, 100)  #Send temporary sync to be used to measure period
+    def measurePeriod(self, reply=None):
+        if reply:
+            mirror_period = struct.unpack("<f", reply)[0]
+            print(mirror_period)
+            self.gui.setValue(self.gui.sync_model["Confocal"]["Period"], mirror_period)
+        else:
+            if self.portConnected():
+                message = fileIO.syncToBytes(self.gui, self.prefix_dict["measurePeriod"])
+                self.sendWithoutReply(message, True, 100)  #Send temporary sync to be used to measure period
 
     def testCurrent(self):
         pass

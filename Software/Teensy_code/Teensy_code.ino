@@ -957,10 +957,11 @@ void measurePeriod(const uint8_t* buffer, size_t size){
   float n_measurements=0;
   uint16_t start_timeout = 10000; //Time in ms to wait for scan to start
   uint16_t record_timeout = 1000; //Time in ms to wait between line triggers during scan
+  uint16_t measure_timeout = 3000; //Time in ms to measure mirror period
 
   //Lambda functions in C++11 rock! https://stackoverflow.com/questions/4324763/can-we-have-functions-inside-functions-in-c
   auto saveCounts = [&] (){
-    if(pin.OUTPUTS[temp_sync.s.sync_output_channel]) digitalWriteFast(pin.OUTPUTS[temp_sync.s.sync_output_channel]-1, HIGH);
+    if(pin.OUTPUTS[temp_sync.s.sync_output_channel]) digitalWriteFast(pin.OUTPUTS[temp_sync.s.sync_output_channel-1], HIGH);
     checkStatus();
     if(a > 0){
       delta_cycles = cpu_cycles - prev_cycles; //Calcualte number of elapsed cycles
@@ -969,45 +970,25 @@ void measurePeriod(const uint8_t* buffer, size_t size){
       n_measurements += 1;
     }
     prev_cycles = cpu_cycles;
-    if(pin.OUTPUTS[temp_sync.s.sync_output_channel]) digitalWriteFast(pin.OUTPUTS[temp_sync.s.sync_output_channel]-1, LOW);
+    if(pin.OUTPUTS[temp_sync.s.sync_output_channel]) digitalWriteFast(pin.OUTPUTS[temp_sync.s.sync_output_channel-1], LOW);
+    noInterrupts();
   };
-  digitalWriteFast(pin.OUTPUTS[0], LOW); ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  analogWriteFrequency(pin.OUTPUTS[1], 1000);
-  analogWrite(pin.OUTPUTS[1], 30000); ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   if(size == sizeof(temp_sync.byte_buffer)){
-    digitalWriteFast(pin.OUTPUTS[0], HIGH); ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     memcpy(temp_sync.byte_buffer, buffer, sizeof(temp_sync.byte_buffer)); //Temporarily store copy of sync
-    pinMode(pin.INPUTS[0], INPUT);
-    pinMode(pin.INPUTS[temp_sync.s.confocal_channel], INPUT);
-    if(digitalReadFast(pin.INPUTS[0]) != temp_sync.s.shutter_polarity){
-      temp_size = sprintf(temp_buffer, "-Please start scanning to measure mirror period.");
-      temp_buffer[0] = prefix.message;
-      usb.send((const unsigned char*) temp_buffer, temp_size);
-    }
-    while(digitalReadFast(pin.INPUTS[0]) != temp_sync.s.shutter_polarity && timeout < start_timeout);// checkStatus(); //Wait 10 seconds for scan to start ///////////////////////////////////////Check status interferes with function!!!!!!!
-    if(timeout >= start_timeout){ 
-      temp_size = sprintf(temp_buffer, "-Error: Measurement timed out waiting for trigger from shutter.");    
-      temp_buffer[0] = prefix.message;
-      usb.send((const unsigned char*) temp_buffer, temp_size);
-      return;
-    }
-    else{
-      temp_size = sprintf(temp_buffer, "-Measuring mirror period, please wait....");
-      temp_buffer[0] = prefix.message;
-      usb.send((const unsigned char*) temp_buffer, temp_size);
-    }
+    pinMode(pin.INPUTS[temp_sync.s.confocal_channel], INPUT); 
+    temp_size = sprintf(temp_buffer, "-Measuring mirror period, please wait....");
+    temp_buffer[0] = prefix.message;
+    usb.send((const unsigned char*) temp_buffer, temp_size);
     timeout = 0;
     analogRead(pin.INPUTS[temp_sync.s.confocal_channel]); //Clear ADC before reocording
     measure_duration = 0;
-
-    for(a=-1; measure_duration < record_timeout; a++){ //Measure period for 1 second
+    for(a=-1; measure_duration < measure_timeout && n_measurements < 10000; a++){ //Measure period for 1 second
       if(temp_sync.s.confocal_sync_mode){ //If analog sync
         while(analogRead(pin.INPUTS[temp_sync.s.confocal_channel]) < temp_sync.s.confocal_threshold && timeout < record_timeout); //Wait for input to rise above threshold
         cpu_cycles = ARM_DWT_CYCCNT;
         if(a >= 0 && temp_sync.s.confocal_sync_polarity[1]) saveCounts(); //If rising trigger then save time point
         while(analogRead(pin.INPUTS[temp_sync.s.confocal_channel]) > temp_sync.s.confocal_threshold && timeout < record_timeout); //Wait for input to rise above threshold
         cpu_cycles = ARM_DWT_CYCCNT;
-        digitalWriteFast(pin.OUTPUTS[temp_sync.s.sync_output_channel], LOW);
         if(a >= 0 && !temp_sync.s.confocal_sync_polarity[1]) saveCounts(); //If falling trigger then save time point 
       }
       else{ //If digital sync
@@ -1037,9 +1018,12 @@ void measurePeriod(const uint8_t* buffer, size_t size){
     stdev /= n_measurements;
     stdev = sqrt(stdev);
     stdev /= 180.0;
-    temp_size = sprintf(temp_buffer, "-Measurement Successful. Measured period is %.2f µs ± %.2f µs.", mean, stdev);
+    temp_size = sprintf(temp_buffer, "-Measurement Successful. Mirror period mean: %.2f µs, standard deviation: %.2f µs.", mean, stdev);
     temp_buffer[0] = prefix.message;
     usb.send((const unsigned char*) temp_buffer, temp_size);
+    memcpy(temp_buffer+1, &mean, sizeof(mean));
+    temp_buffer[0] = prefix.measure_period;
+    usb.send((const unsigned char*) temp_buffer, sizeof(mean)+1);  
   }
   else{
     temp_size = sprintf(temp_buffer, "-Error: LED  driver received and invalid measure period packet.  Expected %d bytes and received %d bytes.", size, sizeof(temp_sync.byte_buffer));
