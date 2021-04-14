@@ -67,7 +67,7 @@ def updatePlot(gui, y_data):
     current = activeCurrent(gui)
     y_line = [current, current]
     gui.calibration_plot_window.plot(x_line, y_line, pen=pg.mkPen('m', width=1), clear=True)
-    gui.calibration_plot_window.plot(x_data[:n_samples], y_data[offset:n_samples+offset], pen=pg.mkPen('g', width=1), connect = "finite")
+    gui.calibration_plot_window.plot(x_data[:n_samples], y_data[offset:n_samples+offset], pen=pg.mkPen('g', width=1), connect="finite")
 
 def lockTabWidget(gui, lock):
     for tab_index in range(gui.gui_master_tab.count()):

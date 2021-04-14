@@ -252,7 +252,6 @@ uint32_t send_stream_index = 0; //Current index position of stream that is being
 uint32_t send_stream_size = 0; //Total size of file to be streamed
 const static uint16_t DEFUALT_TIMEOUT = 500; //Default timeout for serial communication in ms
 uint8_t status_index = 0; //Index counter for incrementally updating and transmitting status
-uint32_t status_duration = 180000; //Time (in number of clock cycles) available to check status per interrupt
 const uint8_t status_update_interval = 5; //The minimum time (in ms) between serial updates - prevents over-streaming of serial data and constantly accelerating fan
 const uint32_t status_step_duration =  1800; //Minimum time needed (in clock cycles) to complete one status check
 elapsedMillis status_update_timer; //Status timer to track when to transmit the next update
@@ -344,37 +343,37 @@ void checkStatus(){
       status_index++;
       analogRead(pin.MOSFET_TEMP);
       current_status.s.temp[0] = analogRead(pin.MOSFET_TEMP);
-      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+      break;
     case 1:
       status_index++;
       analogRead(pin.RESISTOR_TEMP);
       current_status.s.temp[1] = analogRead(pin.RESISTOR_TEMP);
-      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+      break;
     case 2:
       status_index++;
       analogRead(pin.EXTERNAL_TEMP);
       current_status.s.temp[2] = analogRead(pin.EXTERNAL_TEMP);
-      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+      break;
     case 3: //Check if any of the temperatures is past the fault temperature - 0.59 µs
       status_index++;
       if(!fault_active) thermalFault();
-      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+      break;
     case 4: //Update internal fan speed - 0.85 µs
       status_index++;
       if(current_status.s.temp[0] < current_status.s.temp[1]) setFan(current_status.s.temp[0], 0); //Update fan based on highest internal temperature (lowest ADC value)
       else setFan(current_status.s.temp[1], 0);
-      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+      break;
     case 5: //Update external fan speed - 0.85 µs
       status_index++;
       setFan(current_status.s.temp[2], 1); //Update external fan
-      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+      break;
     case 6: //Check toggle switch - 0.28 µs
       status_index++;
       if(current_status.s.driver_control && !fault_active){ //Only check toggle if driver control
         if(digitalReadFast(pin.TOGGLE)) current_status.s.mode = manual_mode;
         else current_status.s.mode = 0;
       }
-      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+      break;
     case 7: //Check pot value - 3.74 µs
       status_index++;
       if(current_status.s.driver_control && !fault_active){ //Only check pot if driver control
@@ -386,9 +385,10 @@ void checkStatus(){
         else if(current_status.s.mode == 3){
           ledOff();
         }
+        else return; //If sync - do no update intensity
         updateIntensity(); //Update the LED intensity with the new values
       }
-      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+      break;
     case 8: //Check pushbuttons and update LEDs - 1.05 µs
       status_index++;
       if(!fault_active){
@@ -418,7 +418,7 @@ void checkStatus(){
           else digitalWriteFast(pin.LED[a], LOW);
         }
       }
-      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+      break;
     case 9: //Send current status to led driver - 4.76 µs
       status_index++;
       if(status_update_timer >= status_update_interval){ //Status timer to track when to transmit the next update
@@ -436,7 +436,7 @@ void checkStatus(){
         }
       }
       if(!serial_connection_active) current_status.s.driver_control = true;
-      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+      break;
     case 10: //Set ananlog_select pin based on driver configuration
       status_index++;
       if(current_status.s.mode){ //If in manual mode, use internal analog
@@ -449,7 +449,7 @@ void checkStatus(){
           digitalWriteFast(pin.ANALOG_SELECT, HIGH); //Set external analog input
         }
       }
-      if(cpu_cycles - ARM_DWT_CYCCNT > status_duration) break; //Stop status check fall-through if there is insufficient time for another status check
+      break;
     default: //Check if a serial packet has been received - 0.37 µs
       usb.update();
       status_index = 0; //Reset status index if no cases match
@@ -543,7 +543,6 @@ void thermalFault(){
     }
   }
   if(fault_active){
-    status_duration = 0; //Check only one status per cycle
     memcpy(stored_status.byte_buffer, current_status.byte_buffer, sizeof(stored_status.byte_buffer)); //Save current status to restore state after fault.
 
     //Turn off LED circuit completely
@@ -671,6 +670,7 @@ void initializeConfigurations(){
     else loadDefaultsToEEPROM();
   }
   else loadDefaultsToEEPROM();
+  updateIntensity();
   playStatusTone();
 }
 
@@ -1026,7 +1026,6 @@ void measurePeriod(const uint8_t* buffer, size_t size){
     noInterrupts();
   };
   if(size == sizeof(temp_sync.byte_buffer)){
-    status_duration = 0; //Check only one status per cycle
     memcpy(temp_sync.byte_buffer, buffer, sizeof(temp_sync.byte_buffer)); //Temporarily store copy of sync
     pinMode(pin.INPUTS[temp_sync.s.confocal_channel], INPUT); 
     temp_size = sprintf(temp_buffer, "-Measuring mirror period, please wait....");

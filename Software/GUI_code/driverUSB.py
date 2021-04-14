@@ -544,7 +544,6 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def testCurrent(self, reply=None):
         if reply:
             led_active = struct.unpack("<????", reply)
-            print(led_active)
             for index, led_state in enumerate(led_active):
                 self.gui.setValue(self.gui.config_model["LED" + str(index+1)]["Active"], led_state)
         else:
