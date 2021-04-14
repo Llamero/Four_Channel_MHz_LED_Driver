@@ -304,33 +304,33 @@ uint32_t d = 10;
 void loop() {
   checkStatus();
   
-  if(temp_sync.s.confocal_sync_mode){ //If analog sync
-    while(analogRead(pin.INPUTS[temp_sync.s.confocal_channel]) < temp_sync.s.confocal_threshold && timeout < record_timeout); //Wait for input to rise above threshold
-    cpu_cycles = ARM_DWT_CYCCNT;
-    if(a >= 0 && temp_sync.s.confocal_sync_polarity[1]) saveCounts(); //If rising trigger then save time point
-    while(analogRead(pin.INPUTS[temp_sync.s.confocal_channel]) > temp_sync.s.confocal_threshold && timeout < record_timeout); //Wait for input to rise above threshold
-    cpu_cycles = ARM_DWT_CYCCNT;
-    if(a >= 0 && !temp_sync.s.confocal_sync_polarity[1]) saveCounts(); //If falling trigger then save time point 
-  }
-  else{ //If digital sync
-    while(digitalReadFast(pin.INPUTS[temp_sync.s.confocal_channel]) !=  temp_sync.s.confocal_sync_polarity[0] && timeout < record_timeout); //Wait for trigger to match desired polarity
-    cpu_cycles = ARM_DWT_CYCCNT;
-    saveCounts();
-    debounce = 0;
-    while(debounce < 10) checkStatus();
-    while(digitalReadFast(pin.INPUTS[temp_sync.s.confocal_channel]) ==  temp_sync.s.confocal_sync_polarity[0] && timeout < record_timeout); //Wait for trigger to reset
-    debounce = 0;
-    while(debounce < 10) checkStatus();
-  }
-  if(timeout >= record_timeout){ //If timed out, send error message.
-    temp_size = sprintf(temp_buffer, "-Error: Measurement timed out waiting for line sync trigger.");    
-    temp_buffer[0] = prefix.message;
-    usb.send((const unsigned char*) temp_buffer, temp_size);
-    return;
-  }
-  else{
-    timeout = 0; //reset timeout timer
-  }
+//  if(temp_sync.s.confocal_sync_mode){ //If analog sync
+//    while(analogRead(pin.INPUTS[temp_sync.s.confocal_channel]) < temp_sync.s.confocal_threshold && timeout < record_timeout); //Wait for input to rise above threshold
+//    cpu_cycles = ARM_DWT_CYCCNT;
+//    if(a >= 0 && temp_sync.s.confocal_sync_polarity[1]) saveCounts(); //If rising trigger then save time point
+//    while(analogRead(pin.INPUTS[temp_sync.s.confocal_channel]) > temp_sync.s.confocal_threshold && timeout < record_timeout); //Wait for input to rise above threshold
+//    cpu_cycles = ARM_DWT_CYCCNT;
+//    if(a >= 0 && !temp_sync.s.confocal_sync_polarity[1]) saveCounts(); //If falling trigger then save time point 
+//  }
+//  else{ //If digital sync
+//    while(digitalReadFast(pin.INPUTS[temp_sync.s.confocal_channel]) !=  temp_sync.s.confocal_sync_polarity[0] && timeout < record_timeout); //Wait for trigger to match desired polarity
+//    cpu_cycles = ARM_DWT_CYCCNT;
+//    saveCounts();
+//    debounce = 0;
+//    while(debounce < 10) checkStatus();
+//    while(digitalReadFast(pin.INPUTS[temp_sync.s.confocal_channel]) ==  temp_sync.s.confocal_sync_polarity[0] && timeout < record_timeout); //Wait for trigger to reset
+//    debounce = 0;
+//    while(debounce < 10) checkStatus();
+//  }
+//  if(timeout >= record_timeout){ //If timed out, send error message.
+//    temp_size = sprintf(temp_buffer, "-Error: Measurement timed out waiting for line sync trigger.");    
+//    temp_buffer[0] = prefix.message;
+//    usb.send((const unsigned char*) temp_buffer, temp_size);
+//    return;
+//  }
+//  else{
+//    timeout = 0; //reset timeout timer
+//  }
 
 
   
@@ -734,7 +734,7 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   else if(buffer_prefix == prefix.calibration) driverCalibration(buffer, size);
   else if(buffer_prefix == prefix.gui_disconnect) disconnectSerial();
   else if(buffer_prefix == prefix.measure_period) measurePeriod(buffer, size);
-  else if(buffer_prefix == prefix.test_current) testCurrent();
+  else if(buffer_prefix == prefix.test_current) testCurrent(buffer, size);
   else if(buffer_prefix == prefix.test_volume) testVolume(buffer, size);
   else if(buffer_prefix == prefix.long_off);
   else{
@@ -973,7 +973,7 @@ static void updateStatus(const uint8_t* buffer, size_t size){
     updateIntensity();
   }
   else{
-    temp_size = sprintf(temp_buffer, "-Error: LED  driver received and invalid status packet.  Expected %d bytes and received %d bytes.", size, sizeof(recv_status.byte_buffer)+1);
+    temp_size = sprintf(temp_buffer, "-Error: LED  driver received an invalid status packet.  Expected %d bytes and received %d bytes.", sizeof(recv_status.byte_buffer)+1, size);
     temp_buffer[0] = prefix.message;
     usb.send((const unsigned char*) temp_buffer, temp_size);
   }
@@ -1008,7 +1008,6 @@ void measurePeriod(const uint8_t* buffer, size_t size){
   elapsedMillis measure_duration;
   elapsedMicros debounce;
   float n_measurements=0;
-  uint16_t start_timeout = 10000; //Time in ms to wait for scan to start
   uint16_t record_timeout = 1000; //Time in ms to wait between line triggers during scan
   uint16_t measure_timeout = 3000; //Time in ms to measure mirror period
 
@@ -1080,44 +1079,76 @@ void measurePeriod(const uint8_t* buffer, size_t size){
     usb.send((const unsigned char*) temp_buffer, sizeof(mean)+1);  
   }
   else{
-    temp_size = sprintf(temp_buffer, "-Error: LED  driver received and invalid measure period packet.  Expected %d bytes and received %d bytes.", size, sizeof(temp_sync.byte_buffer));
+    temp_size = sprintf(temp_buffer, "-Error: LED  driver received an invalid measure period packet.  Expected %d bytes and received %d bytes.", sizeof(temp_sync.byte_buffer), size);
     temp_buffer[0] = prefix.message;
     usb.send((const unsigned char*) temp_buffer, temp_size);
     return;
   }
 }
 
-void testCurrent(){
-  STATUS_UNION stored_status;
+void testCurrent(const uint8_t* buffer, size_t size){
+  STATUSUNION stored_status;
+  CONFIGUNION stored_config;
   float current_array[4]; //Array to store current measurements
   bool enable_array[4]; //Array to store whether LED channel can be enabled
   uint32_t current_measurement; //Store current measurements
   uint16_t n_samples = 256; //Number of samples to take of each LED current 
-  memcpy(stored_status.byte_buffer, current_status.byte_buffer, sizeof(stored_status.byte_buffer)); //Save current status
-  status_duration = 0; //Check only one status per cycle
-  digitalWriteFast(pin.INTERLINE, LOW);
-  digitalWriteFast(pin.ANALOG_SELECT, LOW);
-  pinMode(ISENSE, INPUT);
-  for(int a=0; a<n_samples; a++){
-    current_status.led_channel = a; //Set channel
-    current_status.led_current = conf.c.current_limit[a]; //Set to current limit
-    current_status.led_pwm = 65535; //Set PWM to max
-    current_status.mode = 1; //Assume manual mode to override sync related intensities
-    updateIntensity();
-    delay(10); //Wait for current and SSRs to settle
-    analogRead(pin.ISENSE); //Clear adc
-    current_measurement = 0;
-    for(int b=0; b<nsamples; b++) current_measurement += analogRead(pin.ISENSE);
-    digitalWriteFast(pin.INTERLINE, LOW);
-    current_array[a] = (float) current_measurement / (float) n_samples; //Divide by n_samples to get average current
-    if(current_array[a] + (0.7/3.3)*65535 < conf.c.current_limit[a] || current_array[a] - (0.7/3.3)*65535 > conf.c.current_limit[a]) enable_array[a] = false; //Disable channel if Isense voltage is outside DAC voltage +/- 0.7V to prevent damage to op-amp
-    else enable_array[a] = true;
-    current_array[a] /= (float) conf.c.current_limit[a] * 0.01; //Convert current to percentage of current limit
+
+  if(size == sizeof(stored_config.byte_buffer)){
+    memcpy(stored_status.byte_buffer, current_status.byte_buffer, sizeof(stored_status.byte_buffer)); //Save current status
+    memcpy(stored_config.byte_buffer, conf.byte_buffer, sizeof(stored_config.byte_buffer)); //Store copy of saved configuration
+    memcpy(conf.byte_buffer, buffer, sizeof(conf.byte_buffer)); //Load temp configuration
+    analogWrite(pin.INTERLINE, 0); //Turn off LED
+    digitalWriteFast(pin.ANALOG_SELECT, LOW); //Set to internal analog
+    pinMode(pin.ISENSE, INPUT);
+    temp_size = 1; //Initialize temp_buffer index after prefix
+    for(int a=0; a<4; a++){
+      if(conf.c.led_active[a]){ //If LED channel is active
+        current_status.s.led_channel = a; //Set channel
+        current_status.s.led_current = conf.c.current_limit[a]; //Set to current limit
+        current_status.s.led_pwm = 65535; //Set PWM to max
+        current_status.s.mode = 1; //Assume manual mode to override sync related intensities
+        updateIntensity();
+        delay(10); //Wait for current and SSRs to settle
+        analogRead(pin.ISENSE); //Clear adc
+        current_measurement = 0;
+        for(int b=0; b<n_samples; b++) current_measurement += analogRead(pin.ISENSE);
+        analogWrite(pin.INTERLINE, 0);
+        current_array[a] = (float) current_measurement / (float) n_samples; //Divide by n_samples to get average current
+        if(current_array[a] + (0.5/3.3)*65535 < conf.c.current_limit[a] || current_array[a] - (0.5/3.3)*65535 > conf.c.current_limit[a]){ //Disable channel if Isense voltage is outside DAC voltage +/- 0.5V to prevent damage to op-amp
+          enable_array[a] = false;
+          if(stored_config.c.led_active[a]){ //Force over-ride under-voltage led configuration to prevent op-amp damage
+            stored_config.c.led_active[a] = false; 
+            stored_config.c.checksum += 1; //Increment checksum
+          }
+        }
+        else enable_array[a] = true;
+        current_array[a] /= (float) conf.c.current_limit[a] * 0.01; //Convert current to percentage of current limit
+        temp_size += sprintf(temp_buffer+temp_size, "LED #%d: %.1f%% output - %s\n", a+1, current_array[a], enable_array[a] ? "ok":"DISABLED");
+      }
+      else{ //If untested - report as disabled with no current
+        current_array[a] = 0;
+        enable_array[a] = false;
+        temp_size += sprintf(temp_buffer+temp_size, "LED #%d: Inactive - not tested\n", a+1);
+      }
+    }
+    temp_buffer[0] = prefix.message;
+    usb.send((const unsigned char*) temp_buffer, temp_size);
+    delay(100);
+    memcpy(temp_buffer+1, enable_array, sizeof(enable_array));
+    temp_buffer[0] = prefix.test_current;
+    usb.send((const unsigned char*) temp_buffer, sizeof(enable_array)+1);
+    memcpy(current_status.byte_buffer, stored_status.byte_buffer, sizeof(stored_status.byte_buffer)); //Restore status
+    memcpy(conf.byte_buffer, stored_config.byte_buffer, sizeof(stored_config.byte_buffer)); //Restore configuraiton
+    digitalWriteFast(pin.ANALOG_SELECT, external_analog); //Restore analog input selection
+    updateIntensity(); //Restore led intensity
   }
-  
-  memcpy(current_status.byte_buffer, stored_status.byte_buffer, sizeof(stored_status.byte_buffer)); //Restore status
-  digitalWriteFast(pin.ANALOG_SELECT, external_analog); //Restore analog input selection
-  updateIntensity(); //Restore led intensity
+  else{
+    temp_size = sprintf(temp_buffer, "-Error: LED  driver received an invalid test current packet.  Expected %d bytes and received %d bytes.", sizeof(stored_config.byte_buffer), size);
+    temp_buffer[0] = prefix.message;
+    usb.send((const unsigned char*) temp_buffer, temp_size);
+    return;
+  }
 }
 
 void testVolume(const uint8_t* buffer, size_t size){

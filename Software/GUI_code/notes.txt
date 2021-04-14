@@ -8,30 +8,21 @@ Populate status struct on driver initialization
 
 Add limit lines to plots
 
-Make config and sync lockable by menu (locked by default)
-
-Check heartbeat timeout as part of status checks 
-
-Perform status checks based on available amount of time
-
-Add mirrorperiod as parameter for confocal sync, so driver knows how long it has before it
-needs to start chekcing for the next trigger event
-
-WHen LED driver is in control - dial = mode
-
 Relock configure on upload
 
 Remove port from list if connection no longer works
 
 Use ADC to monitor LED current when on external analog
 
-Add option to disable updates to sync Serial
+Add option to disable updates to sync Serial?
 
 If current limit is changed also update sync
 
 Warn user if seq percent exceeds 100% but allow it?
 
 Add restore defualts option
+
+Have status events exit to main loop for processing to prevent deep recursion?
 
 
 

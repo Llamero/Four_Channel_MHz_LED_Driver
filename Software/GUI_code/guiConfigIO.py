@@ -276,7 +276,7 @@ def bytesToSync(byte_array, gui, prefix):
         showMessage(gui, "Error: Driver config file had invalid checksum: " + str(checksum) + ". Upload aborted.")
         return False
 
-def configToBytes(gui, prefix):
+def configToBytes(gui, prefix, update_model=True):
     global EXT_THERMISTOR_NOMINAL
     global EXT_B_COEFFICIENT
     config_values = [None] * 37
@@ -346,7 +346,8 @@ def configToBytes(gui, prefix):
     checksum = 256 - checksum
     byte_array.append(checksum)
 
-    gui.setAdcCurrentLimit(config_values[4:8]) #Save current limit ADC values in current limit "what's this"
+    if update_model:
+        gui.setAdcCurrentLimit(config_values[4:8]) #Save current limit ADC values in current limit "what's this"
 
     return byte_array
 

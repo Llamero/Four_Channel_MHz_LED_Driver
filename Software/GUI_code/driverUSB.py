@@ -535,15 +535,22 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def measurePeriod(self, reply=None):
         if reply:
             mirror_period = struct.unpack("<f", reply)[0]
-            print(mirror_period)
             self.gui.setValue(self.gui.sync_model["Confocal"]["Period"], mirror_period)
         else:
             if self.portConnected():
                 message = fileIO.syncToBytes(self.gui, self.prefix_dict["measurePeriod"])
                 self.sendWithoutReply(message, True, 100)  #Send temporary sync to be used to measure period
 
-    def testCurrent(self):
-        pass
+    def testCurrent(self, reply=None):
+        if reply:
+            led_active = struct.unpack("<????", reply)
+            print(led_active)
+            for index, led_state in enumerate(led_active):
+                self.gui.setValue(self.gui.config_model["LED" + str(index+1)]["Active"], led_state)
+        else:
+            if self.portConnected():
+                message = fileIO.configToBytes(self.gui, self.prefix_dict["testCurrent"])
+                self.sendWithoutReply(message, True, 100)
 
     def testVolume(self, reply=None, indication_id=None):
         def widgetIndex(widget_list):

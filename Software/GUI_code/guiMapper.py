@@ -274,6 +274,7 @@ def initializeEvents(gui):
         gui.configure_audio_status_button.clicked.connect(lambda: gui.ser.testVolume(None, 0))
         gui.configure_audio_alarm_button.clicked.connect(lambda: gui.ser.testVolume(None, 1))
         gui.configure_pushbutton_alarm_test_button.clicked.connect(lambda: gui.ser.testVolume(None, 2))
+        gui.configure_current_limit_test_button.clicked.connect(lambda: gui.ser.testCurrent())
 
         gui.configure_save_button.clicked.connect(lambda: fileIO.saveConfiguration(gui, gui.config_model))
         gui.configure_load_button.clicked.connect(lambda: fileIO.loadConfiguration(gui, gui.config_model))
