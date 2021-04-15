@@ -132,8 +132,8 @@ def initializeSyncModel(gui):
 def initializeSeqList(gui):
     seq_table_list = [gui.sync_digital_low_sequence_table,
                       gui.sync_digital_high_sequence_table,
-                      gui.sync_confocal_scanning_sequence_table,
-                      gui.sync_confocal_standby_sequence_table]  # List of sequence table widgets
+                      gui.sync_confocal_standby_sequence_table,
+                      gui.sync_confocal_scanning_sequence_table]  # List of sequence table widgets
     return seq_table_list
 
 def initializeSeqDictionary(gui):

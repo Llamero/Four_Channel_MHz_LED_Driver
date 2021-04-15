@@ -364,9 +364,16 @@ void confocalSync(){
 
 void initializeSeq(){ //Setup seq
   uint8_t *sync_pointer; //Pointer to whether digital sync or confocal sync set
+  uint8_t file_index; //Index of file name
   if(sync.s.mode == 0 || sync.s.mode == 2){ //if doing a digital or confocal sync
-    if(sync.s.mode == 0) sync_pointer = &sync.s.digital_led[0]; //Point to start of digital sync info
-    else sync_pointer = &sync.s.confocal_led[0]; //Point to start of confocal sync info
+    if(sync.s.mode == 0){
+      sync_pointer = &sync.s.digital_led[0]; //Point to start of digital sync info
+      file_index = 0; //Index offset to sd card file name
+    }
+    else{
+      sync_pointer = &sync.s.confocal_led[0]; //Point to start of confocal sync info
+      file_index = 2; //Index offset to sd card file name
+    }
     for(uint8_t a=0; a<2; a++){
       if((sync.s.mode == 0 && sync.s.digital_mode[a] == 0) || (sync.s.mode == 2 && sync.s.confocal_mode[a] == 0)){ //If mode is off
         seq.s.led_id = 255; //Don't change LED channel
@@ -376,7 +383,7 @@ void initializeSeq(){ //Setup seq
         memcpy(sequence_buffer[a], seq.byte_buffer, sizeof(seq));
         seq_steps[a] = 1;
       }
-      else if((sync.s.mode == 0 && sync.s.digital_mode[a] == 1) || (sync.s.mode == 2 && sync.s.confocal_mode[a] == 1)){
+      else if((sync.s.mode == 0 && sync.s.digital_mode[a] == 1) || (sync.s.mode == 2 && sync.s.confocal_mode[a] == 1)){ //If single event
         memcpy(&seq.s.led_id, sync_pointer+a, sizeof(seq.s.led_id));
         seq.s.led_id -= 1; //Shift from id# to list index
         memcpy(&seq.s.led_pwm, sync_pointer+2+2*a, sizeof(seq.s.led_pwm));
@@ -385,10 +392,18 @@ void initializeSeq(){ //Setup seq
         memcpy(sequence_buffer[a], seq.byte_buffer, sizeof(seq));
         seq_steps[a] = 1;
       }
+      else if((sync.s.mode == 0 && sync.s.digital_mode[a] == 2) || (sync.s.mode == 2 && sync.s.confocal_mode[a] == 2)){ //If sequence of events
+        if(!sd.readFromSD((char*) sequence_buffer[a], 0, 0, sd.seq_files[file_index+a])){ //If no SD is found, send error message 
+          temp_size = sprintf(temp_buffer, "%s", sd.message_buffer);  
+          temp_buffer[0] = prefix.message;
+          usb.send((const unsigned char*) temp_buffer, temp_size);
+        }
+        else seq_steps[a] = sd.file_size/sizeof(seq); //Calculate number of sequence steps given file size
+      }
     }
-    temp_size = sprintf(temp_buffer, "-%d %d %d %lu", seq.s.led_id, seq.s.led_pwm, seq.s.led_current, seq.s.led_duration);  
-    temp_buffer[0] = prefix.message;
-    usb.send((const unsigned char*) temp_buffer, temp_size);
+//    temp_size = sprintf(temp_buffer, "-%d %d %d %lu", seq.s.led_id, seq.s.led_pwm, seq.s.led_current, seq.s.led_duration);  
+//    temp_buffer[0] = prefix.message;
+//    usb.send((const unsigned char*) temp_buffer, temp_size);
   }
 }
 
