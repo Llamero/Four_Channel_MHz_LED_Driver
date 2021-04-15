@@ -24,6 +24,8 @@ Add restore defualts option
 
 Have status events exit to main loop for processing to prevent deep recursion?
 
+Add option to change font size.
+
 
 
 

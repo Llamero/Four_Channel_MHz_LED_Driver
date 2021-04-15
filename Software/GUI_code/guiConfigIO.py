@@ -211,7 +211,7 @@ def bytesToSync(byte_array, gui, prefix):
 
     checksum = (sum(byte_array) + prefix) & 0xFF  # https://stackoverflow.com/questions/44611057/checksum-generation-from-sum-of-bits-in-python
     if checksum == 0:
-        sync_values = struct.unpack("<BBBBBBBHHHHLLBBBBH?B???H?LLLLBBBBLLHHLLB", byte_array)
+        sync_values = struct.unpack("<BBBBBBBHHHHLLBBBBH?B???H?LLLLBBBBHHHHLLB", byte_array)
 
         #Calculate total resistance for current conversions
         total_resistance = float(gui.configure_current_limit_box.whatsThis())
@@ -263,7 +263,7 @@ def bytesToSync(byte_array, gui, prefix):
                     setWidget(gui.sync_model["Confocal"][key2][key3], (2 * index3) + index2 + 29)
                     current_limit[index2] = gui.getValue(gui.config_model["LED" + str(sync_values[(2 * index3) + index2 + 3]+1)]["Current Limit"])
                 elif key3 == "PWM":
-                    gui.setValue(gui.sync_model["Confocal"][key2][key3], (sync_values[(2 * index3) + index2 + 29]/sync_values[27])*100)
+                    gui.setValue(gui.sync_model["Confocal"][key2][key3], (sync_values[(2 * index3) + index2 + 29]/65535)*100)
                 elif key3 == "Current":
                     gui.setValue(gui.sync_model["Confocal"][key2][key3], (((sync_values[(2 * index3) + index2 + 29]/65535)*3.3/total_resistance)/current_limit[index2])*100)
                 elif key3 == "Duration":
@@ -415,14 +415,13 @@ def syncToBytes(gui, prefix, update_model=True):
                 sync_values[(2 * index3) + index2 + 29] = widgetIndex(gui.sync_model["Confocal"][key2][key3])
                 current_limit[index2] = gui.getValue(gui.config_model["LED" + str(sync_values[(2 * index3) + index2 + 3]+1)]["Current Limit"])
             elif key3 == "PWM":
-                sync_values[(2 * index3) + index2 + 29]  = round((gui.getValue(gui.sync_model["Confocal"][key2][key3]) / 100) * sync_values[27]) #Convert to clock-cycles, where 100% = # of clock cycles in delay #2
+                sync_values[(2 * index3) + index2 + 29]  = round((gui.getValue(gui.sync_model["Confocal"][key2][key3]) / 100) * 65535) #Convert to clock-cycles, where 100% = # of clock cycles in delay #2
             elif key3 == "Current":
                 sync_values[(2 * index3) + index2 + 29] = round((((gui.getValue(gui.sync_model["Confocal"][key2][key3])/100)*current_limit[index2] * total_resistance) / 3.3) * 65535)  # Convert current to ADC reading (voltage) as percent of current limit
             elif key3 == "Duration":
                 sync_values[(2 * index3) + index2 + 29] = round(gui.getValue(gui.sync_model["Confocal"][key2][key3])*1e6)
 
-
-    byte_array.extend(struct.pack("<BBBBBBBHHHHLLBBBBH?B???H?LLLLBBBBLLHHLL", *sync_values))
+    byte_array.extend(struct.pack("<BBBBBBBHHHHLLBBBBH?B???H?LLLLBBBBHHHHLL", *sync_values))
     checksum = (sum(byte_array) + prefix) & 0xFF  # https://stackoverflow.com/questions/44611057/checksum-generation-from-sum-of-bits-in-python
     checksum = 256 - checksum
     byte_array.append(checksum)

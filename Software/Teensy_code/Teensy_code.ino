@@ -80,7 +80,7 @@ struct syncStruct{ //158 bytes
  
   uint8_t confocal_mode[2]; //The digital sync mode  in the image and flyback states respectively
   uint8_t confocal_led[2]; //The active LED channel in the image and flyback states respectively
-  uint32_t confocal_pwm[2]; //The PWM value in the image and flyback states respectively
+  uint16_t confocal_pwm[2]; //The PWM value in the image and flyback states respectively
   uint16_t confocal_current[2]; //The DAC value in the image and flyback states respectively
   uint32_t confocal_duration[2]; //The maximum number of milliseconds to hold LED state
   
@@ -116,7 +116,7 @@ const struct defaultSyncStruct{ //158 bytes
   
   uint8_t confocal_mode[2] = {0,0}; //The digital sync mode  in the image and flyback states respectively
   uint8_t confocal_led[2] = {0,0}; //The active LED channel in the image and flyback states respectively
-  uint32_t confocal_pwm[2] = {0,0}; //The PWM value (in clock cycles) in the image and flyback states respectively
+  uint16_t confocal_pwm[2] = {0,0}; //The PWM value (in clock cycles) in the image and flyback states respectively
   uint16_t confocal_current[2] = {0,0}; //The DAC value in the image and flyback states respectively
   uint32_t confocal_duration[2] = {0,0}; //The maximum number of milliseconds to hold LED state
 
@@ -222,11 +222,17 @@ union SYNCUNION //Convert binary buffer <-> sync setup
    byte byte_buffer[sizeof(defaultSyncStruct)];
 } sync;
 
-union SEQUNION //Convert binary buffer <-> sync setup
+union SEQHEADERUNION //Convert binary buffer <-> sync setup
 {
    sequenceHeaderStruct s;
    byte byte_buffer[sizeof(sequenceHeaderStruct)];
 } seq_header;
+
+union SEQUNION //Convert binary buffer <-> sync setup
+{
+   sequenceStruct s;
+   byte byte_buffer[sizeof(sequenceStruct)];
+}seq;
 
 union STATUSUNION //Convert binary buffer <-> sync setup
 {
@@ -266,6 +272,7 @@ STATUSUNION stored_status; //Temporarily store operating status when status is o
 elapsedMicros audio; //Timer controlling audio volume and frequency
 elapsedMillis pulse; //Timer controlling tone pule interval
 boolean external_analog = false; //Whether to use the DAC or external analog input
+uint16_t seq_steps[2]; //Number of setps in each active sync sequence
 
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
@@ -301,9 +308,32 @@ elapsedMillis t = 0;
 uint32_t d = 10;
 
 void loop() {
-  checkStatus();
-  
-//  if(temp_sync.s.confocal_sync_mode){ //If analog sync
+  if(current_status.s.mode) checkStatus();
+  else syncRouter();
+}
+
+void syncRouter(){
+//  switch(sync.s.mode){
+//    case 0: //Digital sync
+//      digitalSync();
+//      break;
+//    case 1: //Analog sync
+//      analogSync();
+//      break;
+//    case 2: //Confocal sync
+//      confocalSync();
+//      break;
+//    case 3: //Serial sync
+//      serialSync();
+//      break;
+//    case 4: //Custom sync
+//      customSync();
+//      break;
+//  }
+}
+
+void confocalSync(){
+//    if(temp_sync.s.confocal_sync_mode){ //If analog sync
 //    while(analogRead(pin.INPUTS[temp_sync.s.confocal_channel]) < temp_sync.s.confocal_threshold && timeout < record_timeout); //Wait for input to rise above threshold
 //    cpu_cycles = ARM_DWT_CYCCNT;
 //    if(a >= 0 && temp_sync.s.confocal_sync_polarity[1]) saveCounts(); //If rising trigger then save time point
@@ -330,9 +360,36 @@ void loop() {
 //  else{
 //    timeout = 0; //reset timeout timer
 //  }
+}
 
-
-  
+void initializeSeq(){ //Setup seq
+  uint8_t *sync_pointer; //Pointer to whether digital sync or confocal sync set
+  if(sync.s.mode == 0 || sync.s.mode == 2){ //if doing a digital or confocal sync
+    if(sync.s.mode == 0) sync_pointer = &sync.s.digital_led[0]; //Point to start of digital sync info
+    else sync_pointer = &sync.s.confocal_led[0]; //Point to start of confocal sync info
+    for(uint8_t a=0; a<2; a++){
+      if((sync.s.mode == 0 && sync.s.digital_mode[a] == 0) || (sync.s.mode == 2 && sync.s.confocal_mode[a] == 0)){ //If mode is off
+        seq.s.led_id = 255; //Don't change LED channel
+        seq.s.led_pwm = 0; //Turn off led PWM
+        seq.s.led_current = 0; //Turn off led current
+        seq.s.led_duration = 0; //Hold at off
+        memcpy(sequence_buffer[a], seq.byte_buffer, sizeof(seq));
+        seq_steps[a] = 1;
+      }
+      else if((sync.s.mode == 0 && sync.s.digital_mode[a] == 1) || (sync.s.mode == 2 && sync.s.confocal_mode[a] == 1)){
+        memcpy(&seq.s.led_id, sync_pointer+a, sizeof(seq.s.led_id));
+        seq.s.led_id -= 1; //Shift from id# to list index
+        memcpy(&seq.s.led_pwm, sync_pointer+2+2*a, sizeof(seq.s.led_pwm));
+        memcpy(&seq.s.led_current, sync_pointer+6+2*a, sizeof(seq.s.led_current));
+        memcpy(&seq.s.led_duration, sync_pointer+10+4*a, sizeof(seq.s.led_duration));
+        memcpy(sequence_buffer[a], seq.byte_buffer, sizeof(seq));
+        seq_steps[a] = 1;
+      }
+    }
+    temp_size = sprintf(temp_buffer, "-%d %d %d %lu", seq.s.led_id, seq.s.led_pwm, seq.s.led_current, seq.s.led_duration);  
+    temp_buffer[0] = prefix.message;
+    usb.send((const unsigned char*) temp_buffer, temp_size);
+  }
 }
 
 void checkStatus(){
@@ -469,9 +526,11 @@ void ledOff(){
 
 void updateIntensity(){
   if(conf.c.led_active[current_status.s.led_channel]){ //Check if the channel is active
-    for(int a=0; a<4; a++){ //Toggle relays
-      if(conf.c.led_channel[a] == current_status.s.led_channel) digitalWriteFast(pin.RELAY[a], HIGH);
-      else digitalWriteFast(pin.RELAY[a], LOW);
+    if(current_status.s.led_channel < 4){ //Change relays if specified
+      for(int a=0; a<4; a++){ //Toggle relays
+        if(conf.c.led_channel[a] == current_status.s.led_channel) digitalWriteFast(pin.RELAY[a], HIGH);
+        else digitalWriteFast(pin.RELAY[a], LOW);
+      }
     }
     digitalWriteFast(pin.ANALOG_SELECT, external_analog); //Set external analog input
     if(external_analog){
@@ -670,6 +729,7 @@ void initializeConfigurations(){
     else loadDefaultsToEEPROM();
   }
   else loadDefaultsToEEPROM();
+  initializeSeq();
   updateIntensity();
   playStatusTone();
 }
@@ -779,7 +839,7 @@ static void recvConfig(const uint8_t* buffer, size_t size){
       conf.byte_buffer[size-1] += (prefix.recv_config - prefix.send_config); //Fix corresponding checksum
       for(int a = 0; a<(int) size; a++) EEPROM.update(a + sizeof(MAGIC_RECEIVE), conf.byte_buffer[a]); //Copy configuration to EEPROM
       initializeConfigurations(); //Re-run the setup routine to update driver state
-      temp_size = sprintf(temp_buffer, "-Configuration file was successfully uploaded.");
+      temp_size = sprintf(temp_buffer, "-Configuration file was successfully uploaded.\nAlso upload \"Sync\" if LED settings changed.");
     }
     else temp_size = sprintf(temp_buffer, "-Error: Check sum is non-zero: %d", checksum); 
   }
