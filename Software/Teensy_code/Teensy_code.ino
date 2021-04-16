@@ -253,13 +253,14 @@ char MAGIC_SEND[] = "-kvlWfsBplgasrsh3un5K"; //Magic number reply from Teensy ve
 const static char MAGIC_RECEIVE[] = "kc1oISEIZ60AYJqH4J1P"; //Magic number received from GUI to verify this is an LED driver
 char temp_buffer[COBS_BUFFER_SIZE]; //Temporary buffer for preparing packets immediately before transmission
 int temp_size; //Size of temporary packet to transmit
-byte sequence_buffer[2][10000*sizeof(sequenceStruct)+10]; //Add buffer padding for prefix info on transmission
+byte sequence_buffer[2][10001*sizeof(sequenceStruct)+10]; //Add buffer padding for prefix info on transmission
 uint32_t send_stream_index = 0; //Current index position of stream that is being sent
 uint32_t send_stream_size = 0; //Total size of file to be streamed
 const static uint16_t DEFUALT_TIMEOUT = 500; //Default timeout for serial communication in ms
 uint8_t status_index = 0; //Index counter for incrementally updating and transmitting status
 const uint8_t status_update_interval = 5; //The minimum time (in ms) between serial updates - prevents over-streaming of serial data and constantly accelerating fan
-const uint32_t status_step_duration =  1800; //Minimum time needed (in clock cycles) to complete one status check
+const uint32_t status_step_clock_duration =  1800; //Minimum time needed (in clock cycles) to complete one status check
+const uint32_t status_step_time_duration =  9; //Minimum time needed (in µs) to complete one status check
 elapsedMillis status_update_timer; //Status timer to track when to transmit the next update
 elapsedMillis heartbeat; //Heartbeat timer to confirm that GUI is still connected
 const static uint32_t HEARTBEAT_TIMEOUT = 10000; //Driver will assume connection has closed if heartbeat not received within this time
@@ -273,7 +274,7 @@ elapsedMicros audio; //Timer controlling audio volume and frequency
 elapsedMillis pulse; //Timer controlling tone pule interval
 boolean external_analog = false; //Whether to use the DAC or external analog input
 uint16_t seq_steps[2]; //Number of setps in each active sync sequence
-
+uint8_t active_channel; //Currently active LED channel
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
 SDcard sd;
@@ -303,6 +304,7 @@ void setup() {
   digitalWriteFast(pin.ANALOG_SELECT, LOW);
   digitalWriteFast(pin.FAN_PWM, LOW);
   analogWrite(pin.DAC0, 65535);
+  pinMode(pin.SDA0, OUTPUT); //-------------------------------------------------------------------------------------------------------------------------------------
 }
 elapsedMillis t = 0;
 uint32_t d = 10;
@@ -310,13 +312,20 @@ uint32_t d = 10;
 void loop() {
   if(current_status.s.mode) checkStatus();
   else syncRouter();
+  delayMicroseconds(10);
+}
+
+void debug(){
+  temp_size = sprintf(temp_buffer, "-%d %d %d %lu : %d %d %d", seq.s.led_id, seq.s.led_pwm, seq.s.led_current, seq.s.led_duration, current_status.s.led_channel, current_status.s.led_pwm, current_status.s.led_current);
+  temp_buffer[0] = prefix.message;
+  usb.send((const unsigned char*) temp_buffer, temp_size);
 }
 
 void syncRouter(){
-//  switch(sync.s.mode){
-//    case 0: //Digital sync
-//      digitalSync();
-//      break;
+  switch(sync.s.mode){
+    case 0: //Digital sync
+      digitalSync();
+      break;
 //    case 1: //Analog sync
 //      analogSync();
 //      break;
@@ -329,7 +338,59 @@ void syncRouter(){
 //    case 4: //Custom sync
 //      customSync();
 //      break;
-//  }
+    default:
+      break;
+  }
+}
+
+void getSeqStep(uint16_t sync_step){
+  memcpy(seq.byte_buffer, sequence_buffer[current_status.s.state]+sync_step*sizeof(seq.byte_buffer), sizeof(seq.byte_buffer)); //Get current sequence step 
+  memcpy(current_status.byte_buffer, seq.byte_buffer, sizeof(seq.byte_buffer) - sizeof(seq.s.led_duration)); //Copy LED channel, PWM, and current to status
+  if(current_status.s.led_channel >= 4) current_status.s.led_channel = active_channel;
+}
+
+void digitalSync(){ //5 µs jitter + 2 µs phase delay
+  elapsedMicros duration;
+  uint16_t sync_step;
+  
+  pinMode(pin.INPUTS[sync.s.digital_channel], INPUT); //Set sync input pin to input
+  while(!current_status.s.mode && sync.s.mode == 0){
+    sync_step = 0;
+    current_status.s.state = digitalReadFast(pin.INPUTS[sync.s.digital_channel]); //Get state of sync input
+    if(sync.s.sync_output_channel) digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], current_status.s.state); //Drive output sync signal
+    active_channel = current_status.s.led_channel;
+    getSeqStep(sync_step); //Get first sequence step
+    duration = 0;
+    while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && !current_status.s.mode && sync.s.mode == 0){ //While trigger state doesn't change and driver still in digital sync mode 
+      if(sync_step < seq_steps[current_status.s.state]){ //If the end of the sequence list has not been reached
+        updateIntensity(); //Set led intensity to new values
+        digitalWriteFast(pin.SDA0, current_status.s.state);     
+        if(seq.s.led_duration){ //If hold for a specific duration
+          while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && !current_status.s.mode && sync.s.mode == 0 && duration < (seq.s.led_duration-status_step_time_duration)){ //Perform status checks during step is enough time
+            checkStatus();
+          }
+          while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && duration < seq.s.led_duration); //Only check time during the last few microseconds for a precise incremental step
+          duration -= seq.s.led_duration; //Reset duration timer
+        }
+        else{
+          checkStatus(); //Check status at least once
+          while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && !current_status.s.mode && sync.s.mode == 0) checkStatus(); //Hold until trigger changes
+          break;
+        }
+        sync_step++; //Increment the sync step counter
+        getSeqStep(sync_step); //Get next sequence step        
+      }
+      else{ //Report error if driver ran off the end of the sequence list (i.e. never encountered a hold)
+        temp_size = sprintf(temp_buffer, "-Error: Digital Sync - %s reached the end of the sequence without encountering a hold.", current_status.s.state ? "LOW":"HIGH");
+        temp_buffer[0] = prefix.message;
+        usb.send((const unsigned char*) temp_buffer, temp_size);
+        duration = 0;
+        while(duration < 200000) checkStatus(); //This can happen if there was rapid bounce in the trigger, so pause to avoid spamming this error for every bounce
+        break;
+      }
+    }
+  }
+  pinMode(pin.INPUTS[sync.s.digital_channel], INPUT_DISABLE);   
 }
 
 void confocalSync(){
@@ -380,7 +441,7 @@ void initializeSeq(){ //Setup seq
         seq.s.led_pwm = 0; //Turn off led PWM
         seq.s.led_current = 0; //Turn off led current
         seq.s.led_duration = 0; //Hold at off
-        memcpy(sequence_buffer[a], seq.byte_buffer, sizeof(seq));
+        memcpy(sequence_buffer[a], seq.byte_buffer, sizeof(seq.byte_buffer));
         seq_steps[a] = 1;
       }
       else if((sync.s.mode == 0 && sync.s.digital_mode[a] == 1) || (sync.s.mode == 2 && sync.s.confocal_mode[a] == 1)){ //If single event
@@ -389,7 +450,7 @@ void initializeSeq(){ //Setup seq
         memcpy(&seq.s.led_pwm, sync_pointer+2+2*a, sizeof(seq.s.led_pwm));
         memcpy(&seq.s.led_current, sync_pointer+6+2*a, sizeof(seq.s.led_current));
         memcpy(&seq.s.led_duration, sync_pointer+10+4*a, sizeof(seq.s.led_duration));
-        memcpy(sequence_buffer[a], seq.byte_buffer, sizeof(seq));
+        memcpy(sequence_buffer[a], seq.byte_buffer, sizeof(seq.byte_buffer));
         seq_steps[a] = 1;
       }
       else if((sync.s.mode == 0 && sync.s.digital_mode[a] == 2) || (sync.s.mode == 2 && sync.s.confocal_mode[a] == 2)){ //If sequence of events
@@ -398,12 +459,21 @@ void initializeSeq(){ //Setup seq
           temp_buffer[0] = prefix.message;
           usb.send((const unsigned char*) temp_buffer, temp_size);
         }
-        else seq_steps[a] = sd.file_size/sizeof(seq); //Calculate number of sequence steps given file size
+        else{
+          seq_steps[a] = sd.file_size/sizeof(seq.byte_buffer); //Calculate number of sequence steps given file size
+          for(int b=0; b<seq_steps[a]; b++) --*(sequence_buffer[a]+b*sizeof(seq.byte_buffer));  //Decrement LED IDs 
+        }
+      }
+      memcpy(seq.byte_buffer, sequence_buffer[current_status.s.state]+(seq_steps[a]-1)*sizeof(seq.byte_buffer), sizeof(seq.byte_buffer)); //Get the last sequence step
+      if(seq.s.led_duration){ //If the last step is not a hold (duration > 0) then add a hold to the end of the sequence
+        seq.s.led_id = 255; //Don't change LED channel
+        seq.s.led_pwm = 0; //Turn off led PWM
+        seq.s.led_current = 0; //Turn off led current
+        seq.s.led_duration = 0; //Hold at off
+        memcpy(sequence_buffer[a] + seq_steps[a]*sizeof(seq.byte_buffer), seq.byte_buffer, sizeof(seq.byte_buffer)); //Copy led off hold to end of sequence.
+        seq_steps[a] += 1;
       }
     }
-//    temp_size = sprintf(temp_buffer, "-%d %d %d %lu", seq.s.led_id, seq.s.led_pwm, seq.s.led_current, seq.s.led_duration);  
-//    temp_buffer[0] = prefix.message;
-//    usb.send((const unsigned char*) temp_buffer, temp_size);
   }
 }
 
@@ -448,7 +518,7 @@ void checkStatus(){
       break;
     case 7: //Check pot value - 3.74 µs
       status_index++;
-      if(current_status.s.driver_control && !fault_active){ //Only check pot if driver control
+      if(current_status.s.driver_control && !fault_active && current_status.s.mode){ //Only check pot if driver control and in manual mode
         if(current_status.s.mode == 1){
           analogRead(pin.POT);
           current_status.s.led_pwm = 65535-analogRead(pin.POT);
@@ -541,11 +611,12 @@ void ledOff(){
 
 void updateIntensity(){
   if(conf.c.led_active[current_status.s.led_channel]){ //Check if the channel is active
-    if(current_status.s.led_channel < 4){ //Change relays if specified
+    if(current_status.s.led_channel != active_channel){ //Change relays if specified
       for(int a=0; a<4; a++){ //Toggle relays
         if(conf.c.led_channel[a] == current_status.s.led_channel) digitalWriteFast(pin.RELAY[a], HIGH);
         else digitalWriteFast(pin.RELAY[a], LOW);
       }
+      active_channel = current_status.s.led_channel;
     }
     digitalWriteFast(pin.ANALOG_SELECT, external_analog); //Set external analog input
     if(external_analog){
@@ -745,6 +816,7 @@ void initializeConfigurations(){
   }
   else loadDefaultsToEEPROM();
   initializeSeq();
+  active_channel = 255; //Reset active channel so that channel gets actively set on updateIntensity()
   updateIntensity();
   playStatusTone();
 }
@@ -918,7 +990,7 @@ static void sendSeq(const uint8_t* buffer, size_t size){
     }
     else{
       file_id = buffer[1];
-      if(!sd.readFromSD((char*) sequence_buffer[0]+2, 0, 0, sd.seq_files[buffer[1]])){ //Offset 
+      if(!sd.readFromSD((char*) sequence_buffer[0]+2, 0, 0, sd.seq_files[file_id])){ //Offset 
         temp_size = sprintf(temp_buffer, "%s", sd.message_buffer);  
         goto sendMessage;
       }
@@ -940,6 +1012,7 @@ static void sendSeq(const uint8_t* buffer, size_t size){
       sequence_buffer[0][0] = prefix.send_seq; //Send sequence prefix for callback routing of streamed packet
       sequence_buffer[0][1] = file_id; //Send ID of sequence file being streamed
       Serial.write(sequence_buffer[0], uint32Union.bytes_var); //Stream sequence file 
+      if(file_id == 3) initializeSeq(); //Map active sequence data back onto sequence buffers.
     }
     else{
       temp_size = sprintf(temp_buffer, "-Error: Invalid \"ready for stream\" packet received from GUI. Expected [2, %d, 0] and got [%d, %d, %d].", prefix.send_stream, temp_buffer[0], temp_buffer[1], temp_buffer[2]);  
@@ -954,6 +1027,7 @@ static void sendSeq(const uint8_t* buffer, size_t size){
   sendMessage:
     temp_buffer[0] = prefix.message;
     usb.send((const unsigned char*) temp_buffer, temp_size);
+    initializeSeq(); //Map active sequence data back onto sequence buffers.
     return;
 }
 

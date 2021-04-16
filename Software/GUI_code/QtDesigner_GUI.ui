@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>850</width>
-    <height>1256</height>
+    <width>742</width>
+    <height>1237</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -439,8 +439,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>806</width>
-             <height>1041</height>
+             <width>698</width>
+             <height>1022</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -1740,7 +1740,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                 <rect>
                  <x>0</x>
                  <y>-246</y>
-                 <width>771</width>
+                 <width>663</width>
                  <height>1104</height>
                 </rect>
                </property>
@@ -3328,8 +3328,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>806</width>
-             <height>1109</height>
+             <width>681</width>
+             <height>1105</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_16">
@@ -4924,7 +4924,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>850</width>
+     <width>742</width>
      <height>24</height>
     </rect>
    </property>
