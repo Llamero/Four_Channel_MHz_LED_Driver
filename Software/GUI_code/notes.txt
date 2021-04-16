@@ -31,6 +31,8 @@ Reconnection with GUI set to sync causes driver to lock
 
 Fix sync plot starting values issue
 
+Send status on connect via menu to update driver to current gui
+
 
 
 

@@ -363,8 +363,7 @@ void digitalSync(){ //5 µs jitter + 2 µs phase delay
     duration = 0;
     while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && !current_status.s.mode && sync.s.mode == 0){ //While trigger state doesn't change and driver still in digital sync mode 
       if(sync_step < seq_steps[current_status.s.state]){ //If the end of the sequence list has not been reached
-        updateIntensity(); //Set led intensity to new values
-        digitalWriteFast(pin.SDA0, current_status.s.state);     
+        updateIntensity(); //Set led intensity to new values     
         if(seq.s.led_duration){ //If hold for a specific duration
           while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && !current_status.s.mode && sync.s.mode == 0 && duration < (seq.s.led_duration-status_step_time_duration)){ //Perform status checks during step is enough time
             checkStatus();
@@ -627,7 +626,11 @@ void updateIntensity(){
       analogWrite(pin.DAC0, current_status.s.led_current);
       if(!(sync.s.mode == 2 && !current_status.s.mode)){ //If in confocal mode, do not apply PWM to interline pin
         if(!(sync.s.mode == 1 && sync.s.analog_mode && !current_status.s.mode)){ //If analog mode without PWM, do not apply PWM to interline pin
-          analogWrite(pin.INTERLINE, current_status.s.led_pwm);
+          if(current_status.s.led_pwm == 65535){ //Write pin constant high at 100% PWM
+            pinMode(pin.INTERLINE, OUTPUT);
+            digitalWriteFast(pin.INTERLINE, HIGH);
+          }
+          else analogWrite(pin.INTERLINE, current_status.s.led_pwm);
         }
         else pinMode(pin.INTERLINE, OUTPUT); //Otherwise, ensure pin is disconnected from PWM bus
       }
