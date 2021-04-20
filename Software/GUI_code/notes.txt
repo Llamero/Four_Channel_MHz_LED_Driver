@@ -33,6 +33,8 @@ bug - Fix sync plot starting values issue
 
 bug - Send status on connect via menu to update driver to current gui
 
+bug - manual sync locks driver
+
 
 
 

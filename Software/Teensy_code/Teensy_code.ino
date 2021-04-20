@@ -523,9 +523,14 @@ void checkStatus(){
     case 6: //Check toggle switch - 0.28 µs
       status_index++;
       if(current_status.s.driver_control && !fault_active){ //Only check toggle if driver control
-        if(digitalReadFast(pin.TOGGLE)) current_status.s.mode = manual_mode;
-        else current_status.s.mode = 0;
-        update_flag = true; //Toggle update flag
+        if(digitalReadFast(pin.TOGGLE) == !current_status.s.mode){ //Check if toggle state has changed - xor comparison by boolean inference (!) of mode
+          pinMode(pin.INTERLINE, OUTPUT);
+          digitalWriteFast(pin.INTERLINE, LOW); //Turn of LED while driver transitions between sync and manual modes
+          delay(pin.DEBOUNCE);
+          if(current_status.s.mode) current_status.s.mode = 0;
+          else current_status.s.mode = manual_mode;
+          update_flag = true; //Toggle update flag
+        }
       }
       break;
     case 7: //Check pot value - 3.74 µs
@@ -787,7 +792,6 @@ void playStatusTone(){
     else if(audio <= 256){
       digitalWriteFast(pin.ALARM[0], LOW);
       digitalWriteFast(pin.ALARM[1], HIGH);
-      if(audio < 250) checkStatus(); //Check status if there is sufficient time
     }
     else audio = 0; //Reset audio cycle timer
   }
@@ -885,6 +889,10 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   // Route decoded packet based on prefix byte
   heartbeat = 0; //Reset heartbeat timer as a serial packet has been received
   uint8_t buffer_prefix = buffer[0];
+  if(buffer_prefix){ //Turn off LED for safety before processing packet if packet isn't a heartbeat update
+    pinMode(pin.INTERLINE, OUTPUT);
+    digitalWriteFast(pin.INTERLINE, 0); //Turn of LED while driver transitions between sync and manual modes
+  }
   if(buffer_prefix == prefix.message) serial_connection_active = true; //Start/continue sending status packets; 
   else if(buffer_prefix == prefix.connection) magicExchange(buffer, size);
   else if(buffer_prefix == prefix.send_config) usb.send((const unsigned char*) conf.byte_buffer, sizeof(conf.byte_buffer));
@@ -1137,6 +1145,9 @@ static void updateStatus(const uint8_t* buffer, size_t size){
       current_status.s.mode = recv_status.s.mode;
       current_status.s.led_pwm = recv_status.s.led_pwm;
       current_status.s.led_current = recv_status.s.led_current;
+    }
+    else{
+      if(!manual_mode) manual_mode = 1;
     }
     memcpy(stored_status.byte_buffer, current_status.byte_buffer, sizeof(stored_status.byte_buffer)); //Update the stored status
     updateIntensity();
