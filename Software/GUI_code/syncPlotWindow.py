@@ -23,7 +23,7 @@ PLOT_PADDING = 1.1 #Factor of dark space above and below plot line so that plot 
 SLEW_TIME = 1e-6 #Time for LED to switch between intensities
 N_SAMPLES = 1000 #When plots exceed 2x this length, they will be binned back to this length
 STARTING_PLOT_RATE = 50 #Time between plot updates at start of plot
-debug = True
+debug = False
 
 class syncPlotWindow(QtWidgets.QWidget):
     sync_update_signal = QtCore.pyqtSignal(object)  # Need to initialize outside of init() https://stackoverflow.com/questions/2970312/pyqt4-qtcore-pyqtsignal-object-has-no-attribute-connect

@@ -26,12 +26,13 @@ Have status events exit to main loop for processing to prevent deep recursion?
 
 Add option to change font size.
 
-Reconnection with GUI set to sync causes driver to lock
+bug - Reconnection with GUI set to sync causes driver to lock
 -Upload while sync also causes issues - fixed by resetting active_channel on upload to force updateIntensity to update SSRs
 
-Fix sync plot starting values issue
+bug - Fix sync plot starting values issue
 
-Send status on connect via menu to update driver to current gui
+bug - Send status on connect via menu to update driver to current gui
+
 
 
 

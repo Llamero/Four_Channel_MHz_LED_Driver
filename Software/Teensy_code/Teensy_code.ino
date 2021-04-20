@@ -275,6 +275,7 @@ elapsedMillis pulse; //Timer controlling tone pule interval
 boolean external_analog = false; //Whether to use the DAC or external analog input
 uint16_t seq_steps[2]; //Number of setps in each active sync sequence
 uint8_t active_channel; //Currently active LED channel
+uint8_t update_flag = false; //Whether an update needs to be processed
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
 SDcard sd;
@@ -310,6 +311,7 @@ elapsedMillis t = 0;
 uint32_t d = 10;
 
 void loop() {
+  update_flag = false; //Reset update flag on return on main loop
   if(current_status.s.mode) checkStatus();
   else syncRouter();
   delayMicroseconds(10);
@@ -352,7 +354,7 @@ void getSeqStep(uint16_t sync_step){
 void digitalSync(){ //5 µs jitter + 2 µs phase delay
   elapsedMicros duration;
   uint16_t sync_step;
-  
+  playStatusTone();
   pinMode(pin.INPUTS[sync.s.digital_channel], INPUT); //Set sync input pin to input
   while(!current_status.s.mode && sync.s.mode == 0){
     sync_step = 0;
@@ -361,19 +363,26 @@ void digitalSync(){ //5 µs jitter + 2 µs phase delay
     active_channel = current_status.s.led_channel;
     getSeqStep(sync_step); //Get first sequence step
     duration = 0;
-    while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && !current_status.s.mode && sync.s.mode == 0){ //While trigger state doesn't change and driver still in digital sync mode 
+    while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && !update_flag){ //While trigger state doesn't change and driver still in digital sync mode 
       if(sync_step < seq_steps[current_status.s.state]){ //If the end of the sequence list has not been reached
         updateIntensity(); //Set led intensity to new values     
         if(seq.s.led_duration){ //If hold for a specific duration
-          while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && !current_status.s.mode && sync.s.mode == 0 && duration < (seq.s.led_duration-status_step_time_duration)){ //Perform status checks during step is enough time
+          checkStatus(); //Check status at least once
+          if(update_flag) return; //Exit on update
+          while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && !update_flag && duration < (seq.s.led_duration-status_step_time_duration)){ //Perform status checks during step is enough time
             checkStatus();
+            if(update_flag) return; //Exit on update
           }
           while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && duration < seq.s.led_duration); //Only check time during the last few microseconds for a precise incremental step
           duration -= seq.s.led_duration; //Reset duration timer
         }
         else{
           checkStatus(); //Check status at least once
-          while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && !current_status.s.mode && sync.s.mode == 0) checkStatus(); //Hold until trigger changes
+          if(update_flag) return; //Exit on update
+          while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && !current_status.s.mode && sync.s.mode == 0){
+            checkStatus(); //Hold until trigger changes
+            if(update_flag) return; //Exit on update
+          }
           break;
         }
         sync_step++; //Increment the sync step counter
@@ -384,7 +393,10 @@ void digitalSync(){ //5 µs jitter + 2 µs phase delay
         temp_buffer[0] = prefix.message;
         usb.send((const unsigned char*) temp_buffer, temp_size);
         duration = 0;
-        while(duration < 200000) checkStatus(); //This can happen if there was rapid bounce in the trigger, so pause to avoid spamming this error for every bounce
+        while(duration < 200000){
+          checkStatus(); //This can happen if there was rapid bounce in the trigger, so pause to avoid spamming this error for every bounce
+          if(update_flag) return; //Exit on update
+        }
         break;
       }
     }
@@ -393,7 +405,7 @@ void digitalSync(){ //5 µs jitter + 2 µs phase delay
 }
 
 void confocalSync(){
-//    if(temp_sync.s.confocal_sync_mode){ //If analog sync
+//  if(temp_sync.s.confocal_sync_mode){ //If analog sync
 //    while(analogRead(pin.INPUTS[temp_sync.s.confocal_channel]) < temp_sync.s.confocal_threshold && timeout < record_timeout); //Wait for input to rise above threshold
 //    cpu_cycles = ARM_DWT_CYCCNT;
 //    if(a >= 0 && temp_sync.s.confocal_sync_polarity[1]) saveCounts(); //If rising trigger then save time point
@@ -513,6 +525,7 @@ void checkStatus(){
       if(current_status.s.driver_control && !fault_active){ //Only check toggle if driver control
         if(digitalReadFast(pin.TOGGLE)) current_status.s.mode = manual_mode;
         else current_status.s.mode = 0;
+        update_flag = true; //Toggle update flag
       }
       break;
     case 7: //Check pot value - 3.74 µs
@@ -638,6 +651,8 @@ void updateIntensity(){
     }
   }
   else{ //If LED channel is inactive, set output to 0 to not stress op-amp inputs
+    current_status.s.led_pwm = 0;
+    current_status.s.led_current = 0;
     analogWrite(pin.DAC0, 0);
     pinMode(pin.INTERLINE, OUTPUT);
     digitalWriteFast(pin.INTERLINE, LOW);
@@ -726,6 +741,7 @@ void thermalFault(){
     if(stored_status.s.led_pwm == 0 || (sync.s.mode == 2 && stored_status.s.mode == 0)) digitalWriteFast(pin.INTERLINE, LOW); //Set to digital low if no PWM or in confocal sync mode (which doesn't use PWM)
     else analogWrite(pin.INTERLINE, stored_status.s.led_pwm); //Restore PWM on LED
     analogWrite(pin.DAC0, stored_status.s.led_current); //Set analog input to 0
+    update_flag = true; //Toggle update flag
   }
 }
 
@@ -822,6 +838,7 @@ void initializeConfigurations(){
   active_channel = 255; //Reset active channel so that channel gets actively set on updateIntensity()
   updateIntensity();
   playStatusTone();
+  update_flag = true; //Toggle update flag
 }
 
 //https://forum.arduino.cc/index.php?topic=42850.0
