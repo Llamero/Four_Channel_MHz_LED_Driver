@@ -258,12 +258,12 @@ uint32_t send_stream_index = 0; //Current index position of stream that is being
 uint32_t send_stream_size = 0; //Total size of file to be streamed
 const static uint16_t DEFUALT_TIMEOUT = 500; //Default timeout for serial communication in ms
 uint8_t status_index = 0; //Index counter for incrementally updating and transmitting status
-const uint8_t status_update_interval = 5; //The minimum time (in ms) between serial updates - prevents over-streaming of serial data and constantly accelerating fan
-const uint32_t status_step_clock_duration =  1800; //Minimum time needed (in clock cycles) to complete one status check
-const uint32_t status_step_time_duration =  9; //Minimum time needed (in µs) to complete one status check
 elapsedMillis status_update_timer; //Status timer to track when to transmit the next update
+const uint8_t status_update_interval = 5; //The minimum time (in ms) between serial updates - prevents over-streaming of serial data and constantly accelerating fan
+const uint32_t status_step_time_duration =  9; //Minimum time needed (in µs) to complete one status check
+const uint32_t status_step_clock_duration =  status_step_time_duration*180; //Minimum time needed (in clock cycles) to complete one status check
 elapsedMillis heartbeat; //Heartbeat timer to confirm that GUI is still connected
-const static uint32_t HEARTBEAT_TIMEOUT = 10000; //Driver will assume connection has closed if heartbeat not received within this time
+const static uint32_t HEARTBEAT_TIMEOUT = 10000; //Driver will assume connection has closed if heartbeat not received within this time 
 uint32_t cpu_cycles = 0; //Track the number of CPU cycles for sub-microseconds timing precision
 const static uint32_t cycle_offset = 7; //Number of cycles needed to check cycles ellapsed
 boolean serial_connection_active = false; //Whether to send updates over serial - used to block updates during critical communication
@@ -355,7 +355,7 @@ void getSeqStep(uint16_t sync_step){
 void digitalSync(){ //5 µs jitter + 2 µs phase delay
   elapsedMicros duration;
   uint16_t sync_step;
-  playStatusTone();
+  
   pinMode(pin.INPUTS[sync.s.digital_channel], INPUT); //Set sync input pin to input
   while(!current_status.s.mode && sync.s.mode == 0){
     sync_step = 0;
@@ -406,6 +406,100 @@ void digitalSync(){ //5 µs jitter + 2 µs phase delay
 }
 
 void confocalSync(){
+  elapsedMicros duration; //Duration timer for sequence steps
+  uint16_t sync_step; //sequence step counter
+  uint32_t interline_timeout = 2*sync.s.confocal_mirror_period; //Timeout to stop looking for mirror sync.
+
+  noInterrupts(); //Turn off interrupts for exact interline timing
+
+  auto waitForTrigger = [&] (){
+    if(sync.s.confocal_sync_mode){ //If analog sync
+      if(sync.s.confocal_sync_polarity[1]) while(analogRead(pin.INPUTS[sync.s.confocal_channel]) < sync.s.confocal_threshold && ARM_DWT_CYCCNT-cpu_cycles < interline_timeout); //Wait for input to rise above threshold - timeout after two mirror periods
+      else while(analogRead(pin.INPUTS[sync.s.confocal_channel]) > sync.s.confocal_threshold && ARM_DWT_CYCCNT-cpu_cycles < interline_timeout); //Catch falling trigger
+    }
+    else{ //If digital sync
+      while(digitalReadFast(pin.INPUTS[temp_sync.s.confocal_channel]) !=  temp_sync.s.confocal_sync_polarity[0] && ARM_DWT_CYCCNT-cpu_cycles < interline_timeout);
+    }
+  };
+  
+  pinMode(pin.INPUTS[0], INPUT); //Set shutter input pin to input
+  pinMode(pin.INPUTS[sync.s.confocal_channel], INPUT); //Set sync input pin to input
+  while(!current_status.s.mode && sync.s.mode == 2){
+    sync_step = 0;
+    current_status.s.state = digitalReadFast(pin.INPUTS[0]); //Get state of shutter
+    active_channel = current_status.s.led_channel;
+    getSeqStep(sync_step); //Get first sequence step
+    duration = 0; //Reset seq timer
+    cpu_cycles = ARM_DWT_CYCCNT - ; //Reset interline timer with mirror period timeout padding
+    
+    while(current_status.s.state == digitalReadFast(pin.INPUTS[0]) && !update_flag){ //While shutter state doesn't change and driver still in digital sync mode 
+      if(sync_step < seq_steps[current_status.s.state]){ //If the end of the sequence list has not been reached
+        updateIntensity(); //Set led intensity to new values
+        checkStatus(); //Check status at least once
+        if(update_flag) return; //Exit on update
+        while(current_status.s.state == digitalReadFast(pin.INPUTS[0]) && !update_flag && (duration < seq.s.led_duration || seq.s.led_duration == 0)){ //Loop until shutter changes, update, or seq duration times out (0 = hold - no timeout)
+
+            
+             //Wait for trigger to match desired polarity
+            cpu_cycles = ARM_DWT_CYCCNT;
+            saveCounts();
+            debounce = 0;
+            while(debounce < 10) checkStatus();
+            while(digitalReadFast(pin.INPUTS[temp_sync.s.confocal_channel]) ==  temp_sync.s.confocal_sync_polarity[0] && timeout < record_timeout); //Wait for trigger to reset
+            debounce = 0;
+            while(debounce < 10) checkStatus();
+          }
+            while(analogRead(pin.INPUTS[sync.s.confocal_channel]) < sync.s.confocal_threshold && timeout < record_timeout); //Wait for input to rise above threshold
+            cpu_cycles = ARM_DWT_CYCCNT;
+            if(a >= 0 && sync.s.confocal_sync_polarity[1]) saveCounts(); //If rising trigger then save time point
+            while(analogRead(pin.INPUTS[sync.s.confocal_channel]) > sync.s.confocal_threshold && timeout < record_timeout); //Wait for input to rise above threshold
+            cpu_cycles = ARM_DWT_CYCCNT;
+            if(a >= 0 && !sync.s.confocal_sync_polarity[1]) saveCounts(); //If falling trigger then save time point 
+          }          
+
+
+
+             
+        if(seq.s.led_duration){ //If hold for a specific duration
+          
+
+          
+          checkStatus(); //Check status at least once
+          if(update_flag) return; //Exit on update
+          while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && !update_flag && duration < (seq.s.led_duration-status_step_time_duration)){ //Perform status checks during step is enough time
+            checkStatus();
+            if(update_flag) return; //Exit on update
+          }
+          while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && duration < seq.s.led_duration); //Only check time during the last few microseconds for a precise incremental step
+          duration -= seq.s.led_duration; //Reset duration timer
+        }
+        else{
+          checkStatus(); //Check status at least once
+          if(update_flag) return; //Exit on update
+          while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && !current_status.s.mode && sync.s.mode == 0){
+            checkStatus(); //Hold until trigger changes
+            if(update_flag) return; //Exit on update
+          }
+          break;
+        }
+        sync_step++; //Increment the sync step counter
+        getSeqStep(sync_step); //Get next sequence step        
+      }
+      else{ //Report error if driver ran off the end of the sequence list (i.e. never encountered a hold)
+        temp_size = sprintf(temp_buffer, "-Error: Digital Sync - %s reached the end of the sequence without encountering a hold.", current_status.s.state ? "LOW":"HIGH");
+        temp_buffer[0] = prefix.message;
+        usb.send((const unsigned char*) temp_buffer, temp_size);
+        duration = 0;
+        while(duration < 200000){
+          checkStatus(); //This can happen if there was rapid bounce in the trigger, so pause to avoid spamming this error for every bounce
+          if(update_flag) return; //Exit on update
+        }
+        break;
+      }
+    }
+  }
+  pinMode(pin.INPUTS[sync.s.digital_channel], INPUT_DISABLE);
+  pinMode(pin.INPUTS[0], INPUT_DISABLE);
 //  if(temp_sync.s.confocal_sync_mode){ //If analog sync
 //    while(analogRead(pin.INPUTS[temp_sync.s.confocal_channel]) < temp_sync.s.confocal_threshold && timeout < record_timeout); //Wait for input to rise above threshold
 //    cpu_cycles = ARM_DWT_CYCCNT;
@@ -414,16 +508,7 @@ void confocalSync(){
 //    cpu_cycles = ARM_DWT_CYCCNT;
 //    if(a >= 0 && !temp_sync.s.confocal_sync_polarity[1]) saveCounts(); //If falling trigger then save time point 
 //  }
-//  else{ //If digital sync
-//    while(digitalReadFast(pin.INPUTS[temp_sync.s.confocal_channel]) !=  temp_sync.s.confocal_sync_polarity[0] && timeout < record_timeout); //Wait for trigger to match desired polarity
-//    cpu_cycles = ARM_DWT_CYCCNT;
-//    saveCounts();
-//    debounce = 0;
-//    while(debounce < 10) checkStatus();
-//    while(digitalReadFast(pin.INPUTS[temp_sync.s.confocal_channel]) ==  temp_sync.s.confocal_sync_polarity[0] && timeout < record_timeout); //Wait for trigger to reset
-//    debounce = 0;
-//    while(debounce < 10) checkStatus();
-//  }
+
 //  if(timeout >= record_timeout){ //If timed out, send error message.
 //    temp_size = sprintf(temp_buffer, "-Error: Measurement timed out waiting for line sync trigger.");    
 //    temp_buffer[0] = prefix.message;
@@ -615,9 +700,8 @@ void checkStatus(){
       status_index = 0; //Reset status index if no cases match
       break;
   }
-//  digitalWriteFast(pin.OUTPUTS[2], HIGH);
-//  digitalWriteFast(pin.OUTPUTS[2], LOW);
-  //if(sync.s.mode==2) noInterrupts(); //Disable interrupts if in confocal mode, as the scan mirror is used as the interrupt clock
+
+  if(sync.s.mode==2 && !current_status.s.mode) noInterrupts(); //Disable interrupts if in confocal mode, as the scan mirror is used as the interrupt clock
 }
 
 void ledOff(){
