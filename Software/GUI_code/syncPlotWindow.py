@@ -415,10 +415,10 @@ class syncPlotWindow(QtWidgets.QWidget):
                     self.y_values[state][key].append(self.status_dict[key])
                     if show_plot:
                         if self.mode in ["Analog", "Serial", "Custom"]:
-                            status_plot.plot(self.x_values[state], self.y_values[state][key], pen=pg.mkPen('g', width=1), connect="finite", clear=True)
+                            status_plot.plot(self.x_values[state][1:], self.y_values[state][key][1:], pen=pg.mkPen('g', width=1), connect="finite", clear=True)
                         else:
                             status_plot.plot(self.x_ref[state], self.y_ref[state][key], pen=pg.mkPen('m', width=1), connect="finite", clear=True)
-                            status_plot.plot(self.x_values[state], self.y_values[state][key], pen=pg.mkPen('g', width=1), connect="finite", clear=False)
+                            status_plot.plot(self.x_values[state][1:], self.y_values[state][key][1:], pen=pg.mkPen('g', width=1), connect="finite", clear=False)
                 self.binPlots()  # Check if plots need to be down sampled
 
             else: #If timer has reached hold, update hold label instead

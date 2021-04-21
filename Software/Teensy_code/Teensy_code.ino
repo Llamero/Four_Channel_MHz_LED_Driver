@@ -313,7 +313,7 @@ uint32_t d = 10;
 void loop() {
   update_flag = false; //Reset update flag on return on main loop
   if(current_status.s.mode) checkStatus();
-  else syncRouter();
+  if(!current_status.s.mode) syncRouter();
   delayMicroseconds(10);
 }
 
@@ -324,6 +324,7 @@ void debug(){
 }
 
 void syncRouter(){
+  update_flag = false; //Clear the update flag
   switch(sync.s.mode){
     case 0: //Digital sync
       digitalSync();
@@ -1151,6 +1152,7 @@ static void updateStatus(const uint8_t* buffer, size_t size){
     }
     memcpy(stored_status.byte_buffer, current_status.byte_buffer, sizeof(stored_status.byte_buffer)); //Update the stored status
     updateIntensity();
+    update_flag = true;
   }
   else{
     temp_size = sprintf(temp_buffer, "-Error: LED  driver received an invalid status packet.  Expected %d bytes and received %d bytes.", sizeof(recv_status.byte_buffer)+1, size);
