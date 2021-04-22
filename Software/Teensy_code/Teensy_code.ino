@@ -486,7 +486,6 @@ void confocalSync(){
           pwm_clock_cycles = round((float) current_status.s.led_pwm * pwm_ratio);
           analogWrite(pin.INTERLINE, (uint16_t) pwm_clock_cycles);
         }
- 
         while(shutter_state == digitalReadFast(pin.INPUTS[0]) && !update_flag && (duration < seq.s.led_duration || seq.s.led_duration == 0)){ //Loop until shutter changes, update, or seq duration times out (0 = hold - no timeout) - Interline loop
           checkStatus(); //Check status at least once per mirror cycle
           if(update_flag) goto quit;
@@ -524,8 +523,9 @@ void confocalSync(){
             }
           }
         }
+        duration -= seq.s.led_duration; //Reset duration timer 
         sync_step++; //Increment the sync step counter
-        getSeqStep(sync_step); //Get next sequence step 
+        getSeqStep(sync_step); //Get next sequence step
       }
       else{ //Report error if driver ran off the end of the sequence list (i.e. never encountered a hold)
         temp_size = sprintf(temp_buffer, "-Error: Confocal Sync - %s reached the end of the sequence without encountering a hold.", current_status.s.state ? "STANDBY":"SCANNING");
