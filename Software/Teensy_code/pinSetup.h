@@ -47,6 +47,9 @@ class pinSetup
     const static int DAC0 = A21; //Internal dac to generate internal analog input voltage
     const static int DAC1 = A22; //Internal dac - not connected
 
+    const static int LED_FREQ = 29296; //LED driver PWM freq - default to 2^n multiple to have optimal dynamic range while staying outside the auditory range - https://www.pjrc.com/teensy/td_pulse.html
+    const static int FAN_FREQ = 25000; //5V output PWM frequency (in Hz) - 25kHz is optimal for driving CPU fans
+
   private:
     static void init(); //Initialize reference variables
     static void convertToAdc(); //Convert reference temperatures to ADC values
@@ -54,9 +57,6 @@ class pinSetup
     //ADC setup
     const static int adc_averaging = 1; //Number of times to average adc recording before returning value
     const static int adc_resolution = 16; //Number of significant bits to return per adc recording
-
-    const static int LED_FREQ = 29296; //LED driver PWM freq - default to 2^n multiple to have optimal dynamic range while staying outside the auditory range - https://www.pjrc.com/teensy/td_pulse.html
-    const static int FAN_FREQ = 25000; //5V output PWM frequency (in Hz) - 25kHz is optimal for driving CPU fans
     
     const static int SERIES_RESISTOR = 4700; //Value of series resistor to the thermistor on the PCB
     const static int PCB_THERMISTOR_NOMINAL = 4700; //Value of thermistor resistor on PCB at nominal temp (25°C)
