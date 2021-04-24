@@ -213,7 +213,7 @@ class syncPlotWindow(QtWidgets.QWidget):
         elif self.mode == "Confocal":
             for index, trigger in enumerate(["Standby", "Scanning"]):
                 self.main_tab.setTabEnabled(index, True)
-                if sync_model["Confocal"][trigger]["Mode"].whatsThis() == "LED Off":
+                if sync_model["Confocal"][trigger]["Mode"].whatsThis() in ["LED Off", "External Analog"]:
                     self.x_ref[index] = [0]  # Set duration to hold
                     for key in self.y_ref[index]:
                         self.y_ref[index][key] = [0] # Set all intensities to 0, and channel is not changed (0)
