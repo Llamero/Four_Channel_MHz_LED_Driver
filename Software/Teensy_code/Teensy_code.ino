@@ -392,15 +392,16 @@ void digitalSync(){ //5 µs jitter + 2 µs phase delay
         getSeqStep(sync_step); //Get next sequence step        
       }
       else{ //Report error if driver ran off the end of the sequence list (i.e. never encountered a hold)
-        temp_size = sprintf(temp_buffer, "-Error: Digital Sync - %s reached the end of the sequence without encountering a hold.", current_status.s.state ? "LOW":"HIGH");
+        temp_size = sprintf(temp_buffer, "-Error: Digital Sync - %s reached the end of the sequence without encountering a hold. Step #%d of %d steps.", current_status.s.state ? "LOW":"HIGH", sync_step, seq_steps[current_status.s.state]);
         temp_buffer[0] = prefix.message;
         usb.send((const unsigned char*) temp_buffer, temp_size);
         duration = 0;
+        initializeSeq(); //Try reloading seq
         while(duration < 200000){
           checkStatus(); //This can happen if there was rapid bounce in the trigger, so pause to avoid spamming this error for every bounce
           if(update_flag) return; //Exit on update
         }
-        break;
+        return;
       }
     }
   }
@@ -599,7 +600,7 @@ void initializeSeq(){ //Setup seq
         memcpy(sequence_buffer[a], seq.byte_buffer, sizeof(seq.byte_buffer));
         seq_steps[a] = 1;
       }
-      memcpy(seq.byte_buffer, sequence_buffer[current_status.s.state]+(seq_steps[a]-1)*sizeof(seq.byte_buffer), sizeof(seq.byte_buffer)); //Get the last sequence step
+      memcpy(seq.byte_buffer, sequence_buffer[a]+(seq_steps[a]-1)*sizeof(seq.byte_buffer), sizeof(seq.byte_buffer)); //Get the last sequence step
       if(seq.s.led_duration){ //If the last step is not a hold (duration > 0) then add a hold to the end of the sequence
         seq.s.led_id = 255; //Don't change LED channel
         seq.s.led_pwm = 0; //Turn off led PWM
