@@ -480,11 +480,11 @@ void confocalSync(){
           external_analog = true;
           digitalWriteFast(pin.ANALOG_SELECT, HIGH); //Set external analog input
         }
-        else{
+        else{ //For all other modes, set led intensity to new values
           pinMode(pin.ANALOG_SELECT, OUTPUT);
           external_analog = false;
-          digitalWriteFast(pin.ANALOG_SELECT, LOW); //Set external analog input
-          updateIntensity(); //For all other modes, set led intensity to new values
+          digitalWriteFast(pin.ANALOG_SELECT, LOW); //Set internal analog input
+          updateIntensity(); 
         }
         
         if(current_status.s.state){ //If scanning, convert PWM to clock cycles
@@ -686,13 +686,17 @@ void checkStatus(){
               delay(pin.DEBOUNCE);
               if(conf.c.led_active[a]){ //confirm that channel can be selected 
                 if(current_status.s.led_channel == a && manual_mode == 1){
+                  playStatusTone();
                   ledOff();
                   manual_mode = 3;
                 }
                 else{
+                  playStatusTone();
+                  playStatusTone();
                   current_status.s.led_channel = a; //Update channel status
                   manual_mode = 1; 
                 }
+                current_status.s.mode = manual_mode; //Update mode
               }
               while(digitalReadFast(pin.PUSHBUTTON[a])) delay(10); //Wait for button release
               delay(pin.DEBOUNCE);
