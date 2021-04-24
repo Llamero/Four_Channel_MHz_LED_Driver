@@ -30,6 +30,8 @@ bug - Send status on connect via menu to update driver to current gui
 
 bug - measure period kills sync.
 
+bug - sync plot shows internal config when external sync is set - Driver also still runs internal seq when under external analog
+
 
 
 

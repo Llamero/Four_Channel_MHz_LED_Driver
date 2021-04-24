@@ -431,6 +431,7 @@ void confocalSync(){
   auto waitForTrigger = [&] (){ //Wait for the trigger event
     cpu_cycles = ARM_DWT_CYCCNT; //Reset inerline timer
     if(sync.s.confocal_sync_mode){ //If analog sync
+      analogRead(pin.INPUTS[sync.s.confocal_channel]); //Clear the ADC
       if(sync.s.confocal_sync_polarity[1]) while(analogRead(pin.INPUTS[sync.s.confocal_channel]) < sync.s.confocal_threshold && ARM_DWT_CYCCNT-cpu_cycles < interline_timeout); //Wait for input to rise above threshold - timeout after two mirror periods
       else while(analogRead(pin.INPUTS[sync.s.confocal_channel]) > sync.s.confocal_threshold && ARM_DWT_CYCCNT-cpu_cycles < interline_timeout); //Catch falling trigger
     }
@@ -443,6 +444,7 @@ void confocalSync(){
   auto waitForTriggerReset = [&] (){ //Wait for the trigger event to reset - used to initially sync the LED driver to the trigger input
     cpu_cycles = ARM_DWT_CYCCNT; //Reset inerline timer
     if(sync.s.confocal_sync_mode){ //If analog sync
+      analogRead(pin.INPUTS[sync.s.confocal_channel]); //Clear the ADC
       if(sync.s.confocal_sync_polarity[1]) while(analogRead(pin.INPUTS[sync.s.confocal_channel]) > sync.s.confocal_threshold && ARM_DWT_CYCCNT-cpu_cycles < interline_timeout); //Wait for input to fall below threshold - timeout after two mirror periods
       else while(analogRead(pin.INPUTS[sync.s.confocal_channel]) < sync.s.confocal_threshold && ARM_DWT_CYCCNT-cpu_cycles < interline_timeout); //Catch rising trigger
     }
@@ -480,7 +482,8 @@ void confocalSync(){
         else updateIntensity(); //For all other modes, set led intensity to new values
         
         if(current_status.s.state){ //If scanning, convert PWM to clock cycles
-          pwm_clock_cycles = ((uint32_t) current_status.s.led_pwm * sync.s.confocal_delay[1]) >> 16; //Calculate the number of clock cycles to leave the LED on during delay #2 to match the needed % PWM
+          pwm_clock_cycles = round(((float) current_status.s.led_pwm * (float) sync.s.confocal_delay[1])/65535); //Calculate the number of clock cycles to leave the LED on during delay #2 to match the needed % PWM
+          pinMode(pin.INTERLINE, OUTPUT); //Disconnect interline pin from PWM bus
         }
         else{ //If standby, convert PWM to proportion of total mirror period
           pwm_clock_cycles = round((float) current_status.s.led_pwm * pwm_ratio);
@@ -536,7 +539,7 @@ void confocalSync(){
           checkStatus(); //This can happen if there was rapid bounce in the trigger, so pause to avoid spamming this error for every bounce
           if(update_flag) goto quit; //Exit on update
         }
-        break;
+        goto quit;
       }
     }
   }
@@ -587,6 +590,14 @@ void initializeSeq(){ //Setup seq
           seq_steps[a] = sd.file_size/sizeof(seq.byte_buffer); //Calculate number of sequence steps given file size
           for(int b=0; b<seq_steps[a]; b++) --*(sequence_buffer[a]+b*sizeof(seq.byte_buffer));  //Decrement LED IDs 
         }
+      }
+      else if(sync.s.mode == 2 && sync.s.confocal_mode[a] == 3){ //If confocal sync with external analog
+        seq.s.led_id = 255; //Don't change LED channel
+        seq.s.led_pwm = 65535; //Set PWM to max
+        seq.s.led_current = 0; //Turn off led current
+        seq.s.led_duration = 0; //Hold at off
+        memcpy(sequence_buffer[a], seq.byte_buffer, sizeof(seq.byte_buffer));
+        seq_steps[a] = 1;
       }
       memcpy(seq.byte_buffer, sequence_buffer[current_status.s.state]+(seq_steps[a]-1)*sizeof(seq.byte_buffer), sizeof(seq.byte_buffer)); //Get the last sequence step
       if(seq.s.led_duration){ //If the last step is not a hold (duration > 0) then add a hold to the end of the sequence
@@ -717,6 +728,7 @@ void checkStatus(){
       else{ //If in sync mode
         if((sync.s.mode == 0 && sync.s.digital_mode[current_status.s.state] == 3) || (sync.s.mode == 2 && sync.s.confocal_mode[current_status.s.state] == 3) || (sync.s.mode == 1 && sync.s.analog_mode == 2)){ //If state requires ext. analog
           external_analog = true;
+          pinMode(pin.ANALOG_SELECT, OUTPUT);
           digitalWriteFast(pin.ANALOG_SELECT, HIGH); //Set external analog input
         }
       }
