@@ -28,6 +28,7 @@ Add option to change font size.
 
 bug - Send status on connect via menu to update driver to current gui
 
+bug - measure period kills sync.
 
 
 

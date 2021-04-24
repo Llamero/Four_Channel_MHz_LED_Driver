@@ -33,7 +33,7 @@ class statusWindow(QtWidgets.QWidget):
         self.window_closed = False
 
         # Set look and feel
-        uic.loadUi('Status_GUI.ui', self)
+        uic.loadUi(self.gui.resourcePath('Status_GUI.ui'), self)
         if self.gui.menu_view_skins_dark.isChecked(): #Set dark skin if in dark mode since skin is reverted when window is opened.
             self.app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
         else:

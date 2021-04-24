@@ -37,7 +37,7 @@ class syncPlotWindow(QtWidgets.QWidget):
         self.window_closed = False
 
         # Set look and feel
-        uic.loadUi('Sync_Plot_GUI.ui', self)
+        uic.loadUi(self.gui.resourcePath('Sync_Plot_GUI.ui'), self)
 
         #Connect signals
         self.status_emit = self.status_signal.emit #Function instance saved so it can later be disconnected explicitly
@@ -131,6 +131,8 @@ class syncPlotWindow(QtWidgets.QWidget):
 
         #Get the active sync mode
         self.mode = sync_model["Mode"].whatsThis()
+        if not self.mode:
+            self.mode = self.gui.getValue(sync_model["Mode"])
         if debug:
             print("Active mode: " + self.mode)
         self.main_tab.setTabText(0, self.mode + ": " + self.gui.state_dict[self.mode][0])
