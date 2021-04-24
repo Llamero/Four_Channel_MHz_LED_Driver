@@ -1398,7 +1398,8 @@ void measurePeriod(const uint8_t* buffer, size_t size){
     usb.send((const unsigned char*) temp_buffer, temp_size);
     memcpy(temp_buffer+1, &mean, sizeof(mean));
     temp_buffer[0] = prefix.measure_period;
-    usb.send((const unsigned char*) temp_buffer, sizeof(mean)+1);  
+    usb.send((const unsigned char*) temp_buffer, sizeof(mean)+1);
+    updateIntensity(); //Restore led state  
   }
   else{
     temp_size = sprintf(temp_buffer, "-Error: LED  driver received an invalid measure period packet.  Expected %d bytes and received %d bytes.", sizeof(temp_sync.byte_buffer), size);
