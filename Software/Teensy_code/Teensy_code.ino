@@ -294,23 +294,27 @@ void setup() {
   Serial.begin(9600); //Needed for non-COBS streaming, such as large sequence files
   usb.begin(115200);
   usb.setPacketHandler(&onPacketReceived);
-  initializeConfigurations();
   if(!sd.initializeSD()){
     digitalWriteFast(LED_BUILTIN, HIGH);
     sd.message_buffer[0] = prefix.message;
     usb.send((const unsigned char*) sd.message_buffer, sd.message_size);
   }
+  initializeConfigurations(); //Initialize configurations only after initializing SD card, as SD card is needed to load seqences
+  status_index = 0;
+  for(size_t a=0; a==status_index; a++) checkStatus(); //Perform full round of status checks to get starting status of driver
+  
   digitalWriteFast(pin.RELAY[3], HIGH);
   digitalWriteFast(pin.INTERLINE, LOW);
   digitalWriteFast(pin.ANALOG_SELECT, LOW);
   digitalWriteFast(pin.FAN_PWM, LOW);
   analogWrite(pin.DAC0, 65535);
-  pinMode(pin.SDA0, OUTPUT); //-------------------------------------------------------------------------------------------------------------------------------------
+Serial.begin(9600); ///////////////////////////////////////////////////////
 }
 elapsedMillis t = 0;
 uint32_t d = 10;
 
 void loop() {
+  debug();
   interrupts();
   update_flag = false; //Reset update flag on return on main loop
   if(current_status.s.mode) checkStatus();
@@ -319,14 +323,22 @@ void loop() {
 }
 
 void debug(){
-  temp_size = sprintf(temp_buffer, "-%d %d %d %lu : %d %d %d", seq.s.led_id, seq.s.led_pwm, seq.s.led_current, seq.s.led_duration, current_status.s.led_channel, current_status.s.led_pwm, current_status.s.led_current);
-  temp_buffer[0] = prefix.message;
-  usb.send((const unsigned char*) temp_buffer, temp_size);
+  temp_size = sprintf(temp_buffer, "LED#%d PWM:%d Current:%d Mode:%s State:%s Control:%s", current_status.s.led_channel+1, current_status.s.led_pwm, current_status.s.led_current, !!current_status.s.mode ? "Manual":"Sync", current_status.s.state ? "LOW":"HIGH", current_status.s.driver_control ? "GUI":"Manual");
+  if(t>500){
+    if(serial_connection_active){
+      temp_buffer[0] = prefix.message;
+      usb.send((const unsigned char*) temp_buffer, temp_size);
+    }
+    else{
+      Serial.println(temp_buffer);
+    }
+    t=0;
+  }
 }
 
 void syncRouter(){
   update_flag = false; //Clear the update flag
-pinMode(pin.INPUTS[0], INPUT_PULLDOWN);//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  debug();
   switch(sync.s.mode){
     case 0: //Digital sync
       digitalSync();
@@ -656,8 +668,8 @@ void checkStatus(){
           pinMode(pin.INTERLINE, OUTPUT);
           digitalWriteFast(pin.INTERLINE, LOW); //Turn of LED while driver transitions between sync and manual modes
           delay(pin.DEBOUNCE);
-          if(current_status.s.mode) current_status.s.mode = 0;
-          else current_status.s.mode = manual_mode;
+          if(digitalReadFast(pin.TOGGLE)) current_status.s.mode = manual_mode;
+          else current_status.s.mode = 0;
           update_flag = true; //Toggle update flag
         }
       }
@@ -686,13 +698,10 @@ void checkStatus(){
               delay(pin.DEBOUNCE);
               if(conf.c.led_active[a]){ //confirm that channel can be selected 
                 if(current_status.s.led_channel == a && manual_mode == 1){
-                  playStatusTone();
                   ledOff();
                   manual_mode = 3;
                 }
                 else{
-                  playStatusTone();
-                  playStatusTone();
                   current_status.s.led_channel = a; //Update channel status
                   manual_mode = 1; 
                 }
