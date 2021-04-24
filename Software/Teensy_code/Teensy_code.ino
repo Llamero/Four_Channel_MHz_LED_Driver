@@ -294,27 +294,26 @@ void setup() {
   Serial.begin(9600); //Needed for non-COBS streaming, such as large sequence files
   usb.begin(115200);
   usb.setPacketHandler(&onPacketReceived);
-  if(!sd.initializeSD()){
+  if(!sd.initializeSD()){ //Initiazlize SD card first so the sequence files can be retrieved on initializeConfigurations()
     digitalWriteFast(LED_BUILTIN, HIGH);
     sd.message_buffer[0] = prefix.message;
     usb.send((const unsigned char*) sd.message_buffer, sd.message_size);
   }
   initializeConfigurations(); //Initialize configurations only after initializing SD card, as SD card is needed to load seqences
   status_index = 0;
+  ledOff(); //For safety, boot to LED off
   for(size_t a=0; a==status_index; a++) checkStatus(); //Perform full round of status checks to get starting status of driver
   
   digitalWriteFast(pin.RELAY[3], HIGH);
   digitalWriteFast(pin.INTERLINE, LOW);
   digitalWriteFast(pin.ANALOG_SELECT, LOW);
   digitalWriteFast(pin.FAN_PWM, LOW);
-  analogWrite(pin.DAC0, 65535);
-Serial.begin(9600); ///////////////////////////////////////////////////////
+  analogWrite(pin.DAC0, 0);
 }
 elapsedMillis t = 0;
 uint32_t d = 10;
 
 void loop() {
-  debug();
   interrupts();
   update_flag = false; //Reset update flag on return on main loop
   if(current_status.s.mode) checkStatus();
@@ -338,7 +337,6 @@ void debug(){
 
 void syncRouter(){
   update_flag = false; //Clear the update flag
-  debug();
   switch(sync.s.mode){
     case 0: //Digital sync
       digitalSync();
@@ -765,6 +763,7 @@ void ledOff(){
   current_status.s.led_pwm = 0;
   current_status.s.led_current = 0;
   manual_mode = 3;
+  current_status.s.mode = manual_mode;
   external_analog = false; //Set input to internal analog
 }
 
@@ -1316,6 +1315,7 @@ void disconnectSerial(){
   ledOff(); //Set LED off on disconnect
   updateIntensity();
   manual_mode = 3;
+  update_flag = true;
 }
 
 void measurePeriod(const uint8_t* buffer, size_t size){
