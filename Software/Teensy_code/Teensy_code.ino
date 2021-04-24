@@ -480,7 +480,12 @@ void confocalSync(){
           external_analog = true;
           digitalWriteFast(pin.ANALOG_SELECT, HIGH); //Set external analog input
         }
-        else updateIntensity(); //For all other modes, set led intensity to new values
+        else{
+          pinMode(pin.ANALOG_SELECT, OUTPUT);
+          external_analog = false;
+          digitalWriteFast(pin.ANALOG_SELECT, LOW); //Set external analog input
+          updateIntensity(); //For all other modes, set led intensity to new values
+        }
         
         if(current_status.s.state){ //If scanning, convert PWM to clock cycles
           pwm_clock_cycles = round(((float) current_status.s.led_pwm * (float) sync.s.confocal_delay[1])/65535); //Calculate the number of clock cycles to leave the LED on during delay #2 to match the needed % PWM

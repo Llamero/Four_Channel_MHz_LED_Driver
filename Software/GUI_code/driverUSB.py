@@ -489,16 +489,16 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 mode = widgetIndex(self.gui.main_model["Mode"])
                 dial_max = self.gui.main_model["Intensity"].maximum()
                 channel = widgetIndex(self.gui.main_model["Channel"])
-                if mode == 2:
+                if mode == 1: #PWM mode
+                    pwm = round((self.gui.getValue(self.gui.main_model["Intensity"]) / dial_max) * 65535)
+                    current = self.gui.getAdcCurrentLimit(channel)
+                elif mode == 2: #Current mode
                     pwm = 65535
                     current = round((self.gui.getValue(
                         self.gui.main_model["Intensity"]) / dial_max) * self.gui.getAdcCurrentLimit(channel))
-                elif mode == 3:
+                else: #Off mode or sync mode
                     current = 0
                     pwm = 0
-                else:
-                    pwm = round((self.gui.getValue(self.gui.main_model["Intensity"]) / dial_max) * 65535)
-                    current = self.gui.getAdcCurrentLimit(channel)
 
                 # Send only GUI states - set all driver specific values to 0 since they are just padding
                 status_list[0] = channel

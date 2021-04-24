@@ -60,6 +60,7 @@ def startAnimation(gui, timeline):
 def stopAnimation(gui, timeline):
     lockTabWidget(gui, False)
     timeline.stop()
+    gui.ser.updateStatus() #Return the driver to the original status
     gui.calibration_run_button.setText("Run")
     gui.calibration_run_button.clicked.connect(lambda: startAnimation(gui, timeline))
 
