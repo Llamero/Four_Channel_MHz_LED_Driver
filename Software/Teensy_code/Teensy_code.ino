@@ -425,6 +425,7 @@ void analogSync(){
   uint32_t adc_average; //Used to sum ADC readings
   boolean output_state; //Used to flip sync output for external syncing
   uint16_t sample_interval = 1800; //Interval at which to take ADC recording
+  float sample_freq; //Frequency in Hz that samples are taken
   current_status.s.state = 0; //There is only one sync state - set to default
   noInterrupts();
   if(sync.s.analog_mode != 2){ //If using internal analog
@@ -437,6 +438,11 @@ void analogSync(){
       n_avg = 1<<sync.s.analog_pwm; 
       current_status.s.led_current = conf.c.current_limit[current_status.s.led_channel]; //Set current to current limit
     }
+    
+    //Set the PWM frequency to match the sample frequency for maximum PWM precision - capped at a min of 915 HZ since this gives full 16-bit precision at 180 MHz - https://www.pjrc.com/teensy/td_pulse.html
+    sample_freq = 1/((float) n_avg * (float) sample_interval * 5.555e-9); //Calculate the sample frequency
+    if(sample_freq > 915.527) analogWriteFrequency(pin.INTERLINE, sample_freq);
+    else analogWriteFrequency(pin.INTERLINE, 915.527); //Cap min at 
     
     pinMode(pin.INPUTS[sync.s.analog_channel], INPUT);
     cpu_cycles = ARM_DWT_CYCCNT;
@@ -481,6 +487,7 @@ void analogSync(){
     digitalWriteFast(pin.ANALOG_SELECT, LOW); //Set internal analog input
     external_analog = false;
     interrupts();
+    analogWriteFrequency(pin.INTERLINE, pin.LED_FREQ); //Restore the interline timer to its defaul value: https://www.pjrc.com/teensy/td_pulse.html
 }
 
 void confocalSync(){
