@@ -1336,7 +1336,7 @@
                    <string>Configure how the analog input will be converted to LED output.</string>
                   </property>
                   <property name="currentIndex">
-                   <number>1</number>
+                   <number>0</number>
                   </property>
                   <widget class="QWidget" name="sync_analog_output_PWM_tab">
                    <property name="toolTip">
@@ -1393,7 +1393,7 @@
                        <item row="0" column="1">
                         <widget class="QLabel" name="sync_analog_output_PWM_avg_bandwidth_label">
                          <property name="toolTip">
-                          <string>The frequency at which the LED intensity is updated.</string>
+                          <string>The frequency at which the LED intensity is updated.  The update frequency or 912 Hz will also be the PWM frequency, which ever is greater.</string>
                          </property>
                          <property name="text">
                           <string>LED update frequency: x Hz</string>

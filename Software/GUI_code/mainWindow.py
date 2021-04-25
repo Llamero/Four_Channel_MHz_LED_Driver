@@ -98,6 +98,10 @@ class Ui(QtWidgets.QMainWindow):
             self.splash.finish(self)
         self.startup = False #Set flag to exiting startup
 
+        #Initialize the analog sync labels
+        self.updateAnalogSync("current")
+        self.updateAnalogSync("PWM")
+
         #Restore look and feel to previous session state
         self.initializeLookAndFeel()
         self.show()
