@@ -4,13 +4,13 @@ LED1::Active::True
 LED1::Current Limit::1.6
 LED2::ID::Blue
 LED2::Active::True
-LED2::Current Limit::1.6
+LED2::Current Limit::0.99
 LED3::ID::Green
 LED3::Active::True
-LED3::Current Limit::1.6
+LED3::Current Limit::0.99
 LED4::ID::Red
 LED4::Active::True
-LED4::Current Limit::1.6
+LED4::Current Limit::0.99
 Channel1::UV
 Channel2::Blue
 Channel3::Green
@@ -23,16 +23,16 @@ Resistor3::Value::1000.0
 Resistor3::Active::False
 Resistor4::Value::1000.0
 Resistor4::Active::False
-Temperature::Transistor::Warn::40
-Temperature::Transistor::Fault::50
-Temperature::Resistor::Warn::40
-Temperature::Resistor::Fault::50
+Temperature::Transistor::Warn::50
+Temperature::Transistor::Fault::60
+Temperature::Resistor::Warn::50
+Temperature::Resistor::Fault::70
 Temperature::External::Warn::30
 Temperature::External::Fault::40
 Fan::Driver::Min::30
-Fan::Driver::Max::50
+Fan::Driver::Max::60
 Fan::External::Min::30
-Fan::External::Max::50
+Fan::External::Max::60
 Fan::Channel::None
 Thermistor::Resistance::4700
 Thermistor::Beta::3574

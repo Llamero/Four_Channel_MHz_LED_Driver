@@ -1,0 +1,43 @@
+Mode::Analog
+Digital::Channel::Channel #3
+Digital::Low::Mode::Sequence
+Digital::Low::LED::Current LED
+Digital::Low::PWM::1.1
+Digital::Low::Current::2.101
+Digital::Low::Duration::3.1
+Digital::Low::Sequence::None
+Digital::High::Mode::Sequence
+Digital::High::LED::Current LED
+Digital::High::PWM::1.199
+Digital::High::Current::2.2
+Digital::High::Duration::3.2
+Digital::High::Sequence::None
+Analog::LED::Blue
+Analog::Channel::Channel #3
+Analog::Mode::Buffered - PWM
+Analog::PWM::1
+Analog::Current::1
+Confocal::Shutter::LOW
+Confocal::Channel::Channel #3
+Confocal::Line::Analog - Mirror Voltage
+Confocal::Digital::HIGH
+Confocal::Threshold::1.4
+Confocal::Polarity::Below Threshold
+Confocal::Delay::Mode::Bidirectional
+Confocal::Delay::1::2.4
+Confocal::Delay::2::3.4
+Confocal::Delay::3::4.4
+Confocal::Period::1000.0
+Confocal::Standby::Mode::LED Off
+Confocal::Standby::LED::Current LED
+Confocal::Standby::PWM::5.393
+Confocal::Standby::Current::6.401
+Confocal::Standby::Duration::7.4
+Confocal::Standby::Sequence::None
+Confocal::Scanning::Mode::Constant Value
+Confocal::Scanning::LED::Current LED
+Confocal::Scanning::PWM::8.333
+Confocal::Scanning::Current::11.401
+Confocal::Scanning::Duration::10.4
+Confocal::Scanning::Sequence::None
+Output::Output #3

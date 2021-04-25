@@ -211,7 +211,7 @@ def bytesToSync(byte_array, gui, prefix):
 
     checksum = (sum(byte_array) + prefix) & 0xFF  # https://stackoverflow.com/questions/44611057/checksum-generation-from-sum-of-bits-in-python
     if checksum == 0:
-        sync_values = struct.unpack("<BBBBBBBHHHHLLBBBBH?B???H?LLLLBBBBHHHHLLB", byte_array)
+        sync_values = struct.unpack("<BBBBBBBHHHHLLBBBHH?B???H?LLLLBBBBHHHHLLB", byte_array)
 
         #Calculate total resistance for current conversions
         total_resistance = float(gui.configure_current_limit_box.whatsThis())
@@ -238,7 +238,7 @@ def bytesToSync(byte_array, gui, prefix):
                     gui.setValue(gui.sync_model["Digital"][key2][key3], sync_values[(2 * index3) + index2 + 3]/1e6)
 
         #Analog
-        for index2, key2 in enumerate(["LED", "Channel"]):
+        for index2, key2 in enumerate(["Channel", "LED"]):
             setWidget(gui.sync_model["Analog"][key2], 13+index2)
         gui.sync_model["Analog"]["Mode"].setCurrentIndex(sync_values[15])
         gui.setValue(gui.sync_model["Analog"]["PWM"], sync_values[16])
@@ -389,7 +389,7 @@ def syncToBytes(gui, prefix, update_model=True):
                 sync_values[(2 * index3) + index2 + 3] = round(gui.getValue(gui.sync_model["Digital"][key2][key3])*1e6)  # Convert duration to microseconds
 
     #Analog
-    for index2, key2 in enumerate(["LED", "Channel"]):
+    for index2, key2 in enumerate(["Channel", "LED"]):
         sync_values[13+index2] = widgetIndex(gui.sync_model["Analog"][key2])
     sync_values[15] = gui.sync_model["Analog"]["Mode"].currentIndex()
     sync_values[16] = gui.getValue(gui.sync_model["Analog"]["PWM"])
@@ -421,7 +421,7 @@ def syncToBytes(gui, prefix, update_model=True):
             elif key3 == "Duration":
                 sync_values[(2 * index3) + index2 + 29] = round(gui.getValue(gui.sync_model["Confocal"][key2][key3])*1e6)
 
-    byte_array.extend(struct.pack("<BBBBBBBHHHHLLBBBBH?B???H?LLLLBBBBHHHHLL", *sync_values))
+    byte_array.extend(struct.pack("<BBBBBBBHHHHLLBBBHH?B???H?LLLLBBBBHHHHLL", *sync_values))
     checksum = (sum(byte_array) + prefix) & 0xFF  # https://stackoverflow.com/questions/44611057/checksum-generation-from-sum-of-bits-in-python
     checksum = 256 - checksum
     byte_array.append(checksum)

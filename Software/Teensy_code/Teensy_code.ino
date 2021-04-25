@@ -64,9 +64,9 @@ struct syncStruct{ //158 bytes
   uint32_t digital_duration[2]; //The maximum number of milliseconds to hold LED state
   
   uint8_t analog_channel; //The input channel for the sync signal
-  uint8_t analog_mode; //The analog sync mode
   uint8_t analog_led; //The active LED channel
-  uint8_t analog_pwm; //ADC averages per PWM update
+  uint8_t analog_mode; //The analog sync mode
+  uint16_t analog_pwm; //ADC averages per PWM update
   uint16_t analog_current; //ADC averages per DAC update
   
   boolean shutter_polarity; //Shutter polarity when scan is active
@@ -100,9 +100,9 @@ const struct defaultSyncStruct{ //158 bytes
   uint32_t digital_duration[2] = {0,0}; //The maximum number of milliseconds to hold LED state
   
   uint8_t analog_channel = 0; //The input channel for the sync signal
-  uint8_t analog_mode = 0; //The analog sync mode
   uint8_t analog_led = 0; //The active LED channel
-  uint8_t analog_pwm = 1; //ADC averages per PWM update
+  uint8_t analog_mode = 0; //The analog sync mode
+  uint16_t analog_pwm = 1; //ADC averages per PWM update
   uint16_t analog_current = 1; //ADC averages per DAC update
 
   boolean shutter_polarity = true; //Shutter polarity when scan is active
@@ -341,9 +341,9 @@ void syncRouter(){
     case 0: //Digital sync
       digitalSync();
       break;
-//    case 1: //Analog sync
-//      analogSync();
-//      break;
+    case 1: //Analog sync
+      analogSync();
+      break;
     case 2: //Confocal sync
       confocalSync();
       break;
@@ -416,6 +416,61 @@ void digitalSync(){ //5 µs jitter + 2 µs phase delay
     }
   }
   pinMode(pin.INPUTS[sync.s.digital_channel], INPUT_DISABLE);   
+}
+
+void analogSync(){
+  int a; //Loop counter
+  uint16_t n_avg; //Number of ADC samples to take per recording
+  uint32_t adc_average; //Used to sum ADC readings
+  current_status.s.state = 0; //There is only one sync state - set to default
+  
+  if(sync.s.analog_mode != 2){ //If using internal analog
+    if(sync.s.analog_led) current_status.s.led_channel = sync.s.analog_led-1; //Change LED channel if specified
+    if(sync.s.analog_mode){ //Mode 1 is current
+      n_avg = 1<<sync.s.analog_current; 
+      current_status.s.led_pwm = 65535; //Set PWM to max
+    }
+    else{ //Mode 0 is PWM
+      n_avg = 1<<sync.s.analog_pwm; 
+      current_status.s.led_current = conf.c.current_limit[current_status.s.led_channel]; //Set current to current limit
+    }
+    
+    pinMode(pin.INPUTS[sync.s.analog_channel], INPUT);
+    analogRead(pin.INPUTS[sync.s.analog_channel]); //Clear the ADC
+    cpu_cycles = ARM_DWT_CYCCNT;
+    while(!current_status.s.mode && sync.s.mode == 1 && sync.s.analog_mode != 2 && !update_flag){
+      adc_average = 0;
+      for(a=0; a<n_avg-1; a++){
+        adc_average += analogRead(pin.INPUTS[sync.s.analog_channel]); //Record ADC value
+        checkStatus();
+        if(update_flag) goto quit;
+        while(ARM_DWT_CYCCNT-cpu_cycles < status_step_clock_duration); //Ensure ADC recordings are at fixed intervals
+        cpu_cycles += status_step_clock_duration;
+      }
+      adc_average += analogRead(pin.INPUTS[sync.s.analog_channel]); //Record the last ADC value
+      if(sync.s.analog_mode){
+        current_status.s.led_current = adc_average >> sync.s.analog_current; //Mode 1 is current - take average value
+        if(conf.c.current_limit[current_status.s.led_channel] < current_status.s.led_current) current_status.s.led_current = conf.c.current_limit[current_status.s.led_channel]; //Cap current to current limit
+      }
+      else{
+        current_status.s.led_pwm = adc_average >> sync.s.analog_pwm; //Mode 1 is current - take average value
+      }
+      updateIntensity(); //Update intensity in place of status check to maintain fixed intervals
+      while(ARM_DWT_CYCCNT-cpu_cycles < status_step_clock_duration); //Ensure ADC recordings are at fixed intervals
+    }
+  }
+  else{ //If using external analog
+    pinMode(pin.ANALOG_SELECT, OUTPUT);
+    external_analog = true;
+    pinMode(pin.INTERLINE, OUTPUT);
+    digitalWriteFast(pin.ANALOG_SELECT, HIGH); //Set external analog input
+    digitalWriteFast(pin.INTERLINE, HIGH); //Set LED on
+    while(!current_status.s.mode && sync.s.mode == 1 && sync.s.analog_mode != 2 && !update_flag) checkStatus();
+  }
+  quit:
+    pinMode(pin.ANALOG_SELECT, OUTPUT);
+    digitalWriteFast(pin.ANALOG_SELECT, LOW); //Set internal analog input
+    external_analog = false;
 }
 
 void confocalSync(){
@@ -562,6 +617,7 @@ void confocalSync(){
   quit:
     analogWriteFrequency(pin.INTERLINE, pin.LED_FREQ); //Restore the interline timer to its defaul value: https://www.pjrc.com/teensy/td_pulse.html
     interrupts();
+    pinMode(pin.ANALOG_SELECT, OUTPUT);
     digitalWriteFast(pin.ANALOG_SELECT, LOW);
     external_analog = false;
 }
@@ -791,7 +847,10 @@ void updateIntensity(){
           }
           else analogWrite(pin.INTERLINE, current_status.s.led_pwm);
         }
-        else pinMode(pin.INTERLINE, OUTPUT); //Otherwise, ensure pin is disconnected from PWM bus
+        else{
+          pinMode(pin.INTERLINE, OUTPUT); //Otherwise, ensure pin is disconnected from PWM bus
+          digitalWriteFast(pin.INTERLINE, HIGH);
+        }
       }
       else pinMode(pin.INTERLINE, OUTPUT); //Otherwise, ensure pin is disconnected from PWM bus
     }

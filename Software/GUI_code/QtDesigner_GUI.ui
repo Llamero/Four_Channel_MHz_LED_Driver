@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>475</width>
-    <height>677</height>
+    <width>714</width>
+    <height>1018</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -48,7 +48,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -439,8 +439,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>431</width>
-             <height>385</height>
+             <width>670</width>
+             <height>803</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -450,7 +450,7 @@
                <string>Select the active sync mode to configure</string>
               </property>
               <property name="currentIndex">
-               <number>2</number>
+               <number>1</number>
               </property>
               <widget class="QWidget" name="sync_digital_page">
                <property name="geometry">
@@ -1319,8 +1319,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>553</width>
-                 <height>307</height>
+                 <width>652</width>
+                 <height>620</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1336,7 +1336,7 @@
                    <string>Configure how the analog input will be converted to LED output.</string>
                   </property>
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>1</number>
                   </property>
                   <widget class="QWidget" name="sync_analog_output_PWM_tab">
                    <property name="toolTip">
@@ -1362,37 +1362,6 @@
                       </property>
                      </widget>
                     </item>
-                    <item row="1" column="1">
-                     <widget class="QSlider" name="sync_analog_output_PWM_avg_slider">
-                      <property name="toolTip">
-                       <string>Set the number of individual reads to average to filter the input ADC</string>
-                      </property>
-                      <property name="minimum">
-                       <number>1</number>
-                      </property>
-                      <property name="maximum">
-                       <number>100</number>
-                      </property>
-                      <property name="singleStep">
-                       <number>0</number>
-                      </property>
-                      <property name="pageStep">
-                       <number>1</number>
-                      </property>
-                      <property name="value">
-                       <number>1</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="tickPosition">
-                       <enum>QSlider::TicksBothSides</enum>
-                      </property>
-                      <property name="tickInterval">
-                       <number>10</number>
-                      </property>
-                     </widget>
-                    </item>
                     <item row="2" column="0" colspan="2" alignment="Qt::AlignTop">
                      <widget class="QFrame" name="sync_analog_output_PWM_avg_frame">
                       <property name="toolTip">
@@ -1404,7 +1373,7 @@
                       <property name="frameShadow">
                        <enum>QFrame::Raised</enum>
                       </property>
-                      <layout class="QGridLayout" name="gridLayout_34" columnstretch="10,13">
+                      <layout class="QGridLayout" name="gridLayout_34" columnstretch="10,0">
                        <property name="leftMargin">
                         <number>0</number>
                        </property>
@@ -1444,6 +1413,37 @@
                       </property>
                       <property name="wordWrap">
                        <bool>false</bool>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QSlider" name="sync_analog_output_PWM_avg_slider">
+                      <property name="toolTip">
+                       <string>Set the number of individual reads to average to filter the input ADC</string>
+                      </property>
+                      <property name="minimum">
+                       <number>0</number>
+                      </property>
+                      <property name="maximum">
+                       <number>7</number>
+                      </property>
+                      <property name="singleStep">
+                       <number>0</number>
+                      </property>
+                      <property name="pageStep">
+                       <number>1</number>
+                      </property>
+                      <property name="value">
+                       <number>1</number>
+                      </property>
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="tickPosition">
+                       <enum>QSlider::TicksBothSides</enum>
+                      </property>
+                      <property name="tickInterval">
+                       <number>1</number>
                       </property>
                      </widget>
                     </item>
@@ -1504,10 +1504,10 @@
                        <string>Set the number of individual reads to average to filter the input ADC</string>
                       </property>
                       <property name="minimum">
-                       <number>1</number>
+                       <number>0</number>
                       </property>
                       <property name="maximum">
-                       <number>100</number>
+                       <number>7</number>
                       </property>
                       <property name="singleStep">
                        <number>0</number>
@@ -1525,7 +1525,7 @@
                        <enum>QSlider::TicksBothSides</enum>
                       </property>
                       <property name="tickInterval">
-                       <number>10</number>
+                       <number>1</number>
                       </property>
                      </widget>
                     </item>
@@ -1740,7 +1740,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>525</width>
+                 <width>635</width>
                  <height>1104</height>
                 </rect>
                </property>
@@ -3328,7 +3328,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>611</width>
+             <width>653</width>
              <height>1105</height>
             </rect>
            </property>
@@ -4924,7 +4924,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>475</width>
+     <width>714</width>
      <height>24</height>
     </rect>
    </property>
@@ -5141,28 +5141,28 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="configure_ch_merge_1_button_group"/>
-  <buttongroup name="configure_ch_merge_2_button_group"/>
-  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
-  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
-  <buttongroup name="configure_indication_group"/>
-  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
-  <buttongroup name="main_channel_button_group"/>
-  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
-  <buttongroup name="configure_ext_fan_button_group"/>
-  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
-  <buttongroup name="sync_analog_input_channel_button_group"/>
-  <buttongroup name="main_toggle_control_group"/>
-  <buttongroup name="main_intensity_button_group"/>
-  <buttongroup name="sync_confocal_line_input_button_group"/>
-  <buttongroup name="sync_confocal_scan_mode_button_group"/>
-  <buttongroup name="sync_digital_trigger_button_group"/>
-  <buttongroup name="configure_pushbutton_LED_button_group"/>
-  <buttongroup name="configure_ch_merge_4_button_group"/>
-  <buttongroup name="sync_analog_led_channel_button_group"/>
   <buttongroup name="configure_ch_merge_3_button_group"/>
+  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
+  <buttongroup name="configure_ch_merge_2_button_group"/>
+  <buttongroup name="configure_indication_group"/>
+  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
+  <buttongroup name="main_channel_button_group"/>
+  <buttongroup name="sync_analog_led_channel_button_group"/>
+  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
+  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
+  <buttongroup name="configure_ext_fan_button_group"/>
+  <buttongroup name="sync_confocal_line_input_button_group"/>
+  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
+  <buttongroup name="sync_confocal_scan_mode_button_group"/>
+  <buttongroup name="configure_pushbutton_LED_button_group"/>
+  <buttongroup name="configure_ch_merge_1_button_group"/>
+  <buttongroup name="sync_digital_trigger_button_group"/>
   <buttongroup name="sync_output_button_group"/>
+  <buttongroup name="main_toggle_control_group"/>
+  <buttongroup name="configure_ch_merge_4_button_group"/>
   <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
   <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
+  <buttongroup name="main_intensity_button_group"/>
+  <buttongroup name="sync_analog_input_channel_button_group"/>
  </buttongroups>
 </ui>
