@@ -1,3 +1,5 @@
+import math
+
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 from PyQt5.QtGui import QFont
 import qdarkstyle  # This awesome style sheet was made by Colin Duquesnoy and Daniel Cosmo Pizetta - https://github.com/ColinDuquesnoy/QDarkStyleSheet
@@ -16,6 +18,7 @@ import pickle
 import syncPlotWindow
 
 DIAL_UPDATE_RATE = 0.05 #Time in s between updates from dial when in manual control - prevents dial from locking GUI with continuous updates when dial is swept
+ANALOG_SYNC_SAMPLE_RATE = 10 #Time interval in microseconds for the analog sync to take a single sample
 class Ui(QtWidgets.QMainWindow):
     status_signal = QtCore.pyqtSignal(object) #Need to initialize outside of init() https://stackoverflow.com/questions/2970312/pyqt4-qtcore-pyqtsignal-object-has-no-attribute-connect
     sync_update_signal = QtCore.pyqtSignal(object)  # Need to initialize outside of init() https://stackoverflow.com/questions/2970312/pyqt4-qtcore-pyqtsignal-object-has-no-attribute-connect
@@ -224,6 +227,30 @@ class Ui(QtWidgets.QMainWindow):
 
             else:
                 self.setValue(self.main_model["Mode"][0], 1) #Set slider to Sync
+
+    def updateAnalogSync(self, sync_type):
+        avg_label = eval("self.sync_analog_output_" + sync_type + "_avg_num_label")
+        freq_label = eval("self.sync_analog_output_" + sync_type + "_avg_bandwidth_label")
+
+        if sync_type == "current":
+            key = sync_type.capitalize()
+        else:
+            key = sync_type
+        slider_value = self.getValue(self.sync_model["Analog"][key])
+
+        n_avg = 2**slider_value;
+        freq = 1/(n_avg * ANALOG_SYNC_SAMPLE_RATE * 1e-6)
+
+        round_to_n = lambda x, n: x if x == 0 else round(x, -int(math.floor(math.log10(abs(x)))) + (n - 1))
+        round_to_n(freq, 3)
+
+        freq_units = " Hz"
+        if freq >= 100:
+            freq /= 1000
+            freq_units = " kHz"
+
+        avg_label.setText("# of samples per update: " + str(n_avg))
+        freq_label.setText("LED update frequency: " + f"{freq:.3}" + freq_units)
 
     def syncDisableMain(self, sync_active): #Disable manual control widgets if the sync is active
         self.main_model["Intensity"].setEnabled(not sync_active)

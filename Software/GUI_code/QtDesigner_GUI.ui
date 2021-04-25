@@ -1355,7 +1355,7 @@
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>Set the number of individual reads to average to filter the input ADC</string>
+                       <string>Set the number of individual reads to average to filter the input ADC.  Speed &lt;--&gt; Accuracy</string>
                       </property>
                       <property name="text">
                        <string># of ADC samples per step:</string>
@@ -1373,7 +1373,7 @@
                       <property name="frameShadow">
                        <enum>QFrame::Raised</enum>
                       </property>
-                      <layout class="QGridLayout" name="gridLayout_34" columnstretch="10,0">
+                      <layout class="QGridLayout" name="gridLayout_34" columnstretch="10,10">
                        <property name="leftMargin">
                         <number>0</number>
                        </property>
@@ -1383,20 +1383,20 @@
                        <item row="0" column="0">
                         <widget class="QLabel" name="sync_analog_output_PWM_avg_num_label">
                          <property name="toolTip">
-                          <string>The number of ADC samples per step.</string>
+                          <string>The number of ADC samples averaged per LED update.</string>
                          </property>
                          <property name="text">
-                          <string># of averages: 1</string>
+                          <string># of samples per update: 1</string>
                          </property>
                         </widget>
                        </item>
                        <item row="0" column="1">
-                        <widget class="QLabel" name="sync_analog_output_PWM_avg_bandiwdth_label">
+                        <widget class="QLabel" name="sync_analog_output_PWM_avg_bandwidth_label">
                          <property name="toolTip">
-                          <string>Estimated maximum bandwidth analog output.</string>
+                          <string>The frequency at which the LED intensity is updated.</string>
                          </property>
                          <property name="text">
-                          <string>Approximate bandwidth: x kHz</string>
+                          <string>LED update frequency: x Hz</string>
                          </property>
                         </widget>
                        </item>
@@ -1419,13 +1419,13 @@
                     <item row="1" column="1">
                      <widget class="QSlider" name="sync_analog_output_PWM_avg_slider">
                       <property name="toolTip">
-                       <string>Set the number of individual reads to average to filter the input ADC</string>
+                       <string>Set the number of individual reads to average to filter the input ADC.  Speed &lt;--&gt; Accuracy</string>
                       </property>
                       <property name="minimum">
-                       <number>0</number>
+                       <number>1</number>
                       </property>
                       <property name="maximum">
-                       <number>7</number>
+                       <number>15</number>
                       </property>
                       <property name="singleStep">
                        <number>0</number>
@@ -1468,7 +1468,7 @@
                       <property name="frameShadow">
                        <enum>QFrame::Raised</enum>
                       </property>
-                      <layout class="QGridLayout" name="gridLayout_47" columnstretch="10,13">
+                      <layout class="QGridLayout" name="gridLayout_47" columnstretch="10,10">
                        <property name="leftMargin">
                         <number>0</number>
                        </property>
@@ -1478,20 +1478,20 @@
                        <item row="0" column="0">
                         <widget class="QLabel" name="sync_analog_output_current_avg_num_label">
                          <property name="toolTip">
-                          <string>The number of ADC samples per step.</string>
+                          <string>The number of ADC samples averaged per LED update.</string>
                          </property>
                          <property name="text">
-                          <string># of averages: 1</string>
+                          <string># of samples per update: 1</string>
                          </property>
                         </widget>
                        </item>
                        <item row="0" column="1">
-                        <widget class="QLabel" name="sync_analog_output_current_avg_bandiwdth_label">
+                        <widget class="QLabel" name="sync_analog_output_current_avg_bandwidth_label">
                          <property name="toolTip">
-                          <string>Estimated maximum bandwidth analog output.</string>
+                          <string>The frequency at which the LED intensity is updated.</string>
                          </property>
                          <property name="text">
-                          <string>Approximate bandwidth: x kHz</string>
+                          <string>LED update frequency: x Hz</string>
                          </property>
                         </widget>
                        </item>
@@ -1501,13 +1501,13 @@
                     <item row="1" column="1">
                      <widget class="QSlider" name="sync_analog_output_current_avg_slider">
                       <property name="toolTip">
-                       <string>Set the number of individual reads to average to filter the input ADC</string>
+                       <string>Set the number of individual reads to average to filter the input ADC.  Speed &lt;--&gt; Accuracy</string>
                       </property>
                       <property name="minimum">
-                       <number>0</number>
+                       <number>1</number>
                       </property>
                       <property name="maximum">
-                       <number>7</number>
+                       <number>15</number>
                       </property>
                       <property name="singleStep">
                        <number>0</number>
@@ -1538,7 +1538,7 @@
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>Set the number of individual reads to average to filter the input ADC</string>
+                       <string>Set the number of individual reads to average to filter the input ADC.  Speed &lt;--&gt; Accuracy</string>
                       </property>
                       <property name="text">
                        <string># of ADC samples per step:</string>
@@ -1740,7 +1740,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>635</width>
+                 <width>525</width>
                  <height>1104</height>
                 </rect>
                </property>
@@ -5142,27 +5142,27 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
  </designerdata>
  <buttongroups>
   <buttongroup name="configure_ch_merge_3_button_group"/>
-  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
-  <buttongroup name="configure_ch_merge_2_button_group"/>
+  <buttongroup name="sync_confocal_line_input_button_group"/>
+  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
+  <buttongroup name="sync_output_button_group"/>
   <buttongroup name="configure_indication_group"/>
+  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
+  <buttongroup name="configure_ch_merge_2_button_group"/>
+  <buttongroup name="sync_digital_trigger_button_group"/>
+  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
+  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
   <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
   <buttongroup name="main_channel_button_group"/>
-  <buttongroup name="sync_analog_led_channel_button_group"/>
-  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
-  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
   <buttongroup name="configure_ext_fan_button_group"/>
-  <buttongroup name="sync_confocal_line_input_button_group"/>
-  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
-  <buttongroup name="sync_confocal_scan_mode_button_group"/>
-  <buttongroup name="configure_pushbutton_LED_button_group"/>
-  <buttongroup name="configure_ch_merge_1_button_group"/>
-  <buttongroup name="sync_digital_trigger_button_group"/>
-  <buttongroup name="sync_output_button_group"/>
   <buttongroup name="main_toggle_control_group"/>
   <buttongroup name="configure_ch_merge_4_button_group"/>
-  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
-  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
+  <buttongroup name="configure_pushbutton_LED_button_group"/>
+  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
+  <buttongroup name="sync_confocal_scan_mode_button_group"/>
   <buttongroup name="main_intensity_button_group"/>
+  <buttongroup name="sync_analog_led_channel_button_group"/>
+  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
+  <buttongroup name="configure_ch_merge_1_button_group"/>
   <buttongroup name="sync_analog_input_channel_button_group"/>
  </buttongroups>
 </ui>

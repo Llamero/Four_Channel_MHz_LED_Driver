@@ -325,6 +325,8 @@ def initializeEvents(gui):
         gui.sync_save_button.clicked.connect(lambda: seq.findUnsavedSeqThenSave(gui, gui.sync_model))
         gui.sync_load_button.clicked.connect(lambda: fileIO.loadConfiguration(gui, gui.sync_model))
 
+        gui.sync_analog_output_PWM_avg_slider.valueChanged.connect(lambda: gui.updateAnalogSync("PWM"))
+        gui.sync_analog_output_current_avg_slider.valueChanged.connect(lambda: gui.updateAnalogSync("current"))
 
         sequenceEvents()
         outputChannelEvents()

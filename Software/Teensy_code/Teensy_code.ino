@@ -315,6 +315,7 @@ uint32_t d = 10;
 
 void loop() {
   interrupts();
+  if(sync.s.sync_output_channel) digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], LOW); //Set sync output low when in manual mode
   update_flag = false; //Reset update flag on return on main loop
   if(current_status.s.mode) checkStatus();
   if(!current_status.s.mode) syncRouter();
@@ -422,8 +423,10 @@ void analogSync(){
   int a; //Loop counter
   uint16_t n_avg; //Number of ADC samples to take per recording
   uint32_t adc_average; //Used to sum ADC readings
+  boolean output_state; //Used to flip sync output for external syncing
+  uint16_t sample_interval = 1800; //Interval at which to take ADC recording
   current_status.s.state = 0; //There is only one sync state - set to default
-  
+  noInterrupts();
   if(sync.s.analog_mode != 2){ //If using internal analog
     if(sync.s.analog_led) current_status.s.led_channel = sync.s.analog_led-1; //Change LED channel if specified
     if(sync.s.analog_mode){ //Mode 1 is current
@@ -436,17 +439,22 @@ void analogSync(){
     }
     
     pinMode(pin.INPUTS[sync.s.analog_channel], INPUT);
-    analogRead(pin.INPUTS[sync.s.analog_channel]); //Clear the ADC
     cpu_cycles = ARM_DWT_CYCCNT;
     while(!current_status.s.mode && sync.s.mode == 1 && sync.s.analog_mode != 2 && !update_flag){
       adc_average = 0;
+      if(sync.s.sync_output_channel){ //Flip output sync per recording cycle
+        output_state = !output_state;
+        digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], output_state);
+      }
       for(a=0; a<n_avg-1; a++){
+        analogRead(pin.INPUTS[sync.s.analog_channel]); //Clear the ADC
         adc_average += analogRead(pin.INPUTS[sync.s.analog_channel]); //Record ADC value
         checkStatus();
         if(update_flag) goto quit;
-        while(ARM_DWT_CYCCNT-cpu_cycles < status_step_clock_duration); //Ensure ADC recordings are at fixed intervals
-        cpu_cycles += status_step_clock_duration;
+        while(ARM_DWT_CYCCNT-cpu_cycles < sample_interval); //Ensure ADC recordings are at fixed 10 µs interval
+        cpu_cycles = cpu_cycles + sample_interval;
       }
+      analogRead(pin.INPUTS[sync.s.analog_channel]); //Clear the ADC
       adc_average += analogRead(pin.INPUTS[sync.s.analog_channel]); //Record the last ADC value
       if(sync.s.analog_mode){
         current_status.s.led_current = adc_average >> sync.s.analog_current; //Mode 1 is current - take average value
@@ -456,7 +464,8 @@ void analogSync(){
         current_status.s.led_pwm = adc_average >> sync.s.analog_pwm; //Mode 1 is current - take average value
       }
       updateIntensity(); //Update intensity in place of status check to maintain fixed intervals
-      while(ARM_DWT_CYCCNT-cpu_cycles < status_step_clock_duration); //Ensure ADC recordings are at fixed intervals
+      while(ARM_DWT_CYCCNT-cpu_cycles < sample_interval); //Ensure ADC recordings are at fixed 10 µs interval
+      cpu_cycles = cpu_cycles + sample_interval;
     }
   }
   else{ //If using external analog
@@ -471,6 +480,7 @@ void analogSync(){
     pinMode(pin.ANALOG_SELECT, OUTPUT);
     digitalWriteFast(pin.ANALOG_SELECT, LOW); //Set internal analog input
     external_analog = false;
+    interrupts();
 }
 
 void confocalSync(){
@@ -812,7 +822,7 @@ void checkStatus(){
       break;
   }
 
-  if(sync.s.mode==2 && !current_status.s.mode) noInterrupts(); //Disable interrupts if in confocal mode, as the scan mirror is used as the interrupt clock
+  if((sync.s.mode==1 || sync.s.mode==2) && !current_status.s.mode) noInterrupts(); //Disable interrupts if in confocal mode, as the scan mirror is used as the interrupt clock
 }
 
 void ledOff(){
@@ -848,7 +858,7 @@ void updateIntensity(){
           else analogWrite(pin.INTERLINE, current_status.s.led_pwm);
         }
         else{
-          pinMode(pin.INTERLINE, OUTPUT); //Otherwise, ensure pin is disconnected from PWM bus
+          pinMode(pin.INTERLINE, OUTPUT); //Otherwise, ensure pin is constant on
           digitalWriteFast(pin.INTERLINE, HIGH);
         }
       }
