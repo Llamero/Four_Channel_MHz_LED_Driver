@@ -462,7 +462,7 @@ void analogSync(){
       }
       analogRead(pin.INPUTS[sync.s.analog_channel]); //Clear the ADC
       adc_average += analogRead(pin.INPUTS[sync.s.analog_channel]); //Record the last ADC value
-      if(sync.s.analog_mode){
+      if(sync.s.analog_mode){ //If current sync
         current_status.s.led_current = adc_average >> sync.s.analog_current; //Mode 1 is current - take average value
         if(conf.c.current_limit[current_status.s.led_channel] < current_status.s.led_current) current_status.s.led_current = conf.c.current_limit[current_status.s.led_channel]; //Cap current to current limit
       }
@@ -881,6 +881,7 @@ void updateIntensity(){
   }
 }
 
+
 void setFan(uint16_t temp, uint8_t fan_index){
   uint8_t out_pin;
   float temp_min;
@@ -1171,7 +1172,7 @@ static void recvConfig(const uint8_t* buffer, size_t size){
       conf.byte_buffer[size-1] += (prefix.recv_config - prefix.send_config); //Fix corresponding checksum
       for(int a = 0; a<(int) size; a++) EEPROM.update(a + sizeof(MAGIC_RECEIVE), conf.byte_buffer[a]); //Copy configuration to EEPROM
       initializeConfigurations(); //Re-run the setup routine to update driver state
-      temp_size = sprintf(temp_buffer, "-Configuration file was successfully uploaded.\nAlso upload \"Sync\" if LED settings changed.");
+      temp_size = sprintf(temp_buffer, "-Configuration file was successfully uploaded.\nAlso upload \"Sync\" settings to apply changes.");
     }
     else temp_size = sprintf(temp_buffer, "-Error: Check sum is non-zero: %d", checksum); 
   }

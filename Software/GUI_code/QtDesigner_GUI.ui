@@ -48,7 +48,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -405,7 +405,7 @@
         <item row="2" column="1">
          <widget class="QPushButton" name="sync_download_button">
           <property name="toolTip">
-           <string>Update sync window with the current driver sync configuration.</string>
+           <string>Update sync window with the current driver sync settings.</string>
           </property>
           <property name="text">
            <string>Download from Driver</string>
@@ -415,7 +415,7 @@
         <item row="2" column="5">
          <widget class="QPushButton" name="sync_load_button">
           <property name="toolTip">
-           <string>Load a sync configuration text file (*.txt)</string>
+           <string>Load a sync settings text file (*.txt)</string>
           </property>
           <property name="text">
            <string>Load Settings</string>
@@ -3211,7 +3211,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
         <item row="2" column="4">
          <widget class="QPushButton" name="sync_save_button">
           <property name="toolTip">
-           <string>Save sync configuration as a text file (*.txt)</string>
+           <string>Save sync settings as a text file (*.txt)</string>
           </property>
           <property name="text">
            <string>Save Settings</string>
@@ -3221,7 +3221,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
         <item row="2" column="2">
          <widget class="QPushButton" name="sync_upload_button">
           <property name="toolTip">
-           <string>Upload the new sync configuration to the LED driver.</string>
+           <string>Upload the new sync settings to the LED driver.</string>
           </property>
           <property name="text">
            <string>Upload to Driver</string>
@@ -5141,28 +5141,28 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="configure_ch_merge_3_button_group"/>
-  <buttongroup name="sync_confocal_line_input_button_group"/>
-  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
-  <buttongroup name="sync_output_button_group"/>
-  <buttongroup name="configure_indication_group"/>
-  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
-  <buttongroup name="configure_ch_merge_2_button_group"/>
-  <buttongroup name="sync_digital_trigger_button_group"/>
-  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
-  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
-  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
-  <buttongroup name="main_channel_button_group"/>
   <buttongroup name="configure_ext_fan_button_group"/>
-  <buttongroup name="main_toggle_control_group"/>
+  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
   <buttongroup name="configure_ch_merge_4_button_group"/>
-  <buttongroup name="configure_pushbutton_LED_button_group"/>
-  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
-  <buttongroup name="sync_confocal_scan_mode_button_group"/>
-  <buttongroup name="main_intensity_button_group"/>
-  <buttongroup name="sync_analog_led_channel_button_group"/>
-  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
   <buttongroup name="configure_ch_merge_1_button_group"/>
+  <buttongroup name="sync_confocal_line_input_button_group"/>
+  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
+  <buttongroup name="sync_analog_led_channel_button_group"/>
+  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
+  <buttongroup name="sync_confocal_scan_mode_button_group"/>
+  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
+  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
+  <buttongroup name="main_intensity_button_group"/>
+  <buttongroup name="main_channel_button_group"/>
+  <buttongroup name="configure_indication_group"/>
   <buttongroup name="sync_analog_input_channel_button_group"/>
+  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
+  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
+  <buttongroup name="main_toggle_control_group"/>
+  <buttongroup name="sync_output_button_group"/>
+  <buttongroup name="sync_digital_trigger_button_group"/>
+  <buttongroup name="configure_pushbutton_LED_button_group"/>
+  <buttongroup name="configure_ch_merge_2_button_group"/>
+  <buttongroup name="configure_ch_merge_3_button_group"/>
  </buttongroups>
 </ui>

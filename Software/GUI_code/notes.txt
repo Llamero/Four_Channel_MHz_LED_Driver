@@ -6,25 +6,48 @@ while(true) digitalWrite(LED_BUILTIN, HIGH);
 Restore sequence_buffer[0] and sequence_buffer[1] after stream receive and send events
 Populate status struct on driver initialization
 
-Add limit lines to plots
-
-Relock configure on upload
+Add limit lines to plots  - Fault @ 60°C
 
 Remove port from list if connection no longer works
 
-Use ADC to monitor LED current when on external analog
+Add option to disable updates to sync Serial? --------------------------------------------------------------------
 
-Add option to disable updates to sync Serial?
+On COnfig uplaod - conditionally report second pop-up if LED state was changed to also re-upload sync.
 
-If current limit is changed also update sync
+Warning: LED settings were changed.  The sync settings ned to be re-uploaded to apply these settings.  Would you like to upload the sync settings now?
 
-*Warn user if seq percent exceeds 100% but allow it?
+Warn user if seq percent exceeds 100% but allow it? -----------------------------------------------------------
 
-Add restore defualts option
+Add restore defaults option
 
-Have status events exit to main loop for processing to prevent deep recursion?
+Add option to change font size. ------------------------------------------------------------------------------------
 
-Add option to change font size.
+Describe Serial by C++ and Python encoding?---------------------------------------------------------------------
+
+Have Seq table tooltips inform user on type of data conversion
+
+Record time and name of sequence file different levels of granularity - start and stop
+Set logging granualtiy like "Set measurement" option on Image J, where people change choose state changes they want to log, GUI,
+ checks if those states changed and logs
+
+Header option - each time a file change event happens - logs file at start of log that reports full 
+also log names of Config and sync and seq files, and track file changes  - format config - sync - seq.
+Save as individual time stamped files
+
+
+Send a dedicated upload packet with response byte for state  - this tells GUI when to save new GUI states and what parts to save
+
+
+Fix Fault temp tooltip - back to warn
+
+Header with Config and Sync files
+Default to logging folder in driver file path
+Start and stop with check 
+Put logging status in status window
+
+
+
+
 
 
 
