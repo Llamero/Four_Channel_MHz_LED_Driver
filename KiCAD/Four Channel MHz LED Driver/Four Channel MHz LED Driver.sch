@@ -573,19 +573,6 @@ Wire Wire Line
 Connection ~ 5550 2550
 Wire Wire Line
 	5550 2550 5650 2550
-$Comp
-L Custom_parts:8P8C_Shielded_x4 J3
-U 1 1 5F5922AC
-P 9350 5900
-F 0 "J3" H 9400 6550 50  0000 R CNN
-F 1 "8P8C_Shielded_x4" H 9700 6450 50  0000 R CNN
-F 2 "Custom Footprints:RJ45_x4-RJSSE-5380-04" V 9350 5925 50  0001 C CNN
-F 3 "https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/rjsse538004.pdf" V 9350 5925 50  0001 C CNN
-F 4 "Amphenol ICC (Commercial Products)" H 9350 5900 50  0001 C CNN "Manufacturer"
-F 5 "RJSSE-5380-04" H 9350 5900 50  0001 C CNN "Part #"
-	1    9350 5900
-	-1   0    0    -1  
-$EndComp
 Text Label 11150 1850 2    50   ~ 0
 Interline_PWM
 Text Label 11150 2450 2    50   ~ 0
@@ -865,37 +852,16 @@ F 5 "TKH45P5R00FE-TR" H 9950 8650 50  0001 C CNN "Part #"
 	1    9950 8650
 	-1   0    0    -1  
 $EndComp
-Text Label 8950 5600 2    50   ~ 0
-Vin
 $Comp
 L power:GND #PWR087
 U 1 1 5F6F3BA1
-P 9350 6400
-F 0 "#PWR087" H 9350 6150 50  0001 C CNN
-F 1 "GND" H 9600 6350 50  0000 R CNN
-F 2 "" H 9350 6400 50  0001 C CNN
-F 3 "" H 9350 6400 50  0001 C CNN
-	1    9350 6400
-	1    0    0    -1  
-$EndComp
-Text Label 8950 5800 2    50   ~ 0
-Vin
-Text Label 8950 6000 2    50   ~ 0
-Vin
-Text Label 8950 6200 2    50   ~ 0
-Vin
-$Comp
-L Relay_SolidState:ASSR-1218 U11
-U 1 1 5F827B60
-P 8100 5550
-F 0 "U11" H 7800 5550 50  0000 C CNN
-F 1 "ASSR-1218" H 8100 5784 50  0001 C CNN
-F 2 "Custom Footprints:SSR-SO-4_7.6x3.6mm_P2.54mm" H 7900 5350 50  0001 L CIN
-F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=61844&prodName=TLP3555A" H 8100 5550 50  0001 L CNN
-F 4 "Toshiba Semiconductor and Storage" H 8100 5550 50  0001 C CNN "Manufacturer"
-F 5 "TLP3555A(TP1,F" H 8100 5550 50  0001 C CNN "Part #"
-	1    8100 5550
-	1    0    0    -1  
+P 10150 5400
+F 0 "#PWR087" H 10150 5150 50  0001 C CNN
+F 1 "GND" H 10250 5250 50  0000 R CNN
+F 2 "" H 10150 5400 50  0001 C CNN
+F 3 "" H 10150 5400 50  0001 C CNN
+	1    10150 5400
+	-1   0    0    1   
 $EndComp
 Wire Wire Line
 	1550 4400 1550 3850
@@ -906,77 +872,10 @@ Wire Wire Line
 Connection ~ 1550 3850
 Wire Wire Line
 	1550 3850 1550 3300
-Text Label 8400 5650 0    50   ~ 0
-LED-
-Text Label 8400 5950 0    50   ~ 0
-LED-
-Text Label 8400 6250 0    50   ~ 0
-LED-
-Text Label 8400 6550 0    50   ~ 0
-LED-
-Wire Wire Line
-	8950 5500 8400 5500
-Wire Wire Line
-	8400 5500 8400 5450
-Wire Wire Line
-	8950 5700 8400 5700
-Wire Wire Line
-	8400 5700 8400 5750
-Wire Wire Line
-	8950 5900 8650 5900
-Wire Wire Line
-	8650 5900 8650 6050
-Wire Wire Line
-	8650 6050 8400 6050
-Wire Wire Line
-	8400 6350 8650 6350
-Wire Wire Line
-	8650 6350 8650 6100
-Wire Wire Line
-	8650 6100 8950 6100
 Text Label 1750 2750 0    50   ~ 0
 LED-
 Text Label 9750 7850 0    50   ~ 0
 LED-
-$Comp
-L Relay_SolidState:ASSR-1218 U10
-U 1 1 5F89A743
-P 8100 5850
-F 0 "U10" H 7800 5850 50  0000 C CNN
-F 1 "ASSR-1218" H 8100 6084 50  0001 C CNN
-F 2 "Custom Footprints:SSR-SO-4_7.6x3.6mm_P2.54mm" H 7900 5650 50  0001 L CIN
-F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=61844&prodName=TLP3555A" H 8100 5850 50  0001 L CNN
-F 4 "Toshiba Semiconductor and Storage" H 8100 5850 50  0001 C CNN "Manufacturer"
-F 5 "TLP3555A(TP1,F" H 8100 5850 50  0001 C CNN "Part #"
-	1    8100 5850
-	1    0    0    -1  
-$EndComp
-$Comp
-L Relay_SolidState:ASSR-1218 U9
-U 1 1 5F89BDE1
-P 8100 6150
-F 0 "U9" H 7800 6150 50  0000 C CNN
-F 1 "ASSR-1218" H 8100 6384 50  0001 C CNN
-F 2 "Custom Footprints:SSR-SO-4_7.6x3.6mm_P2.54mm" H 7900 5950 50  0001 L CIN
-F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=61844&prodName=TLP3555A" H 8100 6150 50  0001 L CNN
-F 4 "Toshiba Semiconductor and Storage" H 8100 6150 50  0001 C CNN "Manufacturer"
-F 5 "TLP3555A(TP1,F" H 8100 6150 50  0001 C CNN "Part #"
-	1    8100 6150
-	1    0    0    -1  
-$EndComp
-$Comp
-L Relay_SolidState:ASSR-1218 U8
-U 1 1 5F89CB25
-P 8100 6450
-F 0 "U8" H 7800 6450 50  0000 C CNN
-F 1 "ASSR-1218" H 8100 6250 50  0001 C CNN
-F 2 "Custom Footprints:SSR-SO-4_7.6x3.6mm_P2.54mm" H 7900 6250 50  0001 L CIN
-F 3 "https://toshiba.semicon-storage.com/info/docget.jsp?did=61844&prodName=TLP3555A" H 8100 6450 50  0001 L CNN
-F 4 "Toshiba Semiconductor and Storage" H 8100 6450 50  0001 C CNN "Manufacturer"
-F 5 "TLP3555A(TP1,F" H 8100 6450 50  0001 C CNN "Part #"
-	1    8100 6450
-	1    0    0    -1  
-$EndComp
 Text Label 2650 10750 0    50   ~ 0
 external_analog
 $Comp
@@ -1052,69 +951,17 @@ Text Label 11150 1550 2    50   ~ 0
 Relay3
 Text Label 11150 1450 2    50   ~ 0
 Relay4
-Text Label 7300 5450 2    50   ~ 0
-Relay1
-Text Label 7300 5750 2    50   ~ 0
-Relay2
-Text Label 7300 6050 2    50   ~ 0
-Relay3
-Text Label 7300 6350 2    50   ~ 0
-Relay4
-$Comp
-L power:GND #PWR080
-U 1 1 5F5748CA
-P 7800 6550
-F 0 "#PWR080" H 7800 6300 50  0001 C CNN
-F 1 "GND" H 7900 6400 50  0000 R CNN
-F 2 "" H 7800 6550 50  0001 C CNN
-F 3 "" H 7800 6550 50  0001 C CNN
-	1    7800 6550
-	0    1    1    0   
-$EndComp
-$Comp
-L power:GND #PWR079
-U 1 1 5F57606F
-P 7800 6250
-F 0 "#PWR079" H 7800 6000 50  0001 C CNN
-F 1 "GND" H 7900 6100 50  0000 R CNN
-F 2 "" H 7800 6250 50  0001 C CNN
-F 3 "" H 7800 6250 50  0001 C CNN
-	1    7800 6250
-	0    1    1    0   
-$EndComp
-$Comp
-L power:GND #PWR078
-U 1 1 5F5763E2
-P 7800 5950
-F 0 "#PWR078" H 7800 5700 50  0001 C CNN
-F 1 "GND" H 7900 5800 50  0000 R CNN
-F 2 "" H 7800 5950 50  0001 C CNN
-F 3 "" H 7800 5950 50  0001 C CNN
-	1    7800 5950
-	0    1    1    0   
-$EndComp
-$Comp
-L power:GND #PWR077
-U 1 1 5F576860
-P 7800 5650
-F 0 "#PWR077" H 7800 5400 50  0001 C CNN
-F 1 "GND" H 7900 5500 50  0000 R CNN
-F 2 "" H 7800 5650 50  0001 C CNN
-F 3 "" H 7800 5650 50  0001 C CNN
-	1    7800 5650
-	0    1    1    0   
-$EndComp
 $Comp
 L Device:R_Pack04_Split RN4
 U 1 1 5F577F14
-P 7450 5450
-F 0 "RN4" V 7350 5450 50  0000 C CNN
-F 1 "200" V 7450 5450 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0612" V 7725 5450 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7450 5450 50  0001 C CNN
-F 4 "Yageo" V 7450 5450 50  0001 C CNN "Manufacturer"
-F 5 "YC164-JR-07200RL" V 7450 5450 50  0001 C CNN "Part #"
-	1    7450 5450
+P 7150 6300
+F 0 "RN4" V 7050 6300 50  0000 C CNN
+F 1 "200" V 7150 6300 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0612" V 7425 6300 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7150 6300 50  0001 C CNN
+F 4 "Yageo" V 7150 6300 50  0001 C CNN "Manufacturer"
+F 5 "YC164-JR-07200RL" V 7150 6300 50  0001 C CNN "Part #"
+	1    7150 6300
 	0    1    1    0   
 $EndComp
 $Comp
@@ -1404,14 +1251,6 @@ Text Label 13450 2050 0    50   ~ 0
 SCL0
 Text Label 13450 2150 0    50   ~ 0
 SDA0
-Text Label 8950 5500 2    50   ~ 0
-LED4-
-Text Label 8950 6100 2    50   ~ 0
-LED1-
-Text Label 8950 5900 2    50   ~ 0
-LED2-
-Text Label 8950 5700 2    50   ~ 0
-LED3-
 Text Label 13450 2950 0    50   ~ 0
 internal_analog
 Connection ~ 9750 8750
@@ -2542,10 +2381,6 @@ Wire Notes Line
 	11800 7000 6700 7000
 Text Notes 10850 750  0    118  ~ 0
 Teensy 3.6 180 MHz Microcontroller
-Wire Notes Line
-	9800 7000 9800 4750
-Wire Notes Line
-	9800 4750 500  4750
 Wire Wire Line
 	1200 2750 1550 2750
 Text Label 650  2750 2    50   ~ 0
@@ -3109,55 +2944,45 @@ F 3 "" H 5450 9350 50  0001 C CNN
 	1    5450 9350
 	0    1    1    0   
 $EndComp
-Text Notes 6800 5150 0    118  ~ 0
-LED Solid-State Relay 4x1 Mux\n\n
 $Comp
 L Device:R_Pack04_Split RN4
 U 2 1 5F913E0A
-P 7450 5750
-F 0 "RN4" V 7350 5750 50  0000 C CNN
-F 1 "200" V 7450 5750 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0612" V 7725 5750 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7450 5750 50  0001 C CNN
-F 4 "Yageo" V 7450 5750 50  0001 C CNN "Manufacturer"
-F 5 "YC164-JR-07200RL" V 7450 5750 50  0001 C CNN "Part #"
-	2    7450 5750
+P 7150 6100
+F 0 "RN4" V 7050 6100 50  0000 C CNN
+F 1 "200" V 7150 6100 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0612" V 7425 6100 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7150 6100 50  0001 C CNN
+F 4 "Yageo" V 7150 6100 50  0001 C CNN "Manufacturer"
+F 5 "YC164-JR-07200RL" V 7150 6100 50  0001 C CNN "Part #"
+	2    7150 6100
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split RN4
 U 3 1 5F917ED3
-P 7450 6050
-F 0 "RN4" V 7350 6050 50  0000 C CNN
-F 1 "200" V 7450 6050 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0612" V 7725 6050 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7450 6050 50  0001 C CNN
-F 4 "Yageo" V 7450 6050 50  0001 C CNN "Manufacturer"
-F 5 "YC164-JR-07200RL" V 7450 6050 50  0001 C CNN "Part #"
-	3    7450 6050
+P 7150 5700
+F 0 "RN4" V 7050 5700 50  0000 C CNN
+F 1 "200" V 7150 5700 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0612" V 7425 5700 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7150 5700 50  0001 C CNN
+F 4 "Yageo" V 7150 5700 50  0001 C CNN "Manufacturer"
+F 5 "YC164-JR-07200RL" V 7150 5700 50  0001 C CNN "Part #"
+	3    7150 5700
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split RN4
 U 4 1 5F918827
-P 7450 6350
-F 0 "RN4" V 7350 6350 50  0000 C CNN
-F 1 "200" V 7450 6350 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0612" V 7725 6350 50  0001 C CNN
-F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7450 6350 50  0001 C CNN
-F 4 "Yageo" V 7450 6350 50  0001 C CNN "Manufacturer"
-F 5 "YC164-JR-07200RL" V 7450 6350 50  0001 C CNN "Part #"
-	4    7450 6350
+P 7150 5300
+F 0 "RN4" V 7050 5300 50  0000 C CNN
+F 1 "200" V 7150 5300 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0612" V 7425 5300 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 7150 5300 50  0001 C CNN
+F 4 "Yageo" V 7150 5300 50  0001 C CNN "Manufacturer"
+F 5 "YC164-JR-07200RL" V 7150 5300 50  0001 C CNN "Part #"
+	4    7150 5300
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	7600 5450 7800 5450
-Wire Wire Line
-	7600 5750 7800 5750
-Wire Wire Line
-	7600 6050 7800 6050
-Wire Wire Line
-	7600 6350 7800 6350
 $Comp
 L Mechanical:MountingHole_Pad H2
 U 1 1 5F5C58BF
@@ -3489,4 +3314,209 @@ Text Label 11100 10950 2    50   ~ 0
 Over_temp_alarm2
 Text Label 11100 10850 2    50   ~ 0
 Over_temp_alarm1
+$Comp
+L Custom_parts:EL7457CSZ-T7 U13
+U 1 1 60A7B93A
+P 7850 5400
+F 0 "U13" H 7875 5515 50  0000 C CNN
+F 1 "EL7457CSZ-T7" H 7875 5424 50  0000 C CNN
+F 2 "Custom Footprints:EL7457CS" H 7850 5400 50  0001 L BNN
+F 3 "https://rocelec.widen.net/view/pdf/c2zkd9yjaz/INSLS10003-1.pdf?t.download=true&u=5oefqw" H 7850 5400 50  0001 L BNN
+F 4 "Intersil" H 7850 5400 50  0001 C CNN "Manufacturer"
+F 5 "EL7457CS" H 7850 5400 50  0001 C CNN "Part #"
+	1    7850 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0109
+U 1 1 60A82987
+P 7450 5900
+F 0 "#PWR0109" H 7450 5650 50  0001 C CNN
+F 1 "GND" V 7450 5800 50  0000 R CNN
+F 2 "" H 7450 5900 50  0001 C CNN
+F 3 "" H 7450 5900 50  0001 C CNN
+	1    7450 5900
+	0    1    1    0   
+$EndComp
+Text Label 7050 5500 2    50   ~ 0
+12V
+Text Label 8300 5500 0    50   ~ 0
+12V
+Text Label 8300 5900 0    50   ~ 0
+12V
+$Comp
+L power:GND #PWR0110
+U 1 1 60ADDF95
+P 8300 6200
+F 0 "#PWR0110" H 8300 5950 50  0001 C CNN
+F 1 "GND" H 8350 6050 50  0000 R CNN
+F 2 "" H 8300 6200 50  0001 C CNN
+F 3 "" H 8300 6200 50  0001 C CNN
+	1    8300 6200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7450 5800 7450 5900
+Connection ~ 7450 5900
+$Comp
+L Custom_parts:SI9933CDY-T1-GE3 U8
+U 1 1 60B8B425
+P 8600 5500
+F 0 "U8" H 9050 5757 60  0000 C CNN
+F 1 "IRF9358TRPBF" H 9050 5651 60  0000 C CNN
+F 2 "Package_SO:SO-8_3.9x4.9mm_P1.27mm" H 9050 5100 60  0001 C CNN
+F 3 "https://www.infineon.com/dgdl/irf9358pbf.pdf?fileId=5546d462533600a4015356114ffa1da5" H 9050 5651 60  0001 C CNN
+F 4 "Infineon Technologies" H 8600 5500 50  0001 C CNN "Manufacturer"
+F 5 "IRF9358TRPBF" H 8600 5500 50  0001 C CNN "Part #"
+	1    8600 5500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7300 6100 7450 6100
+Wire Wire Line
+	7300 6300 7450 6300
+Wire Wire Line
+	7450 6300 7450 6200
+Wire Wire Line
+	7300 5700 7450 5700
+Text Label 8300 5150 2    50   ~ 0
+Vin
+Wire Wire Line
+	8300 5600 8600 5600
+Wire Wire Line
+	8300 5700 8450 5700
+Wire Wire Line
+	8450 5700 8450 5800
+Wire Wire Line
+	8450 5800 8600 5800
+Wire Wire Line
+	8300 6100 8400 6100
+Wire Wire Line
+	8400 6100 8400 6250
+Wire Wire Line
+	8400 6250 8600 6250
+Wire Wire Line
+	8600 6050 8450 6050
+Wire Wire Line
+	8450 6050 8450 6000
+Wire Wire Line
+	8450 6000 8300 6000
+Text Label 9750 6300 2    50   ~ 0
+LED-
+Text Label 9750 6100 2    50   ~ 0
+LED-
+Text Label 9750 5900 2    50   ~ 0
+LED-
+Text Label 9750 5700 2    50   ~ 0
+LED-
+Wire Wire Line
+	9500 5600 9500 5500
+Wire Wire Line
+	9500 5700 9500 5800
+$Comp
+L Custom_parts:8P8C_Shielded_x4 J3
+U 1 1 5F5922AC
+P 10150 5900
+F 0 "J3" H 10200 6550 50  0000 R CNN
+F 1 "8P8C_Shielded_x4" H 10500 6450 50  0000 R CNN
+F 2 "Custom Footprints:RJ45_x4-RJSSE-5380-04" V 10150 5925 50  0001 C CNN
+F 3 "https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/rjsse538004.pdf" V 10150 5925 50  0001 C CNN
+F 4 "Amphenol ICC (Commercial Products)" H 10150 5900 50  0001 C CNN "Manufacturer"
+F 5 "RJSSE-5380-04" H 10150 5900 50  0001 C CNN "Part #"
+	1    10150 5900
+	-1   0    0    1   
+$EndComp
+Text Notes 6950 5150 0    118  ~ 0
+LED High-Side Gate Driver 4x1 Mux\n\n
+Wire Notes Line
+	10550 4750 10550 7000
+Wire Notes Line
+	500  4750 10550 4750
+Text Label 7000 6100 2    50   ~ 0
+Relay2
+Text Label 7000 5700 2    50   ~ 0
+Relay3
+Text Label 7000 5300 2    50   ~ 0
+Relay4
+Text Label 7000 6300 2    50   ~ 0
+Relay1
+$Comp
+L Custom_parts:SI9933CDY-T1-GE3 U9
+U 1 1 60F9794B
+P 8600 5950
+F 0 "U9" H 9050 5450 60  0000 C CNN
+F 1 "IRF9358TRPBF" H 9050 5550 60  0000 C CNN
+F 2 "Package_SO:SO-8_3.9x4.9mm_P1.27mm" H 9050 5550 60  0001 C CNN
+F 3 "https://www.infineon.com/dgdl/irf9358pbf.pdf?fileId=5546d462533600a4015356114ffa1da5" H 9050 6101 60  0001 C CNN
+F 4 "Infineon Technologies" H 8600 5950 50  0001 C CNN "Manufacturer"
+F 5 "IRF9358TRPBF" H 8600 5950 50  0001 C CNN "Part #"
+	1    8600 5950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NC_Small JP6
+U 1 1 60FB9D20
+P 8400 5150
+F 0 "JP6" H 8450 5050 50  0000 R CNN
+F 1 "Jumper_NC_Small" V 8355 5103 50  0001 R CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" H 8400 5150 50  0001 C CNN
+F 3 "https://www.keyelco.com/userAssets/file/M65p54.pdf" H 8400 5150 50  0001 C CNN
+F 4 "Keystone Electronics" V 8400 5150 50  0001 C CNN "Manufacturer"
+F 5 "5108" V 8400 5150 50  0001 C CNN "Part #"
+	1    8400 5150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R7
+U 1 1 610245F7
+P 7150 5500
+F 0 "R7" V 7250 5450 50  0000 L CNN
+F 1 "10k" V 7150 5400 50  0000 L CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" H 7150 5500 50  0001 C CNN
+F 3 "https://www.bourns.com/docs/product-datasheets/CRxxxxx.pdf" H 7150 5500 50  0001 C CNN
+F 4 "Bourns Inc." H 7150 5500 50  0001 C CNN "Manufacturer"
+F 5 "CR1206-FX-1002ELF" H 7150 5500 50  0001 C CNN "Part #"
+	1    7150 5500
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	7450 5600 7300 5600
+Wire Wire Line
+	7300 5600 7300 5500
+Wire Wire Line
+	7300 5500 7250 5500
+Wire Wire Line
+	7300 5300 7450 5300
+Wire Wire Line
+	7450 5300 7450 5500
+Text Label 8500 5150 0    50   ~ 0
+Vcc
+Text Label 8600 5500 2    50   ~ 0
+Vcc
+Text Label 8600 5700 2    50   ~ 0
+Vcc
+Text Label 8600 5950 2    50   ~ 0
+Vcc
+Text Label 8600 6150 2    50   ~ 0
+Vcc
+Wire Wire Line
+	9500 5950 9500 6000
+Wire Wire Line
+	9500 6150 9500 6200
+Wire Wire Line
+	9750 5600 9500 5600
+Connection ~ 9500 5600
+Wire Wire Line
+	9750 5800 9500 5800
+Connection ~ 9500 5800
+Wire Wire Line
+	9750 6000 9500 6000
+Connection ~ 9500 6000
+Wire Wire Line
+	9500 6000 9500 6050
+Wire Wire Line
+	9750 6200 9500 6200
+Connection ~ 9500 6200
+Wire Wire Line
+	9500 6200 9500 6250
 $EndSCHEMATC
