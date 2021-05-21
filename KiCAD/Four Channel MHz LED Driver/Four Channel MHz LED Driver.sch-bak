@@ -855,12 +855,12 @@ $EndComp
 $Comp
 L power:GND #PWR087
 U 1 1 5F6F3BA1
-P 10150 5300
-F 0 "#PWR087" H 10150 5050 50  0001 C CNN
-F 1 "GND" H 10250 5150 50  0000 R CNN
-F 2 "" H 10150 5300 50  0001 C CNN
-F 3 "" H 10150 5300 50  0001 C CNN
-	1    10150 5300
+P 10150 5400
+F 0 "#PWR087" H 10150 5150 50  0001 C CNN
+F 1 "GND" H 10250 5250 50  0000 R CNN
+F 2 "" H 10150 5400 50  0001 C CNN
+F 3 "" H 10150 5400 50  0001 C CNN
+	1    10150 5400
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
@@ -3401,13 +3401,13 @@ Wire Wire Line
 	8450 6050 8450 6000
 Wire Wire Line
 	8450 6000 8300 6000
+Text Label 9750 6300 2    50   ~ 0
+LED-
 Text Label 9750 6100 2    50   ~ 0
 LED-
 Text Label 9750 5900 2    50   ~ 0
 LED-
 Text Label 9750 5700 2    50   ~ 0
-LED-
-Text Label 9750 5500 2    50   ~ 0
 LED-
 Wire Wire Line
 	9500 5600 9500 5500
@@ -3416,38 +3416,18 @@ Wire Wire Line
 $Comp
 L Custom_parts:8P8C_Shielded_x4 J3
 U 1 1 5F5922AC
-P 10150 5800
-F 0 "J3" H 10200 6450 50  0000 R CNN
-F 1 "8P8C_Shielded_x4" H 10500 6350 50  0000 R CNN
-F 2 "Custom Footprints:RJ45_x4-RJSSE-5380-04" V 10150 5825 50  0001 C CNN
-F 3 "https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/rjsse538004.pdf" V 10150 5825 50  0001 C CNN
-F 4 "Amphenol ICC (Commercial Products)" H 10150 5800 50  0001 C CNN "Manufacturer"
-F 5 "RJSSE-5380-04" H 10150 5800 50  0001 C CNN "Part #"
-	1    10150 5800
+P 10150 5900
+F 0 "J3" H 10200 6550 50  0000 R CNN
+F 1 "8P8C_Shielded_x4" H 10500 6450 50  0000 R CNN
+F 2 "Custom Footprints:RJ45_x4-RJSSE-5380-04" V 10150 5925 50  0001 C CNN
+F 3 "https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/rjsse538004.pdf" V 10150 5925 50  0001 C CNN
+F 4 "Amphenol ICC (Commercial Products)" H 10150 5900 50  0001 C CNN "Manufacturer"
+F 5 "RJSSE-5380-04" H 10150 5900 50  0001 C CNN "Part #"
+	1    10150 5900
 	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	9500 5950 9500 6000
-Wire Wire Line
-	9500 6150 9500 6200
 Text Notes 6950 5150 0    118  ~ 0
 LED High-Side Gate Driver 4x1 Mux\n\n
-Wire Wire Line
-	9750 5600 9500 5600
-Connection ~ 9500 5600
-Wire Wire Line
-	9750 5800 9500 5800
-Connection ~ 9500 5800
-Wire Wire Line
-	9750 6000 9500 6000
-Connection ~ 9500 6000
-Wire Wire Line
-	9500 6000 9500 6050
-Wire Wire Line
-	9750 6200 9500 6200
-Connection ~ 9500 6200
-Wire Wire Line
-	9500 6200 9500 6250
 Wire Notes Line
 	10550 4750 10550 7000
 Wire Notes Line
@@ -3519,4 +3499,24 @@ Text Label 8600 5950 2    50   ~ 0
 Vcc
 Text Label 8600 6150 2    50   ~ 0
 Vcc
+Wire Wire Line
+	9500 5950 9500 6000
+Wire Wire Line
+	9500 6150 9500 6200
+Wire Wire Line
+	9750 5600 9500 5600
+Connection ~ 9500 5600
+Wire Wire Line
+	9750 5800 9500 5800
+Connection ~ 9500 5800
+Wire Wire Line
+	9750 6000 9500 6000
+Connection ~ 9500 6000
+Wire Wire Line
+	9500 6000 9500 6050
+Wire Wire Line
+	9750 6200 9500 6200
+Connection ~ 9500 6200
+Wire Wire Line
+	9500 6200 9500 6250
 $EndSCHEMATC
