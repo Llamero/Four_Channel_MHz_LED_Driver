@@ -1,4 +1,4 @@
-19470367037295859
+19475235067994972
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -48867,6 +48867,20 @@ Custom Footprints
 3
 3
 Custom Footprints
+4928TR-LED
+4928TR-1
+Undefined or Miscellaneous
+0
+6
+2
+Custom Footprints
+4928TR-power
+4928TR-1
+Undefined or Miscellaneous
+0
+6
+2
+Custom Footprints
 ADP7118AUJZ-R7
 
 
@@ -49033,6 +49047,13 @@ NF-A9_with_standoffs_and_bolts
 
 0
 3
+1
+Custom Footprints
+NF-A9_with_standoffs_and_bolts_high_current
+
+
+0
+4
 1
 Custom Footprints
 P091S-FC20BR10K
