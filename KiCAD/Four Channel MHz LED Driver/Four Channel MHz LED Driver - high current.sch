@@ -308,7 +308,7 @@ U 1 1 5F4EBD0C
 P 1650 2750
 F 0 "JP1" H 1650 2850 50  0000 C CNN
 F 1 "LED wire" H 1650 2950 50  0000 C CNN
-F 2 "Custom Footprints:4928TR-LED" H 1650 2750 50  0001 C CNN
+F 2 "Custom Footprints:4928TR-power" H 1650 2750 50  0001 C CNN
 F 3 "~" H 1650 2750 50  0001 C CNN
 	1    1650 2750
 	1    0    0    -1  
@@ -807,8 +807,6 @@ Text Label 13450 1950 0    50   ~ 0
 External_5V_PWM3
 Text Label 7300 10650 2    50   ~ 0
 5V_fan_PWM
-Wire Wire Line
-	7300 10650 7400 10650
 NoConn ~ 7400 10450
 Connection ~ 9750 8550
 Wire Wire Line
@@ -1310,19 +1308,6 @@ F 1 "GND" H 10000 8800 50  0000 R CNN
 F 2 "" H 9950 8950 50  0001 C CNN
 F 3 "" H 9950 8950 50  0001 C CNN
 	1    9950 8950
-	1    0    0    -1  
-$EndComp
-$Comp
-L Motor:Fan_4pin M1
-U 1 1 603842B5
-P 7700 10550
-F 0 "M1" H 7858 10646 50  0000 L CNN
-F 1 "Fan_4pin" H 7858 10555 50  0000 L CNN
-F 2 "Custom Footprints:4-pin_fan_SMD" H 7700 10560 50  0001 C CNN
-F 3 "http://suddendocs.samtec.com/catalog_english/tsm.pdf" H 7700 10560 50  0001 C CNN
-F 4 "Samtec Inc." H 7700 10550 50  0001 C CNN "Manufacturer"
-F 5 "TSM-104-02-L-SV" H 7700 10550 50  0001 C CNN "Part #"
-	1    7700 10550
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -2472,9 +2457,9 @@ P 1750 1250
 F 0 "J4" H 1850 1400 50  0000 C CNN
 F 1 "Conn_01x03_Male" H 2000 1050 50  0000 C CNN
 F 2 "Custom Footprints:Ref_only" H 1750 1250 50  0001 C CNN
-F 3 "http://www.adam-tech.com/downloader.php?p=PH1RB-XX-UA.pdf" H 1750 1250 50  0001 C CNN
-F 4 "Adam Tech" H 1750 1250 50  0001 C CNN "Manufacturer"
-F 5 "PH1RB-03-UA" H 1750 1250 50  0001 C CNN "Part #"
+F 3 "http://suddendocs.samtec.com/prints/tsm-1xx-xx-xx-sv-xx-xxx-xx-footprint.pdf" H 1750 1250 50  0001 C CNN
+F 4 "Samtec Inc." H 1750 1250 50  0001 C CNN "Manufacturer"
+F 5 "TSM-103-01-L-SV" H 1750 1250 50  0001 C CNN "Part #"
 	1    1750 1250
 	1    0    0    -1  
 $EndComp
@@ -2498,9 +2483,9 @@ P 2800 1250
 F 0 "J5" H 2700 1400 50  0000 L CNN
 F 1 "Conn_01x03_Female" H 2350 1050 50  0000 L CNN
 F 2 "Custom Footprints:Ref_only" H 2800 1250 50  0001 C CNN
-F 3 "https://www.samtec.com/products/ssm-103-l-sv-lc" H 2800 1250 50  0001 C CNN
-F 4 "Samtec Inc." H 2800 1250 50  0001 C CNN "Manufacturer"
-F 5 "SSM-103-L-SV" H 2800 1250 50  0001 C CNN "Part #"
+F 3 "" H 2800 1250 50  0001 C CNN
+F 4 "" H 2800 1250 50  0001 C CNN "Manufacturer"
+F 5 "" H 2800 1250 50  0001 C CNN "Part #"
 	1    2800 1250
 	1    0    0    -1  
 $EndComp
@@ -3028,104 +3013,6 @@ F 5 "EEE-FK1C752SV" H 950 3400 50  0001 C CNN "Part #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H8
-U 1 1 5F8759D2
-P 8850 7650
-F 0 "H8" H 8650 7750 50  0000 L CNN
-F 1 "MountingHole_Pad" H 8950 7608 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 8850 7650 50  0001 C CNN
-F 3 "https://www.we-online.com/catalog/datasheet/971100244.pdf" H 8850 7650 50  0001 C CNN
-F 4 "Würth Elektronik" H 8850 7650 50  0001 C CNN "Manufacturer"
-F 5 "971100244" H 8850 7650 50  0001 C CNN "Part #"
-	1    8850 7650
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR0104
-U 1 1 5F866AAD
-P 8850 7550
-F 0 "#PWR0104" H 8850 7300 50  0001 C CNN
-F 1 "GND" H 8950 7400 50  0000 R CNN
-F 2 "" H 8850 7550 50  0001 C CNN
-F 3 "" H 8850 7550 50  0001 C CNN
-	1    8850 7550
-	-1   0    0    1   
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H7
-U 1 1 5F866AA7
-P 8700 7650
-F 0 "H7" H 8800 7750 50  0000 L CNN
-F 1 "MountingHole_Pad" H 8800 7608 50  0001 L CNN
-F 2 "Custom Footprints:M2_standoff_ground_via" H 8700 7650 50  0001 C CNN
-F 3 "https://www.we-online.com/catalog/datasheet/971100244.pdf" H 8700 7650 50  0001 C CNN
-F 4 "Würth Elektronik" H 8700 7650 50  0001 C CNN "Manufacturer"
-F 5 "971100244" H 8700 7650 50  0001 C CNN "Part #"
-	1    8700 7650
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR0103
-U 1 1 5F866A9F
-P 8700 7550
-F 0 "#PWR0103" H 8700 7300 50  0001 C CNN
-F 1 "GND" H 8800 7400 50  0000 R CNN
-F 2 "" H 8700 7550 50  0001 C CNN
-F 3 "" H 8700 7550 50  0001 C CNN
-	1    8700 7550
-	-1   0    0    1   
-$EndComp
-Text Notes 7000 7400 0    118  ~ 0
-Constant Current LED Driver with Compensation\n\n
-$Comp
-L Mechanical:MountingHole_Pad H10
-U 1 1 5F6A187E
-P 7400 10200
-F 0 "H10" H 7200 10300 50  0000 L CNN
-F 1 "MountingHole_Pad" H 7500 10158 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 7400 10200 50  0001 C CNN
-F 3 "https://www.we-online.com/catalog/datasheet/971100244.pdf" H 7400 10200 50  0001 C CNN
-F 4 "Würth Elektronik" H 7400 10200 50  0001 C CNN "Manufacturer"
-F 5 "971100244" H 7400 10200 50  0001 C CNN "Part #"
-	1    7400 10200
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR0105
-U 1 1 5F6A1884
-P 7400 10100
-F 0 "#PWR0105" H 7400 9850 50  0001 C CNN
-F 1 "GND" H 7500 9950 50  0000 R CNN
-F 2 "" H 7400 10100 50  0001 C CNN
-F 3 "" H 7400 10100 50  0001 C CNN
-	1    7400 10100
-	-1   0    0    1   
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H9
-U 1 1 5F6A188C
-P 7250 10200
-F 0 "H9" H 7350 10300 50  0000 L CNN
-F 1 "MountingHole_Pad" H 7350 10158 50  0001 L CNN
-F 2 "Custom Footprints:Ref_only" H 7250 10200 50  0001 C CNN
-F 3 "https://www.we-online.com/catalog/datasheet/971100244.pdf" H 7250 10200 50  0001 C CNN
-F 4 "Würth Elektronik" H 7250 10200 50  0001 C CNN "Manufacturer"
-F 5 "971100244" H 7250 10200 50  0001 C CNN "Part #"
-	1    7250 10200
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR0106
-U 1 1 5F6A1892
-P 7250 10100
-F 0 "#PWR0106" H 7250 9850 50  0001 C CNN
-F 1 "GND" H 7350 9950 50  0000 R CNN
-F 2 "" H 7250 10100 50  0001 C CNN
-F 3 "" H 7250 10100 50  0001 C CNN
-	1    7250 10100
-	-1   0    0    1   
-$EndComp
-$Comp
 L power:GND #PWR0107
 U 1 1 5F6CC322
 P 4300 9700
@@ -3148,60 +3035,6 @@ F 3 "" H 5450 9650 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 NoConn ~ 5450 9550
-$Comp
-L Mechanical:Heatsink HS4
-U 1 1 5F786851
-P 9950 11100
-F 0 "HS4" H 9850 11400 50  0000 L CNN
-F 1 "HS-PCB" H 9800 11300 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 9962 11100 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 9962 11100 50  0001 C CNN
-F 4 "Wakefield-Vette" H 9950 11100 50  0001 C CNN "Manufacturer"
-F 5 "910-40-2-23-2-B-0" H 9950 11100 50  0001 C CNN "Part #"
-	1    9950 11100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:Heatsink HS3
-U 1 1 5F7863E9
-P 9650 11100
-F 0 "HS3" H 9550 11400 50  0000 L CNN
-F 1 "HS-PCB" H 9500 11300 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 9662 11100 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 9662 11100 50  0001 C CNN
-F 4 "Wakefield-Vette" H 9650 11100 50  0001 C CNN "Manufacturer"
-F 5 "910-40-2-23-2-B-0" H 9650 11100 50  0001 C CNN "Part #"
-	1    9650 11100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:Heatsink HS1
-U 1 1 5F785F9D
-P 9050 11100
-F 0 "HS1" H 8950 11400 50  0000 L CNN
-F 1 "HS-PCB" H 8900 11300 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 9062 11100 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 9062 11100 50  0001 C CNN
-F 4 "Wakefield-Vette" H 9050 11100 50  0001 C CNN "Manufacturer"
-F 5 "910-40-2-23-2-B-0" H 9050 11100 50  0001 C CNN "Part #"
-	1    9050 11100
-	1    0    0    -1  
-$EndComp
-Text Notes 9300 10700 0    59   ~ 0
-Heatsinks
-$Comp
-L Mechanical:Heatsink HS2
-U 1 1 602A56B6
-P 9350 11100
-F 0 "HS2" H 9250 11400 50  0000 L CNN
-F 1 "HS-PCB" H 9200 11300 50  0000 L CNN
-F 2 "Custom Footprints:Heatsink_910-40-2-23-2-B-0" H 9362 11100 50  0001 C CNN
-F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/910_Series_Pin.pdf" H 9362 11100 50  0001 C CNN
-F 4 "Wakefield-Vette" H 9350 11100 50  0001 C CNN "Manufacturer"
-F 5 "910-40-2-23-2-B-0" H 9350 11100 50  0001 C CNN "Part #"
-	1    9350 11100
-	1    0    0    -1  
-$EndComp
 $Comp
 L Custom_parts:CPT-2016-75-SMT-TR BZ1
 U 1 1 5FE01F50
@@ -3348,4 +3181,132 @@ Text Label 7200 6250 2    50   ~ 0
 Relay1
 Text Label 7200 5650 2    50   ~ 0
 Relay4
+Text Notes 9300 10700 0    59   ~ 0
+Heatsinks
+$Comp
+L Mechanical:Heatsink HS1
+U 1 1 5F786851
+P 9550 11100
+F 0 "HS1" H 9450 11400 50  0000 L CNN
+F 1 "HS-PCB" H 9400 11300 50  0000 L CNN
+F 2 "Custom Footprints:Ref_only" H 9562 11100 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/Aluminum_Flashback.pdf" H 9562 11100 50  0001 C CNN
+F 4 "Wakefield-Vette" H 9550 11100 50  0001 C CNN "Manufacturer"
+F 5 "125562" H 9550 11100 50  0001 C CNN "Part #"
+	1    9550 11100
+	1    0    0    -1  
+$EndComp
+Text Notes 7000 7400 0    118  ~ 0
+Constant Current LED Driver with Compensation\n\n
+$Comp
+L power:GND #PWR0106
+U 1 1 5F6A1892
+P 9000 7550
+F 0 "#PWR0106" H 9000 7300 50  0001 C CNN
+F 1 "GND" H 9100 7400 50  0000 R CNN
+F 2 "" H 9000 7550 50  0001 C CNN
+F 3 "" H 9000 7550 50  0001 C CNN
+	1    9000 7550
+	-1   0    0    1   
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H9
+U 1 1 5F6A188C
+P 9000 7650
+F 0 "H9" H 9100 7750 50  0000 L CNN
+F 1 "MountingHole_Pad" H 9100 7608 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 9000 7650 50  0001 C CNN
+F 3 "https://www.we-online.com/catalog/datasheet/971100244.pdf" H 9000 7650 50  0001 C CNN
+F 4 "Würth Elektronik" H 9000 7650 50  0001 C CNN "Manufacturer"
+F 5 "971100244" H 9000 7650 50  0001 C CNN "Part #"
+	1    9000 7650
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0105
+U 1 1 5F6A1884
+P 9150 7550
+F 0 "#PWR0105" H 9150 7300 50  0001 C CNN
+F 1 "GND" H 9250 7400 50  0000 R CNN
+F 2 "" H 9150 7550 50  0001 C CNN
+F 3 "" H 9150 7550 50  0001 C CNN
+	1    9150 7550
+	-1   0    0    1   
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H10
+U 1 1 5F6A187E
+P 9150 7650
+F 0 "H10" H 8950 7750 50  0000 L CNN
+F 1 "MountingHole_Pad" H 9250 7608 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 9150 7650 50  0001 C CNN
+F 3 "https://www.we-online.com/catalog/datasheet/971100244.pdf" H 9150 7650 50  0001 C CNN
+F 4 "Würth Elektronik" H 9150 7650 50  0001 C CNN "Manufacturer"
+F 5 "971100244" H 9150 7650 50  0001 C CNN "Part #"
+	1    9150 7650
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7300 10650 7400 10650
+$Comp
+L Motor:Fan_4pin M1
+U 1 1 603842B5
+P 7700 10550
+F 0 "M1" H 7858 10646 50  0000 L CNN
+F 1 "Fan_4pin" H 7858 10555 50  0000 L CNN
+F 2 "Custom Footprints:4-pin_fan_SMD" H 7700 10560 50  0001 C CNN
+F 3 "http://suddendocs.samtec.com/catalog_english/tsm.pdf" H 7700 10560 50  0001 C CNN
+F 4 "Samtec Inc." H 7700 10550 50  0001 C CNN "Manufacturer"
+F 5 "TSM-104-02-L-SV" H 7700 10550 50  0001 C CNN "Part #"
+	1    7700 10550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H8
+U 1 1 5F8759D2
+P 7400 10200
+F 0 "H8" H 7200 10300 50  0000 L CNN
+F 1 "MountingHole_Pad" H 7500 10158 50  0001 L CNN
+F 2 "Custom Footprints:Ref_only" H 7400 10200 50  0001 C CNN
+F 3 "https://www.we-online.com/catalog/datasheet/971100244.pdf" H 7400 10200 50  0001 C CNN
+F 4 "Würth Elektronik" H 7400 10200 50  0001 C CNN "Manufacturer"
+F 5 "971100244" H 7400 10200 50  0001 C CNN "Part #"
+	1    7400 10200
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0104
+U 1 1 5F866AAD
+P 7400 10100
+F 0 "#PWR0104" H 7400 9850 50  0001 C CNN
+F 1 "GND" H 7500 9950 50  0000 R CNN
+F 2 "" H 7400 10100 50  0001 C CNN
+F 3 "" H 7400 10100 50  0001 C CNN
+	1    7400 10100
+	-1   0    0    1   
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H7
+U 1 1 5F866AA7
+P 7250 10200
+F 0 "H7" H 7350 10300 50  0000 L CNN
+F 1 "MountingHole_Pad" H 7350 10158 50  0001 L CNN
+F 2 "Custom Footprints:M4_bolt_hole" H 7250 10200 50  0001 C CNN
+F 3 "https://www.we-online.com/catalog/datasheet/971100244.pdf" H 7250 10200 50  0001 C CNN
+F 4 "Würth Elektronik" H 7250 10200 50  0001 C CNN "Manufacturer"
+F 5 "971100244" H 7250 10200 50  0001 C CNN "Part #"
+	1    7250 10200
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0103
+U 1 1 5F866A9F
+P 7250 10100
+F 0 "#PWR0103" H 7250 9850 50  0001 C CNN
+F 1 "GND" H 7350 9950 50  0000 R CNN
+F 2 "" H 7250 10100 50  0001 C CNN
+F 3 "" H 7250 10100 50  0001 C CNN
+	1    7250 10100
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC
