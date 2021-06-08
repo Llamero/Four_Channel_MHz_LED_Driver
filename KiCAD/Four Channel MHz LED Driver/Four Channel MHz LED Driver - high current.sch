@@ -540,19 +540,6 @@ F 3 "" H 9750 8750 50  0001 C CNN
 	1    9750 8750
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:R_Small R5
-U 1 1 5F599BF8
-P 10150 8650
-F 0 "R5" H 10200 8700 50  0000 L CNN
-F 1 "5" H 10200 8600 50  0000 L CNN
-F 2 "Custom Footprints:TO-252_resistor" H 10150 8650 50  0001 C CNN
-F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 10150 8650 50  0001 C CNN
-F 4 "Ohmite" H 10150 8650 50  0001 C CNN "Manufacturer"
-F 5 "TKH45P5R00FE-TR" H 10150 8650 50  0001 C CNN "Part #"
-	1    10150 8650
-	-1   0    0    -1  
-$EndComp
 Text Notes 5200 3100 0    50   ~ 0
 small negative \nreference voltage \nso that LED turns \noff with op-amp \ninput bias
 $Comp
@@ -812,42 +799,16 @@ Connection ~ 9750 8550
 Wire Wire Line
 	9750 8250 9750 8550
 $Comp
-L Device:R_Small R6
-U 1 1 5F57BF27
-P 10350 8650
-F 0 "R6" H 10400 8700 50  0000 L CNN
-F 1 "5" H 10400 8600 50  0000 L CNN
-F 2 "Custom Footprints:TO-252_resistor" H 10350 8650 50  0001 C CNN
-F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 10350 8650 50  0001 C CNN
-F 4 "Ohmite" H 10350 8650 50  0001 C CNN "Manufacturer"
-F 5 "TKH45P5R00FE-TR" H 10350 8650 50  0001 C CNN "Part #"
-	1    10350 8650
-	-1   0    0    -1  
-$EndComp
-$Comp
 L Device:R_Small R3
 U 1 1 5F57C598
 P 9750 8650
 F 0 "R3" H 9800 8700 50  0000 L CNN
-F 1 "5" H 9800 8600 50  0000 L CNN
-F 2 "Custom Footprints:TO-252_resistor" H 9750 8650 50  0001 C CNN
-F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 9750 8650 50  0001 C CNN
-F 4 "Ohmite" H 9750 8650 50  0001 C CNN "Manufacturer"
-F 5 "TKH45P5R00FE-TR" H 9750 8650 50  0001 C CNN "Part #"
+F 1 "0.2" H 9800 8600 50  0000 L CNN
+F 2 "Custom Footprints:Rideon_PFS35_resistor" H 9750 8650 50  0001 C CNN
+F 3 "https://riedon.com/media/pdf/PFS35.pdf" H 9750 8650 50  0001 C CNN
+F 4 "Riedon" H 9750 8650 50  0001 C CNN "Manufacturer"
+F 5 "PFS35-0R2F1" H 9750 8650 50  0001 C CNN "Part #"
 	1    9750 8650
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R4
-U 1 1 5F57CB17
-P 9950 8650
-F 0 "R4" H 10000 8700 50  0000 L CNN
-F 1 "5" H 10000 8600 50  0000 L CNN
-F 2 "Custom Footprints:TO-252_resistor" H 9950 8650 50  0001 C CNN
-F 3 "http://www.ohmite.com/assets/docs/res_tkh.pdf?r=false" H 9950 8650 50  0001 C CNN
-F 4 "Ohmite" H 9950 8650 50  0001 C CNN "Manufacturer"
-F 5 "TKH45P5R00FE-TR" H 9950 8650 50  0001 C CNN "Part #"
-	1    9950 8650
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -1240,21 +1201,8 @@ Text Label 13450 2950 0    50   ~ 0
 internal_analog
 Connection ~ 9750 8750
 Wire Wire Line
-	9750 8550 9950 8550
-Wire Wire Line
 	9750 8750 9950 8750
-Connection ~ 9950 8550
 Connection ~ 9950 8750
-Wire Wire Line
-	9950 8550 10150 8550
-Wire Wire Line
-	9950 8750 10150 8750
-Connection ~ 10150 8550
-Wire Wire Line
-	10150 8550 10350 8550
-Connection ~ 10150 8750
-Wire Wire Line
-	10150 8750 10350 8750
 $Comp
 L Device:R_Small R2
 U 1 1 5F6690CD
@@ -3308,5 +3256,57 @@ F 2 "" H 7250 10100 50  0001 C CNN
 F 3 "" H 7250 10100 50  0001 C CNN
 	1    7250 10100
 	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9750 8550 9950 8550
+Wire Wire Line
+	9950 8750 10150 8750
+$Comp
+L Device:R_Small R4
+U 1 1 60D436CE
+P 9950 8650
+F 0 "R4" H 10000 8700 50  0000 L CNN
+F 1 "0.2" H 10000 8600 50  0000 L CNN
+F 2 "Custom Footprints:Rideon_PFS35_resistor" H 9950 8650 50  0001 C CNN
+F 3 "https://riedon.com/media/pdf/PFS35.pdf" H 9950 8650 50  0001 C CNN
+F 4 "Riedon" H 9950 8650 50  0001 C CNN "Manufacturer"
+F 5 "PFS35-0R2F1" H 9950 8650 50  0001 C CNN "Part #"
+	1    9950 8650
+	-1   0    0    -1  
+$EndComp
+Connection ~ 9950 8550
+Wire Wire Line
+	9950 8550 10150 8550
+$Comp
+L Device:R_Small R5
+U 1 1 60D43C91
+P 10150 8650
+F 0 "R5" H 10200 8700 50  0000 L CNN
+F 1 "0.2" H 10200 8600 50  0000 L CNN
+F 2 "Custom Footprints:Rideon_PFS35_resistor" H 10150 8650 50  0001 C CNN
+F 3 "https://riedon.com/media/pdf/PFS35.pdf" H 10150 8650 50  0001 C CNN
+F 4 "Riedon" H 10150 8650 50  0001 C CNN "Manufacturer"
+F 5 "PFS35-0R2F1" H 10150 8650 50  0001 C CNN "Part #"
+	1    10150 8650
+	-1   0    0    -1  
+$EndComp
+Connection ~ 10150 8550
+Wire Wire Line
+	10150 8550 10350 8550
+Connection ~ 10150 8750
+Wire Wire Line
+	10150 8750 10350 8750
+$Comp
+L Device:R_Small R6
+U 1 1 60D44267
+P 10350 8650
+F 0 "R6" H 10400 8700 50  0000 L CNN
+F 1 "0.2" H 10400 8600 50  0000 L CNN
+F 2 "Custom Footprints:Rideon_PFS35_resistor" H 10350 8650 50  0001 C CNN
+F 3 "https://riedon.com/media/pdf/PFS35.pdf" H 10350 8650 50  0001 C CNN
+F 4 "Riedon" H 10350 8650 50  0001 C CNN "Manufacturer"
+F 5 "PFS35-0R2F1" H 10350 8650 50  0001 C CNN "Part #"
+	1    10350 8650
+	-1   0    0    -1  
 $EndComp
 $EndSCHEMATC
