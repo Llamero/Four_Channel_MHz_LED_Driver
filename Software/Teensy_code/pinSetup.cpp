@@ -65,7 +65,7 @@ void pinSetup::configurePins(){
 
     ////// OUTPUT /////
     for(a=0; a<sizeof(RELAY)/sizeof(RELAY[0]); a++) pinMode(RELAY[a], OUTPUT);
-    for(a=0; a<sizeof(RELAY)/sizeof(RELAY[0]); a++) digitalWriteFast(RELAY[a], LOW);
+    for(a=0; a<sizeof(RELAY)/sizeof(RELAY[0]); a++) digitalWriteFast(RELAY[a], !RELAY_CLOSE);
     pinMode(INTERLINE, OUTPUT);
     digitalWriteFast(INTERLINE, LOW);
     analogWriteFrequency(INTERLINE, LED_FREQ); //Set output PWM freq to optimal CPU fan freq, also sets analog_select PWM freq (on same timer): https://www.pjrc.com/teensy/td_pulse.html

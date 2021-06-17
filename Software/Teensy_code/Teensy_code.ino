@@ -304,7 +304,7 @@ void setup() {
   ledOff(); //For safety, boot to LED off
   for(size_t a=0; a==status_index; a++) checkStatus(); //Perform full round of status checks to get starting status of driver
   
-  digitalWriteFast(pin.RELAY[3], HIGH);
+  digitalWriteFast(pin.RELAY[3], pin.RELAY_CLOSE);
   digitalWriteFast(pin.INTERLINE, LOW);
   digitalWriteFast(pin.ANALOG_SELECT, LOW);
   digitalWriteFast(pin.FAN_PWM, LOW);
@@ -844,8 +844,8 @@ void updateIntensity(){
   if(conf.c.led_active[current_status.s.led_channel]){ //Check if the channel is active
     if(current_status.s.led_channel != active_channel){ //Change relays if specified
       for(int a=0; a<4; a++){ //Toggle relays
-        if(conf.c.led_channel[a] == current_status.s.led_channel) digitalWriteFast(pin.RELAY[a], HIGH);
-        else digitalWriteFast(pin.RELAY[a], LOW);
+        if(conf.c.led_channel[a] == current_status.s.led_channel) digitalWriteFast(pin.RELAY[a], pin.RELAY_CLOSE);
+        else digitalWriteFast(pin.RELAY[a], !pin.RELAY_CLOSE);
       }
       active_channel = current_status.s.led_channel;
     }
@@ -935,7 +935,7 @@ void thermalFault(){
     pinMode(pin.INTERLINE, OUTPUT); //Disconnect interline pin from PWM mux
     digitalWriteFast(pin.INTERLINE, LOW); //Apply negative voltage input to op-amp
     analogWrite(pin.DAC0, 0); //Set analog input to 0
-    for(size_t b=0; b<sizeof(pin.RELAY)/sizeof(pin.RELAY[0]); b++) digitalWriteFast(pin.RELAY[b], LOW); //Open all relays
+    for(size_t b=0; b<sizeof(pin.RELAY)/sizeof(pin.RELAY[0]); b++) digitalWriteFast(pin.RELAY[b], !pin.RELAY_CLOSE); //Open all relays
 
     //Send fault warning to GUI
     temp_size = sprintf(temp_buffer, "-Warning: Fault temperature has been exceeded.  The driver will turn off LED until below warning temperature.");
@@ -950,7 +950,7 @@ void thermalFault(){
       fault_active = false; //If all temps are below warn temp, clear the fault
       for(int a=0; a<3; a++) if(current_status.s.temp[a] <= conf.c.warn_temp[a]) fault_active = true; //If any temp is above warn temp, maintain fault      
     }
-    digitalWriteFast(pin.RELAY[current_status.s.led_channel], HIGH); //Close corresponding relay
+    digitalWriteFast(pin.RELAY[current_status.s.led_channel], pin.RELAY_CLOSE); //Close corresponding relay
     delay(10); //Wait for SSR to fully close (needs 2 ms max)
 
     //Restore driver to previous state
