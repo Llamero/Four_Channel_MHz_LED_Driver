@@ -1666,8 +1666,8 @@ U 6 1 5F641B3C
 P 4600 7650
 F 0 "RN3" V 4700 7650 50  0000 C CNN
 F 1 "4.7k" V 4600 7650 50  0000 C CNN
-F 2 "Custom Footprints:2506_modified_concave_8x_R-pack" V 5075 7650 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4600 7650 50  0001 C CNN
+F 2 "Custom Footprints:1506-EXB-2HV472JV-for_2_oz_pour" V 5075 7650 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 4600 7650 50  0001 C CNN
 F 4 "CTS Resistor Products" V 4600 7650 50  0001 C CNN "Manufacturer"
 F 5 "742C163472JP" V 4600 7650 50  0001 C CNN "Part #"
 	6    4600 7650
@@ -1679,8 +1679,8 @@ U 7 1 5F642C83
 P 4600 7500
 F 0 "RN3" V 4500 7500 50  0000 C CNN
 F 1 "4.7k" V 4600 7500 50  0000 C CNN
-F 2 "Custom Footprints:2506_modified_concave_8x_R-pack" V 5075 7500 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4600 7500 50  0001 C CNN
+F 2 "Custom Footprints:1506-EXB-2HV472JV-for_2_oz_pour" V 5075 7500 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 4600 7500 50  0001 C CNN
 F 4 "CTS Resistor Products" V 4600 7500 50  0001 C CNN "Manufacturer"
 F 5 "742C163472JP" V 4600 7500 50  0001 C CNN "Part #"
 	7    4600 7500
@@ -1692,8 +1692,8 @@ U 3 1 5F6410FE
 P 2000 7950
 F 0 "RN3" V 1900 7950 50  0000 C CNN
 F 1 "4.7k" V 2000 7950 50  0000 C CNN
-F 2 "Custom Footprints:2506_modified_concave_8x_R-pack" V 2475 7950 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 7950 50  0001 C CNN
+F 2 "Custom Footprints:1506-EXB-2HV472JV-for_2_oz_pour" V 2475 7950 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 2000 7950 50  0001 C CNN
 F 4 "CTS Resistor Products" V 2000 7950 50  0001 C CNN "Manufacturer"
 F 5 "742C163472JP" V 2000 7950 50  0001 C CNN "Part #"
 	3    2000 7950
@@ -1705,8 +1705,8 @@ U 2 1 5F6407AE
 P 2000 8150
 F 0 "RN3" V 1900 8150 50  0000 C CNN
 F 1 "4.7k" V 2000 8150 50  0000 C CNN
-F 2 "Custom Footprints:2506_modified_concave_8x_R-pack" V 2475 8150 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 8150 50  0001 C CNN
+F 2 "Custom Footprints:1506-EXB-2HV472JV-for_2_oz_pour" V 2475 8150 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 2000 8150 50  0001 C CNN
 F 4 "CTS Resistor Products" V 2000 8150 50  0001 C CNN "Manufacturer"
 F 5 "742C163472JP" V 2000 8150 50  0001 C CNN "Part #"
 	2    2000 8150
@@ -1718,8 +1718,8 @@ U 5 1 5F648A31
 P 4600 7850
 F 0 "RN3" V 4700 7850 50  0000 C CNN
 F 1 "4.7k" V 4600 7850 50  0000 C CNN
-F 2 "Custom Footprints:2506_modified_concave_8x_R-pack" V 5075 7850 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 4600 7850 50  0001 C CNN
+F 2 "Custom Footprints:1506-EXB-2HV472JV-for_2_oz_pour" V 5075 7850 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 4600 7850 50  0001 C CNN
 F 4 "CTS Resistor Products" V 4600 7850 50  0001 C CNN "Manufacturer"
 F 5 "742C163472JP" V 4600 7850 50  0001 C CNN "Part #"
 	5    4600 7850
@@ -1731,10 +1731,10 @@ U 1 1 5F607B24
 P 2000 8350
 F 0 "RN3" V 1900 8350 50  0000 C CNN
 F 1 "4.7k" V 2000 8350 50  0000 C CNN
-F 2 "Custom Footprints:2506_modified_concave_8x_R-pack" V 2475 8350 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 8350 50  0001 C CNN
-F 4 "CTS Resistor Products" V 2000 8350 50  0001 C CNN "Manufacturer"
-F 5 "742C163472JP" V 2000 8350 50  0001 C CNN "Part #"
+F 2 "Custom Footprints:1506-EXB-2HV472JV-for_2_oz_pour" V 2475 8350 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 2000 8350 50  0001 C CNN
+F 4 "Panasonic Electronic Components" V 2000 8350 50  0001 C CNN "Manufacturer"
+F 5 "EXB-2HV472JV" V 2000 8350 50  0001 C CNN "Part #"
 	1    2000 8350
 	0    1    -1   0   
 $EndComp
@@ -2280,8 +2280,8 @@ U 8 1 5F643BA8
 P 2750 9200
 F 0 "RN3" V 2850 9200 50  0000 C CNN
 F 1 "4.7k" V 2750 9200 50  0000 C CNN
-F 2 "Custom Footprints:2506_modified_concave_8x_R-pack" V 3225 9200 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2750 9200 50  0001 C CNN
+F 2 "Custom Footprints:1506-EXB-2HV472JV-for_2_oz_pour" V 3225 9200 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 2750 9200 50  0001 C CNN
 F 4 "CTS Resistor Products" V 2750 9200 50  0001 C CNN "Manufacturer"
 F 5 "742C163472JP" V 2750 9200 50  0001 C CNN "Part #"
 	8    2750 9200
@@ -2794,8 +2794,8 @@ U 4 1 5F6416DB
 P 2000 7750
 F 0 "RN3" V 1900 7750 50  0000 C CNN
 F 1 "4.7k" V 2000 7750 50  0000 C CNN
-F 2 "Custom Footprints:2506_modified_concave_8x_R-pack" V 2475 7750 50  0001 C CNN
-F 3 "https://www.ctscorp.com/wp-content/uploads/74x.pdf" H 2000 7750 50  0001 C CNN
+F 2 "Custom Footprints:1506-EXB-2HV472JV-for_2_oz_pour" V 2475 7750 50  0001 C CNN
+F 3 "https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf" H 2000 7750 50  0001 C CNN
 F 4 "CTS Resistor Products" V 2000 7750 50  0001 C CNN "Manufacturer"
 F 5 "742C163472JP" V 2000 7750 50  0001 C CNN "Part #"
 	4    2000 7750
