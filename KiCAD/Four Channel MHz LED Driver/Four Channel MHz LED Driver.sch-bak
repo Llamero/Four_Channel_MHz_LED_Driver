@@ -3379,7 +3379,7 @@ Wire Wire Line
 	7450 6300 7450 6200
 Wire Wire Line
 	7300 5700 7450 5700
-Text Label 8300 5150 2    50   ~ 0
+Text Label 8700 5150 2    50   ~ 0
 Vin
 Wire Wire Line
 	8300 5600 8600 5600
@@ -3426,7 +3426,7 @@ F 5 "RJSSE-5380-04" H 10150 5900 50  0001 C CNN "Part #"
 	1    10150 5900
 	-1   0    0    1   
 $EndComp
-Text Notes 6950 5150 0    118  ~ 0
+Text Notes 7000 5150 0    118  ~ 0
 LED High-Side Gate Driver 4x1 Mux\n\n
 Wire Notes Line
 	10550 4750 10550 7000
@@ -3456,28 +3456,15 @@ $EndComp
 $Comp
 L Device:Jumper_NC_Small JP6
 U 1 1 60FB9D20
-P 8400 5150
-F 0 "JP6" H 8450 5050 50  0000 R CNN
-F 1 "Jumper_NC_Small" V 8355 5103 50  0001 R CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" H 8400 5150 50  0001 C CNN
-F 3 "https://www.keyelco.com/userAssets/file/M65p54.pdf" H 8400 5150 50  0001 C CNN
-F 4 "Keystone Electronics" V 8400 5150 50  0001 C CNN "Manufacturer"
-F 5 "5108" V 8400 5150 50  0001 C CNN "Part #"
-	1    8400 5150
+P 8800 5150
+F 0 "JP6" H 8850 5050 50  0000 R CNN
+F 1 "Jumper_NC_Small" V 8755 5103 50  0001 R CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" H 8800 5150 50  0001 C CNN
+F 3 "https://www.keyelco.com/userAssets/file/M65p54.pdf" H 8800 5150 50  0001 C CNN
+F 4 "Keystone Electronics" V 8800 5150 50  0001 C CNN "Manufacturer"
+F 5 "5108" V 8800 5150 50  0001 C CNN "Part #"
+	1    8800 5150
 	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R7
-U 1 1 610245F7
-P 7150 5500
-F 0 "R7" V 7250 5450 50  0000 L CNN
-F 1 "10k" V 7150 5400 50  0000 L CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" H 7150 5500 50  0001 C CNN
-F 3 "https://www.bourns.com/docs/product-datasheets/CRxxxxx.pdf" H 7150 5500 50  0001 C CNN
-F 4 "Bourns Inc." H 7150 5500 50  0001 C CNN "Manufacturer"
-F 5 "CR1206-FX-1002ELF" H 7150 5500 50  0001 C CNN "Part #"
-	1    7150 5500
-	0    -1   -1   0   
 $EndComp
 Wire Wire Line
 	7450 5600 7300 5600
@@ -3489,7 +3476,7 @@ Wire Wire Line
 	7300 5300 7450 5300
 Wire Wire Line
 	7450 5300 7450 5500
-Text Label 8500 5150 0    50   ~ 0
+Text Label 8900 5150 0    50   ~ 0
 Vcc
 Text Label 8600 5500 2    50   ~ 0
 Vcc
@@ -3519,4 +3506,41 @@ Wire Wire Line
 Connection ~ 9500 6200
 Wire Wire Line
 	9500 6200 9500 6250
+$Comp
+L Device:R_Small R7
+U 1 1 60A83AFB
+P 7150 5500
+F 0 "R7" V 7250 5450 50  0000 L CNN
+F 1 "12" V 7150 5450 50  0000 L CNN
+F 2 "Resistor_SMD:R_1210_3225Metric" H 7150 5500 50  0001 C CNN
+F 3 "https://www.seielect.com/catalog/sei-rmcf_rmcp.pdf" H 7150 5500 50  0001 C CNN
+F 4 "Stackpole Electronics Inc" H 7150 5500 50  0001 C CNN "Manufacturer"
+F 5 "RMCF1210JT12R0" H 7150 5500 50  0001 C CNN "Part #"
+	1    7150 5500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:C_Small C22
+U 1 1 60B50183
+P 8300 5400
+F 0 "C22" H 8100 5550 50  0000 L CNN
+F 1 "2.2uF" H 8000 5450 50  0000 L CNN
+F 2 "Custom Footprints:0508_Capacitor" H 8300 5400 50  0001 C CNN
+F 3 "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M" H 8300 5400 50  0001 C CNN
+F 4 "Taiyo Yuden" H 8300 5400 50  0001 C CNN "Manufacturer"
+F 5 "TWK212B7225MD-T" H 8300 5400 50  0001 C CNN "Part #"
+	1    8300 5400
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0111
+U 1 1 60B712E5
+P 8300 5300
+F 0 "#PWR0111" H 8300 5050 50  0001 C CNN
+F 1 "GND" H 8400 5150 50  0000 R CNN
+F 2 "" H 8300 5300 50  0001 C CNN
+F 3 "" H 8300 5300 50  0001 C CNN
+	1    8300 5300
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC

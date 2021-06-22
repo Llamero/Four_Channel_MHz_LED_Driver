@@ -3168,8 +3168,6 @@ F 3 "" H 8700 7550 50  0001 C CNN
 	1    8700 7550
 	-1   0    0    1   
 $EndComp
-Text Notes 7000 7400 0    118  ~ 0
-Constant Current LED Driver with Compensation\n\n
 $Comp
 L Mechanical:MountingHole_Pad H10
 U 1 1 5F6A187E
@@ -3543,4 +3541,6 @@ F 3 "" H 8300 5300 50  0001 C CNN
 	1    8300 5300
 	-1   0    0    1   
 $EndComp
+Text Notes 7000 7400 0    118  ~ 0
+Constant Current LED Driver with Compensation\n\n
 $EndSCHEMATC
