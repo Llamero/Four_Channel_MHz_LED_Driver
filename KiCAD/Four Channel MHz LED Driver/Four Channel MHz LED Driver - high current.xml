@@ -2,8 +2,8 @@
 <export version="D">
   <design>
     <source>C:\Users\Ben\Documents\GitHub\Four_Channel_MHz_LED_Driver\KiCAD\Four Channel MHz LED Driver\Four Channel MHz LED Driver - high current.sch</source>
-    <date>6/9/2021 12:46:58 PM</date>
-    <tool>Eeschema (5.1.6)-1</tool>
+    <date>8/12/2021 7:27:09 PM</date>
+    <tool>Eeschema (5.1.10)-1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
         <title/>
@@ -51,7 +51,7 @@
         <field name="Manufacturer">Murata Electronics</field>
         <field name="Part #">GRM31CR61E476ME44L</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F437161</tstamp>
     </comp>
@@ -63,7 +63,7 @@
         <field name="Manufacturer">Murata Electronics</field>
         <field name="Part #">GRM31CR61E476ME44L</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F47E382</tstamp>
     </comp>
@@ -75,7 +75,7 @@
         <field name="Manufacturer">Murata Electronics</field>
         <field name="Part #">GRM31CR61E476ME44L</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F488538</tstamp>
     </comp>
@@ -87,7 +87,7 @@
         <field name="Manufacturer">Murata Electronics</field>
         <field name="Part #">GRM31CR61E476ME44L</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F48D56B</tstamp>
     </comp>
@@ -95,7 +95,7 @@
       <value>LED wire</value>
       <footprint>Custom Footprints:4928TR-power</footprint>
       <datasheet>~</datasheet>
-      <libsource lib="Device" part="Jumper_NO_Small" description="Jumper, normally open, small symbol"/>
+      <libsource lib="" part="Jumper_NO_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F4EBD0C</tstamp>
     </comp>
@@ -107,7 +107,7 @@
         <field name="Manufacturer">Vishay Siliconix</field>
         <field name="Part #">SUM70060E-GE3</field>
       </fields>
-      <libsource lib="Device" part="Q_NMOS_GDS" description="N-MOSFET transistor, gate/drain/source"/>
+      <libsource lib="" part="Q_NMOS_GDS" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F44DFD5</tstamp>
     </comp>
@@ -131,7 +131,7 @@
         <field name="Manufacturer">KEMET</field>
         <field name="Part #">C0603C222K1RACTU</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F4739EC</tstamp>
     </comp>
@@ -143,7 +143,7 @@
         <field name="Manufacturer">Taiyo Yuden</field>
         <field name="Part #">TWK212B7225MD-T</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F487FD4</tstamp>
     </comp>
@@ -155,7 +155,7 @@
         <field name="Manufacturer">Taiyo Yuden</field>
         <field name="Part #">TWK212B7225MD-T</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F489B13</tstamp>
     </comp>
@@ -167,7 +167,7 @@
         <field name="Manufacturer">Würth Elektronik</field>
         <field name="Part #">824520581</field>
       </fields>
-      <libsource lib="Device" part="D_Zener_Small_ALT" description="Zener diode, small symbol, filled shape"/>
+      <libsource lib="" part="D_Zener_Small_ALT" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F4AC07B</tstamp>
     </comp>
@@ -179,7 +179,7 @@
         <field name="Manufacturer">Bourns Inc.</field>
         <field name="Part #">3224W-1-501E</field>
       </fields>
-      <libsource lib="Device" part="R_POT_TRIM" description="Trim-potentiometer"/>
+      <libsource lib="" part="R_POT_TRIM" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F4EFFEC</tstamp>
     </comp>
@@ -191,7 +191,7 @@
         <field name="Manufacturer">Bourns Inc.</field>
         <field name="Part #">3224W-1-501E</field>
       </fields>
-      <libsource lib="Device" part="R_POT_TRIM" description="Trim-potentiometer"/>
+      <libsource lib="" part="R_POT_TRIM" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F538265</tstamp>
     </comp>
@@ -203,7 +203,7 @@
         <field name="Manufacturer">Taiyo Yuden</field>
         <field name="Part #">TWK212B7225MD-T</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5FFBC02D</tstamp>
     </comp>
@@ -215,7 +215,7 @@
         <field name="Manufacturer">Taiyo Yuden</field>
         <field name="Part #">TWK212B7225MD-T</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5FFC2163</tstamp>
     </comp>
@@ -251,7 +251,7 @@
         <field name="Manufacturer">Riedon</field>
         <field name="Part #">PFS35-0R2F1</field>
       </fields>
-      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <libsource lib="" part="R_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F57C598</tstamp>
     </comp>
@@ -263,7 +263,7 @@
         <field name="Manufacturer">Panasonic Electronic Components</field>
         <field name="Part #">EEE-FK1C752SV</field>
       </fields>
-      <libsource lib="Device" part="CP1_Small" description="Polarized capacitor, small US symbol"/>
+      <libsource lib="" part="CP1_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F939007</tstamp>
     </comp>
@@ -347,7 +347,7 @@
         <field name="Manufacturer">Bourns Inc.</field>
         <field name="Part #">3310C-101-102L</field>
       </fields>
-      <libsource lib="Device" part="R_POT" description="Potentiometer"/>
+      <libsource lib="" part="R_POT" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F6EC7F7</tstamp>
     </comp>
@@ -383,7 +383,7 @@
         <field name="Manufacturer">Panasonic Electronic Components</field>
         <field name="Part #">EXB-2HV151JV</field>
       </fields>
-      <libsource lib="Device" part="R_Pack08_Split" description="8 resistor network, parallel topology, split"/>
+      <libsource lib="" part="R_Pack08_Split" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F9E09BB</tstamp>
     </comp>
@@ -395,7 +395,7 @@
         <field name="Manufacturer">Stackpole Electronics Inc</field>
         <field name="Part #">RMCF1210JT12R0</field>
       </fields>
-      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <libsource lib="" part="R_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F6690CD</tstamp>
     </comp>
@@ -407,7 +407,7 @@
         <field name="Manufacturer">Keystone Electronics</field>
         <field name="Part #">24354</field>
       </fields>
-      <libsource lib="Mechanical" part="MountingHole_Pad" description="Mounting Hole with connection"/>
+      <libsource lib="" part="MountingHole_Pad" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5FACF30E</tstamp>
     </comp>
@@ -419,7 +419,7 @@
         <field name="Manufacturer">Keystone Electronics</field>
         <field name="Part #">5104</field>
       </fields>
-      <libsource lib="Device" part="Jumper_NC_Small" description="Jumper, normally closed, small symbol"/>
+      <libsource lib="" part="Jumper_NC_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5FC8965B</tstamp>
     </comp>
@@ -431,7 +431,7 @@
         <field name="Manufacturer">Keystone Electronics</field>
         <field name="Part #">24354</field>
       </fields>
-      <libsource lib="Mechanical" part="MountingHole_Pad" description="Mounting Hole with connection"/>
+      <libsource lib="" part="MountingHole_Pad" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F5B6072</tstamp>
     </comp>
@@ -443,7 +443,7 @@
         <field name="Manufacturer">Keystone Electronics</field>
         <field name="Part #">24354</field>
       </fields>
-      <libsource lib="Mechanical" part="MountingHole_Pad" description="Mounting Hole with connection"/>
+      <libsource lib="" part="MountingHole_Pad" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F5C58B1</tstamp>
     </comp>
@@ -455,7 +455,7 @@
         <field name="Manufacturer">Keystone Electronics</field>
         <field name="Part #">24354</field>
       </fields>
-      <libsource lib="Mechanical" part="MountingHole_Pad" description="Mounting Hole with connection"/>
+      <libsource lib="" part="MountingHole_Pad" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F5D3AE2</tstamp>
     </comp>
@@ -467,7 +467,7 @@
         <field name="Manufacturer">Murata Electronics</field>
         <field name="Part #">GRM31CR61E476ME44L</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F7E985C</tstamp>
     </comp>
@@ -503,19 +503,19 @@
         <field name="Manufacturer">Keystone Electronics</field>
         <field name="Part #">5104</field>
       </fields>
-      <libsource lib="Device" part="Jumper_NC_Small" description="Jumper, normally closed, small symbol"/>
+      <libsource lib="" part="Jumper_NC_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F698386</tstamp>
     </comp>
     <comp ref="RN3">
       <value>4.7k</value>
-      <footprint>Custom Footprints:2506_modified_concave_8x_R-pack</footprint>
-      <datasheet>https://www.ctscorp.com/wp-content/uploads/74x.pdf</datasheet>
+      <footprint>Custom Footprints:1506-EXB-2HV472JV-for_2_oz_pour</footprint>
+      <datasheet>https://industrial.panasonic.com/cdbs/www-data/pdf/AOC0000/AOC0000C14.pdf</datasheet>
       <fields>
-        <field name="Manufacturer">CTS Resistor Products</field>
-        <field name="Part #">742C163472JP</field>
+        <field name="Manufacturer">Panasonic Electronic Components</field>
+        <field name="Part #">EXB-2HV472JV</field>
       </fields>
-      <libsource lib="Device" part="R_Pack08_Split" description="8 resistor network, parallel topology, split"/>
+      <libsource lib="" part="R_Pack08_Split" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F641B3C</tstamp>
     </comp>
@@ -527,7 +527,7 @@
         <field name="Manufacturer">Taiyo Yuden</field>
         <field name="Part #">TWK212B7225MD-T</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F730CC6</tstamp>
     </comp>
@@ -539,7 +539,7 @@
         <field name="Manufacturer">Murata Electronics</field>
         <field name="Part #">NCP18XM472J03RB</field>
       </fields>
-      <libsource lib="Device" part="Thermistor" description="Temperature dependent resistor"/>
+      <libsource lib="" part="Thermistor" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F78EA16</tstamp>
     </comp>
@@ -551,7 +551,7 @@
         <field name="Manufacturer">Murata Electronics</field>
         <field name="Part #">NCP18XM472J03RB</field>
       </fields>
-      <libsource lib="Device" part="Thermistor" description="Temperature dependent resistor"/>
+      <libsource lib="" part="Thermistor" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F76C793</tstamp>
     </comp>
@@ -587,7 +587,7 @@
         <field name="Manufacturer">Taiyo Yuden</field>
         <field name="Part #">TWK212B7225MD-T</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5FC38687</tstamp>
     </comp>
@@ -611,7 +611,7 @@
         <field name="Manufacturer">Keystone Electronics</field>
         <field name="Part #">5108</field>
       </fields>
-      <libsource lib="Device" part="Jumper_NC_Small" description="Jumper, normally closed, small symbol"/>
+      <libsource lib="" part="Jumper_NC_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F56E8CF</tstamp>
     </comp>
@@ -623,7 +623,7 @@
         <field name="Manufacturer">KOA Speer Electronics, Inc.</field>
         <field name="Part #">RK73Z2HTTE</field>
       </fields>
-      <libsource lib="Device" part="Jumper_NO_Small" description="Jumper, normally open, small symbol"/>
+      <libsource lib="" part="Jumper_NO_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F9F89CD</tstamp>
     </comp>
@@ -635,7 +635,7 @@
         <field name="Manufacturer">Murata Electronics</field>
         <field name="Part #">GRM31CR61E476ME44L</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5FB0146B</tstamp>
     </comp>
@@ -666,7 +666,7 @@
         <field name="Manufacturer">Pololu Corporation</field>
         <field name="Part #">2117</field>
       </fields>
-      <libsource lib="Regulator_Switching" part="R-78B1.2-2.0" description="2A Step-Down DC/DC-Regulator, 4.75-32V input, 1.2V fixed Output Voltage, LM78xx replacement, -40°C to +85°C, SIP3"/>
+      <libsource lib="" part="R-78B1.2-2.0" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F77BF57</tstamp>
     </comp>
@@ -678,7 +678,7 @@
         <field name="Manufacturer">ON Semiconductor</field>
         <field name="Part #">MM3Z4V7ST1G</field>
       </fields>
-      <libsource lib="Device" part="D_Zener" description="Zener diode"/>
+      <libsource lib="" part="D_Zener" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F67F87E</tstamp>
     </comp>
@@ -690,7 +690,7 @@
         <field name="Manufacturer">KEMET</field>
         <field name="Part #">C0603C222K1RACTU</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F47299E</tstamp>
     </comp>
@@ -714,7 +714,7 @@
         <field name="Manufacturer">Stackpole Electronics Inc</field>
         <field name="Part #">RMCF1210JT12R0</field>
       </fields>
-      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <libsource lib="" part="R_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F417AA2</tstamp>
     </comp>
@@ -726,7 +726,7 @@
         <field name="Manufacturer">Taiyo Yuden</field>
         <field name="Part #">TWK212B7225MD-T</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F414F68</tstamp>
     </comp>
@@ -746,7 +746,7 @@
       <value>Conn_01x02_Female</value>
       <footprint>Custom Footprints:4928TR-power</footprint>
       <datasheet>~</datasheet>
-      <libsource lib="Connector" part="Conn_01x02_Female" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <libsource lib="" part="Conn_01x02_Female" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F50593C</tstamp>
     </comp>
@@ -758,7 +758,7 @@
         <field name="Manufacturer">Murata Electronics</field>
         <field name="Part #">GRM31CR61E476ME44L</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F37216A</tstamp>
     </comp>
@@ -770,7 +770,7 @@
         <field name="Manufacturer">Murata Electronics</field>
         <field name="Part #">GRM31CR61E476ME44L</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F370F72</tstamp>
     </comp>
@@ -782,7 +782,7 @@
         <field name="Manufacturer">KEMET</field>
         <field name="Part #">C0603C222K1RACTU</field>
       </fields>
-      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <libsource lib="" part="C_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F36C3BB</tstamp>
     </comp>
@@ -814,7 +814,7 @@
       <value>CC license</value>
       <footprint>Custom Footprints:Creative_commons_license</footprint>
       <datasheet>~</datasheet>
-      <libsource lib="Graphic" part="Logo_Open_Hardware_Small" description="Open Hardware logo, small"/>
+      <libsource lib="" part="Logo_Open_Hardware_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5FF69CC3</tstamp>
     </comp>
@@ -822,7 +822,7 @@
       <value>OSHW Logo</value>
       <footprint>Symbol:OSHW-Logo2_7.3x6mm_SilkScreen</footprint>
       <datasheet>~</datasheet>
-      <libsource lib="Graphic" part="Logo_Open_Hardware_Small" description="Open Hardware logo, small"/>
+      <libsource lib="" part="Logo_Open_Hardware_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5FF6B1EE</tstamp>
     </comp>
@@ -834,7 +834,7 @@
         <field name="Manufacturer">Keystone Electronics</field>
         <field name="Part #">24354</field>
       </fields>
-      <libsource lib="Mechanical" part="MountingHole_Pad" description="Mounting Hole with connection"/>
+      <libsource lib="" part="MountingHole_Pad" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F5C58BF</tstamp>
     </comp>
@@ -846,7 +846,7 @@
         <field name="Manufacturer">Keystone Electronics</field>
         <field name="Part #">24354</field>
       </fields>
-      <libsource lib="Mechanical" part="MountingHole_Pad" description="Mounting Hole with connection"/>
+      <libsource lib="" part="MountingHole_Pad" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F5A6FC2</tstamp>
     </comp>
@@ -858,7 +858,7 @@
         <field name="Manufacturer">Yageo</field>
         <field name="Part #">YC164-JR-07200RL</field>
       </fields>
-      <libsource lib="Device" part="R_Pack04_Split" description="4 resistor network, parallel topology, split"/>
+      <libsource lib="" part="R_Pack04_Split" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F7535AC</tstamp>
     </comp>
@@ -870,7 +870,7 @@
         <field name="Manufacturer">Panasonic Electronic Components</field>
         <field name="Part #">EEE-FK1C752SV</field>
       </fields>
-      <libsource lib="Device" part="CP1_Small" description="Polarized capacitor, small US symbol"/>
+      <libsource lib="" part="CP1_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F9399C1</tstamp>
     </comp>
@@ -882,7 +882,7 @@
         <field name="Manufacturer">Panasonic Electronic Components</field>
         <field name="Part #">EEE-FK1C752SV</field>
       </fields>
-      <libsource lib="Device" part="CP1_Small" description="Polarized capacitor, small US symbol"/>
+      <libsource lib="" part="CP1_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F41CA67</tstamp>
     </comp>
@@ -906,7 +906,7 @@
         <field name="Manufacturer">Yageo</field>
         <field name="Part #">YC164-JR-07200RL</field>
       </fields>
-      <libsource lib="Device" part="R_Pack04_Split" description="4 resistor network, parallel topology, split"/>
+      <libsource lib="" part="R_Pack04_Split" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F918827</tstamp>
     </comp>
@@ -918,7 +918,7 @@
         <field name="Manufacturer">Wakefield-Vette</field>
         <field name="Part #">125562</field>
       </fields>
-      <libsource lib="Mechanical" part="Heatsink" description="Heatsink"/>
+      <libsource lib="" part="Heatsink" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F786851</tstamp>
     </comp>
@@ -930,7 +930,7 @@
         <field name="Manufacturer">Würth Elektronik</field>
         <field name="Part #">971100244</field>
       </fields>
-      <libsource lib="Mechanical" part="MountingHole_Pad" description="Mounting Hole with connection"/>
+      <libsource lib="" part="MountingHole_Pad" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F6A188C</tstamp>
     </comp>
@@ -942,7 +942,7 @@
         <field name="Manufacturer">Würth Elektronik</field>
         <field name="Part #">971100244</field>
       </fields>
-      <libsource lib="Mechanical" part="MountingHole_Pad" description="Mounting Hole with connection"/>
+      <libsource lib="" part="MountingHole_Pad" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F6A187E</tstamp>
     </comp>
@@ -954,7 +954,7 @@
         <field name="Manufacturer">Samtec Inc.</field>
         <field name="Part #">TSM-104-02-L-SV</field>
       </fields>
-      <libsource lib="Motor" part="Fan_4pin" description="Fan, tacho output, PWM input, 4-pin connector"/>
+      <libsource lib="" part="Fan_4pin" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>603842B5</tstamp>
     </comp>
@@ -966,7 +966,7 @@
         <field name="Manufacturer">Würth Elektronik</field>
         <field name="Part #">971100244</field>
       </fields>
-      <libsource lib="Mechanical" part="MountingHole_Pad" description="Mounting Hole with connection"/>
+      <libsource lib="" part="MountingHole_Pad" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F8759D2</tstamp>
     </comp>
@@ -978,7 +978,7 @@
         <field name="Manufacturer">Würth Elektronik</field>
         <field name="Part #">971100244</field>
       </fields>
-      <libsource lib="Mechanical" part="MountingHole_Pad" description="Mounting Hole with connection"/>
+      <libsource lib="" part="MountingHole_Pad" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5F866AA7</tstamp>
     </comp>
@@ -990,7 +990,7 @@
         <field name="Manufacturer">Riedon</field>
         <field name="Part #">PFS35-0R2F1</field>
       </fields>
-      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <libsource lib="" part="R_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>60D436CE</tstamp>
     </comp>
@@ -1002,7 +1002,7 @@
         <field name="Manufacturer">Riedon</field>
         <field name="Part #">PFS35-0R2F1</field>
       </fields>
-      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <libsource lib="" part="R_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>60D43C91</tstamp>
     </comp>
@@ -1014,25 +1014,303 @@
         <field name="Manufacturer">Riedon</field>
         <field name="Part #">PFS35-0R2F1</field>
       </fields>
-      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <libsource lib="" part="R_Small" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>60D44267</tstamp>
     </comp>
   </components>
   <libparts>
-    <libpart lib="Connector" part="Conn_01x02_Female">
-      <description>Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
-      <docs>~</docs>
+    <libpart lib="" part="Connector_Conn_01x02_Female">
       <footprints>
         <fp>Connector*:*_1x??_*</fp>
       </footprints>
       <fields>
         <field name="Reference">J</field>
-        <field name="Value">Conn_01x02_Female</field>
+        <field name="Value">Connector_Conn_01x02_Female</field>
       </fields>
       <pins>
         <pin num="1" name="Pin_1" type="passive"/>
         <pin num="2" name="Pin_2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="" part="Device_CP1_Small">
+      <footprints>
+        <fp>CP_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">Device_CP1_Small</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="" part="Device_C_Small">
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">Device_C_Small</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="" part="Device_D_Zener">
+      <footprints>
+        <fp>TO-???*</fp>
+        <fp>*_Diode_*</fp>
+        <fp>*SingleDiode*</fp>
+        <fp>D_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">Device_D_Zener</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="" part="Device_D_Zener_Small_ALT">
+      <footprints>
+        <fp>TO-???*</fp>
+        <fp>*_Diode_*</fp>
+        <fp>*SingleDiode*</fp>
+        <fp>D_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">Device_D_Zener_Small_ALT</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="" part="Device_Jumper_NC_Small">
+      <footprints>
+        <fp>SolderJumper*Bridged*</fp>
+        <fp>Jumper*</fp>
+        <fp>TestPoint*2Pads*</fp>
+        <fp>TestPoint*Bridge*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">JP</field>
+        <field name="Value">Device_Jumper_NC_Small</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="" part="Device_Jumper_NO_Small">
+      <footprints>
+        <fp>SolderJumper*Open*</fp>
+        <fp>Jumper*</fp>
+        <fp>TestPoint*2Pads*</fp>
+        <fp>TestPoint*Bridge*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">JP</field>
+        <field name="Value">Device_Jumper_NO_Small</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="" part="Device_Q_NMOS_GDS">
+      <fields>
+        <field name="Reference">Q</field>
+        <field name="Value">Device_Q_NMOS_GDS</field>
+      </fields>
+      <pins>
+        <pin num="1" name="G" type="input"/>
+        <pin num="2" name="D" type="passive"/>
+        <pin num="3" name="S" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="" part="Device_R_POT">
+      <footprints>
+        <fp>Potentiometer*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">RV</field>
+        <field name="Value">Device_R_POT</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+        <pin num="3" name="3" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="" part="Device_R_POT_TRIM">
+      <footprints>
+        <fp>Potentiometer*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">RV</field>
+        <field name="Value">Device_R_POT_TRIM</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+        <pin num="3" name="3" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="" part="Device_R_Pack04_Split">
+      <footprints>
+        <fp>DIP*</fp>
+        <fp>SOIC*</fp>
+        <fp>R*Array*Concave*</fp>
+        <fp>R*Array*Convex*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">RN</field>
+        <field name="Value">Device_R_Pack04_Split</field>
+      </fields>
+      <pins>
+        <pin num="1" name="R1.1" type="passive"/>
+        <pin num="2" name="R2.1" type="passive"/>
+        <pin num="3" name="R3.1" type="passive"/>
+        <pin num="4" name="R4.1" type="passive"/>
+        <pin num="5" name="R4.2" type="passive"/>
+        <pin num="6" name="R3.2" type="passive"/>
+        <pin num="7" name="R2.2" type="passive"/>
+        <pin num="8" name="R1.2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="" part="Device_R_Pack08_Split">
+      <footprints>
+        <fp>DIP*</fp>
+        <fp>SOIC*</fp>
+        <fp>R*Array*Concave*</fp>
+        <fp>R*Array*Convex*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">RN</field>
+        <field name="Value">Device_R_Pack08_Split</field>
+      </fields>
+      <pins>
+        <pin num="1" name="R1.1" type="passive"/>
+        <pin num="2" name="R2.1" type="passive"/>
+        <pin num="3" name="R3.1" type="passive"/>
+        <pin num="4" name="R4.1" type="passive"/>
+        <pin num="5" name="R5.1" type="passive"/>
+        <pin num="6" name="R6.1" type="passive"/>
+        <pin num="7" name="R7.1" type="passive"/>
+        <pin num="8" name="R8.1" type="passive"/>
+        <pin num="9" name="R8.2" type="passive"/>
+        <pin num="10" name="R7.2" type="passive"/>
+        <pin num="11" name="R6.2" type="passive"/>
+        <pin num="12" name="R5.2" type="passive"/>
+        <pin num="13" name="R4.2" type="passive"/>
+        <pin num="14" name="R3.2" type="passive"/>
+        <pin num="15" name="R2.2" type="passive"/>
+        <pin num="16" name="R1.2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="" part="Device_R_Small">
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">Device_R_Small</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="" part="Device_Thermistor">
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">TH</field>
+        <field name="Value">Device_Thermistor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="" part="Graphic_Logo_Open_Hardware_Small">
+      <fields>
+        <field name="Reference">#LOGO</field>
+        <field name="Value">Graphic_Logo_Open_Hardware_Small</field>
+      </fields>
+    </libpart>
+    <libpart lib="" part="Mechanical_Heatsink">
+      <footprints>
+        <fp>Heatsink_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">HS</field>
+        <field name="Value">Mechanical_Heatsink</field>
+      </fields>
+    </libpart>
+    <libpart lib="" part="Mechanical_MountingHole_Pad">
+      <footprints>
+        <fp>MountingHole*Pad*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">H</field>
+        <field name="Value">Mechanical_MountingHole_Pad</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="" part="Motor_Fan_4pin">
+      <aliases>
+        <alias>Fan_CPU_4pin</alias>
+        <alias>Fan_4pin</alias>
+      </aliases>
+      <footprints>
+        <fp>FanPinHeader*P2.54mm*Vertical*</fp>
+        <fp>PinHeader*P2.54mm*Vertical*</fp>
+        <fp>TerminalBlock*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">M</field>
+        <field name="Value">Motor_Fan_4pin</field>
+      </fields>
+      <pins>
+        <pin num="1" name="-" type="passive"/>
+        <pin num="2" name="+" type="passive"/>
+        <pin num="3" name="Tacho" type="passive"/>
+        <pin num="4" name="PWM" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="" part="Regulator_Switching_R-78B1.2-2.0">
+      <aliases>
+        <alias>R-78B1.5-2.0</alias>
+        <alias>R-78B1.8-2.0</alias>
+        <alias>R-78B12-2.0</alias>
+        <alias>R-78B15-2.0</alias>
+        <alias>R-78B2.5-2.0</alias>
+        <alias>R-78B3.3-2.0</alias>
+        <alias>R-78B5.0-2.0</alias>
+        <alias>R-78B9.0-2.0</alias>
+      </aliases>
+      <footprints>
+        <fp>Converter*DCDC*RECOM*R*78B*2.0*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">Regulator_Switching_R-78B1.2-2.0</field>
+        <field name="Footprint">Converter_DCDC:Converter_DCDC_RECOM_R-78B-2.0_THT</field>
+      </fields>
+      <pins>
+        <pin num="1" name="IN" type="power_in"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="OUT" type="power_out"/>
       </pins>
     </libpart>
     <libpart lib="Custom_parts" part="8P8C_Shielded_x4">
@@ -1421,322 +1699,6 @@
         <pin num="~" name="G" type="power_in"/>
       </pins>
     </libpart>
-    <libpart lib="Device" part="CP1_Small">
-      <description>Polarized capacitor, small US symbol</description>
-      <docs>~</docs>
-      <footprints>
-        <fp>CP_*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">C</field>
-        <field name="Value">CP1_Small</field>
-      </fields>
-      <pins>
-        <pin num="1" name="~" type="passive"/>
-        <pin num="2" name="~" type="passive"/>
-      </pins>
-    </libpart>
-    <libpart lib="Device" part="C_Small">
-      <description>Unpolarized capacitor, small symbol</description>
-      <docs>~</docs>
-      <footprints>
-        <fp>C_*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">C</field>
-        <field name="Value">C_Small</field>
-      </fields>
-      <pins>
-        <pin num="1" name="~" type="passive"/>
-        <pin num="2" name="~" type="passive"/>
-      </pins>
-    </libpart>
-    <libpart lib="Device" part="D_Zener">
-      <description>Zener diode</description>
-      <docs>~</docs>
-      <footprints>
-        <fp>TO-???*</fp>
-        <fp>*_Diode_*</fp>
-        <fp>*SingleDiode*</fp>
-        <fp>D_*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">D</field>
-        <field name="Value">D_Zener</field>
-      </fields>
-      <pins>
-        <pin num="1" name="K" type="passive"/>
-        <pin num="2" name="A" type="passive"/>
-      </pins>
-    </libpart>
-    <libpart lib="Device" part="D_Zener_Small_ALT">
-      <description>Zener diode, small symbol, filled shape</description>
-      <docs>~</docs>
-      <footprints>
-        <fp>TO-???*</fp>
-        <fp>*_Diode_*</fp>
-        <fp>*SingleDiode*</fp>
-        <fp>D_*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">D</field>
-        <field name="Value">D_Zener_Small_ALT</field>
-      </fields>
-      <pins>
-        <pin num="1" name="K" type="passive"/>
-        <pin num="2" name="A" type="passive"/>
-      </pins>
-    </libpart>
-    <libpart lib="Device" part="Jumper_NC_Small">
-      <description>Jumper, normally closed, small symbol</description>
-      <docs>~</docs>
-      <footprints>
-        <fp>SolderJumper*Bridged*</fp>
-        <fp>Jumper*</fp>
-        <fp>TestPoint*2Pads*</fp>
-        <fp>TestPoint*Bridge*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">JP</field>
-        <field name="Value">Jumper_NC_Small</field>
-      </fields>
-      <pins>
-        <pin num="1" name="1" type="passive"/>
-        <pin num="2" name="2" type="passive"/>
-      </pins>
-    </libpart>
-    <libpart lib="Device" part="Jumper_NO_Small">
-      <description>Jumper, normally open, small symbol</description>
-      <docs>~</docs>
-      <footprints>
-        <fp>SolderJumper*Open*</fp>
-        <fp>Jumper*</fp>
-        <fp>TestPoint*2Pads*</fp>
-        <fp>TestPoint*Bridge*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">JP</field>
-        <field name="Value">Jumper_NO_Small</field>
-      </fields>
-      <pins>
-        <pin num="1" name="1" type="passive"/>
-        <pin num="2" name="2" type="passive"/>
-      </pins>
-    </libpart>
-    <libpart lib="Device" part="Q_NMOS_GDS">
-      <description>N-MOSFET transistor, gate/drain/source</description>
-      <docs>~</docs>
-      <fields>
-        <field name="Reference">Q</field>
-        <field name="Value">Q_NMOS_GDS</field>
-      </fields>
-      <pins>
-        <pin num="1" name="G" type="input"/>
-        <pin num="2" name="D" type="passive"/>
-        <pin num="3" name="S" type="passive"/>
-      </pins>
-    </libpart>
-    <libpart lib="Device" part="R_POT">
-      <description>Potentiometer</description>
-      <docs>~</docs>
-      <footprints>
-        <fp>Potentiometer*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">RV</field>
-        <field name="Value">R_POT</field>
-      </fields>
-      <pins>
-        <pin num="1" name="1" type="passive"/>
-        <pin num="2" name="2" type="passive"/>
-        <pin num="3" name="3" type="passive"/>
-      </pins>
-    </libpart>
-    <libpart lib="Device" part="R_POT_TRIM">
-      <description>Trim-potentiometer</description>
-      <docs>~</docs>
-      <footprints>
-        <fp>Potentiometer*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">RV</field>
-        <field name="Value">R_POT_TRIM</field>
-      </fields>
-      <pins>
-        <pin num="1" name="1" type="passive"/>
-        <pin num="2" name="2" type="passive"/>
-        <pin num="3" name="3" type="passive"/>
-      </pins>
-    </libpart>
-    <libpart lib="Device" part="R_Pack04_Split">
-      <description>4 resistor network, parallel topology, split</description>
-      <docs>~</docs>
-      <footprints>
-        <fp>DIP*</fp>
-        <fp>SOIC*</fp>
-        <fp>R*Array*Concave*</fp>
-        <fp>R*Array*Convex*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">RN</field>
-        <field name="Value">R_Pack04_Split</field>
-      </fields>
-      <pins>
-        <pin num="1" name="R1.1" type="passive"/>
-        <pin num="2" name="R2.1" type="passive"/>
-        <pin num="3" name="R3.1" type="passive"/>
-        <pin num="4" name="R4.1" type="passive"/>
-        <pin num="5" name="R4.2" type="passive"/>
-        <pin num="6" name="R3.2" type="passive"/>
-        <pin num="7" name="R2.2" type="passive"/>
-        <pin num="8" name="R1.2" type="passive"/>
-      </pins>
-    </libpart>
-    <libpart lib="Device" part="R_Pack08_Split">
-      <description>8 resistor network, parallel topology, split</description>
-      <docs>~</docs>
-      <footprints>
-        <fp>DIP*</fp>
-        <fp>SOIC*</fp>
-        <fp>R*Array*Concave*</fp>
-        <fp>R*Array*Convex*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">RN</field>
-        <field name="Value">R_Pack08_Split</field>
-      </fields>
-      <pins>
-        <pin num="1" name="R1.1" type="passive"/>
-        <pin num="2" name="R2.1" type="passive"/>
-        <pin num="3" name="R3.1" type="passive"/>
-        <pin num="4" name="R4.1" type="passive"/>
-        <pin num="5" name="R5.1" type="passive"/>
-        <pin num="6" name="R6.1" type="passive"/>
-        <pin num="7" name="R7.1" type="passive"/>
-        <pin num="8" name="R8.1" type="passive"/>
-        <pin num="9" name="R8.2" type="passive"/>
-        <pin num="10" name="R7.2" type="passive"/>
-        <pin num="11" name="R6.2" type="passive"/>
-        <pin num="12" name="R5.2" type="passive"/>
-        <pin num="13" name="R4.2" type="passive"/>
-        <pin num="14" name="R3.2" type="passive"/>
-        <pin num="15" name="R2.2" type="passive"/>
-        <pin num="16" name="R1.2" type="passive"/>
-      </pins>
-    </libpart>
-    <libpart lib="Device" part="R_Small">
-      <description>Resistor, small symbol</description>
-      <docs>~</docs>
-      <footprints>
-        <fp>R_*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">R</field>
-        <field name="Value">R_Small</field>
-      </fields>
-      <pins>
-        <pin num="1" name="~" type="passive"/>
-        <pin num="2" name="~" type="passive"/>
-      </pins>
-    </libpart>
-    <libpart lib="Device" part="Thermistor">
-      <description>Temperature dependent resistor</description>
-      <docs>~</docs>
-      <footprints>
-        <fp>R_*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">TH</field>
-        <field name="Value">Thermistor</field>
-      </fields>
-      <pins>
-        <pin num="1" name="~" type="passive"/>
-        <pin num="2" name="~" type="passive"/>
-      </pins>
-    </libpart>
-    <libpart lib="Graphic" part="Logo_Open_Hardware_Small">
-      <description>Open Hardware logo, small</description>
-      <docs>~</docs>
-      <fields>
-        <field name="Reference">#LOGO</field>
-        <field name="Value">Logo_Open_Hardware_Small</field>
-      </fields>
-    </libpart>
-    <libpart lib="Mechanical" part="Heatsink">
-      <description>Heatsink</description>
-      <docs>~</docs>
-      <footprints>
-        <fp>Heatsink_*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">HS</field>
-        <field name="Value">Heatsink</field>
-      </fields>
-    </libpart>
-    <libpart lib="Mechanical" part="MountingHole_Pad">
-      <description>Mounting Hole with connection</description>
-      <docs>~</docs>
-      <footprints>
-        <fp>MountingHole*Pad*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">H</field>
-        <field name="Value">MountingHole_Pad</field>
-      </fields>
-      <pins>
-        <pin num="1" name="1" type="input"/>
-      </pins>
-    </libpart>
-    <libpart lib="Motor" part="Fan_Tacho_PWM">
-      <aliases>
-        <alias>Fan_CPU_4pin</alias>
-        <alias>Fan_4pin</alias>
-      </aliases>
-      <description>Fan, tacho output, PWM input, 4-pin connector</description>
-      <docs>http://www.formfactors.org/developer%5Cspecs%5Crev1_2_public.pdf</docs>
-      <footprints>
-        <fp>FanPinHeader*P2.54mm*Vertical*</fp>
-        <fp>PinHeader*P2.54mm*Vertical*</fp>
-        <fp>TerminalBlock*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">M</field>
-        <field name="Value">Fan_Tacho_PWM</field>
-      </fields>
-      <pins>
-        <pin num="1" name="-" type="passive"/>
-        <pin num="2" name="+" type="passive"/>
-        <pin num="3" name="Tacho" type="passive"/>
-        <pin num="4" name="PWM" type="input"/>
-      </pins>
-    </libpart>
-    <libpart lib="Regulator_Switching" part="R-78B1.2-2.0">
-      <aliases>
-        <alias>R-78B1.5-2.0</alias>
-        <alias>R-78B1.8-2.0</alias>
-        <alias>R-78B12-2.0</alias>
-        <alias>R-78B15-2.0</alias>
-        <alias>R-78B2.5-2.0</alias>
-        <alias>R-78B3.3-2.0</alias>
-        <alias>R-78B5.0-2.0</alias>
-        <alias>R-78B9.0-2.0</alias>
-      </aliases>
-      <description>2A Step-Down DC/DC-Regulator, 4.75-32V input, 1.2V fixed Output Voltage, LM78xx replacement, -40°C to +85°C, SIP3</description>
-      <docs>https://www.recom-power.com/pdf/Innoline/R-78Bxx-2.0.pdf</docs>
-      <footprints>
-        <fp>Converter*DCDC*RECOM*R*78B*2.0*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">U</field>
-        <field name="Value">R-78B1.2-2.0</field>
-        <field name="Footprint">Converter_DCDC:Converter_DCDC_RECOM_R-78B-2.0_THT</field>
-      </fields>
-      <pins>
-        <pin num="1" name="IN" type="power_in"/>
-        <pin num="2" name="GND" type="power_in"/>
-        <pin num="3" name="OUT" type="power_out"/>
-      </pins>
-    </libpart>
     <libpart lib="pspice" part="INDUCTOR">
       <description>Inductor symbol for simulation only</description>
       <docs>~</docs>
@@ -1751,29 +1713,11 @@
     </libpart>
   </libparts>
   <libraries>
-    <library logical="Connector">
-      <uri>D:\KiCad\share\kicad\library/Connector.lib</uri>
-    </library>
     <library logical="Custom_parts">
       <uri>C:/Users/Ben/Documents/GitHub/Four_Channel_MHz_LED_Driver/KiCAD/Custom Parts/KiCAD/Symbol/Custom_parts.lib</uri>
     </library>
-    <library logical="Device">
-      <uri>D:\KiCad\share\kicad\library/Device.lib</uri>
-    </library>
-    <library logical="Graphic">
-      <uri>D:\KiCad\share\kicad\library/Graphic.lib</uri>
-    </library>
-    <library logical="Mechanical">
-      <uri>D:\KiCad\share\kicad\library/Mechanical.lib</uri>
-    </library>
-    <library logical="Motor">
-      <uri>D:\KiCad\share\kicad\library/Motor.lib</uri>
-    </library>
-    <library logical="Regulator_Switching">
-      <uri>D:\KiCad\share\kicad\library/Regulator_Switching.lib</uri>
-    </library>
     <library logical="pspice">
-      <uri>D:\KiCad\share\kicad\library/pspice.lib</uri>
+      <uri>C:\Program Files\KiCad\share\kicad\library/pspice.lib</uri>
     </library>
   </libraries>
   <nets>

@@ -944,6 +944,7 @@ void thermalFault(){
 
     //Update status
     ledOff();
+    updateIntensity();
     current_status.s.driver_control = true;
     while(fault_active){
       playAlarmTone();
