@@ -45,7 +45,7 @@ def loadSequence(gui, widget, get_path=False):  # derived from - https://stackov
                             widget.insertRow(row)
                             for column, data in enumerate(row_data):
                                 if column < len(widget_headers):
-                                    item = QtGui.QTableWidgetItem(str(data))
+                                    item = QtWidgets.QTableWidgetItem(str(data))
                                     widget.setItem(row, column, item)
                         else:
                             gui.waitCursor(False)
@@ -73,7 +73,7 @@ def saveSequence(gui, widget, get_path=None):  # derived from - https://stackove
     else:
         path = None
     if not path: #If no path is specified, ask for valid path
-        path = QtGui.QFileDialog.getSaveFileName(gui, 'Save File', '', 'CSV(*.csv)')[0]
+        path = QtWidgets.QFileDialog.getSaveFileName(gui, 'Save File', '', 'CSV(*.csv)')[0]
 
     gui.waitCursor(True)
     if path: #If path is valid, save
