@@ -498,6 +498,7 @@ void confocalSync(){
   float pwm_freq = 180000000/(float) sync.s.confocal_mirror_period; //Get the frequency of the mirror in Hz
   float pwm_ratio = (float) sync.s.confocal_delay[1] / (float) sync.s.confocal_mirror_period; //Ratio of LED on time to total mirror period
   boolean shutter_state; //Logical state of shutter input
+  boolean sync_pol; //Track polarity of sync output
   
   if(sync.s.confocal_scan_mode){ //If the scan is bidirectional
     pwm_freq *= 2; //Double the pwm freq since the LED flashes twice per period
@@ -581,6 +582,8 @@ void confocalSync(){
           if(update_flag) goto quit;
           if(current_status.s.state){ //If shutter is open (actively scanning) perform interline modulation
             waitForTriggerReset(); //Wait for trigger to reset - this insures the driver will always only sync to the start of a trigger, and not mid trigger
+            if(sync.s.sync_output_channel) digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], sync_pol); //Toggle Sync
+            sync_pol = !sync_pol; //Flip sync_pol polarity
             waitForTrigger();
             while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[0]); //Wait for delay #1
             digitalWriteFast(pin.INTERLINE, HIGH);
@@ -717,22 +720,19 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
     cpu_cycles = ARM_DWT_CYCCNT; //Reset interline timer
 
     waitForTrigger();  //Catch first trigger to resync timing - prevents starting stim later 
+    waitForTriggerReset();
     checkStatus(); //Check status at least once per mirror cycle
     if(update_flag) goto quit; //Exit on update
     
     while(shutter_state == digitalReadFast(pin.INPUTS[0]) && !update_flag){ //While shutter state doesn't change and driver still in digital sync mode - checked each time a seq step is complete
       if(sync_step[active_seq] < seq_steps[current_status.s.state]){ //If the end of the sequence list has not been reached
-        if(sync.s.confocal_mode[current_status.s.state] == 3){ //If sync uses external analog , set external analog pin HIGH
-          pinMode(pin.ANALOG_SELECT, OUTPUT);
-          external_analog = true;
-          digitalWriteFast(pin.ANALOG_SELECT, HIGH); //Set external analog input
-        }
-        else{ //For all other modes, set led intensity to new values
-          pinMode(pin.ANALOG_SELECT, OUTPUT);
-          external_analog = false;
-          digitalWriteFast(pin.ANALOG_SELECT, LOW); //Set internal analog input
-          updateIntensity(); 
-        }
+        
+        //set led intensity to new values
+        pinMode(pin.ANALOG_SELECT, OUTPUT);
+        external_analog = false;
+        digitalWriteFast(pin.ANALOG_SELECT, LOW); //Set internal analog input
+        updateIntensity(); 
+        
         if(current_status.s.state){ //If scanning, convert PWM to clock cycles
           pwm_clock_cycles[active_seq] = round(((float) current_status.s.led_pwm * (float) sync.s.confocal_delay[1])/65535); //Calculate the number of clock cycles to leave the LED on during delay #2 to match the needed % PWM
           pinMode(pin.INTERLINE, OUTPUT); //Disconnect interline pin from PWM bus
@@ -741,7 +741,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
           digitalWriteFast(pin.INTERLINE, LOW);  
         }
         while(shutter_state == digitalReadFast(pin.INPUTS[0]) && !update_flag && (duration[active_seq] < seq.s.led_duration || seq.s.led_duration == 0)){ //Loop until shutter changes, update, or seq duration times out (0 = hold - no timeout) - Interline loop
-          digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel], active_seq);
+          if(sync.s.sync_output_channel) digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], active_seq); //Toggle Sync
           checkStatus(); //Check status at least once per mirror cycle
           if(update_flag) goto quit;
           if(current_status.s.state){ //If shutter is open (actively scanning) perform interline modulation
@@ -762,7 +762,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
             }
             while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[2]); //Wait for end of delay #3
             if(sync.s.confocal_scan_mode){ //If scan is bidirectional, perform flyback interline
-              digitalWriteFast(pin.INTERLINE, HIGH);
+              digitalWriteFast(pin.INTERLINE, LOW);
               cpu_cycles += sync.s.confocal_delay[2]; //Increment interline timer
               while(ARM_DWT_CYCCNT - cpu_cycles < pwm_clock_cycles[active_seq]); //Wait for PWM delay
               digitalWriteFast(pin.INTERLINE, LOW);
