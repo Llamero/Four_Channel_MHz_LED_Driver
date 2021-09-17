@@ -54,7 +54,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.expected_callback = None #Expected callback function - used when GUI expects a reply from the driver to verify data is received in order
         self.download_all_seq = False #Whether just one sequence file, or all sequence files are to be downloaded
         self.stream_download_timeout = 0 #Unix time to wait for complete non-COBS stream packet before timing out and clearing the stream flag
-        self.initializing_connection = False #Flag to suppress unnecessary notifications if connection is being initialized
+        self.initializing_connection = True #Flag to suppress unnecessary notifications if connection is being initialized
         self.stop_receive = False #Blocks receive thread when a packet is being processed
         self.heartbeat_timer = timer() #Timer to track if a heartbeat signal needs to be sent
         for action in self.gui.menu_connection.actions():
@@ -218,7 +218,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         if self.active_port.waitForBytesWritten(wait_time): #Wait for data to be sent
             pass
         else:
-            self.showMessage("Error: Message buffer failed to be sent to driver, please check driver connection.")
+            if not self.initializing_connection:
+                self.showMessage("Error: Message buffer failed to be sent to driver, please check driver connection.")
 
     def onTriggered(self, action):
         if str(action.objectName()) == "menu_connection_disconnect":

@@ -7,7 +7,7 @@
       <excludeFolder url="file://$MODULE_DIR$/KiCAD/Four Channel MHz LED Driver" />
       <excludeFolder url="file://$MODULE_DIR$/Software" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.9" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.8 (LED Driver GUI.py)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
