@@ -193,6 +193,10 @@ def verifyCell(gui, column=None, row=None, data=None, widget=None):
                 if item:
                     item.setText("")
                 return False
+        if item is not None: #Check whole table if last row was edited - this will also add row if table is valid
+            dynamicallyCheckTable(gui, item.tableWidget(), item.tableWidget().rowCount(), item.tableWidget().columnCount())
+
+
     except:
         if data != "" or not item: #If cell is not empty and table called the error (i.e. not on load) then report that entry as invalid
             showMessage(gui, 
@@ -200,12 +204,16 @@ def verifyCell(gui, column=None, row=None, data=None, widget=None):
             if item:
                 item.setText("")
         return False
+
+
+    if item is not None:
+        print()
     return True
 
 def dynamicallyCheckTable(gui, widget, end_row, end_column):
     widget_header_obj = [widget.horizontalHeaderItem(c) for c in range(widget.columnCount())]
     widget_headers = [x.text() for x in widget_header_obj if x is not None]
-
+    print("222222222222")
     with tempfile.TemporaryFile(mode="w+", suffix=".csv", newline='') as stream:  # "newline=''" removes extra newline from windows - https://stackoverflow.com/questions/3191528/csv-in-python-adding-an-extra-carriage-return-on-windows
         writer = csv.writer(stream)
         writer.writerow(widget_headers)
