@@ -3,7 +3,7 @@ import math
 import struct
 import sys
 import tempfile
-from PyQt5 import QtGui
+from PyQt5 import QtWidgets
 from collections import OrderedDict
 import ast
 import guiSequence as seq
@@ -28,7 +28,7 @@ def saveConfiguration(gui, model, file=None):
             pass
 
     if file is None:
-        path = QtGui.QFileDialog.getSaveFileName(gui, 'Save File', '', 'TXT(*.txt)')
+        path = QtWidgets.QFileDialog.getSaveFileName(gui, 'Save File', '', 'TXT(*.txt)')
         if path[0] != "":
             with open(str(path[0]), 'w', newline='') as file:
                 writeLines("", model)
@@ -39,7 +39,7 @@ def saveConfiguration(gui, model, file=None):
 def loadConfiguration(gui, model, file=None):
     lines = []
     if file is None:
-        path = QtGui.QFileDialog.getOpenFileName(gui, 'Open File', '', 'TXT(*.txt)')
+        path = QtWidgets.QFileDialog.getOpenFileName(gui, 'Open File', '', 'TXT(*.txt)')
         if path[0] != "":
             with open(str(path[0]), 'r', newline='') as file:
                 lines = file.readlines()
