@@ -689,6 +689,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
   
   pinMode(pin.INPUTS[0], INPUT); //Set shutter input pin to input
   pinMode(pin.INPUTS[sync.s.confocal_channel], INPUT); //Set sync input pin to input
+  pinMode(pin.INPUTS[1], INPUT); //Set seq step input pin to input
   pinMode(pin.INTERLINE, OUTPUT); //Disconnect the 
   
   while(!current_status.s.mode && sync.s.mode == 4){ //This loop is maintained as long as in confocal sync mode - checked each time the status state changes (imaging/standby)
@@ -699,7 +700,6 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
     active_channel = current_status.s.led_channel;
     
     temp_state = current_status.s.state;
-    digitalWriteFast(pin.LED[2], HIGH);
     for(int a=0; a<2; a++){
       active_seq = a;
       current_status.s.state = active_seq;
@@ -716,12 +716,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
     if(update_flag) goto quit; //Exit on update
     
     while(shutter_state == digitalReadFast(pin.INPUTS[0]) && !update_flag){ //While shutter state doesn't change and driver still in digital sync mode - checked each time a seq step is complete
-      if(sync_step[active_seq] < seq_steps[current_status.s.state]){ //If the end of the sequence list has not been reached
-        
-        //set led intensity to new values
-        pinMode(pin.ANALOG_SELECT, OUTPUT);
-        external_analog = false;
-        digitalWriteFast(pin.ANALOG_SELECT, LOW); //Set internal analog input
+      if(sync_step[active_seq] < seq_steps[active_seq]){ //If the end of the sequence list has not been reached
         
         switchChannel(); 
         
@@ -733,21 +728,39 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
           digitalWriteFast(pin.INTERLINE, LOW);  
         }
                
-        while(shutter_state == digitalReadFast(pin.INPUTS[0]) && !update_flag && (duration[active_seq] < seq.s.led_duration || seq.s.led_duration == 0)){ //Loop until shutter changes, update, or seq duration times out (0 = hold - no timeout) - Interline loop
+        while(shutter_state == digitalReadFast(pin.INPUTS[0]) && !update_flag){ //Loop until shutter changes, update, or seq duration times out (0 = hold - no timeout) - Interline loop
           checkStatus(); //Check status at least once per mirror cycle
           if(update_flag) goto quit;
           if(current_status.s.state){ //If shutter is open (actively scanning) perform interline modulation
-            
-            waitForTrigger();
-            while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[0]); //Wait for delay #1
+            if(duration[active_seq] < seq.s.led_duration || seq.s.led_duration == 0){ //If current sequence step hasn't timed out, turn on LED
+              waitForTrigger();
+              while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[0]); //Wait for delay #1
+              digitalWriteFast(pin.INTERLINE, HIGH);
+              cpu_cycles += sync.s.confocal_delay[0]; //Increment interline timer
+              while(ARM_DWT_CYCCNT - cpu_cycles < pwm_clock_cycles[active_seq]); //Wait for PWM delay
+              digitalWriteFast(pin.INTERLINE, LOW);
+              while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[1]); //Wait for end of delay #2
+              cpu_cycles += sync.s.confocal_delay[1]; //Increment interline timer
+            }
+            else{ //If sequence step has timed out, keep the LED turned off and check for step increment signal.
+              waitForTrigger();
+              while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[0]); //Wait for delay #1
+              cpu_cycles += sync.s.confocal_delay[0]; //Increment interline timer
+              while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[1]){ //Wait for end of delay #2
+                if(sync_step[active_seq] < seq_steps[active_seq]-1){ //Monitor for seq increment trigger if end of current seq is reached and there are remaining steps
+                  if(digitalReadFast(pin.INPUTS[1])){ //If seq step trigger is high, increment to next sequence step
+                    sync_step[active_seq]++; //Increment the sync step counter
+                    getSeqStep(sync_step[active_seq]); //Get next sequence step
+                    pwm_clock_cycles[active_seq] = round(((float) current_status.s.led_pwm * (float) sync.s.confocal_delay[1])/65535); //Calculate the number of clock cycles to leave the LED on during delay #2 to match the needed % PWM
+                    duration[active_seq] = 0; //Reset duration timer
+                    while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[1]); //Wait for end of delay #2 
+                  }
+                }
+              }
+              cpu_cycles += sync.s.confocal_delay[1]; //Increment interline timer
+            }
             if(sync.s.sync_output_channel) digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], active_seq); //Toggle Sync
-            digitalWriteFast(pin.INTERLINE, HIGH);
-            cpu_cycles += sync.s.confocal_delay[0]; //Increment interline timer
-            while(ARM_DWT_CYCCNT - cpu_cycles < pwm_clock_cycles[active_seq]); //Wait for PWM delay
-            digitalWriteFast(pin.INTERLINE, LOW);
-            while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[1]); //Wait for end of delay #2
-            cpu_cycles += sync.s.confocal_delay[1]; //Increment interline timer
-
+            
             //Switch channels - 3 µs
             temp_state = current_status.s.state;
             active_seq = !active_seq; //Swich seq tables between lines
@@ -757,9 +770,6 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
             switchChannel();  
           }
         }
-        duration[active_seq] -= seq.s.led_duration; //Reset duration timer 
-        sync_step[active_seq]++; //Increment the sync step counter
-        getSeqStep(sync_step[active_seq]); //Get next sequence step
       }
       else{ //Report error if driver ran off the end of the sequence list (i.e. never encountered a hold)
         temp_size = sprintf(temp_buffer, "-Error: Confocal Sync - %s reached the end of the sequence without encountering a hold.", current_status.s.state ? "STANDBY":"SCANNING");
