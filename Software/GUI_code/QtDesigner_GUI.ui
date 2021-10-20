@@ -9,13 +9,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>370</width>
+    <width>380</width>
     <height>500</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>370</width>
+    <width>380</width>
     <height>500</height>
    </size>
   </property>
@@ -429,7 +429,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>309</width>
+             <width>320</width>
              <height>297</height>
             </rect>
            </property>
@@ -440,15 +440,15 @@
                <string>Select the active sync mode to configure</string>
               </property>
               <property name="currentIndex">
-               <number>4</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="sync_digital_page">
                <property name="geometry">
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>599</width>
-                 <height>676</height>
+                 <width>568</width>
+                 <height>772</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -808,6 +808,9 @@
                          </attribute>
                          <attribute name="verticalHeaderCascadingSectionResizes">
                           <bool>false</bool>
+                         </attribute>
+                         <attribute name="verticalHeaderDefaultSectionSize">
+                          <number>25</number>
                          </attribute>
                          <attribute name="verticalHeaderHighlightSections">
                           <bool>false</bool>
@@ -1188,6 +1191,12 @@
                          <property name="columnCount">
                           <number>4</number>
                          </property>
+                         <attribute name="verticalHeaderDefaultSectionSize">
+                          <number>25</number>
+                         </attribute>
+                         <attribute name="verticalHeaderMinimumSectionSize">
+                          <number>36</number>
+                         </attribute>
                          <row/>
                          <row/>
                          <row/>
@@ -1703,9 +1712,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
-                 <width>611</width>
-                 <height>1284</height>
+                 <y>-691</y>
+                 <width>956</width>
+                 <height>1374</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -2207,7 +2216,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                          <string>Select event type for when LED is active during a confocal scan.</string>
                         </property>
                         <property name="currentIndex">
-                         <number>3</number>
+                         <number>2</number>
                         </property>
                         <widget class="QWidget" name="sync_confocal_scanning_off_tab">
                          <property name="toolTip">
@@ -2487,6 +2496,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                             <property name="columnCount">
                              <number>4</number>
                             </property>
+                            <attribute name="verticalHeaderDefaultSectionSize">
+                             <number>25</number>
+                            </attribute>
                             <row/>
                             <row/>
                             <row/>
@@ -2712,7 +2724,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                          <string>Select event type for when LED is active during standby.</string>
                         </property>
                         <property name="currentIndex">
-                         <number>3</number>
+                         <number>2</number>
                         </property>
                         <widget class="QWidget" name="sync_confocal_standby_off_tab">
                          <property name="toolTip">
@@ -2972,6 +2984,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                             <property name="columnCount">
                              <number>4</number>
                             </property>
+                            <attribute name="verticalHeaderDefaultSectionSize">
+                             <number>25</number>
+                            </attribute>
                             <row/>
                             <row/>
                             <row/>
@@ -3117,8 +3132,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>325</width>
-                 <height>52</height>
+                 <width>973</width>
+                 <height>683</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3266,7 +3281,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>692</width>
+             <width>974</width>
              <height>1384</height>
             </rect>
            </property>
@@ -4862,7 +4877,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>370</width>
+     <width>380</width>
      <height>34</height>
     </rect>
    </property>
