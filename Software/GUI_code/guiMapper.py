@@ -384,6 +384,7 @@ class TimeLine(QtCore.QObject):
     interval = QtCore.pyqtProperty(int, fget=loopCount, fset=setLoopCount)
 
     def setInterval(self, interval):
+        interval = int(round(interval)) #Ensure interval is an int
         self._timer.setInterval(interval)
 
     def interval(self):

@@ -171,15 +171,15 @@ def bytesToConfig(byte_array, gui, prefix):
             external = False
             if source == "External":
                 external = True
-            gui.setValue(gui.config_model["Temperature"][source]["Warn"], round(adcToTemp(config_values[20 + index]), external))
-            gui.setValue(gui.config_model["Temperature"][source]["Fault"], round(adcToTemp(config_values[23 + index]), external))
+            gui.setValue(gui.config_model["Temperature"][source]["Warn"], int(round(adcToTemp(config_values[20 + index], external))))
+            gui.setValue(gui.config_model["Temperature"][source]["Fault"], int(round(adcToTemp(config_values[23 + index], external))))
 
         for index, source in enumerate(["Driver", "External"]):
             external = False
             if source == "External":
                 external = True
-            gui.setValue(gui.config_model["Fan"][source]["Min"], round(adcToTemp(config_values[26 + 2*index]), external))
-            gui.setValue(gui.config_model["Fan"][source]["Max"], round(adcToTemp(config_values[27 + 2*index]), external))
+            gui.setValue(gui.config_model["Fan"][source]["Min"], int(round(adcToTemp(config_values[26 + 2*index], external))))
+            gui.setValue(gui.config_model["Fan"][source]["Max"], int(round(adcToTemp(config_values[27 + 2*index], external))))
 
         channel_id = gui.config_model["Fan"]["Channel"][config_values[30]].text()
         gui.setValue(gui.config_model["Fan"]["Channel"], channel_id)
@@ -300,7 +300,7 @@ def configToBytes(gui, prefix, update_model=True):
 
     for led_number in range(1, 5):
         current_limit = gui.getValue(gui.config_model["LED" + str(led_number)]["Current Limit"])
-        config_values[led_number + 3] = round(((current_limit*total_resistance)/3.3)*65535) #Convert current limit to ADC reading (voltage)
+        config_values[led_number + 3] = int((((current_limit*total_resistance)/3.3)*65535)) #Convert current limit to ADC reading (voltage)
         config_values[led_number - 1] = gui.getValue(gui.config_model["LED" + str(led_number)]["Active"])
         for index, widget in enumerate(gui.config_model["Channel" + str(led_number)]):
             if gui.getValue(widget):
