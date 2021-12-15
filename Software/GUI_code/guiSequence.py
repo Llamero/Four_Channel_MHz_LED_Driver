@@ -18,7 +18,7 @@ def loadSequence(gui, widget, get_path=False):  # derived from - https://stackov
     else:
         path = None
     if path is None:
-        path = QtGui.QFileDialog.getOpenFileName(gui, 'Open File', '', 'CSV(*.csv)')[0] #If no path is specified, ask for valid path
+        path = QtWidgets.QFileDialog.getOpenFileName(gui, 'Open File', '', 'CSV(*.csv)')[0] #If no path is specified, ask for valid path
 
     gui.waitCursor(True)
     if path: #If path is specified, load file

@@ -81,7 +81,8 @@ bool SDcard::saveToSD(char *data_array, uint32_t start_index, uint32_t end_index
   if(force_write || file_size >= 512){ 
     if(SD.exists(file_dir)){ //Make sure that the save directories exist before trying to save to it - without this check open() will lock without SD card  
       //Open file
-      f = SD.open(message_buffer, O_WRONLY | O_CREAT | O_TRUNC); //Overwrite existing file if exists https://pubs.opengroup.org/onlinepubs/7908799/xsh/open.html
+      SD.remove(message_buffer); //Delete file to ensure clean sequence write
+      f = SD.open(message_buffer, FILE_WRITE); //Overwrite existing file if exists https://pubs.opengroup.org/onlinepubs/7908799/xsh/open.html
       if(f){
         if(file_size){ //Write file if there is data to write
           while(file_size >= 512){ //Retrieve a blocks of 512 bytes
@@ -113,7 +114,7 @@ boolean SDcard::readFromSD(char *data_array, uint32_t start_index, uint32_t end_
   if(force_read || file_size >= 512){ 
     if(SD.exists(seq_bin_dir)){ //Make sure that the save directories exist before trying to save to it - without this check open() will lock without SD card  
       //Open file
-      f = SD.open(message_buffer, O_RDONLY);
+      f = SD.open(message_buffer, FILE_READ);
       if(f){
         if(file_size == 0){
           file_size = f.size(); //Get the size of the file being read if one wasn't specified
