@@ -47,7 +47,11 @@ class pinSetup
     const static int DAC0 = A21; //Internal dac to generate internal analog input voltage
     const static int DAC1 = A22; //Internal dac - not connected
 
+<<<<<<< Updated upstream
     const static int LED_FREQ = 29296; //LED driver PWM freq - default to 2^n multiple to have optimal dynamic range while staying outside the auditory range - https://www.pjrc.com/teensy/td_pulse.html
+=======
+    const static int LED_FREQ = 15947; //LED driver PWM freq - default to 2^n multiple to have optimal dynamic range while staying outside the auditory range - https://www.pjrc.com/teensy/td_pulse.html
+>>>>>>> Stashed changes
     const static int FAN_FREQ = 25000; //5V output PWM frequency (in Hz) - 25kHz is optimal for driving CPU fans
     const static bool RELAY_CLOSE = true; //Polarity of relay inputs to close relay - False - 0=closed, 1=open, True - 0=open, 1=closed
 
