@@ -276,6 +276,8 @@ boolean external_analog = false; //Whether to use the DAC or external analog inp
 uint16_t seq_steps[2]; //Number of setps in each active sync sequence
 uint8_t active_channel; //Currently active LED channel
 uint8_t update_flag = false; //Whether an update needs to be processed
+uint32_t ext_avg = 65535; //Summing variable for performing rolling average on the external thermistor to denoise it
+const uint16_t ext_avg_samples = 1024; //Size of sliding window for external average
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
 SDcard sd;
@@ -639,6 +641,41 @@ void confocalSync(){
     external_analog = false;
 }
 
+<<<<<<< Updated upstream
+=======
+void customSync(){ //Two channel interline sequence, with external trigger between steps
+  float start_delay = 1000000;  
+  float float_delay = start_delay;
+  float delay_factor = 0.053;
+  float fade_rate = 0.999;
+  float fade_value = 65535;
+  int fade_start = 26000000;
+  elapsedMicros delay_timer;
+  elapsedMicros delay_timer2;
+  current_status.s.led_channel = 0;
+  current_status.s.led_pwm = 65535; //PWM value for internal and external fan respectively
+  current_status.s.led_current = 65535; //DAC value for active LED
+  updateIntensity();
+  while(delay_timer2 < 40000000){
+    for(int b=0; b<3; b++){
+      if(delay_timer2 > fade_start){
+        fade_value *= fade_rate;
+        current_status.s.led_pwm = fade_value;
+      }
+      current_status.s.led_channel = b;
+      updateIntensity();
+      while(delay_timer < (uint32_t) (float_delay-10) && sync.s.mode == 4 && !update_flag) checkStatus();
+      while(delay_timer < (uint32_t) float_delay);
+      checkStatus();
+      if(sync.s.mode != 4 || update_flag) return;
+      delay_timer = 0;
+      float_delay = start_delay-(delay_factor*delay_timer2);
+      if(float_delay < 1000) float_delay=1000;
+    }
+  }
+}
+
+>>>>>>> Stashed changes
 void initializeSeq(){ //Setup seq
   uint8_t *sync_pointer; //Pointer to whether digital sync or confocal sync set
   uint8_t file_index; //Index of file name
@@ -714,25 +751,32 @@ void checkStatus(){
       analogRead(pin.RESISTOR_TEMP);
       current_status.s.temp[1] = analogRead(pin.RESISTOR_TEMP);
       break;
-    case 2:
+    case 2: //Check external thermistor with rolling average - 3.1 µs to 4.5 µs max
       status_index++;
       analogRead(pin.EXTERNAL_TEMP);
       current_status.s.temp[2] = analogRead(pin.EXTERNAL_TEMP);
       break;
-    case 3: //Check if any of the temperatures is past the fault temperature - 0.59 µs
+    case 3:
+      digitalWriteFast(pin.OUTPUTS[1], HIGH);
+      status_index++;
+      ext_avg = (ext_avg*(ext_avg_samples-1) + current_status.s.temp[2])/ext_avg_samples;
+      current_status.s.temp[2] = ext_avg;
+      digitalWriteFast(pin.OUTPUTS[1], LOW);
+      break;
+    case 4: //Check if any of the temperatures is past the fault temperature - 0.59 µs
       status_index++;
       if(!fault_active) thermalFault();
       break;
-    case 4: //Update internal fan speed - 0.85 µs
+    case 5: //Update internal fan speed - 0.85 µs
       status_index++;
       if(current_status.s.temp[0] < current_status.s.temp[1]) setFan(current_status.s.temp[0], 0); //Update fan based on highest internal temperature (lowest ADC value)
       else setFan(current_status.s.temp[1], 0);
       break;
-    case 5: //Update external fan speed - 0.85 µs
+    case 6: //Update external fan speed - 0.85 µs
       status_index++;
       setFan(current_status.s.temp[2], 1); //Update external fan
       break;
-    case 6: //Check toggle switch - 0.28 µs
+    case 7: //Check toggle switch - 0.28 µs
       status_index++;
       if(current_status.s.driver_control && !fault_active){ //Only check toggle if driver control
         if(digitalReadFast(pin.TOGGLE) == !current_status.s.mode){ //Check if toggle state has changed - xor comparison by boolean inference (!) of mode
@@ -745,7 +789,7 @@ void checkStatus(){
         }
       }
       break;
-    case 7: //Check pot value - 3.74 µs
+    case 8: //Check pot value - 3.74 µs
       status_index++;
       if(current_status.s.driver_control && !fault_active && current_status.s.mode){ //Only check pot if driver control and in manual mode
         if(current_status.s.mode == 1){
@@ -760,7 +804,7 @@ void checkStatus(){
         updateIntensity(); //Update the LED intensity with the new values
       }
       break;
-    case 8: //Check pushbuttons and update LEDs - 1.05 µs
+    case 9: //Check pushbuttons and update LEDs - 1.05 µs
       status_index++;
       if(!fault_active){
         if(current_status.s.mode && current_status.s.driver_control){ //If in manual mode and driver control, check for button presses
@@ -791,7 +835,7 @@ void checkStatus(){
         }
       }
       break;
-    case 9: //Send current status to led driver - 4.76 µs
+    case 10: //Send current status to led driver - 4.76 µs
       status_index++;
       if(status_update_timer >= status_update_interval){ //Status timer to track when to transmit the next update
         status_update_timer = 0; //Reset the status update timer
@@ -809,7 +853,7 @@ void checkStatus(){
       }
       if(!serial_connection_active) current_status.s.driver_control = true;
       break;
-    case 10: //Set ananlog_select pin based on driver configuration
+    case 11: //Set ananlog_select pin based on driver configuration
       status_index++;
       if(current_status.s.mode){ //If in manual mode, use internal analog
         external_analog = false;
