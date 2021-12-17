@@ -49,10 +49,7 @@ class pinSetup
 
     const static int LED_FREQ = 29296; //LED driver PWM freq - default to 2^n multiple to have optimal dynamic range while staying outside the auditory range - https://www.pjrc.com/teensy/td_pulse.html
     const static int FAN_FREQ = 25000; //5V output PWM frequency (in Hz) - 25kHz is optimal for driving CPU fans
-<<<<<<< Updated upstream
-=======
     const static bool RELAY_CLOSE = true; //Polarity of relay inputs to close relay - False - 0=closed, 1=open, True - 0=open, 1=closed
->>>>>>> Stashed changes
 
   private:
     static void init(); //Initialize reference variables

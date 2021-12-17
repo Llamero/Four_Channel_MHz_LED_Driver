@@ -306,7 +306,6 @@ void setup() {
   ledOff(); //For safety, boot to LED off
   for(size_t a=0; a==status_index; a++) checkStatus(); //Perform full round of status checks to get starting status of driver
   
-  digitalWriteFast(pin.RELAY[3], HIGH);
   digitalWriteFast(pin.INTERLINE, LOW);
   digitalWriteFast(pin.ANALOG_SELECT, LOW);
   digitalWriteFast(pin.FAN_PWM, LOW);
@@ -353,9 +352,9 @@ void syncRouter(){
 //    case 3: //Serial sync
 //      serialSync();
 //      break;
-//    case 4: //Custom sync
-//      customSync();
-//      break;
+    case 4: //Custom sync
+      customSync();
+      break;
     default:
       break;
   }
@@ -501,6 +500,7 @@ void confocalSync(){
   float pwm_freq = 180000000/(float) sync.s.confocal_mirror_period; //Get the frequency of the mirror in Hz
   float pwm_ratio = (float) sync.s.confocal_delay[1] / (float) sync.s.confocal_mirror_period; //Ratio of LED on time to total mirror period
   boolean shutter_state; //Logical state of shutter input
+  boolean sync_pol; //Track polarity of sync output
   
   if(sync.s.confocal_scan_mode){ //If the scan is bidirectional
     pwm_freq *= 2; //Double the pwm freq since the LED flashes twice per period
@@ -584,6 +584,8 @@ void confocalSync(){
           if(update_flag) goto quit;
           if(current_status.s.state){ //If shutter is open (actively scanning) perform interline modulation
             waitForTriggerReset(); //Wait for trigger to reset - this insures the driver will always only sync to the start of a trigger, and not mid trigger
+            if(sync.s.sync_output_channel) digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], sync_pol); //Toggle Sync
+            sync_pol = !sync_pol; //Flip sync_pol polarity
             waitForTrigger();
             while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[0]); //Wait for delay #1
             digitalWriteFast(pin.INTERLINE, HIGH);
@@ -641,8 +643,6 @@ void confocalSync(){
     external_analog = false;
 }
 
-<<<<<<< Updated upstream
-=======
 void customSync(){ //Two channel interline sequence, with external trigger between steps
   float start_delay = 1000000;  
   float float_delay = start_delay;
@@ -675,7 +675,6 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
   }
 }
 
->>>>>>> Stashed changes
 void initializeSeq(){ //Setup seq
   uint8_t *sync_pointer; //Pointer to whether digital sync or confocal sync set
   uint8_t file_index; //Index of file name
@@ -757,11 +756,9 @@ void checkStatus(){
       current_status.s.temp[2] = analogRead(pin.EXTERNAL_TEMP);
       break;
     case 3:
-      digitalWriteFast(pin.OUTPUTS[1], HIGH);
       status_index++;
       ext_avg = (ext_avg*(ext_avg_samples-1) + current_status.s.temp[2])/ext_avg_samples;
       current_status.s.temp[2] = ext_avg;
-      digitalWriteFast(pin.OUTPUTS[1], LOW);
       break;
     case 4: //Check if any of the temperatures is past the fault temperature - 0.59 µs
       status_index++;
@@ -886,13 +883,13 @@ void ledOff(){
 
 void updateIntensity(){
   if(conf.c.led_active[current_status.s.led_channel]){ //Check if the channel is active
-    if(current_status.s.led_channel != active_channel){ //Change relays if specified
-      for(int a=0; a<4; a++){ //Toggle relays
-        if(conf.c.led_channel[a] == current_status.s.led_channel) digitalWriteFast(pin.RELAY[a], HIGH);
-        else digitalWriteFast(pin.RELAY[a], LOW);
-      }
-      active_channel = current_status.s.led_channel;
+    
+    for(int a=0; a<4; a++){ //Toggle channel relays
+      if(conf.c.led_channel[a] == current_status.s.led_channel) digitalWriteFast(pin.RELAY[a], pin.RELAY_CLOSE);
+      else digitalWriteFast(pin.RELAY[a], !pin.RELAY_CLOSE);
     }
+    active_channel = current_status.s.led_channel;
+
     digitalWriteFast(pin.ANALOG_SELECT, external_analog); //Set external analog input
     if(external_analog){
       pinMode(pin.INTERLINE, OUTPUT); //ensure pin is disconnected from PWM bus
@@ -979,7 +976,7 @@ void thermalFault(){
     pinMode(pin.INTERLINE, OUTPUT); //Disconnect interline pin from PWM mux
     digitalWriteFast(pin.INTERLINE, LOW); //Apply negative voltage input to op-amp
     analogWrite(pin.DAC0, 0); //Set analog input to 0
-    for(size_t b=0; b<sizeof(pin.RELAY)/sizeof(pin.RELAY[0]); b++) digitalWriteFast(pin.RELAY[b], LOW); //Open all relays
+    for(size_t b=0; b<sizeof(pin.RELAY)/sizeof(pin.RELAY[0]); b++) digitalWriteFast(pin.RELAY[b], !pin.RELAY_CLOSE); //Open all relays
 
     //Send fault warning to GUI
     temp_size = sprintf(temp_buffer, "-Warning: Fault temperature has been exceeded.  The driver will turn off LED until below warning temperature.");
@@ -988,14 +985,13 @@ void thermalFault(){
 
     //Update status
     ledOff();
-    updateIntensity();
     current_status.s.driver_control = true;
     while(fault_active){
       playAlarmTone();
       fault_active = false; //If all temps are below warn temp, clear the fault
       for(int a=0; a<3; a++) if(current_status.s.temp[a] <= conf.c.warn_temp[a]) fault_active = true; //If any temp is above warn temp, maintain fault      
     }
-    digitalWriteFast(pin.RELAY[current_status.s.led_channel], HIGH); //Close corresponding relay
+    digitalWriteFast(pin.RELAY[current_status.s.led_channel], pin.RELAY_CLOSE); //Close corresponding relay
     delay(10); //Wait for SSR to fully close (needs 2 ms max)
 
     //Restore driver to previous state
