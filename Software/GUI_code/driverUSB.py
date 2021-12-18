@@ -35,7 +35,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.com_list_teensy = []  # List of USB COM ports that have the same VENDOR_ID and PRODUCT_ID as a Teensy
         self.com_list_custom = [] #List of valid Teensy COM ports with a custom serial number that is "MHZ_LEDXX:
         self.com_list_verified = OrderedDict() #List of verified LED driver ports and their attributes
-        self.active_port = QSerialPort() #Active serial connection, None if no port is currently active
+        self.active_port = None #Active serial connection, None if no port is currently active
         self.serial_buffer = [] #Stores incoming serial stream
         self.command_queue = [] #List of parsed and cobs decoded
         self.prefix_dict = {} #byte prefix identifying data packet type
@@ -79,7 +79,6 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             port_list = self.com_list_teensy
             if len(self.com_list_custom) > 0: #If at least one custom serial number was found, only check devices with custom serial numbers
                 port_list = self.com_list_custom
-
             for port_info in port_list:
                 if self.connectSerial(port_info["Port"]):
                     self.magicNumberCheck()
@@ -96,10 +95,10 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.showMessage("No LED drivers were found. Make sure the following:\n1) USB cables are connected properly\n2) No other program is connected to the LED driver\n3) The LED driver software has been uploaded to the Teensy board")
 
     def getPortInfo(self, port):
-        return {"Vendor": QSerialPortInfo(self.port).vendorIdentifier(),
-                "Product": QSerialPortInfo(self.port).productIdentifier(),
-                "Serial": QSerialPortInfo(self.port).serialNumber(),
-                "Port": QSerialPortInfo(self.port).systemLocation()}
+        return {"Vendor": QSerialPortInfo(port).vendorIdentifier(),
+                "Product": QSerialPortInfo(port).productIdentifier(),
+                "Serial": QSerialPortInfo(port).serialNumber(),
+                "Port": QSerialPortInfo(port).systemLocation()}
 
     def connectSerial(self, port):
         #try:
