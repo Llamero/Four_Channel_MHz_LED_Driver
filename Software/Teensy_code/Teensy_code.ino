@@ -501,7 +501,7 @@ void confocalSync(){
   float pwm_ratio = (float) sync.s.confocal_delay[1] / (float) sync.s.confocal_mirror_period; //Ratio of LED on time to total mirror period
   boolean shutter_state; //Logical state of shutter input
   boolean sync_pol; //Track polarity of sync output
-  uint8_t timeout = 0; //Flag for whether the line sync has timed out waiting for trigger.
+  uint8_t timeout = 0; //Flag for whether the line sync has timed out waiting for trigger - 0: no timeout, 1: new timeout - report error, 2: on going timeout - error already reported.  Flag resets when shutter closes.
   
   if(sync.s.confocal_scan_mode){ //If the scan is bidirectional
     pwm_freq *= 2; //Double the pwm freq since the LED flashes twice per period
