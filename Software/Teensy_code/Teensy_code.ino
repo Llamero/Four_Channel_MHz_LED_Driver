@@ -494,7 +494,7 @@ void analogSync(){
 void confocalSync(){
   elapsedMicros duration; //Duration timer for sequence steps
   uint16_t sync_step; //sequence step counter
-  uint32_t interline_timeout = 2*sync.s.confocal_mirror_period; //Timeout to stop looking for mirror sync.
+  uint32_t interline_timeout = 16000000; //Timeout to stop looking for mirror sync - 1 second.
   uint32_t pwm_clock_cycles; //The number of clock cycles equivalent to the PWM duration
   uint32_t unidirectional_status_window = sync.s.confocal_delay[0] + sync.s.confocal_delay[1] + sync.s.confocal_delay[2] + 2*status_step_clock_duration; //Number of clock cycles between end of interline sequence and next trigger
   float pwm_freq = 180000000/(float) sync.s.confocal_mirror_period; //Get the frequency of the mirror in Hz
@@ -593,7 +593,10 @@ void confocalSync(){
     duration = 0; //Reset seq timer
     cpu_cycles = ARM_DWT_CYCCNT; //Reset interline timer
 
+    interline_timeout = 180000000; //Timeout to stop looking for mirror sync - wait one full second as there can be a delay between the shutter and the start of the mirror.
     waitForTrigger();  //Catch first trigger to resync timing - prevents starting stim later 
+    interline_timeout = 2*sync.s.confocal_mirror_period; //One the first trigger is caught, wait no longer than 2x one mirror period for the next trigger
+    
     checkStatus(); //Check status at least once per mirror cycle
     if(update_flag) goto quit; //Exit on update
     
@@ -632,36 +635,37 @@ void confocalSync(){
                 temp_size = sprintf(temp_buffer, "-Error: Confocal Sync timed out waiting for line trigger. Check connection and re-measure mirror period.");
                 temp_buffer[0] = prefix.message;
                 usb.send((const unsigned char*) temp_buffer, temp_size);
-                timeout == 2;
-              }
-              break;
-            }
-            while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[0]); //Wait for delay #1
-            digitalWriteFast(pin.INTERLINE, HIGH);
-            cpu_cycles += sync.s.confocal_delay[0]; //Increment interline timer
-            while(ARM_DWT_CYCCNT - cpu_cycles < pwm_clock_cycles); //Wait for PWM delay
-            digitalWriteFast(pin.INTERLINE, LOW);
-            while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[1]); //Wait for end of delay #2
-            cpu_cycles += sync.s.confocal_delay[1]; //Increment interline timer
-            if(sync.s.confocal_delay[2] > status_step_clock_duration){ //See if there is enough time to check status during delay #3
-              while(sync.s.confocal_delay[2] - (ARM_DWT_CYCCNT - cpu_cycles) > status_step_clock_duration){ //If there is enough time, perform status checks during delay #3
-                checkStatus(); //Check status while there is time to do so during the mirror sweep to the interline pulse
-                if(update_flag) goto quit;
+                timeout = 2;
               }
             }
-            while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[2]); //Wait for end of delay #3
-            if(sync.s.confocal_scan_mode){ //If scan is bidirectional, perform flyback interline
+            else{
+              while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[0]); //Wait for delay #1
               digitalWriteFast(pin.INTERLINE, HIGH);
-              cpu_cycles += sync.s.confocal_delay[2]; //Increment interline timer
+              cpu_cycles += sync.s.confocal_delay[0]; //Increment interline timer
               while(ARM_DWT_CYCCNT - cpu_cycles < pwm_clock_cycles); //Wait for PWM delay
               digitalWriteFast(pin.INTERLINE, LOW);
               while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[1]); //Wait for end of delay #2
-            }
-            else{ //If unidirectional, perform status checks if there is enough time before the next trigger
-              if(unidirectional_status_window > status_step_clock_duration){ //See if there is enough time to check status during delay #3
-                while((unidirectional_status_window - (ARM_DWT_CYCCNT - cpu_cycles)) > status_step_clock_duration){ //If there is enough time, perform status checks during delay #3
+              cpu_cycles += sync.s.confocal_delay[1]; //Increment interline timer
+              if(sync.s.confocal_delay[2] > status_step_clock_duration){ //See if there is enough time to check status during delay #3
+                while(sync.s.confocal_delay[2] - (ARM_DWT_CYCCNT - cpu_cycles) > status_step_clock_duration){ //If there is enough time, perform status checks during delay #3
                   checkStatus(); //Check status while there is time to do so during the mirror sweep to the interline pulse
                   if(update_flag) goto quit;
+                }
+              }
+              while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[2]); //Wait for end of delay #3
+              if(sync.s.confocal_scan_mode){ //If scan is bidirectional, perform flyback interline
+                digitalWriteFast(pin.INTERLINE, HIGH);
+                cpu_cycles += sync.s.confocal_delay[2]; //Increment interline timer
+                while(ARM_DWT_CYCCNT - cpu_cycles < pwm_clock_cycles); //Wait for PWM delay
+                digitalWriteFast(pin.INTERLINE, LOW);
+                while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[1]); //Wait for end of delay #2
+              }
+              else{ //If unidirectional, perform status checks if there is enough time before the next trigger
+                if(unidirectional_status_window > status_step_clock_duration){ //See if there is enough time to check status during delay #3
+                  while((unidirectional_status_window - (ARM_DWT_CYCCNT - cpu_cycles)) > status_step_clock_duration){ //If there is enough time, perform status checks during delay #3
+                    checkStatus(); //Check status while there is time to do so during the mirror sweep to the interline pulse
+                    if(update_flag) goto quit;
+                  }
                 }
               }
             }
