@@ -18,7 +18,7 @@ const int pinSetup::OUTPUTS[] = {22, 21, 20};
 const int pinSetup::PUSHBUTTON[] = {27, 25, 26, 30}; //Four pushbutton inputs 
 const int pinSetup::LED[] = {29, 24, 28, 31}; //Indicator LEDs on pushbuttons
 const int pinSetup::INPUTS[] = {37, 36, 35, 34}; //4-channel analog/digital inputs
-const int pinSetup::RELAY[] = {0, 1, 2, 3}; //SSR relays for changing LED channel
+const int pinSetup::RELAY[] = {3, 2, 1, 0}; //SSR relays for changing LED channel
 const int pinSetup::ALARM[] = {11, 32}; //Audible alarm
 DMAMEM static volatile uint16_t __attribute__((aligned(32))) dma_adc2_buff1[1600];
 AnalogBufferDMA abdma2(dma_adc2_buff1, 1600);

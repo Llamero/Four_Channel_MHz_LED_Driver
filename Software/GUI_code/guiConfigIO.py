@@ -229,7 +229,7 @@ def bytesToSync(byte_array, gui, prefix):
                     gui.sync_model["Digital"][key2][key3].setCurrentIndex(sync_values[(2 * index3) + index2 + 3])
                 if key3 == "LED":
                     setWidget(gui.sync_model["Digital"][key2][key3], (2 * index3) + index2 + 3)
-                    current_limit[index2] = gui.getValue(gui.config_model["LED" + str(sync_values[(2 * index3) + index2 + 3]+1)]["Current Limit"])
+                    current_limit[index2] = gui.getValue(gui.config_model["LED" + str(sync_values[(2 * index3) + index2 + 3])]["Current Limit"])
                 elif key3 == "PWM":
                     gui.setValue(gui.sync_model["Digital"][key2][key3], sync_values[(2 * index3) + index2 + 3]/65535*100)
                 elif key3 == "Current":
@@ -261,7 +261,7 @@ def bytesToSync(byte_array, gui, prefix):
                     gui.sync_model["Confocal"][key2][key3].setCurrentIndex(sync_values[(2 * index3) + index2 + 29])
                 if key3 == "LED":
                     setWidget(gui.sync_model["Confocal"][key2][key3], (2 * index3) + index2 + 29)
-                    current_limit[index2] = gui.getValue(gui.config_model["LED" + str(sync_values[(2 * index3) + index2 + 3]+1)]["Current Limit"])
+                    current_limit[index2] = gui.getValue(gui.config_model["LED" + str(sync_values[(2 * index3) + index2 + 3])]["Current Limit"])
                 elif key3 == "PWM":
                     gui.setValue(gui.sync_model["Confocal"][key2][key3], (sync_values[(2 * index3) + index2 + 29]/65535)*100)
                 elif key3 == "Current":
@@ -380,7 +380,7 @@ def syncToBytes(gui, prefix, update_model=True):
                 sync_values[(2 * index3) + index2 + 3] = gui.sync_model["Digital"][key2][key3].currentIndex()
             if key3 == "LED":
                 sync_values[(2 * index3) + index2 + 3] = widgetIndex(gui.sync_model["Digital"][key2][key3])
-                current_limit[index2] = gui.getValue(gui.config_model["LED" + str(sync_values[(2 * index3) + index2 + 3]+1)]["Current Limit"])
+                current_limit[index2] = gui.getValue(gui.config_model["LED" + str(sync_values[(2 * index3) + index2 + 3])]["Current Limit"])
             elif key3 == "PWM":
                 sync_values[(2 * index3) + index2 + 3] = round((gui.getValue(gui.sync_model["Digital"][key2][key3])/100)*65535)
             elif key3 == "Current":
@@ -413,11 +413,12 @@ def syncToBytes(gui, prefix, update_model=True):
                 sync_values[(2 * index3) + index2 + 29] = gui.sync_model["Confocal"][key2][key3].currentIndex()
             if key3 == "LED":
                 sync_values[(2 * index3) + index2 + 29] = widgetIndex(gui.sync_model["Confocal"][key2][key3])
-                current_limit[index2] = gui.getValue(gui.config_model["LED" + str(sync_values[(2 * index3) + index2 + 3]+1)]["Current Limit"])
+                current_limit[index2] = gui.getValue(gui.config_model["LED" + str(sync_values[(2 * index3) + index2 + 3])]["Current Limit"])
             elif key3 == "PWM":
                 sync_values[(2 * index3) + index2 + 29]  = round((gui.getValue(gui.sync_model["Confocal"][key2][key3]) / 100) * 65535) #Convert to clock-cycles, where 100% = # of clock cycles in delay #2
             elif key3 == "Current":
                 sync_values[(2 * index3) + index2 + 29] = round((((gui.getValue(gui.sync_model["Confocal"][key2][key3])/100)*current_limit[index2] * total_resistance) / 3.3) * 65535)  # Convert current to ADC reading (voltage) as percent of current limit
+                print("Input: " + str(gui.getValue(gui.sync_model["Confocal"][key2][key3])) + ", Limit: " + str(current_limit[index2]) + ", Res: " + str(total_resistance))
             elif key3 == "Duration":
                 sync_values[(2 * index3) + index2 + 29] = round(gui.getValue(gui.sync_model["Confocal"][key2][key3])*1e6)
 
