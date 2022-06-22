@@ -700,7 +700,8 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
   elapsedMicros duration; //Duration timer for sequence steps
   uint16_t sync_step; //sequence step counter
   uint32_t interline_timeout = 16000000; //Timeout to stop looking for mirror sync - 1 second.
-  uint32_t pwm_clock_cycles; //The number of clock cycles equivalent to the PWM duration
+  uint32_t pwm_clock_list[4]; //The number of clock cycles equivalent to the PWM duration for all 3 channels
+  uint32_t pwm_clock_cycles; //The number of clock cycles equivalent to the PWM duration for active channel
   uint32_t unidirectional_status_window = sync.s.confocal_delay[0] + sync.s.confocal_delay[1] + sync.s.confocal_delay[2] + 2*status_step_clock_duration; //Number of clock cycles between end of interline sequence and next trigger
   float pwm_freq = 180000000/(float) sync.s.confocal_mirror_period; //Get the frequency of the mirror in Hz
   float pwm_ratio = (float) sync.s.confocal_delay[1] / (float) sync.s.confocal_mirror_period; //Ratio of LED on time to total mirror period
@@ -708,7 +709,6 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
   boolean sync_pol; //Track polarity of sync output
   uint8_t timeout = 0; //Flag for whether the line sync has timed out waiting for trigger - 0: no timeout, 1: new timeout - report error, 2: on going timeout - error already reported.  Flag resets when shutter closes.
   const uint8_t shutter_pin = pin.SCL0;
-  uint8_t active_channel = 0;  //Current DMD channel that is active
 
   //load the confocal sync sequence
   sync.s.mode = 2;
@@ -828,16 +828,31 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
           digitalWriteFast(pin.ANALOG_SELECT, LOW); //Set internal analog input
           updateIntensity(); 
         }
-        
+//        if(current_status.s.state){ //If scanning, convert PWM to clock cycles
+//          pwm_clock_cycles = round(((float) current_status.s.led_pwm * (float) sync.s.confocal_delay[1])/65535); //Calculate the number of clock cycles to leave the LED on during delay #2 to match the needed % PWM
+//          pinMode(pin.INTERLINE, OUTPUT); //Disconnect interline pin from PWM bus
+//        }
+//        else{ //If standby, convert PWM to proportion of total mirror period
+//          pwm_clock_cycles = round((float) current_status.s.led_pwm * pwm_ratio);
+//          analogWrite(pin.INTERLINE, (uint16_t) pwm_clock_cycles);
+//        }       
         if(current_status.s.state){ //If scanning, convert PWM to clock cycles
-          pwm_clock_cycles = round(((float) current_status.s.led_pwm * (float) sync.s.confocal_delay[1])/65535); //Calculate the number of clock cycles to leave the LED on during delay #2 to match the needed % PWM
+          for(sync_step = 0; sync_step<4; sync_step++){
+            getSeqStep(sync_step); //Get next sequence step
+            pwm_clock_list[sync_step] = round(((float) current_status.s.led_pwm * (float) sync.s.confocal_delay[1])/65535); //Calculate the number of clock cycles to leave the LED on during delay #2 to match the needed % PWM
+          }
           pinMode(pin.INTERLINE, OUTPUT); //Disconnect interline pin from PWM bus
         }
         else{ //If standby, convert PWM to proportion of total mirror period
-          pwm_clock_cycles = round((float) current_status.s.led_pwm * pwm_ratio);
+          for(sync_step = 0; sync_step<4; sync_step++){
+            getSeqStep(sync_step); //Get next sequence step
+            pwm_clock_list[sync_step] = round((float) current_status.s.led_pwm * pwm_ratio); //Calculate the number of clock cycles to leave the LED on during delay #2 to match the needed % PWM
+          }
           analogWrite(pin.INTERLINE, (uint16_t) pwm_clock_cycles);
         }
+        
         while(shutter_state == digitalReadFast(shutter_pin) && !update_flag){ //Loop until shutter changes, update, or seq duration times out (0 = hold - no timeout) - Interline loop
+ //         playStatusTone();
           checkStatus(); //Check status at least once per mirror cycle
           if(update_flag) goto quit;
 
@@ -850,6 +865,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
           sync.s.mode = 2;
           updateIntensity();
           sync.s.mode = 4;
+          pwm_clock_cycles = pwm_clock_list[sync_step];
           
           if(current_status.s.state){ //If shutter is open (actively scanning) perform interline modulation
             waitForTriggerReset(); //Wait for trigger to reset - this insures the driver will always only sync to the start of a trigger, and not mid trigger
@@ -1026,6 +1042,7 @@ void checkStatus(){
       status_index++;
       if(current_status.s.driver_control && !fault_active){ //Only check toggle if driver control
         if(digitalReadFast(pin.TOGGLE) == !current_status.s.mode){ //Check if toggle state has changed - xor comparison by boolean inference (!) of mode
+          analogWrite(pin.DAC0, 0);
           pinMode(pin.INTERLINE, OUTPUT);
           digitalWriteFast(pin.INTERLINE, LOW); //Turn of LED while driver transitions between sync and manual modes
           delay(pin.DEBOUNCE);
@@ -1131,6 +1148,11 @@ void ledOff(){
 }
 
 void updateIntensity(){
+  //Turn off LED before updating intensity.
+  pinMode(pin.INTERLINE, OUTPUT); //ensure pin is disconnected from PWM bus
+  digitalWriteFast(pin.INTERLINE, LOW);
+  analogWrite(pin.DAC0, 0);
+  
   if(conf.c.led_active[current_status.s.led_channel]){ //Check if the channel is active
     
     for(int a=0; a<4; a++){ //Toggle channel relays

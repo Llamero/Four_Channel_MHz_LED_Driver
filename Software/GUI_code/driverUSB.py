@@ -14,6 +14,7 @@ import tempfile
 import sys
 from timeit import default_timer as timer
 import calibrationPlot
+import traceback
 
 # Teensy USB serial microcontroller program id data:
 VENDOR_ID = 0x16C0
@@ -263,6 +264,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                         print("Frame processed. " + str(self.dropped_frame_counter) + " dropped frames so far.")
             except KeyError:
                 if debug:
+                    print(traceback.format_exc())
                     print("Invalid prefix: " + str(command[0]))
                 self.dropped_frame_counter += 1
 
