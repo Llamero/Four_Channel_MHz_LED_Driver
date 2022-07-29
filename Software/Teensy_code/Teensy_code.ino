@@ -644,6 +644,7 @@ void confocalSync(){
 }
 
 void customSync(){ //Two channel interline sequence, with external trigger between steps
+<<<<<<< Updated upstream
   float start_delay = 1000000;  
   float float_delay = start_delay;
   float delay_factor = 0.053;
@@ -673,6 +674,39 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
       if(float_delay < 1000) float_delay=1000;
     }
   }
+=======
+  elapsedMicros duration; //Duration timer for sequence steps
+  float gamma = 1.01;
+  uint32_t min_time = 180*50;
+  uint8_t prev_channel = 0;
+  uint8_t current_channel = 1;
+  current_status.s.led_channel = current_channel; //Active LED channel
+  current_status.s.led_pwm = 65535; //PWM value for internal and external fan respectively
+  current_status.s.led_current = 32000; //DAC value for active LED
+  noInterrupts();
+  //sync.s.mode = 2;
+  updateIntensity();
+  //sync.s.mode = 4;
+  cpu_cycles = ARM_DWT_CYCCNT;
+  while(!current_status.s.mode && sync.s.mode == 4){
+    checkStatus(); //Check status at least once per mirror cycle
+    if(update_flag) goto quit;
+    while(ARM_DWT_CYCCNT - cpu_cycles < min_time);
+    digitalWriteFast(pin.RELAY[prev_channel], LOW);
+    digitalWriteFast(pin.RELAY[current_channel], HIGH);
+    cpu_cycles += min_time;
+    prev_channel = current_channel;
+    current_channel++;
+    current_channel %= 3;   
+  }
+
+  quit:
+    analogWriteFrequency(pin.INTERLINE, pin.LED_FREQ); //Restore the interline timer to its defaul value: https://www.pjrc.com/teensy/td_pulse.html
+    interrupts();
+    pinMode(pin.ANALOG_SELECT, OUTPUT);
+    digitalWriteFast(pin.ANALOG_SELECT, LOW);
+    external_analog = false;
+>>>>>>> Stashed changes
 }
 
 void initializeSeq(){ //Setup seq
