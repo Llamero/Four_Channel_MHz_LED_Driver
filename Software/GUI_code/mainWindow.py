@@ -19,6 +19,12 @@ import syncPlotWindow
 
 DIAL_UPDATE_RATE = 0.05 #Time in s between updates from dial when in manual control - prevents dial from locking GUI with continuous updates when dial is swept
 ANALOG_SYNC_SAMPLE_RATE = 10 #Time interval in microseconds for the analog sync to take a single sample
+if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
+    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
+
+if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
+    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
+
 class Ui(QtWidgets.QMainWindow):
     status_signal = QtCore.pyqtSignal(object) #Need to initialize outside of init() https://stackoverflow.com/questions/2970312/pyqt4-qtcore-pyqtsignal-object-has-no-attribute-connect
     sync_update_signal = QtCore.pyqtSignal(object)  # Need to initialize outside of init() https://stackoverflow.com/questions/2970312/pyqt4-qtcore-pyqtsignal-object-has-no-attribute-connect
@@ -283,7 +289,7 @@ class Ui(QtWidgets.QMainWindow):
             dark_active = True
         else:
             self.app.setStyleSheet("")
-        self.app.setFont(QFont("MS Shell Dlg 2", 12))
+        self.app.setFont(QFont("MS Shell Dlg 2", 8))
 
         #Toggle menu check marks
         self.menu_view_skins_dark.setChecked(dark_active)

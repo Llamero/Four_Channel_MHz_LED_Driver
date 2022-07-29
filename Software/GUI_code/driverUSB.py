@@ -14,6 +14,7 @@ import tempfile
 import sys
 from timeit import default_timer as timer
 import calibrationPlot
+import traceback
 
 # Teensy USB serial microcontroller program id data:
 VENDOR_ID = 0x16C0
@@ -35,7 +36,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.com_list_teensy = []  # List of USB COM ports that have the same VENDOR_ID and PRODUCT_ID as a Teensy
         self.com_list_custom = [] #List of valid Teensy COM ports with a custom serial number that is "MHZ_LEDXX:
         self.com_list_verified = OrderedDict() #List of verified LED driver ports and their attributes
-        self.active_port = QSerialPort() #Active serial connection, None if no port is currently active
+        self.active_port = None #Active serial connection, None if no port is currently active
         self.serial_buffer = [] #Stores incoming serial stream
         self.command_queue = [] #List of parsed and cobs decoded
         self.prefix_dict = {} #byte prefix identifying data packet type
@@ -54,7 +55,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         self.expected_callback = None #Expected callback function - used when GUI expects a reply from the driver to verify data is received in order
         self.download_all_seq = False #Whether just one sequence file, or all sequence files are to be downloaded
         self.stream_download_timeout = 0 #Unix time to wait for complete non-COBS stream packet before timing out and clearing the stream flag
-        self.initializing_connection = False #Flag to suppress unnecessary notifications if connection is being initialized
+        self.initializing_connection = True #Flag to suppress unnecessary notifications if connection is being initialized
         self.stop_receive = False #Blocks receive thread when a packet is being processed
         self.heartbeat_timer = timer() #Timer to track if a heartbeat signal needs to be sent
         for action in self.gui.menu_connection.actions():
@@ -79,7 +80,6 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
             port_list = self.com_list_teensy
             if len(self.com_list_custom) > 0: #If at least one custom serial number was found, only check devices with custom serial numbers
                 port_list = self.com_list_custom
-
             for port_info in port_list:
                 if self.connectSerial(port_info["Port"]):
                     self.magicNumberCheck()
@@ -96,10 +96,10 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 self.showMessage("No LED drivers were found. Make sure the following:\n1) USB cables are connected properly\n2) No other program is connected to the LED driver\n3) The LED driver software has been uploaded to the Teensy board")
 
     def getPortInfo(self, port):
-        return {"Vendor": QSerialPortInfo(self.port).vendorIdentifier(),
-                "Product": QSerialPortInfo(self.port).productIdentifier(),
-                "Serial": QSerialPortInfo(self.port).serialNumber(),
-                "Port": QSerialPortInfo(self.port).systemLocation()}
+        return {"Vendor": QSerialPortInfo(port).vendorIdentifier(),
+                "Product": QSerialPortInfo(port).productIdentifier(),
+                "Serial": QSerialPortInfo(port).serialNumber(),
+                "Port": QSerialPortInfo(port).systemLocation()}
 
     def connectSerial(self, port):
         #try:
@@ -218,7 +218,8 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
         if self.active_port.waitForBytesWritten(wait_time): #Wait for data to be sent
             pass
         else:
-            self.showMessage("Error: Message buffer failed to be sent to driver, please check driver connection.")
+            if not self.initializing_connection:
+                self.showMessage("Error: Message buffer failed to be sent to driver, please check driver connection.")
 
     def onTriggered(self, action):
         if str(action.objectName()) == "menu_connection_disconnect":
@@ -263,6 +264,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                         print("Frame processed. " + str(self.dropped_frame_counter) + " dropped frames so far.")
             except KeyError:
                 if debug:
+                    print(traceback.format_exc())
                     print("Invalid prefix: " + str(command[0]))
                 self.dropped_frame_counter += 1
 

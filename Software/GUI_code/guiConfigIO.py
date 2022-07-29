@@ -3,7 +3,7 @@ import math
 import struct
 import sys
 import tempfile
-from PyQt5 import QtGui
+from PyQt5 import QtWidgets
 from collections import OrderedDict
 import ast
 import guiSequence as seq
@@ -28,7 +28,7 @@ def saveConfiguration(gui, model, file=None):
             pass
 
     if file is None:
-        path = QtGui.QFileDialog.getSaveFileName(gui, 'Save File', '', 'TXT(*.txt)')
+        path = QtWidgets.QFileDialog.getSaveFileName(gui, 'Save File', '', 'TXT(*.txt)')
         if path[0] != "":
             with open(str(path[0]), 'w', newline='') as file:
                 writeLines("", model)
@@ -39,7 +39,7 @@ def saveConfiguration(gui, model, file=None):
 def loadConfiguration(gui, model, file=None):
     lines = []
     if file is None:
-        path = QtGui.QFileDialog.getOpenFileName(gui, 'Open File', '', 'TXT(*.txt)')
+        path = QtWidgets.QFileDialog.getOpenFileName(gui, 'Open File', '', 'TXT(*.txt)')
         if path[0] != "":
             with open(str(path[0]), 'r', newline='') as file:
                 lines = file.readlines()
@@ -380,11 +380,14 @@ def syncToBytes(gui, prefix, update_model=True):
                 sync_values[(2 * index3) + index2 + 3] = gui.sync_model["Digital"][key2][key3].currentIndex()
             if key3 == "LED":
                 sync_values[(2 * index3) + index2 + 3] = widgetIndex(gui.sync_model["Digital"][key2][key3])
+                if sync_values[(2 * index3) + index2 + 29] == 0: #If current LED is selected - get active LED channel from main window
+                    sync_values[(2 * index3) + index2 + 29] = widgetIndex(gui.main_model["Channel"])+1
                 current_limit[index2] = gui.getValue(gui.config_model["LED" + str(sync_values[(2 * index3) + index2 + 3]+1)]["Current Limit"])
             elif key3 == "PWM":
                 sync_values[(2 * index3) + index2 + 3] = round((gui.getValue(gui.sync_model["Digital"][key2][key3])/100)*65535)
             elif key3 == "Current":
                 sync_values[(2 * index3) + index2 + 3] = round((((gui.getValue(gui.sync_model["Digital"][key2][key3])/100)*current_limit[index2] * total_resistance) / 3.3) * 65535)  # Convert current limit to ADC reading (voltage)
+                print("Digital Input: " + str(gui.getValue(gui.sync_model["Digital"][key2][key3])) + ", Limit: " + str(current_limit[index2]) + ", Res: " + str(total_resistance))
             elif key3 == "Duration":
                 sync_values[(2 * index3) + index2 + 3] = round(gui.getValue(gui.sync_model["Digital"][key2][key3])*1e6)  # Convert duration to microseconds
 
@@ -413,11 +416,14 @@ def syncToBytes(gui, prefix, update_model=True):
                 sync_values[(2 * index3) + index2 + 29] = gui.sync_model["Confocal"][key2][key3].currentIndex()
             if key3 == "LED":
                 sync_values[(2 * index3) + index2 + 29] = widgetIndex(gui.sync_model["Confocal"][key2][key3])
-                current_limit[index2] = gui.getValue(gui.config_model["LED" + str(sync_values[(2 * index3) + index2 + 3]+1)]["Current Limit"])
+                if sync_values[(2 * index3) + index2 + 29] == 0: #If current LED is selected - get active LED channel from main window
+                    sync_values[(2 * index3) + index2 + 29] = widgetIndex(gui.main_model["Channel"])+1
+                current_limit[index2] = gui.getValue(gui.config_model["LED" + str(sync_values[(2 * index3) + index2 + 29])]["Current Limit"])
             elif key3 == "PWM":
                 sync_values[(2 * index3) + index2 + 29]  = round((gui.getValue(gui.sync_model["Confocal"][key2][key3]) / 100) * 65535) #Convert to clock-cycles, where 100% = # of clock cycles in delay #2
             elif key3 == "Current":
                 sync_values[(2 * index3) + index2 + 29] = round((((gui.getValue(gui.sync_model["Confocal"][key2][key3])/100)*current_limit[index2] * total_resistance) / 3.3) * 65535)  # Convert current to ADC reading (voltage) as percent of current limit
+                print("Confocal Input: " + str(gui.getValue(gui.sync_model["Confocal"][key2][key3])) + ", Limit: " + str(current_limit[index2]) + ", Res: " + str(total_resistance))
             elif key3 == "Duration":
                 sync_values[(2 * index3) + index2 + 29] = round(gui.getValue(gui.sync_model["Confocal"][key2][key3])*1e6)
 
@@ -441,7 +447,7 @@ def updateModelWhatsThis(gui, dictionary):
             if not isinstance(value, (str, type(None))):
                 value.setWhatsThis(str(gui.getValue(value)))
 
-def adcToTemp(adc, external=False):
+def adcToTemp(adc, external = False):
     try:
         if external:
             therm_nominal = EXT_THERMISTOR_NOMINAL
@@ -464,7 +470,7 @@ def adcToTemp(adc, external=False):
         return -1000 #Return impossible temp if invalid ADC value is received
     return steinhart
 
-def tempToAdc(temperature, external=False):
+def tempToAdc(temperature, external = False):
     if external:
         therm_nominal = EXT_THERMISTOR_NOMINAL
         b_coefficient = EXT_B_COEFFICIENT

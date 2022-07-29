@@ -9,32 +9,28 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>714</width>
-    <height>1018</height>
+    <width>380</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>475</width>
-    <height>600</height>
+    <width>380</width>
+    <height>500</height>
    </size>
   </property>
   <property name="font">
    <font>
-    <family>Verdana</family>
-    <pointsize>12</pointsize>
+    <family>Segoe UI</family>
+    <pointsize>10</pointsize>
+    <weight>50</weight>
+    <bold>false</bold>
    </font>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <property name="font">
-    <font>
-     <family>MS Shell Dlg 2</family>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QTabWidget" name="gui_master_tab">
@@ -48,7 +44,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="toolTip">
@@ -324,12 +320,6 @@
         </item>
         <item row="1" column="0" colspan="2" alignment="Qt::AlignTop">
          <widget class="QGroupBox" name="main_channel_box">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
           <property name="toolTip">
            <string>Select active LED channel on driver</string>
           </property>
@@ -439,8 +429,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>670</width>
-             <height>803</height>
+             <width>320</width>
+             <height>297</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -450,15 +440,15 @@
                <string>Select the active sync mode to configure</string>
               </property>
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="sync_digital_page">
                <property name="geometry">
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>523</width>
-                 <height>628</height>
+                 <width>568</width>
+                 <height>772</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -771,13 +761,6 @@
                           </item>
                           <item row="2" column="2">
                            <widget class="QLabel" name="sync_digital_trigger_low_constant_config_duration_label2">
-                            <property name="font">
-                             <font>
-                              <family>MS Shell Dlg 2</family>
-                              <pointsize>12</pointsize>
-                              <strikeout>false</strikeout>
-                             </font>
-                            </property>
                             <property name="toolTip">
                              <string>NOTE: 0 seconds = LED stays on until trigger goes HIGH (&gt;2.5V)</string>
                             </property>
@@ -811,12 +794,6 @@
                       <layout class="QGridLayout" name="gridLayout_45">
                        <item row="0" column="0" colspan="2">
                         <widget class="QTableWidget" name="sync_digital_low_sequence_table">
-                         <property name="font">
-                          <font>
-                           <family>MS Shell Dlg 2</family>
-                           <pointsize>10</pointsize>
-                          </font>
-                         </property>
                          <property name="toolTip">
                           <string>LED intensity sequence file</string>
                          </property>
@@ -831,6 +808,9 @@
                          </attribute>
                          <attribute name="verticalHeaderCascadingSectionResizes">
                           <bool>false</bool>
+                         </attribute>
+                         <attribute name="verticalHeaderDefaultSectionSize">
+                          <number>25</number>
                          </attribute>
                          <attribute name="verticalHeaderHighlightSections">
                           <bool>false</bool>
@@ -1159,13 +1139,6 @@
                           </item>
                           <item row="2" column="2">
                            <widget class="QLabel" name="sync_digital_trigger_high_constant_config_duration_label2">
-                            <property name="font">
-                             <font>
-                              <family>MS Shell Dlg 2</family>
-                              <pointsize>12</pointsize>
-                              <strikeout>false</strikeout>
-                             </font>
-                            </property>
                             <property name="toolTip">
                              <string>NOTE: 0 seconds = LED stays on until trigger goes LOW (&lt;1.0V)</string>
                             </property>
@@ -1209,12 +1182,6 @@
                        </item>
                        <item row="0" column="0" colspan="2">
                         <widget class="QTableWidget" name="sync_digital_high_sequence_table">
-                         <property name="font">
-                          <font>
-                           <family>MS Shell Dlg 2</family>
-                           <pointsize>10</pointsize>
-                          </font>
-                         </property>
                          <property name="toolTip">
                           <string>LED intensity sequence file</string>
                          </property>
@@ -1224,6 +1191,12 @@
                          <property name="columnCount">
                           <number>4</number>
                          </property>
+                         <attribute name="verticalHeaderDefaultSectionSize">
+                          <number>25</number>
+                         </attribute>
+                         <attribute name="verticalHeaderMinimumSectionSize">
+                          <number>36</number>
+                         </attribute>
                          <row/>
                          <row/>
                          <row/>
@@ -1319,8 +1292,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>652</width>
-                 <height>620</height>
+                 <width>688</width>
+                 <height>528</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1336,7 +1309,7 @@
                    <string>Configure how the analog input will be converted to LED output.</string>
                   </property>
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>2</number>
                   </property>
                   <widget class="QWidget" name="sync_analog_output_PWM_tab">
                    <property name="toolTip">
@@ -1739,9 +1712,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
-                 <width>525</width>
-                 <height>1104</height>
+                 <y>-691</y>
+                 <width>956</width>
+                 <height>1374</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -2461,13 +2434,6 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              </item>
                              <item row="2" column="2">
                               <widget class="QLabel" name="sync_confocal_scanning_constant_config_duration_label2">
-                               <property name="font">
-                                <font>
-                                 <family>MS Shell Dlg 2</family>
-                                 <pointsize>12</pointsize>
-                                 <strikeout>false</strikeout>
-                                </font>
-                               </property>
                                <property name="toolTip">
                                 <string>NOTE: 0 seconds = LED stays on when the scan is active.</string>
                                </property>
@@ -2521,12 +2487,6 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                           </item>
                           <item row="0" column="0" colspan="2">
                            <widget class="QTableWidget" name="sync_confocal_scanning_sequence_table">
-                            <property name="font">
-                             <font>
-                              <family>MS Shell Dlg 2</family>
-                              <pointsize>10</pointsize>
-                             </font>
-                            </property>
                             <property name="toolTip">
                              <string>LED intensity sequence file</string>
                             </property>
@@ -2536,6 +2496,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                             <property name="columnCount">
                              <number>4</number>
                             </property>
+                            <attribute name="verticalHeaderDefaultSectionSize">
+                             <number>25</number>
+                            </attribute>
                             <row/>
                             <row/>
                             <row/>
@@ -2979,13 +2942,6 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                              </item>
                              <item row="2" column="2">
                               <widget class="QLabel" name="sync_confocal_standby_constant_config_duration_label2">
-                               <property name="font">
-                                <font>
-                                 <family>MS Shell Dlg 2</family>
-                                 <pointsize>12</pointsize>
-                                 <strikeout>false</strikeout>
-                                </font>
-                               </property>
                                <property name="toolTip">
                                 <string>NOTE: 0 seconds = LED stays on during during standby.</string>
                                </property>
@@ -3019,12 +2975,6 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                          <layout class="QGridLayout" name="gridLayout_93">
                           <item row="0" column="0" colspan="2">
                            <widget class="QTableWidget" name="sync_confocal_standby_sequence_table">
-                            <property name="font">
-                             <font>
-                              <family>MS Shell Dlg 2</family>
-                              <pointsize>10</pointsize>
-                             </font>
-                            </property>
                             <property name="toolTip">
                              <string>LED intensity sequence file</string>
                             </property>
@@ -3034,6 +2984,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                             <property name="columnCount">
                              <number>4</number>
                             </property>
+                            <attribute name="verticalHeaderDefaultSectionSize">
+                             <number>25</number>
+                            </attribute>
                             <row/>
                             <row/>
                             <row/>
@@ -3151,8 +3104,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>308</width>
-                 <height>37</height>
+                 <width>386</width>
+                 <height>52</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3179,8 +3132,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>276</width>
-                 <height>37</height>
+                 <width>973</width>
+                 <height>683</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3328,8 +3281,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>653</width>
-             <height>1105</height>
+             <width>974</width>
+             <height>1384</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_16">
@@ -4924,15 +4877,9 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>714</width>
-     <height>24</height>
+     <width>380</width>
+     <height>34</height>
     </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Verdana</family>
-     <pointsize>12</pointsize>
-    </font>
    </property>
    <widget class="QMenu" name="menu_connection">
     <property name="toolTip">
@@ -5141,28 +5088,28 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="configure_ext_fan_button_group"/>
-  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
-  <buttongroup name="configure_ch_merge_4_button_group"/>
   <buttongroup name="configure_ch_merge_1_button_group"/>
-  <buttongroup name="sync_confocal_line_input_button_group"/>
-  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
-  <buttongroup name="sync_analog_led_channel_button_group"/>
-  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
+  <buttongroup name="sync_analog_input_channel_button_group"/>
   <buttongroup name="sync_confocal_scan_mode_button_group"/>
   <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
-  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
-  <buttongroup name="main_intensity_button_group"/>
-  <buttongroup name="main_channel_button_group"/>
+  <buttongroup name="sync_digital_trigger_button_group"/>
   <buttongroup name="configure_indication_group"/>
-  <buttongroup name="sync_analog_input_channel_button_group"/>
-  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
-  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
+  <buttongroup name="configure_ch_merge_2_button_group"/>
+  <buttongroup name="main_intensity_button_group"/>
+  <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
+  <buttongroup name="configure_ch_merge_4_button_group"/>
   <buttongroup name="main_toggle_control_group"/>
   <buttongroup name="sync_output_button_group"/>
-  <buttongroup name="sync_digital_trigger_button_group"/>
+  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
+  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
+  <buttongroup name="main_channel_button_group"/>
   <buttongroup name="configure_pushbutton_LED_button_group"/>
-  <buttongroup name="configure_ch_merge_2_button_group"/>
+  <buttongroup name="configure_ext_fan_button_group"/>
+  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
+  <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
+  <buttongroup name="sync_confocal_line_input_button_group"/>
+  <buttongroup name="sync_analog_led_channel_button_group"/>
   <buttongroup name="configure_ch_merge_3_button_group"/>
+  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
  </buttongroups>
 </ui>
