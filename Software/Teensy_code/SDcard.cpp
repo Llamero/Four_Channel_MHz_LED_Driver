@@ -65,7 +65,7 @@ boolean SDcard::initializeSD(){
   for(int a = 0; a<N_SEQ_FILES; a++){
     sprintf(message_buffer, "%s/%s", seq_bin_dir, seq_files[a]); //Path to file
     if(!SD.exists(message_buffer)){ //If file doesn't exist, create an empty file
-      f = SD.open(message_buffer, O_WRONLY | O_CREAT | O_TRUNC);
+      f = SD.open(message_buffer, FILE_WRITE);
       f.close();
     }
   }
@@ -147,4 +147,92 @@ void SDcard::dateTime(uint16_t* date, uint16_t* time) {
  *date = FAT_DATE(year(unix_t), month(unix_t), day(unix_t));
  // return time using FAT_TIME macro to format fields
  *time = FAT_TIME(hour(unix_t), minute(unix_t), second(unix_t));
+}
+
+//Delete all files and folders on SD card
+boolean SDcard::clearSdCard(){
+    File root = SD.open("/");
+    if(clearFileTree(root)) return true;
+    return false;
+}
+
+boolean SDcard::clearFileTree(File dir) {
+   while(true) {
+     File entry = dir.openNextFile();
+     sprintf(message_buffer, "%s/%s", dir.name(), entry.name());
+     Serial.println(message_buffer);
+     if (! entry) break;
+     if (entry.isDirectory()) {
+       clearFileTree(entry);
+       if(!SD.remove(message_buffer)) return false;
+     } 
+     else if(!SD.remove(message_buffer)) return false;
+     entry.close();
+   }
+   return true;
+}
+
+
+
+//Functions below are for debugging purposes - from SD "list files" example
+
+void SDcard::getFileList(){
+    while(!Serial);
+    File root = SD.open("/");
+    printDirectory(root, 0);
+}
+
+void SDcard::printDirectory(File dir, int numSpaces) {
+   while(true) {
+     File entry = dir.openNextFile();
+     if (! entry) {
+       //Serial.println("** no more files **");
+       break;
+     }
+     printSpaces(numSpaces);
+     Serial.print(entry.name());
+     if (entry.isDirectory()) {
+       Serial.println("/");
+       printDirectory(entry, numSpaces+2);
+     } else {
+       // files have sizes, directories do not
+       int n = log10f(entry.size());
+       if (n < 0) n = 10;
+       if (n > 10) n = 10;
+       printSpaces(50 - numSpaces - strlen(entry.name()) - n);
+       Serial.print("  ");
+       Serial.print(entry.size(), DEC);
+       DateTimeFields datetime;
+       if (entry.getModifyTime(datetime)) {
+         printSpaces(4);
+         printTime(datetime);
+       }
+       Serial.println();
+     }
+     entry.close();
+   }
+}
+
+void SDcard::printSpaces(int num) {
+  for (int i=0; i < num; i++) {
+    Serial.print(" ");
+  }
+}
+
+void SDcard::printTime(const DateTimeFields tm) {
+  const char *months[12] = {
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  };
+  if (tm.hour < 10) Serial.print('0');
+  Serial.print(tm.hour);
+  Serial.print(':');
+  if (tm.min < 10) Serial.print('0');
+  Serial.print(tm.min);
+  Serial.print("  ");
+  Serial.print(tm.mon < 12 ? months[tm.mon] : "???");
+  Serial.print(" ");
+  Serial.print(tm.mday);
+  Serial.print(", ");
+  Serial.print(tm.year + 1900);
 }
