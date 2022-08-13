@@ -1,42 +1,42 @@
-Driver name::
-LED1::ID::LED #1
+Driver name::Hyperscope LED
+LED1::ID::385 nm
 LED1::Active::True
-LED1::Current Limit::0.66
-LED2::ID::LED #2
+LED1::Current Limit::0.99
+LED2::ID::465 nm
 LED2::Active::True
-LED2::Current Limit::0.66
-LED3::ID::LED #3
+LED2::Current Limit::0.99
+LED3::ID::550 nm
 LED3::Active::True
-LED3::Current Limit::0.66
-LED4::ID::LED #4
+LED3::Current Limit::0.99
+LED4::ID::640 nm
 LED4::Active::True
-LED4::Current Limit::0.66
-Channel1::LED #1
-Channel2::LED #2
-Channel3::LED #3
-Channel4::LED #4
+LED4::Current Limit::0.99
+Channel1::385 nm
+Channel2::465 nm
+Channel3::550 nm
+Channel4::640 nm
 Resistor1::Value::5.0
 Resistor1::Active::True
-Resistor2::Value::1000.0
-Resistor2::Active::False
+Resistor2::Value::10.0
+Resistor2::Active::True
 Resistor3::Value::1000.0
 Resistor3::Active::False
 Resistor4::Value::1000.0
 Resistor4::Active::False
-Temperature::Transistor::Warn::60
-Temperature::Transistor::Fault::80
-Temperature::Resistor::Warn::60
-Temperature::Resistor::Fault::80
-Temperature::External::Warn::60
-Temperature::External::Fault::80
+Temperature::Transistor::Warn::40
+Temperature::Transistor::Fault::50
+Temperature::Resistor::Warn::40
+Temperature::Resistor::Fault::50
+Temperature::External::Warn::40
+Temperature::External::Fault::50
 Fan::Driver::Min::30
-Fan::Driver::Max::60
+Fan::Driver::Max::40
 Fan::External::Min::30
-Fan::External::Max::60
+Fan::External::Max::40
 Fan::Channel::None
 Thermistor::Resistance::4700
 Thermistor::Beta::3560
-Audio::Status::32
+Audio::Status::127
 Audio::Alarm::127
 Pushbutton::Indication::On
 Pushbutton::Alarm::Flash
