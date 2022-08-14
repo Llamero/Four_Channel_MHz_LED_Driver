@@ -790,7 +790,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
     cpu_cycles = ARM_DWT_CYCCNT; //Reset interline timer
   };
 
-  auto switchChannel = [&] (){ //Switch the DMD channel
+  auto switchChannel = [&] (){ //Switch the DMD channel  
     temp_state = current_status.s.state;
     current_status.s.state = active_seq;
     getSeqStep(sync_step[active_seq]); //Get next sequence step
@@ -852,7 +852,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
     
     cpu_cycles = ARM_DWT_CYCCNT; //Reset interline timer
 
-    waitForTrigger();  //Catch first trigger to resync timing - prevents starting stim later 
+    if(current_status.s.state) waitForTrigger();  //If scanning, catch first trigger to resync timing - prevents starting stim later 
     
     checkStatus(); //Check status at least once per mirror cycle
     if(update_flag) goto quit; //Exit on update
@@ -875,39 +875,50 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
                 timeout = 2;
               }
             }
-            else{
-              while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[0]); //Wait for delay #1
+          }
+          else{
+            while(sync.s.confocal_mirror_period - (ARM_DWT_CYCCNT - cpu_cycles) > status_step_clock_duration){ //If there is enough time, perform status checks during end of virtual mirror period 
+              checkStatus(); //Check status while there is time to do so during the mirror sweep to the interline pulse
+              if(update_flag) goto quit;
+            }
+            while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_mirror_period); //Precise wait till end of mirror period
+            cpu_cycles += sync.s.confocal_mirror_period; //Reset clock counter = virtual trigger
+          }
+          if(!timeout){
+            while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[0]); //Wait for delay #1
+            
+digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], active_seq); 
+
+            digitalWriteFast(pin.INTERLINE, HIGH);
+            cpu_cycles += sync.s.confocal_delay[0]; //Increment interline timer
+            while(ARM_DWT_CYCCNT - cpu_cycles < pwm_clock_cycles[active_seq]); //Wait for PWM delay
+            digitalWriteFast(pin.INTERLINE, LOW);
+            while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[1]); //Wait for end of delay #2
+            cpu_cycles += sync.s.confocal_delay[1]; //Increment interline timer
+            if(sync.s.confocal_delay[2] > status_step_clock_duration){ //See if there is enough time to check status during delay #3
+              while(sync.s.confocal_delay[2] - (ARM_DWT_CYCCNT - cpu_cycles) > status_step_clock_duration){ //If there is enough time, perform status checks during delay #3
+                checkStatus(); //Check status while there is time to do so during the mirror sweep to the interline pulse
+                if(update_flag) goto quit;
+              }
+            }
+            while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[2]); //Wait for end of delay #3
+            if(sync.s.confocal_scan_mode){ //If scan is bidirectional, perform flyback interline
               digitalWriteFast(pin.INTERLINE, HIGH);
-              cpu_cycles += sync.s.confocal_delay[0]; //Increment interline timer
+              cpu_cycles += sync.s.confocal_delay[2]; //Increment interline timer
               while(ARM_DWT_CYCCNT - cpu_cycles < pwm_clock_cycles[active_seq]); //Wait for PWM delay
               digitalWriteFast(pin.INTERLINE, LOW);
               while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[1]); //Wait for end of delay #2
-              cpu_cycles += sync.s.confocal_delay[1]; //Increment interline timer
-              if(sync.s.confocal_delay[2] > status_step_clock_duration){ //See if there is enough time to check status during delay #3
-                while(sync.s.confocal_delay[2] - (ARM_DWT_CYCCNT - cpu_cycles) > status_step_clock_duration){ //If there is enough time, perform status checks during delay #3
+            }
+            else{ //If unidirectional, perform status checks if there is enough time before the next trigger
+              if(unidirectional_status_window > status_step_clock_duration){ //See if there is enough time to check status during delay #3
+                while((unidirectional_status_window - (ARM_DWT_CYCCNT - cpu_cycles)) > status_step_clock_duration){ //If there is enough time, perform status checks during delay #3
                   checkStatus(); //Check status while there is time to do so during the mirror sweep to the interline pulse
                   if(update_flag) goto quit;
                 }
               }
-              while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[2]); //Wait for end of delay #3
-              if(sync.s.confocal_scan_mode){ //If scan is bidirectional, perform flyback interline
-                digitalWriteFast(pin.INTERLINE, HIGH);
-                cpu_cycles += sync.s.confocal_delay[2]; //Increment interline timer
-                while(ARM_DWT_CYCCNT - cpu_cycles < pwm_clock_cycles[active_seq]); //Wait for PWM delay
-                digitalWriteFast(pin.INTERLINE, LOW);
-                while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[1]); //Wait for end of delay #2
-              }
-              else{ //If unidirectional, perform status checks if there is enough time before the next trigger
-                if(unidirectional_status_window > status_step_clock_duration){ //See if there is enough time to check status during delay #3
-                  while((unidirectional_status_window - (ARM_DWT_CYCCNT - cpu_cycles)) > status_step_clock_duration){ //If there is enough time, perform status checks during delay #3
-                    checkStatus(); //Check status while there is time to do so during the mirror sweep to the interline pulse
-                    if(update_flag) goto quit;
-                  }
-                }
-              }
-              active_seq = !active_seq; //Swich seq tables between lines
-              switchChannel(); //Set the LED intensity
             }
+            active_seq = !active_seq; //Swich seq tables between lines
+            switchChannel(); //Set the LED intensity
           }
         }
         custom_seq_duration[active_seq] -= seq.s.led_duration; //Reset duration timer 
