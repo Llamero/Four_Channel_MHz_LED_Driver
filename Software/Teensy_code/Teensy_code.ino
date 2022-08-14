@@ -285,8 +285,8 @@ PacketSerial_<COBS, 0, COBS_BUFFER_SIZE> usb; //Sets Encoder, framing character,
 
 void setup() {
 //  EEPROM.update(0,0);
-  sd.initializeSD();
-  sd.clearSdCard();
+//  sd.initializeSD();
+//  sd.clearSdCard();
   for(size_t a=0; a<sizeof(current_status.byte_buffer); a++) *(current_status.byte_buffer+a)=0; //Initialize status buffer to a known state of all 0
   
   //Count cpu cycles for submircrosecond delay precision - https://forum.pjrc.com/threads/28407-Teensyduino-access-to-counting-cpu-cycles?p=71036&viewfull=1#post71036
@@ -642,7 +642,7 @@ void confocalSync(){
             }
             else{
               while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[0]); //Wait for delay #1
-              digitalWriteFast(pin.INTERLINE, HIGH);
+              if(current_status.s.led_current) digitalWriteFast(pin.INTERLINE, HIGH);
               cpu_cycles += sync.s.confocal_delay[0]; //Increment interline timer
               while(ARM_DWT_CYCCNT - cpu_cycles < pwm_clock_cycles); //Wait for PWM delay
               digitalWriteFast(pin.INTERLINE, LOW);
@@ -656,7 +656,7 @@ void confocalSync(){
               }
               while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[2]); //Wait for end of delay #3
               if(sync.s.confocal_scan_mode){ //If scan is bidirectional, perform flyback interline
-                digitalWriteFast(pin.INTERLINE, HIGH);
+                if(current_status.s.led_current) digitalWriteFast(pin.INTERLINE, HIGH);
                 cpu_cycles += sync.s.confocal_delay[2]; //Increment interline timer
                 while(ARM_DWT_CYCCNT - cpu_cycles < pwm_clock_cycles); //Wait for PWM delay
                 digitalWriteFast(pin.INTERLINE, LOW);
@@ -711,7 +711,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
   uint8_t timeout = 0; //Flag for whether the line sync has timed out waiting for trigger - 0: no timeout, 1: new timeout - report error, 2: on going timeout - error already reported.  Flag resets when shutter closes.
   uint8_t active_seq = false; //Track which sequence table is active for each flyback
   boolean temp_state = false; //Temporarily store state to allow channel swapping over-ride by toggling the state
-  const uint32_t PMT_GATE_DELAY = 90; //CPU cycles to wait between gating off the PMT and turning on the LED (180 cpu cycles = 1 µs) - https://www.hamamatsu.com/resources/pdf/etd/H11706_TPMO1059E.pdf
+  const uint32_t PMT_GATE_DELAY = 180; //CPU cycles to wait between gating off the PMT and turning on the LED (180 cpu cycles = 1 µs) - https://www.hamamatsu.com/resources/pdf/etd/H11706_TPMO1059E.pdf
   const bool pmt_enable = false; //The polarity of the signal to activate the PMT
   
   if(sync.s.confocal_scan_mode){ //If the scan is bidirectional
@@ -885,29 +885,53 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
             cpu_cycles += sync.s.confocal_mirror_period; //Reset clock counter = virtual trigger
           }
           if(!timeout){
+            if(sync.s.sync_output_channel){ //Disable PMT if gating output is specified
+              if(sync.s.confocal_delay[0]){
+                while(sync.s.confocal_delay[0] - (ARM_DWT_CYCCNT - cpu_cycles) > PMT_GATE_DELAY); //Wait for delay #1 - gate delay
+              }
+              digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], !pmt_enable); //Drive output sync signal; //Gate the PMT
+            }
             while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[0]); //Wait for delay #1
-            
-digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], active_seq); 
-
-            digitalWriteFast(pin.INTERLINE, HIGH);
+            if(current_status.s.led_current) digitalWriteFast(pin.INTERLINE, HIGH);
             cpu_cycles += sync.s.confocal_delay[0]; //Increment interline timer
             while(ARM_DWT_CYCCNT - cpu_cycles < pwm_clock_cycles[active_seq]); //Wait for PWM delay
             digitalWriteFast(pin.INTERLINE, LOW);
             while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[1]); //Wait for end of delay #2
             cpu_cycles += sync.s.confocal_delay[1]; //Increment interline timer
-            if(sync.s.confocal_delay[2] > status_step_clock_duration){ //See if there is enough time to check status during delay #3
-              while(sync.s.confocal_delay[2] - (ARM_DWT_CYCCNT - cpu_cycles) > status_step_clock_duration){ //If there is enough time, perform status checks during delay #3
-                checkStatus(); //Check status while there is time to do so during the mirror sweep to the interline pulse
-                if(update_flag) goto quit;
+            if(sync.s.sync_output_channel){ //Enable PMT if gating output is specified
+              while(ARM_DWT_CYCCNT - cpu_cycles < PMT_GATE_DELAY); //Wait for gate delay - potentially can be commented out
+              digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], pmt_enable); //Activate PMT
+            }
+            if(sync.s.sync_output_channel && sync.s.confocal_scan_mode){ //If gating is specified and mode is bidirectional, wait for second gating event
+              if(sync.s.confocal_delay[2] > status_step_clock_duration+PMT_GATE_DELAY){ //See if there is enough time to check status during delay #3
+                while(sync.s.confocal_delay[2] - (ARM_DWT_CYCCNT - cpu_cycles) > status_step_clock_duration+PMT_GATE_DELAY){ //If there is enough time, perform status checks during delay #3
+                  checkStatus(); //Check status while there is time to do so during the mirror sweep to the interline pulse
+                  if(update_flag) goto quit;
+                }
+              }
+              while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[2]-PMT_GATE_DELAY); //Wait for delay #1 - gate delay
+              digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], !pmt_enable); //Drive output sync signal; //Gate the PMT
+            }
+            else{
+              if(sync.s.confocal_delay[2] > status_step_clock_duration){ //See if there is enough time to check status during delay #3
+                while(sync.s.confocal_delay[2] - (ARM_DWT_CYCCNT - cpu_cycles) > status_step_clock_duration){ //If there is enough time, perform status checks during delay #3
+                  checkStatus(); //Check status while there is time to do so during the mirror sweep to the interline pulse
+                  if(update_flag) goto quit;
+                }
               }
             }
             while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[2]); //Wait for end of delay #3
             if(sync.s.confocal_scan_mode){ //If scan is bidirectional, perform flyback interline
-              digitalWriteFast(pin.INTERLINE, HIGH);
+              if(current_status.s.led_current) digitalWriteFast(pin.INTERLINE, HIGH);
               cpu_cycles += sync.s.confocal_delay[2]; //Increment interline timer
               while(ARM_DWT_CYCCNT - cpu_cycles < pwm_clock_cycles[active_seq]); //Wait for PWM delay
               digitalWriteFast(pin.INTERLINE, LOW);
               while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[1]); //Wait for end of delay #2
+              cpu_cycles += sync.s.confocal_delay[1]; //Increment interline timer
+              if(sync.s.sync_output_channel){ //Enable PMT if gating output is specified
+                while(ARM_DWT_CYCCNT - cpu_cycles < PMT_GATE_DELAY); //Wait for gate delay - potentially can be commented out
+                digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], pmt_enable);; //Activate PMT
+              }
             }
             else{ //If unidirectional, perform status checks if there is enough time before the next trigger
               if(unidirectional_status_window > status_step_clock_duration){ //See if there is enough time to check status during delay #3
