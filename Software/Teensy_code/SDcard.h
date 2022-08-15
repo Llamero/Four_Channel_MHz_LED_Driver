@@ -6,22 +6,19 @@
 
 #include "Arduino.h"
 #include "SDcard.h"
-#include "SD.h"
-#include "TimeLib.h"
+#include "SdFat.h"
+#include "sdios.h"
+#include <TimeLib.h>
 
 class SDcard
 {
   public:
     SDcard();
     static boolean initializeSD();
-    static bool saveToSD(char *data_array, uint32_t start_index, uint32_t end_index, const char (*file_name), const char (*file_dir) = seq_bin_dir, boolean force_write = true);
-    static boolean readFromSD(char *data_array, uint32_t start_index, uint32_t end_index, const char (*file_name), const char (*file_dir) = seq_bin_dir, boolean force_write = true);
+    static bool saveToSD(char *data_array, uint32_t start_index, uint32_t end_index, const char (*file_name), const char (*file_dir) = seq_bin_dir);
+    static boolean readFromSD(char *data_array, uint32_t start_index, uint32_t end_index, const char (*file_name), const char (*file_dir) = seq_bin_dir);
     static boolean clearSdCard();
-    static boolean clearFileTree(File dir);
     static void getFileList();
-    static void printDirectory(File dir, int numSpaces);
-    static void printSpaces(int num);
-    static void printTime(const DateTimeFields tm);
     static char message_buffer[256]; //Temporary buffer for preparing packets immediately before transmission
     static size_t message_size; //Size of temporary packet to transmit
     static size_t file_size; //Size of file that is being read
