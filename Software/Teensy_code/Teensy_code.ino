@@ -284,9 +284,9 @@ SDcard sd;
 PacketSerial_<COBS, 0, COBS_BUFFER_SIZE> usb; //Sets Encoder, framing character, buffer size
 
 void setup() {
-//  EEPROM.update(0,0);
-//  sd.initializeSD();
-//  sd.clearSdCard();
+//  EEPROM.update(0,0); //Uncomment to reset EEPROM to defaults - re-comment and the upload code again
+//  sd.formatSdCard(); //Uncomment to format SD card - re-comment and the upload code again
+
   for(size_t a=0; a<sizeof(current_status.byte_buffer); a++) *(current_status.byte_buffer+a)=0; //Initialize status buffer to a known state of all 0
   
   //Count cpu cycles for submircrosecond delay precision - https://forum.pjrc.com/threads/28407-Teensyduino-access-to-counting-cpu-cycles?p=71036&viewfull=1#post71036
@@ -300,8 +300,21 @@ void setup() {
   usb.setPacketHandler(&onPacketReceived);
   if(!sd.initializeSD()){ //Initiazlize SD card first so the sequence files can be retrieved on initializeConfigurations()
     digitalWriteFast(LED_BUILTIN, HIGH);
-    sd.message_buffer[0] = prefix.message;
-    usb.send((const unsigned char*) sd.message_buffer, sd.message_size);
+    if(!sd.formatSdCard()){ ; //Try reformatting the card
+      sd.message_buffer[0] = prefix.message;
+      usb.send((const unsigned char*) sd.message_buffer, sd.message_size);
+    }
+    else{
+      if(!sd.initializeSD()){ //Re-initialize sd card
+        sd.message_buffer[0] = prefix.message;
+        usb.send((const unsigned char*) sd.message_buffer, sd.message_size);
+      }
+      else{
+        temp_size = sprintf(temp_buffer, "-Warning: SD card fomat was invalid.  Card was successfully reformatted to FAT16/32.  All files were cleared.");
+        temp_buffer[0] = prefix.message;
+        usb.send((const unsigned char*) temp_buffer, temp_size);
+      }
+    }
   }
   initializeConfigurations(); //Initialize configurations only after initializing SD card, as SD card is needed to load seqences
   status_index = 0;
@@ -1432,7 +1445,6 @@ void loadDefaultsToEEPROM(){
   loadEEPROMtoStructs();
 
   //Clear the SD card as well in case it has invalid sequence files
-  sd.clearSdCard();
   sd.initializeSD();
 }
 

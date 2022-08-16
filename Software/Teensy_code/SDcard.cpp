@@ -37,9 +37,16 @@ const uint8_t SD_CS_PIN = SDCARD_SS_PIN;
 SdFat32 card;
 File32 f;
 
-char SDcard::message_buffer[256]; //Temporary buffer for preparing packets immediately before transmission
+//Classes for formatting card
+// SdCardFactory constructs and initializes the appropriate card.
+SdCardFactory cardFactory;
+// Pointer to generic SD card.
+SdCard* m_card = nullptr;
+
+char SDcard::message_buffer[512]; //Temporary buffer for preparing packets immediately before transmission
 size_t SDcard::message_size; //Size of temporary packet to transmit
 size_t SDcard::file_size; //Size of file on SD card
+boolean SDcard::card_active; //Whether card has been activated
 const char SDcard::seq_bin_dir[] = "seq_bin"; //Directory to save boot log files into - max length 8 char
 const char SDcard::seq_files[][13] = {"dig_low.bin", "dig_high.bin", "con_stby.bin", "con_scan.bin"};
 
@@ -48,6 +55,7 @@ SDcard::SDcard()
 }
 
 void SDcard::init(){
+  card_active = false;
 }
 
 // call back for file timestamps - from: https://forum.arduino.cc/index.php?topic=348562.0
@@ -69,11 +77,15 @@ boolean SDcard::initializeSD(){
   FsDateTime::setCallback(dateTime);
 
   //Test SD card
-  //////////////////////CARD MISSING///////////////////////////
-  if (!card.begin(SD_CONFIG)) { //Check if SD card is present
-    message_size = sprintf(message_buffer, "-Warning: SD card not found. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot.");
-    return false;
+    //////////////////////CARD MISSING///////////////////////////
+  if(!card_active){
+    if (!card.begin(SD_CONFIG)) { //Check if SD card is present
+      message_size = sprintf(message_buffer, "-Warning: SD card not found. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot.");
+      return false;
+    }
+    else card_active = true;
   }
+  
   /////////////////INVALID PARTITION/////////////////////////////////////
   if (!card.volumeBegin()) { //Check that there is a FAT32 partition
     message_size = sprintf(message_buffer, "-Warning: SD card is not FAT32 formatted. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot..");
@@ -83,10 +95,13 @@ boolean SDcard::initializeSD(){
   /////////////////CREATE DIRECTORIES IF NECESSARY/////////////////////////////////////
   //Create directories for saving log files and boot info
   if(!card.exists(seq_bin_dir)){ //Don't run begin again if it has already been run - known bug in SD.h library: https://arduino.stackexchange.com/questions/3850/sd-begin-fails-second-time
-    if(!card.begin(SD_CONFIG)){
-      message_size = sprintf(message_buffer, "-Warning: SD initialization failed. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot.");
-      return false;
-    }
+    if(!card_active){
+      if(!card.begin(SD_CONFIG)){
+        message_size = sprintf(message_buffer, "-Warning: SD initialization failed. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot.");
+        return false;
+      }
+      else card_active = true;
+    } 
     if(!card.exists(seq_bin_dir)){ 
       if(!card.mkdir(seq_bin_dir)){
         message_size = sprintf(message_buffer, "-Warning: Could not access directory on SD card. Sequence files will not be permanently saved to the LED driver, and will be lost on reboot.");
@@ -165,10 +180,48 @@ void SDcard::dateTime(uint16_t* date, uint16_t* time) {
 }
 
 //Delete all files and folders on SD card
-boolean SDcard::clearSdCard(){
+boolean SDcard::formatSdCard(){
+  uint32_t const ERASE_SIZE = 262144L;
+  uint32_t firstBlock = 0;
+  uint32_t lastBlock;
+  uint32_t cardSectorCount = 0;
+  FatFormatter fatFormatter;
+  
+  // Select and initialize proper card driver.
+  m_card = cardFactory.newCard(SD_CONFIG);
+  if (!m_card || m_card->errorCode()) {
+    message_size = sprintf(message_buffer, "-FORMAT error: card init failed.");
+    return false;
+  }
+
+  //Erase all data on card
+  cardSectorCount = m_card->sectorCount();
+  if (!cardSectorCount) {
+    message_size = sprintf(message_buffer, "-FORMAT error: Get sector count failed.");
+    return false;
+  }
+  
+  do {
+    lastBlock = firstBlock + ERASE_SIZE - 1;
+    if (lastBlock >= cardSectorCount) {
+      lastBlock = cardSectorCount - 1;
+    }
+    if (!m_card->erase(firstBlock, lastBlock)) {
+      message_size = sprintf(message_buffer, "-FORMAT error: erase failed");
+      return false;
+    }
+    firstBlock += ERASE_SIZE;
+  } while (firstBlock < cardSectorCount);
+
+  if (!m_card->readSector(0, (uint8_t*) message_buffer)) {
+    message_size = sprintf(message_buffer, "-FORMAT error: readBlock");
+    return false;
+  }
+
+  //Format card to FAT16/32
+  fatFormatter.format(m_card, (uint8_t*) message_buffer);
   return true;
 }
-
 
 
 //Functions below are for debugging purposes
