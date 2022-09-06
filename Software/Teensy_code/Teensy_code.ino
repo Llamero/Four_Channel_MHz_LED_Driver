@@ -62,7 +62,7 @@ struct syncStruct{ //158 bytes
   uint16_t digital_pwm[2]; //The PWM value in the LOW and HIGH trigger states respectively
   uint16_t digital_current[2]; //The DAC value in the LOW and HIGH trigger states respectively
   uint32_t digital_duration[2]; //The maximum number of milliseconds to hold LED state
-  
+
   uint8_t analog_channel; //The input channel for the sync signal
   uint8_t analog_led; //The active LED channel
   uint8_t analog_mode; //The analog sync mode
@@ -284,7 +284,9 @@ SDcard sd;
 PacketSerial_<COBS, 0, COBS_BUFFER_SIZE> usb; //Sets Encoder, framing character, buffer size
 
 void setup() {
-//  EEPROM.update(0,0);
+//  EEPROM.update(0,0); //Uncomment to reset EEPROM to defaults - re-comment and the upload code again
+//  sd.formatSdCard(); //Uncomment to format SD card - re-comment and the upload code again
+
   for(size_t a=0; a<sizeof(current_status.byte_buffer); a++) *(current_status.byte_buffer+a)=0; //Initialize status buffer to a known state of all 0
   
   //Count cpu cycles for submircrosecond delay precision - https://forum.pjrc.com/threads/28407-Teensyduino-access-to-counting-cpu-cycles?p=71036&viewfull=1#post71036
@@ -298,8 +300,21 @@ void setup() {
   usb.setPacketHandler(&onPacketReceived);
   if(!sd.initializeSD()){ //Initiazlize SD card first so the sequence files can be retrieved on initializeConfigurations()
     digitalWriteFast(LED_BUILTIN, HIGH);
-    sd.message_buffer[0] = prefix.message;
-    usb.send((const unsigned char*) sd.message_buffer, sd.message_size);
+    if(!sd.formatSdCard()){ ; //Try reformatting the card
+      sd.message_buffer[0] = prefix.message;
+      usb.send((const unsigned char*) sd.message_buffer, sd.message_size);
+    }
+    else{
+      if(!sd.initializeSD()){ //Re-initialize sd card
+        sd.message_buffer[0] = prefix.message;
+        usb.send((const unsigned char*) sd.message_buffer, sd.message_size);
+      }
+      else{
+        temp_size = sprintf(temp_buffer, "-Warning: SD card fomat was invalid.  Card was successfully reformatted to FAT16/32.  All files were cleared.");
+        temp_buffer[0] = prefix.message;
+        usb.send((const unsigned char*) temp_buffer, temp_size);
+      }
+    }
   }
   initializeConfigurations(); //Initialize configurations only after initializing SD card, as SD card is needed to load seqences
   status_index = 0;
@@ -1070,6 +1085,7 @@ void checkStatus(){
       status_index++;
       if(current_status.s.driver_control && !fault_active){ //Only check toggle if driver control
         if(digitalReadFast(pin.TOGGLE) == !current_status.s.mode){ //Check if toggle state has changed - xor comparison by boolean inference (!) of mode
+          analogWrite(pin.DAC0, 0);
           pinMode(pin.INTERLINE, OUTPUT);
           digitalWriteFast(pin.INTERLINE, LOW); //Turn of LED while driver transitions between sync and manual modes
           delay(pin.DEBOUNCE);
@@ -1175,6 +1191,11 @@ void ledOff(){
 }
 
 void updateIntensity(){
+  //Turn off LED before updating intensity.
+  pinMode(pin.INTERLINE, OUTPUT); //ensure pin is disconnected from PWM bus
+  digitalWriteFast(pin.INTERLINE, LOW);
+  analogWrite(pin.DAC0, 0);
+  
   if(conf.c.led_active[current_status.s.led_channel]){ //Check if the channel is active
     
     for(int a=0; a<4; a++){ //Toggle channel relays
@@ -1422,6 +1443,9 @@ void loadDefaultsToEEPROM(){
   buffer_size = sizeof(sync.byte_buffer);
   loadEEPROM();
   loadEEPROMtoStructs();
+
+  //Clear the SD card as well in case it has invalid sequence files
+  sd.initializeSD();
 }
 
 void loadEEPROMtoStructs(){
