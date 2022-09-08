@@ -872,6 +872,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
     
     while(shutter_state == digitalReadFast(pin.INPUTS[0]) && !update_flag){ //While shutter state doesn't change and driver still in digital sync mode - checked each time a seq step is complete
       if(sync_step[active_seq] < seq_steps[active_seq]){ //If the end of the sequence list has not been reached
+        switchChannel();
         pwm_clock_cycles[active_seq] = round(((float) current_status.s.led_pwm * (float) sync.s.confocal_delay[1])/65535); //Calculate the number of clock cycles to leave the LED on during delay #2 to match the needed % PWM
         
         while(shutter_state == digitalReadFast(pin.INPUTS[0]) && !update_flag && (custom_seq_duration[active_seq] < seq.s.led_duration || seq.s.led_duration == 0)){ //Loop until shutter changes, update, or seq duration times out (0 = hold - no timeout) - Interline loop
