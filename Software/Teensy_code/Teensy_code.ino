@@ -727,10 +727,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
 
   //Lamda trigger sync funtions ---------------------------------------------------------------------------------------------------------------
   auto updateChannel = [&] (){ //Switch the DMD channel  
-    temp_state = current_status.s.state;
-    current_status.s.state = active_seq;
-    getSeqStep(sync_step[active_seq]); //Get next sequence step
-    current_status.s.state = temp_state;
+    getSeqStep(sync_step[current_status.s.state]); //Get next sequence step
 
     if(conf.c.led_active[current_status.s.led_channel]){ //Check if the channel is active
       for(int a=0; a<4; a++){ //Toggle channel relays
@@ -757,12 +754,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
     sync.s.mode = 4;
     
     //Initialize duration clocks and PWM timers
-    temp_state = current_status.s.state;
-    for(int a=0; a<2; a++){
-      sync_step[a] = 0;
-      current_status.s.state = a;
-      pwm_clock_cycles[a] = round(((float) current_status.s.led_pwm * (float) sync.s.confocal_delay[1])/65535); //Calculate the number of clock cycles to leave the LED on during delay #2 to match the needed % PWM
-    }
+    for(int a=0; a<2; a++) sync_step[a] = 0;
     current_status.s.state = temp_state;
 
     getSeqStep(sync_step[sync_start]); //Get first sequence step
@@ -783,13 +775,12 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
     custom_seq_duration[0] = 0; //Reset seq timers
     custom_seq_duration[1] = 0;
     
-        
     while(!update_flag && !timeout){ //While there isn't an update nor timed out
       timeout_timer = 0; //Reset timeout timer
       
       if(sync_step[current_status.s.state] < seq_steps[current_status.s.state]){ //If the end of the sequence list has not been reached
         updateChannel();
-        
+        temp_state = true;
         while(temp_state){ //Loop until input changes seq duration times out (0 = hold - no timeout) - Interline loop
           checkStatus(); //Check status at least once
           if(update_flag) goto quit;
@@ -806,12 +797,13 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
             getSeqStep(sync_step[current_status.s.state]); //Get next sequence step
             temp_state = false;
           }
-          if(current_status.s.state != digitalReadFast(pin.INPUTS[sync.s.digital_channel]){ //if trigger changed, change state
+          if(current_status.s.state != digitalReadFast(pin.INPUTS[sync.s.digital_channel])){ //if trigger changed, change state
             current_status.s.state = !current_status.s.state; //Flip status state
             getSeqStep(sync_step[current_status.s.state]); //Get next sequence step
             temp_state = false;
           }
-        }        
+        }
+            //playStatusTone();        
       }
       else{ //Report error if driver ran off the end of the sequence list (i.e. never encountered a hold)
         temp_size = sprintf(temp_buffer, "-Error: Confocal Sync - %s reached the end of the sequence without encountering a hold.", current_status.s.state ? "STANDBY":"SCANNING");
@@ -831,11 +823,10 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
     interrupts();
     pinMode(pin.ANALOG_SELECT, OUTPUT);
     digitalWriteFast(pin.ANALOG_SELECT, LOW);
-    pinMode(pin.INTELRINE, OUTPUT);
+    pinMode(pin.INTERLINE, OUTPUT);
     digitalWriteFast(pin.INTERLINE, LOW);
     external_analog = false;
 }
-
 void initializeSeq(){ //Setup seq
   uint8_t *sync_pointer; //Pointer to whether digital sync or confocal sync set
   uint8_t file_index; //Index of file name
