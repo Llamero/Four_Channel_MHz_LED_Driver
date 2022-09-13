@@ -71,12 +71,15 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
         while(temp_state){ //Loop until input changes seq duration times out (0 = hold - no timeout) - Interline loop
           checkStatus(); //Check status at least once
           if(update_flag) goto quit;
-          if(!timeout && custom_seq_duration[current_status.s.state] > trigger_timeout){ //Check if input has timed out
-            timeout = 1; 
-            temp_size = sprintf(temp_buffer, "-Error: Confocal Sync timed out waiting for line trigger. Check connection and re-measure mirror period.");
-            temp_buffer[0] = prefix.message;
-            usb.send((const unsigned char*) temp_buffer, temp_size);
-            updateChannel(); //Turn off LED
+          if(!timeout && timeout_timer > trigger_timeout){ //Check if input has timed out
+            timeout = 1;
+            if(seq.s.led_duration != 0){ 
+              temp_size = sprintf(temp_buffer, "-Error: Custom Sync timed out waiting for line trigger. Check connection and re-measure mirror period.");
+              temp_buffer[0] = prefix.message;
+              usb.send((const unsigned char*) temp_buffer, temp_size);
+              updateChannel(); //Turn off LED
+            }
+            playStatusTone();
           }
           if(custom_seq_duration[current_status.s.state] >= seq.s.led_duration && seq.s.led_duration != 0){ //If sequence has timed out
             custom_seq_duration[current_status.s.state] -= seq.s.led_duration; //Reset duration timer 
@@ -93,7 +96,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
             //playStatusTone();        
       }
       else{ //Report error if driver ran off the end of the sequence list (i.e. never encountered a hold)
-        temp_size = sprintf(temp_buffer, "-Error: Confocal Sync - %s reached the end of the sequence without encountering a hold.", current_status.s.state ? "STANDBY":"SCANNING");
+        temp_size = sprintf(temp_buffer, "-Error: Custom Sync - %s reached the end of the sequence without encountering a hold.", current_status.s.state ? "STANDBY":"SCANNING");
         temp_buffer[0] = prefix.message;
         usb.send((const unsigned char*) temp_buffer, temp_size);
         custom_seq_duration[0] = 0;
