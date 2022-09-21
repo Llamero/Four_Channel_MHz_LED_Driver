@@ -539,6 +539,7 @@ void confocalSync(){
             if(!timeout) timeout = 1; //Flag timeout
             break;
           }
+          if(shutter_state != digitalReadFast(pin.INPUTS[0])) break; //Check if shutter changed
         }
       }
       else{
@@ -547,6 +548,7 @@ void confocalSync(){
             if(!timeout) timeout = 1; //Flag timeout
             break;
           }
+          if(shutter_state != digitalReadFast(pin.INPUTS[0])) break; //Check if shutter changed
         }
       }
     }
@@ -556,6 +558,7 @@ void confocalSync(){
           if(!timeout) timeout = 1; //Flag timeout
           break;
         }
+        if(shutter_state != digitalReadFast(pin.INPUTS[0])) break; //Check if shutter changed
       }
     }
     cpu_cycles = ARM_DWT_CYCCNT; //Reset interline timer
@@ -571,6 +574,7 @@ void confocalSync(){
             if(!timeout) timeout = 1; //Flag timeout
             break;
           }
+          if(shutter_state != digitalReadFast(pin.INPUTS[0])) break; //Check if shutter changed
         }
       }
       else{
@@ -579,6 +583,7 @@ void confocalSync(){
             if(!timeout) timeout = 1; //Flag timeout
             break;
           }
+          if(shutter_state != digitalReadFast(pin.INPUTS[0])) break; //Check if shutter changed
         }
       }
     }
@@ -588,6 +593,7 @@ void confocalSync(){
           if(!timeout) timeout = 1; //Flag timeout
           break;
         }
+        if(shutter_state != digitalReadFast(pin.INPUTS[0])) break; //Check if shutter changed
       }
     }
     cpu_cycles = ARM_DWT_CYCCNT; //Reset interline timer
