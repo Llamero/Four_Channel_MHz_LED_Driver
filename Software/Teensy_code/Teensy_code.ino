@@ -509,7 +509,7 @@ void analogSync(){
 void confocalSync(){
   elapsedMicros duration; //Duration timer for sequence steps
   uint16_t sync_step; //sequence step counter
-  uint32_t interline_timeout = 720000000; //Timeout to stop looking for mirror sync - 4 second.
+  const uint32_t interline_timeout = 180e6; //Timeout to stop looking for mirror sync - 1 second.
   uint32_t pwm_clock_cycles; //The number of clock cycles equivalent to the PWM duration
   uint32_t unidirectional_status_window = sync.s.confocal_delay[0] + sync.s.confocal_delay[1] + sync.s.confocal_delay[2] + 2*status_step_clock_duration; //Number of clock cycles between end of interline sequence and next trigger
   float pwm_freq = 180000000/(float) sync.s.confocal_mirror_period; //Get the frequency of the mirror in Hz
@@ -543,8 +543,8 @@ void confocalSync(){
       }
       else{
         while(analogRead(pin.INPUTS[sync.s.confocal_channel]) > sync.s.confocal_threshold){
-          if(ARM_DWT_CYCCNT-cpu_cycles >= interline_timeout){
-            if(!timeout) timeout = 1; //Wait for trigger to match polarity
+          if(ARM_DWT_CYCCNT-cpu_cycles >= interline_timeout){ //Check if line sync has timed out
+            if(!timeout) timeout = 1; //Flag timeout
             break;
           }
         }
@@ -574,9 +574,9 @@ void confocalSync(){
         }
       }
       else{
-        while(analogRead(pin.INPUTS[sync.s.confocal_channel]) > sync.s.confocal_threshold){
-          if(ARM_DWT_CYCCNT-cpu_cycles >= interline_timeout){
-            if(!timeout) timeout = 1; //Wait for trigger to match polarity
+        while(analogRead(pin.INPUTS[sync.s.confocal_channel]) < sync.s.confocal_threshold){
+          if(ARM_DWT_CYCCNT-cpu_cycles >= interline_timeout){ //Check if line sync has timed out
+            if(!timeout) timeout = 1; //Flag timeout
             break;
           }
         }
@@ -608,10 +608,33 @@ void confocalSync(){
     duration = 0; //Reset seq timer
     cpu_cycles = ARM_DWT_CYCCNT; //Reset interline timer
 
-//    interline_timeout = 180000000; //Timeout to stop looking for mirror sync - wait one full second as there can be a delay between the shutter and the start of the mirror.
-    waitForTrigger();  //Catch first trigger to resync timing - prevents starting stim later 
-//    interline_timeout = 2*sync.s.confocal_mirror_period; //One the first trigger is caught, wait no longer than 2x one mirror period for the next trigger
-    
+    if(current_status.s.state){ //If shutter is open wait for first trigger
+      cpu_cycles = ARM_DWT_CYCCNT; //Reset inerline timer
+      if(sync.s.confocal_sync_mode){ //If analog sync
+        analogRead(pin.INPUTS[sync.s.confocal_channel]); //Clear the ADC
+        if(sync.s.confocal_sync_polarity[1]){
+          while(analogRead(pin.INPUTS[sync.s.confocal_channel]) < sync.s.confocal_threshold){ //Wait for input to rise above threshold - timeout after two mirror periods
+            checkStatus();
+            if(shutter_state != digitalReadFast(pin.INPUTS[0]) || update_flag) break; //Check if shutter or status changed
+            analogRead(pin.INPUTS[sync.s.confocal_channel]); //Clear the ADC
+          }
+        }
+        else{
+          while(analogRead(pin.INPUTS[sync.s.confocal_channel]) > sync.s.confocal_threshold){
+            checkStatus();
+            if(shutter_state != digitalReadFast(pin.INPUTS[0]) || update_flag) break; //Check if shutter or status changed
+            analogRead(pin.INPUTS[sync.s.confocal_channel]); //Clear the ADC
+          }
+        }
+      }
+      else{ //If digital sync
+        while(digitalReadFast(pin.INPUTS[sync.s.confocal_channel]) != sync.s.confocal_sync_polarity[0]){ //What for line sync trigger
+          checkStatus();
+          if(shutter_state != digitalReadFast(pin.INPUTS[0]) || update_flag) break; //Check if shutter or status changed
+        }
+      }
+      cpu_cycles = ARM_DWT_CYCCNT; //Reset interline timer
+    }
     checkStatus(); //Check status at least once per mirror cycle
     if(update_flag) goto quit; //Exit on update
     
