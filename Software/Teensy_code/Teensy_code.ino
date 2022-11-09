@@ -757,9 +757,9 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
   const bool pmt_enable = false;
   const uint32_t PMT_GATE_DELAY = 90; //CPU cycles t owait between gating off the PMT and turning on the LED (180 cpu cycles = 1 µs) - https://www.hamamatsu.com/resources/pdf/etd/H11706_TPMO1059E.pdf
   uint32_t prev_cpu_cycles = 0; //Timer from LED on to LED off - solves issue with line clock edge occuring during the flyback.
-  const uint32_t check_channel_cycles = 500; //The maximum number of clock cycles ittakes to check and change the DMD channel
+  const uint32_t check_channel_cycles = 800; //The maximum number of clock cycles ittakes to check and change the DMD channel - originally 500
   boolean led_on = false; //Tracking whether the LED is on (flyback) so change channel can know whether to turn the LED on or not.
-  uint32_t standby_cpu_cycles; //Number of CPU cycles that have passed since last mirror period interval
+  uint32_t period_cpu_cycles; //Number of CPU cycles that have passed since last mirror period interval
   
   //load the confocal sync sequence
   sync.s.mode = 2;
@@ -810,6 +810,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
       }
     }
     cpu_cycles = ARM_DWT_CYCCNT; //Reset interline timer
+    period_cpu_cycles = cpu_cycles; //Reset period timer
   };
 
   auto waitForTriggerReset = [&] (){ //Wait for the trigger event to reset - used to initially sync the LED driver to the trigger input
@@ -842,6 +843,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
       }
     }
     cpu_cycles = ARM_DWT_CYCCNT; //Reset interline timer
+    period_cpu_cycles = cpu_cycles; //Reset period timer
   };
   
   auto checkChannel = [&] (){ //Check which DMD channel is active - 2.4 µs per cycle
@@ -907,7 +909,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
         }
         else{
           cpu_cycles = ARM_DWT_CYCCNT; //Reset interline timer
-          standby_cpu_cycles = cpu_cycles;
+          period_cpu_cycles = cpu_cycles;
         }
         while(shutter_state == digitalReadFast(shutter_pin) && !update_flag){ //Loop until shutter changes, update, or seq duration times out (0 = hold - no timeout) - Interline loop
           checkStatus(); //Check status at least once per mirror cycle
@@ -948,9 +950,12 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
             while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[2]); //Wait for delay #3
             if(current_status.s.led_current) digitalWriteFast(pin.INTERLINE, HIGH); //Turn on LED
             prev_cpu_cycles = cpu_cycles + sync.s.confocal_delay[2]; //Set LED timer
-            noInterrupts();
             if(current_status.s.state){ //If shutter is open (actively scanning) perform interline modulation
               //waitForTriggerReset(); //Wait for trigger to reset - this insures the driver will always only sync to the start of a trigger, and not mid trigger
+              while(sync.s.confocal_mirror_period - (ARM_DWT_CYCCNT - period_cpu_cycles) > check_channel_cycles){ //If there is enough time, perform status checks during end of virtual mirror period 
+                checkChannel();
+              }
+              noInterrupts();
               waitForTrigger();
               if(timeout){
                 if(timeout == 1){
@@ -962,13 +967,12 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
               }
             }
             else{ //If in standby - use CPU clock to emulate mirror period
-              while(sync.s.confocal_mirror_period - (ARM_DWT_CYCCNT - standby_cpu_cycles) > check_channel_cycles){ //If there is enough time, perform status checks during end of virtual mirror period 
+              while(sync.s.confocal_mirror_period - (ARM_DWT_CYCCNT - period_cpu_cycles) > check_channel_cycles){ //If there is enough time, perform status checks during end of virtual mirror period 
                 checkChannel();
-                if(update_flag) goto quit;
               }
-              while(ARM_DWT_CYCCNT - standby_cpu_cycles < sync.s.confocal_mirror_period); //Precise wait till end of mirror period
-              standby_cpu_cycles += sync.s.confocal_mirror_period; //Reset clock counter = virtual trigger
-              cpu_cycles = standby_cpu_cycles;
+              while(ARM_DWT_CYCCNT - period_cpu_cycles < sync.s.confocal_mirror_period); //Precise wait till end of mirror period
+              period_cpu_cycles += sync.s.confocal_mirror_period; //Reset clock counter = virtual trigger
+              cpu_cycles = period_cpu_cycles;
             }
             while(ARM_DWT_CYCCNT - prev_cpu_cycles < sync.s.confocal_delay[1]-check_channel_cycles) checkChannel(); //Wait for delay #1 - checking channels while there is time              
             while(ARM_DWT_CYCCNT - prev_cpu_cycles < sync.s.confocal_delay[1]); //Turn off LED at end of flyback 
@@ -990,10 +994,13 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
             }
             while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[0]); //Wait for delay #1
             if(current_status.s.led_current) digitalWriteFast(pin.INTERLINE, HIGH); //Turn on LED
+            led_on = true;
             prev_cpu_cycles = cpu_cycles + sync.s.confocal_delay[0]; //Set LED timer
-            noInterrupts();
             if(current_status.s.state){ //If shutter is open (actively scanning) perform interline modulation
-              waitForTriggerReset(); //Wait for trigger to reset - this insures the driver will always only sync to the start of a trigger, and not mid trigger
+              while(sync.s.confocal_mirror_period - (ARM_DWT_CYCCNT - period_cpu_cycles) > check_channel_cycles){ //If there is enough time, perform status checks during end of virtual mirror period 
+                checkChannel();
+              }
+              noInterrupts();
               waitForTrigger();
               if(timeout){
                 if(timeout == 1){
@@ -1005,13 +1012,12 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
               }
             }
             else{ //If in standby - use CPU clock to emulate mirror period
-              while(sync.s.confocal_mirror_period - (ARM_DWT_CYCCNT - standby_cpu_cycles) > check_channel_cycles){ //If there is enough time, perform status checks during end of virtual mirror period 
+              while(sync.s.confocal_mirror_period - (ARM_DWT_CYCCNT - period_cpu_cycles) > check_channel_cycles){ //If there is enough time, perform status checks during end of virtual mirror period 
                 checkChannel();
-                if(update_flag) goto quit;
               }
-              while(ARM_DWT_CYCCNT - standby_cpu_cycles < sync.s.confocal_mirror_period); //Precise wait till end of mirror period
-              standby_cpu_cycles += sync.s.confocal_mirror_period; //Reset clock counter = virtual trigger
-              cpu_cycles = standby_cpu_cycles;
+              while(ARM_DWT_CYCCNT - period_cpu_cycles < sync.s.confocal_mirror_period); //Precise wait till end of mirror period
+              period_cpu_cycles += sync.s.confocal_mirror_period; //Reset clock counter = virtual trigger
+              cpu_cycles = period_cpu_cycles;
             }
             while(sync.s.confocal_delay[1] - (ARM_DWT_CYCCNT - prev_cpu_cycles) > status_step_clock_duration+check_channel_cycles){ //If there is enough time, perform status checks during delay #3
               checkStatus(); //Check status while there is time to do so during the mirror sweep to the interline pulse
@@ -1020,6 +1026,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
             }
             while(ARM_DWT_CYCCNT - prev_cpu_cycles < sync.s.confocal_delay[1]); //Turn off LED at end of flyback 
             digitalWriteFast(pin.INTERLINE, LOW); //Turn off LED
+            led_on = false;
             if(sync.s.sync_output_channel){
               while(ARM_DWT_CYCCNT - prev_cpu_cycles < sync.s.confocal_delay[1]+PMT_GATE_DELAY); //Wait for gate delay - potentially can be commented out
               digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], pmt_enable);; //Activate PMT

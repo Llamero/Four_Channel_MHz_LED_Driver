@@ -1,0 +1,43 @@
+Mode::Custom
+Digital::Channel::Channel #2
+Digital::Low::Mode::Sequence
+Digital::Low::LED::465 nm
+Digital::Low::PWM::10.001
+Digital::Low::Current::100.0
+Digital::Low::Duration::0.0
+Digital::Low::Sequence::None
+Digital::High::Mode::Sequence
+Digital::High::LED::550 nm
+Digital::High::PWM::10.001
+Digital::High::Current::50.001
+Digital::High::Duration::0.0
+Digital::High::Sequence::None
+Analog::LED::Current LED
+Analog::Channel::Channel #1
+Analog::Mode::Buffered - PWM
+Analog::PWM::1
+Analog::Current::1
+Confocal::Shutter::LOW
+Confocal::Channel::Channel #4
+Confocal::Line::Digital - Line Clock
+Confocal::Digital::HIGH
+Confocal::Threshold::0.101
+Confocal::Polarity::Above Threshold
+Confocal::Delay::Mode::Bidirectional
+Confocal::Delay::1::48.0
+Confocal::Delay::2::20.0
+Confocal::Delay::3::44.2
+Confocal::Period::126.38
+Confocal::Standby::Mode::Sequence
+Confocal::Standby::LED::385 nm
+Confocal::Standby::PWM::0.0
+Confocal::Standby::Current::0.0
+Confocal::Standby::Duration::0.0
+Confocal::Standby::Sequence::None
+Confocal::Scanning::Mode::Sequence
+Confocal::Scanning::LED::385 nm
+Confocal::Scanning::PWM::0.0
+Confocal::Scanning::Current::0.0
+Confocal::Scanning::Duration::0.0
+Confocal::Scanning::Sequence::None
+Output::Output #1
