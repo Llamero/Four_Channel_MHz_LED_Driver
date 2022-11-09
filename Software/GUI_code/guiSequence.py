@@ -24,6 +24,7 @@ def loadSequence(gui, widget, get_path=False):  # derived from - https://stackov
     if path: #If path is specified, load file
         try: #Try to open file at path
             # Count number of rows in CSV file
+            print(path)
             with open(str(path), 'rU') as stream: #Verify that the seq table is valid
                 widget_headers = verifySequence(gui, stream, widget)
 
