@@ -231,7 +231,7 @@ class Ui(QtWidgets.QMainWindow):
                         intensity = status_list[status_dict["Mode"]][1]
                     else:
                         intensity = 0
-                    self.setValue(self.main_model["Intensity"], (intensity/self.getAdcCurrentLimit(status_dict["Channel"]))*self.main_model["Intensity"].maximum())
+                    self.setValue(self.main_model["Intensity"], round((intensity/self.getAdcCurrentLimit(status_dict["Channel"]))*self.main_model["Intensity"].maximum()))
                 except (OverflowError, ZeroDivisionError): #This can happen when initializing connection - so default intensity to 0
                     self.setValue(self.main_model["Intensity"], 0)
 
