@@ -1,0 +1,117 @@
+void customSync(){ //Two channel interline sequence, with external trigger between steps
+  uint32_t duration; //Duration timer for sequence steps
+  uint8_t sync_step; //sequence step counter
+  uint8_t prev_sync_step; //Previous sequence step
+  uint32_t sync_timeout = 16000000; //Timeout to stop looking for mirror sync - 0.1 second.
+  boolean input_trigger = false; //Whether an input trigger is being used
+  boolean trigger_state; //Logical state of shutter input
+  boolean sync_pol; //Track polarity of sync output
+  uint8_t timeout = 0; //Flag for whether the line sync has timed out waiting for trigger - 0: no timeout, 1: new timeout - report error, 2: on going timeout - error already reported.  Flag resets when shutter closes.
+  uint32_t cpu_cycles = 0; //Timer from LED on to LED off - solves issue with line clock edge occuring during the flyback.
+  const uint32_t check_channel_cycles = 500; //The maximum number of clock cycles ittakes to check and change the DMD channel
+  bool relay_bit;
+  uint8_t seq_duration;
+ 
+  //load the confocal sync sequence
+  sync.s.mode = 0;
+  initializeSeq();
+  sync.s.mode = 4;
+ 
+  //Disconnect interline pin from PWM mux
+  pinMode(pin.INTERLINE, OUTPUT);
+  digitalWriteFast(pin.INTERLINE, LOW);
+   
+  //Since an external mux board is used, connect all relays
+  for(sync_step = 0; sync_step<4; sync_step++) digitalWriteFast(pin.RELAY[sync_step], pin.RELAY_CLOSE);  //Connect all relays
+ 
+  noInterrupts(); //Turn off interrupts for exact interline timing
+ 
+  auto checkChannel = [&] (){ //Check which DMD channel is active - 2.4 µs per cycle
+    if(digitalReadFast(pin.INPUTS[0])) sync_step = 0; //See which LED channel is active - 200 ns
+    else if(digitalReadFast(pin.INPUTS[1])) sync_step = 1;
+    else if(digitalReadFast(pin.INPUTS[2])) sync_step = 2;
+    else sync_step = 3;
+    if(prev_sync_step != sync_step){ //If DMD channel changed - rapidly update intensity - 2.4 µs vs 3.6 µs with updateIntensity();
+      digitalWriteFast(pin.INTERLINE, LOW);  //Turn off LED
+      prev_sync_step = sync_step;
+      current_status.s.state = 1;
+      getSeqStep(sync_step); //Get first sequence step
+
+      //Switch mux board to the correct channel
+      seq_duration = (uint8_t) (seq.s.led_duration / 1e6) - 1;
+      if(seq_duration & B00000001) digitalWriteFast(pin.OUTPUTS[0], HIGH);
+      else digitalWriteFast(pin.OUTPUTS[0], LOW);
+      if(seq_duration & B00000010) digitalWriteFast(pin.OUTPUTS[1], HIGH);
+      else digitalWriteFast(pin.OUTPUTS[1], LOW);
+      if(seq_duration & B00000100) digitalWriteFast(pin.OUTPUTS[2], HIGH);
+      else digitalWriteFast(pin.OUTPUTS[2], LOW);
+      analogWrite(pin.DAC0, current_status.s.led_current); //Update LED current
+      if(current_status.s.led_current) digitalWriteFast(pin.INTERLINE, HIGH);  //Turn on LED if needed
+    }
+  };
+  //-----------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+  pinMode(pin.INPUTS[0], INPUT); //Set sync input pin to input
+  pinMode(pin.INPUTS[1], INPUT); //Set sync input pin to input
+  pinMode(pin.INPUTS[2], INPUT); //Set sync input pin to input
+  if(input_trigger) pinMode(pin.INPUTS[3], INPUT); //Set sync input pin to input
+  else pinMode(pin.INPUTS[3], INPUT_DISABLE);
+  while(!current_status.s.mode && sync.s.mode == 4){ //This loop is maintained as long as in custom sync mode - checked each time the status state changes (imaging/standby)
+    sync_step = 0;
+    timeout = 0; //Reset the timout flag when scan state changes.
+   
+    active_channel = current_status.s.led_channel;
+    current_status.s.state = 1;
+    getSeqStep(sync_step); //Get first sequence step
+    duration = 0; //Reset seq timer
+    cpu_cycles = ARM_DWT_CYCCNT; //Reset interline timer
+ 
+    checkStatus(); //Check status at least once per mirror cycle
+    if(update_flag) goto quit; //Exit on update
+    noInterrupts();
+   
+    while(!update_flag){ //While shutter state doesn't change and driver still in digital sync mode - checked each time a seq step is complete
+
+      if(sync_step < seq_steps[current_status.s.state]){ //If the end of the sequence list has not been reached
+        if(sync.s.confocal_mode[current_status.s.state] == 3){ //If sync uses external analog , set external analog pin HIGH
+          pinMode(pin.ANALOG_SELECT, OUTPUT);
+          external_analog = true;
+          digitalWriteFast(pin.ANALOG_SELECT, HIGH); //Set external analog input
+        }
+        else{ //For all other modes, set led intensity to new values
+          pinMode(pin.ANALOG_SELECT, OUTPUT);
+          external_analog = false;
+          digitalWriteFast(pin.ANALOG_SELECT, LOW); //Set internal analog input
+          updateIntensity();
+        }
+        while(!update_flag){ //Loop until shutter changes, update, or seq duration times out (0 = hold - no timeout) - Interline loop
+          checkStatus(); //Check status at least once per mirror cycle
+          if(update_flag) goto quit;
+          noInterrupts();
+          checkChannel();
+        }
+      }
+      else{ //Report error if driver ran off the end of the sequence list (i.e. never encountered a hold)
+        temp_size = sprintf(temp_buffer, "-Error: Confocal Sync - %s reached the end of the sequence without encountering a hold.", current_status.s.state ? "STANDBY":"SCANNING");
+        temp_buffer[0] = prefix.message;
+        usb.send((const unsigned char*) temp_buffer, temp_size);
+        duration = 0;
+        while(duration < 200000){
+          checkStatus(); //This can happen if there was rapid bounce in the trigger, so pause to avoid spamming this error for every bounce
+          if(update_flag) goto quit; //Exit on update
+        }
+        goto quit;
+      }
+    }
+  }
+  quit:
+    analogWriteFrequency(pin.INTERLINE, pin.LED_FREQ); //Restore the interline timer to its defaul value: https://www.pjrc.com/teensy/td_pulse.html
+    interrupts();
+    pinMode(pin.ANALOG_SELECT, OUTPUT);
+    digitalWriteFast(pin.ANALOG_SELECT, LOW);
+    external_analog = false;
+    pinMode(pin.INPUTS[0], INPUT_DISABLE); //Set sync input pin to input
+    pinMode(pin.INPUTS[1], INPUT_DISABLE); //Set sync input pin to input
+    pinMode(pin.INPUTS[2], INPUT_DISABLE); //Set sync input pin to input
+    pinMode(pin.INPUTS[3], INPUT_DISABLE); //Set sync input pin to input
+}
