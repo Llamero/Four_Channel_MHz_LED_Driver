@@ -82,6 +82,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                 port_list = self.com_list_custom
             for port_info in port_list:
                 if self.connectSerial(port_info["Port"]):
+                    self.active_port.waitForReadyRead(500)
                     self.magicNumberCheck()
                     self.uploadTime()
                     self.disconnectSerial()
@@ -126,6 +127,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
     def disconnectSerial(self):
         if self.active_port is not None:
             if self.active_port.isOpen(): #Close serial port if it is already open
+                self.active_port.waitForReadyRead(500)
                 self.sendWithoutReply()  #Infrom the LED driver of disconnect
                 self.active_port.clear() #Clear buffer of any remaining data
                 self.active_port.close() #close connection

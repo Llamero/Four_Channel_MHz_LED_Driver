@@ -25,12 +25,12 @@ def loadSequence(gui, widget, get_path=False):  # derived from - https://stackov
         try: #Try to open file at path
             # Count number of rows in CSV file
             print(path)
-            with open(str(path), 'rU') as stream: #Verify that the seq table is valid
+            with open(str(path), 'r') as stream: #Verify that the seq table is valid
                 widget_headers = verifySequence(gui, stream, widget)
 
             # Import csv file
             if widget_headers: #Load valid seq table into widget
-                with open(str(path), 'rU') as stream:
+                with open(str(path), 'r') as stream:
                     reader = csv.reader(stream)
 
                     # Remove header from stream
@@ -214,7 +214,6 @@ def verifyCell(gui, column=None, row=None, data=None, widget=None):
 def dynamicallyCheckTable(gui, widget, end_row, end_column):
     widget_header_obj = [widget.horizontalHeaderItem(c) for c in range(widget.columnCount())]
     widget_headers = [x.text() for x in widget_header_obj if x is not None]
-    print("222222222222")
     with tempfile.TemporaryFile(mode="w+", suffix=".csv", newline='') as stream:  # "newline=''" removes extra newline from windows - https://stackoverflow.com/questions/3191528/csv-in-python-adding-an-extra-carriage-return-on-windows
         writer = csv.writer(stream)
         writer.writerow(widget_headers)
