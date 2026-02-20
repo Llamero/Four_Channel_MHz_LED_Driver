@@ -712,276 +712,62 @@ void confocalSync(){
 }
 
 void customSync(){ //Two channel interline sequence, with external trigger between steps
-  elapsedMicros custom_seq_duration[] = {0,0}; //Duration timer for sequence steps for both channels
-  uint16_t sync_step[] = {0,0}; //sequence step counter
-  uint32_t interline_timeout = 720000000; //Timeout to stop looking for mirror sync - 4 second.
-  uint32_t pwm_clock_cycles[] = {0,0}; //The number of clock cycles equivalent to the PWM duration
-  uint32_t unidirectional_status_window = sync.s.confocal_delay[0] + sync.s.confocal_delay[1] + sync.s.confocal_delay[2] + 2*status_step_clock_duration; //Number of clock cycles between end of interline sequence and next trigger
-  float pwm_freq = 180000000/(float) sync.s.confocal_mirror_period; //Get the frequency of the mirror in Hz
-  float pwm_ratio = (float) sync.s.confocal_delay[1] / (float) sync.s.confocal_mirror_period; //Ratio of LED on time to total mirror period
-  boolean shutter_state; //Logical state of shutter input
-  boolean sync_pol; //Track polarity of sync output
-  uint8_t timeout = 0; //Flag for whether the line sync has timed out waiting for trigger - 0: no timeout, 1: new timeout - report error, 2: on going timeout - error already reported.  Flag resets when shutter closes.
-  uint8_t active_seq = false; //Track which sequence table is active for each flyback
-  boolean temp_state = false; //Temporarily store state to allow channel swapping over-ride by toggling the state
-  const uint32_t PMT_GATE_DELAY = 180; //CPU cycles to wait between gating off the PMT and turning on the LED (180 cpu cycles = 1 µs) - https://www.hamamatsu.com/resources/pdf/etd/H11706_TPMO1059E.pdf
-  const bool pmt_enable = false; //The polarity of the signal to activate the PMT
+  elapsedMicros duration;
+  uint16_t sync_step;
+  const uint32_t seq_reset_timer = 2e6; //Reset the sequence after a long LOW
   
-  if(sync.s.confocal_scan_mode){ //If the scan is bidirectional
-    pwm_freq *= 2; //Double the pwm freq since the LED flashes twice per period
-    pwm_ratio *= 2; //Double the pwm ratio since the ratio is now delay[1] / (0.5 * mirror period)
-  }
-  analogWriteFrequency(pin.INTERLINE, pwm_freq); //Set interline PWM freq to match mirror freq, also sets analog_select PWM freq (on same timer): https://www.pjrc.com/teensy/td_pulse.html
-  pinMode(pin.INTERLINE, OUTPUT); //Set interline pin as output to decouple from PWM
-  
-  if(sync.s.confocal_mirror_period > unidirectional_status_window) unidirectional_status_window = sync.s.confocal_mirror_period - unidirectional_status_window;
-  else unidirectional_status_window = 0;
-  noInterrupts(); //Turn off interrupts for exact interline timing
+  //load the digital sync sequence
+  sync.s.mode = 0;
+  initializeSeq();
+  sync.s.mode = 4;
 
-  //Lamda trigger sync funtions ---------------------------------------------------------------------------------------------------------------
-  auto waitForTrigger = [&] (){ //Wait for the trigger event
-    cpu_cycles = ARM_DWT_CYCCNT; //Reset inerline timer
-    if(sync.s.confocal_sync_mode){ //If analog sync
-      analogRead(pin.INPUTS[sync.s.confocal_channel]); //Clear the ADC
-      if(sync.s.confocal_sync_polarity[1]){
-        while(analogRead(pin.INPUTS[sync.s.confocal_channel]) < sync.s.confocal_threshold){ //Wait for input to rise above threshold - timeout after two mirror periods
-          if(ARM_DWT_CYCCNT-cpu_cycles >= interline_timeout){ //Check if line sync has timed out
-            if(!timeout) timeout = 1; //Flag timeout
-            break;
-          }
-        }
-      }
-      else{
-        while(analogRead(pin.INPUTS[sync.s.confocal_channel]) > sync.s.confocal_threshold){
-          if(ARM_DWT_CYCCNT-cpu_cycles >= interline_timeout){
-            if(!timeout) timeout = 1; //Wait for trigger to match polarity
-            break;
-          }
-        }
-      }
-    }
-    else{ //If digital sync
-      while(digitalReadFast(pin.INPUTS[sync.s.confocal_channel]) != sync.s.confocal_sync_polarity[0]){ //What for line sync trigger
-        if(ARM_DWT_CYCCNT-cpu_cycles >= interline_timeout){ //Check if line sync has timed out
-          if(!timeout) timeout = 1; //Flag timeout
-          break;
-        }
-      }
-    }
-    cpu_cycles = ARM_DWT_CYCCNT; //Reset interline timer
-  };
-
-  auto waitForTriggerReset = [&] (){ //Wait for the trigger event to reset - used to initially sync the LED driver to the trigger input
-    cpu_cycles = ARM_DWT_CYCCNT; //Reset inerline timer
-    if(sync.s.confocal_sync_mode){ //If analog sync
-      analogRead(pin.INPUTS[sync.s.confocal_channel]); //Clear the ADC
-      if(sync.s.confocal_sync_polarity[1]){
-        while(analogRead(pin.INPUTS[sync.s.confocal_channel]) > sync.s.confocal_threshold){ //Wait for input to fall below threshold - timeout after two mirror periods
-          if(ARM_DWT_CYCCNT-cpu_cycles >= interline_timeout){ //Check if line sync has timed out
-            if(!timeout) timeout = 1; //Flag timeout
-            break;
-          }
-        }
-      }
-      else{
-        while(analogRead(pin.INPUTS[sync.s.confocal_channel]) > sync.s.confocal_threshold){
-          if(ARM_DWT_CYCCNT-cpu_cycles >= interline_timeout){
-            if(!timeout) timeout = 1; //Wait for trigger to match polarity
-            break;
-          }
-        }
-      }
-    }
-    else{ //If digital sync
-      while(digitalReadFast(pin.INPUTS[sync.s.confocal_channel]) == sync.s.confocal_sync_polarity[0]){ //What for line sync trigger to reset
-        if(ARM_DWT_CYCCNT-cpu_cycles >= interline_timeout){ //Check if line sync has timed out
-          if(!timeout) timeout = 1; //Flag timeout
-          break;
-        }
-      }
-    }
-    cpu_cycles = ARM_DWT_CYCCNT; //Reset interline timer
-  };
-
-  auto switchChannel = [&] (){ //Switch the DMD channel  
-    temp_state = current_status.s.state;
-    current_status.s.state = active_seq;
-    getSeqStep(sync_step[active_seq]); //Get next sequence step
-    current_status.s.state = temp_state;
-
-    if(conf.c.led_active[current_status.s.led_channel]){ //Check if the channel is active
-      for(int a=0; a<4; a++){ //Toggle channel relays
-        if(conf.c.led_channel[a] == current_status.s.led_channel) digitalWriteFast(pin.RELAY[a], pin.RELAY_CLOSE);
-        else digitalWriteFast(pin.RELAY[a], !pin.RELAY_CLOSE);
-      }
-      analogWrite(pin.DAC0, current_status.s.led_current);
-    }
-  };
-
-  //-----------------------------------------------------------------------------------------------------------------------------------------------------
-  
-  pinMode(pin.INPUTS[0], INPUT); //Set shutter input pin to input
-  pinMode(pin.INPUTS[sync.s.confocal_channel], INPUT); //Set sync input pin to input
-  pinMode(pin.INTERLINE, OUTPUT); //Disconnect the 
-  while(!current_status.s.mode && sync.s.mode == 4){ //This loop is maintained as long as in confocal sync mode - checked each time the status state changes (imaging/standby)
-    timeout = 0; //Reset the timrout flag when scan state changes.
-    shutter_state = digitalReadFast(pin.INPUTS[0]); //Get state of shutter
-    current_status.s.state = (shutter_state == sync.s.shutter_polarity);
+  pinMode(pin.INPUTS[sync.s.digital_channel], INPUT); //Set sync input pin to input
+  while(!current_status.s.mode && sync.s.mode == 4 && !update_flag){ //While in custom sync mode
+    sync_step = 0;
+    current_status.s.state = digitalReadFast(pin.INPUTS[sync.s.digital_channel]); //Get state of sync input
     active_channel = current_status.s.led_channel;
-    
-    //load the appropriate sequence tables
-    if(current_status.s.state){ //If actively scanning
-      sync.s.mode = 2; //Load the confocal sync sequence tables
-      initializeSeq();
-      sync.s.mode = 4;
-    
-      if(sync.s.sync_output_channel){ //Enable the PMT
-         digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], pmt_enable); 
-      }
+
+    duration = 0;
+    while(duration < seq_reset_timer && !update_flag){ //Wait for trigger to stay low for 2 seconds
+      while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && duration < seq_reset_timer && !update_flag) checkStatus();
+      if(duration >= seq_reset_timer && !current_status.s.state) break;
+      current_status.s.state = !current_status.s.state; 
+      duration = 0; //Reset timer if pin goes low
     }
-    else{ //If in standby
-      sync.s.mode = 0; //Load the digital sync sequence tables
-      initializeSeq();
-      sync.s.mode = 4;
-    
-      if(sync.s.sync_output_channel){ //Disable the PMT
-         digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], !pmt_enable); 
-      }
-    } 
 
-    //Initialize duration clocks and PWM timers
-    temp_state = current_status.s.state;
-    for(int a=0; a<2; a++){
-      sync_step[a] = 0;
-      custom_seq_duration[a] = 0; //Reset seq timers
-      active_seq = a;
-      current_status.s.state = active_seq;
-      getSeqStep(sync_step[active_seq]); //Get first sequence step
-      pwm_clock_cycles[a] = round(((float) current_status.s.led_pwm * (float) sync.s.confocal_delay[1])/65535); //Calculate the number of clock cycles to leave the LED on during delay #2 to match the needed % PWM
-    }
-    current_status.s.state = temp_state;
-
-    switchChannel(); //Set DAC to first channel
-    
-    cpu_cycles = ARM_DWT_CYCCNT; //Reset interline timer
-
-    if(current_status.s.state) waitForTrigger();  //If scanning, catch first trigger to resync timing - prevents starting stim later 
-    
-    checkStatus(); //Check status at least once per mirror cycle
     if(update_flag) goto quit; //Exit on update
-    
-    while(shutter_state == digitalReadFast(pin.INPUTS[0]) && !update_flag){ //While shutter state doesn't change and driver still in digital sync mode - checked each time a seq step is complete
-      if(sync_step[active_seq] < seq_steps[active_seq]){ //If the end of the sequence list has not been reached
-        switchChannel();
-        pwm_clock_cycles[active_seq] = round(((float) current_status.s.led_pwm * (float) sync.s.confocal_delay[1])/65535); //Calculate the number of clock cycles to leave the LED on during delay #2 to match the needed % PWM
+    playStatusTone(); //Indicate that seq has reset
+
+    while(!digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && !update_flag) checkStatus(); //Wait for camera to start exposing
+
+    duration = 0;
+    while(sync.s.mode == 4 && duration < seq_reset_timer && !update_flag){ //While in custom sync mode and no updates
+      if(!current_status.s.mode && digitalReadFast(pin.INPUTS[sync.s.digital_channel])){ //If digital pin rising edge
+        current_status.s.state = true; //Update state
+        getSeqStep(sync_step++); //Get current sequence step and inc sync_step
+        updateIntensity(); //Apply intensity to LED
         
-        while(shutter_state == digitalReadFast(pin.INPUTS[0]) && !update_flag && (custom_seq_duration[active_seq] < seq.s.led_duration || seq.s.led_duration == 0)){ //Loop until shutter changes, update, or seq duration times out (0 = hold - no timeout) - Interline loop
-          checkStatus(); //Check status at least once per mirror cycle
-          if(update_flag) goto quit;
-          if(current_status.s.state){ //If shutter is open (actively scanning) perform interline modulation
-            waitForTriggerReset(); //Wait for trigger to reset - this insures the driver will always only sync to the start of a trigger, and not mid trigger
-            waitForTrigger();
-            if(timeout){
-              if(timeout == 1){
-                temp_size = sprintf(temp_buffer, "-Error: Confocal Sync timed out waiting for line trigger. Check connection and re-measure mirror period.");
-                temp_buffer[0] = prefix.message;
-                usb.send((const unsigned char*) temp_buffer, temp_size);
-                timeout = 2;
-              }
-            }
-          }
-          else{
-            while(sync.s.confocal_mirror_period - (ARM_DWT_CYCCNT - cpu_cycles) > status_step_clock_duration){ //If there is enough time, perform status checks during end of virtual mirror period 
-              checkStatus(); //Check status while there is time to do so during the mirror sweep to the interline pulse
-              if(update_flag) goto quit;
-            }
-            while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_mirror_period); //Precise wait till end of mirror period
-            cpu_cycles += sync.s.confocal_mirror_period; //Reset clock counter = virtual trigger
-          }
-          if(!timeout){
-            if(sync.s.sync_output_channel){ //Disable PMT if gating output is specified
-              if(sync.s.confocal_delay[0]){
-                while(sync.s.confocal_delay[0] - (ARM_DWT_CYCCNT - cpu_cycles) > PMT_GATE_DELAY); //Wait for delay #1 - gate delay
-              }
-              digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], !pmt_enable); //Drive output sync signal; //Gate the PMT
-            }
-            while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[0]); //Wait for delay #1
-            if(current_status.s.led_current) digitalWriteFast(pin.INTERLINE, HIGH);
-            cpu_cycles += sync.s.confocal_delay[0]; //Increment interline timer
-            while(ARM_DWT_CYCCNT - cpu_cycles < pwm_clock_cycles[active_seq]); //Wait for PWM delay
-            digitalWriteFast(pin.INTERLINE, LOW);
-            while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[1]); //Wait for end of delay #2
-            cpu_cycles += sync.s.confocal_delay[1]; //Increment interline timer
-            if(sync.s.sync_output_channel){ //Enable PMT if gating output is specified
-              while(ARM_DWT_CYCCNT - cpu_cycles < PMT_GATE_DELAY); //Wait for gate delay - potentially can be commented out
-              digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], pmt_enable); //Activate PMT
-            }
-            if(sync.s.sync_output_channel && sync.s.confocal_scan_mode){ //If gating is specified and mode is bidirectional, wait for second gating event
-              if(sync.s.confocal_delay[2] > status_step_clock_duration+PMT_GATE_DELAY){ //See if there is enough time to check status during delay #3
-                while(sync.s.confocal_delay[2] - (ARM_DWT_CYCCNT - cpu_cycles) > status_step_clock_duration+PMT_GATE_DELAY){ //If there is enough time, perform status checks during delay #3
-                  checkStatus(); //Check status while there is time to do so during the mirror sweep to the interline pulse
-                  if(update_flag) goto quit;
-                }
-              }
-              while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[2]-PMT_GATE_DELAY); //Wait for delay #1 - gate delay
-              digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], !pmt_enable); //Drive output sync signal; //Gate the PMT
-            }
-            else{
-              if(sync.s.confocal_delay[2] > status_step_clock_duration){ //See if there is enough time to check status during delay #3
-                while(sync.s.confocal_delay[2] - (ARM_DWT_CYCCNT - cpu_cycles) > status_step_clock_duration){ //If there is enough time, perform status checks during delay #3
-                  checkStatus(); //Check status while there is time to do so during the mirror sweep to the interline pulse
-                  if(update_flag) goto quit;
-                }
-              }
-            }
-            while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[2]); //Wait for end of delay #3
-            if(sync.s.confocal_scan_mode){ //If scan is bidirectional, perform flyback interline
-              if(current_status.s.led_current) digitalWriteFast(pin.INTERLINE, HIGH);
-              cpu_cycles += sync.s.confocal_delay[2]; //Increment interline timer
-              while(ARM_DWT_CYCCNT - cpu_cycles < pwm_clock_cycles[active_seq]); //Wait for PWM delay
-              digitalWriteFast(pin.INTERLINE, LOW);
-              while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[1]); //Wait for end of delay #2
-              cpu_cycles += sync.s.confocal_delay[1]; //Increment interline timer
-              if(sync.s.sync_output_channel){ //Enable PMT if gating output is specified
-                while(ARM_DWT_CYCCNT - cpu_cycles < PMT_GATE_DELAY); //Wait for gate delay - potentially can be commented out
-                digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], pmt_enable);; //Activate PMT
-              }
-            }
-            else{ //If unidirectional, perform status checks if there is enough time before the next trigger
-              if(unidirectional_status_window > status_step_clock_duration){ //See if there is enough time to check status during delay #3
-                while((unidirectional_status_window - (ARM_DWT_CYCCNT - cpu_cycles)) > status_step_clock_duration){ //If there is enough time, perform status checks during delay #3
-                  checkStatus(); //Check status while there is time to do so during the mirror sweep to the interline pulse
-                  if(update_flag) goto quit;
-                }
-              }
-            }
-            active_seq = !active_seq; //Swich seq tables between lines
-            switchChannel(); //Set the LED intensity
-          }
+        duration = 0; //Reset timer
+        while(digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && duration < seq_reset_timer && !update_flag) checkStatus(); //Wait for pin to go low
+        pinMode(pin.INTERLINE, OUTPUT); //Turn off LED
+        digitalWriteFast(pin.INTERLINE, LOW);
+        current_status.s.state = false; //Update state
+        
+        if(duration < seq_reset_timer){ //If exposure didn't time out
+          if(sync_step == seq_steps[1]) sync_step = 0; //if the end of the sequence table is reached, rollover step counter
+          duration = 0;
         }
-        custom_seq_duration[active_seq] -= seq.s.led_duration; //Reset duration timer 
-        sync_step[active_seq]++; //Increment the sync step counter
-        getSeqStep(sync_step[active_seq]); //Get next sequence step
       }
-      else{ //Report error if driver ran off the end of the sequence list (i.e. never encountered a hold)
-        temp_size = sprintf(temp_buffer, "-Error: Confocal Sync - %s reached the end of the sequence without encountering a hold.", current_status.s.state ? "STANDBY":"SCANNING");
-        temp_buffer[0] = prefix.message;
-        usb.send((const unsigned char*) temp_buffer, temp_size);
-        custom_seq_duration[0] = 0;
-        while(custom_seq_duration[0] < 200000){
-          checkStatus(); //This can happen if there was rapid bounce in the trigger, so pause to avoid spamming this error for every bounce
-          if(update_flag) goto quit; //Exit on update
-        }
-        goto quit;
-      }
+      checkStatus();
     }
   }
+
   quit:
     analogWriteFrequency(pin.INTERLINE, pin.LED_FREQ); //Restore the interline timer to its defaul value: https://www.pjrc.com/teensy/td_pulse.html
     interrupts();
     pinMode(pin.ANALOG_SELECT, OUTPUT);
     digitalWriteFast(pin.ANALOG_SELECT, LOW);
-    external_analog = false;
+    external_analog = false; 
 }
 
 void initializeSeq(){ //Setup seq
@@ -1212,7 +998,7 @@ void updateIntensity(){
     }
     else{
       analogWrite(pin.DAC0, current_status.s.led_current);
-      if(!(sync.s.mode == 2 && !current_status.s.mode)){ //If in confocal mode, do not apply PWM to interline pin
+      if(!(sync.s.mode == 2 && !current_status.s.mode)){ //If not in confocal mode, do apply PWM to interline pin
         if(!(sync.s.mode == 1 && sync.s.analog_mode && !current_status.s.mode)){ //If analog mode without PWM, do not apply PWM to interline pin
           if(current_status.s.led_pwm == 65535){ //Write pin constant high at 100% PWM
             pinMode(pin.INTERLINE, OUTPUT);

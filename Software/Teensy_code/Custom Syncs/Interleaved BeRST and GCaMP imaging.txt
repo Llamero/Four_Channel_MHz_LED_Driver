@@ -1,0 +1,58 @@
+void customSync(){ //Two channel interline sequence, with external trigger between steps
+  elapsedMicros duration;
+  uint16_t sync_step;
+  const uint32_t seq_reset_timer = 2e6; //Reset the sequence after a long LOW
+  
+  //load the digital sync sequence
+  sync.s.mode = 0;
+  initializeSeq();
+  sync.s.mode = 4;
+
+  pinMode(pin.INPUTS[sync.s.digital_channel], INPUT); //Set sync input pin to input
+  while(!current_status.s.mode && sync.s.mode == 4 && !update_flag){ //While in custom sync mode
+    sync_step = 0;
+    current_status.s.state = digitalReadFast(pin.INPUTS[sync.s.digital_channel]); //Get state of sync input
+    active_channel = current_status.s.led_channel;
+
+    duration = 0;
+    while(duration < seq_reset_timer && !update_flag){ //Wait for trigger to stay low for 2 seconds
+      while(current_status.s.state == digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && duration < seq_reset_timer && !update_flag) checkStatus();
+      if(duration >= seq_reset_timer && !current_status.s.state) break;
+      current_status.s.state = !current_status.s.state; 
+      duration = 0; //Reset timer if pin goes low
+    }
+
+    if(update_flag) goto quit; //Exit on update
+    playStatusTone(); //Indicate that seq has reset
+
+    while(!digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && !update_flag) checkStatus(); //Wait for camera to start exposing
+
+    duration = 0;
+    while(sync.s.mode == 4 && duration < seq_reset_timer && !update_flag){ //While in custom sync mode and no updates
+      if(!current_status.s.mode && digitalReadFast(pin.INPUTS[sync.s.digital_channel])){ //If digital pin rising edge
+        current_status.s.state = true; //Update state
+        getSeqStep(sync_step++); //Get current sequence step and inc sync_step
+        updateIntensity(); //Apply intensity to LED
+        
+        duration = 0; //Reset timer
+        while(digitalReadFast(pin.INPUTS[sync.s.digital_channel]) && duration < seq_reset_timer && !update_flag) checkStatus(); //Wait for pin to go low
+        pinMode(pin.INTERLINE, OUTPUT); //Turn off LED
+        digitalWriteFast(pin.INTERLINE, LOW);
+        current_status.s.state = false; //Update state
+        
+        if(duration < seq_reset_timer){ //If exposure didn't time out
+          if(sync_step == seq_steps[1]) sync_step = 0; //if the end of the sequence table is reached, rollover step counter
+          duration = 0;
+        }
+      }
+      checkStatus();
+    }
+  }
+
+  quit:
+    analogWriteFrequency(pin.INTERLINE, pin.LED_FREQ); //Restore the interline timer to its defaul value: https://www.pjrc.com/teensy/td_pulse.html
+    interrupts();
+    pinMode(pin.ANALOG_SELECT, OUTPUT);
+    digitalWriteFast(pin.ANALOG_SELECT, LOW);
+    external_analog = false; 
+}

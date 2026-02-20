@@ -1,3 +1,14 @@
 
 KiCAD/Four Channel MHz LED Driver/Four Channel MHz LED Driver - high current.csv
 KiCAD/Four Channel MHz LED Driver/Four Channel MHz LED Driver - high current.xml
+*.pyc
+*.pyc
+Software/GUI_code/__pycache__/calibrationPlot.cpython-39.pyc
+Software/GUI_code/__pycache__/driverUSB.cpython-39.pyc
+Software/GUI_code/__pycache__/guiConfigIO.cpython-39.pyc
+Software/GUI_code/__pycache__/guiMapper.cpython-39.pyc
+Software/GUI_code/__pycache__/guiResources.cpython-39.pyc
+Software/GUI_code/__pycache__/guiSequence.cpython-39.pyc
+Software/GUI_code/__pycache__/mainWindow.cpython-39.pyc
+Software/GUI_code/__pycache__/statusWindow.cpython-39.pyc
+Software/GUI_code/__pycache__/syncPlotWindow.cpython-39.pyc
