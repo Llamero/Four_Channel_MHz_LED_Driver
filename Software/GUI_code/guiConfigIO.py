@@ -343,7 +343,8 @@ def configToBytes(gui, prefix, update_model=True):
     byte_array.extend(struct.pack("<????HHHHBBBBffff????HHHHHHHHHHBiiBB?B", *config_values))
 
     checksum = (sum(byte_array) + prefix) & 0xFF  # https://stackoverflow.com/questions/44611057/checksum-generation-from-sum-of-bits-in-python
-    checksum = 256 - checksum
+    if checksum > 0:
+        checksum = 256 - checksum
     byte_array.append(checksum)
 
     if update_model:
@@ -429,7 +430,8 @@ def syncToBytes(gui, prefix, update_model=True):
 
     byte_array.extend(struct.pack("<BBBBBBBHHHHLLBBBHH?B???H?LLLLBBBBHHHHLL", *sync_values))
     checksum = (sum(byte_array) + prefix) & 0xFF  # https://stackoverflow.com/questions/44611057/checksum-generation-from-sum-of-bits-in-python
-    checksum = 256 - checksum
+    if checksum > 0:
+        checksum = 256 - checksum
     byte_array.append(checksum)
     return byte_array
 
