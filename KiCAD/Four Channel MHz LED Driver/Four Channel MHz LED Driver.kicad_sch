@@ -11015,7 +11015,7 @@
 		(uuid "3b9a3107-437f-447b-80b4-5de601612f8d")
 	)
 	(junction
-		(at 300.99 120.65)
+		(at 304.8 106.68)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "3e6ca2a1-e5d4-4f1f-950b-23ce89be23ad")
@@ -11129,7 +11129,7 @@
 		(uuid "9d797db7-4875-47c6-91fc-f902cced0fb2")
 	)
 	(junction
-		(at 304.8 130.81)
+		(at 308.61 116.84)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "9dabd4c7-c1d1-4548-bcb3-6afcc5c5b269")
@@ -11311,7 +11311,7 @@
 		(uuid "262f3a68-94e4-44da-b328-52eab469cf8d")
 	)
 	(no_connect
-		(at 327.66 120.65)
+		(at 331.47 106.68)
 		(uuid "37c1b23f-2de7-47d3-8ada-f6d1de3da303")
 	)
 	(no_connect
@@ -12126,7 +12126,7 @@
 	)
 	(wire
 		(pts
-			(xy 294.64 130.81) (xy 297.18 130.81)
+			(xy 298.45 116.84) (xy 300.99 116.84)
 		)
 		(stroke
 			(width 0)
@@ -12306,7 +12306,7 @@
 	)
 	(wire
 		(pts
-			(xy 300.99 120.65) (xy 304.8 120.65)
+			(xy 304.8 106.68) (xy 308.61 106.68)
 		)
 		(stroke
 			(width 0)
@@ -12376,7 +12376,7 @@
 	)
 	(wire
 		(pts
-			(xy 304.8 128.27) (xy 304.8 130.81)
+			(xy 308.61 114.3) (xy 308.61 116.84)
 		)
 		(stroke
 			(width 0)
@@ -12536,7 +12536,7 @@
 	)
 	(wire
 		(pts
-			(xy 302.26 130.81) (xy 304.8 130.81)
+			(xy 306.07 116.84) (xy 308.61 116.84)
 		)
 		(stroke
 			(width 0)
@@ -13516,7 +13516,7 @@
 	)
 	(wire
 		(pts
-			(xy 298.45 120.65) (xy 300.99 120.65)
+			(xy 302.26 106.68) (xy 304.8 106.68)
 		)
 		(stroke
 			(width 0)
@@ -13910,7 +13910,7 @@
 		(uuid "0a52c357-f12c-41f7-aaac-45dd0216aeb7")
 	)
 	(label "internal_analog"
-		(at 299.72 123.19 180)
+		(at 303.53 109.22 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -14317,7 +14317,7 @@
 		(uuid "508322d6-d0ee-4901-85a6-c1a70631608a")
 	)
 	(label "SCK"
-		(at 327.66 130.81 0)
+		(at 331.47 116.84 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -14614,7 +14614,7 @@
 		(uuid "79abf893-6100-4e6c-8202-ac11d2e9b684")
 	)
 	(label "MOSI"
-		(at 327.66 125.73 0)
+		(at 331.47 111.76 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -14735,7 +14735,7 @@
 		(uuid "8c2e295e-b48c-42c5-a2ba-a4c15bfdf43a")
 	)
 	(label "3.3V"
-		(at 298.45 120.65 180)
+		(at 302.26 106.68 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -14966,7 +14966,7 @@
 		(uuid "a8c7ce54-589b-45d6-aeb2-1b5f16132908")
 	)
 	(label "CS"
-		(at 327.66 128.27 0)
+		(at 331.47 114.3 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -21388,7 +21388,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f5a6fc2")
 		(property "Reference" "H1"
@@ -21447,6 +21447,15 @@
 			)
 		)
 		(property "Part #" "24354"
+			(at 203.2 259.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
 			(at 203.2 259.08 0)
 			(effects
 				(font
@@ -21539,7 +21548,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f5b6072")
 		(property "Reference" "H5"
@@ -21598,6 +21607,15 @@
 			)
 		)
 		(property "Part #" "24354"
+			(at 203.2 279.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
 			(at 203.2 279.4 0)
 			(effects
 				(font
@@ -21690,7 +21708,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f5c58b1")
 		(property "Reference" "H4"
@@ -21749,6 +21767,15 @@
 			)
 		)
 		(property "Part #" "24354"
+			(at 187.96 279.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
 			(at 187.96 279.4 0)
 			(effects
 				(font
@@ -21841,7 +21868,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f5c58bf")
 		(property "Reference" "H2"
@@ -21900,6 +21927,15 @@
 			)
 		)
 		(property "Part #" "24354"
+			(at 207.01 259.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
 			(at 207.01 259.08 0)
 			(effects
 				(font
@@ -22190,7 +22226,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f5d3ae2")
 		(property "Reference" "H6"
@@ -22249,6 +22285,15 @@
 			)
 		)
 		(property "Part #" "24354"
+			(at 207.01 279.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
 			(at 207.01 279.4 0)
 			(effects
 				(font
@@ -24423,7 +24468,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f6a187e")
 		(property "Reference" "H10"
@@ -24482,6 +24527,15 @@
 			)
 		)
 		(property "Part #" "971100244"
+			(at 26.67 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
 			(at 26.67 29.21 0)
 			(effects
 				(font
@@ -24791,7 +24845,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f6c332d")
 		(property "Reference" "J8"
@@ -24849,6 +24903,15 @@
 			)
 		)
 		(property "Part #" "SSM-105-L-SV-BE-LC-TR"
+			(at 143.51 240.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
 			(at 143.51 240.03 0)
 			(effects
 				(font
@@ -25257,12 +25320,13 @@
 		)
 	)
 	(symbol
+		(lib_name "Custom_parts:Conn_01x24_Female")
 		(lib_id "Custom_parts:Conn_01x24_Female")
 		(at 365.76 62.23 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f74378d")
 		(property "Reference" "J10"
@@ -25320,6 +25384,15 @@
 			)
 		)
 		(property "Part #" "SSM-124-L-SV-LC"
+			(at 365.76 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
 			(at 365.76 62.23 0)
 			(effects
 				(font
@@ -25410,12 +25483,13 @@
 		)
 	)
 	(symbol
+		(lib_name "Custom_parts:Conn_01x03_Female")
 		(lib_id "Custom_parts:Conn_01x03_Female")
 		(at 146.05 218.44 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f7439ad")
 		(property "Reference" "J7"
@@ -25473,6 +25547,15 @@
 			)
 		)
 		(property "Part #" "SSM-103-L-SV-LC"
+			(at 146.05 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
 			(at 146.05 218.44 0)
 			(effects
 				(font
@@ -26886,12 +26969,13 @@
 		)
 	)
 	(symbol
+		(lib_name "Custom_parts:Conn_01x03_Female")
 		(lib_id "Custom_parts:Conn_01x03_Female")
 		(at 71.12 31.75 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f7aa12c")
 		(property "Reference" "J5"
@@ -26949,6 +27033,15 @@
 			)
 		)
 		(property "Part #" "SSM-103-L-SV"
+			(at 71.12 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
 			(at 71.12 31.75 0)
 			(effects
 				(font
@@ -27660,7 +27753,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f80dd63")
 		(property "Reference" "J4"
@@ -27716,6 +27809,15 @@
 			)
 		)
 		(property "Part #" "PH1RB-03-UA"
+			(at 44.45 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
 			(at 44.45 31.75 0)
 			(effects
 				(font
@@ -28769,7 +28871,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f85e157")
 		(property "Reference" "J6"
@@ -28826,6 +28928,15 @@
 		)
 		(property "Part #" "NPTC081KFXC-RC"
 			(at 109.22 71.12 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
+			(at 109.22 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -29155,7 +29266,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f8759d2")
 		(property "Reference" "H8"
@@ -29214,6 +29325,15 @@
 			)
 		)
 		(property "Part #" "971100244"
+			(at 224.79 194.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
 			(at 224.79 194.31 0)
 			(effects
 				(font
@@ -30792,13 +30912,14 @@
 		)
 	)
 	(symbol
+		(lib_name "Custom_parts:Conn_01x24_Female")
 		(lib_id "Custom_parts:Conn_01x24_Female")
 		(at 269.24 62.23 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005fa9391a")
 		(property "Reference" "J9"
@@ -30856,6 +30977,15 @@
 			)
 		)
 		(property "Part #" "SSM-124-L-SV-LC"
+			(at 269.24 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
 			(at 269.24 62.23 0)
 			(effects
 				(font
@@ -34103,7 +34233,7 @@
 	)
 	(symbol
 		(lib_id "Four Channel MHz LED Driver-rescue:GND-power")
-		(at 294.64 130.81 0)
+		(at 298.45 116.84 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -34111,7 +34241,7 @@
 		(dnp no)
 		(uuid "2d8eb451-2df8-41fd-b936-ee810b54a15c")
 		(property "Reference" "#PWR085"
-			(at 294.64 137.16 0)
+			(at 298.45 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34120,7 +34250,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 296.672 134.874 0)
+			(at 300.482 120.904 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34129,7 +34259,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 294.64 130.81 0)
+			(at 298.45 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34138,7 +34268,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 294.64 130.81 0)
+			(at 298.45 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34147,7 +34277,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 294.64 130.81 0)
+			(at 298.45 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34201,7 +34331,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://yageogroup.com/content/Resource%20Library/Datasheet/PYU-YC_TC_GROUP_51_ROHS_L.pdf"
 			(at 72.39 168.91 0)
 			(effects
 				(font
@@ -34210,7 +34340,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "4 resistor network, parallel topology, split"
+		(property "Description" "RES ARRAY 4 RES 4.7K OHM 2012"
 			(at 72.39 168.91 0)
 			(effects
 				(font
@@ -34219,7 +34349,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" ""
+		(property "Manufacturer" "YAGEO"
 			(at 72.39 168.91 0)
 			(effects
 				(font
@@ -34228,7 +34358,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part" ""
+		(property "Part" "YC324-JK-074K7L"
 			(at 72.39 168.91 0)
 			(effects
 				(font
@@ -34338,7 +34468,7 @@
 	)
 	(symbol
 		(lib_id "Four Channel MHz LED Driver-rescue:Jumper_NC_Small-Device")
-		(at 299.72 130.81 0)
+		(at 303.53 116.84 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -34346,7 +34476,7 @@
 		(dnp no)
 		(uuid "54dd5ffa-0db4-479f-a809-50fdb534f6b3")
 		(property "Reference" "JP9"
-			(at 301.498 132.588 0)
+			(at 305.308 118.618 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34355,7 +34485,7 @@
 			)
 		)
 		(property "Value" "Jumper_NC_Small"
-			(at 298.577 132.0038 90)
+			(at 302.387 118.0338 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34365,7 +34495,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
-			(at 299.72 130.81 0)
+			(at 303.53 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34374,7 +34504,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p54.pdf"
-			(at 299.72 130.81 0)
+			(at 303.53 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34383,7 +34513,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 299.72 130.81 0)
+			(at 303.53 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34392,7 +34522,7 @@
 			)
 		)
 		(property "Manufacturer" "Keystone Electronics"
-			(at 299.72 130.81 90)
+			(at 303.53 116.84 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34401,7 +34531,7 @@
 			)
 		)
 		(property "Part #" "5108"
-			(at 299.72 130.81 90)
+			(at 303.53 116.84 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34426,7 +34556,7 @@
 	)
 	(symbol
 		(lib_id "Four Channel MHz LED Driver-rescue:Jumper_NC_Small-Device")
-		(at 302.26 123.19 0)
+		(at 306.07 109.22 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -34434,7 +34564,7 @@
 		(dnp no)
 		(uuid "5ef7db9a-96f3-44d9-adf9-7bad32f8d185")
 		(property "Reference" "JP7"
-			(at 304.038 124.968 0)
+			(at 307.848 110.998 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34443,7 +34573,7 @@
 			)
 		)
 		(property "Value" "Jumper_NC_Small"
-			(at 301.117 124.3838 90)
+			(at 304.927 110.4138 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34453,7 +34583,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
-			(at 302.26 123.19 0)
+			(at 306.07 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34462,7 +34592,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p54.pdf"
-			(at 302.26 123.19 0)
+			(at 306.07 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34471,7 +34601,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 302.26 123.19 0)
+			(at 306.07 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34480,7 +34610,7 @@
 			)
 		)
 		(property "Manufacturer" "Keystone Electronics"
-			(at 302.26 123.19 90)
+			(at 306.07 109.22 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34489,7 +34619,7 @@
 			)
 		)
 		(property "Part #" "5108"
-			(at 302.26 123.19 90)
+			(at 306.07 109.22 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34546,7 +34676,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://yageogroup.com/content/Resource%20Library/Datasheet/PYU-YC_TC_GROUP_51_ROHS_L.pdf"
 			(at 52.07 163.83 0)
 			(effects
 				(font
@@ -34555,7 +34685,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "4 resistor network, parallel topology, split"
+		(property "Description" "RES ARRAY 4 RES 4.7K OHM 2012"
 			(at 52.07 163.83 0)
 			(effects
 				(font
@@ -34564,7 +34694,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" ""
+		(property "Manufacturer" "YAGEO"
 			(at 52.07 163.83 0)
 			(effects
 				(font
@@ -34573,7 +34703,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part" ""
+		(property "Part" "YC324-JK-074K7L"
 			(at 52.07 163.83 0)
 			(effects
 				(font
@@ -34583,28 +34713,28 @@
 			)
 		)
 		(pin "2"
-			(uuid "dc24112f-e35f-49df-8a37-cc1db09200b8")
+			(uuid "dc24112f-e35f-49df-8a37-cc1db09200b9")
 		)
 		(pin "7"
-			(uuid "dbfc0941-dbee-40f1-bdaf-493fd8ed9d9c")
+			(uuid "dbfc0941-dbee-40f1-bdaf-493fd8ed9d9d")
 		)
 		(pin "6"
-			(uuid "106d364d-0a25-4a22-ba5e-e6406fd03663")
+			(uuid "106d364d-0a25-4a22-ba5e-e6406fd03664")
 		)
 		(pin "8"
-			(uuid "dceb95de-cec6-4e83-a517-c628d32d5a53")
+			(uuid "dceb95de-cec6-4e83-a517-c628d32d5a54")
 		)
 		(pin "1"
-			(uuid "efb821fb-7383-4157-ab7d-1b3a2a34cf42")
+			(uuid "efb821fb-7383-4157-ab7d-1b3a2a34cf43")
 		)
 		(pin "5"
-			(uuid "3191e67a-3484-491d-9236-c51e1a87fb8e")
+			(uuid "3191e67a-3484-491d-9236-c51e1a87fb8f")
 		)
 		(pin "4"
-			(uuid "133b2014-39b1-4bc6-85d1-65aaf8590a21")
+			(uuid "133b2014-39b1-4bc6-85d1-65aaf8590a22")
 		)
 		(pin "3"
-			(uuid "6e51f46f-3435-40db-9e54-ec6140291cbb")
+			(uuid "6e51f46f-3435-40db-9e54-ec6140291cbc")
 		)
 		(instances
 			(project ""
@@ -34649,7 +34779,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://yageogroup.com/content/Resource%20Library/Datasheet/PYU-YC_TC_GROUP_51_ROHS_L.pdf"
 			(at 52.07 168.91 0)
 			(effects
 				(font
@@ -34658,7 +34788,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "4 resistor network, parallel topology, split"
+		(property "Description" "RES ARRAY 4 RES 4.7K OHM 2012"
 			(at 52.07 168.91 0)
 			(effects
 				(font
@@ -34667,7 +34797,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" ""
+		(property "Manufacturer" "YAGEO"
 			(at 52.07 168.91 0)
 			(effects
 				(font
@@ -34676,7 +34806,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part" ""
+		(property "Part" "YC324-JK-074K7L"
 			(at 52.07 168.91 0)
 			(effects
 				(font
@@ -34686,28 +34816,28 @@
 			)
 		)
 		(pin "2"
-			(uuid "dc24112f-e35f-49df-8a37-cc1db09200b8")
+			(uuid "dc24112f-e35f-49df-8a37-cc1db09200ba")
 		)
 		(pin "7"
-			(uuid "dbfc0941-dbee-40f1-bdaf-493fd8ed9d9c")
+			(uuid "dbfc0941-dbee-40f1-bdaf-493fd8ed9d9e")
 		)
 		(pin "6"
-			(uuid "106d364d-0a25-4a22-ba5e-e6406fd03663")
+			(uuid "106d364d-0a25-4a22-ba5e-e6406fd03665")
 		)
 		(pin "8"
-			(uuid "dceb95de-cec6-4e83-a517-c628d32d5a53")
+			(uuid "dceb95de-cec6-4e83-a517-c628d32d5a55")
 		)
 		(pin "1"
-			(uuid "efb821fb-7383-4157-ab7d-1b3a2a34cf42")
+			(uuid "efb821fb-7383-4157-ab7d-1b3a2a34cf44")
 		)
 		(pin "5"
-			(uuid "3191e67a-3484-491d-9236-c51e1a87fb8e")
+			(uuid "3191e67a-3484-491d-9236-c51e1a87fb90")
 		)
 		(pin "4"
-			(uuid "133b2014-39b1-4bc6-85d1-65aaf8590a21")
+			(uuid "133b2014-39b1-4bc6-85d1-65aaf8590a23")
 		)
 		(pin "3"
-			(uuid "6e51f46f-3435-40db-9e54-ec6140291cbb")
+			(uuid "6e51f46f-3435-40db-9e54-ec6140291cbd")
 		)
 		(instances
 			(project ""
@@ -34786,7 +34916,7 @@
 	)
 	(symbol
 		(lib_id "Four Channel MHz LED Driver-rescue:GND-power")
-		(at 300.99 115.57 180)
+		(at 304.8 101.6 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -34794,7 +34924,7 @@
 		(dnp no)
 		(uuid "a5c4e65b-d918-4cb9-a1ab-4f34594f04b2")
 		(property "Reference" "#PWR077"
-			(at 300.99 109.22 0)
+			(at 304.8 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34803,7 +34933,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 298.45 111.76 0)
+			(at 302.26 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34812,7 +34942,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 300.99 115.57 0)
+			(at 304.8 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34821,7 +34951,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 300.99 115.57 0)
+			(at 304.8 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34830,7 +34960,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 300.99 115.57 0)
+			(at 304.8 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34852,7 +34982,7 @@
 	)
 	(symbol
 		(lib_id "Custom_parts:DAC80501ZDGSR")
-		(at 281.94 120.65 0)
+		(at 285.75 106.68 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -34861,7 +34991,7 @@
 		(fields_autoplaced yes)
 		(uuid "a8fdf0ff-1cc2-492e-8232-df81b88fc416")
 		(property "Reference" "U12"
-			(at 316.23 114.7496 0)
+			(at 320.04 100.7796 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -34869,7 +34999,7 @@
 			)
 		)
 		(property "Value" "DAC80501ZDGSR"
-			(at 316.23 117.5825 0)
+			(at 320.04 103.6125 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -34877,7 +35007,7 @@
 			)
 		)
 		(property "Footprint" "Custom Footprints:DGS10_TEX"
-			(at 281.94 120.65 0)
+			(at 285.75 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34887,7 +35017,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/dac60501.pdf"
-			(at 281.94 120.65 0)
+			(at 285.75 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34897,7 +35027,7 @@
 			)
 		)
 		(property "Description" "16 Bit Digital to Analog Converter 1 10-VSSOP"
-			(at 281.94 120.65 0)
+			(at 285.75 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34906,7 +35036,7 @@
 			)
 		)
 		(property "Manufacturer" "Texas Instruments"
-			(at 281.94 120.65 0)
+			(at 285.75 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34915,7 +35045,7 @@
 			)
 		)
 		(property "Part" "DAC80501ZDGSR"
-			(at 281.94 120.65 0)
+			(at 285.75 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34996,7 +35126,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://yageogroup.com/content/Resource%20Library/Datasheet/PYU-YC_TC_GROUP_51_ROHS_L.pdf"
 			(at 72.39 163.83 0)
 			(effects
 				(font
@@ -35005,7 +35135,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "4 resistor network, parallel topology, split"
+		(property "Description" "RES ARRAY 4 RES 4.7K OHM 2012"
 			(at 72.39 163.83 0)
 			(effects
 				(font
@@ -35014,7 +35144,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" ""
+		(property "Manufacturer" "YAGEO"
 			(at 72.39 163.83 0)
 			(effects
 				(font
@@ -35023,7 +35153,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part" ""
+		(property "Part" "YC324-JK-074K7L"
 			(at 72.39 163.83 0)
 			(effects
 				(font
@@ -35033,28 +35163,28 @@
 			)
 		)
 		(pin "2"
-			(uuid "dc24112f-e35f-49df-8a37-cc1db09200b8")
+			(uuid "dc24112f-e35f-49df-8a37-cc1db09200bb")
 		)
 		(pin "7"
-			(uuid "dbfc0941-dbee-40f1-bdaf-493fd8ed9d9c")
+			(uuid "dbfc0941-dbee-40f1-bdaf-493fd8ed9d9f")
 		)
 		(pin "6"
-			(uuid "106d364d-0a25-4a22-ba5e-e6406fd03663")
+			(uuid "106d364d-0a25-4a22-ba5e-e6406fd03666")
 		)
 		(pin "8"
-			(uuid "dceb95de-cec6-4e83-a517-c628d32d5a53")
+			(uuid "dceb95de-cec6-4e83-a517-c628d32d5a56")
 		)
 		(pin "1"
-			(uuid "efb821fb-7383-4157-ab7d-1b3a2a34cf42")
+			(uuid "efb821fb-7383-4157-ab7d-1b3a2a34cf45")
 		)
 		(pin "5"
-			(uuid "3191e67a-3484-491d-9236-c51e1a87fb8e")
+			(uuid "3191e67a-3484-491d-9236-c51e1a87fb91")
 		)
 		(pin "4"
-			(uuid "133b2014-39b1-4bc6-85d1-65aaf8590a21")
+			(uuid "133b2014-39b1-4bc6-85d1-65aaf8590a24")
 		)
 		(pin "3"
-			(uuid "6e51f46f-3435-40db-9e54-ec6140291cbb")
+			(uuid "6e51f46f-3435-40db-9e54-ec6140291cbe")
 		)
 		(instances
 			(project ""
@@ -35067,7 +35197,7 @@
 	)
 	(symbol
 		(lib_id "Four Channel MHz LED Driver-rescue:GND-power")
-		(at 304.8 130.81 0)
+		(at 308.61 116.84 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -35075,7 +35205,7 @@
 		(dnp no)
 		(uuid "c9a66720-d754-4166-9ed5-1e4073d6edce")
 		(property "Reference" "#PWR078"
-			(at 304.8 137.16 0)
+			(at 308.61 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35084,7 +35214,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 306.832 134.874 0)
+			(at 310.642 120.904 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35093,7 +35223,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 304.8 130.81 0)
+			(at 308.61 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35102,7 +35232,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 304.8 130.81 0)
+			(at 308.61 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35111,7 +35241,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 304.8 130.81 0)
+			(at 308.61 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35221,7 +35351,7 @@
 	)
 	(symbol
 		(lib_id "Device:C_Small")
-		(at 300.99 118.11 0)
+		(at 304.8 104.14 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -35230,7 +35360,7 @@
 		(dnp no)
 		(uuid "d32bb974-a0a7-4627-8ceb-d74bdccdf7f5")
 		(property "Reference" "C23"
-			(at 300.736 116.078 0)
+			(at 304.546 102.108 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35239,7 +35369,7 @@
 			)
 		)
 		(property "Value" "2.2uF"
-			(at 303.53 119.38 90)
+			(at 307.34 105.41 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35248,7 +35378,7 @@
 			)
 		)
 		(property "Footprint" "Custom Footprints:0508_Capacitor"
-			(at 300.99 118.11 0)
+			(at 304.8 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35257,7 +35387,7 @@
 			)
 		)
 		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M"
-			(at 300.99 118.11 0)
+			(at 304.8 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35266,7 +35396,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 300.99 118.11 0)
+			(at 304.8 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35275,7 +35405,7 @@
 			)
 		)
 		(property "Manufacturer" "Taiyo Yuden"
-			(at 300.99 118.11 0)
+			(at 304.8 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35284,7 +35414,7 @@
 			)
 		)
 		(property "Part #" "TWK212B7225MD-T"
-			(at 300.99 118.11 0)
+			(at 304.8 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
