@@ -11331,7 +11331,7 @@
 		(uuid "7d6c91b3-f037-4daa-b7b6-85d259b8515b")
 	)
 	(no_connect
-		(at 48.26 278.13)
+		(at 19.05 278.13)
 		(uuid "8ba1b17f-c6fd-4c9e-989b-7ef4b8ae1158")
 	)
 	(no_connect
@@ -11339,11 +11339,11 @@
 		(uuid "adcf9b7a-38c0-4e14-9a73-a5f34fffffbd")
 	)
 	(no_connect
-		(at 67.31 283.21)
+		(at 38.1 283.21)
 		(uuid "dc138664-21fb-4d84-b41e-461f3f6f155b")
 	)
 	(no_connect
-		(at 48.26 283.21)
+		(at 19.05 283.21)
 		(uuid "dffaba67-730c-4374-abe3-87e93281b895")
 	)
 	(no_connect
@@ -11493,6 +11493,16 @@
 			(type default)
 		)
 		(uuid "1159e593-02f2-40bb-83b9-79ca39d9a706")
+	)
+	(wire
+		(pts
+			(xy 55.88 168.91) (xy 68.58 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1434360a-53ef-41a4-99a3-f24bf9ff9163")
 	)
 	(wire
 		(pts
@@ -12116,6 +12126,16 @@
 	)
 	(wire
 		(pts
+			(xy 294.64 130.81) (xy 297.18 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "65b92c98-31ec-4b26-b579-e4419461d3ed")
+	)
+	(wire
+		(pts
 			(xy 140.97 64.77) (xy 143.51 64.77)
 		)
 		(stroke
@@ -12426,6 +12446,16 @@
 	)
 	(wire
 		(pts
+			(xy 55.88 163.83) (xy 68.58 163.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8ad1c8e4-be95-45d5-a9dc-35aad14f2ec3")
+	)
+	(wire
+		(pts
 			(xy 55.88 41.91) (xy 50.8 41.91)
 		)
 		(stroke
@@ -12503,6 +12533,16 @@
 			(type default)
 		)
 		(uuid "925b4321-8cef-4ea3-85df-85691fe6e39d")
+	)
+	(wire
+		(pts
+			(xy 302.26 130.81) (xy 304.8 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9294deac-1969-4164-bfa2-2be2567c4c38")
 	)
 	(wire
 		(pts
@@ -12636,7 +12676,7 @@
 	)
 	(wire
 		(pts
-			(xy 40.64 163.83) (xy 46.99 163.83)
+			(xy 40.64 163.83) (xy 48.26 163.83)
 		)
 		(stroke
 			(width 0)
@@ -13036,7 +13076,7 @@
 	)
 	(wire
 		(pts
-			(xy 40.64 168.91) (xy 46.99 168.91)
+			(xy 40.64 168.91) (xy 48.26 168.91)
 		)
 		(stroke
 			(width 0)
@@ -13607,7 +13647,7 @@
 	)
 	(text "3.3V clamp for external analog\nMax voltage: +6V/-3V"
 		(exclude_from_sim no)
-		(at 44.45 265.43 0)
+		(at 15.24 265.43 0)
 		(effects
 			(font
 				(size 1.4986 1.4986)
@@ -13968,6 +14008,17 @@
 		)
 		(uuid "19f1ba8d-32c4-42d3-9c4c-78dd9356d8a7")
 	)
+	(label "A-D_input_6"
+		(at 81.28 273.05 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1a7168c5-ac0d-4d30-8020-f7107038b8ac")
+	)
 	(label "12V"
 		(at 49.53 29.21 0)
 		(fields_autoplaced yes)
@@ -14067,6 +14118,17 @@
 		)
 		(uuid "26fd596b-3156-40b5-a751-4812b0823af2")
 	)
+	(label "A-D_input_5"
+		(at 76.2 163.83 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2822c67a-df31-4b3e-9fcb-effd6aa8bcb7")
+	)
 	(label "3.3V"
 		(at 156.21 278.13 0)
 		(fields_autoplaced yes)
@@ -14123,7 +14185,7 @@
 		(uuid "361a4cb5-86f3-4995-a889-5b444baffc36")
 	)
 	(label "3.3V"
-		(at 114.3 283.21 0)
+		(at 119.38 283.21 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -14198,6 +14260,17 @@
 			(justify left bottom)
 		)
 		(uuid "4537f955-c1a2-416d-9aa9-6c75ddafdbbf")
+	)
+	(label "3.3V"
+		(at 81.28 283.21 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "489d20f6-f697-47a4-8cea-edb7be9a603b")
 	)
 	(label "Internal_fan_PWM"
 		(at 77.47 251.46 0)
@@ -14310,7 +14383,7 @@
 		(uuid "57b44f1c-1a86-4ea4-aa1c-3d39e88fa2a2")
 	)
 	(label "3.3V"
-		(at 114.3 278.13 0)
+		(at 119.38 278.13 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -14430,6 +14503,17 @@
 		)
 		(uuid "6c3c324c-cb22-4b68-9439-ed6b83a7f1ab")
 	)
+	(label "A-D_input_6"
+		(at 76.2 168.91 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6d84df9b-fa36-48df-96d1-a0710abab474")
+	)
 	(label "Over_temp_alarm2"
 		(at 293.37 59.69 180)
 		(fields_autoplaced yes)
@@ -14464,7 +14548,7 @@
 		(uuid "71a72683-d38d-4a5f-82b9-4f76566f1003")
 	)
 	(label "A-D_input_1"
-		(at 95.25 283.21 180)
+		(at 100.33 283.21 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -14539,6 +14623,17 @@
 			(justify left bottom)
 		)
 		(uuid "79e95744-a453-4dfa-b15b-01924b6dd767")
+	)
+	(label "3.3V"
+		(at 81.28 278.13 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7d035b36-55d5-4be0-afbd-7541e8b783e8")
 	)
 	(label "External_thermistor"
 		(at 46.99 233.68 0)
@@ -14640,7 +14735,7 @@
 		(uuid "8c967ba0-c2e8-4930-9049-a2ba8a532ecf")
 	)
 	(label "external_analog"
-		(at 67.31 273.05 0)
+		(at 38.1 273.05 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -14662,7 +14757,7 @@
 		(uuid "8e9ad3a7-0729-4ac3-a67a-a58e8f46d391")
 	)
 	(label "A-D_input_3"
-		(at 114.3 273.05 0)
+		(at 119.38 273.05 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -14816,7 +14911,7 @@
 		(uuid "a581de09-7257-4af2-a6a6-0fe7c1648bbe")
 	)
 	(label "3.3V"
-		(at 67.31 278.13 0)
+		(at 38.1 278.13 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -14959,7 +15054,7 @@
 		(uuid "b209705f-16b5-43c1-a146-0dbdfc52cbed")
 	)
 	(label "A-D_input_5"
-		(at 46.99 163.83 0)
+		(at 55.88 163.83 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -15102,7 +15197,7 @@
 		(uuid "daadb36f-b1e9-4ff8-aa7a-aba40d145471")
 	)
 	(label "A-D_input_6"
-		(at 46.99 168.91 0)
+		(at 55.88 168.91 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -15342,6 +15437,17 @@
 			(justify right bottom)
 		)
 		(uuid "f9aa85ec-ab53-404b-adbe-41697e836ac7")
+	)
+	(label "A-D_input_5"
+		(at 62.23 283.21 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "fb5fdaf9-4266-42d7-85e9-246ddbcf3126")
 	)
 	(label "12V"
 		(at 191.77 54.61 0)
@@ -26970,7 +27076,7 @@
 	)
 	(symbol
 		(lib_id "Four Channel MHz LED Driver-rescue:GND-power")
-		(at 95.25 273.05 270)
+		(at 100.33 273.05 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -26978,7 +27084,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f7d0257")
 		(property "Reference" "#PWR045"
-			(at 88.9 273.05 0)
+			(at 93.98 273.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -26987,7 +27093,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 93.98 270.51 90)
+			(at 99.06 270.51 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -26996,7 +27102,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 95.25 273.05 0)
+			(at 100.33 273.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27005,7 +27111,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 95.25 273.05 0)
+			(at 100.33 273.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27014,7 +27120,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 95.25 273.05 0)
+			(at 100.33 273.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27036,7 +27142,7 @@
 	)
 	(symbol
 		(lib_id "Custom_parts:BAT54BRW")
-		(at 100.33 275.59 0)
+		(at 105.41 275.59 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -27044,7 +27150,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f7d025f")
 		(property "Reference" "D2"
-			(at 104.775 266.7762 0)
+			(at 109.855 266.7762 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -27052,7 +27158,7 @@
 			)
 		)
 		(property "Value" "BAT54BRW"
-			(at 104.775 269.4686 0)
+			(at 109.855 269.4686 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -27060,7 +27166,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-363_SC-70-6"
-			(at 105.41 270.51 0)
+			(at 110.49 270.51 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -27070,7 +27176,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/ds30152.pdf"
-			(at 105.41 267.97 0)
+			(at 110.49 267.97 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -27080,7 +27186,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 100.33 275.59 0)
+			(at 105.41 275.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27089,7 +27195,7 @@
 			)
 		)
 		(property "Manufacturer" "Diodes Incorporated"
-			(at 100.33 275.59 0)
+			(at 105.41 275.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27098,7 +27204,7 @@
 			)
 		)
 		(property "Part #" "BAT54BRW-7-F"
-			(at 100.33 275.59 0)
+			(at 105.41 275.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27135,7 +27241,7 @@
 	)
 	(symbol
 		(lib_id "Four Channel MHz LED Driver-rescue:GND-power")
-		(at 95.25 278.13 270)
+		(at 100.33 278.13 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -27143,7 +27249,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f7d0267")
 		(property "Reference" "#PWR046"
-			(at 88.9 278.13 0)
+			(at 93.98 278.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27152,7 +27258,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 93.98 275.59 90)
+			(at 99.06 275.59 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27161,7 +27267,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 95.25 278.13 0)
+			(at 100.33 278.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27170,7 +27276,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 95.25 278.13 0)
+			(at 100.33 278.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27179,7 +27285,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 95.25 278.13 0)
+			(at 100.33 278.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27201,7 +27307,7 @@
 	)
 	(symbol
 		(lib_id "Custom_parts:BAT54BRW")
-		(at 53.34 275.59 0)
+		(at 24.13 275.59 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -27209,7 +27315,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f7e5c45")
 		(property "Reference" "D1"
-			(at 57.785 266.7762 0)
+			(at 28.575 266.7762 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -27217,7 +27323,7 @@
 			)
 		)
 		(property "Value" "BAT54BRW"
-			(at 57.785 269.4686 0)
+			(at 28.575 269.4686 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -27225,7 +27331,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-363_SC-70-6"
-			(at 58.42 270.51 0)
+			(at 29.21 270.51 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -27235,7 +27341,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/ds30152.pdf"
-			(at 58.42 267.97 0)
+			(at 29.21 267.97 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -27245,7 +27351,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 53.34 275.59 0)
+			(at 24.13 275.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27254,7 +27360,7 @@
 			)
 		)
 		(property "Manufacturer" "Diodes Incorporated"
-			(at 53.34 275.59 0)
+			(at 24.13 275.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27263,7 +27369,7 @@
 			)
 		)
 		(property "Part #" "BAT54BRW-7-F"
-			(at 53.34 275.59 0)
+			(at 24.13 275.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27605,7 +27711,7 @@
 	)
 	(symbol
 		(lib_id "Four Channel MHz LED Driver-rescue:GND-power")
-		(at 48.26 273.05 270)
+		(at 19.05 273.05 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -27613,7 +27719,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005f81886e")
 		(property "Reference" "#PWR029"
-			(at 41.91 273.05 0)
+			(at 12.7 273.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27622,7 +27728,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 46.99 270.51 90)
+			(at 17.78 270.51 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27631,7 +27737,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 48.26 273.05 0)
+			(at 19.05 273.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27640,7 +27746,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 48.26 273.05 0)
+			(at 19.05 273.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27649,7 +27755,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 48.26 273.05 0)
+			(at 19.05 273.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33864,6 +33970,428 @@
 		)
 	)
 	(symbol
+		(lib_id "Custom_parts:BAT54BRW")
+		(at 67.31 275.59 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "24b3b80f-9468-4fc4-bf8f-d56eade92e3a")
+		(property "Reference" "D6"
+			(at 71.755 266.7762 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Value" "BAT54BRW"
+			(at 71.755 269.4686 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-363_SC-70-6"
+			(at 72.39 270.51 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/ds30152.pdf"
+			(at 72.39 267.97 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 67.31 275.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Diodes Incorporated"
+			(at 67.31 275.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part #" "BAT54BRW-7-F"
+			(at 67.31 275.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "90d30a18-8b37-47c3-9e51-56340fafbf6b")
+		)
+		(pin "2"
+			(uuid "1e936310-3155-4628-9910-4d989a21a041")
+		)
+		(pin "3"
+			(uuid "797e101e-a82d-46da-a41d-18ca223f1ea2")
+		)
+		(pin "5"
+			(uuid "092adade-a099-4a94-aa01-68e7c1929d55")
+		)
+		(pin "6"
+			(uuid "45e40332-919c-4e18-966c-0744114fca39")
+		)
+		(pin "4"
+			(uuid "d5914be7-3cb1-4699-9977-1fb3eade525e")
+		)
+		(instances
+			(project "Four Channel MHz LED Driver"
+				(path "/5945602f-dd7c-4651-838e-2542783a963a"
+					(reference "D6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Four Channel MHz LED Driver-rescue:GND-power")
+		(at 294.64 130.81 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2d8eb451-2df8-41fd-b936-ee810b54a15c")
+		(property "Reference" "#PWR085"
+			(at 294.64 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 296.672 134.874 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 294.64 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 294.64 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 294.64 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "363b272c-201d-4529-a285-f8feb49c517b")
+		)
+		(instances
+			(project "Four Channel MHz LED Driver"
+				(path "/5945602f-dd7c-4651-838e-2542783a963a"
+					(reference "#PWR085")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Pack04_Split")
+		(at 72.39 168.91 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4eaf67d3-a844-4f3c-a24e-88bc17fe1c43")
+		(property "Reference" "RN5"
+			(at 72.136 166.878 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "4.7k"
+			(at 72.136 168.91 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Custom Footprints:RESCAXS127P508X320X70-8N"
+			(at 72.39 170.942 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 72.39 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4 resistor network, parallel topology, split"
+			(at 72.39 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 72.39 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
+			(at 72.39 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "dc24112f-e35f-49df-8a37-cc1db09200b8")
+		)
+		(pin "7"
+			(uuid "dbfc0941-dbee-40f1-bdaf-493fd8ed9d9c")
+		)
+		(pin "6"
+			(uuid "106d364d-0a25-4a22-ba5e-e6406fd03663")
+		)
+		(pin "8"
+			(uuid "dceb95de-cec6-4e83-a517-c628d32d5a53")
+		)
+		(pin "1"
+			(uuid "efb821fb-7383-4157-ab7d-1b3a2a34cf42")
+		)
+		(pin "5"
+			(uuid "3191e67a-3484-491d-9236-c51e1a87fb8e")
+		)
+		(pin "4"
+			(uuid "133b2014-39b1-4bc6-85d1-65aaf8590a21")
+		)
+		(pin "3"
+			(uuid "6e51f46f-3435-40db-9e54-ec6140291cbb")
+		)
+		(instances
+			(project ""
+				(path "/5945602f-dd7c-4651-838e-2542783a963a"
+					(reference "RN5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Four Channel MHz LED Driver-rescue:GND-power")
+		(at 62.23 273.05 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "54126b11-4b53-4649-b957-19975958c832")
+		(property "Reference" "#PWR079"
+			(at 55.88 273.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 60.96 270.51 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 62.23 273.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 62.23 273.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 62.23 273.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c6166f87-97e8-4900-9a83-027ddfda366f")
+		)
+		(instances
+			(project "Four Channel MHz LED Driver"
+				(path "/5945602f-dd7c-4651-838e-2542783a963a"
+					(reference "#PWR079")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Four Channel MHz LED Driver-rescue:Jumper_NC_Small-Device")
+		(at 299.72 130.81 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "54dd5ffa-0db4-479f-a809-50fdb534f6b3")
+		(property "Reference" "JP9"
+			(at 301.498 132.588 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Jumper_NC_Small"
+			(at 298.577 132.0038 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+			(at 299.72 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p54.pdf"
+			(at 299.72 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 299.72 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Keystone Electronics"
+			(at 299.72 130.81 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part #" "5108"
+			(at 299.72 130.81 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "25052dc7-89ac-4641-b81a-13c90b4bf659")
+		)
+		(pin "1"
+			(uuid "1d668328-678d-4ec5-aa80-be1b626661e9")
+		)
+		(instances
+			(project "Four Channel MHz LED Driver"
+				(path "/5945602f-dd7c-4651-838e-2542783a963a"
+					(reference "JP9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Four Channel MHz LED Driver-rescue:Jumper_NC_Small-Device")
 		(at 302.26 123.19 0)
 		(unit 1)
@@ -33946,6 +34474,278 @@
 			(project "Four Channel MHz LED Driver"
 				(path "/5945602f-dd7c-4651-838e-2542783a963a"
 					(reference "JP7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Pack04_Split")
+		(at 52.07 163.83 90)
+		(unit 3)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6da86fb7-0fc3-4247-88b4-1215af9d7c6b")
+		(property "Reference" "RN5"
+			(at 52.07 161.798 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "4.7k"
+			(at 51.816 163.83 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Custom Footprints:RESCAXS127P508X320X70-8N"
+			(at 52.07 165.862 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 52.07 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4 resistor network, parallel topology, split"
+			(at 52.07 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 52.07 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
+			(at 52.07 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "dc24112f-e35f-49df-8a37-cc1db09200b8")
+		)
+		(pin "7"
+			(uuid "dbfc0941-dbee-40f1-bdaf-493fd8ed9d9c")
+		)
+		(pin "6"
+			(uuid "106d364d-0a25-4a22-ba5e-e6406fd03663")
+		)
+		(pin "8"
+			(uuid "dceb95de-cec6-4e83-a517-c628d32d5a53")
+		)
+		(pin "1"
+			(uuid "efb821fb-7383-4157-ab7d-1b3a2a34cf42")
+		)
+		(pin "5"
+			(uuid "3191e67a-3484-491d-9236-c51e1a87fb8e")
+		)
+		(pin "4"
+			(uuid "133b2014-39b1-4bc6-85d1-65aaf8590a21")
+		)
+		(pin "3"
+			(uuid "6e51f46f-3435-40db-9e54-ec6140291cbb")
+		)
+		(instances
+			(project ""
+				(path "/5945602f-dd7c-4651-838e-2542783a963a"
+					(reference "RN5")
+					(unit 3)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Pack04_Split")
+		(at 52.07 168.91 90)
+		(unit 4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "76521392-260b-4029-b57d-481bc8c6cab5")
+		(property "Reference" "RN5"
+			(at 52.07 166.878 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "4.7k"
+			(at 51.816 168.91 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Custom Footprints:RESCAXS127P508X320X70-8N"
+			(at 52.07 170.942 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 52.07 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4 resistor network, parallel topology, split"
+			(at 52.07 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 52.07 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
+			(at 52.07 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "dc24112f-e35f-49df-8a37-cc1db09200b8")
+		)
+		(pin "7"
+			(uuid "dbfc0941-dbee-40f1-bdaf-493fd8ed9d9c")
+		)
+		(pin "6"
+			(uuid "106d364d-0a25-4a22-ba5e-e6406fd03663")
+		)
+		(pin "8"
+			(uuid "dceb95de-cec6-4e83-a517-c628d32d5a53")
+		)
+		(pin "1"
+			(uuid "efb821fb-7383-4157-ab7d-1b3a2a34cf42")
+		)
+		(pin "5"
+			(uuid "3191e67a-3484-491d-9236-c51e1a87fb8e")
+		)
+		(pin "4"
+			(uuid "133b2014-39b1-4bc6-85d1-65aaf8590a21")
+		)
+		(pin "3"
+			(uuid "6e51f46f-3435-40db-9e54-ec6140291cbb")
+		)
+		(instances
+			(project ""
+				(path "/5945602f-dd7c-4651-838e-2542783a963a"
+					(reference "RN5")
+					(unit 4)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Four Channel MHz LED Driver-rescue:GND-power")
+		(at 62.23 278.13 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9c48bda2-7e03-4925-8978-050b4579dee4")
+		(property "Reference" "#PWR080"
+			(at 55.88 278.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 60.96 275.59 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 62.23 278.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 62.23 278.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 62.23 278.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "574907df-8792-4767-8bd6-b57e1462117d")
+		)
+		(instances
+			(project "Four Channel MHz LED Driver"
+				(path "/5945602f-dd7c-4651-838e-2542783a963a"
+					(reference "#PWR080")
 					(unit 1)
 				)
 			)
@@ -34125,6 +34925,109 @@
 				(path "/5945602f-dd7c-4651-838e-2542783a963a"
 					(reference "U12")
 					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Pack04_Split")
+		(at 72.39 163.83 90)
+		(unit 2)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ad292db1-2f23-4989-a9ae-c3d495c58817")
+		(property "Reference" "RN5"
+			(at 72.39 161.798 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "4.7k"
+			(at 72.39 163.83 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Custom Footprints:RESCAXS127P508X320X70-8N"
+			(at 72.39 165.862 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 72.39 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4 resistor network, parallel topology, split"
+			(at 72.39 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" ""
+			(at 72.39 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" ""
+			(at 72.39 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "dc24112f-e35f-49df-8a37-cc1db09200b8")
+		)
+		(pin "7"
+			(uuid "dbfc0941-dbee-40f1-bdaf-493fd8ed9d9c")
+		)
+		(pin "6"
+			(uuid "106d364d-0a25-4a22-ba5e-e6406fd03663")
+		)
+		(pin "8"
+			(uuid "dceb95de-cec6-4e83-a517-c628d32d5a53")
+		)
+		(pin "1"
+			(uuid "efb821fb-7383-4157-ab7d-1b3a2a34cf42")
+		)
+		(pin "5"
+			(uuid "3191e67a-3484-491d-9236-c51e1a87fb8e")
+		)
+		(pin "4"
+			(uuid "133b2014-39b1-4bc6-85d1-65aaf8590a21")
+		)
+		(pin "3"
+			(uuid "6e51f46f-3435-40db-9e54-ec6140291cbb")
+		)
+		(instances
+			(project ""
+				(path "/5945602f-dd7c-4651-838e-2542783a963a"
+					(reference "RN5")
+					(unit 2)
 				)
 			)
 		)

@@ -1,4 +1,4 @@
-25035160441910490
+25036935145144977
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -55103,6 +55103,13 @@ Pushbutton_LED-ELUMOATHQ3C12
 0
 5
 5
+Custom Footprints
+RESCAXS127P508X320X70-8N
+
+
+0
+8
+8
 Custom Footprints
 RJ45_x4-RJSSE-5380-04
 
