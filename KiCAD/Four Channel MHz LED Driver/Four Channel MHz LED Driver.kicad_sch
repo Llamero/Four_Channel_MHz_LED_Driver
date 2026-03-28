@@ -13865,6 +13865,17 @@
 		)
 		(uuid "067ae552-2f7d-4548-80cc-9e3f9648060e")
 	)
+	(label "NC3"
+		(at 341.63 90.17 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "07668655-3aff-417b-9611-8f306ed42d92")
+	)
 	(label "Resistor_temp"
 		(at 379.73 77.47 180)
 		(fields_autoplaced yes)
@@ -14360,17 +14371,6 @@
 		)
 		(uuid "56f7cd93-9e1b-4530-bec5-1d12a4799466")
 	)
-	(label "3.3V"
-		(at 293.37 52.07 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "5759c815-f1c6-4e81-9485-d4d13c40a631")
-	)
 	(label "Vin"
 		(at 16.51 69.85 180)
 		(fields_autoplaced yes)
@@ -14502,6 +14502,17 @@
 			(justify right bottom)
 		)
 		(uuid "6c3c324c-cb22-4b68-9439-ed6b83a7f1ab")
+	)
+	(label "NC4"
+		(at 341.63 92.71 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6cc5a1ce-4836-4169-9aab-64555d3a08b3")
 	)
 	(label "A-D_input_6"
 		(at 76.2 168.91 0)
@@ -15163,6 +15174,17 @@
 		)
 		(uuid "d33cda0f-12a7-4ffe-830c-b8a5f743fb45")
 	)
+	(label "NC1"
+		(at 293.37 49.53 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d628835e-473a-4146-a783-b9ea0bf381a5")
+	)
 	(label "Interline_PWM"
 		(at 118.11 163.83 180)
 		(fields_autoplaced yes)
@@ -15219,7 +15241,7 @@
 		(uuid "dbb5a492-d9d9-4abf-8ceb-85d6b61705c6")
 	)
 	(label "3.3V"
-		(at 293.37 49.53 180)
+		(at 293.37 52.07 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -15228,6 +15250,17 @@
 			(justify right bottom)
 		)
 		(uuid "dd2ea6a5-ac8c-42ba-9845-4c428b3d8c12")
+	)
+	(label "NC2"
+		(at 341.63 87.63 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e0b845c5-4fad-4986-9415-c43d27258f90")
 	)
 	(label "5V_fan_PWM"
 		(at 185.42 270.51 180)
