@@ -4145,6 +4145,280 @@
 				)
 			)
 		)
+		(symbol "Custom_parts:DAC80501ZDGSR"
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 34.036 6.096 0)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+				)
+			)
+			(property "Value" "DAC80501ZDGSR"
+				(at 34.544 3.81 0)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+				)
+			)
+			(property "Footprint" "DGS10_TEX"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.ti.com/lit/gpn/dac80501"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "DAC80501ZDGSR"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "DGS10_TEX DGS10_TEX-M DGS10_TEX-L"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "DAC80501ZDGSR_0_1"
+				(pin power_in line
+					(at 22.86 0 0)
+					(length 2.54)
+					(name "VDD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 45.72 0 180)
+					(length 2.54)
+					(name "VREFIO"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 22.86 -2.54 0)
+					(length 2.54)
+					(name "VOUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 22.86 -5.08 0)
+					(length 2.54)
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 22.86 -7.62 0)
+					(length 2.54)
+					(name "AGND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 22.86 -10.16 0)
+					(length 2.54)
+					(name "SPI2C"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 45.72 -10.16 180)
+					(length 2.54)
+					(name "SCLK/SCL"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 45.72 -7.62 180)
+					(length 2.54)
+					(name "*SYNC/A0"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 45.72 -5.08 180)
+					(length 2.54)
+					(name "SDIN/SDA"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 45.72 -2.54 180)
+					(length 2.54)
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "DAC80501ZDGSR_1_1"
+				(rectangle
+					(start 25.4 1.27)
+					(end 43.18 -11.43)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+		)
 		(symbol "Custom_parts:DPBW06F-05"
 			(pin_names
 				(offset 1.016)
@@ -10741,6 +11015,12 @@
 		(uuid "3b9a3107-437f-447b-80b4-5de601612f8d")
 	)
 	(junction
+		(at 300.99 120.65)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3e6ca2a1-e5d4-4f1f-950b-23ce89be23ad")
+	)
+	(junction
 		(at 148.59 194.31)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -10847,6 +11127,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "9d797db7-4875-47c6-91fc-f902cced0fb2")
+	)
+	(junction
+		(at 304.8 130.81)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9dabd4c7-c1d1-4548-bcb3-6afcc5c5b269")
 	)
 	(junction
 		(at 113.03 199.39)
@@ -11023,6 +11309,10 @@
 	(no_connect
 		(at 204.47 212.09)
 		(uuid "262f3a68-94e4-44da-b328-52eab469cf8d")
+	)
+	(no_connect
+		(at 327.66 120.65)
+		(uuid "37c1b23f-2de7-47d3-8ada-f6d1de3da303")
 	)
 	(no_connect
 		(at 187.96 265.43)
@@ -11996,6 +12286,16 @@
 	)
 	(wire
 		(pts
+			(xy 300.99 120.65) (xy 304.8 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7aec54fa-6b8d-40e3-9871-2b9e42d006ee")
+	)
+	(wire
+		(pts
 			(xy 341.63 39.37) (xy 360.68 39.37)
 		)
 		(stroke
@@ -12053,6 +12353,16 @@
 			(type default)
 		)
 		(uuid "825e75fe-6cfd-4fb7-bcc3-5fb09761b4a4")
+	)
+	(wire
+		(pts
+			(xy 304.8 128.27) (xy 304.8 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "83fd46a7-f3b0-4006-8299-ce2ce547436e")
 	)
 	(wire
 		(pts
@@ -13164,6 +13474,16 @@
 		)
 		(uuid "fdeec67e-7e7f-4eda-80b6-c3f63abe6573")
 	)
+	(wire
+		(pts
+			(xy 298.45 120.65) (xy 300.99 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ffdf3e6e-d065-44d1-af70-8b10ba2a2479")
+	)
 	(text "4-channel analog/digital IO with 0-3.3V clamp"
 		(exclude_from_sim no)
 		(at 99.06 262.89 0)
@@ -13208,28 +13528,6 @@
 		)
 		(uuid "315a8114-4ccf-4329-a7b9-e9a7786a6da9")
 	)
-	(text "ADC0"
-		(exclude_from_sim no)
-		(at 370.84 92.71 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "34be73ba-5ac7-410d-8c45-a2a872548a43")
-	)
-	(text "ADC1"
-		(exclude_from_sim no)
-		(at 269.24 90.17 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "34ceec05-db87-4a71-9e4a-e58b9b8d12ee")
-	)
 	(text "I2C/external analog input/current sense voltage"
 		(exclude_from_sim no)
 		(at 35.56 158.75 0)
@@ -13252,28 +13550,6 @@
 		)
 		(uuid "3b32c2a0-bbb2-4ab9-ae56-10d3848778d9")
 	)
-	(text "ADC1"
-		(exclude_from_sim no)
-		(at 269.24 92.71 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "461251f2-a5bb-4bec-9818-0168d4b0f957")
-	)
-	(text "--ADC1--"
-		(exclude_from_sim no)
-		(at 369.57 87.63 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "4c90f492-b422-4b75-b635-c32e9631ca5f")
-	)
 	(text "Teensy 3.6 180 MHz Microcontroller"
 		(exclude_from_sim no)
 		(at 275.59 19.05 0)
@@ -13284,17 +13560,6 @@
 			(justify left bottom)
 		)
 		(uuid "4fb3175d-51ce-4333-8b83-13ee65136223")
-	)
-	(text "https://forum.pjrc.com/attachment.php?attachmentid=10666&d=1495536536"
-		(exclude_from_sim no)
-		(at 374.65 102.87 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "529b8912-bc82-4b07-9570-fa4a3eb0f388")
 	)
 	(text "4-pin 92mm fan"
 		(exclude_from_sim no)
@@ -13328,17 +13593,6 @@
 			(justify left bottom)
 		)
 		(uuid "69fee032-48e8-4328-bdfe-dc4797a0cb3d")
-	)
-	(text "ADC0"
-		(exclude_from_sim no)
-		(at 370.84 74.93 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "7415693f-e281-4bfd-9aae-85d998610113")
 	)
 	(text "Analog/digital inputs with 0-3.3V clamp"
 		(exclude_from_sim no)
@@ -13406,28 +13660,6 @@
 		)
 		(uuid "a47423fc-5e4c-441c-bd1c-febcdf081795")
 	)
-	(text "ADC0"
-		(exclude_from_sim no)
-		(at 370.84 90.17 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "a7fab099-8ce1-43bc-9b09-94c15ec3cafb")
-	)
-	(text "-------ADC0------"
-		(exclude_from_sim no)
-		(at 369.57 64.77 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "b8cd5df1-37c5-4122-b09c-0c4a82e367d0")
-	)
 	(text "Constant Current LED Driver with Compensation\n\n"
 		(exclude_from_sim no)
 		(at 177.8 187.96 0)
@@ -13438,17 +13670,6 @@
 			(justify left bottom)
 		)
 		(uuid "b94c63a4-ca68-415b-a576-080a5c2321da")
-	)
-	(text "ADC1"
-		(exclude_from_sim no)
-		(at 370.84 72.39 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "c1c688cb-7d86-4374-a736-1ec0273c0dd8")
 	)
 	(text "Overheat alarm"
 		(exclude_from_sim no)
@@ -13551,6 +13772,7 @@
 	)
 	(label "Vin"
 		(at 49.53 34.29 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13561,6 +13783,7 @@
 	)
 	(label "Relay4"
 		(at 177.8 134.62 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13571,6 +13794,7 @@
 	)
 	(label "External_5V_PWM1"
 		(at 77.47 256.54 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13581,6 +13805,7 @@
 	)
 	(label "external_analog"
 		(at 54.61 173.99 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13591,6 +13816,7 @@
 	)
 	(label "External_5V_PWM1"
 		(at 341.63 44.45 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13599,8 +13825,20 @@
 		)
 		(uuid "067ae552-2f7d-4548-80cc-9e3f9648060e")
 	)
+	(label "Resistor_temp"
+		(at 379.73 77.47 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "077332fc-4e13-455b-a9c8-638d9e75a300")
+	)
 	(label "Relay3"
 		(at 293.37 39.37 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13611,6 +13849,7 @@
 	)
 	(label "Resistor_temp"
 		(at 120.65 194.31 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13620,17 +13859,19 @@
 		(uuid "0a52c357-f12c-41f7-aaac-45dd0216aeb7")
 	)
 	(label "internal_analog"
-		(at 388.62 62.23 0)
+		(at 299.72 123.19 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "0b6ca1d7-c34f-409d-b507-1f19ab3d1264")
 	)
 	(label "A-D_input_1"
 		(at 54.61 196.85 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13641,6 +13882,7 @@
 	)
 	(label "LED2"
 		(at 293.37 72.39 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13650,7 +13892,8 @@
 		(uuid "0d320dcd-5572-4ff0-ac5a-a691baf2a1fd")
 	)
 	(label "A-D_input_4"
-		(at 341.63 80.01 0)
+		(at 341.63 85.09 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13661,6 +13904,7 @@
 	)
 	(label "12V"
 		(at 66.04 29.21 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13671,6 +13915,7 @@
 	)
 	(label "SCK"
 		(at 341.63 67.31 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13681,6 +13926,7 @@
 	)
 	(label "LED3"
 		(at 118.11 148.59 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13691,6 +13937,7 @@
 	)
 	(label "MOSI"
 		(at 293.37 64.77 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13701,6 +13948,7 @@
 	)
 	(label "Isense"
 		(at 247.65 214.63 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13711,6 +13959,7 @@
 	)
 	(label "Toggle_switch"
 		(at 138.43 240.03 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13721,6 +13970,7 @@
 	)
 	(label "12V"
 		(at 49.53 29.21 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13731,6 +13981,7 @@
 	)
 	(label "10V-analog"
 		(at 153.67 54.61 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13741,6 +13992,7 @@
 	)
 	(label "5V"
 		(at 121.92 52.07 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13751,6 +14003,7 @@
 	)
 	(label "3.3V"
 		(at 140.97 215.9 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13759,8 +14012,20 @@
 		)
 		(uuid "1f97fca3-6e50-4585-a6af-ef54297e4b1d")
 	)
+	(label "3.3V"
+		(at 341.63 64.77 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "20ea59a9-e502-436d-a066-f096813e06bd")
+	)
 	(label "Button4"
 		(at 158.75 138.43 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13769,18 +14034,9 @@
 		)
 		(uuid "20f62bf0-86b4-4036-8ce7-8ed7e6968172")
 	)
-	(label "SCL0"
-		(at 341.63 59.69 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "210b04c0-de98-4838-b97c-06d510e18a53")
-	)
 	(label "LED2"
 		(at 77.47 148.59 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13791,6 +14047,7 @@
 	)
 	(label "LED-"
 		(at 247.65 154.94 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13801,6 +14058,7 @@
 	)
 	(label "-1.8V-analog"
 		(at 187.96 39.37 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13811,6 +14069,7 @@
 	)
 	(label "3.3V"
 		(at 156.21 278.13 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13821,6 +14080,7 @@
 	)
 	(label "5V"
 		(at 55.88 236.22 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13831,6 +14091,7 @@
 	)
 	(label "-5V"
 		(at 120.65 41.91 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13841,6 +14102,7 @@
 	)
 	(label "OA_input"
 		(at 196.85 201.93 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13850,7 +14112,8 @@
 		(uuid "34ae7c76-e98c-4876-8113-dd515a7c1476")
 	)
 	(label "A-D_input_2"
-		(at 341.63 74.93 0)
+		(at 341.63 77.47 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13861,6 +14124,7 @@
 	)
 	(label "3.3V"
 		(at 114.3 283.21 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13871,6 +14135,7 @@
 	)
 	(label "Analog_select"
 		(at 137.16 163.83 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13880,7 +14145,8 @@
 		(uuid "3a91f174-037a-4b27-9015-60e8469321fd")
 	)
 	(label "Toggle_switch"
-		(at 293.37 59.69 180)
+		(at 293.37 57.15 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13891,6 +14157,7 @@
 	)
 	(label "5V_fan_PWM"
 		(at 55.88 248.92 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13901,6 +14168,7 @@
 	)
 	(label "Internal_fan_PWM"
 		(at 341.63 41.91 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13909,8 +14177,9 @@
 		)
 		(uuid "3e8bc67d-857f-499a-90a8-6ef0caada502")
 	)
-	(label "External_5V_PWM3"
-		(at 341.63 52.07 0)
+	(label "External_5V_3"
+		(at 341.63 49.53 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13921,6 +14190,7 @@
 	)
 	(label "12V"
 		(at 210.82 139.7 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13931,6 +14201,7 @@
 	)
 	(label "Internal_fan_PWM"
 		(at 77.47 251.46 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13941,6 +14212,7 @@
 	)
 	(label "LED-"
 		(at 247.65 199.39 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13951,6 +14223,7 @@
 	)
 	(label "MOSFET_temp"
 		(at 341.63 62.23 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13959,8 +14232,31 @@
 		)
 		(uuid "508322d6-d0ee-4901-85a6-c1a70631608a")
 	)
+	(label "SCK"
+		(at 327.66 130.81 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "519c1904-616a-4443-8f22-79698717c252")
+	)
+	(label "MOSFET_temp"
+		(at 379.73 62.23 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "53275250-c33b-4505-ae27-5f329c50ea26")
+	)
 	(label "A-D_input_3"
-		(at 341.63 77.47 0)
+		(at 341.63 82.55 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13971,6 +14267,7 @@
 	)
 	(label "Button1"
 		(at 36.83 138.43 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13981,6 +14278,7 @@
 	)
 	(label "Vcc"
 		(at 226.06 130.81 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13989,8 +14287,20 @@
 		)
 		(uuid "56f7cd93-9e1b-4530-bec5-1d12a4799466")
 	)
+	(label "3.3V"
+		(at 293.37 52.07 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "5759c815-f1c6-4e81-9485-d4d13c40a631")
+	)
 	(label "Vin"
 		(at 16.51 69.85 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13999,18 +14309,9 @@
 		)
 		(uuid "57b44f1c-1a86-4ea4-aa1c-3d39e88fa2a2")
 	)
-	(label "SDA0"
-		(at 341.63 57.15 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "58f2fc37-4573-4c5a-8f50-f37927a67ef1")
-	)
 	(label "3.3V"
 		(at 114.3 278.13 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14019,8 +14320,20 @@
 		)
 		(uuid "598fd194-74be-4ec0-8ece-ac37501a0f7b")
 	)
+	(label "Resistor_temp"
+		(at 384.81 77.47 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5c6cc1ec-174f-4b16-8bbe-dfb9d2b81370")
+	)
 	(label "3.3V"
 		(at 116.84 218.44 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14029,8 +14342,9 @@
 		)
 		(uuid "5c7789b5-6edb-4c9b-bdb1-70102583d403")
 	)
-	(label "External_5V_PWM2"
-		(at 341.63 54.61 0)
+	(label "External_5V_2"
+		(at 341.63 46.99 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14041,6 +14355,7 @@
 	)
 	(label "Button3"
 		(at 293.37 77.47 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14051,6 +14366,7 @@
 	)
 	(label "LED1"
 		(at 293.37 85.09 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14061,6 +14377,7 @@
 	)
 	(label "CS"
 		(at 293.37 62.23 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14071,6 +14388,7 @@
 	)
 	(label "LED4"
 		(at 158.75 148.59 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14081,6 +14399,7 @@
 	)
 	(label "12V"
 		(at 101.6 66.04 90)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14091,6 +14410,7 @@
 	)
 	(label "LED1"
 		(at 36.83 148.59 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14101,6 +14421,7 @@
 	)
 	(label "Interline_PWM"
 		(at 293.37 46.99 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14110,7 +14431,8 @@
 		(uuid "6c3c324c-cb22-4b68-9439-ed6b83a7f1ab")
 	)
 	(label "Over_temp_alarm2"
-		(at 293.37 57.15 180)
+		(at 293.37 59.69 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14120,7 +14442,8 @@
 		(uuid "6f2e0422-a0a8-40f1-83d1-c3e6202b11ce")
 	)
 	(label "Analog_select"
-		(at 293.37 49.53 180)
+		(at 293.37 54.61 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14131,6 +14454,7 @@
 	)
 	(label "12V"
 		(at 195.58 260.35 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14141,6 +14465,7 @@
 	)
 	(label "A-D_input_1"
 		(at 95.25 283.21 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14151,6 +14476,7 @@
 	)
 	(label "internal_analog"
 		(at 138.43 166.37 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14160,7 +14486,8 @@
 		(uuid "7478bfed-5807-4473-b016-34a8b88c958d")
 	)
 	(label "A-D_input_1"
-		(at 341.63 72.39 0)
+		(at 341.63 74.93 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14171,6 +14498,7 @@
 	)
 	(label "Vin"
 		(at 220.98 130.81 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14181,6 +14509,7 @@
 	)
 	(label "LED4"
 		(at 293.37 90.17 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14189,8 +14518,20 @@
 		)
 		(uuid "79abf893-6100-4e6c-8202-ac11d2e9b684")
 	)
+	(label "MOSI"
+		(at 327.66 125.73 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "79c00c40-d689-4004-8f9b-87f7b36c4ae9")
+	)
 	(label "A-D_input_4"
 		(at 54.61 212.09 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14201,6 +14542,7 @@
 	)
 	(label "External_thermistor"
 		(at 46.99 233.68 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14211,6 +14553,7 @@
 	)
 	(label "Relay1"
 		(at 293.37 44.45 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14221,6 +14564,7 @@
 	)
 	(label "MISO"
 		(at 293.37 67.31 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14231,6 +14575,7 @@
 	)
 	(label "A-D_input_2"
 		(at 137.16 283.21 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14241,6 +14586,7 @@
 	)
 	(label "Relay3"
 		(at 177.8 144.78 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14251,6 +14597,7 @@
 	)
 	(label "Vcc"
 		(at 218.44 156.21 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14261,6 +14608,7 @@
 	)
 	(label "Vin"
 		(at 44.45 50.8 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14271,6 +14619,7 @@
 	)
 	(label "10V-analog"
 		(at 201.93 194.31 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14279,8 +14628,20 @@
 		)
 		(uuid "8c2e295e-b48c-42c5-a2ba-a4c15bfdf43a")
 	)
+	(label "3.3V"
+		(at 298.45 120.65 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8c967ba0-c2e8-4930-9049-a2ba8a532ecf")
+	)
 	(label "external_analog"
 		(at 67.31 273.05 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14291,6 +14652,7 @@
 	)
 	(label "LED-"
 		(at 247.65 160.02 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14301,6 +14663,7 @@
 	)
 	(label "A-D_input_3"
 		(at 114.3 273.05 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14311,6 +14674,7 @@
 	)
 	(label "A-D_input_2"
 		(at 54.61 201.93 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14321,6 +14685,7 @@
 	)
 	(label "MOSFET_temp"
 		(at 120.65 190.5 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14329,8 +14694,9 @@
 		)
 		(uuid "939abf05-fd88-4e9c-96f6-b6fc775f2699")
 	)
-	(label "External_5V_PWM3"
+	(label "External_5V_3"
 		(at 77.47 246.38 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14341,6 +14707,7 @@
 	)
 	(label "Relay2"
 		(at 177.8 154.94 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14351,6 +14718,7 @@
 	)
 	(label "Vcc"
 		(at 218.44 144.78 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14361,6 +14729,7 @@
 	)
 	(label "Over_temp_alarm2"
 		(at 281.94 278.13 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14371,6 +14740,7 @@
 	)
 	(label "LED_pot"
 		(at 120.65 223.52 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14381,6 +14751,7 @@
 	)
 	(label "3.3V"
 		(at 113.03 193.04 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14391,6 +14762,7 @@
 	)
 	(label "Button2"
 		(at 293.37 74.93 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14401,6 +14773,7 @@
 	)
 	(label "Relay4"
 		(at 293.37 36.83 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14411,6 +14784,7 @@
 	)
 	(label "LED-"
 		(at 44.45 69.85 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14421,6 +14795,7 @@
 	)
 	(label "5V"
 		(at 118.11 175.26 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14431,6 +14806,7 @@
 	)
 	(label "Isense_internal"
 		(at 40.64 179.07 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14439,18 +14815,9 @@
 		)
 		(uuid "a581de09-7257-4af2-a6a6-0fe7c1648bbe")
 	)
-	(label "SCL0"
-		(at 46.99 163.83 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "a6379023-9276-440b-9d8c-562e72e5532b")
-	)
 	(label "3.3V"
-		(at 72.39 278.13 0)
+		(at 67.31 278.13 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14461,6 +14828,7 @@
 	)
 	(label "5V"
 		(at 341.63 34.29 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14471,6 +14839,7 @@
 	)
 	(label "Over_temp_alarm1"
 		(at 281.94 275.59 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14481,6 +14850,7 @@
 	)
 	(label "Button4"
 		(at 293.37 87.63 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14489,8 +14859,20 @@
 		)
 		(uuid "a8c7ce54-589b-45d6-aeb2-1b5f16132908")
 	)
-	(label "External_5V_PWM2"
+	(label "CS"
+		(at 327.66 128.27 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a9265292-cd8c-45a1-b9c1-e921428ffbc5")
+	)
+	(label "External_5V_2"
 		(at 77.47 241.3 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14501,6 +14883,7 @@
 	)
 	(label "12V"
 		(at 73.66 50.8 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14511,6 +14894,7 @@
 	)
 	(label "Button3"
 		(at 118.11 138.43 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14521,6 +14905,7 @@
 	)
 	(label "3.3V"
 		(at 73.66 233.68 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14531,6 +14916,7 @@
 	)
 	(label "OA_input"
 		(at 139.7 168.91 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14539,8 +14925,20 @@
 		)
 		(uuid "affec6b1-92e2-4bbc-a644-869fb338bdd9")
 	)
+	(label "A-D_input_5"
+		(at 341.63 52.07 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b146854b-4b1f-486b-aa4a-a74f02960e88")
+	)
 	(label "3.3V"
 		(at 156.21 283.21 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14551,6 +14949,7 @@
 	)
 	(label "Isense"
 		(at 62.23 179.07 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14559,8 +14958,31 @@
 		)
 		(uuid "b209705f-16b5-43c1-a146-0dbdfc52cbed")
 	)
+	(label "A-D_input_5"
+		(at 46.99 163.83 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "bb52340e-17f8-452f-b367-0de06a48d30d")
+	)
+	(label "A-D_input_6"
+		(at 341.63 54.61 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "bbe0745c-d32a-4d1b-b2fa-60425b4fd400")
+	)
 	(label "3.3V"
 		(at 293.37 69.85 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14571,6 +14993,7 @@
 	)
 	(label "Button1"
 		(at 293.37 80.01 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14581,6 +15004,7 @@
 	)
 	(label "12V"
 		(at 179.07 139.7 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14590,7 +15014,8 @@
 		(uuid "cca20c1d-241a-4140-be4d-eb1baf307258")
 	)
 	(label "Resistor_temp"
-		(at 341.63 64.77 0)
+		(at 341.63 72.39 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14601,6 +15026,7 @@
 	)
 	(label "external_analog"
 		(at 138.43 171.45 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14611,6 +15037,7 @@
 	)
 	(label "-0.25V_analog"
 		(at 118.11 166.37 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14621,6 +15048,7 @@
 	)
 	(label "5V"
 		(at 111.76 66.04 90)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14631,6 +15059,7 @@
 	)
 	(label "A-D_input_3"
 		(at 54.61 207.01 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14641,6 +15070,7 @@
 	)
 	(label "Interline_PWM"
 		(at 118.11 163.83 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14651,6 +15081,7 @@
 	)
 	(label "-5V"
 		(at 116.84 66.04 90)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14661,6 +15092,7 @@
 	)
 	(label "LED_pot"
 		(at 140.97 218.44 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14669,8 +15101,20 @@
 		)
 		(uuid "daadb36f-b1e9-4ff8-aa7a-aba40d145471")
 	)
+	(label "A-D_input_6"
+		(at 46.99 168.91 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "dad9940f-160a-4374-9aa7-292195757493")
+	)
 	(label "Over_temp_alarm1"
-		(at 292.1 92.71 180)
+		(at 293.37 92.71 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14679,8 +15123,20 @@
 		)
 		(uuid "dbb5a492-d9d9-4abf-8ceb-85d6b61705c6")
 	)
+	(label "3.3V"
+		(at 293.37 49.53 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "dd2ea6a5-ac8c-42ba-9845-4c428b3d8c12")
+	)
 	(label "5V_fan_PWM"
 		(at 185.42 270.51 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14691,6 +15147,7 @@
 	)
 	(label "Relay1"
 		(at 177.8 160.02 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14699,8 +15156,20 @@
 		)
 		(uuid "e3fe3a76-509c-46f6-b1e4-568d809eda49")
 	)
+	(label "3.3V"
+		(at 341.63 39.37 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e6e72cfb-e59f-45dc-837d-f76860dc57c7")
+	)
 	(label "External_thermistor"
-		(at 341.63 49.53 0)
+		(at 341.63 59.69 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14711,6 +15180,7 @@
 	)
 	(label "Vcc"
 		(at 218.44 151.13 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14719,8 +15189,20 @@
 		)
 		(uuid "e7a38d2f-6bbb-4001-95b2-71ea045ee2aa")
 	)
+	(label "MOSFET_temp"
+		(at 384.81 62.23 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e86242b7-8b7f-44a8-8f5e-00faaac35b18")
+	)
 	(label "Vcc"
 		(at 218.44 139.7 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14731,6 +15213,7 @@
 	)
 	(label "A-D_input_4"
 		(at 156.21 273.05 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14741,6 +15224,7 @@
 	)
 	(label "Toggle_switch"
 		(at 115.57 243.84 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14751,6 +15235,7 @@
 	)
 	(label "-1.8V-analog"
 		(at 201.93 214.63 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14760,7 +15245,8 @@
 		(uuid "eb997d5d-3822-4af2-bb1b-283430e6f2c9")
 	)
 	(label "Isense_internal"
-		(at 341.63 46.99 0)
+		(at 341.63 57.15 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14771,6 +15257,7 @@
 	)
 	(label "Button2"
 		(at 77.47 138.43 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14781,6 +15268,7 @@
 	)
 	(label "Vin"
 		(at 66.04 34.29 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14789,18 +15277,9 @@
 		)
 		(uuid "f1f877e6-789d-4b5c-9fef-31c5f4399a9c")
 	)
-	(label "SDA0"
-		(at 46.99 168.91 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "f23f6991-c844-41a7-8976-a2168515fd77")
-	)
 	(label "LED3"
 		(at 293.37 82.55 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14811,6 +15290,7 @@
 	)
 	(label "12V"
 		(at 210.82 149.86 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14820,7 +15300,8 @@
 		(uuid "f58e3cfd-7a88-430f-aa06-297f8bd5eb98")
 	)
 	(label "LED_pot"
-		(at 341.63 92.71 0)
+		(at 341.63 80.01 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14831,6 +15312,7 @@
 	)
 	(label "Relay2"
 		(at 293.37 41.91 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14841,6 +15323,7 @@
 	)
 	(label "-0.25V_analog"
 		(at 138.43 57.15 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14851,6 +15334,7 @@
 	)
 	(label "LED-"
 		(at 247.65 144.78 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14861,6 +15345,7 @@
 	)
 	(label "12V"
 		(at 191.77 54.61 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14871,6 +15356,7 @@
 	)
 	(label "LED-"
 		(at 247.65 149.86 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -23793,94 +24279,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Four Channel MHz LED Driver-rescue:Jumper_NC_Small-Device")
-		(at 69.85 278.13 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-00005f698386")
-		(property "Reference" "JP4"
-			(at 71.12 275.59 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "Jumper_NC_Small"
-			(at 68.707 279.3238 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Custom Footprints:20A_shunt_5104"
-			(at 69.85 278.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p54.pdf"
-			(at 69.85 278.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 69.85 278.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "Keystone Electronics"
-			(at 69.85 278.13 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Part #" "5104"
-			(at 69.85 278.13 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "5fbcbe6e-4b89-45cd-b8da-026f31f209ea")
-		)
-		(pin "2"
-			(uuid "5bfd71e3-3e7d-4a47-8bd4-1677342bd386")
-		)
-		(instances
-			(project ""
-				(path "/5945602f-dd7c-4651-838e-2542783a963a"
-					(reference "JP4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Mechanical:MountingHole_Pad")
 		(at 26.67 29.21 180)
 		(unit 1)
@@ -24249,7 +24647,6 @@
 		)
 	)
 	(symbol
-		(lib_name "Custom_parts:Conn_01x05_Female")
 		(lib_id "Custom_parts:Conn_01x05_Female")
 		(at 143.51 240.03 0)
 		(unit 1)
@@ -24721,7 +25118,6 @@
 		)
 	)
 	(symbol
-		(lib_name "Custom_parts:Conn_01x24_Female")
 		(lib_id "Custom_parts:Conn_01x24_Female")
 		(at 365.76 62.23 0)
 		(unit 1)
@@ -24875,7 +25271,6 @@
 		)
 	)
 	(symbol
-		(lib_name "Custom_parts:Conn_01x03_Female")
 		(lib_id "Custom_parts:Conn_01x03_Female")
 		(at 146.05 218.44 0)
 		(unit 1)
@@ -26352,7 +26747,6 @@
 		)
 	)
 	(symbol
-		(lib_name "Custom_parts:Conn_01x03_Female")
 		(lib_id "Custom_parts:Conn_01x03_Female")
 		(at 71.12 31.75 0)
 		(unit 1)
@@ -27122,7 +27516,6 @@
 		)
 	)
 	(symbol
-		(lib_name "Custom_parts:Conn_01x03_Male")
 		(lib_id "Custom_parts:Conn_01x03_Male")
 		(at 44.45 31.75 0)
 		(unit 1)
@@ -28232,7 +28625,6 @@
 		)
 	)
 	(symbol
-		(lib_name "Custom_parts:Conn_01x08_Female")
 		(lib_id "Custom_parts:Conn_01x08_Female")
 		(at 109.22 71.12 270)
 		(unit 1)
@@ -30261,7 +30653,6 @@
 		)
 	)
 	(symbol
-		(lib_name "Custom_parts:Conn_01x24_Female")
 		(lib_id "Custom_parts:Conn_01x24_Female")
 		(at 269.24 62.23 0)
 		(mirror y)
@@ -33265,7 +33656,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Custom Footprints:Teensy_3_6_with_headers"
+		(property "Footprint" "Custom Footprints:Teensy_4_1_with_headers"
 			(at 311.15 78.74 0)
 			(effects
 				(font
@@ -33467,6 +33858,602 @@
 			(project "Four Channel MHz LED Driver"
 				(path "/5945602f-dd7c-4651-838e-2542783a963a"
 					(reference "U10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Four Channel MHz LED Driver-rescue:Jumper_NC_Small-Device")
+		(at 302.26 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5ef7db9a-96f3-44d9-adf9-7bad32f8d185")
+		(property "Reference" "JP7"
+			(at 304.038 124.968 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Jumper_NC_Small"
+			(at 301.117 124.3838 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+			(at 302.26 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p54.pdf"
+			(at 302.26 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 302.26 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Keystone Electronics"
+			(at 302.26 123.19 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part #" "5108"
+			(at 302.26 123.19 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "510c86b8-d140-4ba2-9403-61bf371fc073")
+		)
+		(pin "1"
+			(uuid "da0b6bd0-c766-4a2b-abaa-49e82ea58ee9")
+		)
+		(instances
+			(project "Four Channel MHz LED Driver"
+				(path "/5945602f-dd7c-4651-838e-2542783a963a"
+					(reference "JP7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Four Channel MHz LED Driver-rescue:GND-power")
+		(at 300.99 115.57 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a5c4e65b-d918-4cb9-a1ab-4f34594f04b2")
+		(property "Reference" "#PWR077"
+			(at 300.99 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 298.45 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 300.99 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 300.99 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 300.99 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fe841a70-5d04-403d-85ed-db054c392f23")
+		)
+		(instances
+			(project "Four Channel MHz LED Driver"
+				(path "/5945602f-dd7c-4651-838e-2542783a963a"
+					(reference "#PWR077")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Custom_parts:DAC80501ZDGSR")
+		(at 281.94 120.65 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a8fdf0ff-1cc2-492e-8232-df81b88fc416")
+		(property "Reference" "U12"
+			(at 316.23 114.7496 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Value" "DAC80501ZDGSR"
+			(at 316.23 117.5825 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Footprint" "Custom Footprints:DGS10_TEX"
+			(at 281.94 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/dac60501.pdf"
+			(at 281.94 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "16 Bit Digital to Analog Converter 1 10-VSSOP"
+			(at 281.94 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Texas Instruments"
+			(at 281.94 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part" "DAC80501ZDGSR"
+			(at 281.94 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "7"
+			(uuid "11676a8c-f4f5-4145-80a6-ecd1904e774f")
+		)
+		(pin "2"
+			(uuid "bd2fa29f-b64a-4b7a-8955-7fd195262656")
+		)
+		(pin "1"
+			(uuid "8c971f39-d62c-4bee-aeef-b8f22295a593")
+		)
+		(pin "5"
+			(uuid "ab64b60e-f109-46e4-984d-63d45bc2e6c0")
+		)
+		(pin "6"
+			(uuid "4698452f-3824-4909-9f75-e7bee1ebe3e9")
+		)
+		(pin "9"
+			(uuid "8fb7e4c8-244f-44a1-a8a4-9fc5f52163ef")
+		)
+		(pin "3"
+			(uuid "ad109ee7-fb33-472a-bc2e-55b0d858e8ad")
+		)
+		(pin "8"
+			(uuid "e893e4ab-26e2-4776-91c7-339a75b055aa")
+		)
+		(pin "10"
+			(uuid "0c5f50a9-845e-4b47-8893-7b912465be68")
+		)
+		(pin "4"
+			(uuid "f1d35884-14cf-4d79-ae21-b4d52d39dcc0")
+		)
+		(instances
+			(project ""
+				(path "/5945602f-dd7c-4651-838e-2542783a963a"
+					(reference "U12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Four Channel MHz LED Driver-rescue:GND-power")
+		(at 304.8 130.81 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c9a66720-d754-4166-9ed5-1e4073d6edce")
+		(property "Reference" "#PWR078"
+			(at 304.8 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 306.832 134.874 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 304.8 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 304.8 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 304.8 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "dbf59b23-1781-468d-9a89-bafb0a9a10da")
+		)
+		(instances
+			(project "Four Channel MHz LED Driver"
+				(path "/5945602f-dd7c-4651-838e-2542783a963a"
+					(reference "#PWR078")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Four Channel MHz LED Driver-rescue:Jumper_NC_Small-Device")
+		(at 382.27 77.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cbb9c200-c15d-4530-a5d6-ed6dfa67898e")
+		(property "Reference" "JP8"
+			(at 384.048 79.248 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Jumper_NC_Small"
+			(at 381.127 78.6638 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+			(at 382.27 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p54.pdf"
+			(at 382.27 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 382.27 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Keystone Electronics"
+			(at 382.27 77.47 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part #" "5108"
+			(at 382.27 77.47 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "fbaed0a5-8fe0-4f43-a131-eb92d5c56500")
+		)
+		(pin "1"
+			(uuid "d96ab7d8-4b0c-4eed-8a87-7d862d5317e0")
+		)
+		(instances
+			(project "Four Channel MHz LED Driver"
+				(path "/5945602f-dd7c-4651-838e-2542783a963a"
+					(reference "JP8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 300.99 118.11 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d32bb974-a0a7-4627-8ceb-d74bdccdf7f5")
+		(property "Reference" "C23"
+			(at 300.736 116.078 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "2.2uF"
+			(at 303.53 119.38 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Custom Footprints:0508_Capacitor"
+			(at 300.99 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/ut/detail?pn=TWK212B7225MD-T%20&u=M"
+			(at 300.99 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 300.99 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Taiyo Yuden"
+			(at 300.99 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part #" "TWK212B7225MD-T"
+			(at 300.99 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "b8a934ce-24d3-43a8-ae4e-ce3739719a1c")
+		)
+		(pin "1"
+			(uuid "8e4b0f4c-2425-4bf7-ad62-56f2009817c4")
+		)
+		(instances
+			(project "Four Channel MHz LED Driver"
+				(path "/5945602f-dd7c-4651-838e-2542783a963a"
+					(reference "C23")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Four Channel MHz LED Driver-rescue:Jumper_NC_Small-Device")
+		(at 382.27 62.23 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e7add1d8-0f20-4ebf-b429-053d970abba2")
+		(property "Reference" "JP4"
+			(at 384.048 64.008 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Jumper_NC_Small"
+			(at 381.127 63.4238 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+			(at 382.27 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.keyelco.com/userAssets/file/M65p54.pdf"
+			(at 382.27 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 382.27 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer" "Keystone Electronics"
+			(at 382.27 62.23 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part #" "5108"
+			(at 382.27 62.23 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "dc8927d6-08ad-45b9-a8d3-103a7f3a7fd4")
+		)
+		(pin "1"
+			(uuid "6d044e7d-b62e-4603-8b92-fba1a268923d")
+		)
+		(instances
+			(project "Four Channel MHz LED Driver"
+				(path "/5945602f-dd7c-4651-838e-2542783a963a"
+					(reference "JP4")
 					(unit 1)
 				)
 			)
