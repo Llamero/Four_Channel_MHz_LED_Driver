@@ -216,6 +216,8 @@ public:
             {
                 if (_onPacketFunction || _onPacketFunctionWithSender)
                 {
+                    uint8_t _decodeBuffer[_receiveBufferIndex];
+
                     size_t numDecoded = EncoderType::decode(_receiveBuffer,
                                                             _receiveBufferIndex,
                                                             _decodeBuffer);
@@ -267,9 +269,7 @@ public:
     {
         if(_stream == nullptr || buffer == nullptr || size == 0) return;
 
-        // _encodeBuffer is sized for a worst-case ReceiveBufferSize-byte
-        // payload; reject anything larger rather than overflow it.
-        if (size > ReceiveBufferSize) return;
+        uint8_t _encodeBuffer[EncoderType::getEncodedBufferSize(size)];
 
         size_t numEncoded = EncoderType::encode(buffer,
                                                 size,
@@ -377,19 +377,6 @@ private:
 
     uint8_t _receiveBuffer[ReceiveBufferSize];
     size_t _receiveBufferIndex = 0;
-
-    // Fixed-size scratch buffers, sized at compile time for the worst
-    // case, instead of variable-length stack arrays sized by a runtime
-    // packet length. On embedded targets without a stack guard page, a
-    // multi-kilobyte VLA (this buffer can be ~4KB+ depending on
-    // ReceiveBufferSize) can silently overflow the stack into other
-    // statically-allocated memory rather than crashing -- corrupting
-    // unrelated global objects in ways that are very hard to trace back
-    // to this code. `mutable` is needed because send() is const.
-    static constexpr size_t _encodeBufferCapacity =
-        EncoderType::getEncodedBufferSize(ReceiveBufferSize);
-    mutable uint8_t _encodeBuffer[_encodeBufferCapacity];
-    uint8_t _decodeBuffer[ReceiveBufferSize];
 
     Stream* _stream = nullptr;
 

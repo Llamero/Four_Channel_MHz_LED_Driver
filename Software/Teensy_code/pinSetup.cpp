@@ -8,18 +8,21 @@
 #include "ADC_util.h"
 #include "Wire.h"
 #include "AnalogBufferDMA.h"
+#include "DAC.h"
 
 ADC *adc = new ADC(); // adc object;
+extern DAC dac;   // refers to the instance defined in the .ino, not a new one
 
 //NOTE: It seems that in this compiler lists longer than 4 need to be built in CPP while shorter lists need to be built in header with constexpr
 
-const int pinSetup::NC[] = {5, 6, 7, 8, 9, 38, 39}; //Not connected pins
+const int pinSetup::NC[] = {5, 33, 34, 35}; //Not connected pins
 const int pinSetup::OUTPUTS[] = {22, 21, 20};
-const int pinSetup::PUSHBUTTON[] = {27, 25, 26, 30}; //Four pushbutton inputs 
+const int pinSetup::PUSHBUTTON[] = {27, 25, 26, 31}; //Four pushbutton inputs 
 const int pinSetup::LED[] = {29, 24, 28, 31}; //Indicator LEDs on pushbuttons
-const int pinSetup::INPUTS[] = {37, 36, 35, 34}; //4-channel analog/digital inputs
+const int pinSetup::INPUTS[] = {40, 39, 37, 36, 19, 18}; //6-channel analog/digital inputs
 const int pinSetup::RELAY[] = {0, 1, 2, 3}; //SSR relays for changing LED channel
-const int pinSetup::ALARM[] = {11, 32}; //Audible alarm
+const int pinSetup::ALARM[] = {9, 32}; //Audible alarm
+const int pinSetup::POWER_3v3[] = {6, 14}; //Pins the provide additional 3v3 power
 DMAMEM static volatile uint16_t __attribute__((aligned(32))) dma_adc2_buff1[1600];
 AnalogBufferDMA abdma2(dma_adc2_buff1, 1600);
 
@@ -71,8 +74,8 @@ void pinSetup::configurePins(){
     analogWriteFrequency(INTERLINE, LED_FREQ); //Set output PWM freq to optimal CPU fan freq, also sets analog_select PWM freq (on same timer): https://www.pjrc.com/teensy/td_pulse.html
     pinMode(ANALOG_SELECT, OUTPUT);
     digitalWriteFast(ANALOG_SELECT, LOW);
-    pinMode(LED_BUILTIN, OUTPUT);
-    digitalWriteFast(LED_BUILTIN, LOW);
+    for(a=0; a<sizeof(POWER_3v3)/sizeof(POWER_3v3[0]); a++) pinMode(POWER_3v3[a], OUTPUT);
+    for(a=0; a<sizeof(POWER_3v3)/sizeof(POWER_3v3[0]); a++) digitalWriteFast(POWER_3v3[a], HIGH);
     for(a=0; a<sizeof(ALARM)/sizeof(ALARM[0]); a++) pinMode(ALARM[a], OUTPUT);
     for(a=0; a<sizeof(ALARM)/sizeof(ALARM[0]); a++) digitalWriteFast(ALARM[a], LOW);
     for(a=0; a<sizeof(OUTPUTS)/sizeof(OUTPUTS[0]); a++) pinMode(OUTPUTS[a], OUTPUT);
@@ -87,12 +90,6 @@ void pinSetup::configurePins(){
     for(a=0; a<sizeof(INPUTS)/sizeof(INPUTS[0]); a++) pinMode(INPUTS[a], INPUT_DISABLE);
     for(a=0; a<sizeof(NC)/sizeof(NC[0]); a++) pinMode(NC[a], INPUT_DISABLE);
     pinMode(EXTERNAL_TEMP, INPUT_DISABLE);
-    
-    ////// I2C /////
-    Wire.begin();
-    Wire.setClock(3400000);
-    Wire.setSDA(SDA0);
-    Wire.setSCL(SCL0);
 }
 
 int pinSetup::adcMax(){
@@ -145,7 +142,7 @@ uint16_t pinSetup::captureWave(uint16_t test_dac_value, uint8_t *cobs_buffer) {
   pinMode(ISENSE, INPUT);
   digitalWriteFast(INTERLINE, LOW);
   digitalWriteFast(ANALOG_SELECT, LOW);
-  analogWrite(DAC0, test_dac_value);
+  dac.setCode(test_dac_value);
   delayMicroseconds(100);
   abdma2.init(adc, ADC_0);
   abdma2.stopOnCompletion(true);

@@ -121,7 +121,7 @@ public:
     /// \brief Get the maximum encoded buffer size for an unencoded buffer size.
     /// \param unencodedBufferSize The size of the buffer to be encoded.
     /// \returns the maximum size of the required encoded buffer.
-    static constexpr size_t getEncodedBufferSize(size_t unencodedBufferSize)
+    static size_t getEncodedBufferSize(size_t unencodedBufferSize)
     {
         return unencodedBufferSize + unencodedBufferSize / 254 + 1;
     }

@@ -1,6 +1,8 @@
 #include "pinSetup.h"
 #include "PacketSerial.h"
 #include "SDcard.h"
+#include "DAC.h"
+#include <SPI.h>
 #include <EEPROM.h>
 #include <TimeLib.h> //Set RTC time and get time strings
 
@@ -45,7 +47,7 @@ const struct defaultConfigurationStruct{
   uint8_t fan_channel = 0; //Ext output channel used to send fan PWM signal
   int ext_therm_resistance = 4700; //External thermistor nominal resistance at 25°C
   int ext_therm_beta = 3545; //Beta value of external thermistor
-  uint8_t audio_volume[2] = {10, 100}; //Status and alarm volumes for transducer: {10, 100}
+  uint8_t audio_volume[2] = {2, 2}; //Status and alarm volumes for transducer: {10, 100}
   bool pushbutton_intensity = true; //LED intensity - on/off
   uint8_t pushbutton_mode = 0; //LED illumination mode when alarm is active
   uint8_t checksum = 112;
@@ -282,9 +284,11 @@ const uint16_t ext_avg_samples = 1024; //Size of sliding window for external ave
 pinSetup pin;
 SDcard sd;
 PacketSerial_<COBS, 0, COBS_BUFFER_SIZE> usb; //Sets Encoder, framing character, buffer size
+DAC dac;
 
 void setup() {
-//  EEPROM.update(0,0); //Uncomment to reset EEPROM to defaults - re-comment and the upload code again
+  while(!Serial);
+  EEPROM.update(0,0); //Uncomment to reset EEPROM to defaults - re-comment and the upload code again
 //  sd.formatSdCard(); //Uncomment to format SD card - re-comment and the upload code again
 
   for(size_t a=0; a<sizeof(current_status.byte_buffer); a++) *(current_status.byte_buffer+a)=0; //Initialize status buffer to a known state of all 0
@@ -294,12 +298,14 @@ void setup() {
   ARM_DWT_CTRL |= ARM_DWT_CTRL_CYCCNTENA;
   cpu_cycles = ARM_DWT_CYCCNT;
   sequence_buffer[0][0]= 0;
-  pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(9600); //Needed for non-COBS streaming, such as large sequence files
   usb.begin(115200);
   usb.setPacketHandler(&onPacketReceived);
+  dac.begin(pin.CS);
+
   if(!sd.initializeSD()){ //Initiazlize SD card first so the sequence files can be retrieved on initializeConfigurations()
-    digitalWriteFast(LED_BUILTIN, HIGH);
+    sd.message_buffer[0] = prefix.message;
+    usb.send((const unsigned char*) sd.message_buffer, sd.message_size);
     if(!sd.formatSdCard()){ ; //Try reformatting the card
       sd.message_buffer[0] = prefix.message;
       usb.send((const unsigned char*) sd.message_buffer, sd.message_size);
@@ -316,7 +322,9 @@ void setup() {
       }
     }
   }
+
   initializeConfigurations(); //Initialize configurations only after initializing SD card, as SD card is needed to load seqences
+
   status_index = 0;
   ledOff(); //For safety, boot to LED off
   for(size_t a=0; a==status_index; a++) checkStatus(); //Perform full round of status checks to get starting status of driver
@@ -324,7 +332,7 @@ void setup() {
   digitalWriteFast(pin.INTERLINE, LOW);
   digitalWriteFast(pin.ANALOG_SELECT, LOW);
   digitalWriteFast(pin.FAN_PWM, LOW);
-  analogWrite(pin.DAC0, 0);
+  dac.setCode(0);
 }
 elapsedMillis t = 0;
 uint32_t d = 10;
@@ -753,7 +761,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
   boolean shutter_state; //Logical state of shutter input
   boolean sync_pol; //Track polarity of sync output
   uint8_t timeout = 0; //Flag for whether the line sync has timed out waiting for trigger - 0: no timeout, 1: new timeout - report error, 2: on going timeout - error already reported.  Flag resets when shutter closes.
-  const uint8_t shutter_pin = pin.SCL0;
+  const uint8_t shutter_pin = pin.INPUTS[4];
   const bool pmt_enable = false;
   const uint32_t PMT_GATE_DELAY = 90; //CPU cycles t owait between gating off the PMT and turning on the LED (180 cpu cycles = 1 µs) - https://www.hamamatsu.com/resources/pdf/etd/H11706_TPMO1059E.pdf
   uint32_t prev_cpu_cycles = 0; //Timer from LED on to LED off - solves issue with line clock edge occuring during the flyback.
@@ -856,7 +864,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
       digitalWriteFast(pin.INTERLINE, LOW);  //Turn off LED
       digitalWriteFast(pin.RELAY[current_status.s.led_channel], !pin.RELAY_CLOSE);  //Disconnect  LED channel
       getSeqStep(sync_step); //Get next sequence step
-      analogWrite(pin.DAC0, current_status.s.led_current); //Update LED current
+      dac.setCode(current_status.s.led_current); //Update LED current
       digitalWriteFast(pin.RELAY[current_status.s.led_channel], pin.RELAY_CLOSE);  //Connect  LED channel
       if(led_on && current_status.s.led_current) digitalWriteFast(pin.INTERLINE, HIGH);  //Turn on LED if flyback and channel has current
       else digitalWriteFast(pin.INTERLINE, LOW);  //Otherwise, turn off the LED
@@ -1164,7 +1172,7 @@ void checkStatus(){
       status_index++;
       if(current_status.s.driver_control && !fault_active){ //Only check toggle if driver control
         if(digitalReadFast(pin.TOGGLE) == !current_status.s.mode){ //Check if toggle state has changed - xor comparison by boolean inference (!) of mode
-          analogWrite(pin.DAC0, 0);
+          dac.setCode(0);
           pinMode(pin.INTERLINE, OUTPUT);
           digitalWriteFast(pin.INTERLINE, LOW); //Turn of LED while driver transitions between sync and manual modes
           delay(pin.DEBOUNCE);
@@ -1273,8 +1281,9 @@ void updateIntensity(){
   //Turn off LED before updating intensity.
   pinMode(pin.INTERLINE, OUTPUT); //ensure pin is disconnected from PWM bus
   digitalWriteFast(pin.INTERLINE, LOW);
-  analogWrite(pin.DAC0, 0);
-  
+
+  dac.setCode(0);
+
   if(conf.c.led_active[current_status.s.led_channel]){ //Check if the channel is active
     
     for(int a=0; a<4; a++){ //Toggle channel relays
@@ -1286,10 +1295,10 @@ void updateIntensity(){
     digitalWriteFast(pin.ANALOG_SELECT, external_analog); //Set external analog input
     if(external_analog){
       pinMode(pin.INTERLINE, OUTPUT); //ensure pin is disconnected from PWM bus
-      analogWrite(pin.DAC0, 0);
+      dac.setCode(0);
     }
     else{
-      analogWrite(pin.DAC0, current_status.s.led_current);
+      dac.setCode(current_status.s.led_current);
       if(!(sync.s.mode == 2 && !current_status.s.mode)){ //If in confocal mode, do not apply PWM to interline pin
         if(!(sync.s.mode == 1 && sync.s.analog_mode && !current_status.s.mode)){ //If analog mode without PWM, do not apply PWM to interline pin
           if(current_status.s.led_pwm == 65535){ //Write pin constant high at 100% PWM
@@ -1309,7 +1318,7 @@ void updateIntensity(){
   else{ //If LED channel is inactive, set output to 0 to not stress op-amp inputs
     current_status.s.led_pwm = 0;
     current_status.s.led_current = 0;
-    analogWrite(pin.DAC0, 0);
+    dac.setCode(0);
     pinMode(pin.INTERLINE, OUTPUT);
     digitalWriteFast(pin.INTERLINE, LOW);
   }
@@ -1368,7 +1377,7 @@ void thermalFault(){
     //Turn off LED circuit completely
     pinMode(pin.INTERLINE, OUTPUT); //Disconnect interline pin from PWM mux
     digitalWriteFast(pin.INTERLINE, LOW); //Apply negative voltage input to op-amp
-    analogWrite(pin.DAC0, 0); //Set analog input to 0
+    dac.setCode(0); //Set analog input to 0
     for(size_t b=0; b<sizeof(pin.RELAY)/sizeof(pin.RELAY[0]); b++) digitalWriteFast(pin.RELAY[b], !pin.RELAY_CLOSE); //Open all relays
 
     //Send fault warning to GUI
@@ -1397,7 +1406,7 @@ void thermalFault(){
     pinMode(pin.INTERLINE, OUTPUT); //Disconnect interline pin from PWM mux
     if(stored_status.s.led_pwm == 0 || (sync.s.mode == 2 && stored_status.s.mode == 0)) digitalWriteFast(pin.INTERLINE, LOW); //Set to digital low if no PWM or in confocal sync mode (which doesn't use PWM)
     else analogWrite(pin.INTERLINE, stored_status.s.led_pwm); //Restore PWM on LED
-    analogWrite(pin.DAC0, stored_status.s.led_current); //Set analog input to 0
+    dac.setCode(stored_status.s.led_current); //Set analog input to 0
     update_flag = true; //Toggle update flag
   }
 }
@@ -1460,13 +1469,14 @@ void initializeConfigurations(){
 
   //Set pin configurations
   pin.configurePins();
-  
+
   //See if EEPROM has magic number
   for(a=0; a<buffer_size; a++){
     if(EEPROM.read(a) != MAGIC_RECEIVE[a]){
       break;
     }
   }
+
   //Verify EEPROM checksums
   if(a==buffer_size){
     auto verifyChecksum = [&] (){

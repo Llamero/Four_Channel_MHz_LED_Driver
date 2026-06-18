@@ -13812,7 +13812,6 @@
 	)
 	(label "Vin"
 		(at 49.53 34.29 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13823,7 +13822,6 @@
 	)
 	(label "Relay4"
 		(at 177.8 134.62 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13834,7 +13832,6 @@
 	)
 	(label "External_5V_PWM1"
 		(at 77.47 256.54 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13845,7 +13842,6 @@
 	)
 	(label "external_analog"
 		(at 54.61 173.99 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13856,7 +13852,6 @@
 	)
 	(label "External_5V_PWM1"
 		(at 341.63 44.45 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13867,7 +13862,6 @@
 	)
 	(label "NC3"
 		(at 341.63 90.17 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13878,7 +13872,6 @@
 	)
 	(label "Resistor_temp"
 		(at 379.73 77.47 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13889,7 +13882,6 @@
 	)
 	(label "Relay3"
 		(at 293.37 39.37 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13900,7 +13892,6 @@
 	)
 	(label "Resistor_temp"
 		(at 120.65 194.31 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13911,7 +13902,6 @@
 	)
 	(label "internal_analog"
 		(at 303.53 109.22 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13922,7 +13912,6 @@
 	)
 	(label "A-D_input_1"
 		(at 54.61 196.85 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13933,7 +13922,6 @@
 	)
 	(label "LED2"
 		(at 293.37 72.39 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13944,7 +13932,6 @@
 	)
 	(label "A-D_input_4"
 		(at 341.63 85.09 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13955,7 +13942,6 @@
 	)
 	(label "12V"
 		(at 66.04 29.21 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13966,7 +13952,6 @@
 	)
 	(label "SCK"
 		(at 341.63 67.31 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13977,7 +13962,6 @@
 	)
 	(label "LED3"
 		(at 118.11 148.59 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13988,7 +13972,6 @@
 	)
 	(label "MOSI"
 		(at 293.37 64.77 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13999,7 +13982,6 @@
 	)
 	(label "Isense"
 		(at 247.65 214.63 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14010,7 +13992,6 @@
 	)
 	(label "Toggle_switch"
 		(at 138.43 240.03 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14021,7 +14002,6 @@
 	)
 	(label "A-D_input_6"
 		(at 81.28 273.05 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14032,7 +14012,6 @@
 	)
 	(label "12V"
 		(at 49.53 29.21 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14043,7 +14022,6 @@
 	)
 	(label "10V-analog"
 		(at 153.67 54.61 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14054,7 +14032,6 @@
 	)
 	(label "5V"
 		(at 121.92 52.07 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14065,7 +14042,6 @@
 	)
 	(label "3.3V"
 		(at 140.97 215.9 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14076,7 +14052,6 @@
 	)
 	(label "3.3V"
 		(at 341.63 64.77 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14087,7 +14062,6 @@
 	)
 	(label "Button4"
 		(at 158.75 138.43 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14098,7 +14072,6 @@
 	)
 	(label "LED2"
 		(at 77.47 148.59 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14109,7 +14082,6 @@
 	)
 	(label "LED-"
 		(at 247.65 154.94 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14120,7 +14092,6 @@
 	)
 	(label "-1.8V-analog"
 		(at 187.96 39.37 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14131,7 +14102,6 @@
 	)
 	(label "A-D_input_5"
 		(at 76.2 163.83 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14142,7 +14112,6 @@
 	)
 	(label "3.3V"
 		(at 156.21 278.13 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14153,7 +14122,6 @@
 	)
 	(label "5V"
 		(at 55.88 236.22 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14164,7 +14132,6 @@
 	)
 	(label "-5V"
 		(at 120.65 41.91 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14175,7 +14142,6 @@
 	)
 	(label "OA_input"
 		(at 196.85 201.93 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14186,7 +14152,6 @@
 	)
 	(label "A-D_input_2"
 		(at 341.63 77.47 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14197,7 +14162,6 @@
 	)
 	(label "3.3V"
 		(at 119.38 283.21 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14208,7 +14172,6 @@
 	)
 	(label "Analog_select"
 		(at 137.16 163.83 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14219,7 +14182,6 @@
 	)
 	(label "Toggle_switch"
 		(at 293.37 57.15 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14230,7 +14192,6 @@
 	)
 	(label "5V_fan_PWM"
 		(at 55.88 248.92 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14241,7 +14202,6 @@
 	)
 	(label "Internal_fan_PWM"
 		(at 341.63 41.91 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14252,7 +14212,6 @@
 	)
 	(label "External_5V_3"
 		(at 341.63 49.53 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14263,7 +14222,6 @@
 	)
 	(label "12V"
 		(at 210.82 139.7 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14274,7 +14232,6 @@
 	)
 	(label "3.3V"
 		(at 81.28 283.21 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14285,7 +14242,6 @@
 	)
 	(label "Internal_fan_PWM"
 		(at 77.47 251.46 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14296,7 +14252,6 @@
 	)
 	(label "LED-"
 		(at 247.65 199.39 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14307,7 +14262,6 @@
 	)
 	(label "MOSFET_temp"
 		(at 341.63 62.23 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14318,7 +14272,6 @@
 	)
 	(label "SCK"
 		(at 331.47 116.84 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14329,7 +14282,6 @@
 	)
 	(label "MOSFET_temp"
 		(at 379.73 62.23 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14340,7 +14292,6 @@
 	)
 	(label "A-D_input_3"
 		(at 341.63 82.55 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14351,7 +14302,6 @@
 	)
 	(label "Button1"
 		(at 36.83 138.43 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14362,7 +14312,6 @@
 	)
 	(label "Vcc"
 		(at 226.06 130.81 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14373,7 +14322,6 @@
 	)
 	(label "Vin"
 		(at 16.51 69.85 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14384,7 +14332,6 @@
 	)
 	(label "3.3V"
 		(at 119.38 278.13 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14395,7 +14342,6 @@
 	)
 	(label "Resistor_temp"
 		(at 384.81 77.47 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14406,7 +14352,6 @@
 	)
 	(label "3.3V"
 		(at 116.84 218.44 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14417,7 +14362,6 @@
 	)
 	(label "External_5V_2"
 		(at 341.63 46.99 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14428,7 +14372,6 @@
 	)
 	(label "Button3"
 		(at 293.37 77.47 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14439,7 +14382,6 @@
 	)
 	(label "LED1"
 		(at 293.37 85.09 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14450,7 +14392,6 @@
 	)
 	(label "CS"
 		(at 293.37 62.23 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14461,7 +14402,6 @@
 	)
 	(label "LED4"
 		(at 158.75 148.59 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14472,7 +14412,6 @@
 	)
 	(label "12V"
 		(at 101.6 66.04 90)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14483,7 +14422,6 @@
 	)
 	(label "LED1"
 		(at 36.83 148.59 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14494,7 +14432,6 @@
 	)
 	(label "Interline_PWM"
 		(at 293.37 46.99 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14505,7 +14442,6 @@
 	)
 	(label "NC4"
 		(at 341.63 92.71 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14516,7 +14452,6 @@
 	)
 	(label "A-D_input_6"
 		(at 76.2 168.91 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14527,7 +14462,6 @@
 	)
 	(label "Over_temp_alarm2"
 		(at 293.37 59.69 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14538,7 +14472,6 @@
 	)
 	(label "Analog_select"
 		(at 293.37 54.61 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14549,7 +14482,6 @@
 	)
 	(label "12V"
 		(at 195.58 260.35 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14560,7 +14492,6 @@
 	)
 	(label "A-D_input_1"
 		(at 100.33 283.21 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14571,7 +14502,6 @@
 	)
 	(label "internal_analog"
 		(at 138.43 166.37 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14582,7 +14512,6 @@
 	)
 	(label "A-D_input_1"
 		(at 341.63 74.93 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14593,7 +14522,6 @@
 	)
 	(label "Vin"
 		(at 220.98 130.81 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14604,7 +14532,6 @@
 	)
 	(label "LED4"
 		(at 293.37 90.17 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14615,7 +14542,6 @@
 	)
 	(label "MOSI"
 		(at 331.47 111.76 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14626,7 +14552,6 @@
 	)
 	(label "A-D_input_4"
 		(at 54.61 212.09 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14637,7 +14562,6 @@
 	)
 	(label "3.3V"
 		(at 81.28 278.13 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14648,7 +14572,6 @@
 	)
 	(label "External_thermistor"
 		(at 46.99 233.68 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14659,7 +14582,6 @@
 	)
 	(label "Relay1"
 		(at 293.37 44.45 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14670,7 +14592,6 @@
 	)
 	(label "MISO"
 		(at 293.37 67.31 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14681,7 +14602,6 @@
 	)
 	(label "A-D_input_2"
 		(at 137.16 283.21 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14692,7 +14612,6 @@
 	)
 	(label "Relay3"
 		(at 177.8 144.78 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14703,7 +14622,6 @@
 	)
 	(label "Vcc"
 		(at 218.44 156.21 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14714,7 +14632,6 @@
 	)
 	(label "Vin"
 		(at 44.45 50.8 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14725,7 +14642,6 @@
 	)
 	(label "10V-analog"
 		(at 201.93 194.31 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14736,7 +14652,6 @@
 	)
 	(label "3.3V"
 		(at 302.26 106.68 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14747,7 +14662,6 @@
 	)
 	(label "external_analog"
 		(at 38.1 273.05 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14758,7 +14672,6 @@
 	)
 	(label "LED-"
 		(at 247.65 160.02 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14769,7 +14682,6 @@
 	)
 	(label "A-D_input_3"
 		(at 119.38 273.05 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14780,7 +14692,6 @@
 	)
 	(label "A-D_input_2"
 		(at 54.61 201.93 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14791,7 +14702,6 @@
 	)
 	(label "MOSFET_temp"
 		(at 120.65 190.5 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14802,7 +14712,6 @@
 	)
 	(label "External_5V_3"
 		(at 77.47 246.38 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14813,7 +14722,6 @@
 	)
 	(label "Relay2"
 		(at 177.8 154.94 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14824,7 +14732,6 @@
 	)
 	(label "Vcc"
 		(at 218.44 144.78 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14835,7 +14742,6 @@
 	)
 	(label "Over_temp_alarm2"
 		(at 281.94 278.13 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14846,7 +14752,6 @@
 	)
 	(label "LED_pot"
 		(at 120.65 223.52 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14857,7 +14762,6 @@
 	)
 	(label "3.3V"
 		(at 113.03 193.04 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14868,7 +14772,6 @@
 	)
 	(label "Button2"
 		(at 293.37 74.93 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14879,7 +14782,6 @@
 	)
 	(label "Relay4"
 		(at 293.37 36.83 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14890,7 +14792,6 @@
 	)
 	(label "LED-"
 		(at 44.45 69.85 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14901,7 +14802,6 @@
 	)
 	(label "5V"
 		(at 118.11 175.26 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14912,7 +14812,6 @@
 	)
 	(label "Isense_internal"
 		(at 40.64 179.07 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14923,7 +14822,6 @@
 	)
 	(label "3.3V"
 		(at 38.1 278.13 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14934,7 +14832,6 @@
 	)
 	(label "5V"
 		(at 341.63 34.29 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14945,7 +14842,6 @@
 	)
 	(label "Over_temp_alarm1"
 		(at 281.94 275.59 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14956,7 +14852,6 @@
 	)
 	(label "Button4"
 		(at 293.37 87.63 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14967,7 +14862,6 @@
 	)
 	(label "CS"
 		(at 331.47 114.3 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14978,7 +14872,6 @@
 	)
 	(label "External_5V_2"
 		(at 77.47 241.3 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14989,7 +14882,6 @@
 	)
 	(label "12V"
 		(at 73.66 50.8 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15000,7 +14892,6 @@
 	)
 	(label "Button3"
 		(at 118.11 138.43 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15011,7 +14902,6 @@
 	)
 	(label "3.3V"
 		(at 73.66 233.68 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15022,7 +14912,6 @@
 	)
 	(label "OA_input"
 		(at 139.7 168.91 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15033,7 +14922,6 @@
 	)
 	(label "A-D_input_5"
 		(at 341.63 52.07 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15044,7 +14932,6 @@
 	)
 	(label "3.3V"
 		(at 156.21 283.21 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15055,7 +14942,6 @@
 	)
 	(label "Isense"
 		(at 62.23 179.07 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15066,7 +14952,6 @@
 	)
 	(label "A-D_input_5"
 		(at 55.88 163.83 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15077,7 +14962,6 @@
 	)
 	(label "A-D_input_6"
 		(at 341.63 54.61 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15088,7 +14972,6 @@
 	)
 	(label "3.3V"
 		(at 293.37 69.85 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15099,7 +14982,6 @@
 	)
 	(label "Button1"
 		(at 293.37 80.01 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15110,7 +14992,6 @@
 	)
 	(label "12V"
 		(at 179.07 139.7 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15121,7 +15002,6 @@
 	)
 	(label "Resistor_temp"
 		(at 341.63 72.39 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15132,7 +15012,6 @@
 	)
 	(label "external_analog"
 		(at 138.43 171.45 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15143,7 +15022,6 @@
 	)
 	(label "-0.25V_analog"
 		(at 118.11 166.37 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15154,7 +15032,6 @@
 	)
 	(label "5V"
 		(at 111.76 66.04 90)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15165,7 +15042,6 @@
 	)
 	(label "A-D_input_3"
 		(at 54.61 207.01 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15176,7 +15052,6 @@
 	)
 	(label "NC1"
 		(at 293.37 49.53 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15187,7 +15062,6 @@
 	)
 	(label "Interline_PWM"
 		(at 118.11 163.83 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15198,7 +15072,6 @@
 	)
 	(label "-5V"
 		(at 116.84 66.04 90)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15209,7 +15082,6 @@
 	)
 	(label "LED_pot"
 		(at 140.97 218.44 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15220,7 +15092,6 @@
 	)
 	(label "A-D_input_6"
 		(at 55.88 168.91 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15231,7 +15102,6 @@
 	)
 	(label "Over_temp_alarm1"
 		(at 293.37 92.71 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15242,7 +15112,6 @@
 	)
 	(label "3.3V"
 		(at 293.37 52.07 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15253,7 +15122,6 @@
 	)
 	(label "NC2"
 		(at 341.63 87.63 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15264,7 +15132,6 @@
 	)
 	(label "5V_fan_PWM"
 		(at 185.42 270.51 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15275,7 +15142,6 @@
 	)
 	(label "Relay1"
 		(at 177.8 160.02 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15286,7 +15152,6 @@
 	)
 	(label "3.3V"
 		(at 341.63 39.37 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15297,7 +15162,6 @@
 	)
 	(label "External_thermistor"
 		(at 341.63 59.69 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15308,7 +15172,6 @@
 	)
 	(label "Vcc"
 		(at 218.44 151.13 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15319,7 +15182,6 @@
 	)
 	(label "MOSFET_temp"
 		(at 384.81 62.23 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15330,7 +15192,6 @@
 	)
 	(label "Vcc"
 		(at 218.44 139.7 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15341,7 +15202,6 @@
 	)
 	(label "A-D_input_4"
 		(at 156.21 273.05 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15352,7 +15212,6 @@
 	)
 	(label "Toggle_switch"
 		(at 115.57 243.84 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15363,7 +15222,6 @@
 	)
 	(label "-1.8V-analog"
 		(at 201.93 214.63 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15374,7 +15232,6 @@
 	)
 	(label "Isense_internal"
 		(at 341.63 57.15 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15385,7 +15242,6 @@
 	)
 	(label "Button2"
 		(at 77.47 138.43 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15396,7 +15252,6 @@
 	)
 	(label "Vin"
 		(at 66.04 34.29 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15407,7 +15262,6 @@
 	)
 	(label "LED3"
 		(at 293.37 82.55 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15418,7 +15272,6 @@
 	)
 	(label "12V"
 		(at 210.82 149.86 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15429,7 +15282,6 @@
 	)
 	(label "LED_pot"
 		(at 341.63 80.01 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15440,7 +15292,6 @@
 	)
 	(label "Relay2"
 		(at 293.37 41.91 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15451,7 +15302,6 @@
 	)
 	(label "-0.25V_analog"
 		(at 138.43 57.15 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15462,7 +15312,6 @@
 	)
 	(label "LED-"
 		(at 247.65 144.78 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15473,7 +15322,6 @@
 	)
 	(label "A-D_input_5"
 		(at 62.23 283.21 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15484,7 +15332,6 @@
 	)
 	(label "12V"
 		(at 191.77 54.61 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15495,7 +15342,6 @@
 	)
 	(label "LED-"
 		(at 247.65 149.86 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -22631,7 +22477,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" "CTS Resistor Products"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 50.8 212.09 90)
 			(effects
 				(font
@@ -22640,7 +22486,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part #" "742C163472JP"
+		(property "Part #" "EXB-2HV472JV"
 			(at 50.8 212.09 90)
 			(effects
 				(font
@@ -23221,7 +23067,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" "CTS Resistor Products"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 50.8 207.01 90)
 			(effects
 				(font
@@ -23230,7 +23076,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part #" "742C163472JP"
+		(property "Part #" "EXB-2HV472JV"
 			(at 50.8 207.01 90)
 			(effects
 				(font
@@ -23349,7 +23195,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" "CTS Resistor Products"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 50.8 201.93 90)
 			(effects
 				(font
@@ -23358,7 +23204,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part #" "742C163472JP"
+		(property "Part #" "EXB-2HV472JV"
 			(at 50.8 201.93 90)
 			(effects
 				(font
@@ -23605,7 +23451,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" "CTS Resistor Products"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 116.84 194.31 90)
 			(effects
 				(font
@@ -23614,7 +23460,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part #" "742C163472JP"
+		(property "Part #" "EXB-2HV472JV"
 			(at 116.84 194.31 90)
 			(effects
 				(font
@@ -23733,7 +23579,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" "CTS Resistor Products"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 116.84 190.5 90)
 			(effects
 				(font
@@ -23742,7 +23588,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part #" "742C163472JP"
+		(property "Part #" "EXB-2HV472JV"
 			(at 116.84 190.5 90)
 			(effects
 				(font
@@ -23861,7 +23707,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" "CTS Resistor Products"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 69.85 233.68 90)
 			(effects
 				(font
@@ -23870,7 +23716,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part #" "742C163472JP"
+		(property "Part #" "EXB-2HV472JV"
 			(at 69.85 233.68 90)
 			(effects
 				(font
@@ -23989,7 +23835,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manufacturer" "CTS Resistor Products"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 116.84 199.39 90)
 			(effects
 				(font
@@ -23998,7 +23844,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part #" "742C163472JP"
+		(property "Part #" "EXB-2HV472JV"
 			(at 116.84 199.39 90)
 			(effects
 				(font
@@ -33934,7 +33780,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/2942/DEV-16996_Web.pdf"
+		(property "Datasheet" "https://www.pjrc.com/store/teensy41.html"
 			(at 311.15 78.74 0)
 			(effects
 				(font
@@ -33961,16 +33807,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part" "1568-DEV-16996-ND"
-			(at 313.69 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Part #" ""
+		(property "Part #" "DEV-16996"
 			(at 313.69 88.9 0)
 			(effects
 				(font
@@ -34358,7 +34195,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part" "YC324-JK-074K7L"
+		(property "Part #" "YC324-JK-074K7L"
 			(at 72.39 168.91 0)
 			(effects
 				(font
@@ -34703,7 +34540,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part" "YC324-JK-074K7L"
+		(property "Part #" "YC324-JK-074K7L"
 			(at 52.07 163.83 0)
 			(effects
 				(font
@@ -34806,7 +34643,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part" "YC324-JK-074K7L"
+		(property "Part #" "YC324-JK-074K7L"
 			(at 52.07 168.91 0)
 			(effects
 				(font
@@ -35044,7 +34881,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part" "DAC80501ZDGSR"
+		(property "Part #" "DAC80501ZDGSR"
 			(at 285.75 106.68 0)
 			(effects
 				(font
@@ -35153,7 +34990,7 @@
 				(hide yes)
 			)
 		)
-		(property "Part" "YC324-JK-074K7L"
+		(property "Part #" "YC324-JK-074K7L"
 			(at 72.39 163.83 0)
 			(effects
 				(font
