@@ -2,7 +2,6 @@
 #include "PacketSerial.h"
 #include "SDcard.h"
 #include "DAC.h"
-#include <SPI.h>
 #include <EEPROM.h>
 #include <TimeLib.h> //Set RTC time and get time strings
 
@@ -47,7 +46,7 @@ const struct defaultConfigurationStruct{
   uint8_t fan_channel = 0; //Ext output channel used to send fan PWM signal
   int ext_therm_resistance = 4700; //External thermistor nominal resistance at 25°C
   int ext_therm_beta = 3545; //Beta value of external thermistor
-  uint8_t audio_volume[2] = {2, 2}; //Status and alarm volumes for transducer: {10, 100}
+  uint8_t audio_volume[2] = {10, 2}; //Status and alarm volumes for transducer: {10, 100}
   bool pushbutton_intensity = true; //LED intensity - on/off
   uint8_t pushbutton_mode = 0; //LED illumination mode when alarm is active
   uint8_t checksum = 112;
@@ -280,15 +279,15 @@ uint8_t active_channel; //Currently active LED channel
 uint8_t update_flag = false; //Whether an update needs to be processed
 uint32_t ext_avg = 65535; //Summing variable for performing rolling average on the external thermistor to denoise it
 const uint16_t ext_avg_samples = 1024; //Size of sliding window for external average
+
 //////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS//////////////CLASS
 pinSetup pin;
 SDcard sd;
+DAC dac;  // DAC80501 instance
 PacketSerial_<COBS, 0, COBS_BUFFER_SIZE> usb; //Sets Encoder, framing character, buffer size
-DAC dac;
 
 void setup() {
-  while(!Serial);
-  EEPROM.update(0,0); //Uncomment to reset EEPROM to defaults - re-comment and the upload code again
+//  EEPROM.update(0,0); //Uncomment to reset EEPROM to defaults - re-comment and the upload code again
 //  sd.formatSdCard(); //Uncomment to format SD card - re-comment and the upload code again
 
   for(size_t a=0; a<sizeof(current_status.byte_buffer); a++) *(current_status.byte_buffer+a)=0; //Initialize status buffer to a known state of all 0
@@ -298,14 +297,16 @@ void setup() {
   ARM_DWT_CTRL |= ARM_DWT_CTRL_CYCCNTENA;
   cpu_cycles = ARM_DWT_CYCCNT;
   sequence_buffer[0][0]= 0;
+  pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(9600); //Needed for non-COBS streaming, such as large sequence files
   usb.begin(115200);
   usb.setPacketHandler(&onPacketReceived);
-  dac.begin(pin.CS);
-
+  
+  // Initialize DAC80501
+  dac.begin();
+  
   if(!sd.initializeSD()){ //Initiazlize SD card first so the sequence files can be retrieved on initializeConfigurations()
-    sd.message_buffer[0] = prefix.message;
-    usb.send((const unsigned char*) sd.message_buffer, sd.message_size);
+    digitalWriteFast(LED_BUILTIN, HIGH);
     if(!sd.formatSdCard()){ ; //Try reformatting the card
       sd.message_buffer[0] = prefix.message;
       usb.send((const unsigned char*) sd.message_buffer, sd.message_size);
@@ -322,9 +323,7 @@ void setup() {
       }
     }
   }
-
   initializeConfigurations(); //Initialize configurations only after initializing SD card, as SD card is needed to load seqences
-
   status_index = 0;
   ledOff(); //For safety, boot to LED off
   for(size_t a=0; a==status_index; a++) checkStatus(); //Perform full round of status checks to get starting status of driver
@@ -761,7 +760,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
   boolean shutter_state; //Logical state of shutter input
   boolean sync_pol; //Track polarity of sync output
   uint8_t timeout = 0; //Flag for whether the line sync has timed out waiting for trigger - 0: no timeout, 1: new timeout - report error, 2: on going timeout - error already reported.  Flag resets when shutter closes.
-  const uint8_t shutter_pin = pin.INPUTS[4];
+  const uint8_t shutter_pin = pin.INPUTS[4];  // Changed from pin.SCL0
   const bool pmt_enable = false;
   const uint32_t PMT_GATE_DELAY = 90; //CPU cycles t owait between gating off the PMT and turning on the LED (180 cpu cycles = 1 µs) - https://www.hamamatsu.com/resources/pdf/etd/H11706_TPMO1059E.pdf
   uint32_t prev_cpu_cycles = 0; //Timer from LED on to LED off - solves issue with line clock edge occuring during the flyback.
@@ -1138,17 +1137,17 @@ void checkStatus(){
     case 0: //Check driver temperatures - 3.68 µs
       status_index++;
       analogRead(pin.MOSFET_TEMP);
-      current_status.s.temp[0] = analogRead(pin.MOSFET_TEMP);
+      current_status.s.temp[0] = analogRead(pin.MOSFET_TEMP)<<4;
       break;
     case 1:
       status_index++;
       analogRead(pin.RESISTOR_TEMP);
-      current_status.s.temp[1] = analogRead(pin.RESISTOR_TEMP);
+      current_status.s.temp[1] = analogRead(pin.RESISTOR_TEMP)<<4;
       break;
     case 2: //Check external thermistor with rolling average - 3.1 µs to 4.5 µs max
       status_index++;
       analogRead(pin.EXTERNAL_TEMP);
-      current_status.s.temp[2] = analogRead(pin.EXTERNAL_TEMP);
+      current_status.s.temp[2] = analogRead(pin.EXTERNAL_TEMP)<<4;
       break;
     case 3:
       status_index++;
@@ -1281,9 +1280,8 @@ void updateIntensity(){
   //Turn off LED before updating intensity.
   pinMode(pin.INTERLINE, OUTPUT); //ensure pin is disconnected from PWM bus
   digitalWriteFast(pin.INTERLINE, LOW);
-
   dac.setCode(0);
-
+  
   if(conf.c.led_active[current_status.s.led_channel]){ //Check if the channel is active
     
     for(int a=0; a<4; a++){ //Toggle channel relays
@@ -1363,9 +1361,10 @@ void setFan(uint16_t temp, uint8_t fan_index){
 }
 
 void thermalFault(){
+  uint8_t sensor_id;
   if(!fault_active){ //If fault is not active, check if any temp is above the fault temperature
-    for(int a=0; a<3; a++){
-      if(current_status.s.temp[a] <= conf.c.fault_temp[a]){
+    for(sensor_id=0; sensor_id<3; sensor_id++){
+      if(current_status.s.temp[sensor_id] <= conf.c.fault_temp[sensor_id]){
         fault_active = true;
         break;   
       }  
@@ -1381,7 +1380,7 @@ void thermalFault(){
     for(size_t b=0; b<sizeof(pin.RELAY)/sizeof(pin.RELAY[0]); b++) digitalWriteFast(pin.RELAY[b], !pin.RELAY_CLOSE); //Open all relays
 
     //Send fault warning to GUI
-    temp_size = sprintf(temp_buffer, "-Warning: Fault temperature has been exceeded.  The driver will turn off LED until below warning temperature.");
+    temp_size = sprintf(temp_buffer, "-Warning: %s fault temperature has been exceeded. The driver will turn off LED until below warning temperature.", (sensor_id == 0) ? "MOSFET" : (sensor_id == 1) ? "RESISTOR" : "EXT");
     temp_buffer[0] = prefix.message;
     usb.send((const unsigned char*) temp_buffer, temp_size);
 
@@ -1469,14 +1468,13 @@ void initializeConfigurations(){
 
   //Set pin configurations
   pin.configurePins();
-
+  
   //See if EEPROM has magic number
   for(a=0; a<buffer_size; a++){
     if(EEPROM.read(a) != MAGIC_RECEIVE[a]){
       break;
     }
   }
-
   //Verify EEPROM checksums
   if(a==buffer_size){
     auto verifyChecksum = [&] (){
@@ -1589,7 +1587,7 @@ static void magicExchange(const uint8_t* buffer, size_t size){
   if(size == sizeof(MAGIC_RECEIVE)){
     for(a=0; a<size; a++){
       if(buffer[a+1] != MAGIC_RECEIVE[a]){
-        break;
+        return;
       }
     }
     if(a==size-1){

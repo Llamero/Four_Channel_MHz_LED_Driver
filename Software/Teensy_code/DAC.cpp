@@ -1,142 +1,117 @@
-/*!
- * @file DAC.cpp
- * @brief Implementation for the DAC.h driver. See DAC.h for the
- *        protocol notes, the fixed-configuration rationale, and the
- *        datasheet reference.
- */
+/*
+  DAC80501 Library for Teensy 4.1
+  Simplified for 3.3V power, 2.5V internal reference, 16-bit operation
+*/
 
+#include "Arduino.h"
 #include "DAC.h"
+#include "pinSetup.h"
 
-constexpr float DAC::FULL_SCALE_VOLTS;
-
-DAC::DAC()
-    : _spi(nullptr),
-      _csPin(255),
-      _spiSettings(20000000UL, MSBFIRST, SPI_MODE1),
-      _dacPwdwn(false),     // CONFIG reset = 0000h -> DAC active
-      _syncEn(false),       // SYNC reset = 0000h -> asynchronous updates
-      _lastDacCode(0)       // DAC80501Z resets to zero-scale (= 0V here)
+DAC::DAC() : _spiSettings(SPI_SPEED, MSBFIRST, SPI_MODE1)
 {
+    _csPin = pinSetup::CS;
 }
 
-void DAC::begin(uint8_t csPin, SPIClass &spiBus, uint32_t spiClockHz)
+void DAC::begin()
 {
-    test = false;
-    _csPin = csPin;
-    _spi   = &spiBus;
-
-    if (spiClockHz > 50000000UL) {
-        spiClockHz = 50000000UL; // datasheet maximum SCLK frequency
-    }
-    _spiSettings = SPISettings(spiClockHz, MSBFIRST, SPI_MODE1);
-
+    // Configure CS pin
     pinMode(_csPin, OUTPUT);
-    digitalWrite(_csPin, HIGH); // SYNC idles high
-
-    _spi->begin();
-
-    // Section 8.3.3: communication is valid only after a 250 us POR delay
-    // once VDD has been established. Safe to wait here even if power has
-    // been up for a while.
-    delayMicroseconds(300);
-
-    // Fixed output range: REF-DIV=1, BUFF-GAIN=1 -> VOUT_FS = 2.5V at
-    // VDD = 3.3V. See the rationale in the file header of DAC.h.
-    writeRegister(REG_GAIN, GAIN_REGISTER_VALUE);
-}
-
-// ---------------------------------------------------------------------
-// Low level
-// ---------------------------------------------------------------------
-
-void DAC::writeRegister(uint8_t reg, uint16_t data)
-{
-    _spi->beginTransaction(_spiSettings);
-    digitalWrite(_csPin, LOW); // SYNC falling edge starts the frame
-    _spi->transfer(reg & 0x0F);              // command byte (upper bits reserved = 0)
-        if(test) Serial.println("test2");
-    else Serial.println("test1");
-    _spi->transfer((uint8_t)(data >> 8));     // MSDB
-    _spi->transfer((uint8_t)(data & 0xFF));   // LSDB
-    digitalWrite(_csPin, HIGH); // SYNC rising edge latches the register
-    _spi->endTransaction();
-    // tSYNCHIGH (>=160 ns) and tDACWAIT (>=1 us between DAC updates).
-    delayMicroseconds(1);
-    test = true;
-}
-
-void DAC::noop()
-{
-    writeRegister(REG_NOOP, 0x0000);
-}
-
-// ---------------------------------------------------------------------
-// DAC output, fixed 0-2.5V range
-// ---------------------------------------------------------------------
-
-void DAC::setCode(uint16_t code)
-{
-    _lastDacCode = code;
-    writeRegister(REG_DAC, code);
-    Serial.println("done");
+    digitalWriteFast(_csPin, HIGH);
+    
+    // Initialize SPI
+    SPI.begin();
+    
+    // Small delay for DAC power-up
+    delayMicroseconds(100);
+    
+    // Configure the DAC:
+    // REG_CONFIG (0x03): Set REF-PWDWN = 0 (enable internal reference)
+    // Bit 8 = REF-PWDWN, we want it 0 to enable internal ref
+    writeRegister(REG_CONFIG, 0x0000);
+    
+    // REG_GAIN (0x04): 
+    // Bit 8 = REF-DIV: 0 = reference divided by 2 (1.25V), 1 = reference not divided (2.5V)
+    // Bit 0 = BUFF-GAIN: 0 = gain of 1, 1 = gain of 2
+    // For 2.5V full scale with 2.5V reference: REF-DIV=1, BUFF-GAIN=0
+    // This gives output = 2.5V * 1 * (code/65536) = 0 to 2.5V
+    writeRegister(REG_GAIN, 0x0100);
+    
+    // Set initial output to 0V
+    setCode(0);
 }
 
 void DAC::setVoltage(float voltage)
 {
+    // Clamp voltage to valid range
     if (voltage < 0.0f) voltage = 0.0f;
-    if (voltage > FULL_SCALE_VOLTS) voltage = FULL_SCALE_VOLTS;
-
-    uint16_t code = (uint16_t)((voltage / FULL_SCALE_VOLTS) * (float)MAX_CODE + 0.5f);
-    setCode(code);
+    if (voltage > VREF) voltage = VREF;
+    
+    setCode(voltageToCode(voltage));
 }
 
-float DAC::getLastVoltage() const
+void DAC::setCode(uint16_t code)
 {
-    return (FULL_SCALE_VOLTS * (float)_lastDacCode) / (float)MAX_CODE;
+    writeRegister(REG_DAC, code);
 }
 
-// ---------------------------------------------------------------------
-// CONFIG register (addr 0x03) - DAC power-down only; REF_PWDWN is
-// always left at 0 (internal reference enabled) per the fixed config.
-// ---------------------------------------------------------------------
-
-void DAC::powerDownDAC(bool powerDown)
+uint16_t DAC::voltageToCode(float voltage)
 {
-    _dacPwdwn = powerDown;
-    writeRegister(REG_CONFIG, _dacPwdwn ? 0x0001 : 0x0000);
+    // Clamp voltage to valid range
+    if (voltage < 0.0f) voltage = 0.0f;
+    if (voltage > VREF) voltage = VREF;
+    
+    // Convert voltage to code: code = (voltage / VREF) * 65536
+    uint32_t code = (uint32_t)((voltage / VREF) * 65536.0f);
+    if (code > DAC_MAX) code = DAC_MAX;
+    
+    return (uint16_t)code;
 }
 
-// ---------------------------------------------------------------------
-// SYNC register (addr 0x02)
-// ---------------------------------------------------------------------
-
-void DAC::setSynchronousMode(bool synchronous)
+float DAC::codeToVoltage(uint16_t code)
 {
-    _syncEn = synchronous;
-    writeRegister(REG_SYNC, _syncEn ? 0x0001 : 0x0000);
+    // Convert code to voltage: voltage = VREF * (code / 65536)
+    return VREF * ((float)code / 65536.0f);
 }
 
-// ---------------------------------------------------------------------
-// TRIGGER register (addr 0x05) - write-only, self-clearing bits
-// ---------------------------------------------------------------------
-
-void DAC::triggerLDAC()
+void DAC::writeRegister(uint8_t reg, uint16_t value)
 {
-    writeRegister(REG_TRIGGER, (1 << 4)); // LDAC bit
+    SPI.beginTransaction(_spiSettings);
+    digitalWriteFast(_csPin, LOW);
+    
+    // DAC80501 uses 24-bit frames: 8-bit command + 16-bit data
+    // Command byte: bit 7 = R/W (0=write), bits 6:0 = register address
+    SPI.transfer(reg & 0x7F);           // Write command (bit 7 = 0)
+    SPI.transfer((value >> 8) & 0xFF);  // MSB of data
+    SPI.transfer(value & 0xFF);         // LSB of data
+    
+    digitalWriteFast(_csPin, HIGH);
+    SPI.endTransaction();
 }
 
-void DAC::softReset()
+uint16_t DAC::readRegister(uint8_t reg)
 {
-    writeRegister(REG_TRIGGER, SOFT_RESET_KEY); // reserved code 1010b
-
-    // A software reset triggers a full POR; wait the same delay as begin().
-    delayMicroseconds(250);
-
-    // Restore shadow state and re-apply the fixed GAIN configuration,
-    // since a reset reverts GAIN to its POR default (REF-DIV=0,
-    // BUFF-GAIN=1), which is not the combination this library relies on.
-    _dacPwdwn    = false;
-    _syncEn      = false;
-    _lastDacCode = 0; // DAC80501Z -> zero scale
-    writeRegister(REG_GAIN, GAIN_REGISTER_VALUE);
+    uint16_t value;
+    
+    SPI.beginTransaction(_spiSettings);
+    digitalWriteFast(_csPin, LOW);
+    
+    // Read command: bit 7 = 1
+    SPI.transfer(reg | 0x80);
+    SPI.transfer(0x00);  // Dummy byte
+    SPI.transfer(0x00);  // Dummy byte
+    
+    digitalWriteFast(_csPin, HIGH);
+    
+    // Second transaction to clock out the data
+    delayMicroseconds(1);
+    digitalWriteFast(_csPin, LOW);
+    
+    SPI.transfer(REG_NOOP);              // NOOP command
+    value = SPI.transfer(0x00) << 8;     // MSB
+    value |= SPI.transfer(0x00);         // LSB
+    
+    digitalWriteFast(_csPin, HIGH);
+    SPI.endTransaction();
+    
+    return value;
 }
