@@ -1590,7 +1590,7 @@ static void magicExchange(const uint8_t* buffer, size_t size){
         return;
       }
     }
-    if(a==size-1){
+    if(a==size){
       MAGIC_SEND[0] = prefix.connection;
       usb.send((const unsigned char*) MAGIC_SEND, size);
     }
