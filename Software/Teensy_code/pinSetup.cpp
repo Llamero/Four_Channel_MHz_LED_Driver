@@ -151,11 +151,11 @@ uint16_t pinSetup::captureWave(uint16_t test_dac_value, uint8_t *cobs_buffer) {
   abdma2.clearInterrupt();
   delayMicroseconds(100);
   digitalWriteFast(INTERLINE, HIGH);
-  delayMicroseconds(300);
-  digitalWriteFast(INTERLINE, LOW);
   delayMicroseconds(200);
+  digitalWriteFast(INTERLINE, LOW);
+  delayMicroseconds(100);
   digitalWriteFast(INTERLINE, HIGH);
-  delayMicroseconds(300);
+  delayMicroseconds(200);
   digitalWriteFast(INTERLINE, LOW);
   interrupts();
   while (!abdma2.interrupted());

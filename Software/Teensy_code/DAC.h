@@ -33,7 +33,7 @@ class DAC
     static const uint8_t REG_DAC     = 0x08;
     
     // Configuration constants
-    static const uint32_t SPI_SPEED = 50000000;  // 50 MHz max for DAC80501
+    static const uint32_t SPI_SPEED = 1e6;  // 50 MHz max for DAC80501
     static constexpr float VREF = 2.5;           // Internal 2.5V reference
     static const uint16_t DAC_MAX = 65535;       // 16-bit max value
     

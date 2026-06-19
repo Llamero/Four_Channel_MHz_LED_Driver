@@ -46,7 +46,7 @@ const struct defaultConfigurationStruct{
   uint8_t fan_channel = 0; //Ext output channel used to send fan PWM signal
   int ext_therm_resistance = 4700; //External thermistor nominal resistance at 25°C
   int ext_therm_beta = 3545; //Beta value of external thermistor
-  uint8_t audio_volume[2] = {10, 2}; //Status and alarm volumes for transducer: {10, 100}
+  uint8_t audio_volume[2] = {10, 100}; //Status and alarm volumes for transducer: {10, 100}
   bool pushbutton_intensity = true; //LED intensity - on/off
   uint8_t pushbutton_mode = 0; //LED illumination mode when alarm is active
   uint8_t checksum = 112;
@@ -301,9 +301,6 @@ void setup() {
   Serial.begin(9600); //Needed for non-COBS streaming, such as large sequence files
   usb.begin(115200);
   usb.setPacketHandler(&onPacketReceived);
-  
-  // Initialize DAC80501
-  dac.begin();
   
   if(!sd.initializeSD()){ //Initiazlize SD card first so the sequence files can be retrieved on initializeConfigurations()
     digitalWriteFast(LED_BUILTIN, HIGH);
@@ -1500,6 +1497,7 @@ void initializeConfigurations(){
   else loadDefaultsToEEPROM();
   initializeSeq();
   active_channel = 255; //Reset active channel so that channel gets actively set on updateIntensity()
+  dac.begin(); // Initialize DAC80501
   updateIntensity();
   playStatusTone();
   update_flag = true; //Toggle update flag
