@@ -29,12 +29,11 @@ void DAC::begin()
     // Bit 8 = REF-PWDWN, we want it 0 to enable internal ref
     writeRegister(REG_CONFIG, 0x0000);
     
-    // REG_GAIN (0x04): 
-    // Bit 8 = REF-DIV: 0 = reference divided by 2 (1.25V), 1 = reference not divided (2.5V)
-    // Bit 0 = BUFF-GAIN: 0 = gain of 1, 1 = gain of 2
-    // For 2.5V full scale with 2.5V reference: REF-DIV=1, BUFF-GAIN=0
-    // This gives output = 2.5V * 1 * (code/65536) = 0 to 2.5V
-    writeRegister(REG_GAIN, 0x0100);
+    // REG_GAIN (0x04):
+    // Bit 8 = REF-DIV:   1 = bypass internal /2 divider → reference = 1.25V
+    // Bit 0 = BUFF-GAIN: 1 = output buffer gain of 2
+    // Vout = 1.25V * 2 * (code/65536) = 0 to 2.5V full scale
+    writeRegister(REG_GAIN, 0x0101); // Changed from 0x0100 to 0x0101
     
     // Set initial output to 0V
     setCode(0);

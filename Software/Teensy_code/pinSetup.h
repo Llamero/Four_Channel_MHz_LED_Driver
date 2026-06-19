@@ -58,7 +58,7 @@ class pinSetup
    
     //ADC setup
     const static int adc_averaging = 1; //Number of times to average adc recording before returning value
-    const static int adc_resolution = 16; //Number of significant bits to return per adc recording
+    const static int adc_resolution = 12; //Number of significant bits to return per adc recording
     
     const static int SERIES_RESISTOR = 4700; //Value of series resistor to the thermistor on the PCB
     const static int PCB_THERMISTOR_NOMINAL = 4700; //Value of thermistor resistor on PCB at nominal temp (25°C)

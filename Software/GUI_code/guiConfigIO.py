@@ -97,7 +97,7 @@ def checkCurrentLimits(gui):
         if gui.getValue(gui.config_model["Resistor" + str(resistor)]["Active"]):
             total_resistance += 1/gui.getValue(gui.config_model["Resistor" + str(resistor)]["Value"])
     total_resistance = 1/total_resistance
-    maximum_current = 3.3/total_resistance
+    maximum_current = 2.5/total_resistance
     maximum_current = round(maximum_current, -int(math.floor(math.log10(abs(maximum_current))))+1) #Report max current to 2 significant figures - https://stackoverflow.com/questions/3410976/how-to-round-a-number-to-significant-figures-in-python
 
     gui.configure_current_limit_box.setTitle("LED Current Limit (" + str(maximum_current) + "A Max)")
@@ -154,7 +154,7 @@ def bytesToConfig(byte_array, gui, prefix):
 
         for led_number in range(1, 5):
             current_limit = config_values[led_number + 3]
-            current_limit = (3.3*(current_limit/65535))/total_resistance
+            current_limit = (2.5*(current_limit/65535))/total_resistance
             gui.setValue(gui.config_model["LED" + str(led_number)]["Active"], config_values[led_number - 1])
             gui.setValue(gui.config_model["LED" + str(led_number)]["Current Limit"], current_limit)
             channel_id = gui.getValue(gui.config_model["LED" + str(config_values[led_number + 7]+1)]["ID"])
@@ -233,7 +233,7 @@ def bytesToSync(byte_array, gui, prefix):
                 elif key3 == "PWM":
                     gui.setValue(gui.sync_model["Digital"][key2][key3], sync_values[(2 * index3) + index2 + 3]/65535*100)
                 elif key3 == "Current":
-                    gui.setValue(gui.sync_model["Digital"][key2][key3], (((sync_values[(2 * index3) + index2 + 3]/65535)*3.3/total_resistance)/current_limit[index2])*100)
+                    gui.setValue(gui.sync_model["Digital"][key2][key3], (((sync_values[(2 * index3) + index2 + 3]/65535)*2.5/total_resistance)/current_limit[index2])*100)
                 elif key3 == "Duration":
                     gui.setValue(gui.sync_model["Digital"][key2][key3], sync_values[(2 * index3) + index2 + 3]/1e6)
 
@@ -265,7 +265,7 @@ def bytesToSync(byte_array, gui, prefix):
                 elif key3 == "PWM":
                     gui.setValue(gui.sync_model["Confocal"][key2][key3], (sync_values[(2 * index3) + index2 + 29]/65535)*100)
                 elif key3 == "Current":
-                    gui.setValue(gui.sync_model["Confocal"][key2][key3], (((sync_values[(2 * index3) + index2 + 29]/65535)*3.3/total_resistance)/current_limit[index2])*100)
+                    gui.setValue(gui.sync_model["Confocal"][key2][key3], (((sync_values[(2 * index3) + index2 + 29]/65535)*2.5/total_resistance)/current_limit[index2])*100)
                 elif key3 == "Duration":
                     gui.setValue(gui.sync_model["Confocal"][key2][key3], sync_values[(2 * index3) + index2 + 29]/1e6)
 
@@ -300,7 +300,7 @@ def configToBytes(gui, prefix, update_model=True):
 
     for led_number in range(1, 5):
         current_limit = gui.getValue(gui.config_model["LED" + str(led_number)]["Current Limit"])
-        config_values[led_number + 3] = round(((current_limit*total_resistance)/3.3)*65535) #Convert current limit to ADC reading (voltage)
+        config_values[led_number + 3] = round(((current_limit*total_resistance)/2.5)*65535) #Convert current limit to ADC reading (voltage)
         config_values[led_number - 1] = gui.getValue(gui.config_model["LED" + str(led_number)]["Active"])
         for index, widget in enumerate(gui.config_model["Channel" + str(led_number)]):
             if gui.getValue(widget):
@@ -387,7 +387,7 @@ def syncToBytes(gui, prefix, update_model=True):
             elif key3 == "PWM":
                 sync_values[(2 * index3) + index2 + 3] = round((gui.getValue(gui.sync_model["Digital"][key2][key3])/100)*65535)
             elif key3 == "Current":
-                sync_values[(2 * index3) + index2 + 3] = round((((gui.getValue(gui.sync_model["Digital"][key2][key3])/100)*current_limit[index2] * total_resistance) / 3.3) * 65535)  # Convert current limit to ADC reading (voltage)
+                sync_values[(2 * index3) + index2 + 3] = round((((gui.getValue(gui.sync_model["Digital"][key2][key3])/100)*current_limit[index2] * total_resistance) / 2.5) * 65535)  # Convert current limit to ADC reading (voltage)
                 print("Digital Input: " + str(gui.getValue(gui.sync_model["Digital"][key2][key3])) + ", Limit: " + str(current_limit[index2]) + ", Res: " + str(total_resistance))
             elif key3 == "Duration":
                 sync_values[(2 * index3) + index2 + 3] = round(gui.getValue(gui.sync_model["Digital"][key2][key3])*1e6)  # Convert duration to microseconds
@@ -423,7 +423,7 @@ def syncToBytes(gui, prefix, update_model=True):
             elif key3 == "PWM":
                 sync_values[(2 * index3) + index2 + 29]  = round((gui.getValue(gui.sync_model["Confocal"][key2][key3]) / 100) * 65535) #Convert to clock-cycles, where 100% = # of clock cycles in delay #2
             elif key3 == "Current":
-                sync_values[(2 * index3) + index2 + 29] = round((((gui.getValue(gui.sync_model["Confocal"][key2][key3])/100)*current_limit[index2] * total_resistance) / 3.3) * 65535)  # Convert current to ADC reading (voltage) as percent of current limit
+                sync_values[(2 * index3) + index2 + 29] = round((((gui.getValue(gui.sync_model["Confocal"][key2][key3])/100)*current_limit[index2] * total_resistance) / 2.5) * 65535)  # Convert current to ADC reading (voltage) as percent of current limit
                 print("Confocal Input: " + str(gui.getValue(gui.sync_model["Confocal"][key2][key3])) + ", Limit: " + str(current_limit[index2]) + ", Res: " + str(total_resistance))
             elif key3 == "Duration":
                 sync_values[(2 * index3) + index2 + 29] = round(gui.getValue(gui.sync_model["Confocal"][key2][key3])*1e6)

@@ -1465,7 +1465,8 @@ void initializeConfigurations(){
 
   //Set pin configurations
   pin.configurePins();
-  
+  delay(10); //Since some pins are powering peripheral devices, give time for them to power on.
+
   //See if EEPROM has magic number
   for(a=0; a<buffer_size; a++){
     if(EEPROM.read(a) != MAGIC_RECEIVE[a]){
@@ -1956,8 +1957,10 @@ void testCurrent(const uint8_t* buffer, size_t size){
         analogRead(pin.ISENSE); //Clear adc
         current_measurement = 0;
         for(int b=0; b<n_samples; b++) current_measurement += analogRead(pin.ISENSE);
+        current_measurement <<= 4;
         analogWrite(pin.INTERLINE, 0);
         current_array[a] = (float) current_measurement / (float) n_samples; //Divide by n_samples to get average current
+        current_array[a] *= 3.3/2.5; //This corrects for the fact the board uses a 3.3V ADC and a 2.5V DAC
         if(current_array[a] + (0.5/3.3)*65535 < conf.c.current_limit[a] || current_array[a] - (0.5/3.3)*65535 > conf.c.current_limit[a]){ //Disable channel if Isense voltage is outside DAC voltage +/- 0.5V to prevent damage to op-amp
           enable_array[a] = false;
           if(stored_config.c.led_active[a]){ //Force over-ride under-voltage led configuration to prevent op-amp damage

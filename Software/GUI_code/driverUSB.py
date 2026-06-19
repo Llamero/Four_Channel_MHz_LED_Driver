@@ -521,7 +521,7 @@ class usbSerial(QtWidgets.QWidget): #Implementation based on: https://stackoverf
                     adc_current_limit = float(self.gui.config_model["LED" + str(index + 1)]["Current Limit"].whatsThis())
                     current_limit = self.gui.getValue(self.gui.config_model["LED" + str(index + 1)]["Current Limit"])
             reply = list(struct.unpack(packet_format, reply))
-            data = [(x/adc_current_limit)*current_limit for x in reply]
+            data = [(x/adc_current_limit)*current_limit*16*3.3/2.5 for x in reply]
             calibrationPlot.updatePlot(self.gui, data)
 
         else:
