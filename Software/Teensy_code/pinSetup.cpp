@@ -139,68 +139,30 @@ int pinSetup::tempToAdc(float temperature, int therm_nominal = PCB_THERMISTOR_NO
 }
 
 uint16_t pinSetup::captureWave(uint16_t test_dac_value, uint8_t *cobs_buffer) {
-  // --- Setup ---
   pinMode(ISENSE, INPUT);
   digitalWriteFast(INTERLINE, LOW);
   digitalWriteFast(ANALOG_SELECT, LOW);
   dac.setCode(test_dac_value);
-  delay(1); // More reliable settle time on T4.1
-  
-  // --- Initialize DMA BEFORE starting ADC ---
+  delayMicroseconds(100);
   abdma2.init(adc, ADC_0);
   abdma2.stopOnCompletion(true);
-  
-  // Invalidate cache for DMA buffer BEFORE DMA writes to it
-  if ((uint32_t)dma_adc2_buff1 >= 0x20200000u) {
-      arm_dcache_delete((void*)dma_adc2_buff1, sizeof(dma_adc2_buff1));
-  }
-  
-  abdma2.clearInterrupt();
-  abdma2.clearCompletion();
-  
-  // --- Start ADC continuous ---
   adc->adc0->startContinuous(ISENSE);
-  
-  delayMicroseconds(100);
-  
-  // --- Trigger sequence (keep interrupts ENABLED for DMA on T4.1) ---
-  digitalWriteFast(INTERLINE, HIGH);
-  delayMicroseconds(200);
-  digitalWriteFast(INTERLINE, LOW);
+  noInterrupts();
+  abdma2.clearInterrupt();
   delayMicroseconds(100);
   digitalWriteFast(INTERLINE, HIGH);
   delayMicroseconds(200);
   digitalWriteFast(INTERLINE, LOW);
-  
-  // --- Wait for DMA completion ---
-  uint32_t timeout = millis();
-  while (!abdma2.interrupted()) {
-      if ((millis() - timeout) > 100) {
-          // Timeout guard - DMA stalled
-          adc->adc0->stopContinuous();
-          return 0;
-      }
-  }
-  
-  // --- Cache invalidation AFTER DMA completes ---
-  if ((uint32_t)dma_adc2_buff1 >= 0x20200000u) {
-      arm_dcache_delete((void*)dma_adc2_buff1, sizeof(dma_adc2_buff1));
-  }
-  
+  delayMicroseconds(100);
+  digitalWriteFast(INTERLINE, HIGH);
+  delayMicroseconds(200);
   digitalWriteFast(INTERLINE, LOW);
-  
-  // --- Copy data ---
-  uint16_t cobs_size = abdma2.bufferCountLastISRFilled() * 2;
-  
-  if (cobs_size > 0) {
-      memcpy(cobs_buffer, 
-              (const void*)abdma2.bufferLastISRFilled(), 
-              cobs_size);
-  }
-  
-  // --- Cleanup ---
-  adc->adc0->stopContinuous();
+  interrupts();
+  while (!abdma2.interrupted());
+  digitalWriteFast(INTERLINE, LOW);
+  if ((uint32_t)cobs_buffer >= 0x20200000u)  arm_dcache_delete((void*)cobs_buffer, sizeof(dma_adc2_buff1));
+  uint16_t cobs_size = (&abdma2)->bufferCountLastISRFilled()*2;
+  memcpy(cobs_buffer, (const void*) ((&abdma2)->bufferLastISRFilled()), cobs_size);
   abdma2.clearCompletion();
-  
   return cobs_size;
 }

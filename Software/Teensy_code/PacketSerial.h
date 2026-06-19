@@ -267,13 +267,16 @@ public:
     {
         if(_stream == nullptr || buffer == nullptr || size == 0) return;
 
-        uint8_t _encodeBuffer[EncoderType::getEncodedBufferSize(size)];
-        size_t numEncoded = EncoderType::encode(buffer, size, _encodeBuffer);
-        
-        // Append packet marker to encoded buffer and send as single write
-        // to minimize USB ISR interactions with FlexPWM timer
-        _encodeBuffer[numEncoded] = PacketMarker;
-        _stream->write(_encodeBuffer, numEncoded + 1);
+        // _encodeBuffer is sized for a worst-case ReceiveBufferSize-byte
+        // payload; reject anything larger rather than overflow it.
+        if (size > ReceiveBufferSize) return;
+
+        size_t numEncoded = EncoderType::encode(buffer,
+                                                size,
+                                                _encodeBuffer);
+
+        _stream->write(_encodeBuffer, numEncoded);
+        _stream->write(PacketMarker);
     }
 
     /// \brief Set the function that will receive decoded packets.

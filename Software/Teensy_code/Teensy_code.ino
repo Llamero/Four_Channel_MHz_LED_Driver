@@ -1180,28 +1180,17 @@ void checkStatus(){
       break;
     case 8: //Check pot value - 3.74 µs
       status_index++;
-      if(!fault_active && current_status.s.mode){ //Check manual mode
-          if(current_status.s.driver_control){ //Only read pot if hardware (driver) is controlling
-              if(current_status.s.mode == 1){
-                  analogRead(pin.POT);
-                  current_status.s.led_pwm = 65535 - analogRead(pin.POT);
-                  current_status.s.led_current = conf.c.current_limit[current_status.s.led_channel];
-                  updateIntensity();
-              }
-              else if(current_status.s.mode == 2){
-                  analogRead(pin.POT);
-                  current_status.s.led_current = 65535 - analogRead(pin.POT);
-                  if(current_status.s.led_current > conf.c.current_limit[current_status.s.led_channel])
-                      current_status.s.led_current = conf.c.current_limit[current_status.s.led_channel];
-                  updateIntensity();
-              }
-              else if(current_status.s.mode == 3){
-                  ledOff();
-                  updateIntensity();
-              }
-          }
-          // When driver_control == false (GUI control): do NOT touch led_pwm/led_current
-          // Values were already set by updateStatus() when the packet arrived
+      if(current_status.s.driver_control && !fault_active && current_status.s.mode){ //Only check pot if driver control and in manual mode
+        if(current_status.s.mode == 1){
+          analogRead(pin.POT);
+          current_status.s.led_pwm = 65535-analogRead(pin.POT);
+          current_status.s.led_current = conf.c.current_limit[current_status.s.led_channel]; //Set current to LED current limit
+        }
+        else if(current_status.s.mode == 3){
+          ledOff();
+        }
+        else return; //If sync - do no update intensity
+        updateIntensity(); //Update the LED intensity with the new values
       }
       break;
     case 9: //Check pushbuttons and update LEDs - 1.05 µs
@@ -1285,51 +1274,43 @@ void ledOff(){
 }
 
 void updateIntensity(){
-  // Turn off LED before updating - but do NOT call pinMode(OUTPUT) on INTERLINE
-  // as this disconnects it from the FlexPWM timer on Teensy 4.1
-  digitalWriteFast(pin.INTERLINE, LOW);  // Pull low without disconnecting from PWM timer
+  //Turn off LED before updating intensity.
+  pinMode(pin.INTERLINE, OUTPUT); //ensure pin is disconnected from PWM bus
+  digitalWriteFast(pin.INTERLINE, LOW);
   dac.setCode(0);
   
-  if(conf.c.led_active[current_status.s.led_channel]){
-    for(int a=0; a<4; a++){
-      if(conf.c.led_channel[a] == current_status.s.led_channel) 
-        digitalWriteFast(pin.RELAY[a], pin.RELAY_CLOSE);
-      else 
-        digitalWriteFast(pin.RELAY[a], !pin.RELAY_CLOSE);
+  if(conf.c.led_active[current_status.s.led_channel]){ //Check if the channel is active
+    
+    for(int a=0; a<4; a++){ //Toggle channel relays
+      if(conf.c.led_channel[a] == current_status.s.led_channel) digitalWriteFast(pin.RELAY[a], pin.RELAY_CLOSE);
+      else digitalWriteFast(pin.RELAY[a], !pin.RELAY_CLOSE);
     }
     active_channel = current_status.s.led_channel;
 
-    digitalWriteFast(pin.ANALOG_SELECT, external_analog);
+    digitalWriteFast(pin.ANALOG_SELECT, external_analog); //Set external analog input
     if(external_analog){
-      pinMode(pin.INTERLINE, OUTPUT); // OK here - we WANT to disconnect from PWM
+      pinMode(pin.INTERLINE, OUTPUT); //ensure pin is disconnected from PWM bus
       dac.setCode(0);
     }
     else{
       dac.setCode(current_status.s.led_current);
-      if(!(sync.s.mode == 2 && !current_status.s.mode)){
-        if(!(sync.s.mode == 1 && sync.s.analog_mode && !current_status.s.mode)){
-          if(current_status.s.led_pwm == 65535){
-            // For constant HIGH: disconnect from PWM timer first, then set HIGH
+      if(!(sync.s.mode == 2 && !current_status.s.mode)){ //If in confocal mode, do not apply PWM to interline pin
+        if(!(sync.s.mode == 1 && sync.s.analog_mode && !current_status.s.mode)){ //If analog mode without PWM, do not apply PWM to interline pin
+          if(current_status.s.led_pwm == 65535){ //Write pin constant high at 100% PWM
             pinMode(pin.INTERLINE, OUTPUT);
             digitalWriteFast(pin.INTERLINE, HIGH);
           }
-          else{
-            // For PWM: use analogWrite() directly WITHOUT preceding pinMode()
-            // On Teensy 4.1, analogWrite() correctly configures the pin mux itself
-            analogWrite(pin.INTERLINE, current_status.s.led_pwm);
-          }
+          else analogWrite(pin.INTERLINE, current_status.s.led_pwm);
         }
         else{
-          pinMode(pin.INTERLINE, OUTPUT);
+          pinMode(pin.INTERLINE, OUTPUT); //Otherwise, ensure pin is constant on
           digitalWriteFast(pin.INTERLINE, HIGH);
         }
       }
-      else{
-        pinMode(pin.INTERLINE, OUTPUT); // Confocal - disconnect from PWM timer
-      }
+      else pinMode(pin.INTERLINE, OUTPUT); //Otherwise, ensure pin is disconnected from PWM bus
     }
   }
-  else{
+  else{ //If LED channel is inactive, set output to 0 to not stress op-amp inputs
     current_status.s.led_pwm = 0;
     current_status.s.led_current = 0;
     dac.setCode(0);
@@ -1571,7 +1552,7 @@ static void onPacketReceived(const uint8_t* buffer, size_t size){
   heartbeat = 0; //Reset heartbeat timer as a serial packet has been received
   uint8_t buffer_prefix = buffer[0];
   if(buffer_prefix){ //Turn off LED for safety before processing packet if packet isn't a heartbeat update
-    analogWrite(pin.INTERLINE, 0);
+    pinMode(pin.INTERLINE, OUTPUT);
     digitalWriteFast(pin.INTERLINE, 0); //Turn of LED while driver transitions between sync and manual modes
   }
   if(buffer_prefix == prefix.message) serial_connection_active = true; //Start/continue sending status packets; 
