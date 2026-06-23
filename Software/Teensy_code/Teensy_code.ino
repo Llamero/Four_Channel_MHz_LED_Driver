@@ -335,11 +335,6 @@ elapsedMillis t = 0;
 uint32_t d = 10;
 
 void loop() {
-  if(current_status.s.led_current > 0 && false){
-    while(true){
-      cpu_cycles = ARM_DWT_CYCCNT;
-    }
-  }
   interrupts();
   if(sync.s.sync_output_channel) digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], LOW); //Set sync output low when in manual mode
   update_flag = false; //Reset update flag on return on main loop
@@ -1189,7 +1184,12 @@ void checkStatus(){
       if(current_status.s.driver_control && !fault_active && current_status.s.mode){ //Only check pot if driver control and in manual mode
         if(current_status.s.mode == 1){
           analogRead(pin.POT);
-          current_status.s.led_pwm = 65535-analogRead(pin.POT);
+          uint16_t pot = 0;
+          for(int a=0; a<16; a++){
+            pot += analogRead(pin.POT);
+            delay(1);
+          }
+          current_status.s.led_pwm = 65535-pot;
           current_status.s.led_current = conf.c.current_limit[current_status.s.led_channel]; //Set current to LED current limit
         }
         else if(current_status.s.mode == 3){
