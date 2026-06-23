@@ -52,7 +52,7 @@ void pinSetup::configurePins(){
     // where the numbers are the frequency of the ADC clock in MHz and are independent on the bus speed.
     adc->adc0->setConversionSpeed(ADC_CONVERSION_SPEED::VERY_HIGH_SPEED); // change the conversion speed
     // it can be any of the ADC_MED_SPEED enum: VERY_LOW_SPEED, LOW_SPEED, MED_SPEED, HIGH_SPEED or VERY_HIGH_SPEED
-    adc->adc0->setSamplingSpeed(ADC_SAMPLING_SPEED::VERY_HIGH_SPEED); // change the sampling speed
+    adc->adc0->setSamplingSpeed(ADC_SAMPLING_SPEED::HIGH_VERY_HIGH_SPEED); // change the sampling speed
 
     ////// ADC1 /////
     adc->adc1->setReference(ADC_REFERENCE::REF_3V3);
@@ -159,18 +159,16 @@ uint16_t pinSetup::captureWave(uint16_t test_dac_value, uint8_t *cobs_buffer) {
   abdma2.clearCompletion();
   
   // --- Start ADC continuous ---
+  noInterrupts();
   adc->adc0->startContinuous(ISENSE);
-  
-  delayMicroseconds(100);
+  uint32_t cpu_cycles = ARM_DWT_CYCCNT;
+  while(ARM_DWT_CYCCNT - cpu_cycles < 600*204);
   
   // --- Trigger sequence (keep interrupts ENABLED for DMA on T4.1) ---
   digitalWriteFast(INTERLINE, HIGH);
-  delayMicroseconds(200);
+  while(ARM_DWT_CYCCNT - cpu_cycles < 600*804);
   digitalWriteFast(INTERLINE, LOW);
-  delayMicroseconds(100);
-  digitalWriteFast(INTERLINE, HIGH);
-  delayMicroseconds(200);
-  digitalWriteFast(INTERLINE, LOW);
+  interrupts();
   
   // --- Wait for DMA completion ---
   uint32_t timeout = millis();
@@ -181,7 +179,7 @@ uint16_t pinSetup::captureWave(uint16_t test_dac_value, uint8_t *cobs_buffer) {
           return 0;
       }
   }
-  
+
   // --- Cache invalidation AFTER DMA completes ---
   if ((uint32_t)dma_adc2_buff1 >= 0x20200000u) {
       arm_dcache_delete((void*)dma_adc2_buff1, sizeof(dma_adc2_buff1));

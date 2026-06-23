@@ -334,6 +334,11 @@ elapsedMillis t = 0;
 uint32_t d = 10;
 
 void loop() {
+  if(current_status.s.led_current > 0 && false){
+    while(true){
+      cpu_cycles = ARM_DWT_CYCCNT;
+    }
+  }
   interrupts();
   if(sync.s.sync_output_channel) digitalWriteFast(pin.OUTPUTS[sync.s.sync_output_channel-1], LOW); //Set sync output low when in manual mode
   update_flag = false; //Reset update flag on return on main loop

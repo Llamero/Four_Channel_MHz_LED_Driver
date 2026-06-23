@@ -114,6 +114,10 @@ boolean SDcard::initializeSD(){
     sprintf(message_buffer, "%s/%s", seq_bin_dir, seq_files[a]); //Path to file
     if(!card.exists(message_buffer)){ //If file doesn't exist, create an empty file
       f = card.open(message_buffer, FILE_WRITE);
+      //Create a dummy seq table entry
+      message_buffer[0] = 1;
+      for(int a=1; a<9; a++) message_buffer[a] = 0;
+      f.write(message_buffer, 9);
       f.close();
     }
   }

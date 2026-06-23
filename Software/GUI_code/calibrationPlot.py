@@ -4,10 +4,12 @@ import pyqtgraph as pg
 import numpy as np
 from collections import deque
 
-x_data = [x/1.1 for x in range(1600)]
-n_samples = round(1000*1.1) #Number of ADC samples to include in plot
+sample_rate = 1.252
+x_data = [x/sample_rate for x in range(1600)]
+n_samples = round(1000*sample_rate) #Number of ADC samples to include in plot
 offset = 5 #Number of samples to offset from start to let ADC stabilize
-x_line = [0, n_samples / 1.1]
+x_line = [0, n_samples / sample_rate]
+rolling_average_window = 10
 
 def initializeCalibrationPlot(gui):
     plot = gui.calibration_plot_window
@@ -30,9 +32,36 @@ def initializeCalibrationPlot(gui):
     plot.getAxis('right').setTextPen('k', width=2)
 
     #Set
-    plot.setXRange(0, n_samples/1.1, padding=0)
-    setCalibrationScale(gui)
+    plot.setXRange(0, n_samples/sample_rate, padding=0)
     plot.getAxis('bottom').setTickSpacing(200, 200)
+
+    # Initialize y_data before setCalibrationScale is called
+    gui.calibration_y_data = np.zeros(n_samples + offset)
+
+    # Initialize rolling average buffer (stores last N waveforms)
+    gui.calibration_rolling_buffer = deque(maxlen=rolling_average_window)
+
+    # Create persistent plot curves
+    gui.calibration_curve_limit = plot.plot(pen=pg.mkPen('m', width=1))
+    gui.calibration_curve_data  = plot.plot(pen=pg.mkPen('g', width=1), connect="finite")
+    setCalibrationScale(gui)
+
+    # Create dashed yellow pen
+    dashed_yellow_pen = pg.mkPen(
+        color=(255, 255, 0, 100),  # Subtle yellow
+        width=1,
+        style=QtCore.Qt.DashLine
+    )
+
+    # Add vertical lines - these will never be cleared
+    gui.vline_100 = pg.InfiniteLine(pos=200, angle=90, pen=dashed_yellow_pen, movable=False)
+    gui.vline_800 = pg.InfiniteLine(pos=800, angle=90, pen=dashed_yellow_pen, movable=False)
+    plot.addItem(gui.vline_100)
+    plot.addItem(gui.vline_800)
+
+    # Call updatePlot with zeros to initialize all curves
+    updatePlot(gui, np.zeros(n_samples + offset))
+    setRollingAverage(gui)
 
 def activeCurrent(gui):
     #Get current limit of active LED
@@ -46,6 +75,14 @@ def activeCurrent(gui):
 def setCalibrationScale(gui):
     current = activeCurrent(gui)
     gui.calibration_plot_window.setYRange(0, current * 1.2, padding=0)
+
+    # Call updatePlot with zeros to initialize all curves
+    updatePlot(gui, gui.calibration_y_data)
+
+def setRollingAverage(gui):
+    # Create new deque with new maxlen, preserving existing data
+    window_size = gui.getValue(gui.calibration_avg_box)
+    gui.calibration_rolling_buffer = deque(gui.calibration_rolling_buffer, maxlen=window_size)
 
 def startAnimation(gui, timeline):
     lockTabWidget(gui, True)
@@ -67,8 +104,17 @@ def stopAnimation(gui, timeline):
 def updatePlot(gui, y_data):
     current = activeCurrent(gui)
     y_line = [current, current]
-    gui.calibration_plot_window.plot(x_line, y_line, pen=pg.mkPen('m', width=1), clear=True)
-    gui.calibration_plot_window.plot(x_data[:n_samples], y_data[offset:n_samples+offset], pen=pg.mkPen('g', width=1), connect="finite")
+
+    # Add latest waveform to rolling buffer
+    y_data = [item * 1.04 for item in y_data]
+    gui.calibration_rolling_buffer.append(y_data[offset:n_samples + offset])
+
+    # Calculate rolling average across all waveforms in buffer
+    rolling_avg = np.mean(gui.calibration_rolling_buffer, axis=0)
+
+    # Update data without clearing - InfiniteLines are preserved
+    gui.calibration_curve_limit.setData(x_line, y_line)
+    gui.calibration_curve_data.setData(x_data[:n_samples], rolling_avg)
 
 def lockTabWidget(gui, lock):
     for tab_index in range(gui.gui_master_tab.count()):

@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>380</width>
-    <height>500</height>
+    <height>573</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -429,8 +429,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>320</width>
-             <height>297</height>
+             <width>337</width>
+             <height>389</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -447,8 +447,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>568</width>
-                 <height>772</height>
+                 <width>454</width>
+                 <height>596</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1292,8 +1292,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>688</width>
-                 <height>528</height>
+                 <width>459</width>
+                 <height>433</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1712,9 +1712,9 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-691</y>
-                 <width>956</width>
-                 <height>1374</height>
+                 <y>0</y>
+                 <width>456</width>
+                 <height>1044</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3104,8 +3104,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>386</width>
-                 <height>52</height>
+                 <width>261</width>
+                 <height>35</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3132,8 +3132,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>973</width>
-                 <height>683</height>
+                 <width>230</width>
+                 <height>35</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -3281,8 +3281,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>974</width>
-             <height>1384</height>
+             <width>523</width>
+             <height>1047</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_16">
@@ -4781,28 +4781,43 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
        <attribute name="title">
         <string>Calibration</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_7" columnstretch="10,0,0,0">
-        <item row="2" column="0">
-         <widget class="QPushButton" name="calibration_run_button">
+       <layout class="QGridLayout" name="gridLayout_7" columnstretch="10,0,0,0,0,0,0,0">
+        <item row="0" column="0" colspan="8">
+         <widget class="PlotWidget" name="calibration_plot_window">
           <property name="toolTip">
-           <string>Press to start/stop LED driver and plot of resulting LED current.</string>
+           <string>Plot of LED current response 600 µs square-wave pulse, sampled at 1.25 MHz.</string>
           </property>
-          <property name="text">
-           <string>Run</string>
+          <property name="sceneRect">
+           <rectf>
+            <x>0.000000000000000</x>
+            <y>0.000000000000000</y>
+            <width>0.000000000000000</width>
+            <height>0.000000000000000</height>
+           </rectf>
           </property>
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="QLabel" name="calibration_current_label2">
+         <widget class="QLabel" name="calibration_current_label1">
           <property name="toolTip">
            <string>Active LED current as a percent of the set current limit.</string>
           </property>
           <property name="text">
-           <string>%</string>
+           <string>LED Current:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
-        <item row="2" column="2">
+        <item row="2" column="1">
+         <widget class="QLabel" name="calibration_avg_label">
+          <property name="text">
+           <string>Avg:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="4">
          <widget class="QDoubleSpinBox" name="calibration_current_box">
           <property name="enabled">
            <bool>true</bool>
@@ -4824,31 +4839,33 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
           </property>
          </widget>
         </item>
-        <item row="0" column="0" colspan="4">
-         <widget class="PlotWidget" name="calibration_plot_window">
-          <property name="toolTip">
-           <string>Plot of LED current response to two 300 µs square-wave pulses, sampled at 1.1 MHz.</string>
-          </property>
-          <property name="sceneRect">
-           <rectf>
-            <x>0.000000000000000</x>
-            <y>0.000000000000000</y>
-            <width>0.000000000000000</width>
-            <height>0.000000000000000</height>
-           </rectf>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="calibration_current_label1">
+        <item row="2" column="5">
+         <widget class="QLabel" name="calibration_current_label2">
           <property name="toolTip">
            <string>Active LED current as a percent of the set current limit.</string>
           </property>
           <property name="text">
-           <string>LED Current:</string>
+           <string>%</string>
           </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QSpinBox" name="calibration_avg_box">
+          <property name="cursor">
+           <cursorShape>UpArrowCursor</cursorShape>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QPushButton" name="calibration_run_button">
+          <property name="toolTip">
+           <string>Press to start/stop LED driver and plot of resulting LED current.</string>
+          </property>
+          <property name="text">
+           <string>Run</string>
           </property>
          </widget>
         </item>
@@ -4878,7 +4895,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
      <x>0</x>
      <y>0</y>
      <width>380</width>
-     <height>34</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_connection">
@@ -5088,28 +5105,28 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   </property>
  </designerdata>
  <buttongroups>
-  <buttongroup name="configure_ch_merge_1_button_group"/>
-  <buttongroup name="sync_analog_input_channel_button_group"/>
-  <buttongroup name="sync_confocal_scan_mode_button_group"/>
-  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
-  <buttongroup name="sync_digital_trigger_button_group"/>
-  <buttongroup name="configure_indication_group"/>
+  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
   <buttongroup name="configure_ch_merge_2_button_group"/>
-  <buttongroup name="main_intensity_button_group"/>
+  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
+  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
+  <buttongroup name="sync_confocal_line_input_button_group"/>
+  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
+  <buttongroup name="sync_digital_trigger_button_group"/>
+  <buttongroup name="configure_ch_merge_3_button_group"/>
+  <buttongroup name="configure_ch_merge_1_button_group"/>
+  <buttongroup name="configure_pushbutton_LED_button_group"/>
   <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
   <buttongroup name="configure_ch_merge_4_button_group"/>
-  <buttongroup name="main_toggle_control_group"/>
-  <buttongroup name="sync_output_button_group"/>
-  <buttongroup name="sync_digital_trigger_low_channel_button_group"/>
-  <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
   <buttongroup name="main_channel_button_group"/>
-  <buttongroup name="configure_pushbutton_LED_button_group"/>
-  <buttongroup name="configure_ext_fan_button_group"/>
-  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
+  <buttongroup name="sync_digital_trigger_high_channel_button_group"/>
+  <buttongroup name="sync_confocal_scan_mode_button_group"/>
+  <buttongroup name="main_toggle_control_group"/>
   <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
-  <buttongroup name="sync_confocal_line_input_button_group"/>
+  <buttongroup name="main_intensity_button_group"/>
+  <buttongroup name="sync_analog_input_channel_button_group"/>
+  <buttongroup name="configure_indication_group"/>
   <buttongroup name="sync_analog_led_channel_button_group"/>
-  <buttongroup name="configure_ch_merge_3_button_group"/>
-  <buttongroup name="sync_confocal_line_analog_polarity_button_group"/>
+  <buttongroup name="sync_output_button_group"/>
+  <buttongroup name="configure_ext_fan_button_group"/>
  </buttongroups>
 </ui>
