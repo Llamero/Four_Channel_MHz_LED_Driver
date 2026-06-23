@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>380</width>
-    <height>573</height>
+    <height>592</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -429,8 +429,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>337</width>
-             <height>389</height>
+             <width>776</width>
+             <height>592</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -440,7 +440,7 @@
                <string>Select the active sync mode to configure</string>
               </property>
               <property name="currentIndex">
-               <number>0</number>
+               <number>2</number>
               </property>
               <widget class="QWidget" name="sync_digital_page">
                <property name="geometry">
@@ -1712,8 +1712,8 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
-                 <width>456</width>
+                 <y>-170</y>
+                 <width>741</width>
                  <height>1044</height>
                 </rect>
                </property>
@@ -1900,7 +1900,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                       <item row="2" column="0">
                        <widget class="QTabWidget" name="sync_confocal_line_tab">
                         <property name="currentIndex">
-                         <number>1</number>
+                         <number>0</number>
                         </property>
                         <widget class="QWidget" name="sync_confocal_line_digital_tab">
                          <property name="toolTip">
@@ -1926,7 +1926,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <string>Sync the driver to the line clock when it goes LOW (&lt;1.0V).</string>
                             </property>
                             <property name="text">
-                             <string>LOW</string>
+                             <string>Falling (&lt;0.3V)</string>
                             </property>
                             <attribute name="buttonGroup">
                              <string notr="true">sync_confocal_line_digital_polarity_button_group</string>
@@ -1939,7 +1939,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                              <string>Sync the driver to the line clock when it goes HIGH (&gt;2.5V).</string>
                             </property>
                             <property name="text">
-                             <string>HIGH</string>
+                             <string>Rising (&gt;3.3V)</string>
                             </property>
                             <property name="checked">
                              <bool>true</bool>
@@ -3281,7 +3281,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>523</width>
+             <width>759</width>
              <height>1047</height>
             </rect>
            </property>

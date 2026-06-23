@@ -1853,13 +1853,14 @@ void measurePeriod(const uint8_t* buffer, size_t size){
   uint32_t prev_cycles; //Number of cycles at previous trigger
   float mean;
   float stdev;
+  float var;
   int a; //loop counter
-  elapsedMillis timeout;
-  elapsedMillis measure_duration;
-  elapsedMicros debounce;
   float n_measurements=0;
-  uint16_t record_timeout = 1000; //Time in ms to wait between line triggers during scan
-  uint16_t measure_timeout = 3000; //Time in ms to measure mirror period
+  uint32_t record_timeout = 1e6*clock_freq; //Time in ms to wait between line triggers during scan
+  uint32_t measure_timeout = 3e6*clock_freq; //Time in ms to measure mirror period
+  uint32_t measure_start;
+  uint32_t timeout_start;
+  uint32_t debounce_start;
 
   //Lambda functions in C++11 rock! https://stackoverflow.com/questions/4324763/can-we-have-functions-inside-functions-in-c
   auto saveCounts = [&] (){
@@ -1881,45 +1882,44 @@ void measurePeriod(const uint8_t* buffer, size_t size){
     temp_size = sprintf(temp_buffer, "-Measuring mirror period, please wait....");
     temp_buffer[0] = prefix.message;
     usb.send((const unsigned char*) temp_buffer, temp_size);
-    timeout = 0;
+    timeout_start = ARM_DWT_CYCCNT;
     analogRead(pin.INPUTS[temp_sync.s.confocal_channel]); //Clear ADC before reocording
-    measure_duration = 0;
-    for(a=-1; measure_duration < measure_timeout && n_measurements < 10000; a++){ //Measure period for 1 second
+    measure_start = ARM_DWT_CYCCNT;
+    for(a=-1; ARM_DWT_CYCCNT-measure_start < measure_timeout && n_measurements < 10000; a++){ //Measure period for 1 second
       if(temp_sync.s.confocal_sync_mode){ //If analog sync
-        while(analogRead(pin.INPUTS[temp_sync.s.confocal_channel]) < temp_sync.s.confocal_threshold && timeout < record_timeout); //Wait for input to rise above threshold
+        while(analogRead(pin.INPUTS[temp_sync.s.confocal_channel]) < temp_sync.s.confocal_threshold && ARM_DWT_CYCCNT - timeout_start < record_timeout); //Wait for input to rise above threshold
         cpu_cycles = ARM_DWT_CYCCNT;
         if(a >= 0 && temp_sync.s.confocal_sync_polarity[1]) saveCounts(); //If rising trigger then save time point
-        while(analogRead(pin.INPUTS[temp_sync.s.confocal_channel]) > temp_sync.s.confocal_threshold && timeout < record_timeout); //Wait for input to rise above threshold
+        while(analogRead(pin.INPUTS[temp_sync.s.confocal_channel]) > temp_sync.s.confocal_threshold && ARM_DWT_CYCCNT - timeout_start < record_timeout); //Wait for input to rise above threshold
         cpu_cycles = ARM_DWT_CYCCNT;
         if(a >= 0 && !temp_sync.s.confocal_sync_polarity[1]) saveCounts(); //If falling trigger then save time point 
       }
       else{ //If digital sync
-        while(digitalReadFast(pin.INPUTS[temp_sync.s.confocal_channel]) !=  temp_sync.s.confocal_sync_polarity[0] && timeout < record_timeout); //Wait for trigger to match desired polarity
+        while(digitalReadFast(pin.INPUTS[temp_sync.s.confocal_channel]) !=  temp_sync.s.confocal_sync_polarity[0] && ARM_DWT_CYCCNT - timeout_start < record_timeout); //Wait for trigger to match desired polarity
         cpu_cycles = ARM_DWT_CYCCNT;
         saveCounts();
-        debounce = 0;
-        while(debounce < 10) checkStatus();
-        while(digitalReadFast(pin.INPUTS[temp_sync.s.confocal_channel]) ==  temp_sync.s.confocal_sync_polarity[0] && timeout < record_timeout); //Wait for trigger to reset
-        debounce = 0;
-        while(debounce < 10) checkStatus();
+        debounce_start = ARM_DWT_CYCCNT;
+        while(ARM_DWT_CYCCNT - debounce_start < clock_freq) checkStatus();
+        while(digitalReadFast(pin.INPUTS[temp_sync.s.confocal_channel]) ==  temp_sync.s.confocal_sync_polarity[0] && ARM_DWT_CYCCNT - timeout_start < record_timeout); //Wait for trigger to reset
+        debounce_start = ARM_DWT_CYCCNT;
+        while(ARM_DWT_CYCCNT - debounce_start < clock_freq) checkStatus();
       }
-      if(timeout >= record_timeout){ //If timed out, send error message.
+      if(ARM_DWT_CYCCNT - timeout_start >= record_timeout){ //If timed out, send error message.
         temp_size = sprintf(temp_buffer, "-Error: Measurement timed out waiting for line sync trigger.");    
         temp_buffer[0] = prefix.message;
         usb.send((const unsigned char*) temp_buffer, temp_size);
         return;
       }
       else{
-        timeout = 0; //reset timeout timer
+        timeout_start = ARM_DWT_CYCCNT; //reset timeout timer
       }
     }
-    mean = (sum_cycles/n_measurements)/(float) clock_freq;
-    stdev = (sum_cycles*sum_cycles);
-    stdev /= n_measurements;
-    stdev = abs(sum_of_squares-stdev);
-    stdev /= n_measurements;
-    stdev = sqrt(stdev);
-    stdev /= (float) clock_freq;
+    var = ((float)sum_of_squares - 
+                  ((float)sum_cycles * sum_cycles) / n_measurements) 
+                / (n_measurements - 1);  // Use n-1 for sample stdev
+    if(var < 0) var = 0;  // Guard against floating point rounding artifacts
+    stdev = (float)(sqrt(var) / clock_freq);
+    mean  = (sum_cycles / n_measurements) / (float)clock_freq;
     temp_size = sprintf(temp_buffer, "-Measurement Successful. Mirror period mean: %.2f µs, standard deviation: %.2f µs.", mean, stdev);
     temp_buffer[0] = prefix.message;
     usb.send((const unsigned char*) temp_buffer, temp_size);
