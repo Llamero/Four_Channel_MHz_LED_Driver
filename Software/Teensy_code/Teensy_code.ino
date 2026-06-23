@@ -112,7 +112,7 @@ const struct defaultSyncStruct{ //158 bytes
   boolean confocal_sync_polarity[2] = {true, true}; //Sync polarity for digital and analog sync inputs
   uint16_t confocal_threshold = 2000; //Threshold for analog sync trigger
   boolean confocal_scan_mode = true; //Whether scan is unidirectional (false) or bidrectional (true)
-  uint32_t confocal_mirror_period = 180000; //Time in µs for the scanning mirror to complete one cycle
+  uint32_t confocal_mirror_period = 600000; //Time in µs for the scanning mirror to complete one cycle
   uint32_t confocal_delay[3] = {0,36000,0}; //Delay in clock cycles for each sync delay
   
   uint8_t confocal_mode[2] = {0,0}; //The digital sync mode  in the image and flyback states respectively
@@ -249,6 +249,7 @@ GenericFP function_router[256]; //create an array of 'GenericFP' function pointe
 
 //////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE//////////////VARIABLE
 
+const uint32_t clock_freq = 600; //CPU clock freq in MHz
 const static uint32_t COBS_BUFFER_SIZE = 4096; //Size of the COBS buffer
 char MAGIC_SEND[] = "-kvlWfsBplgasrsh3un5K"; //Magic number reply from Teensy verifying it is an LED driver "-" is for providing byte prefix in serial message
 const static char MAGIC_RECEIVE[] = "kc1oISEIZ60AYJqH4J1P"; //Magic number received from GUI to verify this is an LED driver
@@ -262,7 +263,7 @@ uint8_t status_index = 0; //Index counter for incrementally updating and transmi
 elapsedMillis status_update_timer; //Status timer to track when to transmit the next update
 const uint8_t status_update_interval = 5; //The minimum time (in ms) between serial updates - prevents over-streaming of serial data and constantly accelerating fan
 const uint32_t status_step_time_duration =  9; //Minimum time needed (in µs) to complete one status check
-const uint32_t status_step_clock_duration =  status_step_time_duration*180; //Minimum time needed (in clock cycles) to complete one status check
+const uint32_t status_step_clock_duration =  status_step_time_duration*clock_freq; //Minimum time needed (in clock cycles) to complete one status check
 elapsedMillis heartbeat; //Heartbeat timer to confirm that GUI is still connected
 const static uint32_t HEARTBEAT_TIMEOUT = 10000; //Driver will assume connection has closed if heartbeat not received within this time 
 uint32_t cpu_cycles = 0; //Track the number of CPU cycles for sub-microseconds timing precision
@@ -449,7 +450,7 @@ void analogSync(){
   uint16_t n_avg; //Number of ADC samples to take per recording
   uint32_t adc_average; //Used to sum ADC readings
   boolean output_state; //Used to flip sync output for external syncing
-  uint16_t sample_interval = 1800; //Interval at which to take ADC recording
+  uint16_t sample_interval = clock_freq*10; //Interval at which to take ADC recording
   float sample_freq; //Frequency in Hz that samples are taken
   current_status.s.state = 0; //There is only one sync state - set to default
   noInterrupts();
@@ -464,7 +465,7 @@ void analogSync(){
       current_status.s.led_current = conf.c.current_limit[current_status.s.led_channel]; //Set current to current limit
     }
     
-    //Set the PWM frequency to match the sample frequency for maximum PWM precision - capped at a min of 915 HZ since this gives full 16-bit precision at 180 MHz - https://www.pjrc.com/teensy/td_pulse.html
+    //Set the PWM frequency to match the sample frequency for maximum PWM precision - capped at a min of 915 HZ since this gives full 16-bit precision at 600 MHz - https://www.pjrc.com/teensy/td_pulse.html
     sample_freq = 1/((float) n_avg * (float) sample_interval * 5.555e-9); //Calculate the sample frequency
     if(sample_freq > 915.527) analogWriteFrequency(pin.INTERLINE, sample_freq);
     else analogWriteFrequency(pin.INTERLINE, 915.527); //Cap min at 
@@ -518,10 +519,10 @@ void analogSync(){
 void confocalSync(){
   elapsedMicros duration; //Duration timer for sequence steps
   uint16_t sync_step; //sequence step counter
-  const uint32_t interline_timeout = 180e6; //Timeout to stop looking for mirror sync - 1 second.
+  const uint32_t interline_timeout = clock_freq*1e6; //Timeout to stop looking for mirror sync - 1 second.
   uint32_t pwm_clock_cycles; //The number of clock cycles equivalent to the PWM duration
   uint32_t unidirectional_status_window = sync.s.confocal_delay[0] + sync.s.confocal_delay[1] + sync.s.confocal_delay[2] + 2*status_step_clock_duration; //Number of clock cycles between end of interline sequence and next trigger
-  float pwm_freq = 180000000/(float) sync.s.confocal_mirror_period; //Get the frequency of the mirror in Hz
+  float pwm_freq = (float) clock_freq*1e6/(float) sync.s.confocal_mirror_period; //Get the frequency of the mirror in Hz
   float pwm_ratio = (float) sync.s.confocal_delay[1] / (float) sync.s.confocal_mirror_period; //Ratio of LED on time to total mirror period
   boolean shutter_state; //Logical state of shutter input
   boolean sync_pol; //Track polarity of sync output
@@ -757,14 +758,14 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
   uint32_t pwm_clock_list[4]; //The number of clock cycles equivalent to the PWM duration for all 3 channels
   uint32_t pwm_clock_cycles; //The number of clock cycles equivalent to the PWM duration for active channel
   uint32_t unidirectional_status_window = sync.s.confocal_delay[0] + sync.s.confocal_delay[1] + sync.s.confocal_delay[2] + 2*status_step_clock_duration; //Number of clock cycles between end of interline sequence and next trigger
-  float pwm_freq = 180000000/(float) sync.s.confocal_mirror_period; //Get the frequency of the mirror in Hz
+  float pwm_freq = (float) clock_freq*1e6/(float) sync.s.confocal_mirror_period; //Get the frequency of the mirror in Hz
   float pwm_ratio = (float) sync.s.confocal_delay[1] / (float) sync.s.confocal_mirror_period; //Ratio of LED on time to total mirror period
   boolean shutter_state; //Logical state of shutter input
   boolean sync_pol; //Track polarity of sync output
   uint8_t timeout = 0; //Flag for whether the line sync has timed out waiting for trigger - 0: no timeout, 1: new timeout - report error, 2: on going timeout - error already reported.  Flag resets when shutter closes.
   const uint8_t shutter_pin = pin.INPUTS[4];  // Changed from pin.SCL0
   const bool pmt_enable = false;
-  const uint32_t PMT_GATE_DELAY = 90; //CPU cycles t owait between gating off the PMT and turning on the LED (180 cpu cycles = 1 µs) - https://www.hamamatsu.com/resources/pdf/etd/H11706_TPMO1059E.pdf
+  const uint32_t PMT_GATE_DELAY = 90; //CPU cycles t owait between gating off the PMT and turning on the LED (600 cpu cycles = 1 µs) - https://www.hamamatsu.com/resources/pdf/etd/H11706_TPMO1059E.pdf
   uint32_t prev_cpu_cycles = 0; //Timer from LED on to LED off - solves issue with line clock edge occuring during the flyback.
   const uint32_t check_channel_cycles = 800; //The maximum number of clock cycles ittakes to check and change the DMD channel - originally 500
   boolean led_on = false; //Tracking whether the LED is on (flyback) so change channel can know whether to turn the LED on or not.
@@ -890,7 +891,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
     duration = 0; //Reset seq timer
     cpu_cycles = ARM_DWT_CYCCNT; //Reset interline timer
 
-    interline_timeout = 180000000; //Timeout to stop looking for mirror sync - wait one full second as there can be a delay between the shutter and the start of the mirror.
+    interline_timeout = clock_freq*1e6; //Timeout to stop looking for mirror sync - wait one full second as there can be a delay between the shutter and the start of the mirror.
 
     checkStatus(); //Check status at least once per mirror cycle
     if(update_flag) goto quit; //Exit on update
@@ -1912,13 +1913,13 @@ void measurePeriod(const uint8_t* buffer, size_t size){
         timeout = 0; //reset timeout timer
       }
     }
-    mean = (sum_cycles/n_measurements)/180.0;
+    mean = (sum_cycles/n_measurements)/(float) clock_freq;
     stdev = (sum_cycles*sum_cycles);
     stdev /= n_measurements;
     stdev = abs(sum_of_squares-stdev);
     stdev /= n_measurements;
     stdev = sqrt(stdev);
-    stdev /= 180.0;
+    stdev /= (float) clock_freq;
     temp_size = sprintf(temp_buffer, "-Measurement Successful. Mirror period mean: %.2f µs, standard deviation: %.2f µs.", mean, stdev);
     temp_buffer[0] = prefix.message;
     usb.send((const unsigned char*) temp_buffer, temp_size);
