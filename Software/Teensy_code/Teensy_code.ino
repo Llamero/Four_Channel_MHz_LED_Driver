@@ -288,9 +288,7 @@ DAC dac;  // DAC80501 instance
 PacketSerial_<COBS, 0, COBS_BUFFER_SIZE> usb; //Sets Encoder, framing character, buffer size
 
 void setup() {
-//  EEPROM.update(0,0); //Uncomment to reset EEPROM to defaults - re-comment and the upload code again
-//  sd.formatSdCard(); //Uncomment to format SD card - re-comment and the upload code again
-
+  //  EEPROM.update(0,0); //Uncomment to reset EEPROM to defaults - re-comment and the upload code again
   for(size_t a=0; a<sizeof(current_status.byte_buffer); a++) *(current_status.byte_buffer+a)=0; //Initialize status buffer to a known state of all 0
   
   //Count cpu cycles for submircrosecond delay precision - https://forum.pjrc.com/threads/28407-Teensyduino-access-to-counting-cpu-cycles?p=71036&viewfull=1#post71036
@@ -445,10 +443,11 @@ void analogSync(){
   uint16_t n_avg; //Number of ADC samples to take per recording
   uint32_t adc_average; //Used to sum ADC readings
   boolean output_state; //Used to flip sync output for external syncing
-  uint16_t sample_interval = clock_freq*10; //Interval at which to take ADC recording
+  uint16_t sample_interval = clock_freq*1; //Interval at which to take ADC recording
   float sample_freq; //Frequency in Hz that samples are taken
   current_status.s.state = 0; //There is only one sync state - set to default
-  noInterrupts();
+  
+  updateIntensity();
   if(sync.s.analog_mode != 2){ //If using internal analog
     if(sync.s.analog_led) current_status.s.led_channel = sync.s.analog_led-1; //Change LED channel if specified
     if(sync.s.analog_mode){ //Mode 1 is current
@@ -484,24 +483,32 @@ void analogSync(){
       analogRead(pin.INPUTS[sync.s.analog_channel]); //Clear the ADC
       adc_average += analogRead(pin.INPUTS[sync.s.analog_channel]); //Record the last ADC value
       if(sync.s.analog_mode){ //If current sync
-        current_status.s.led_current = adc_average >> sync.s.analog_current; //Mode 1 is current - take average value
+        current_status.s.led_current = (adc_average >> sync.s.analog_current) << 4; //Mode 1 is current - take average value
         if(conf.c.current_limit[current_status.s.led_channel] < current_status.s.led_current) current_status.s.led_current = conf.c.current_limit[current_status.s.led_channel]; //Cap current to current limit
+        dac.setCode(current_status.s.led_current);
       }
       else{
-        current_status.s.led_pwm = adc_average >> sync.s.analog_pwm; //Mode 1 is current - take average value
+        current_status.s.led_pwm = (adc_average >> sync.s.analog_pwm) << 4; //Mode 1 is current - take average value
+        analogWrite(pin.INTERLINE, current_status.s.led_pwm);
       }
-      updateIntensity(); //Update intensity in place of status check to maintain fixed intervals
+      //updateIntensity(); //Update intensity in place of status check to maintain fixed intervals
       while(ARM_DWT_CYCCNT-cpu_cycles < sample_interval); //Ensure ADC recordings are at fixed 10 µs interval
       cpu_cycles = cpu_cycles + sample_interval;
     }
   }
-  else{ //If using external analog
-    pinMode(pin.ANALOG_SELECT, OUTPUT);
-    external_analog = true;
-    pinMode(pin.INTERLINE, OUTPUT);
-    digitalWriteFast(pin.ANALOG_SELECT, HIGH); //Set external analog input
-    digitalWriteFast(pin.INTERLINE, HIGH); //Set LED on
-    while(!current_status.s.mode && sync.s.mode == 1 && sync.s.analog_mode != 2 && !update_flag) checkStatus();
+  else{ // External analog mode
+      interrupts(); // Ensure interrupts enabled before playing tone
+      pinMode(pin.ANALOG_SELECT, OUTPUT);
+      external_analog = true;
+      pinMode(pin.INTERLINE, OUTPUT);
+      digitalWriteFast(pin.ANALOG_SELECT, HIGH);
+      digitalWriteFast(pin.INTERLINE, HIGH);
+      
+      // FIX: Correct loop condition - should stay while analog_mode IS 2
+      while(!current_status.s.mode && sync.s.mode == 1 && sync.s.analog_mode == 2 && !update_flag){
+          checkStatus();
+          delay(1);
+      }
   }
   quit:
     pinMode(pin.ANALOG_SELECT, OUTPUT);

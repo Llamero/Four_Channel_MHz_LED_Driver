@@ -26,11 +26,13 @@ class SDcard
     const static char seq_files[][13]; //file names foro the four sequence files - max length 8 char name + 4 char ext
     const static uint8_t N_SEQ_FILES = 4;
     static boolean card_active;
+    static const char* getMessage(){ return message_buffer; }
     
   private:
     const static int chipSelect = BUILTIN_SDCARD;
     static void dateTime(uint16_t* date, uint16_t* time); 
     static void init();
+    static boolean deleteRecursive(File32 dir);
 };
 
 #endif

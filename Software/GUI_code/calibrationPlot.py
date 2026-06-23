@@ -106,7 +106,6 @@ def updatePlot(gui, y_data):
     y_line = [current, current]
 
     # Add latest waveform to rolling buffer
-    y_data = [item * 1.04 for item in y_data]
     gui.calibration_rolling_buffer.append(y_data[offset:n_samples + offset])
 
     # Calculate rolling average across all waveforms in buffer

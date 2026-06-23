@@ -183,50 +183,77 @@ void SDcard::dateTime(uint16_t* date, uint16_t* time) {
  *time = FAT_TIME(hour(unix_t), minute(unix_t), second(unix_t));
 }
 
-//Delete all files and folders on SD card
-boolean SDcard::formatSdCard(){
-  uint32_t const ERASE_SIZE = 262144L;
-  uint32_t firstBlock = 0;
-  uint32_t lastBlock;
-  uint32_t cardSectorCount = 0;
-  FatFormatter fatFormatter;
-  
-  // Select and initialize proper card driver.
-  m_card = cardFactory.newCard(SD_CONFIG);
-  if (!m_card || m_card->errorCode()) {
-    message_size = sprintf(message_buffer, "-FORMAT error: card init failed.");
-    return false;
-  }
+boolean SDcard::deleteRecursive(File32 dir){
+    File32 entry;
+    char entryName[256];
+    char fullPath[256];
+    char dirPath[256];
 
-  //Erase all data on card
-  cardSectorCount = m_card->sectorCount();
-  if (!cardSectorCount) {
-    message_size = sprintf(message_buffer, "-FORMAT error: Get sector count failed.");
-    return false;
-  }
-  
-  do {
-    lastBlock = firstBlock + ERASE_SIZE - 1;
-    if (lastBlock >= cardSectorCount) {
-      lastBlock = cardSectorCount - 1;
+    dir.getName(dirPath, sizeof(dirPath));
+    dir.rewind();
+
+    entry = dir.openNextFile();
+    while(entry){
+        entry.getName(entryName, sizeof(entryName));
+
+        if(strlen(dirPath) == 0 || strcmp(dirPath, "/") == 0){
+            sprintf(fullPath, "/%s", entryName);
+        } else {
+            sprintf(fullPath, "%s/%s", dirPath, entryName);
+        }
+
+        if(entry.isDirectory()){
+            if(!deleteRecursive(entry)){
+                entry.close();
+                return false;
+            }
+            if(!card.rmdir(fullPath)){
+                entry.close();
+                return false;
+            }
+        } else {
+            entry.close();
+            if(!card.remove(fullPath)){
+                return false;
+            }
+        }
+        entry = dir.openNextFile();
     }
-    if (!m_card->erase(firstBlock, lastBlock)) {
-      message_size = sprintf(message_buffer, "-FORMAT error: erase failed");
-      return false;
-    }
-    firstBlock += ERASE_SIZE;
-  } while (firstBlock < cardSectorCount);
-
-  if (!m_card->readSector(0, (uint8_t*) message_buffer)) {
-    message_size = sprintf(message_buffer, "-FORMAT error: readBlock");
-    return false;
-  }
-
-  //Format card to FAT16/32
-  fatFormatter.format(m_card, (uint8_t*) message_buffer);
-  return true;
+    return true;
 }
 
+boolean SDcard::formatSdCard(){
+    if(!card_active){
+        if(!card.begin(SD_CONFIG)){
+            message_size = sprintf(message_buffer, 
+                "-FORMAT error: card init failed.");
+            return false;
+        }
+        card_active = true;
+    }
+
+    if(!card.volumeBegin()){
+        message_size = sprintf(message_buffer, 
+            "-FORMAT error: volumeBegin failed.");
+        return false;
+    }
+
+    File32 root = card.open("/");
+    if(!root){
+        message_size = sprintf(message_buffer, 
+            "-FORMAT error: could not open root.");
+        return false;
+    }
+
+    if(!deleteRecursive(root)){
+        message_size = sprintf(message_buffer, 
+            "-FORMAT error: could not delete all files.");
+        return false;
+    }
+
+    message_size = 0;
+    return true;
+}
 
 //Functions below are for debugging purposes
 
