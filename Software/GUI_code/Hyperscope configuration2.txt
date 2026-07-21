@@ -1,0 +1,42 @@
+Driver name::Prototype
+LED1::ID::385 nm
+LED1::Active::True
+LED1::Current Limit::1.0
+LED2::ID::465 nm
+LED2::Active::True
+LED2::Current Limit::1.0
+LED3::ID::550 nm
+LED3::Active::True
+LED3::Current Limit::1.0
+LED4::ID::640 nm
+LED4::Active::True
+LED4::Current Limit::1.0
+Channel1::385 nm
+Channel2::465 nm
+Channel3::550 nm
+Channel4::640 nm
+Resistor1::Value::5.0
+Resistor1::Active::True
+Resistor2::Value::5.0
+Resistor2::Active::True
+Resistor3::Value::1000.0
+Resistor3::Active::False
+Resistor4::Value::1000.0
+Resistor4::Active::False
+Temperature::Transistor::Warn::45
+Temperature::Transistor::Fault::50
+Temperature::Resistor::Warn::45
+Temperature::Resistor::Fault::50
+Temperature::External::Warn::60
+Temperature::External::Fault::80
+Fan::Driver::Min::30
+Fan::Driver::Max::35
+Fan::External::Min::30
+Fan::External::Max::60
+Fan::Channel::None
+Thermistor::Resistance::4700
+Thermistor::Beta::3545
+Audio::Status::48
+Audio::Alarm::127
+Pushbutton::Indication::On
+Pushbutton::Alarm::Disable

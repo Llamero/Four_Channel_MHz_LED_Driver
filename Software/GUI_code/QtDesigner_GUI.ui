@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>380</width>
-    <height>626</height>
+    <height>622</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -429,8 +429,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>761</width>
-             <height>606</height>
+             <width>597</width>
+             <height>573</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
@@ -446,8 +446,8 @@
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-163</y>
-                 <width>726</width>
+                 <y>0</y>
+                 <width>494</width>
                  <height>596</height>
                 </rect>
                </property>
@@ -1318,8 +1318,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>743</width>
-                 <height>433</height>
+                 <width>579</width>
+                 <height>400</height>
                 </rect>
                </property>
                <property name="toolTip">
@@ -1335,7 +1335,7 @@
                    <string>Configure how the analog input will be converted to LED output.</string>
                   </property>
                   <property name="currentIndex">
-                   <number>2</number>
+                   <number>0</number>
                   </property>
                   <widget class="QWidget" name="sync_analog_output_PWM_tab">
                    <property name="toolTip">
@@ -1770,8 +1770,8 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-5</y>
-                 <width>726</width>
+                 <y>0</y>
+                 <width>562</width>
                  <height>1044</height>
                 </rect>
                </property>
@@ -1984,7 +1984,7 @@ Due to the input offset voltage on the op-amp, a small negative voltage (around 
                       <item row="2" column="0">
                        <widget class="QTabWidget" name="sync_confocal_line_tab">
                         <property name="currentIndex">
-                         <number>0</number>
+                         <number>1</number>
                         </property>
                         <widget class="QWidget" name="sync_confocal_line_digital_tab">
                          <property name="toolTip">
@@ -3365,7 +3365,7 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>744</width>
+             <width>580</width>
              <height>1047</height>
             </rect>
            </property>
@@ -5192,8 +5192,8 @@ This input is clamped to 0-3.3V, and is rated for -3V to +6V max. A small negati
   <buttongroup name="main_channel_button_group"/>
   <buttongroup name="sync_confocal_line_digital_polarity_button_group"/>
   <buttongroup name="configure_indication_group"/>
-  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
   <buttongroup name="main_intensity_button_group"/>
+  <buttongroup name="sync_confocal_flyback_LED_channel_button_group"/>
   <buttongroup name="sync_confocal_image_LED_channel_button_group"/>
   <buttongroup name="sync_confocal_shutter_polarity_button_group"/>
   <buttongroup name="sync_confocal_scan_mode_button_group"/>
