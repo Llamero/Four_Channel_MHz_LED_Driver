@@ -65,7 +65,7 @@ def initializeSyncModel(gui):
         nonlocal gui
         sync_model["Digital"] = OrderedDict()
         sync_model["Digital"]["Channel"] = []
-        for channel_number in range(1, 5):
+        for channel_number in range(1, 7):
             sync_model["Digital"]["Channel"].append(eval("gui.sync_digital_input" + str(channel_number) + "_button"))
         for trigger in ["Low", "High"]:
             sync_model["Digital"][trigger] = OrderedDict()
@@ -85,7 +85,7 @@ def initializeSyncModel(gui):
         for led_number in range(5):
             sync_model["Analog"]["LED"].append(eval("gui.sync_analog_LED" + str(led_number) + "_button"))
         sync_model["Analog"]["Channel"] = []
-        for channel_number in range(1, 5):
+        for channel_number in range(1, 7):
             sync_model["Analog"]["Channel"].append(eval("gui.sync_analog_input" + str(channel_number) + "_button"))
         sync_model["Analog"]["Mode"] = gui.sync_analog_output_tab
         sync_model["Analog"]["PWM"] = gui.sync_analog_output_PWM_avg_slider
@@ -96,7 +96,7 @@ def initializeSyncModel(gui):
         sync_model["Confocal"] = OrderedDict()
         sync_model["Confocal"]["Shutter"] = [gui.sync_confocal_shutter_low_button, gui.sync_confocal_shutter_high_button]
         sync_model["Confocal"]["Channel"] = []
-        for channel_number in range(1, 5):
+        for channel_number in range(1, 7):
             sync_model["Confocal"]["Channel"].append(eval("gui.sync_confocal_line_input" + str(channel_number) + "_button"))
         sync_model["Confocal"]["Line"] = gui.sync_confocal_line_tab
         sync_model["Confocal"]["Digital"] = [gui.sync_confocal_line_digital_low_button, gui.sync_confocal_line_digital_high_button]
@@ -317,6 +317,7 @@ def initializeEvents(gui):
             gui.sync_model["Output"][3].clicked.connect(lambda: gui.disableUsedOutputs(3, "sync"))
 
         gui.sync_analog_output_tab.currentChanged.connect(lambda: gui.toggleAnalogChannel(gui.sync_analog_output_tab))
+        gui.sync_confocal_line_tab.currentChanged.connect(lambda: gui.toggleConfocalChannel(gui.sync_confocal_line_tab))
         gui.sync_confocal_scan_unidirectional_button.toggled.connect(lambda: gui.toggleScanMode())
         gui.sync_confocal_scan_period_button.clicked.connect(lambda: gui.ser.measurePeriod())
 

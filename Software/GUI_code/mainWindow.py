@@ -405,6 +405,15 @@ class Ui(QtWidgets.QMainWindow):
         for channel in range(4):
             self.sync_model["Analog"]["Channel"][channel].setEnabled(enable)
 
+    def toggleConfocalChannel(self, widget):
+        name = self.getValue(widget)
+        if name == "Digital - Line Clock":
+            enable = True
+        else:
+            enable = False
+        for channel in range(2):
+            self.sync_model["Confocal"]["Channel"][channel+2].setEnabled(enable)
+
     def disableUsedOutputs(self, channel, source):
         if source == "sync":
             widget_list = self.config_model["Fan"]["Channel"]
