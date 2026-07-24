@@ -17,6 +17,7 @@ import calibrationPlot
 import traceback
 
 # Teensy USB serial microcontroller program id data:
+#Potential fix - if laser attenuator is already running with Teensy 3.5 this check might fail. The teensy 3.5 vs 3.6 locks up the software
 VENDOR_ID = 0x16C0
 PRODUCT_ID = 0x0483
 SERIAL_NUMBER = "MHZ_LED"

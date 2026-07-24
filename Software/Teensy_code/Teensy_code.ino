@@ -842,6 +842,7 @@ void serialSync(){
     if(!resync){
       for(uint8_t i=0; i<3; i++){ //Scan all three inputs to tell which channel is active
         if(digitalReadFast(pin.INPUTS[i])){ //If a DLP channel is active
+          digitalWriteFast(pin.OUTPUTS[1], LOW);
           led_on = true;
           if(sync_step%3 == (i+2)%3) incrementChannel(); //If you are coming from the previous channel in order, move load the next sequence step
           else if(sync_step%3 != i) resync = true; //If you got to this pin out of sequence, resync the driver
@@ -855,6 +856,7 @@ void serialSync(){
       } 
     }
     if(resync){ //If resync, wait for the extended dark frame at the end of the pattern sequence to find the start of the next pattern sequence
+      digitalWriteFast(pin.OUTPUTS[1], HIGH);
       if(led_on) playStatusTone();  //Play status tone if resyncing without reaching the end of seq list - indicates that sync was lost 
       led_on = false;
       if(digitalReadFast(pin.INPUTS[0]) || digitalReadFast(pin.INPUTS[1]) || digitalReadFast(pin.INPUTS[2])){ //Look for end of dark frame
@@ -1054,6 +1056,7 @@ void serialSync(){
               
               //Wait for initial sync trigger
               waitForDelay(sync.s.confocal_delay[0], true); //Wait for Delay #1 - start of flyback
+digitalWriteFast(pin.OUTPUTS[2], HIGH);
               if(current_status.s.led_current && line_counter && led_on) digitalWriteFast(pin.INTERLINE, HIGH); //Turn on LED if needed
               if(line_counter && led_on) line_counter = 0; //If the LED was flashed for the current mask, decrement the line counter
               cpu_cycles += sync.s.confocal_delay[0]; //Increment timer
@@ -1062,18 +1065,20 @@ void serialSync(){
               waitForDelay(sync.s.confocal_delay[1], false);  //Wait for end of delay #2 - end of flyback
 
               //Wait for return scan line to complete
+digitalWriteFast(pin.OUTPUTS[2], LOW);
               checkStatus(); //Check status while there is time to do so during the mirror sweep to the interline pulse
               if(update_flag) goto quit; //Exit on update
               noInterrupts();
-              cpu_cycles += sync.s.confocal_delay[1]; //Increment interline timer              
+              cpu_cycles += sync.s.confocal_delay[1]; //Increment interline timer             
               waitForDelay(sync.s.confocal_delay[2], true); //Wait for Delay #1 - start of second flyback
+digitalWriteFast(pin.OUTPUTS[2], HIGH);
               if(current_status.s.led_current && line_counter && led_on) digitalWriteFast(pin.INTERLINE, HIGH); //Turn on LED if needed
               if(line_counter && led_on) line_counter = 0; //If the LED was flashed for the current mask, decrement the line counter
               cpu_cycles += sync.s.confocal_delay[2];      
               waitForDelay(pwm_clock_list[sync_step], true); //Wait for end of led pulse 
               digitalWriteFast(pin.INTERLINE, LOW);          
               waitForDelay(sync.s.confocal_delay[1], false);  //Wait for end of delay #2 - end of flyback
-              
+digitalWriteFast(pin.OUTPUTS[2], LOW);
 
               //At end of bidrectional pulses, wait for next line trigger
               if(current_status.s.state){ //If the shutter is open, wait for the next line trigger
