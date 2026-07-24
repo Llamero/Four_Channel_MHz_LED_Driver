@@ -14,7 +14,7 @@ PCB_B_COEFFICIENT = 3545 #Beta value for the PCB thermistor
 EXT_THERMISTOR_NOMINAL = 4700 #Value of external thermistor at nominal temp (25°C)
 EXT_B_COEFFICIENT = 3545 #Beta value for the PCB thermistor
 SERIES_RESISTOR = 4700 #Resistor value in series with thermistor on PCB board
-DEFAULT_CLOCK_SPEED = 180 #Clock speed of the Teensy in MHz - used to convert confocal delay times to clock cycles for sub-microsecond precision
+DEFAULT_CLOCK_SPEED = 600 #Clock speed of the Teensy in MHz - used to convert confocal delay times to clock cycles for sub-microsecond precision
 
 def saveConfiguration(gui, model, file=None):
     def writeLines(prefix, dictionary):

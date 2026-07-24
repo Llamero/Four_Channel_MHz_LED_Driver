@@ -758,7 +758,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
   boolean shutter_state; //Logical state of shutter input
   boolean sync_pol; //Track polarity of sync output
   uint8_t timeout = 0; //Flag for whether the line sync has timed out waiting for trigger - 0: no timeout, 1: new timeout - report error, 2: on going timeout - error already reported.  Flag resets when shutter closes.
-  const uint8_t shutter_pin = pin.INPUTS[4];
+  const uint8_t shutter_pin = pin.INPUTS[5];
   const bool pmt_enable = false;
   const uint32_t PMT_GATE_DELAY = 90; //CPU cycles t owait between gating off the PMT and turning on the LED (600 cpu cycles = 1 µs) - https://www.hamamatsu.com/resources/pdf/etd/H11706_TPMO1059E.pdf
   uint32_t prev_cpu_cycles = 0; //Timer from LED on to LED off - solves issue with line clock edge occuring during the flyback.
@@ -766,8 +766,8 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
   boolean led_on = false; //Flag for whether the DMD has an active frame (led_on = true), or is in a dark blanking interval between frames (led_on = false)
   uint32_t period_cpu_cycles; //Number of CPU cycles that have passed since last mirror period interval
   const uint32_t pattern_on = 420*600; //Number of clock cycles a single pattern is shown
-  const uint32_t pattern_off = 250*600; //Number of clock cycles for the dark blanking between patterns
-  const uint32_t frame_off = 900*600; //Number of clock cycles the DMD stays dark at the end of a frame
+  const uint32_t pattern_off = 248*600; //Number of clock cycles for the dark blanking between patterns
+  const uint32_t frame_off = 891*600; //Number of clock cycles the DMD stays dark at the end of a frame
   const uint32_t frame_seq_reset = (pattern_off + frame_off)/2; //The threshold off time to distinguish that the end of a frame has been reached.
   uint32_t lines_per_pattern; //The largest integer number of scanlines per pattern.
   uint32_t line_counter; //Tracks the current number of lines for the current pattern
@@ -961,8 +961,9 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
   pinMode(pin.INPUTS[1], INPUT); //Set sync input pin to input
   pinMode(pin.INPUTS[2], INPUT); //Set sync input pin to input
   pinMode(pin.INPUTS[3], INPUT); //Set sync input pin to input
-  pinMode(pin.INPUTS[4], INPUT); //Set sync input pin to input
+  pinMode(shutter_pin, INPUT); //Set sync input pin to input
   pinMode(pin.INTERLINE, OUTPUT); //Disconnect the interline pin from the PWM bus
+
   while(!current_status.s.mode && sync.s.mode == 4){ //This loop is maintained as long as in confocal sync mode - checked each time the status state changes (imaging/standby)
     timeout = 0; //Reset the timrout flag when scan state changes.
     shutter_state = digitalReadFast(shutter_pin); //Get state of shutter
@@ -1033,7 +1034,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
             period_cpu_cycles = cpu_cycles;
           }
           
-          while(line_counter-- && shutter_state == digitalReadFast(shutter_pin) && !update_flag && led_on){ //Interline for the set number of lines           
+          while(line_counter-- && shutter_state == digitalReadFast(shutter_pin) && !update_flag && led_on){ //Interline for the set number of lines     
             if(sync.s.confocal_scan_mode){ //If scan is bidirectional, perform flyback interline
               while(ARM_DWT_CYCCNT - cpu_cycles < sync.s.confocal_delay[0]-check_channel_cycles) checkChannel(); //Wait for delay #1 - checking channels while there is time
               if(sync.s.sync_output_channel){
@@ -1052,10 +1053,10 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
               }
               cpu_cycles += sync.s.confocal_delay[1]; //Increment interline timer              
               if(sync.s.confocal_delay[2] > status_step_clock_duration+PMT_GATE_DELAY){ //See if there is enough time to check status during delay #3
-                while(sync.s.confocal_delay[2] - (ARM_DWT_CYCCNT - cpu_cycles) > status_step_clock_duration+PMT_GATE_DELAY+check_channel_cycles){ //If there is enough time, perform status checks during delay #3
+                while((int32_t)(sync.s.confocal_delay[2] - (ARM_DWT_CYCCNT - cpu_cycles)) > (int32_t)(status_step_clock_duration+PMT_GATE_DELAY+check_channel_cycles)){ //If there is enough time, perform status checks during delay #3
                   checkStatus(); //Check status while there is time to do so during the mirror sweep to the interline pulse
                   if(update_flag) goto quit;
-                  checkChannel();
+                  checkChannel();  
                 }
               }
               if(sync.s.sync_output_channel){
@@ -1067,7 +1068,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
               prev_cpu_cycles = cpu_cycles + sync.s.confocal_delay[2]; //Set LED timer
               if(current_status.s.state){ //If shutter is open (actively scanning) perform interline modulation
                 //waitForTriggerReset(); //Wait for trigger to reset - this insures the driver will always only sync to the start of a trigger, and not mid trigger
-                while(sync.s.confocal_mirror_period - (ARM_DWT_CYCCNT - period_cpu_cycles) > check_channel_cycles){ //If there is enough time, perform status checks during end of virtual mirror period 
+                while((int32_t)(sync.s.confocal_mirror_period - (ARM_DWT_CYCCNT - period_cpu_cycles)) > (int32_t)(check_channel_cycles)){ //If there is enough time, perform status checks during end of virtual mirror period 
                   checkChannel();
                 }
                 noInterrupts();
@@ -1082,7 +1083,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
                 }
               }
               else{ //If in standby - use CPU clock to emulate mirror period
-                while(sync.s.confocal_mirror_period - (ARM_DWT_CYCCNT - period_cpu_cycles) > check_channel_cycles){ //If there is enough time, perform status checks during end of virtual mirror period 
+                while((int32_t)(sync.s.confocal_mirror_period - (ARM_DWT_CYCCNT - period_cpu_cycles)) > (int32_t)(check_channel_cycles)){ //If there is enough time, perform status checks during end of virtual mirror period 
                   checkChannel();
                 }
                 while(ARM_DWT_CYCCNT - period_cpu_cycles < sync.s.confocal_mirror_period); //Precise wait till end of mirror period
