@@ -762,7 +762,7 @@ void customSync(){ //Two channel interline sequence, with external trigger betwe
   const bool pmt_enable = false;
   const uint32_t PMT_GATE_DELAY = 90; //CPU cycles t owait between gating off the PMT and turning on the LED (600 cpu cycles = 1 µs) - https://www.hamamatsu.com/resources/pdf/etd/H11706_TPMO1059E.pdf
   uint32_t prev_cpu_cycles = 0; //Timer from LED on to LED off - solves issue with line clock edge occuring during the flyback.
-  const uint32_t check_channel_cycles = 800; //The maximum number of clock cycles ittakes to check and change the DMD channel - originally 500
+  const uint32_t check_channel_cycles = 1600; //The maximum number of clock cycles ittakes to check and change the DMD channel - originally 500
   boolean led_on = false; //Flag for whether the DMD has an active frame (led_on = true), or is in a dark blanking interval between frames (led_on = false)
   uint32_t period_cpu_cycles; //Number of CPU cycles that have passed since last mirror period interval
   const uint32_t pattern_on = 420*600; //Number of clock cycles a single pattern is shown
